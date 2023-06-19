@@ -11,7 +11,6 @@ private:
 
 	int32_t textureNum_ = 0;
 	std::vector<ComPtr<ID3D12Resource>> texBuff_;
-	std::vector<ComPtr<ID3D12Resource>> uploadBuff_;
 	std::vector<bool> texExist_;
 
 	TextureManager() {}

@@ -23,7 +23,6 @@ void TextureManager::Initialize()
 	//	サイズ確保
 	const size_t kMaxSRVCount = 2056;
 	texBuff_.resize(kMaxSRVCount);
-	uploadBuff_.resize(kMaxSRVCount);
 	texExist_.resize(kMaxSRVCount);
 }
 
@@ -101,6 +100,9 @@ Texture TextureManager::LoadTextureGraph(const wchar_t* textureName)
 
 #pragma region Upload
 	D3D12_RESOURCE_DESC uploadDesc{};
+
+	dx->CreateUploadBuffEmplaceBack();
+
 	uploadDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 	//uploadDesc.Width = MyMath::AlignmentSize(img->rowPitch, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT) * img->height;
 	uploadDesc.Width = total_bytes;
@@ -119,12 +121,12 @@ Texture TextureManager::LoadTextureGraph(const wchar_t* textureName)
 		&uploadDesc,
 		D3D12_RESOURCE_STATE_GENERIC_READ,		//	CPUから書き込み可能、GPUは読み取り専用
 		nullptr,
-		IID_PPV_ARGS(&uploadBuff_[buffIndex]));
+		IID_PPV_ARGS(dx->GetUploadResourceBuffAddress()));
 #pragma endregion
 
 	//	転送
 	uint8_t* mapforImg = nullptr;
-	result = uploadBuff_[buffIndex]->Map(0, nullptr, (void**)&mapforImg);	//	map
+	result = dx->GetUploadResourceBuff()->Map(0, nullptr, (void**)&mapforImg);	//	map
 
 	uint8_t* uploadStart = mapforImg + footprint.Offset;
 	uint8_t* sourceStart = img->pixels;
@@ -139,7 +141,7 @@ Texture TextureManager::LoadTextureGraph(const wchar_t* textureName)
 			sourcePitch
 		);
 	}
-	uploadBuff_[buffIndex]->Unmap(0, nullptr);	//	unmap
+	dx->GetUploadResourceBuff()->Unmap(0, nullptr);	//	unmap
 
 #pragma region CopyCommand
 	//	グラフィックボード上のコピー先アドレス
@@ -149,7 +151,7 @@ Texture TextureManager::LoadTextureGraph(const wchar_t* textureName)
 	texCopyDest.SubresourceIndex = 0;
 	//	グラフィックボード上のコピー元アドレス
 	D3D12_TEXTURE_COPY_LOCATION src{};
-	src.pResource = uploadBuff_[buffIndex].Get();
+	src.pResource = dx->GetUploadResourceBuff();
 	src.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT;
 	src.PlacedFootprint = footprint;
 

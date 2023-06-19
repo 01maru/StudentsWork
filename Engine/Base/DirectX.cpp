@@ -444,6 +444,8 @@ void MyDirectX::UploadTexture()
 	// 再びコマンドリストを貯める準備
 	result = loadTexCmdList_->Reset(loadTexAllocator_.Get(), nullptr);
 	assert(SUCCEEDED(result));
+
+	textureUploadBuff_.clear();
 #pragma endregion ChangeScreen
 }
 

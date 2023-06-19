@@ -5,6 +5,7 @@
 #include <d3d12.h>
 #include <dxgi1_6.h>
 
+#include <list>
 #include <vector>
 #include <wrl.h>
 
@@ -25,11 +26,6 @@ private:
 
 	ComPtr<ID3D12CommandQueue> cmdQueue_;
 
-	ComPtr<ID3D12CommandAllocator> loadTexAllocator_;
-	ComPtr<ID3D12GraphicsCommandList> loadTexCmdList_;
-
-	ComPtr<ID3D12CommandQueue> loadTexQueue_;
-
 	ComPtr<IDXGISwapChain4> swapChain_;
 
 	D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc_{};
@@ -41,8 +37,6 @@ private:
 
 	ComPtr<ID3D12Fence> fence_;
 	UINT64 fenceVal_ = 0;
-	ComPtr<ID3D12Fence> uploadTexFence_;
-	UINT64 uploadTexFenceVal_ = 0;
 
 	D3D12_RESOURCE_BARRIER barrierDesc_{};
 
@@ -56,6 +50,16 @@ private:
 	
 	//	ビューポートシザー矩形
 	ViewPortScissorRect viewPortSciRect_;
+
+
+	ComPtr<ID3D12CommandAllocator> loadTexAllocator_;
+	ComPtr<ID3D12GraphicsCommandList> loadTexCmdList_;
+
+	ComPtr<ID3D12CommandQueue> loadTexQueue_;
+
+	ComPtr<ID3D12Fence> uploadTexFence_;
+	UINT64 uploadTexFenceVal_ = 0;
+	std::list<ComPtr<ID3D12Resource>> textureUploadBuff_;
 
 private:
 	void DebugLayer();
@@ -91,5 +95,10 @@ public:
 	ID3D12GraphicsCommandList* GetLoadTexCmdList() { return loadTexCmdList_.Get(); }
 	D3D12_RESOURCE_DESC GetBackBuffDesc() { return backBuffers_[0]->GetDesc(); }
 	D3D12_DESCRIPTOR_HEAP_DESC GetRTVHeapDesc() { return rtvHeap_->GetDesc(); }
+
+
+	void CreateUploadBuffEmplaceBack() { textureUploadBuff_.emplace_back(); }
+	ID3D12Resource* GetUploadResourceBuff() { return textureUploadBuff_.back().Get(); }
+	ID3D12Resource** GetUploadResourceBuffAddress() { return textureUploadBuff_.back().ReleaseAndGetAddressOf(); }
 };
 
