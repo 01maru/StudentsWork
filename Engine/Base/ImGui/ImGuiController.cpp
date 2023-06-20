@@ -17,6 +17,7 @@ void ImGuiController::Update()
 
 	man->CheckBox("VolumeManager", activeVolumeManager_);
 	man->CheckBox("InputManager", activeInputManager_);
+	man->CheckBox("TextureManager", activeTextureManager_);
 
 	man->EndWindow();
 }

@@ -35,8 +35,8 @@ private:
 #pragma endregion
 	
 #pragma region Texture
-	Texture reimuG;
-	Texture grassG;
+	Texture* reimuG;
+	Texture* grassG;
 #pragma endregion
 
 private:	//	関数

@@ -1,7 +1,7 @@
 ﻿#include "DebugTextManager.h"
 #include "TextureManager.h"
 
-Texture DebugTextManager::sFontTex;
+Texture* DebugTextManager::sFontTex;
 size_t DebugTextManager::sMaxSpritesNum = 256;
 size_t DebugTextManager::sFontWidth = 9;
 size_t DebugTextManager::sFontHeight = 18;

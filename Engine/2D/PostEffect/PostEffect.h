@@ -18,7 +18,7 @@ private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
 	int32_t texNum_ = 2;
-	std::vector<Texture> texture_;
+	std::vector<Texture*> texture_;
 	
 #pragma region ConstBuff
 
@@ -53,13 +53,13 @@ public:
 	void Draw(bool xBlur, bool yBlur, bool shadow, int32_t handle1 = -1);
 	void SetColor(const Vector4D& color);
 
-	ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index].GetResourceBuff(); }
-	ID3D12Resource** GetTextureBuffPtr(int32_t index = 0) { return texture_[index].GetResourceBuffAddress(); }
+	ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }
+	ID3D12Resource** GetTextureBuffPtr(int32_t index = 0) { return texture_[index]->GetResourceBuffAddress(); }
 	int32_t GetTextureNum() { return texNum_; }
 	D3D12_RESOURCE_BARRIER& GetResouceBarrier() { return barrierDesc_; }
 	ID3D12DescriptorHeap* GetRTVHeap() { return rtvHeap_.Get(); }
 	ID3D12DescriptorHeap* GetDSVHeap() { return dsvHeap_.Get(); }
-	Texture GetTexture() { return texture_[0]; }
+	Texture* GetTexture() { return texture_[0]; }
 private:
 	void SetVertices() override;
 };

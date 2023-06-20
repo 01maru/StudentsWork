@@ -6,7 +6,7 @@
 class LoadingSprite :public ILoadingObj
 {
 private:
-	Texture loadTex_;
+	Texture* loadTex_;
 	std::unique_ptr<Sprite> loadSprite_;
 	
 public:

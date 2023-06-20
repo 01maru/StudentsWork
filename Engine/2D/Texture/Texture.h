@@ -17,8 +17,8 @@ private:
 	ComPtr<ID3D12Resource> texBuff_;
 public:
 	void Initialize(const std::string& texName, int32_t handle, ID3D12Resource* texBuff_ptr);
-	void CreateNoTexture(const std::string& texName);
 
+	const std::string& GetTextureName() { return name_; }
 	int32_t GetHandle() { return handle_; }
 	ID3D12Resource* GetResourceBuff() { return texBuff_.Get(); }
 	ID3D12Resource** GetResourceBuffAddress() { return texBuff_.ReleaseAndGetAddressOf(); }

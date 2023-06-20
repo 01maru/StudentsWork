@@ -243,8 +243,8 @@ void Object3D::DrawShadowReciever()
 	GPipeline* pipeline_= PipelineManager::GetInstance()->GetPipeline("ShadowReciever");
 	pipeline_->SetGraphicsRootSignature();
 	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	Texture shadowmap = SceneManager::GetInstance()->GetShadowMap();
-	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(shadowmap.GetHandle()));
+	Texture* shadowmap = SceneManager::GetInstance()->GetShadowMap();
+	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(shadowmap->GetHandle()));
 
 	transform_.SetGraphicsRootCBuffView(2);
 	lightMaterial_.SetGraphicsRootCBuffView(3);

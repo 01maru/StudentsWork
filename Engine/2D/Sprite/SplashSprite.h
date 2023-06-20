@@ -5,7 +5,7 @@
 class SplashSprite
 {
 private:
-	Texture rogoTex_;
+	Texture* rogoTex_;
 	std::unique_ptr<Sprite> splashSprite_;
 	std::unique_ptr<FrameCounter> count_;
 public:

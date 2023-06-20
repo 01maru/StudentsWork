@@ -19,8 +19,8 @@ private:
 #pragma endregion
 
 #pragma region Texture
-	Texture titleG;
-	Texture pressG;
+	Texture* titleG;
+	Texture* pressG;
 #pragma endregion
 
 private:	//	関数

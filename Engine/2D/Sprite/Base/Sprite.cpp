@@ -8,15 +8,15 @@
 
 Matrix Sprite::sMAT_2DTRANSFORM = Create2DTransformMatrix();
 
-void Sprite::Initialize(Texture texture)
+void Sprite::Initialize(Texture* texture)
 {
 	HRESULT result;
 
-	//if (handle_ != UINT32_MAX) {
-	handle_ = texture;
-	AdjustTextureSize();
-	size_ = textureSize_;
-	//}
+	if (texture != nullptr) {
+		handle_ = texture;
+		AdjustTextureSize();
+		size_ = textureSize_;
+	}
 
 #pragma region VertBuff
 
@@ -95,7 +95,7 @@ void Sprite::Draw(GPipeline* pipeline)
 
 	IASetVertIdxBuff();
 	//	テクスチャ
-	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(handle_.GetHandle()));
+	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(handle_->GetHandle()));
 
 	cbColorMaterial_.SetGraphicsRootCBuffView(1);
 	cbTransform_.SetGraphicsRootCBuffView(2);
@@ -105,7 +105,7 @@ void Sprite::Draw(GPipeline* pipeline)
 
 void Sprite::SetVerticesUV()
 {
-	ID3D12Resource* texBuff = handle_.GetResourceBuff();
+	ID3D12Resource* texBuff = handle_->GetResourceBuff();
 
 	if (texBuff) {
 		D3D12_RESOURCE_DESC resDesc = texBuff->GetDesc();
@@ -168,7 +168,7 @@ void Sprite::SetVertices()
 
 void Sprite::AdjustTextureSize()
 {
-	ID3D12Resource* texBuff = handle_.GetResourceBuff();
+	ID3D12Resource* texBuff = handle_->GetResourceBuff();
 	assert(texBuff);
 
 	D3D12_RESOURCE_DESC resDesc = texBuff->GetDesc();

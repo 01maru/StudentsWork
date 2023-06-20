@@ -1,32 +1,46 @@
 ﻿#pragma once
 #include "Texture.h"
 #include <vector>
+#include <memory>
+#include <map>
 
 class TextureManager
 {
 private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-	static Texture sWhiteTexHandle;
+	static Texture* sWhiteTexHandle;
 
-	int32_t textureNum_ = 0;
-	std::vector<ComPtr<ID3D12Resource>> texBuff_;
-	std::vector<bool> texExist_;
+	//	texturesのindex
+	int texIndex_ = -1;
+	//int32_t textureNum_ = 0;
+	std::vector<std::unique_ptr<Texture>> textures_;
 
+	//std::map<std::string, std::unique_ptr<Texture>, std::less<>> textures;
+	//std::vector<bool> texExist_;
+
+private:
 	TextureManager() {}
 	~TextureManager() {}
+
 public:
-	void SetWhiteTexHandle();		//	読み込み失敗用白色画像のセット
 	static TextureManager* GetInstance();
 	TextureManager(const TextureManager& obj) = delete;
 	TextureManager& operator=(const TextureManager& obj) = delete;
 
 	void Initialize();
-	void DeleteTexture(int32_t handle);
-	Texture LoadTextureGraph(const wchar_t* textureName);
-	void CreateNoneGraphTexture(const std::string& texName, Texture& texture);
+	void ImGuiUpdate();
+
+	Texture* LoadTextureGraph(const wchar_t* textureName);
+	Texture* CreateNoneGraphTexture(const std::string& texName);
+
+	//Texture* CreateNoneGraphTexture(const std::string& textureName);
+
+	//	Delete
+	void DeleteTextureData(const std::string& textureName);
+
 	//	Getter
 	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureHandle(int32_t handle);
-	const Texture& GetWhiteTexture() { return sWhiteTexHandle; }
+	Texture* GetWhiteTexture() { return sWhiteTexHandle; }
 };
 

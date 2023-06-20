@@ -33,14 +33,11 @@ void Framework::Initialize()
 	//	winApi初期化
 	Window::GetInstance()->Initialize();
 
-	TextureManager::GetInstance()->Initialize();
-
 	MyDirectX::GetInstance()->Initialize();
 
 	PipelineManager::GetInstance()->Initialize();
 
-	//	ロード失敗した際の白色テクスチャのロード
-	TextureManager::GetInstance()->SetWhiteTexHandle();
+	TextureManager::GetInstance()->Initialize();
 
 	InputManager::GetInstance()->Initialize();
 

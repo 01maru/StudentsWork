@@ -8,7 +8,7 @@ private:
 	//std::forward_list<MoveParticle> particles;
 
 #pragma region Texture
-	Texture particleTex_;
+	Texture* particleTex_ = nullptr;
 #pragma endregion
 
 	ParticleManager() {};

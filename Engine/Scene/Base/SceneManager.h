@@ -73,6 +73,6 @@ public:
 	void ChangeScreenColor(const Vector4D& color) { mainScene->SetColor(color); }
 	void SetNextScene(const std::string& sceneName);
 
-	Texture GetShadowMap() { return ybulr->GetTexture(); }
+	Texture* GetShadowMap() { return ybulr->GetTexture(); }
 };
 

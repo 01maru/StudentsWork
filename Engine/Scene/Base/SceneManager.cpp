@@ -7,6 +7,7 @@
 #include "XAudioManager.h"
 #include "LoadingSprite.h"
 #include "SceneFactory.h"
+#include "TextureManager.h"
 
 #include "Window.h"
 
@@ -218,6 +219,8 @@ void SceneManager::ImguiUpdate()
 	InputManager::GetInstance()->ImGuiUpdate();
 
 	if (endLoading_) {
+		TextureManager::GetInstance()->ImGuiUpdate();
+
 		scene_->ImguiUpdate();
 		XAudioManager::GetInstance()->ImguiUpdate();
 	}
@@ -301,7 +304,7 @@ void SceneManager::Draw()
 	dx->PrevDraw(clearColor_);
 
 	if (!isSplashScreen_) {
-		mainScene->Draw(false, false, false, ybulrluminnce->GetTexture().GetHandle());
+		mainScene->Draw(false, false, false, ybulrluminnce->GetTexture()->GetHandle());
 	}
 	
 	loadObj_->Draw();

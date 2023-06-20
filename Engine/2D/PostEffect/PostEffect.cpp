@@ -11,7 +11,7 @@ void PostEffect::Initialize(int32_t width, int32_t height, float weight, DXGI_FO
 	texture_.resize(texNum_);
 	for (size_t i = 0; i < texNum_; i++)
 	{
-		TextureManager::GetInstance()->CreateNoneGraphTexture("postEffect", texture_[i]);
+		texture_[i] = TextureManager::GetInstance()->CreateNoneGraphTexture("postEffect");
 	}
 
 #pragma region  ConstBuffer
@@ -88,7 +88,7 @@ void PostEffect::Initialize(int32_t width, int32_t height, float weight, DXGI_FO
 			&resDesc,
 			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
 			&clearValue,
-			IID_PPV_ARGS(texture_[i].GetResourceBuffAddress()));
+			IID_PPV_ARGS(texture_[i]->GetResourceBuffAddress()));
 	}
 
 #pragma region RTV
@@ -114,7 +114,7 @@ void PostEffect::Initialize(int32_t width, int32_t height, float weight, DXGI_FO
 	{
 		rtvHandle_.ptr += MyDirectX::GetInstance()->GetDev()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV) * i;
 		MyDirectX::GetInstance()->GetDev()->CreateRenderTargetView(
-			texture_[i].GetResourceBuff(),
+			texture_[i]->GetResourceBuff(),
 			&_rtvDesc,
 			rtvHandle_);
 	}
@@ -132,10 +132,10 @@ void PostEffect::Initialize(int32_t width, int32_t height, float weight, DXGI_FO
 	{
 		size_t incrementSize = MyDirectX::GetInstance()->GetDev()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 		D3D12_CPU_DESCRIPTOR_HANDLE srvHandle = MyDirectX::GetInstance()->GetSRVHeap()->GetCPUDescriptorHandleForHeapStart();
-		srvHandle.ptr += incrementSize * texture_[i].GetHandle();
+		srvHandle.ptr += incrementSize * texture_[i]->GetHandle();
 
 		MyDirectX::GetInstance()->GetDev()->CreateShaderResourceView(
-			texture_[i].GetResourceBuff(),
+			texture_[i]->GetResourceBuff(),
 			&_srvDesc,
 			srvHandle);
 	}
@@ -209,21 +209,21 @@ void PostEffect::Draw(bool xBlur, bool yBlur, bool shadow, int32_t handle1)
 
 	if (xBlur == false && yBlur == false && shadow == false) {
 		//	テクスチャ
-		cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[0].GetHandle()));
+		cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
 		if (handle1 != -1) {
 			cmdList->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(handle1));
 		}
 		else {
-			cmdList->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(texture_[0].GetHandle()));
+			cmdList->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
 		}
-		cmdList->SetGraphicsRootDescriptorTable(2, TextureManager::GetInstance()->GetTextureHandle(texture_[0].GetHandle()));
-		cmdList->SetGraphicsRootDescriptorTable(3, TextureManager::GetInstance()->GetTextureHandle(texture_[0].GetHandle()));
+		cmdList->SetGraphicsRootDescriptorTable(2, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
+		cmdList->SetGraphicsRootDescriptorTable(3, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
 		material_.SetGraphicsRootCBuffView(4);
 		if (xBlur || yBlur) 	weight_.SetGraphicsRootCBuffView(5);
 	}
 	else {
 		//	テクスチャ
-		cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[0].GetHandle()));
+		cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
 		material_.SetGraphicsRootCBuffView(1);
 		if (xBlur || yBlur) 	weight_.SetGraphicsRootCBuffView(2);
 	}
@@ -250,7 +250,7 @@ void PostEffect::DrawLuminnce()
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	VertIdxBuff::IASetVertIdxBuff();
 	//	テクスチャ
-	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[0].GetHandle()));
+	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
 	material_.SetGraphicsRootCBuffView(1);
 
 	cmdList->DrawIndexedInstanced((UINT)indices_.size(), 1, 0, 0, 0);

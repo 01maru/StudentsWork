@@ -4,7 +4,7 @@
 class DebugTextManager
 {
 private:
-	static Texture sFontTex;		// デバッグテキスト用のテクスチャ
+	static Texture* sFontTex;		// デバッグテキスト用のテクスチャ
 	static size_t sMaxSpritesNum;	// 最大文字数
 	static size_t sFontWidth;		// fontTex内1文字分の横幅
 	static size_t sFontHeight;		// fontTex内1文字分の縦幅

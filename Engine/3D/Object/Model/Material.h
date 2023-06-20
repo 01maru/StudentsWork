@@ -25,7 +25,7 @@ public:
 
 	ConstBuff material_;
 
-	Texture texture_;
+	Texture* texture_;
 
 public:
 	static Material* Create();
@@ -35,6 +35,6 @@ public:
 	void LoadTexture();
 	void SetGraphicsRootCBuffView(uint32_t rootparaIdx);
 
-	int32_t GetTextureHandle() { return texture_.GetHandle(); }
+	int32_t GetTextureHandle() { return texture_->GetHandle(); }
 };
 
