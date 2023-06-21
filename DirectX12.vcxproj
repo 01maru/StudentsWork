@@ -72,6 +72,7 @@
     <ClCompile Include="Engine\2D\Texture\Texture.cpp" />
     <ClCompile Include="Engine\2D\Sprite\SplashSprite.cpp" />
     <ClCompile Include="Engine\2D\Sprite\Base\UIManager.cpp" />
+    <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\3D\Camera\Base\CameraManager.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Engine\2D\PostEffect\GaussBlur.h" />
     <ClInclude Include="Engine\2D\Sprite\Base\UIManager.h" />
     <ClInclude Include="Engine\Base\JSONLoader.h" />
+    <ClInclude Include="Engine\2D\PostEffect\PlanePolygon.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

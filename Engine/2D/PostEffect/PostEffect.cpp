@@ -39,21 +39,7 @@ void PostEffect::Initialize(int32_t width, int32_t height, float weight, DXGI_FO
 
 #pragma endregion
 
-	vertices_.clear();
-	vertices_.push_back({ {-1.0f,-1.0f,0.0f},{0,1} });
-	vertices_.push_back({ {-1.0f, 1.0f,0.0f},{0,0} });
-	vertices_.push_back({ { 1.0f,-1.0f,0.0f},{1,1} });
-	vertices_.push_back({ { 1.0f, 1.0f,0.0f},{1,0} });
-
-	uint32_t sizePV = static_cast<uint32_t>(sizeof(vertices_[0]) * vertices_.size());
-	//	インデックスデータ
-	indices_.push_back(0);
-	indices_.push_back(1);
-	indices_.push_back(2);
-	indices_.push_back(2);
-	indices_.push_back(1);
-	indices_.push_back(3);
-	VertIdxBuff::Initialize(sizePV, indices_);
+	PlanePolygon::Initialize();
 
 	//	ビューポート
 	viewPortSciRect_.InitializeVP(width, height, 0, 0, 0.0f, 1.0f, texNum_);
@@ -181,6 +167,10 @@ void PostEffect::Initialize(int32_t width, int32_t height, float weight, DXGI_FO
 #pragma endregion
 }
 
+void PostEffect::Initialize(int32_t /*width*/, int32_t /*height*/, int32_t /*textureNum*/, DXGI_FORMAT /*format*/)
+{
+}
+
 void PostEffect::Draw(GPipeline* pipeline, bool xBlur, bool yBlur, bool shadow, int32_t handle1)
 {
 	if (shadow) {
@@ -203,7 +193,7 @@ void PostEffect::Draw(GPipeline* pipeline, bool xBlur, bool yBlur, bool shadow, 
 	pipeline->SetGraphicsRootSignature();
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	VertIdxBuff::IASetVertIdxBuff();
-
+	
 	if (xBlur == false && yBlur == false && shadow == false) {
 		//	テクスチャ
 		cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
@@ -225,7 +215,7 @@ void PostEffect::Draw(GPipeline* pipeline, bool xBlur, bool yBlur, bool shadow, 
 		if (xBlur || yBlur) 	weight_.SetGraphicsRootCBuffView(2);
 	}
 
-	cmdList->DrawIndexedInstanced((UINT)indices_.size(), 1, 0, 0, 0);
+	PlanePolygon::DrawIndexedInstanced();
 }
 
 void PostEffect::SetColor(const Vector4D& color)
@@ -250,23 +240,13 @@ void PostEffect::DrawLuminnce()
 	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
 	material_.SetGraphicsRootCBuffView(1);
 
-	cmdList->DrawIndexedInstanced((UINT)indices_.size(), 1, 0, 0, 0);
+	PlanePolygon::DrawIndexedInstanced();
 }
 
-void PostEffect::SetVertices()
+void PostEffect::SetGPipelineAndIAVertIdxBuff(GPipeline& pipeline)
 {
-	// 頂点1つ分のデータサイズ
-	vbView_.StrideInBytes = sizeof(vertices_[0]);
+	pipeline.SetGraphicsRootSignature();
+	pipeline.SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	//	GPUメモリの値書き換えよう
-	// GPU上のバッファに対応した仮想メモリ(メインメモリ上)を取得
-	ScreenVertex* vertMap = nullptr;
-	HRESULT result = vertBuff_->Map(0, nullptr, (void**)&vertMap);
-	assert(SUCCEEDED(result));
-	// 全頂点に対して
-	for (size_t i = 0; i < vertices_.size(); i++) {
-		vertMap[i] = vertices_[i]; // 座標をコピー
-	}
-	// 繋がりを解除
-	vertBuff_->Unmap(0, nullptr);
+	VertIdxBuff::IASetVertIdxBuff();
 }

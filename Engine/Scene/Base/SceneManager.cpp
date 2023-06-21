@@ -264,6 +264,7 @@ void SceneManager::Draw()
 	
 	dx->PostEffectDraw(shadowEffect.get());
 
+
 	dx->PrevPostEffect(xbulr.get(), shadowClearColor_);
 
 	shadowEffect->Draw(nullptr, true, false, true);
@@ -275,6 +276,7 @@ void SceneManager::Draw()
 	xbulr->Draw(nullptr, false, true, true);
 
 	dx->PostEffectDraw(ybulr.get());
+
 	
 	dx->PrevPostEffect(mainScene.get());
 

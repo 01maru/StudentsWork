@@ -1,10 +1,10 @@
 ﻿#pragma once
 #include "ViewPortScissorRect.h"
-#include "VertIdxBuff.h"
 #include "ConstBuff.h"
 #include "Texture.h"
 #include <vector>
 #include <cstdint>
+#include "PlanePolygon.h"
 
 class GPipeline;
 namespace CBuff {
@@ -12,7 +12,7 @@ namespace CBuff {
 }
 
 //	ぺらポリゴン
-class PostEffect :public VertIdxBuff
+class PostEffect :public PlanePolygon
 {
 private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
@@ -31,8 +31,8 @@ private:
 
 	std::vector<float> weights_;
 
-	std::vector<ScreenVertex> vertices_;
-	std::vector<uint16_t> indices_;
+	//std::vector<ScreenVertex> vertices_;
+	//std::vector<uint16_t> indices_;
 
 	D3D12_RESOURCE_BARRIER barrierDesc_{};
 
@@ -48,8 +48,11 @@ private:
 public:
 	void Initialize(int32_t width, int32_t height, float weight, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
+	void Initialize(int32_t width, int32_t height, int32_t textureNum, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
+
 	void Setting();
 	void DrawLuminnce();
+	void SetGPipelineAndIAVertIdxBuff(GPipeline& pipeline);
 	void Draw(GPipeline* pipeline, bool xBlur, bool yBlur, bool shadow, int32_t handle1 = -1);
 	void SetColor(const Vector4D& color);
 
@@ -60,7 +63,5 @@ public:
 	ID3D12DescriptorHeap* GetRTVHeap() { return rtvHeap_.Get(); }
 	ID3D12DescriptorHeap* GetDSVHeap() { return dsvHeap_.Get(); }
 	Texture* GetTexture() { return texture_[0]; }
-private:
-	void SetVertices() override;
 };
 

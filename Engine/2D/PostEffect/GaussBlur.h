@@ -4,7 +4,7 @@
 class GaussBlur
 {
 private:
-	PostEffect* originPE_ = nullptr;
+	PostEffect* origin_ = nullptr;
 	PostEffect postEffect_[2];
 
 #pragma region ConstBuff
@@ -20,6 +20,6 @@ public:
 	void Draw();
 
 	//	Setter
-	void SetOrigin(PostEffect* origin) { originPE_ = origin; }
+	void SetOrigin(PostEffect* origin) { origin_ = origin; }
 };
 

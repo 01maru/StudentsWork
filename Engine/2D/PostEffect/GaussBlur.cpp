@@ -11,8 +11,8 @@ void GaussBlur::Initialize(float weight)
 
 	weights_.resize(8);
 	MyMath::CalcGaussianWeightsTable(
-		weights_,        // 重みの格納先
-		weight          // ボケ具合。この数値が大きくなるとボケが強くなる
+		weights_,			// 重みの格納先
+		weight				// ボケ具合。この数値が大きくなるとボケが強くなる
 	);
 
 	CBuff::CBufferBlurWeight* mapWeight = nullptr;
@@ -31,7 +31,7 @@ void GaussBlur::Draw()
 	MyDirectX* dx = MyDirectX::GetInstance();
 	dx->PrevPostEffect(&postEffect_[0]);
 
-	originPE_->Draw(nullptr, true, false, false);
+	origin_->Draw(nullptr, true, false, false);
 
 	dx->PostEffectDraw(&postEffect_[0]);
 
