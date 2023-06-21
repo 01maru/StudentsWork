@@ -375,6 +375,9 @@
     <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp">
       <Filter>ソース ファイル\lib\2D\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Base\DepthStencil.cpp">
+      <Filter>ソース ファイル\lib\Engine\Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -577,6 +580,9 @@
     </ClInclude>
     <ClInclude Include="Engine\2D\PostEffect\PlanePolygon.h">
       <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Base\DepthStencil.h">
+      <Filter>ヘッダー ファイル\lib\Engine\Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

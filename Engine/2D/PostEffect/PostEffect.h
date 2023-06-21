@@ -5,6 +5,7 @@
 #include <vector>
 #include <cstdint>
 #include "PlanePolygon.h"
+#include "DepthStencil.h"
 
 class GPipeline;
 namespace CBuff {
@@ -31,9 +32,6 @@ private:
 
 	std::vector<float> weights_;
 
-	//std::vector<ScreenVertex> vertices_;
-	//std::vector<uint16_t> indices_;
-
 	D3D12_RESOURCE_BARRIER barrierDesc_{};
 
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
@@ -42,9 +40,7 @@ private:
 	//	ビューポートシザー矩形
 	ViewPortScissorRect viewPortSciRect_;
 
-	ComPtr<ID3D12DescriptorHeap> dsvHeap_;
-	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle_{};
-	ComPtr<ID3D12Resource> depthBuff_;
+	DepthStencil dsv_;
 public:
 	void Initialize(int32_t width, int32_t height, float weight, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
@@ -61,7 +57,8 @@ public:
 	int32_t GetTextureNum() { return texNum_; }
 	D3D12_RESOURCE_BARRIER& GetResouceBarrier() { return barrierDesc_; }
 	ID3D12DescriptorHeap* GetRTVHeap() { return rtvHeap_.Get(); }
-	ID3D12DescriptorHeap* GetDSVHeap() { return dsvHeap_.Get(); }
+	ID3D12DescriptorHeap* GetDSVHeap() { return dsv_.GetDSVHeap(); }
 	Texture* GetTexture() { return texture_[0]; }
+	Texture* GetTexture(int32_t index) { return texture_[index]; }
 };
 

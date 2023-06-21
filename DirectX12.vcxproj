@@ -21,6 +21,7 @@
     <ClCompile Include="Engine\3D\Object\Model\IModel.cpp" />
     <ClCompile Include="Engine\3D\Object\Object3D.cpp" />
     <ClCompile Include="Engine\3D\Light\CircleShadow.cpp" />
+    <ClCompile Include="Engine\Base\DepthStencil.cpp" />
     <ClCompile Include="Engine\Base\Window\FPSController.cpp" />
     <ClCompile Include="Engine\Base\Buffer\ConstBuff.cpp" />
     <ClCompile Include="Engine\Base\DirectX.cpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="Engine\3D\Object\Model\Mesh.h" />
     <ClInclude Include="Engine\3D\Object\Model\IModel.h" />
     <ClInclude Include="Engine\3D\Object\Object3D.h" />
+    <ClInclude Include="Engine\Base\DepthStencil.h" />
     <ClInclude Include="Engine\Base\Window\FPSController.h" />
     <ClInclude Include="Engine\Math\FrameCounter.h" />
     <ClInclude Include="Engine\Scene\Base\AbstractSceneFactory.h" />
