@@ -52,6 +52,11 @@ void UIManager::LoadFile()
 			sprite.SetTextureLeftTop(pos);
 			sprite.SetTextureSize(size);
 
+			line_stream >> pos.x;
+			line_stream >> pos.y;
+
+			sprite.SetAnchorPoint(pos);
+
 			sprites_.emplace(key, sprite);
 		}
 	}
@@ -81,7 +86,8 @@ void UIManager::SaveFile()
 			<< " " << itr->second.GetPosition().x << " " << itr->second.GetPosition().y 
 			<< " " << itr->second.GetSize().x << " " << itr->second.GetSize().y 
 			<< " " << itr->second.GetTextureLeftTop().x << " " << itr->second.GetTextureLeftTop().y
-			<< " " << itr->second.GetTextureSize().x << " " << itr->second.GetTextureSize().y << std::endl;
+			<< " " << itr->second.GetTextureSize().x << " " << itr->second.GetTextureSize().y
+			<< " " << itr->second.GetAnchorPoint().x << " " << itr->second.GetAnchorPoint().y << std::endl;
 	}
 
 	outPutFile.close();
@@ -133,25 +139,29 @@ void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::itera
 			return;
 		}
 
-		Vector2D pos = sprite->GetPosition();
-		imguiMan->SetSliderFloat2(name + " : PosLeftTop", pos);
-		sprite->SetPosition(pos);
+		Vector2D vec = sprite->GetPosition();
+		imguiMan->SetSliderFloat2(name + " : PosLeftTop", vec);
+		sprite->SetPosition(vec);
 
-		Vector2D size = sprite->GetSize();
-		imguiMan->SetSliderFloat2(name + " : Size", size);
-		sprite->SetSize(size);
+		vec = sprite->GetSize();
+		imguiMan->SetSliderFloat2(name + " : Size", vec);
+		sprite->SetSize(vec);
 
 		imguiMan->Text("Texture");
 		std::string texName = sprite->GetTexture()->GetTextureName();
 		imguiMan->InputText(name + " : TexName ", texName, texName.length() + 1);
 
-		pos = sprite->GetTextureLeftTop();
-		imguiMan->SetSliderFloat2(name + " : TexLeftTop", pos);
-		sprite->SetTextureLeftTop(pos);
+		vec = sprite->GetTextureLeftTop();
+		imguiMan->SetSliderFloat2(name + " : TexLeftTop", vec);
+		sprite->SetTextureLeftTop(vec);
 
-		size = sprite->GetTextureSize();
-		imguiMan->SetSliderFloat2(name + " : TexSize ", size);
-		sprite->SetTextureSize(size);
+		vec = sprite->GetTextureSize();
+		imguiMan->SetSliderFloat2(name + " : TexSize ", vec);
+		sprite->SetTextureSize(vec);
+
+		vec = sprite->GetAnchorPoint();
+		imguiMan->SetSliderFloat2(name + " : AnchorPoint ", vec, 0.1f, 0.0f, 1.0f);
+		sprite->SetAnchorPoint(vec);
 
 		if (imguiMan->SetButton(name + " : Delete")) 	eraseSpriteName_.push_back(itr->first);
 	}

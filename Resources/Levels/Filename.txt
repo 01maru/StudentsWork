@@ -1,3 +1,3 @@
-1 Resources/Sprite/white1x1.png 931 21 326 84 0 0 100 100
-heal Resources/Sprite/white1x1.png 16 600 100 100 -4 0 96 100
-0 Resources/Sprite/white1x1.png 0 0 100 100 0 0 100 100
+0 Resources/Sprite/white1x1.png 595 303 315 100 0 0 100 100 0.5 0.5
+1 Resources/Sprite/white1x1.png 931 21 326 84 0 0 100 100 0 0
+heal Resources/Sprite/white1x1.png 16 600 100 100 -4 0 96 100 -4 0
