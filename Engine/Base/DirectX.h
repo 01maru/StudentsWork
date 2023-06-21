@@ -1,6 +1,7 @@
 ﻿#pragma once
 #define NOMINMAX
 #include "ViewPortScissorRect.h"
+#include "DepthStencil.h"
 
 #include <d3d12.h>
 #include <dxgi1_6.h>
@@ -40,10 +41,7 @@ private:
 
 	D3D12_RESOURCE_BARRIER barrierDesc_{};
 
-	ComPtr<ID3D12DescriptorHeap> dsvHeap_;
-	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle_;
-
-	ComPtr<ID3D12Resource> depthBuff_;
+	DepthStencil dsv_;
 
 	//	一つだけ
 	ComPtr<ID3D12DescriptorHeap> srvHeap_;
