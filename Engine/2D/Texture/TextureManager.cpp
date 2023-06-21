@@ -58,7 +58,7 @@ void TextureManager::ImGuiUpdate()
 	//	imguiMan->EndMenuBar();
 	//}
 
-	imguiMan->BeginChild(Vector2D(0, 200));
+	imguiMan->BeginChild();
 
 	for (size_t i = 0; i < textures_.size(); i++)
 	{

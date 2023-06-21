@@ -225,11 +225,11 @@ void SceneManager::ImguiUpdate()
 	InputManager::GetInstance()->ImGuiUpdate();
 	UIManager::GetInstance()->ImGuiUpdate();
 	CameraManager::GetInstance()->ImGuiUpdate();
-	if (endLoading_) {
-		TextureManager::GetInstance()->ImGuiUpdate();
+	XAudioManager::GetInstance()->ImguiUpdate(endLoading_);
+	TextureManager::GetInstance()->ImGuiUpdate();
 
+	if (endLoading_) {
 		scene_->ImguiUpdate();
-		XAudioManager::GetInstance()->ImguiUpdate();
 	}
 	ImGuiManager::GetInstance()->End();
 

@@ -174,7 +174,7 @@ void XAudioManager::SaveVolume()
 	outPutFile.close();
 }
 
-void XAudioManager::ImguiUpdate()
+void XAudioManager::ImguiUpdate(bool endLoading)
 {
 	if (!ImGuiController::GetInstance()->GetActiveVolumeManager()) return;
 
@@ -200,12 +200,14 @@ void XAudioManager::ImguiUpdate()
 	if (isDebug_) {
 		imguiMan->BeginChild(Vector2D(0, 200));
 
-		for (auto itr = data_.begin(); itr != data_.end(); ++itr)
-		{
-			imguiMan->SetSliderFloat(itr->first.c_str(), itr->second.volume, 0.005f, 0.0f, 1.0f);
+		if (endLoading) {
+			for (auto itr = data_.begin(); itr != data_.end(); ++itr)
+			{
+				imguiMan->SetSliderFloat(itr->first.c_str(), itr->second.volume, 0.005f, 0.0f, 1.0f);
 
-			if (imguiMan->SetButton("Play	"+ itr->first)) {
-				PlayDebugSoundWave(itr->first, Master, false, true);
+				if (imguiMan->SetButton("Play	"+ itr->first)) {
+					PlayDebugSoundWave(itr->first, Master, false, true);
+				}
 			}
 		}
 		imguiMan->EndChild();

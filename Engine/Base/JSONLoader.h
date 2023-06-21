@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include "Vector3D.h"
 #include "IModel.h"
@@ -7,13 +7,13 @@
 
 struct ObjectData
 {
-	//	ƒtƒ@ƒCƒ‹–¼
+	//	ãƒ•ã‚¡ã‚¤ãƒ«å
 	std::string fileName;
-	//	ƒIƒuƒWƒFƒNƒgî•ñ
+	//	ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæƒ…å ±
 	Vector3D translation;
 	Vector3D rotation;
 	Vector3D scaling;
-	//	eî•ñ
+	//	è¦ªæƒ…å ±
 	ObjectData* parent = nullptr;
 };
 
@@ -25,9 +25,9 @@ struct LevelData
 class JSONLoader
 {
 private:
-	//	ƒ‚ƒfƒ‹ƒf[ƒ^ƒRƒ“ƒeƒi
+	//	ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚³ãƒ³ãƒ†ãƒŠ
 	std::map<std::string, IModel*> models;
-	//	ƒIƒuƒWƒFƒNƒgƒf[ƒ^
+	//	ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ‡ãƒ¼ã‚¿
 	std::vector<Object3D*> objects;
 	LevelData* levelData = nullptr;
 

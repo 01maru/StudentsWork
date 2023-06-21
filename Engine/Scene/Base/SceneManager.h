@@ -55,7 +55,7 @@ private:	//	関数
 	void SceneUpdate();
 	void ImguiUpdate();
 
-	void FirstSceneInitialize();
+	void FirstSceneInitialize();		//	SplashScreen用
 	void SplashScreenInitialize();
 	void SceneChange();
 

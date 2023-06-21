@@ -82,7 +82,7 @@ public:
 
 	void Initialize();
 	void Finalize();
-	void ImguiUpdate();
+	void ImguiUpdate(bool endLoading);
 
 	//	load
 	void LoadSoundWave(const std::string& filename);
