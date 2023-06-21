@@ -8,12 +8,13 @@
 #include "TextureManager.h"
 #include "SceneManager.h"
 #include <cassert>
+#include "CameraManager.h"
 
 #include "ConstBuffStruct.h"
 
 Light* Object3D::sLight = nullptr;
 GPipeline* Object3D::sPipeline = nullptr;
-ICamera* Object3D::sCamera = nullptr;
+//ICamera* Object3D::sCamera = nullptr;
 
 void Object3D::SetLight(Light* light_)
 {
@@ -23,11 +24,6 @@ void Object3D::SetLight(Light* light_)
 void Object3D::SetPipeline(GPipeline* pipeline_)
 {
 	Object3D::sPipeline = pipeline_;
-}
-
-void Object3D::SetCamera(ICamera* camera_)
-{
-	Object3D::sCamera = camera_;
 }
 
 void Object3D::SetModel(IModel* model)
@@ -151,7 +147,7 @@ void Object3D::MatUpdate(ICamera* camera_)
 		cam = camera_;
 	}
 	else {
-		cam = sCamera;
+		cam = CameraManager::GetInstance()->GetCamera();
 	}
 	const Matrix& matViewProjection = cam->GetViewProj();
 	const Vector3D& cameraPos = cam->GetEye();

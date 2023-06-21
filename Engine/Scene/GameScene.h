@@ -10,7 +10,6 @@
 class GameScene :public IScene
 {
 private:
-	ICamera* camera = nullptr;
 
 #pragma region Obj3D
 

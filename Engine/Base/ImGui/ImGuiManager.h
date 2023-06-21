@@ -71,6 +71,7 @@ public:
 	void InputFloat2(const std::string& name, Vector2D& vec);
 	void SetSliderFloat(const std::string& sliderName, float& value, float spd, float minValue, float maxValue);
 	void SetSliderFloat2(const std::string& sliderName, Vector2D& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
+	void SetSliderFloat3(const std::string& sliderName, Vector3D& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
 	void SetSliderInt(const std::string& sliderName, int& value, float spd, size_t minValue, size_t maxValue);
 	void CheckBox(const std::string& name, bool& flag);
 

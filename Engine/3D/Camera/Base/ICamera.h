@@ -49,6 +49,7 @@ public:
 	void SetProjectionMatrix(int32_t width, int32_t height, float fovY);
 	void SetTarget(const Vector3D& t) { target_ = t; }
 	void SetEye(const Vector3D& e) { eye_ = e; }
+	void SetUp(const Vector3D& up) { up_ = up; }
 	void EyeMove(const Vector3D& moveE) { eye_ += moveE; }
 };
 

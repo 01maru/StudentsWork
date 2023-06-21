@@ -9,6 +9,7 @@
 #include "InputManager.h"
 #include "XAudioManager.h"
 #include "FPSController.h"
+#include "CameraManager.h"
 
 void Framework::Run()
 {
@@ -48,6 +49,8 @@ void Framework::Initialize()
 	FPSController::GetInstance()->Initialize();
 
 	XAudioManager::GetInstance()->Initialize();
+
+	CameraManager::GetInstance()->Initialize();
 }
 
 void Framework::Update()
@@ -62,6 +65,7 @@ void Framework::Update()
 
 void Framework::Finalize()
 {
+	CameraManager::GetInstance()->Finalize();
 	XAudioManager::GetInstance()->Finalize();
 	Window::GetInstance()->Finalize();
 }

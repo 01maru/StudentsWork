@@ -1,5 +1,5 @@
 ﻿#include "GameScene.h"
-#include "MyDebugCamera.h"
+#include "GameCamera.h"
 #include "GameCamera.h"
 #include "XAudioManager.h"
 #include "NormalCamera.h"
@@ -11,6 +11,7 @@
 #include "SceneManager.h"
 
 #include "InputManager.h"
+#include "CameraManager.h"
 
 void GameScene::LoadResources()
 {
@@ -44,12 +45,13 @@ void GameScene::LoadResources()
 
 void GameScene::Initialize()
 {
-	camera = new MyDebugCamera();
+	std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
 	camera->Initialize(Vector3D(0.0f, 0.0f, -10.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector3D(0.0f, 1.0f, 0.0f));
+	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
 	//camera = Light::GetInstance()->GetDirLightCamera(0);
 
 	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
-	Object3D::SetCamera(camera);
+	//Object3D::SetCamera(camera);
 	LoadResources();
 
 	XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
@@ -76,8 +78,6 @@ void GameScene::Update()
 	if (InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_B)) {
 		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
 	}
-
-	camera->Update();
 
 	sprite_->Update();
 	ParticleManager::GetInstance()->Update();

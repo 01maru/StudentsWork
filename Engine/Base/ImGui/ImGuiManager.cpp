@@ -169,6 +169,14 @@ void ImGuiManager::SetSliderFloat2(const std::string& sliderName, Vector2D& valu
 	value = { v[0],v[1] };
 }
 
+void ImGuiManager::SetSliderFloat3(const std::string& sliderName, Vector3D& value, float spd, float minValue, float maxValue)
+{
+	float v[3] = { value.x,value.y,value.z };
+	ImGui::DragFloat3(sliderName.c_str(), v, spd, minValue, maxValue);
+
+	value = { v[0],v[1],v[2] };
+}
+
 void ImGuiManager::SetSliderInt(const std::string& sliderName, int& value, float spd, size_t minValue, size_t maxValue)
 {
 	ImGui::DragInt(sliderName.c_str(), &value, spd, (int)minValue, (int)maxValue);

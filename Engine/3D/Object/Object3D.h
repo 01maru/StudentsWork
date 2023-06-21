@@ -4,7 +4,7 @@
 #include "Light.h"
 #include "MyMath.h"
 #include "IModel.h"
-#include "ICamera.h"
+//#include "ICamera.h"
 //#include "CollisionInfo.h"
 #include "DirectX.h"
 
@@ -26,7 +26,7 @@ private:
 
 	static GPipeline* sPipeline;
 	static Light* sLight;
-	static ICamera* sCamera;
+	//static ICamera* sCamera;
 
 #pragma region CBuff
 	
@@ -72,7 +72,6 @@ public:
 
 	static void SetLight(Light* light);
 	static void SetPipeline(GPipeline* pipeline);
-	static void SetCamera(ICamera* camera);
 	void SetModel(IModel* model);
 	//void SetCollider(BaseCollider* collider_);
 	//BaseCollider* GetCollider() { return collider; }

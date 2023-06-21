@@ -9,6 +9,7 @@
 #include "SceneFactory.h"
 #include "TextureManager.h"
 #include "UIManager.h"
+#include "CameraManager.h"
 
 #include "Window.h"
 
@@ -223,6 +224,7 @@ void SceneManager::ImguiUpdate()
 
 	InputManager::GetInstance()->ImGuiUpdate();
 	UIManager::GetInstance()->ImGuiUpdate();
+	CameraManager::GetInstance()->ImGuiUpdate();
 	if (endLoading_) {
 		TextureManager::GetInstance()->ImGuiUpdate();
 

@@ -47,7 +47,7 @@ void TextureManager::ImGuiUpdate()
 
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
-	imguiMan->BeginWindow("VolumeManager", true);
+	imguiMan->BeginWindow("TextureManager", true);
 
 	//if (imguiMan->BeginMenuBar()) {
 	//	if (imguiMan->BeginMenu("File")) {
