@@ -31,13 +31,13 @@ void GaussBlur::Draw()
 	MyDirectX* dx = MyDirectX::GetInstance();
 	dx->PrevPostEffect(&postEffect_[0]);
 
-	originPE_->Draw(true, false, false);
+	originPE_->Draw(nullptr, true, false, false);
 
 	dx->PostEffectDraw(&postEffect_[0]);
 
 	dx->PrevPostEffect(&postEffect_[1]);
 
-	postEffect_[0].Draw(false, true, false);
+	postEffect_[0].Draw(nullptr, false, true, false);
 
 	dx->PostEffectDraw(&postEffect_[1]);
 }

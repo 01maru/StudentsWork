@@ -38,6 +38,7 @@ private:
 	std::unique_ptr<GPipeline> yBlurPipeline_;
 	std::unique_ptr<GPipeline> luminncexBlurPipeline_;
 	std::unique_ptr<GPipeline> luminnceyBlurPipeline_;
+	std::unique_ptr<GPipeline> glayScalePipeline_;
 
 #pragma endregion
 

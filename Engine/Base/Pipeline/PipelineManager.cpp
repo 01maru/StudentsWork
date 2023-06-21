@@ -77,13 +77,19 @@ void PipelineManager::InitializePostEffect()
 	
 	postEffectPipeline_ = std::make_unique<GPipeline>();
 	postEffectPipeline_->Initialize(luminnceShader, inputLayout, 1, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
-		, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, 4);
+		, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R11G11B10_FLOAT, 4);
 
 	Shader postEffect(L"Resources/Shader/ScreenVS.hlsl", L"Resources/Shader/ScreenShadowPS.hlsl");
 
 	postShadowPipeline_ = std::make_unique<GPipeline>();
 	postShadowPipeline_->Initialize(postEffect, inputLayout, 1, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
 		, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO);
+
+	Shader glayShader(L"Resources/Shader/ScreenVS.hlsl", L"Resources/Shader/GlayScalePS.hlsl");
+	
+	glayScalePipeline_ = std::make_unique<GPipeline>();
+	glayScalePipeline_->Initialize(glayShader, inputLayout, 1, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
+		, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB);
 
 	Shader luminncePostEffect(L"Resources/Shader/ScreenVS.hlsl", L"Resources/Shader/LuminncePS.hlsl");
 	
@@ -226,6 +232,9 @@ GPipeline* PipelineManager::GetPipeline(const std::string& name, GPipeline::Blen
 	}
 	else if (name == "luminnceyBlur") {
 		return luminnceyBlurPipeline_.get();
+	}
+	else if (name == "glayScale") {
+		return glayScalePipeline_.get();
 	}
 	return nullptr;
 }

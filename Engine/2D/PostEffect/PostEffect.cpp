@@ -181,11 +181,9 @@ void PostEffect::Initialize(int32_t width, int32_t height, float weight, DXGI_FO
 #pragma endregion
 }
 
-void PostEffect::Draw(bool xBlur, bool yBlur, bool shadow, int32_t handle1)
+void PostEffect::Draw(GPipeline* pipeline, bool xBlur, bool yBlur, bool shadow, int32_t handle1)
 {
-	GPipeline* pipeline = nullptr;
 	if (shadow) {
-		pipeline = PipelineManager::GetInstance()->GetPipeline("PostEffectShadow", GPipeline::NONE_BLEND);
 		if (xBlur) {
 			pipeline = PipelineManager::GetInstance()->GetPipeline("xBlur", GPipeline::NONE_BLEND);
 		}
@@ -194,7 +192,6 @@ void PostEffect::Draw(bool xBlur, bool yBlur, bool shadow, int32_t handle1)
 		}
 	}
 	else {
-		pipeline = PipelineManager::GetInstance()->GetPipeline("PostEffect", GPipeline::NONE_BLEND);
 		if (xBlur) {
 			pipeline = PipelineManager::GetInstance()->GetPipeline("luminncexBlur", GPipeline::NONE_BLEND);
 		}

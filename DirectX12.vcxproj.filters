@@ -660,5 +660,8 @@
     <FxCompile Include="Resources\Shader\SilhouettePS.hlsl">
       <Filter>リソース ファイル\ObjShader</Filter>
     </FxCompile>
+    <FxCompile Include="Resources\Shader\GlayScalePS.hlsl">
+      <Filter>リソース ファイル\ScreenShader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

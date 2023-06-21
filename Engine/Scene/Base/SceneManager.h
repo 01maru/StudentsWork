@@ -43,6 +43,7 @@ private:
 	std::unique_ptr<PostEffect> shadowEffect;
 	std::unique_ptr<PostEffect> xbulr;
 	std::unique_ptr<PostEffect> ybulr;
+	std::unique_ptr<PostEffect> glayscale;
 #pragma endregion
 
 private:	//	関数

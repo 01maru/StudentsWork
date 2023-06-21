@@ -33,6 +33,7 @@ public:
 	void ImGuiUpdate();
 	void Draw();
 
+	bool GetActiveGlayscale() { return activeGlayscale_; }
 	bool GetEditUI() { return editUI_; }
 };
 

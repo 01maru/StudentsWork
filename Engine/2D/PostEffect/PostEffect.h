@@ -50,7 +50,7 @@ public:
 
 	void Setting();
 	void DrawLuminnce();
-	void Draw(bool xBlur, bool yBlur, bool shadow, int32_t handle1 = -1);
+	void Draw(GPipeline* pipeline, bool xBlur, bool yBlur, bool shadow, int32_t handle1 = -1);
 	void SetColor(const Vector4D& color);
 
 	ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }

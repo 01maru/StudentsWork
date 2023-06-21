@@ -12,6 +12,8 @@
 
 #include "Window.h"
 
+#include "PipelineManager.h"
+
 SceneManager* SceneManager::GetInstance()
 {
 	static SceneManager instance;
@@ -58,6 +60,8 @@ void SceneManager::Initialize()
 #pragma endregion
 
 #pragma region PostEffect
+	glayscale = std::make_unique<PostEffect>();
+	glayscale->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, 1.0f, DXGI_FORMAT_R11G11B10_FLOAT);
 
 	mainScene = std::make_unique<PostEffect>();
 	mainScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, 1.0f, DXGI_FORMAT_R11G11B10_FLOAT);
@@ -260,13 +264,13 @@ void SceneManager::Draw()
 
 	dx->PrevPostEffect(xbulr.get(), shadowClearColor_);
 
-	shadowEffect->Draw(true, false, true);
+	shadowEffect->Draw(nullptr, true, false, true);
 
 	dx->PostEffectDraw(xbulr.get());
 
 	dx->PrevPostEffect(ybulr.get(), shadowClearColor_);
 
-	xbulr->Draw(false, true, true);
+	xbulr->Draw(nullptr, false, true, true);
 
 	dx->PostEffectDraw(ybulr.get());
 	
@@ -290,25 +294,31 @@ void SceneManager::Draw()
 
 	dx->PrevPostEffect(xbulrluminnce.get());
 
-	luminnce->Draw(true, false, false);
+	luminnce->Draw(nullptr, true, false, false);
 
 	dx->PostEffectDraw(xbulrluminnce.get());
 
 	dx->PrevPostEffect(ybulrluminnce.get());
 
-	xbulrluminnce->Draw(false, true, false);
+	xbulrluminnce->Draw(nullptr, false, true, false);
 
 	dx->PostEffectDraw(ybulrluminnce.get());
+
+	dx->PrevPostEffect(glayscale.get());
+
+	if (!isSplashScreen_) {
+		mainScene->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect", GPipeline::NONE_BLEND), false, false, false, ybulrluminnce->GetTexture()->GetHandle());
+	}
+
+	dx->PostEffectDraw(glayscale.get());
 #pragma endregion
 
 #pragma region MultiPath
 	FLOAT clearColor_[] = { 0.0f,0.0f,0.0f,1.0f };
 	dx->PrevDraw(clearColor_);
 
-	if (!isSplashScreen_) {
-		mainScene->Draw(false, false, false, ybulrluminnce->GetTexture()->GetHandle());
-	}
-	
+	glayscale->Draw(PipelineManager::GetInstance()->GetPipeline("glayScale", GPipeline::NONE_BLEND), false, false, true);
+
 	loadObj_->Draw();
 
 #ifdef NDEBUG
