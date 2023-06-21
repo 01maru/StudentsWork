@@ -65,6 +65,7 @@
     <ClCompile Include="Engine\2D\Loading\LoadingSprite.cpp" />
     <ClCompile Include="Engine\Base\ImGui\ImGuiController.cpp" />
     <ClCompile Include="Engine\2D\PostEffect\GaussBlur.cpp" />
+    <ClCompile Include="Engine\Base\JSONLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Engine\Base\ImGui\ImGuiController.h" />
     <ClInclude Include="Engine\2D\PostEffect\GaussBlur.h" />
     <ClInclude Include="Engine\2D\Sprite\Base\UIManager.h" />
+    <ClInclude Include="Engine\Base\JSONLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
@@ -329,14 +331,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)External\assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)External\DirectXTex;$(SolutionDir)External\imgui</IncludePath>
+    <IncludePath>$(ProjectDir)External\assimp\include;$(SolutionDir)External\DirectXTex;$(SolutionDir)External\imgui;$(SolutionDir)External\Json;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)External\assimp\lib;$(LibraryPath);</LibraryPath>
     <OutDir>$(SolutionDir)Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)External\assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)External\DirectXTex;$(SolutionDir)External\imgui</IncludePath>
+    <IncludePath>$(ProjectDir)External\assimp\include;$(SolutionDir)External\DirectXTex;$(SolutionDir)External\imgui;$(SolutionDir)External\Json;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)External\assimp\lib;$(LibraryPath);</LibraryPath>
     <OutDir>$(SolutionDir)Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>

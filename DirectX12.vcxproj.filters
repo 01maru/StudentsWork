@@ -369,6 +369,9 @@
     <ClCompile Include="Engine\2D\Sprite\Base\UIManager.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Base\JSONLoader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -565,6 +568,9 @@
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\Base\UIManager.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Base\JSONLoader.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
