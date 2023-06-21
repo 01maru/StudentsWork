@@ -25,7 +25,7 @@ void SceneManager::FirstSceneInitialize()
 {
 	scene_->Initialize();
 	//	画像転送
-	MyDirectX::GetInstance()->UploadTexture();
+	TextureManager::GetInstance()->UploadTexture();
 }
 
 void SceneManager::SplashScreenInitialize()
@@ -41,7 +41,7 @@ void SceneManager::SplashScreenInitialize()
 	sceneChangeCounter_.StartCount();
 
 	//	画像転送
-	MyDirectX::GetInstance()->UploadTexture();
+	TextureManager::GetInstance()->UploadTexture();
 }
 
 void SceneManager::Initialize()
@@ -350,7 +350,7 @@ void SceneManager::SceneChange()
 		scene_.reset(nextScene_.get());
 		scene_->Initialize();
 		//	画像転送
-		MyDirectX::GetInstance()->UploadTexture();
+		TextureManager::GetInstance()->UploadTexture();
 		sceneInitialized_ = true;
 		nextScene_.release();
 	}

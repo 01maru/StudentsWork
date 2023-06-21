@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <map>
+#include <list>
 
 class TextureManager
 {
@@ -19,6 +20,15 @@ private:
 	//std::map<std::string, std::unique_ptr<Texture>, std::less<>> textures;
 	//std::vector<bool> texExist_;
 
+	ComPtr<ID3D12CommandAllocator> loadTexAllocator_;
+	ComPtr<ID3D12GraphicsCommandList> loadTexCmdList_;
+
+	ComPtr<ID3D12CommandQueue> loadTexQueue_;
+
+	ComPtr<ID3D12Fence> uploadTexFence_;
+	UINT64 uploadTexFenceVal_ = 0;
+	std::list<ComPtr<ID3D12Resource>> textureUploadBuff_;
+
 private:
 	TextureManager() {}
 	~TextureManager() {}
@@ -30,6 +40,7 @@ public:
 
 	void Initialize();
 	void ImGuiUpdate();
+	void UploadTexture();
 
 	Texture* LoadTextureGraph(const wchar_t* textureName);
 	Texture* CreateNoneGraphTexture(const std::string& texName);

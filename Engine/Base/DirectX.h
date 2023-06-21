@@ -49,16 +49,6 @@ private:
 	//	ビューポートシザー矩形
 	ViewPortScissorRect viewPortSciRect_;
 
-
-	ComPtr<ID3D12CommandAllocator> loadTexAllocator_;
-	ComPtr<ID3D12GraphicsCommandList> loadTexCmdList_;
-
-	ComPtr<ID3D12CommandQueue> loadTexQueue_;
-
-	ComPtr<ID3D12Fence> uploadTexFence_;
-	UINT64 uploadTexFenceVal_ = 0;
-	std::list<ComPtr<ID3D12Resource>> textureUploadBuff_;
-
 private:
 	void DebugLayer();
 
@@ -81,7 +71,6 @@ public:
 	void PostEffectDraw(PostEffect* postEffect);
 	void PrevDraw(FLOAT* clearColor = nullptr);
 	void PostDraw();
-	void UploadTexture();
 
 	//	Getter
 	const D3D12_CPU_DESCRIPTOR_HANDLE GetCPUSRVHeapForHeapStart() { return srvHeap_->GetCPUDescriptorHandleForHeapStart(); }
@@ -90,13 +79,7 @@ public:
 	ID3D12DescriptorHeap* GetSRVHeap() { return srvHeap_.Get(); }
 	ID3D12Device* GetDev() { return device_.Get(); }
 	ID3D12GraphicsCommandList* GetCmdList() { return cmdList_.Get(); }
-	ID3D12GraphicsCommandList* GetLoadTexCmdList() { return loadTexCmdList_.Get(); }
 	D3D12_RESOURCE_DESC GetBackBuffDesc() { return backBuffers_[0]->GetDesc(); }
 	D3D12_DESCRIPTOR_HEAP_DESC GetRTVHeapDesc() { return rtvHeap_->GetDesc(); }
-
-
-	void CreateUploadBuffEmplaceBack() { textureUploadBuff_.emplace_back(); }
-	ID3D12Resource* GetUploadResourceBuff() { return textureUploadBuff_.back().Get(); }
-	ID3D12Resource** GetUploadResourceBuffAddress() { return textureUploadBuff_.back().ReleaseAndGetAddressOf(); }
 };
 

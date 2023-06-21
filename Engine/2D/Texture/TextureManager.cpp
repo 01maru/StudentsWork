@@ -33,6 +33,40 @@ TextureManager* TextureManager::GetInstance()
 
 void TextureManager::Initialize()
 {
+	ID3D12Device* device = MyDirectX::GetInstance()->GetDev();
+
+#pragma region CmdList
+
+	// コマンドアロケータを生成
+	HRESULT result = device->CreateCommandAllocator(
+		D3D12_COMMAND_LIST_TYPE_DIRECT,
+		IID_PPV_ARGS(&loadTexAllocator_));
+	assert(SUCCEEDED(result));
+	// コマンドリストを生成
+	result = device->CreateCommandList(0,
+		D3D12_COMMAND_LIST_TYPE_DIRECT,
+		loadTexAllocator_.Get(), nullptr,
+		IID_PPV_ARGS(&loadTexCmdList_));
+	assert(SUCCEEDED(result));
+
+#pragma endregion
+
+#pragma region CmdQueue
+
+	//コマンドキューの設定
+	D3D12_COMMAND_QUEUE_DESC commandQueueDesc{};
+	//コマンドキューを生成
+	result = device->CreateCommandQueue(&commandQueueDesc, IID_PPV_ARGS(&loadTexQueue_));
+	assert(SUCCEEDED(result));
+
+#pragma endregion
+
+#pragma region Fence
+	// フェンスの生成
+	result = device->CreateFence(uploadTexFenceVal_, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&uploadTexFence_));
+
+#pragma endregion
+
 	//textureNum_ = 0;
 
 	//texExist_.clear();
@@ -68,6 +102,44 @@ void TextureManager::ImGuiUpdate()
 	imguiMan->EndChild();
 
 	imguiMan->EndWindow();
+}
+
+void TextureManager::UploadTexture()
+{
+	// 命令のクローズ
+#pragma region CmdClose
+
+	HRESULT result = loadTexCmdList_->Close();
+	assert(SUCCEEDED(result));
+	// 溜めていたコマンドリストの実行(close必須)
+	ID3D12CommandList* commandLists[] = { loadTexCmdList_.Get() };
+	loadTexQueue_->ExecuteCommandLists(1, commandLists);
+
+#pragma endregion CmdClose
+
+#pragma region ChangeScreen
+
+	// コマンドの実行完了を待つ
+	loadTexQueue_->Signal(uploadTexFence_.Get(), ++uploadTexFenceVal_);
+	if (uploadTexFence_->GetCompletedValue() != uploadTexFenceVal_)	//	GPUの処理が完了したか判定
+	{
+		HANDLE event = CreateEvent(nullptr, false, false, nullptr);
+		uploadTexFence_->SetEventOnCompletion(uploadTexFenceVal_, event);
+		if (event != 0) {
+			WaitForSingleObject(event, INFINITE);
+			CloseHandle(event);
+		}
+	}
+	// キューをクリア
+	result = loadTexAllocator_->Reset();
+	assert(SUCCEEDED(result));
+	// 再びコマンドリストを貯める準備
+	result = loadTexCmdList_->Reset(loadTexAllocator_.Get(), nullptr);
+	assert(SUCCEEDED(result));
+
+	textureUploadBuff_.clear();
+
+#pragma endregion ChangeScreen
 }
 
 Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
@@ -161,7 +233,7 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 #pragma region Upload
 	D3D12_RESOURCE_DESC uploadDesc{};
 
-	dx->CreateUploadBuffEmplaceBack();
+	textureUploadBuff_.emplace_back();
 
 	uploadDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 	//uploadDesc.Width = MyMath::AlignmentSize(img->rowPitch, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT) * img->height;
@@ -181,12 +253,12 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 		&uploadDesc,
 		D3D12_RESOURCE_STATE_GENERIC_READ,		//	CPUから書き込み可能、GPUは読み取り専用
 		nullptr,
-		IID_PPV_ARGS(dx->GetUploadResourceBuffAddress()));
+		IID_PPV_ARGS(textureUploadBuff_.back().ReleaseAndGetAddressOf()));
 #pragma endregion
 
 	//	転送
 	uint8_t* mapforImg = nullptr;
-	result = dx->GetUploadResourceBuff()->Map(0, nullptr, (void**)&mapforImg);	//	map
+	result = textureUploadBuff_.back().Get()->Map(0, nullptr, (void**)&mapforImg);	//	map
 
 	uint8_t* uploadStart = mapforImg + footprint.Offset;
 	uint8_t* sourceStart = img->pixels;
@@ -201,7 +273,7 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 			sourcePitch
 		);
 	}
-	dx->GetUploadResourceBuff()->Unmap(0, nullptr);	//	unmap
+	textureUploadBuff_.back().Get()->Unmap(0, nullptr);	//	unmap
 
 #pragma region CopyCommand
 	//	グラフィックボード上のコピー先アドレス
@@ -211,12 +283,12 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 	texCopyDest.SubresourceIndex = 0;
 	//	グラフィックボード上のコピー元アドレス
 	D3D12_TEXTURE_COPY_LOCATION src{};
-	src.pResource = dx->GetUploadResourceBuff();
+	src.pResource = textureUploadBuff_.back().Get();
 	src.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT;
 	src.PlacedFootprint = footprint;
 
 	//	作成
-	dx->GetLoadTexCmdList()->CopyTextureRegion(&texCopyDest, 0, 0, 0, &src, nullptr);
+	loadTexCmdList_.Get()->CopyTextureRegion(&texCopyDest, 0, 0, 0, &src, nullptr);
 
 	//	resourceBarrier挿入
 	D3D12_RESOURCE_BARRIER copyBarrier{};
@@ -226,7 +298,7 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 	copyBarrier.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;
 	copyBarrier.Transition.StateAfter = D3D12_RESOURCE_STATE_GENERIC_READ;
 
-	dx->GetLoadTexCmdList()->ResourceBarrier(1, &copyBarrier);
+	loadTexCmdList_.Get()->ResourceBarrier(1, &copyBarrier);
 
 #pragma region SetSRV
 	UINT incrementSize = dx->GetDev()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
