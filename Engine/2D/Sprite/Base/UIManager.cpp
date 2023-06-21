@@ -7,6 +7,9 @@
 
 void UIManager::LoadFile()
 {
+	int ind = (int)filename_.find_last_of('\0');
+	if (ind > 0) filename_ = filename_.substr(0, ind);
+
 	std::string filePath = "Resources/Levels/" + filename_ + ".txt";
 
 	//ファイル開く(開けなかったら新規作成)
@@ -63,6 +66,9 @@ void UIManager::SaveFile()
 {
 	//	編集中じゃなかったら
 	if (!editUI_) return;
+
+	int ind = (int)filename_.find_last_of('\0');
+	if (ind > 0) filename_ = filename_.substr(0, ind);
 
 	std::string filePath = "Resources/Levels/" + filename_ + ".txt";
 
