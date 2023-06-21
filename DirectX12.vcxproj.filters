@@ -366,7 +366,7 @@
     <ClCompile Include="Engine\2D\PostEffect\GaussBlur.cpp">
       <Filter>ソース ファイル\lib\2D\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
+    <ClCompile Include="Engine\2D\Sprite\Base\UIManager.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
@@ -563,7 +563,7 @@
     <ClInclude Include="Engine\2D\PostEffect\GaussBlur.h">
       <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="UIManager.h">
+    <ClInclude Include="Engine\2D\Sprite\Base\UIManager.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
     </ClInclude>
   </ItemGroup>

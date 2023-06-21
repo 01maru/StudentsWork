@@ -6,8 +6,8 @@
 class UIManager
 {
 private:
-	std::string filename_ = ".txt";
-	std::string spritename_ = "Sample";
+	std::string filename_ = "Filename";
+	std::string spritename_ = "Spritename";
 
 	std::map<std::string, Sprite, std::less<>> sprites_;
 	std::list<std::string> eraseSpriteName_;
@@ -18,6 +18,8 @@ private:
 	UIManager() {};
 	~UIManager() {};
 
+	void LoadFile();
+	void SaveFile();
 	void DeleteSpriteForList();
 	void AddSprite();
 	void ReNameSprite(std::map<std::string, Sprite, std::less<>>::iterator& itr);

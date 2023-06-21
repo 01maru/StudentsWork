@@ -2,6 +2,86 @@
 #include "ImGuiManager.h"
 #include "ImGuiController.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
+void UIManager::LoadFile()
+{
+	std::string filePath = "Resources/Levels/" + filename_ + ".txt";
+
+	//ファイル開く(開けなかったら新規作成)
+	std::ifstream file;
+	file.open(filePath.c_str(), std::ios_base::app);
+
+	// 1行ずつ読み込む
+	std::string line;
+	while (getline(file, line)) {
+
+		// 1行分の文字列をストリームに変換して解析しやすくする
+		std::istringstream line_stream(line);
+
+		// 半角スペース区切りで行の先頭文字列を取得
+		std::string key;
+		getline(line_stream, key, ' ');
+
+		if (key.size() != 0) {
+			std::string texname;
+			line_stream >> texname;
+
+			Sprite sprite;
+			sprite.Initialize(nullptr);
+
+			Vector2D pos;
+			Vector2D size;
+			line_stream >> pos.x;
+			line_stream >> pos.y;
+			line_stream >> size.x;
+			line_stream >> size.y;
+
+			sprite.SetPosition(pos);
+			sprite.SetSize(size);
+
+			line_stream >> pos.x;
+			line_stream >> pos.y;
+			line_stream >> size.x;
+			line_stream >> size.y;
+
+			sprite.SetTextureLeftTop(pos);
+			sprite.SetTextureSize(size);
+
+			sprites_.emplace(key, sprite);
+		}
+	}
+
+	//ファイル閉じる
+	file.close();
+
+	editUI_ = true;
+}
+
+void UIManager::SaveFile()
+{
+	//	編集中じゃなかったら
+	if (!editUI_) return;
+
+	std::string filePath = "Resources/Levels/" + filename_ + ".txt";
+
+	std::ofstream outPutFile;
+	outPutFile.open(filePath, std::ios_base::app);
+
+	for (auto itr = sprites_.begin(); itr != sprites_.end(); ++itr)
+	{
+		outPutFile << itr->first << " " << itr->second.GetTexture()->GetTextureName()
+			<< " " << itr->second.GetPosition().x << " " << itr->second.GetPosition().y 
+			<< " " << itr->second.GetSize().x << " " << itr->second.GetSize().y 
+			<< " " << itr->second.GetTextureLeftTop().x << " " << itr->second.GetTextureLeftTop().y
+			<< " " << itr->second.GetTextureSize().x << " " << itr->second.GetTextureSize().y << std::endl;
+	}
+
+	outPutFile.close();
+
+	editUI_ = false;
+}
 
 void UIManager::DeleteSpriteForList()
 {
@@ -26,6 +106,10 @@ void UIManager::ReNameSprite(std::map<std::string, Sprite, std::less<>>::iterato
 
 	Sprite sprite = itr->second;
 	eraseSpriteName_.push_back(itr->first);
+
+	int ind = (int)spritename_.find_last_of('\0');
+	if (ind > 0) spritename_ = spritename_.substr(0, ind);
+
 	sprites_.emplace(spritename_, sprite);
 }
 
@@ -88,9 +172,9 @@ void UIManager::ImGuiUpdate()
 
 	if (imguiMan->BeginMenuBar()) {
 		if (imguiMan->BeginMenu("File")) {
-			//if (imguiMan->MenuItem("Load")) ;
-			//if (imguiMan->MenuItem("Save")) ;
 			if (imguiMan->MenuItem("New")) editUI_ = true;
+			if (imguiMan->MenuItem("Load")) LoadFile();
+			if (imguiMan->MenuItem("Save")) SaveFile();
 			imguiMan->EndMenu();
 		}
 		imguiMan->EndMenuBar();
