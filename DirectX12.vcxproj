@@ -70,6 +70,7 @@
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
     <ClCompile Include="Engine\2D\Texture\Texture.cpp" />
     <ClCompile Include="Engine\2D\Sprite\SplashSprite.cpp" />
+    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\3D\Camera\Base\CameraManager.h" />
@@ -136,6 +137,7 @@
     <ClInclude Include="Engine\2D\Sprite\SplashSprite.h" />
     <ClInclude Include="Engine\Base\ImGui\ImGuiController.h" />
     <ClInclude Include="Engine\2D\PostEffect\GaussBlur.h" />
+    <ClInclude Include="UIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

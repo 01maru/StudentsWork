@@ -8,6 +8,7 @@
 #include "LoadingSprite.h"
 #include "SceneFactory.h"
 #include "TextureManager.h"
+#include "UIManager.h"
 
 #include "Window.h"
 
@@ -79,6 +80,7 @@ void SceneManager::Initialize()
 
 #ifdef _DEBUG
 	ImGuiManager::GetInstance()->Initialize();
+	UIManager::GetInstance()->Initialize();
 #endif // _DEBUG
 
 #pragma region SplashScreen
@@ -217,7 +219,7 @@ void SceneManager::ImguiUpdate()
 	ImGuiController::GetInstance()->Update();
 
 	InputManager::GetInstance()->ImGuiUpdate();
-
+	UIManager::GetInstance()->ImGuiUpdate();
 	if (endLoading_) {
 		TextureManager::GetInstance()->ImGuiUpdate();
 
@@ -273,6 +275,7 @@ void SceneManager::Draw()
 
 	if (endLoading_ && !isSplashScreen_) {
 		scene_->Draw();
+		UIManager::GetInstance()->Draw();
 	}
 
 	dx->PostEffectDraw(mainScene.get());

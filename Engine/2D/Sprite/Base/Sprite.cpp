@@ -17,6 +17,9 @@ void Sprite::Initialize(Texture* texture)
 		AdjustTextureSize();
 		size_ = textureSize_;
 	}
+	else {
+		handle_ = TextureManager::GetWhiteTexture();
+	}
 
 #pragma region VertBuff
 

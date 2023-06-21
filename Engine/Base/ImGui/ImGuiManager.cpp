@@ -119,6 +119,16 @@ void ImGuiManager::SameLine()
 	ImGui::SameLine();
 }
 
+void ImGuiManager::Spacing()
+{
+	ImGui::Spacing();
+}
+
+void ImGuiManager::Separator()
+{
+	ImGui::Separator();
+}
+
 bool ImGuiManager::SetButton(const std::string& buttonName, const Vector2D& size)
 {
 	return ImGui::Button(buttonName.c_str(), ImVec2(size.x, size.y));
@@ -129,10 +139,34 @@ void ImGuiManager::SetRadioButton(const std::string& buttonName, bool& flag)
 	flag = ImGui::RadioButton(buttonName.c_str(), !flag);
 }
 
+void ImGuiManager::InputFloat3(const std::string& name, Vector3D& vec)
+{
+	float v[3] = { vec.x,vec.y,vec.z };
+	ImGui::InputFloat3(name.c_str(), v);
+
+	vec = { v[0],v[1],v[2] };
+}
+
+void ImGuiManager::InputFloat2(const std::string& name, Vector2D& vec)
+{
+	float v[2] = { vec.x,vec.y };
+	ImGui::InputFloat2(name.c_str(), v);
+
+	vec = { v[0],v[1] };
+}
+
 void ImGuiManager::SetSliderFloat(const std::string& sliderName, float& value, float spd, float minValue, float maxValue)
 {
 	//ImGui::SliderFloat(sliderName.c_str(), &value, minValue, maxValue);
 	ImGui::DragFloat(sliderName.c_str(), &value, spd, minValue, maxValue);
+}
+
+void ImGuiManager::SetSliderFloat2(const std::string& sliderName, Vector2D& value, float spd, float minValue, float maxValue)
+{
+	float v[2] = { value.x,value.y };
+	ImGui::DragFloat2(sliderName.c_str(), v, spd, minValue, maxValue);
+
+	value = { v[0],v[1] };
 }
 
 void ImGuiManager::SetSliderInt(const std::string& sliderName, int& value, float spd, size_t minValue, size_t maxValue)
@@ -158,6 +192,11 @@ void ImGuiManager::Text(const char* fmt, ...)
 	va_end(args);
 }
 
+void ImGuiManager::InputText(const std::string& name, std::string& text, size_t strLen)
+{
+	ImGui::InputText(name.c_str(), &text.front(), strLen);
+}
+
 bool ImGuiManager::BeginChild(const Vector2D& size)
 {
 	return ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(size.x, size.y), ImGuiWindowFlags_NoTitleBar);
@@ -166,4 +205,19 @@ bool ImGuiManager::BeginChild(const Vector2D& size)
 void ImGuiManager::EndChild()
 {
 	ImGui::EndChild();
+}
+
+void ImGuiManager::BeginGroup()
+{
+	ImGui::BeginGroup();
+}
+
+void ImGuiManager::EndGroup()
+{
+	ImGui::EndGroup();
+}
+
+bool ImGuiManager::CollapsingHeader(const std::string& name)
+{
+	return ImGui::CollapsingHeader(name.c_str());
 }

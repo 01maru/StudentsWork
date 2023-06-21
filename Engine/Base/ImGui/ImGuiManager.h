@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Vector2D.h"
+#include "Vector3D.h"
 
 class ImGuiManager
 {
@@ -61,9 +62,15 @@ public:
 #pragma region Input
 
 	void SameLine();
+	void Spacing();
+	void Separator();
+
 	bool SetButton(const std::string& buttonName, const Vector2D& size = Vector2D());
 	void SetRadioButton(const std::string& buttonName, bool& flag);
+	void InputFloat3(const std::string& name, Vector3D& vec);
+	void InputFloat2(const std::string& name, Vector2D& vec);
 	void SetSliderFloat(const std::string& sliderName, float& value, float spd, float minValue, float maxValue);
+	void SetSliderFloat2(const std::string& sliderName, Vector2D& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
 	void SetSliderInt(const std::string& sliderName, int& value, float spd, size_t minValue, size_t maxValue);
 	void CheckBox(const std::string& name, bool& flag);
 
@@ -71,12 +78,17 @@ public:
 
 	void LabelText(const std::string& name, const std::string& text, float value);
 	void Text(const char* fmt, ...);
+	void InputText(const std::string& name, std::string& text, size_t strLen);
 
 #pragma region Scroll
 
 	//	return isActive;
 	bool BeginChild(const Vector2D& size = Vector2D());
 	void EndChild();
+
+	void BeginGroup();
+	void EndGroup();
+	bool CollapsingHeader(const std::string& name);
 
 #pragma endregion
 };

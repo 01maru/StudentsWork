@@ -41,6 +41,6 @@ public:
 
 	//	Getter
 	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureHandle(int32_t handle);
-	Texture* GetWhiteTexture() { return sWhiteTexHandle; }
+	static Texture* GetWhiteTexture() { return sWhiteTexHandle; }
 };
 

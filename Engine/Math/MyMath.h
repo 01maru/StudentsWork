@@ -87,7 +87,7 @@ namespace MyMath {
 
 		const Matrix& GetMatWorld() { return matWorld_; }
 		float GetAngle() { return rotation_; }
-		const Vector2D& GetTrans() { return trans_; }
+		Vector2D& GetTrans() { return trans_; }
 
 		void SetAngle(float angle) { rotation_ = angle; }
 		void SetTrans(const Vector2D& trans) { trans_ = trans; }

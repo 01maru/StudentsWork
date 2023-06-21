@@ -84,12 +84,14 @@ public:
 	void Draw(GPipeline* pipeline = nullptr);
 
 	//	Getter
-	const Vector2D& GetPosition() { return mat_.GetTrans(); }
-	const Vector2D& GetSize() const { return size_; }
+	Vector2D& GetPosition() { return mat_.GetTrans(); }
+	Vector2D& GetSize() { return size_; }
 	float GetRotation() { return mat_.GetAngle(); }
 	const Vector4D& GetColor() const { return color_; }
 	const Vector2D& GetTextureSize() const { return textureSize_; }
 	const Vector2D& GetTextureLeftTop() const { return textureLeftTop_; }
+
+	Texture* GetTexture() { return handle_; }
 
 	//	Setter
 	void SetPosition(const Vector2D& position);

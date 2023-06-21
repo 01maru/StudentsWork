@@ -6,6 +6,7 @@ private:
 	bool activeVolumeManager_ = false;
 	bool activeInputManager_ = false;
 	bool activeTextureManager_ = false;
+	bool activeUIManager_ = false;
 
 private:	//	関数
 	ImGuiController() {};
@@ -22,5 +23,6 @@ public:
 	bool GetActiveVolumeManager() { return activeVolumeManager_; }
 	bool GetActiveInputManager() { return activeInputManager_; }
 	bool GetActiveTextureManager() { return activeTextureManager_; }
+	bool GetActiveUIManager() { return activeUIManager_; }
 };
 
