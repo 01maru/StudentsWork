@@ -20,6 +20,7 @@ private:
 
 	void LoadFile();
 	void SaveFile();
+	void CloseEditer();
 	void DeleteSpriteForList();
 	void AddSprite();
 	void ReNameSprite(std::map<std::string, Sprite, std::less<>>::iterator& itr);
@@ -29,8 +30,9 @@ public:
 	UIManager(const UIManager& obj) = delete;
 	UIManager& operator=(const UIManager& obj) = delete;
 
-	void Initialize();
 	void ImGuiUpdate();
 	void Draw();
+
+	bool GetEditUI() { return editUI_; }
 };
 

@@ -14,7 +14,12 @@ void UIManager::LoadFile()
 
 	//ファイル開く(開けなかったら新規作成)
 	std::ifstream file;
-	file.open(filePath.c_str(), std::ios_base::app);
+	file.open(filePath.c_str());
+
+	if (file.fail()) {
+		editUI_ = true;
+		return;
+	}
 
 	// 1行ずつ読み込む
 	std::string line;
@@ -79,7 +84,7 @@ void UIManager::SaveFile()
 
 	std::ofstream outPutFile;
 	outPutFile.open(filePath, std::ios_base::app);
-
+	
 	for (auto itr = sprites_.begin(); itr != sprites_.end(); ++itr)
 	{
 		outPutFile << itr->first << " " << itr->second.GetTexture()->GetTextureName()
@@ -92,7 +97,13 @@ void UIManager::SaveFile()
 
 	outPutFile.close();
 
+	CloseEditer();
+}
+
+void UIManager::CloseEditer()
+{
 	editUI_ = false;
+	sprites_.clear();
 }
 
 void UIManager::DeleteSpriteForList()
@@ -173,11 +184,6 @@ UIManager* UIManager::GetInstance()
 	return &instance;
 }
 
-void UIManager::Initialize()
-{
-	//sprites_.reserve(50);
-}
-
 void UIManager::ImGuiUpdate()
 {
 	if (!ImGuiController::GetInstance()->GetActiveUIManager()) return;
@@ -191,6 +197,7 @@ void UIManager::ImGuiUpdate()
 			if (imguiMan->MenuItem("New")) editUI_ = true;
 			if (imguiMan->MenuItem("Load")) LoadFile();
 			if (imguiMan->MenuItem("Save")) SaveFile();
+			if (imguiMan->MenuItem("Close")) CloseEditer();
 			imguiMan->EndMenu();
 		}
 		imguiMan->EndMenuBar();
@@ -232,6 +239,8 @@ void UIManager::ImGuiUpdate()
 
 void UIManager::Draw()
 {
+	if (!editUI_) return;
+
 	for (auto& sprite : sprites_) {
 		sprite.second.Draw();
 	}

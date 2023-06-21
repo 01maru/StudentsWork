@@ -80,7 +80,6 @@ void SceneManager::Initialize()
 
 #ifdef _DEBUG
 	ImGuiManager::GetInstance()->Initialize();
-	UIManager::GetInstance()->Initialize();
 #endif // _DEBUG
 
 #pragma region SplashScreen
