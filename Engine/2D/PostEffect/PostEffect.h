@@ -64,7 +64,7 @@ public:
 	//	Getter
 	int32_t const GetWidth() { return width_; }
 	int32_t const GetHeight() { return height_; }
-	Vector4D& GetClearColor() { return clearColor_; }
+	const Vector4D& GetClearColor() { return clearColor_; }
 
 	ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }
 	ID3D12Resource** GetTextureBuffPtr(int32_t index = 0) { return texture_[index]->GetResourceBuffAddress(); }

@@ -73,7 +73,6 @@ void SceneManager::Initialize()
 	luminnceBulr->Initialize(5.0f, luminnce.get(), DXGI_FORMAT_R11G11B10_FLOAT);
 	luminnceBulr->SetPipeline(PipelineManager::GetInstance()->GetPipeline("luminncexBlur"),
 		PipelineManager::GetInstance()->GetPipeline("luminnceyBlur"));
-	luminnceBulr->SetClearColor({ 0.0f,0.0f,0.0f,1.0f });
 
 	shadowEffect = std::make_unique<PostEffect>();
 	shadowEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R32G32_FLOAT);
@@ -258,7 +257,7 @@ void SceneManager::Draw()
 	MyDirectX* dx = MyDirectX::GetInstance();
 
 #pragma region DrawScreen
-	FLOAT shadowClearColor_[] = { 1.0f,1.0f,1.0f,1.0f };
+	Vector4D shadowClearColor_(1.0f, 1.0f, 1.0f, 1.0f);
 
 	dx->PrevPostEffect(shadowEffect.get(), shadowClearColor_);
 
@@ -282,25 +281,12 @@ void SceneManager::Draw()
 	dx->PostEffectDraw(mainScene.get());
 
 
-	FLOAT luminnceClearColor_[] = { 0.0f,0.0f,0.0f,1.0f };
+	Vector4D luminnceClearColor_(0.0f, 0.0f, 0.0f, 1.0f);
 	dx->PrevPostEffect(luminnce.get(), luminnceClearColor_);
 
 	mainScene->DrawLuminnce();
 
 	dx->PostEffectDraw(luminnce.get());
-
-
-	//dx->PrevPostEffect(xbulrluminnce.get());
-
-	//luminnce->Draw(nullptr, true, false, false);
-
-	//dx->PostEffectDraw(xbulrluminnce.get());
-
-	//dx->PrevPostEffect(ybulrluminnce.get());
-
-	//xbulrluminnce->Draw(nullptr, false, true, false);
-
-	//dx->PostEffectDraw(ybulrluminnce.get());
 
 	luminnceBulr->Draw();
 
@@ -311,11 +297,11 @@ void SceneManager::Draw()
 	}
 
 	dx->PostEffectDraw(glayscale.get());
-#pragma endregion
 
-#pragma region MultiPath
-	FLOAT clearColor_[] = { 0.0f,0.0f,0.0f,1.0f };
-	dx->PrevDraw(clearColor_);
+
+#pragma region DrawBackBuffer
+	Vector4D clearColor_(0.0f, 0.0f, 0.0f, 1.0f);
+	dx->PrevDraw();
 
 	glayscale->DrawGlayScale(PipelineManager::GetInstance()->GetPipeline("glayScale"));
 
@@ -332,7 +318,10 @@ void SceneManager::Draw()
 #ifdef _DEBUG
 	ImGuiManager::GetInstance()->Draw();
 #endif // _DEBUG
+
 	dx->PostDraw();
+#pragma endregion
+
 #pragma endregion
 }
 

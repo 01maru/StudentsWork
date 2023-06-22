@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "ViewPortScissorRect.h"
 #include "DepthStencil.h"
+#include "Vector4D.h"
 
 #include <d3d12.h>
 #include <dxgi1_6.h>
@@ -14,7 +15,6 @@
 #pragma comment(lib, "dxgi.lib")
 
 class PostEffect;
-class Vector4D;
 
 class MyDirectX
 {
@@ -53,13 +53,11 @@ private:
 private:
 	void DebugLayer();
 
-	void ScreenClear(FLOAT* clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
-	void ScreenClear(D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
-	void ScreenClear(Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
+	void ScreenClear(const Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
 	
 	void SetResourceBarrier(D3D12_RESOURCE_BARRIER& desc, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, ID3D12Resource* pResource = nullptr);
 	void CmdListDrawAble(D3D12_RESOURCE_BARRIER& barrierDesc, ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter,
-		D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum = 1, FLOAT* clearColor = nullptr);
+		D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum = 1, const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
 	
 	MyDirectX() {};
 	~MyDirectX() {};
@@ -69,10 +67,11 @@ public:
 	MyDirectX& operator=(const MyDirectX& obj) = delete;
 
 	void Initialize();
-	void PrevPostEffect(PostEffect* postEffect, Vector4D& clearColor);
-	void PrevPostEffect(PostEffect* postEffect, FLOAT* clearColor = nullptr);
+
+	void PrevPostEffect(PostEffect* postEffect, const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
 	void PostEffectDraw(PostEffect* postEffect);
-	void PrevDraw(FLOAT* clearColor = nullptr);
+
+	void PrevDraw(const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
 	void PostDraw();
 
 	//	Getter
