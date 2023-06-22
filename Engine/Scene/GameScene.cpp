@@ -107,7 +107,7 @@ void GameScene::Draw()
 	//skydome_->Draw();
 	//	地面
 	//ground->Draw();
-	//cube_->Draw();
+	cube_->Draw();
 	player_->Draw();
 
 	level.Draw();

@@ -187,6 +187,12 @@
     <Filter Include="ヘッダー ファイル\lib\2D\Sprite">
       <UniqueIdentifier>{ced67229-c305-43ef-825f-4d31272b0ad6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\lib\2D\Screen\Blur">
+      <UniqueIdentifier>{4444413a-8216-4b8a-90fd-3d548281ec70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\lib\2D\Screen\Blur">
+      <UniqueIdentifier>{79e09857-c353-40a4-9200-0f1a524e1d37}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -363,9 +369,6 @@
     <ClCompile Include="Engine\2D\Sprite\DebugTextManager.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\PostEffect\GaussBlur.cpp">
-      <Filter>ソース ファイル\lib\2D\Screen</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\Base\UIManager.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
@@ -378,11 +381,8 @@
     <ClCompile Include="Engine\Base\DepthStencil.cpp">
       <Filter>ソース ファイル\lib\Engine\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="GaussBlurX.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="IPostEffect.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\2D\PostEffect\GaussBlur.cpp">
+      <Filter>ソース ファイル\lib\2D\Screen\Blur</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -575,9 +575,6 @@
     <ClInclude Include="Engine\2D\Sprite\SplashSprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\PostEffect\GaussBlur.h">
-      <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\Base\UIManager.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
     </ClInclude>
@@ -590,11 +587,8 @@
     <ClInclude Include="Engine\Base\DepthStencil.h">
       <Filter>ヘッダー ファイル\lib\Engine\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="GaussBlurX.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IPostEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\2D\PostEffect\GaussBlur.h">
+      <Filter>ヘッダー ファイル\lib\2D\Screen\Blur</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

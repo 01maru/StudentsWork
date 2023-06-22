@@ -62,24 +62,27 @@ void SceneManager::Initialize()
 
 #pragma region PostEffect
 	glayscale = std::make_unique<PostEffect>();
-	glayscale->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, 1.0f, DXGI_FORMAT_R11G11B10_FLOAT);
+	glayscale->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
 
 	mainScene = std::make_unique<PostEffect>();
-	mainScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, 1.0f, DXGI_FORMAT_R11G11B10_FLOAT);
+	mainScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
 	luminnce = std::make_unique<PostEffect>();
-	luminnce->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, 5.0f, DXGI_FORMAT_R11G11B10_FLOAT);
-	xbulrluminnce = std::make_unique<PostEffect>();
-	xbulrluminnce->Initialize(Window::sWIN_WIDTH / 2, Window::sWIN_HEIGHT, 5.0f, DXGI_FORMAT_R11G11B10_FLOAT);
-	ybulrluminnce = std::make_unique<PostEffect>();
-	ybulrluminnce->Initialize(Window::sWIN_WIDTH / 2, Window::sWIN_HEIGHT / 2, 5.0f, DXGI_FORMAT_R11G11B10_FLOAT);
+	luminnce->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
+
+	luminnceBulr = std::make_unique<GaussBlur>();
+	luminnceBulr->Initialize(5.0f, luminnce.get(), DXGI_FORMAT_R11G11B10_FLOAT);
+	luminnceBulr->SetPipeline(PipelineManager::GetInstance()->GetPipeline("luminncexBlur"),
+		PipelineManager::GetInstance()->GetPipeline("luminnceyBlur"));
+	luminnceBulr->SetClearColor({ 0.0f,0.0f,0.0f,1.0f });
 
 	shadowEffect = std::make_unique<PostEffect>();
-	shadowEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, 1.0f, DXGI_FORMAT_R32G32_FLOAT);
-	
-	xbulr = std::make_unique<PostEffect>();
-	xbulr->Initialize(Window::sWIN_WIDTH / 2, Window::sWIN_HEIGHT, 1.0f, DXGI_FORMAT_R32G32_FLOAT);
-	ybulr = std::make_unique<PostEffect>();
-	ybulr->Initialize(Window::sWIN_WIDTH / 2, Window::sWIN_HEIGHT / 2, 1.0f, DXGI_FORMAT_R32G32_FLOAT);
+	shadowEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R32G32_FLOAT);
+
+	shadowBulr = std::make_unique<GaussBlur>();
+	shadowBulr->Initialize(1.0f, shadowEffect.get(), DXGI_FORMAT_R32G32_FLOAT);
+	shadowBulr->SetPipeline(PipelineManager::GetInstance()->GetPipeline("xBlur"),
+		PipelineManager::GetInstance()->GetPipeline("yBlur"));
+	shadowBulr->SetClearColor({ 1.0f,1.0f,1.0f,1.0f });
 
 #pragma endregion
 
@@ -266,17 +269,7 @@ void SceneManager::Draw()
 	dx->PostEffectDraw(shadowEffect.get());
 
 
-	dx->PrevPostEffect(xbulr.get(), shadowClearColor_);
-
-	shadowEffect->Draw(nullptr, true, false, true);
-
-	dx->PostEffectDraw(xbulr.get());
-
-	dx->PrevPostEffect(ybulr.get(), shadowClearColor_);
-
-	xbulr->Draw(nullptr, false, true, true);
-
-	dx->PostEffectDraw(ybulr.get());
+	shadowBulr->Draw();
 
 	
 	dx->PrevPostEffect(mainScene.get());
@@ -297,22 +290,24 @@ void SceneManager::Draw()
 	dx->PostEffectDraw(luminnce.get());
 
 
-	dx->PrevPostEffect(xbulrluminnce.get());
+	//dx->PrevPostEffect(xbulrluminnce.get());
 
-	luminnce->Draw(nullptr, true, false, false);
+	//luminnce->Draw(nullptr, true, false, false);
 
-	dx->PostEffectDraw(xbulrluminnce.get());
+	//dx->PostEffectDraw(xbulrluminnce.get());
 
-	dx->PrevPostEffect(ybulrluminnce.get());
+	//dx->PrevPostEffect(ybulrluminnce.get());
 
-	xbulrluminnce->Draw(nullptr, false, true, false);
+	//xbulrluminnce->Draw(nullptr, false, true, false);
 
-	dx->PostEffectDraw(ybulrluminnce.get());
+	//dx->PostEffectDraw(ybulrluminnce.get());
+
+	luminnceBulr->Draw();
 
 	dx->PrevPostEffect(glayscale.get());
 
 	if (!isSplashScreen_) {
-		mainScene->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect", GPipeline::NONE_BLEND), false, false, false, ybulrluminnce->GetTexture()->GetHandle());
+		mainScene->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect"), false, luminnceBulr->GetTexture(0)->GetHandle());
 	}
 
 	dx->PostEffectDraw(glayscale.get());

@@ -14,6 +14,7 @@
 #pragma comment(lib, "dxgi.lib")
 
 class PostEffect;
+class Vector4D;
 
 class MyDirectX
 {
@@ -54,6 +55,7 @@ private:
 
 	void ScreenClear(FLOAT* clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
 	void ScreenClear(D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
+	void ScreenClear(Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
 	
 	void SetResourceBarrier(D3D12_RESOURCE_BARRIER& desc, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, ID3D12Resource* pResource = nullptr);
 	void CmdListDrawAble(D3D12_RESOURCE_BARRIER& barrierDesc, ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter,
@@ -67,6 +69,7 @@ public:
 	MyDirectX& operator=(const MyDirectX& obj) = delete;
 
 	void Initialize();
+	void PrevPostEffect(PostEffect* postEffect, Vector4D& clearColor);
 	void PrevPostEffect(PostEffect* postEffect, FLOAT* clearColor = nullptr);
 	void PostEffectDraw(PostEffect* postEffect);
 	void PrevDraw(FLOAT* clearColor = nullptr);

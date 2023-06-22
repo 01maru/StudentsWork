@@ -27,18 +27,18 @@ private:
 	CBuff::CBuffColorMaterial* cMaterialMap_ = nullptr;
 	ConstBuff material_;
 
-	ConstBuff weight_;
-
 	CBuff::CBuffGlayScale* cGlayScaleMap_ = nullptr;
 	ConstBuff activeGlay_;
 	
 #pragma endregion
 
-	std::vector<float> weights_;
-
 	D3D12_RESOURCE_BARRIER barrierDesc_{};
 
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
+
+	int32_t width_ = 0;
+	int32_t height_ = 0;
+	Vector4D clearColor_ = { 0.1f,0.25f, 0.5f,0.0f };
 
 	ComPtr<ID3D12DescriptorHeap> rtvHeap_;
 	//	ビューポートシザー矩形
@@ -46,18 +46,25 @@ private:
 
 	DepthStencil dsv_;
 public:
-	void Initialize(int32_t width, int32_t height, float weight, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
+	void Initialize(int32_t width, int32_t height, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 	void Initialize(int32_t width, int32_t height, int32_t textureNum, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 	void RSSetVPandSR();
 	void DrawLuminnce();
-	void SetGPipelineAndIAVertIdxBuff(GPipeline& pipeline);
+	void SetGPipelineAndIAVertIdxBuff(GPipeline* pipeline);
 	void DrawGlayScale(GPipeline* pipeline);
-	void Draw(GPipeline* pipeline, bool xBlur, bool yBlur, bool shadow, int32_t handle1 = -1);
+	void Draw(GPipeline* pipeline, bool shadow, int32_t handle1 = -1);
 	void SetColor(const Vector4D& color);
 
+	void Draw();
+
 	void SetGlayScale(bool active);
+
+	//	Getter
+	int32_t const GetWidth() { return width_; }
+	int32_t const GetHeight() { return height_; }
+	Vector4D& GetClearColor() { return clearColor_; }
 
 	ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }
 	ID3D12Resource** GetTextureBuffPtr(int32_t index = 0) { return texture_[index]->GetResourceBuffAddress(); }

@@ -8,6 +8,8 @@
 #include "ILoadingObj.h"
 #include "FrameCounter.h"
 
+#include "GaussBlur.h"
+
 class SceneManager
 {
 private:
@@ -38,11 +40,10 @@ private:
 #pragma region PostEffect
 	std::unique_ptr<PostEffect> mainScene;
 	std::unique_ptr<PostEffect> luminnce;
-	std::unique_ptr<PostEffect> xbulrluminnce;
-	std::unique_ptr<PostEffect> ybulrluminnce;
+
 	std::unique_ptr<PostEffect> shadowEffect;
-	std::unique_ptr<PostEffect> xbulr;
-	std::unique_ptr<PostEffect> ybulr;
+	std::unique_ptr<GaussBlur> luminnceBulr;
+	std::unique_ptr<GaussBlur> shadowBulr;
 	std::unique_ptr<PostEffect> glayscale;
 #pragma endregion
 
@@ -74,6 +75,6 @@ public:
 	void ChangeScreenColor(const Vector4D& color) { mainScene->SetColor(color); }
 	void SetNextScene(const std::string& sceneName);
 
-	Texture* GetShadowMap() { return ybulr->GetTexture(); }
+	Texture* GetShadowMap() { return shadowBulr->GetTexture(0); }
 };
 

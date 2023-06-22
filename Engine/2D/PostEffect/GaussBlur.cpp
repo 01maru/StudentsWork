@@ -2,9 +2,10 @@
 #include "DirectX.h"
 #include "ConstBuffStruct.h"
 #include "PostEffect.h"
+#include "TextureManager.h"
 #include <cassert>
 
-void GaussBlur::Initialize(float weight)
+void GaussBlur::Initialize(float weight, PostEffect* original, DXGI_FORMAT format)
 {
 #pragma region ConstBuff
 
@@ -25,22 +26,52 @@ void GaussBlur::Initialize(float weight)
 
 #pragma endregion
 
-	//blurX_.Initialize();
+	original_ = original;
+
+	int32_t width = original_->GetWidth() / 2;
+	int32_t height = original_->GetHeight();
+	blurX_ = std::make_unique<PostEffect>();
+	blurX_->Initialize(width, height, 1, format);
+
+	height /= 2;
+	blurY_ = std::make_unique<PostEffect>();
+	blurY_->Initialize(width, height, 1, format);
 }
 
 void GaussBlur::Draw()
 {
-	//MyDirectX* dx = MyDirectX::GetInstance();
+	MyDirectX* dx = MyDirectX::GetInstance();
 
-	//dx->PrevPostEffect(&blurX_);
 
-	//origin_->Draw(nullptr, true, false, false);
+	dx->PrevPostEffect(blurX_.get(), blurX_->GetClearColor());
 
-	//dx->PostEffectDraw(&blurX_);
+	blurX_->SetGPipelineAndIAVertIdxBuff(pipeline[0]);
+	weight_.SetGraphicsRootCBuffView(2);
 
-	//dx->PrevPostEffect(&postEffect_[1]);
+	original_->Draw();
 
-	//postEffect_[0].Draw(nullptr, false, true, false);
+	dx->PostEffectDraw(blurX_.get());
 
-	//dx->PostEffectDraw(&postEffect_[1]);
+	dx->PrevPostEffect(blurY_.get(), blurY_->GetClearColor());
+
+	blurX_->SetGPipelineAndIAVertIdxBuff(pipeline[1]);
+
+	dx->GetCmdList()->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(blurX_->GetTexture()->GetHandle()));
+	weight_.SetGraphicsRootCBuffView(2);
+
+	blurX_->DrawIndexedInstanced();
+
+	dx->PostEffectDraw(blurY_.get());
+}
+
+void GaussBlur::SetPipeline(GPipeline* blurXPipeline, GPipeline* blurYPipeline)
+{
+	pipeline[0] = blurXPipeline;
+	pipeline[1] = blurYPipeline;
+}
+
+void GaussBlur::SetClearColor(const Vector4D& color)
+{
+	blurX_->SetColor(color);
+	blurY_->SetColor(color);
 }

@@ -1,6 +1,7 @@
 ﻿#include "DirectX.h"
 #include "Window.h"
 #include "PostEffect.h"
+#include "Vector4D.h"
 #include <cassert>
 
 #pragma comment (lib, "winmm.lib")
@@ -237,6 +238,12 @@ void MyDirectX::ScreenClear(D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle)
 	cmdList_->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
 }
 
+void MyDirectX::ScreenClear(Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle)
+{
+	FLOAT color[] = { clearColor.x,clearColor.y, clearColor.z,clearColor.w };
+	cmdList_->ClearRenderTargetView(rtvHandle, color, 0, nullptr);
+}
+
 void MyDirectX::CmdListDrawAble(D3D12_RESOURCE_BARRIER& desc, ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum, FLOAT* clearColor)
 {
 	// 1.リソースバリアで書き込み可能に変更
@@ -257,6 +264,42 @@ void MyDirectX::CmdListDrawAble(D3D12_RESOURCE_BARRIER& desc, ID3D12Resource* pR
 	}
 	cmdList_->ClearDepthStencilView(dsvHandle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 #pragma endregion
+}
+
+void MyDirectX::PrevPostEffect(PostEffect* postEffect, Vector4D& clearColor)
+{
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = postEffect->GetRTVHeap()->GetCPUDescriptorHandleForHeapStart();
+	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle_ = postEffect->GetDSVHeap()->GetCPUDescriptorHandleForHeapStart();
+
+	size_t num = postEffect->GetTextureNum();
+	for (size_t i = 0; i < num; i++)
+	{
+		// 1.リソースバリアで書き込み可能に変更
+#pragma region ReleaseBarrier
+		SetResourceBarrier(postEffect->GetResouceBarrier(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+			D3D12_RESOURCE_STATE_RENDER_TARGET, postEffect->GetTextureBuff((int32_t)i));
+#pragma endregion ReleaseBarrier
+	}
+
+	// 2.描画先の変更
+#pragma region Change
+	cmdList_->OMSetRenderTargets((UINT)num, &rtvHandle, true, &dsvHandle_);
+#pragma endregion Change
+
+	// 3.画面クリア
+#pragma region ScreenClear
+	for (size_t i = 0; i < postEffect->GetTextureNum(); i++)
+	{
+		rtvHandle.ptr += device_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV) * i;
+
+		ScreenClear(clearColor, rtvHandle);
+	}
+	cmdList_->ClearDepthStencilView(dsvHandle_, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+#pragma endregion
+
+	postEffect->RSSetVPandSR();
+
+	cmdList_->SetDescriptorHeaps(1, srvHeap_.GetAddressOf());
 }
 
 void MyDirectX::PrevPostEffect(PostEffect* postEffect, FLOAT* clearColor)
