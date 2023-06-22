@@ -324,18 +324,26 @@ void MyDirectX::PostDraw()
 #pragma region ReleaseBarrier
 	SetResourceBarrier(barrierDesc_, D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
 #pragma endregion ReleaseBarrier
+}
 
+void MyDirectX::CmdListCloseAndFlip()
+{
 	// 命令のクローズ
 #pragma region CmdClose
 	HRESULT result = cmdList_->Close();
 	assert(SUCCEEDED(result));
 	// 溜めていたコマンドリストの実行(close必須)
-	ID3D12CommandList* commandLists[] = { cmdList_.Get()};
+	ID3D12CommandList* commandLists[] = { cmdList_.Get() };
 	cmdQueue_->ExecuteCommandLists(1, commandLists);
 	// 画面に表示するバッファをフリップ(裏表の入替え)
 	result = swapChain_->Present(1, 0);
 	assert(SUCCEEDED(result));
 #pragma endregion CmdClose
+}
+
+void MyDirectX::DrawEnd()
+{
+	CmdListCloseAndFlip();
 
 #pragma region ChangeScreen
 	// コマンドの実行完了を待つ
@@ -350,7 +358,7 @@ void MyDirectX::PostDraw()
 		}
 	}
 	// キューをクリア
-	result = cmdAllocator_->Reset();
+	HRESULT result = cmdAllocator_->Reset();
 	assert(SUCCEEDED(result));
 	// 再びコマンドリストを貯める準備
 	result = cmdList_->Reset(cmdAllocator_.Get(), nullptr);

@@ -61,11 +61,13 @@ void SceneManager::Initialize()
 #pragma endregion
 
 #pragma region PostEffect
-	glayscale = std::make_unique<PostEffect>();
-	glayscale->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
 
 	mainScene = std::make_unique<PostEffect>();
 	mainScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
+
+	glayscale = std::make_unique<GlayScale>();
+	glayscale->Initialize(mainScene.get());
+
 	luminnce = std::make_unique<PostEffect>();
 	luminnce->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
 
@@ -300,10 +302,9 @@ void SceneManager::Draw()
 
 
 #pragma region DrawBackBuffer
-	Vector4D clearColor_(0.0f, 0.0f, 0.0f, 1.0f);
 	dx->PrevDraw();
 
-	glayscale->DrawGlayScale(PipelineManager::GetInstance()->GetPipeline("glayScale"));
+	glayscale->DrawGlay();
 
 	loadObj_->Draw();
 
@@ -321,8 +322,9 @@ void SceneManager::Draw()
 
 	dx->PostDraw();
 #pragma endregion
-
 #pragma endregion
+
+	dx->DrawEnd();
 }
 
 void SceneManager::SceneChange()

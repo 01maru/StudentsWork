@@ -19,13 +19,9 @@ void PostEffect::Initialize(int32_t width, int32_t height, DXGI_FORMAT format)
 
 #pragma region  ConstBuffer
 
-	activeGlay_.Initialize((sizeof(CBuff::CBuffGlayScale) + 0xFF) & ~0xFF);
-	HRESULT result = activeGlay_.GetResource()->Map(0, nullptr, (void**)&cGlayScaleMap_);	//	マッピング
-	assert(SUCCEEDED(result));
-
 	material_.Initialize((sizeof(CBuff::CBuffColorMaterial) + 0xFF) & ~0xFF);
 
-	result = material_.GetResource()->Map(0, nullptr, (void**)&cMaterialMap_);	//	マッピング
+	HRESULT result = material_.GetResource()->Map(0, nullptr, (void**)&cMaterialMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 	SetColor(color_);
 
@@ -284,10 +280,9 @@ void PostEffect::Draw()
 	PlanePolygon::DrawIndexedInstanced();
 }
 
-void PostEffect::SetGlayScale(bool active)
-{
-	cGlayScaleMap_->active = active;
-}
+//void PostEffect::SetGlayScale(bool active)
+//{
+//}
 
 void PostEffect::RSSetVPandSR()
 {
@@ -315,19 +310,4 @@ void PostEffect::SetGPipelineAndIAVertIdxBuff(GPipeline* pipeline)
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	VertIdxBuff::IASetVertIdxBuff();
-}
-
-void PostEffect::DrawGlayScale(GPipeline* pipeline)
-{
-	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
-	pipeline->SetGraphicsRootSignature();
-	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	VertIdxBuff::IASetVertIdxBuff();
-
-	//	テクスチャ
-	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
-	material_.SetGraphicsRootCBuffView(1);
-	activeGlay_.SetGraphicsRootCBuffView(2);
-
-	PlanePolygon::DrawIndexedInstanced();
 }

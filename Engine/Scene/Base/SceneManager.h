@@ -9,6 +9,7 @@
 #include "FrameCounter.h"
 
 #include "GaussBlur.h"
+#include "GlayScale.h"
 
 class SceneManager
 {
@@ -44,7 +45,7 @@ private:
 	std::unique_ptr<PostEffect> shadowEffect;
 	std::unique_ptr<GaussBlur> luminnceBulr;
 	std::unique_ptr<GaussBlur> shadowBulr;
-	std::unique_ptr<PostEffect> glayscale;
+	std::unique_ptr<GlayScale> glayscale;
 #pragma endregion
 
 private:	//	関数

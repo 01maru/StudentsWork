@@ -26,9 +26,6 @@ private:
 
 	CBuff::CBuffColorMaterial* cMaterialMap_ = nullptr;
 	ConstBuff material_;
-
-	CBuff::CBuffGlayScale* cGlayScaleMap_ = nullptr;
-	ConstBuff activeGlay_;
 	
 #pragma endregion
 
@@ -53,13 +50,10 @@ public:
 	void RSSetVPandSR();
 	void DrawLuminnce();
 	void SetGPipelineAndIAVertIdxBuff(GPipeline* pipeline);
-	void DrawGlayScale(GPipeline* pipeline);
 	void Draw(GPipeline* pipeline, bool shadow, int32_t handle1 = -1);
 	void SetColor(const Vector4D& color);
 
 	void Draw();
-
-	void SetGlayScale(bool active);
 
 	//	Getter
 	int32_t const GetWidth() { return width_; }

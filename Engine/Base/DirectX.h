@@ -58,6 +58,7 @@ private:
 	void SetResourceBarrier(D3D12_RESOURCE_BARRIER& desc, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, ID3D12Resource* pResource = nullptr);
 	void CmdListDrawAble(D3D12_RESOURCE_BARRIER& barrierDesc, ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter,
 		D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum = 1, const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
+	void CmdListCloseAndFlip();
 	
 	MyDirectX() {};
 	~MyDirectX() {};
@@ -73,6 +74,8 @@ public:
 
 	void PrevDraw(const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
 	void PostDraw();
+
+	void DrawEnd();
 
 	//	Getter
 	const D3D12_CPU_DESCRIPTOR_HANDLE GetCPUSRVHeapForHeapStart() { return srvHeap_->GetCPUDescriptorHandleForHeapStart(); }
