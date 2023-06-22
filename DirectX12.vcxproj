@@ -67,6 +67,8 @@
     <ClCompile Include="Engine\Base\ImGui\ImGuiController.cpp" />
     <ClCompile Include="Engine\2D\PostEffect\GaussBlur.cpp" />
     <ClCompile Include="Engine\Base\JSONLoader.cpp" />
+    <ClCompile Include="GaussBlurX.cpp" />
+    <ClCompile Include="IPostEffect.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -144,6 +146,8 @@
     <ClInclude Include="Engine\2D\Sprite\Base\UIManager.h" />
     <ClInclude Include="Engine\Base\JSONLoader.h" />
     <ClInclude Include="Engine\2D\PostEffect\PlanePolygon.h" />
+    <ClInclude Include="GaussBlurX.h" />
+    <ClInclude Include="IPostEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

@@ -1,12 +1,15 @@
 ﻿#pragma once
-#include "PostEffect.h"
+#include "GaussBlurX.h"
+#include "ConstBuff.h"
+
+class PostEffect;
 
 class GaussBlur
 {
 private:
-	PostEffect* origin_ = nullptr;
-	PostEffect postEffect_[2];
+	PostEffect* origin_;
 
+	GaussBlurX blurX_;
 #pragma region ConstBuff
 
 	ConstBuff weight_;

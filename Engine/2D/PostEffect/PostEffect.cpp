@@ -188,7 +188,7 @@ void PostEffect::SetColor(const Vector4D& color)
 	cMaterialMap_->color = color;
 }
 
-void PostEffect::Setting()
+void PostEffect::RSSetVPandSR()
 {
 	viewPortSciRect_.RSSetVPandSR();
 }

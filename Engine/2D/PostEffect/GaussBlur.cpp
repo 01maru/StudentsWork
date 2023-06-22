@@ -1,6 +1,7 @@
 ﻿#include "GaussBlur.h"
 #include "DirectX.h"
 #include "ConstBuffStruct.h"
+#include "PostEffect.h"
 #include <cassert>
 
 void GaussBlur::Initialize(float weight)
@@ -24,20 +25,22 @@ void GaussBlur::Initialize(float weight)
 
 #pragma endregion
 
+	//blurX_.Initialize();
 }
 
 void GaussBlur::Draw()
 {
-	MyDirectX* dx = MyDirectX::GetInstance();
-	dx->PrevPostEffect(&postEffect_[0]);
+	//MyDirectX* dx = MyDirectX::GetInstance();
 
-	origin_->Draw(nullptr, true, false, false);
+	//dx->PrevPostEffect(&blurX_);
 
-	dx->PostEffectDraw(&postEffect_[0]);
+	//origin_->Draw(nullptr, true, false, false);
 
-	dx->PrevPostEffect(&postEffect_[1]);
+	//dx->PostEffectDraw(&blurX_);
 
-	postEffect_[0].Draw(nullptr, false, true, false);
+	//dx->PrevPostEffect(&postEffect_[1]);
 
-	dx->PostEffectDraw(&postEffect_[1]);
+	//postEffect_[0].Draw(nullptr, false, true, false);
+
+	//dx->PostEffectDraw(&postEffect_[1]);
 }

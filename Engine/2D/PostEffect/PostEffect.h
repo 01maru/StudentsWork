@@ -46,7 +46,7 @@ public:
 
 	void Initialize(int32_t width, int32_t height, int32_t textureNum, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
-	void Setting();
+	void RSSetVPandSR();
 	void DrawLuminnce();
 	void SetGPipelineAndIAVertIdxBuff(GPipeline& pipeline);
 	void Draw(GPipeline* pipeline, bool xBlur, bool yBlur, bool shadow, int32_t handle1 = -1);
@@ -61,4 +61,3 @@ public:
 	Texture* GetTexture() { return texture_[0]; }
 	Texture* GetTexture(int32_t index) { return texture_[index]; }
 };
-

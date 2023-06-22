@@ -378,6 +378,12 @@
     <ClCompile Include="Engine\Base\DepthStencil.cpp">
       <Filter>ソース ファイル\lib\Engine\Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="GaussBlurX.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="IPostEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -583,6 +589,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Base\DepthStencil.h">
       <Filter>ヘッダー ファイル\lib\Engine\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="GaussBlurX.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="IPostEffect.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

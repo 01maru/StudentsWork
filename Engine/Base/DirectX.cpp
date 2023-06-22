@@ -227,6 +227,16 @@ void MyDirectX::SetResourceBarrier(D3D12_RESOURCE_BARRIER& desc, D3D12_RESOURCE_
 	cmdList_->ResourceBarrier(1, &desc);
 }
 
+void MyDirectX::ScreenClear(FLOAT* clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle)
+{
+	cmdList_->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+}
+void MyDirectX::ScreenClear(D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle)
+{
+	FLOAT clearColor[] = { 0.1f,0.25f, 0.5f,0.0f };
+	cmdList_->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+}
+
 void MyDirectX::CmdListDrawAble(D3D12_RESOURCE_BARRIER& desc, ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum, FLOAT* clearColor)
 {
 	// 1.リソースバリアで書き込み可能に変更
@@ -285,7 +295,7 @@ void MyDirectX::PrevPostEffect(PostEffect* postEffect, FLOAT* clearColor)
 	cmdList_->ClearDepthStencilView(dsvHandle_, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 #pragma endregion
 
-	postEffect->Setting();
+	postEffect->RSSetVPandSR();
 
 	cmdList_->SetDescriptorHeaps(1, srvHeap_.GetAddressOf());
 }
@@ -360,14 +370,3 @@ void MyDirectX::PostDraw()
 	assert(SUCCEEDED(result));
 #pragma endregion ChangeScreen
 }
-
-void MyDirectX::ScreenClear(FLOAT* clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle)
-{
-	cmdList_->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
-}
-void MyDirectX::ScreenClear(D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle)
-{
-	FLOAT clearColor[] = { 0.1f,0.25f, 0.5f,0.0f };
-	cmdList_->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
-}
-
