@@ -24,9 +24,9 @@ void JSONLoader::LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nl
 		//	トランスフォームのパラメータ読み込み
 		nlohmann::json& transform = itr.value()["transform"];
 		//	平行移動
-		cameraData.eye.x = (float)transform["translation"][1];
-		cameraData.eye.y = (float)transform["translation"][2];
-		cameraData.eye.z = -(float)transform["translation"][0];
+		cameraData_.eye.x = (float)transform["translation"][1];
+		cameraData_.eye.y = (float)transform["translation"][2];
+		cameraData_.eye.z = -(float)transform["translation"][0];
 	}
 	if (type.compare("EMPTY") == 0) {
 
@@ -35,9 +35,23 @@ void JSONLoader::LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nl
 				//	トランスフォームのパラメータ読み込み
 				nlohmann::json& transform = itr.value()["transform"];
 				//	平行移動
-				cameraData.target.x = (float)transform["translation"][1];
-				cameraData.target.y = (float)transform["translation"][2];
-				cameraData.target.z = -(float)transform["translation"][0];
+				cameraData_.target.x = (float)transform["translation"][1];
+				cameraData_.target.y = (float)transform["translation"][2];
+				cameraData_.target.z = -(float)transform["translation"][0];
+			}
+		}
+		if (itr.value().contains("name")) {
+			if (itr.value()["name"] == "PlayerSpawn") {
+				//	トランスフォームのパラメータ読み込み
+				nlohmann::json& transform = itr.value()["transform"];
+				//	平行移動
+				playerData_.pos.x = (float)transform["translation"][1];
+				playerData_.pos.y = (float)transform["translation"][2];
+				playerData_.pos.z = -(float)transform["translation"][0];
+				//	回転角
+				playerData_.rotation.x = -(float)transform["rotation"][1];
+				playerData_.rotation.y = -(float)transform["rotation"][2];
+				playerData_.rotation.z = (float)transform["rotation"][0];
 			}
 		}
 	}
@@ -118,7 +132,7 @@ void JSONLoader::LoadJSON(std::string jsonname)
 	LoadModel();
 
 	std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
-	camera->Initialize(cameraData.eye, cameraData.target, Vector3D(0.0f, 1.0f, 0.0f));
+	camera->Initialize(cameraData_.eye, cameraData_.target, Vector3D(0.0f, 1.0f, 0.0f));
 	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
 
 	for (auto& objectData : levelData_->objects)

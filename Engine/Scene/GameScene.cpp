@@ -19,11 +19,13 @@ void GameScene::LoadResources()
 	modelSkydome_ = std::make_unique<ObjModel>("skydome");
 	modelGround_ = std::make_unique<ObjModel>("ground");
 	modelCube_ = std::make_unique<ObjModel>("objCube");
+	modelPlayer_ = std::make_unique<ObjModel>("chr_sword");
 #pragma endregion
 	//	天球
 	skydome_.reset(Object3D::Create(modelSkydome_.get()));
 	//	地面
 	ground_.reset(Object3D::Create(modelGround_.get()));
+	player_.reset(Object3D::Create(modelPlayer_.get()));
 	//	Cube
 	cube_.reset(Object3D::Create(modelCube_.get()));
 	cube_->SetScale({ 5.0f,5.0f,5.0f });
@@ -48,7 +50,10 @@ void GameScene::Initialize()
 	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
 	LoadResources();
 
-	level.LoadJSON("untitled");
+	level.LoadJSON("test");
+
+	player_->SetPosition(level.GetPlayerSpownPoint().pos);
+	player_->SetRotation(level.GetPlayerSpownPoint().rotation);
 
 	XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 }
@@ -66,6 +71,7 @@ void GameScene::MatUpdate()
 	skydome_->MatUpdate();
 
 	cube_->MatUpdate();
+	player_->MatUpdate();
 
 	level.MatUpdate();
 }
@@ -102,6 +108,7 @@ void GameScene::Draw()
 	//	地面
 	//ground->Draw();
 	//cube_->Draw();
+	player_->Draw();
 
 	level.Draw();
 

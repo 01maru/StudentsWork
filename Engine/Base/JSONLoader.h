@@ -23,6 +23,12 @@ struct CameraData
 	Vector3D target;
 };
 
+struct PlayerData
+{
+	Vector3D pos;
+	Vector3D rotation;
+};
+
 struct LevelData
 {
 	std::vector<ObjectData> objects;
@@ -37,7 +43,8 @@ private:
 	std::vector<std::unique_ptr<Object3D>> objects_;
 	std::unique_ptr<LevelData> levelData_;
 
-	CameraData cameraData;
+	CameraData cameraData_;
+	PlayerData playerData_;
 
 	void LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::json>& itr, ObjectData* parent);
 public:
@@ -45,5 +52,7 @@ public:
 	void LoadModel();
 	void MatUpdate();
 	void Draw();
+
+	const PlayerData& GetPlayerSpownPoint() { return playerData_; }
 };
 

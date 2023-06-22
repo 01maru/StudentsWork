@@ -20,6 +20,7 @@ private:
 	std::unique_ptr<Object3D> skydome_;
 	std::unique_ptr<Object3D> ground_;
 	std::unique_ptr<Object3D> cube_;
+	std::unique_ptr<Object3D> player_;
 
 #pragma endregion
 
@@ -28,6 +29,7 @@ private:
 	std::unique_ptr<IModel> modelSkydome_;
 	std::unique_ptr<IModel> modelGround_;
 	std::unique_ptr<IModel> modelCube_;
+	std::unique_ptr<IModel> modelPlayer_;
 
 #pragma endregion
 
