@@ -10,6 +10,7 @@
 class GPipeline;
 namespace CBuff {
 	struct CBuffColorMaterial;
+	struct CBuffGlayScale;
 }
 
 //	ぺらポリゴン
@@ -27,6 +28,9 @@ private:
 	ConstBuff material_;
 
 	ConstBuff weight_;
+
+	CBuff::CBuffGlayScale* cGlayScaleMap_ = nullptr;
+	ConstBuff activeGlay_;
 	
 #pragma endregion
 
@@ -49,8 +53,11 @@ public:
 	void RSSetVPandSR();
 	void DrawLuminnce();
 	void SetGPipelineAndIAVertIdxBuff(GPipeline& pipeline);
+	void DrawGlayScale(GPipeline* pipeline);
 	void Draw(GPipeline* pipeline, bool xBlur, bool yBlur, bool shadow, int32_t handle1 = -1);
 	void SetColor(const Vector4D& color);
+
+	void SetGlayScale(bool active);
 
 	ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }
 	ID3D12Resource** GetTextureBuffPtr(int32_t index = 0) { return texture_[index]->GetResourceBuffAddress(); }

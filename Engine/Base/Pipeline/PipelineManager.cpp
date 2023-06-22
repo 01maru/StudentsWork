@@ -88,7 +88,7 @@ void PipelineManager::InitializePostEffect()
 	Shader glayShader(L"Resources/Shader/ScreenVS.hlsl", L"Resources/Shader/GlayScalePS.hlsl");
 	
 	glayScalePipeline_ = std::make_unique<GPipeline>();
-	glayScalePipeline_->Initialize(glayShader, inputLayout, 1, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
+	glayScalePipeline_->Initialize(glayShader, inputLayout, 2, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
 		, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB);
 
 	Shader luminncePostEffect(L"Resources/Shader/ScreenVS.hlsl", L"Resources/Shader/LuminncePS.hlsl");

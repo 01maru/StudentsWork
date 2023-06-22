@@ -622,6 +622,9 @@
     <None Include="Resources\Shader\BlurHeader.hlsli">
       <Filter>リソース ファイル\BlurShader</Filter>
     </None>
+    <None Include="Resources\Shader\GlayScaleHeader.hlsli">
+      <Filter>リソース ファイル\ScreenShader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shader\ObjPS.hlsl">

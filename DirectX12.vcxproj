@@ -158,6 +158,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Shader\GlayScaleHeader.hlsli" />
     <None Include="Resources\Shader\BlurHeader.hlsli" />
     <None Include="Resources\Shader\ObjShadowHeader.hlsli" />
     <None Include="Resources\Shader\GrassParticle.hlsli" />

@@ -22,6 +22,10 @@ namespace CBuff
 		Vector4D color;	//	RGBA
 	};
 
+	struct CBuffGlayScale {
+		bool active;
+	};
+
 	struct CBuffObj3DTransform {
 		Matrix matViewProj;
 		Matrix matWorld;

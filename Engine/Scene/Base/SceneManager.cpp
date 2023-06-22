@@ -224,6 +224,7 @@ void SceneManager::ImguiUpdate()
 
 	InputManager::GetInstance()->ImGuiUpdate();
 	UIManager::GetInstance()->ImGuiUpdate();
+	glayscale->SetGlayScale(UIManager::GetInstance()->GetActiveGlayscale());
 	CameraManager::GetInstance()->ImGuiUpdate();
 	XAudioManager::GetInstance()->ImguiUpdate(endLoading_);
 	TextureManager::GetInstance()->ImGuiUpdate();
@@ -321,7 +322,7 @@ void SceneManager::Draw()
 	FLOAT clearColor_[] = { 0.0f,0.0f,0.0f,1.0f };
 	dx->PrevDraw(clearColor_);
 
-	glayscale->Draw(PipelineManager::GetInstance()->GetPipeline("glayScale", GPipeline::NONE_BLEND), false, false, true);
+	glayscale->DrawGlayScale(PipelineManager::GetInstance()->GetPipeline("glayScale"));
 
 	loadObj_->Draw();
 
