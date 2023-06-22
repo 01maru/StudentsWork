@@ -50,7 +50,7 @@ void GameScene::Initialize()
 	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
 	LoadResources();
 
-	level.LoadJSON("test");
+	level.LoadJSON("gamescene");
 
 	player_->SetPosition(level.GetPlayerSpownPoint().pos);
 	player_->SetRotation(level.GetPlayerSpownPoint().rotation);
