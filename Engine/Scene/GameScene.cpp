@@ -1,6 +1,5 @@
 ﻿#include "GameScene.h"
 #include "GameCamera.h"
-#include "GameCamera.h"
 #include "XAudioManager.h"
 #include "NormalCamera.h"
 #include "TextureManager.h"
@@ -12,6 +11,7 @@
 
 #include "InputManager.h"
 #include "CameraManager.h"
+
 
 void GameScene::LoadResources()
 {
@@ -45,14 +45,10 @@ void GameScene::LoadResources()
 
 void GameScene::Initialize()
 {
-	std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
-	camera->Initialize(Vector3D(0.0f, 0.0f, -10.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector3D(0.0f, 1.0f, 0.0f));
-	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
-	//camera = Light::GetInstance()->GetDirLightCamera(0);
-
 	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
-	//Object3D::SetCamera(camera);
 	LoadResources();
+
+	level.LoadJSON("untitled");
 
 	XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 }
@@ -70,6 +66,8 @@ void GameScene::MatUpdate()
 	skydome_->MatUpdate();
 
 	cube_->MatUpdate();
+
+	level.MatUpdate();
 }
 
 void GameScene::Update()
@@ -100,10 +98,12 @@ void GameScene::DrawShadow()
 void GameScene::Draw()
 {
 	//	天球
-	skydome_->Draw();
+	//skydome_->Draw();
 	//	地面
 	//ground->Draw();
-	cube_->Draw();
+	//cube_->Draw();
+
+	level.Draw();
 
 	//sprite_->Draw();
 

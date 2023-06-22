@@ -7,9 +7,13 @@
 #include "ICamera.h"
 #include "Texture.h"
 
+#include "JSONLoader.h"
+
 class GameScene :public IScene
 {
 private:
+
+	JSONLoader level;
 
 #pragma region Obj3D
 

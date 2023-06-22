@@ -1,6 +1,8 @@
 ﻿#include "JSONLoader.h"
 #include <fstream>
 #include <assert.h>
+#include "CameraManager.h"
+#include "GameCamera.h"
 
 #include "ObjModel.h"
 
@@ -15,10 +17,34 @@ void JSONLoader::LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nl
 
 	ObjectData* objectData = nullptr;
 	//	種類ごとに処理
+
+	//	CAMERAだったら
+	if (type.compare("CAMERA") == 0) {
+
+		//	トランスフォームのパラメータ読み込み
+		nlohmann::json& transform = itr.value()["transform"];
+		//	平行移動
+		cameraData.eye.x = (float)transform["translation"][1];
+		cameraData.eye.y = (float)transform["translation"][2];
+		cameraData.eye.z = -(float)transform["translation"][0];
+	}
+	if (type.compare("EMPTY") == 0) {
+
+		if (itr.value().contains("name")) {
+			if (itr.value()["name"] == "Target") {
+				//	トランスフォームのパラメータ読み込み
+				nlohmann::json& transform = itr.value()["transform"];
+				//	平行移動
+				cameraData.target.x = (float)transform["translation"][1];
+				cameraData.target.y = (float)transform["translation"][2];
+				cameraData.target.z = -(float)transform["translation"][0];
+			}
+		}
+	}
 	//	MESHだったら
 	if (type.compare("MESH") == 0) {
-		levelData->objects.emplace_back(ObjectData{});
-		objectData = &levelData->objects.back();
+		levelData_->objects.emplace_back(ObjectData{});
+		objectData = &levelData_->objects.back();
 
 		if (itr.value().contains("file_name")) {
 			//	ファイル名
@@ -79,7 +105,7 @@ void JSONLoader::LoadJSON(std::string jsonname)
 	assert(name.compare("scene") == 0);
 
 	//	格納用
-	levelData = new LevelData();
+	levelData_ = std::make_unique<LevelData>();
 
 	// "objects"の全オブジェクト走査
 	for (auto itr = deserialized["objects"].begin(); itr < deserialized["objects"].end(); ++itr)
@@ -91,44 +117,51 @@ void JSONLoader::LoadJSON(std::string jsonname)
 
 	LoadModel();
 
-	for (auto& objectData : levelData->objects)
+	std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
+	camera->Initialize(cameraData.eye, cameraData.target, Vector3D(0.0f, 1.0f, 0.0f));
+	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
+
+	for (auto& objectData : levelData_->objects)
 	{
 		IModel* model = nullptr;
-		decltype(models)::iterator it = models.find(objectData.fileName);
+		decltype(models_)::iterator it = models_.find(objectData.fileName);
 
-		if (it != models.end()) { model = it->second; }
+		if (it != models_.end()) { model = it->second.get(); }
 
-		Object3D* newObject = Object3D::Create(model);
+		std::unique_ptr<Object3D> newObject;
+		newObject.reset(Object3D::Create(model));
 		
 		newObject->SetPosition(objectData.translation);
 		newObject->SetRotation(objectData.rotation);
 		newObject->SetScale(objectData.scaling);
-
-		objects.push_back(newObject);
+		
+		objects_.push_back(std::move(newObject));
 	}
 }
 
 void JSONLoader::LoadModel()
 {
-	for (auto& objectData : levelData->objects) {
-		decltype(models)::iterator it = models.find(objectData.fileName);
-		if (it == models.end()) {
-			ObjModel* model = new ObjModel(objectData.fileName.c_str());
-			models[objectData.fileName] = model;
+	for (auto& objectData : levelData_->objects) {
+		decltype(models_)::iterator it = models_.find(objectData.fileName);
+		if (it == models_.end()) {
+			std::unique_ptr<ObjModel> model = std::make_unique<ObjModel>(objectData.fileName.c_str());
+			models_[objectData.fileName] = std::move(model);
 		}
 	}
 }
 
 void JSONLoader::MatUpdate()
 {
-	for (Object3D* object : objects) {
-		object->MatUpdate();
+	for (size_t i = 0; i < objects_.size(); i++)
+	{
+		objects_[i]->MatUpdate();
 	}
 }
 
 void JSONLoader::Draw()
 {
-	for (Object3D* object : objects) {
-		object->Draw();
+	for (size_t i = 0; i < objects_.size(); i++)
+	{
+		objects_[i]->Draw();
 	}
 }

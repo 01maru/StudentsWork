@@ -17,6 +17,12 @@ struct ObjectData
 	ObjectData* parent = nullptr;
 };
 
+struct CameraData
+{
+	Vector3D eye;
+	Vector3D target;
+};
+
 struct LevelData
 {
 	std::vector<ObjectData> objects;
@@ -26,10 +32,12 @@ class JSONLoader
 {
 private:
 	//	モデルデータコンテナ
-	std::map<std::string, IModel*> models;
+	std::map<std::string, std::unique_ptr<IModel>> models_;
 	//	オブジェクトデータ
-	std::vector<Object3D*> objects;
-	LevelData* levelData = nullptr;
+	std::vector<std::unique_ptr<Object3D>> objects_;
+	std::unique_ptr<LevelData> levelData_;
+
+	CameraData cameraData;
 
 	void LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::json>& itr, ObjectData* parent);
 public:
