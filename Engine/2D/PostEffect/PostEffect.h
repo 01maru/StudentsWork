@@ -29,8 +29,6 @@ private:
 	
 #pragma endregion
 
-	D3D12_RESOURCE_BARRIER barrierDesc_{};
-
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 
 	int32_t width_ = 0;
@@ -63,7 +61,6 @@ public:
 	ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }
 	ID3D12Resource** GetTextureBuffPtr(int32_t index = 0) { return texture_[index]->GetResourceBuffAddress(); }
 	int32_t GetTextureNum() { return texNum_; }
-	D3D12_RESOURCE_BARRIER& GetResouceBarrier() { return barrierDesc_; }
 	ID3D12DescriptorHeap* GetRTVHeap() { return rtvHeap_.Get(); }
 	ID3D12DescriptorHeap* GetDSVHeap() { return dsv_.GetDSVHeap(); }
 	Texture* GetTexture() { return texture_[0]; }
