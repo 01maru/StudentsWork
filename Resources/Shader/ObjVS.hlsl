@@ -48,5 +48,7 @@ VSOutput main(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXCOOR
 	output.normal = wnormal.xyz;
 	output.uv = uv;
 
+	output.depth = length(output.worldpos.xyz - cameraPos) / 1000.0;
+
 	return output;
 }

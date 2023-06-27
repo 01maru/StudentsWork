@@ -46,6 +46,10 @@ private:
 	std::unique_ptr<GaussBlur> luminnceBulr;
 	std::unique_ptr<GaussBlur> shadowBulr;
 	std::unique_ptr<GlayScale> glayscale;
+
+	std::unique_ptr<PostEffect> dofscene;
+	std::unique_ptr<GaussBlur> strongBulr;
+	std::unique_ptr<GaussBlur> weakBulr;
 #pragma endregion
 
 private:	//	関数

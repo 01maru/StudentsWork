@@ -6,7 +6,7 @@
 class CameraManager
 {
 private:
-	bool isDebug_ = false;
+	bool isDebug_ = true;
 
 	std::unique_ptr<ICamera> mainCamera_;
 	std::unique_ptr<ICamera> debugCamera_;

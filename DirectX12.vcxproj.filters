@@ -49,9 +49,6 @@
     <Filter Include="ヘッダー ファイル\Game\Scene">
       <UniqueIdentifier>{facce565-2f60-4dc8-b386-c1789ff0a2ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル\ParticleShader\GrassShader">
-      <UniqueIdentifier>{2a242e27-92dc-4014-97cf-671e92e50af5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game\Camera">
       <UniqueIdentifier>{ee3253bf-e7cc-4da2-bf45-0f66cd39bae5}</UniqueIdentifier>
     </Filter>
@@ -186,6 +183,9 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\lib\2D\Sprite">
       <UniqueIdentifier>{ced67229-c305-43ef-825f-4d31272b0ad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\ParticleShader\GrassShader">
+      <UniqueIdentifier>{2a242e27-92dc-4014-97cf-671e92e50af5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -688,6 +688,9 @@
       <Filter>リソース ファイル\ObjShader</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\GlayScalePS.hlsl">
+      <Filter>リソース ファイル\ScreenShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\DepthOfFieldPS.hlsl">
       <Filter>リソース ファイル\ScreenShader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -264,6 +264,20 @@ void PostEffect::Draw(GPipeline* pipeline, bool shadow, int32_t handle1)
 	PlanePolygon::DrawIndexedInstanced();
 }
 
+void PostEffect::DrawDoF()
+{
+	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
+	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("dof");
+	pipeline->SetGraphicsRootSignature();
+	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	VertIdxBuff::IASetVertIdxBuff();
+
+	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[1]->GetHandle()));
+	cmdList->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
+
+	PlanePolygon::DrawIndexedInstanced();
+}
+
 void PostEffect::SetColor(const Vector4D& color)
 {
 	cMaterialMap_->color = color;
