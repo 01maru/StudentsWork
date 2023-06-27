@@ -45,7 +45,7 @@ VSOutput main(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXCOOR
 
 	output.svpos = mul(mul(matview, matworld), skinned.pos);
 	output.worldpos = mul(matworld, skinned.pos);
-	output.normal = wnormal;
+	output.normal = wnormal.xyz;
 	output.uv = uv;
 
 	return output;
