@@ -96,6 +96,34 @@ void Light::ImGuiUpdate()
 		}
 	}
 
+	std::string name = "DistanceFog";
+	if (imguiMan->CollapsingHeader(name))
+	{
+		bool active = distanceFog_.GetIsActive();
+		imguiMan->CheckBox(name + " : Active", active);
+		distanceFog_.SetActive(active);
+
+		float len= distanceFog_.GetStart();
+		imguiMan->SetSliderFloat(name + " : Start", len, 0.001f, 0.001f);
+		distanceFog_.SetStart(len);
+
+		len= distanceFog_.GetEnd();
+		imguiMan->SetSliderFloat(name + " : End", len, 0.001f, 0.001f);
+		distanceFog_.SetEnd(len);
+
+		len= distanceFog_.GetNear();
+		imguiMan->SetSliderFloat(name + " : Near", len, 0.001f, 0.001f);
+		distanceFog_.SetNear(len);
+
+		len= distanceFog_.GetFar();
+		imguiMan->SetSliderFloat(name + " : Far", len, 0.001f, 0.001f);
+		distanceFog_.SetFar(len);
+
+		Vector3D vec = distanceFog_.GetColor();
+		imguiMan->ColorPicker3(name + " : Color", vec);
+		distanceFog_.SetColor(vec);
+	}
+
 	imguiMan->EndWindow();
 }
 
