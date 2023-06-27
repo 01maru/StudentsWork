@@ -8,21 +8,11 @@
 class Light
 {
 private:
-	static const size_t sDIRLIGHT_NUM = 1;
-
-	struct ConstBufferLightData
-	{
-		Vector3D ambientColor;
-		float pad1;
-		CBuff::CBuffDirLightData dirLights[sDIRLIGHT_NUM];
-		CBuff::CBuffDisFogData distanceFog;
-	};
-
 	ConstBuff constBuff_;
 
 	bool dirty_ = false;
 	Vector3D ambientColor_ = { 1,1,1 };
-	DirLight dirLights_[sDIRLIGHT_NUM];
+	DirLight dirLights_[CBuff::DIRLIGHT_NUM];
 	DistanceFog distanceFog_;
 
 private:
@@ -44,7 +34,6 @@ public:
 	void SetDirLightDir(int32_t index, const Vector3D& lightdir_);
 	void SetDirLightColor(int32_t index, const Vector3D& lightcolor_);
 	void SetDirLightShadow(int32_t index, bool shadowflag);
-	ICamera* GetDirLightCamera(int32_t index) { return dirLights_[index].GetCamera(); }
 
 	void SetFogActive(bool active) { distanceFog_.SetActive(active); }
 	void SetFogStart(float start) { distanceFog_.SetStart(start); }

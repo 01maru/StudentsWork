@@ -1,6 +1,11 @@
 ﻿#include "Light.h"
 #include <cassert>
 
+#include "ImGuiController.h"
+#include "ImGuiManager.h"
+
+using namespace CBuff;
+
 Light* Light::GetInstance()
 {
 	static Light instance;
@@ -11,12 +16,12 @@ void Light::TransferConstBuffer()
 {
 	HRESULT result;
 
-	ConstBufferLightData* constMap = nullptr;
+	CBuffLightData* constMap = nullptr;
 	result = constBuff_.GetResource()->Map(0, nullptr, (void**)&constMap);
 	if (SUCCEEDED(result)) {
 		constMap->ambientColor = ambientColor_;
 
-		for (size_t i = 0; i < sDIRLIGHT_NUM; i++)
+		for (size_t i = 0; i < DIRLIGHT_NUM; i++)
 		{
 			if (dirLights_[i].GetIsActive()) {
 				constMap->dirLights[i].active = 1;
@@ -46,7 +51,7 @@ void Light::TransferConstBuffer()
 
 void Light::Initialize()
 {
-	constBuff_.Initialize((sizeof(ConstBufferLightData) + 0xFF) & ~0xFF);
+	constBuff_.Initialize((sizeof(CBuffLightData) + 0xFF) & ~0xFF);
 
 	TransferConstBuffer();
 }
@@ -61,6 +66,37 @@ void Light::Update()
 
 void Light::ImGuiUpdate()
 {
+	if (!ImGuiController::GetInstance()->GetActiveLightManager()) return;
+
+	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+
+	imguiMan->BeginWindow("LightManager", true);
+
+	//	方向ライト
+	for (size_t i = 0; i < DIRLIGHT_NUM; i++)
+	{
+		std::string name = "DirLight" + std::to_string(i);
+		if (imguiMan->CollapsingHeader(name))
+		{
+			bool active = dirLights_[i].GetIsActive();
+			imguiMan->CheckBox(name + " : Active", active);
+			dirLights_[i].SetActive(active);
+
+			active = dirLights_[i].GetShadowing();
+			imguiMan->CheckBox(name + " : Shadow", active);
+			dirLights_[i].SetShadow(active);
+
+			Vector3D vec = dirLights_[i].GetLightDir();
+			imguiMan->SetSliderFloat3(name + " : Dir", vec, 0.001f);
+			dirLights_[i].SetLightDir(vec);
+
+			vec = dirLights_[i].GetLightColor();
+			imguiMan->ColorPicker3(name + " : Color", vec);
+			dirLights_[i].SetLightColor(vec);
+		}
+	}
+
+	imguiMan->EndWindow();
 }
 
 void Light::SetGraphicsRootCBuffView(int32_t lootparaIdx)
@@ -70,20 +106,20 @@ void Light::SetGraphicsRootCBuffView(int32_t lootparaIdx)
 
 void Light::SetDirLightActive(int32_t index, bool active)
 {
-	assert(0 <= index && index < sDIRLIGHT_NUM);
+	assert(0 <= index && index < DIRLIGHT_NUM);
 	dirLights_[index].SetActive(active);
 }
 
 void Light::SetDirLightDir(int32_t index, const Vector3D& lightdir_)
 {
-	assert(0 <= index && index < sDIRLIGHT_NUM);
+	assert(0 <= index && index < DIRLIGHT_NUM);
 	dirLights_[index].SetLightDir(lightdir_);
 	dirty_ = true;
 }
 
 void Light::SetDirLightColor(int32_t index, const Vector3D& lightcolor_)
 {
-	assert(0 <= index && index < sDIRLIGHT_NUM);
+	assert(0 <= index && index < DIRLIGHT_NUM);
 	dirLights_[index].SetLightColor(lightcolor_);
 	dirty_ = true;
 }

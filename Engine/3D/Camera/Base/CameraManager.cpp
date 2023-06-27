@@ -90,3 +90,8 @@ ICamera* CameraManager::GetCamera()
 
 	return mainCamera_.get();
 }
+
+ICamera* CameraManager::GetLightCamera()
+{
+	return lightCamera_.get();
+}

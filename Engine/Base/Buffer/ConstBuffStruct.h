@@ -56,6 +56,7 @@ namespace CBuff
 	};
 
 #pragma region Light
+	const size_t DIRLIGHT_NUM = 1;
 
 	struct CBuffPointLight
 	{
@@ -111,6 +112,14 @@ namespace CBuff
 		Vector2D factorAngleCos;
 		bool active;
 		float pad3;
+	};
+
+	struct CBuffLightData
+	{
+		Vector3D ambientColor;
+		float pad1;
+		CBuff::CBuffDirLightData dirLights[DIRLIGHT_NUM];
+		CBuff::CBuffDisFogData distanceFog;
 	};
 
 #pragma endregion

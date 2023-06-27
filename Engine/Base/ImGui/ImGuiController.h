@@ -8,6 +8,7 @@ private:
 	bool activeTextureManager_ = false;
 	bool activeUIManager_ = false;
 	bool activeCameraManager_ = false;
+	bool activeLightManager_ = false;
 
 private:	//	関数
 	ImGuiController() {};
@@ -26,5 +27,6 @@ public:
 	bool GetActiveTextureManager() { return activeTextureManager_; }
 	bool GetActiveUIManager() { return activeUIManager_; }
 	bool GetActiveCameraManager() { return activeCameraManager_; }
+	bool GetActiveLightManager() { return activeLightManager_; }
 };
 

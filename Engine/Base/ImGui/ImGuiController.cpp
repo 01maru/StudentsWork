@@ -20,6 +20,7 @@ void ImGuiController::Update()
 	man->CheckBox("TextureManager", activeTextureManager_);
 	man->CheckBox("UIManager", activeUIManager_);
 	man->CheckBox("CameraManager", activeCameraManager_);
+	man->CheckBox("LightManager", activeLightManager_);
 
 	man->EndWindow();
 }

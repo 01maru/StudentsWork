@@ -163,7 +163,7 @@ void Object3D::MatUpdate(ICamera* camera_)
 	}
 	cTransformMap_->cameraPos = cameraPos;
 
-	const Matrix& matView_ = sLight->GetDirLightCamera(0)->GetViewProj();
+	const Matrix& matView_ = CameraManager::GetInstance()->GetLightCamera()->GetViewProj();
 
 	
 	cShadowTransMap_->matViewProj = matView_;
@@ -176,7 +176,7 @@ void Object3D::MatUpdate(ICamera* camera_)
 	}
 
 	cLightMap_->mLVP = matView_;
-	cLightMap_->cameraPos = sLight->GetDirLightCamera(0)->GetEye();
+	cLightMap_->cameraPos = CameraManager::GetInstance()->GetLightCamera()->GetEye();
 
 	cColorMap_->color = color_;
 }

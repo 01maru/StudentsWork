@@ -187,6 +187,14 @@ void ImGuiManager::CheckBox(const std::string& name, bool& flag)
 	ImGui::Checkbox(name.c_str(), &flag);
 }
 
+void ImGuiManager::ColorPicker3(const std::string& name, Vector3D& color)
+{
+	float v[3] = { color.x,color.y,color.z };
+
+	ImGui::ColorPicker3(name.c_str(), v);
+	color = { v[0],v[1],v[2] };
+}
+
 void ImGuiManager::LabelText(const std::string& name, const std::string& text, float value)
 {
 	ImGui::LabelText(name.c_str(), text.c_str(), value);
