@@ -4,6 +4,7 @@
 #include "NormalCamera.h"
 #include "TextureManager.h"
 #include "ObjModel.h"
+#include "FbxModel.h"
 #include "PipelineManager.h"
 #include "ParticleManager.h"
 #include "DebugTextManager.h"
@@ -19,7 +20,7 @@ void GameScene::LoadResources()
 	modelSkydome_ = std::make_unique<ObjModel>("skydome");
 	modelGround_ = std::make_unique<ObjModel>("ground");
 	modelCube_ = std::make_unique<ObjModel>("objCube");
-	modelPlayer_ = std::make_unique<ObjModel>("chr_sword");
+	modelPlayer_ = std::make_unique<FbxModel>("box1");
 #pragma endregion
 	//	天球
 	skydome_.reset(Object3D::Create(modelSkydome_.get()));
@@ -52,8 +53,8 @@ void GameScene::Initialize()
 
 	level.LoadJSON("gamescene");
 
-	player_->SetPosition(level.GetPlayerSpownPoint().pos);
-	player_->SetRotation(level.GetPlayerSpownPoint().rotation);
+	//player_->SetPosition(level.GetPlayerSpownPoint().pos);
+	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
 
 	XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 }
@@ -72,6 +73,7 @@ void GameScene::MatUpdate()
 
 	cube_->MatUpdate();
 	player_->MatUpdate();
+	player_->PlayAnimation();
 
 	level.MatUpdate();
 }
@@ -107,10 +109,10 @@ void GameScene::Draw()
 	//skydome_->Draw();
 	//	地面
 	//ground->Draw();
-	cube_->Draw();
+	//cube_->Draw();
 	player_->Draw();
 
-	level.Draw();
+	//level.Draw();
 
 	//sprite_->Draw();
 

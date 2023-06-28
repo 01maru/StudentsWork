@@ -26,7 +26,6 @@ private:
 
 	static GPipeline* sPipeline;
 	static Light* sLight;
-	//static ICamera* sCamera;
 
 #pragma region CBuff
 	

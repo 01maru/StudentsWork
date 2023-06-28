@@ -91,9 +91,9 @@ void SceneManager::Initialize()
 
 #pragma endregion
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
 	ImGuiManager::GetInstance()->Initialize();
-//#endif // _DEBUG
+#endif // _DEBUG
 
 #pragma region SplashScreen
 
@@ -115,11 +115,11 @@ void SceneManager::Finalize()
 {
 	scene_->Finalize();
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
 
 	ImGuiManager::GetInstance()->Finalize();
 
-//#endif // _DEBUG
+#endif // _DEBUG
 }
 
 void SceneManager::ScreenColorUpdate()
@@ -225,7 +225,7 @@ void SceneManager::SceneUpdate()
 
 void SceneManager::ImguiUpdate()
 {
-//#ifdef _DEBUG
+#ifdef _DEBUG
 
 	ImGuiManager::GetInstance()->Begin();
 	ImGuiController::GetInstance()->Update();
@@ -243,7 +243,7 @@ void SceneManager::ImguiUpdate()
 	}
 	ImGuiManager::GetInstance()->End();
 
-//#endif // _DEBUG
+#endif // _DEBUG
 }
 
 void SceneManager::Update()
@@ -297,7 +297,7 @@ void SceneManager::Draw()
 	Vector4D luminnceClearColor_(0.0f, 0.0f, 0.0f, 1.0f);
 	dx->PrevPostEffect(luminnce.get(), luminnceClearColor_);
 
-	dofscene->DrawLuminnce();
+	mainScene->DrawLuminnce();
 
 	dx->PostEffectDraw(luminnce.get());
 
@@ -306,7 +306,7 @@ void SceneManager::Draw()
 	dx->PrevPostEffect(glayscale.get());
 
 	if (!isSplashScreen_) {
-		dofscene->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect"), false, luminnceBulr->GetTexture(0)->GetHandle());
+		mainScene->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect"), false, luminnceBulr->GetTexture(0)->GetHandle());
 	}
 
 	dx->PostEffectDraw(glayscale.get());
@@ -327,9 +327,9 @@ void SceneManager::Draw()
 
 #endif // NDEBUG
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
 	ImGuiManager::GetInstance()->Draw();
-//#endif // _DEBUG
+#endif // _DEBUG
 
 	dx->PostDraw();
 #pragma endregion

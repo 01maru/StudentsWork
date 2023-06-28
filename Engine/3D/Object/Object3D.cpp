@@ -185,7 +185,7 @@ void Object3D::PlayAnimation()
 {
 	std::vector<Matrix> Transforms;
 
-	animationTimer_ += 0.01f;
+	animationTimer_ += 0.1f;
 	model_->BoneTransform(animationTimer_, Transforms);
 
 	for (size_t i = 0; i < model_->GetNumBones(); i++)
