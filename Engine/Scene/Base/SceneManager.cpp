@@ -69,6 +69,9 @@ void SceneManager::Initialize()
 	dofscene = std::make_unique<PostEffect>();
 	dofscene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, 2, DXGI_FORMAT_R11G11B10_FLOAT);
 
+	taskScene = std::make_unique<PostEffect>();
+	taskScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
+
 	glayscale = std::make_unique<GlayScale>();
 	glayscale->Initialize(mainScene.get());
 
@@ -287,11 +290,23 @@ void SceneManager::Draw()
 
 	dx->PostEffectDraw(mainScene.get());
 	
-	dx->PrevPostEffect(dofscene.get());
+	if (ImGuiController::GetInstance()->GetActiveDof() ||
+		ImGuiController::GetInstance()->GetActiveTask()) {
+		dx->PrevPostEffect(dofscene.get());
 
-	mainScene->DrawDoF();
+		if(ImGuiController::GetInstance()->GetActiveTask())	mainScene->DrawTask();
+		else												mainScene->DrawDoF();
 
-	dx->PostEffectDraw(dofscene.get());
+		dx->PostEffectDraw(dofscene.get());
+	}
+	
+	if (ImGuiController::GetInstance()->GetActiveTask()) {
+		dx->PrevPostEffect(taskScene.get());
+
+		dofscene->DrawMultiTask();
+
+		dx->PostEffectDraw(taskScene.get());
+	}
 
 
 	Vector4D luminnceClearColor_(0.0f, 0.0f, 0.0f, 1.0f);
@@ -306,7 +321,11 @@ void SceneManager::Draw()
 	dx->PrevPostEffect(glayscale.get());
 
 	if (!isSplashScreen_) {
-		mainScene->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect"), false, luminnceBulr->GetTexture(0)->GetHandle());
+		PostEffect* main = mainScene.get();
+		if (ImGuiController::GetInstance()->GetActiveDof()) main = dofscene.get();
+		if (ImGuiController::GetInstance()->GetActiveTask()) main = taskScene.get();
+
+		main->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect"), false, luminnceBulr->GetTexture(0)->GetHandle());
 	}
 
 	dx->PostEffectDraw(glayscale.get());

@@ -1,4 +1,5 @@
 #pragma once
+#define NOMINMAX
 #include "IModel.h"
 #include <assimp/Importer.hpp>
 

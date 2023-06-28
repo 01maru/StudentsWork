@@ -278,6 +278,33 @@ void PostEffect::DrawDoF()
 	PlanePolygon::DrawIndexedInstanced();
 }
 
+void PostEffect::DrawTask()
+{
+	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
+	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("task");
+	pipeline->SetGraphicsRootSignature();
+	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	VertIdxBuff::IASetVertIdxBuff();
+
+	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
+
+	PlanePolygon::DrawIndexedInstanced();
+}
+
+void PostEffect::DrawMultiTask()
+{
+	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
+	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("multiTask");
+	pipeline->SetGraphicsRootSignature();
+	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	VertIdxBuff::IASetVertIdxBuff();
+
+	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texture_[1]->GetHandle()));
+	cmdList->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
+
+	PlanePolygon::DrawIndexedInstanced();
+}
+
 void PostEffect::SetColor(const Vector4D& color)
 {
 	cMaterialMap_->color = color;

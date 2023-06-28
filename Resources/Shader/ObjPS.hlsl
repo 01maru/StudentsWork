@@ -39,7 +39,6 @@ PSOutput main(VSOutput input)
 	}
 
 	output.target0 = shadercolor * texcolor * materialColor;
-	//output.target1 = float4(1 - output.target0.rgb, 1);
 	output.target1 = float4(input.depth, input.depth, input.depth, 1);
 	return output;
 }

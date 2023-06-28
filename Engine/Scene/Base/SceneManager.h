@@ -40,6 +40,7 @@ private:
 
 #pragma region PostEffect
 	std::unique_ptr<PostEffect> mainScene;
+	std::unique_ptr<PostEffect> taskScene;
 	std::unique_ptr<PostEffect> luminnce;
 
 	std::unique_ptr<PostEffect> shadowEffect;

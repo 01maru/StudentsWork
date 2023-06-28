@@ -40,6 +40,8 @@ private:
 	std::unique_ptr<GPipeline> luminnceyBlurPipeline_;
 	std::unique_ptr<GPipeline> glayScalePipeline_;
 	std::unique_ptr<GPipeline> dofPipeline_;
+	std::unique_ptr<GPipeline> taskPipeline_;
+	std::unique_ptr<GPipeline> multiTaskPipeline_;
 
 #pragma endregion
 

@@ -106,9 +106,9 @@ void GameScene::DrawShadow()
 void GameScene::Draw()
 {
 	//	天球
-	//skydome_->Draw();
+	skydome_->Draw();
 	//	地面
-	//ground->Draw();
+	ground_->Draw();
 	//cube_->Draw();
 	player_->Draw();
 

@@ -693,5 +693,11 @@
     <FxCompile Include="Resources\Shader\DepthOfFieldPS.hlsl">
       <Filter>リソース ファイル\ScreenShader</Filter>
     </FxCompile>
+    <FxCompile Include="Resources\Shader\TaskPS.hlsl">
+      <Filter>リソース ファイル\ScreenShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\MultiTexTaskPS.hlsl">
+      <Filter>リソース ファイル\ScreenShader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

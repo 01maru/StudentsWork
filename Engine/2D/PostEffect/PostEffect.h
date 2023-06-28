@@ -50,6 +50,8 @@ public:
 	void SetGPipelineAndIAVertIdxBuff(GPipeline* pipeline);
 	void Draw(GPipeline* pipeline, bool shadow, int32_t handle1 = -1);
 	void DrawDoF();
+	void DrawTask();
+	void DrawMultiTask();
 	void SetColor(const Vector4D& color);
 
 	void Draw();
