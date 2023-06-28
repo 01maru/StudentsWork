@@ -1,3 +1,5 @@
+static const int MAX_BONES = 32;
+
 cbuffer ConstBufferDataTransform:register(b1)
 {
 	matrix matview;
@@ -11,7 +13,7 @@ cbuffer CBuffLight:register(b2)
 	float3 lightPos;
 }
 
-//cbuffer skinning:register(b2)
+//cbuffer skinning:register(b3)
 //{
 //	matrix matSkinning[MAX_BONES];
 //}

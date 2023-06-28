@@ -29,7 +29,7 @@ void GameScene::LoadResources()
 	player_.reset(Object3D::Create(modelPlayer_.get()));
 	//	Cube
 	cube_.reset(Object3D::Create(modelCube_.get()));
-	cube_->SetScale({ 5.0f,5.0f,5.0f });
+	cube_->SetPosition({ 3.0f,0.0f,3.0f });
 #pragma region Texture
 	reimuG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/reimu.png");
 	grassG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/grass.png");
@@ -57,6 +57,8 @@ void GameScene::Initialize()
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
 
 	XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
+
+	CameraManager::GetInstance()->GetLightCamera()->SetEye(Vector3D(78.0f, 50.0f, -30.0f));
 }
 
 void GameScene::Finalize()
@@ -101,16 +103,17 @@ void GameScene::ImguiUpdate()
 
 void GameScene::DrawShadow()
 {
+	cube_->DrawShadow();
 }
 
 void GameScene::Draw()
 {
 	//	天球
-	skydome_->Draw();
+	skydome_->DrawShadowReciever();
 	//	地面
-	ground_->Draw();
-	//cube_->Draw();
-	player_->Draw();
+	ground_->DrawShadowReciever();
+	cube_->DrawShadowReciever();
+	player_->DrawShadowReciever();
 
 	//level.Draw();
 

@@ -242,8 +242,10 @@ void Object3D::DrawShadowReciever()
 	Texture* shadowmap = SceneManager::GetInstance()->GetShadowMap();
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(shadowmap->GetHandle()));
 
-	transform_.SetGraphicsRootCBuffView(2);
-	lightMaterial_.SetGraphicsRootCBuffView(3);
+	transform_.SetGraphicsRootCBuffView(3);
+	lightMaterial_.SetGraphicsRootCBuffView(4);
+	skinData_.SetGraphicsRootCBuffView(5);
+	sLight->SetGraphicsRootCBuffView(6);
 
 	model_->DrawShadowReciever();
 }

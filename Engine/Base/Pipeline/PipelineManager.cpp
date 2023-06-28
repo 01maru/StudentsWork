@@ -155,27 +155,27 @@ void PipelineManager::InitializeModel()
 		, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL, true, DXGI_FORMAT_R32G32_FLOAT);
 	shadowPipeline_->SetBlendMord(GPipeline::NONE_BLEND);
 
-	Shader shadowRecieverShader(L"Resources/Shader/ShadowRecieverVS.hlsl", L"Resources/Shader/ShadowRecieverPS.hlsl");
-
 	inputLayout.emplace_back();
 	inputLayout.back() = { "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 };		//	法線ベクトル
 	inputLayout.emplace_back();
 	inputLayout.back() = { "TEXCOORD",0,DXGI_FORMAT_R32G32_FLOAT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 };					//	uv座標
-
-	shadowRecieverPipeline_ = std::make_unique<GPipeline>();
-	shadowRecieverPipeline_->Initialize(shadowRecieverShader, inputLayout
-		, 2, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL, true, DXGI_FORMAT_R11G11B10_FLOAT, 2);
-	shadowRecieverPipeline_->SetBlendMord(GPipeline::NONE_BLEND);
-
-	modelPipeline_.reserve(blendMordNum);
-	Shader objShader(L"Resources/Shader/ObjVS.hlsl", L"Resources/Shader/ObjPS.hlsl");
 
 	inputLayout.emplace_back();
 	inputLayout.back() = { "BONEINDICES",0,DXGI_FORMAT_R32G32B32A32_UINT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 };
 	inputLayout.emplace_back();
 	inputLayout.back() = { "BONEWEIGHTS",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 };
 
+	Shader shadowRecieverShader(L"Resources/Shader/ShadowRecieverVS.hlsl", L"Resources/Shader/ShadowRecieverPS.hlsl");
+
+	shadowRecieverPipeline_ = std::make_unique<GPipeline>();
+	shadowRecieverPipeline_->Initialize(shadowRecieverShader, inputLayout
+		, 5, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL, true, DXGI_FORMAT_R11G11B10_FLOAT, 2);
+	shadowRecieverPipeline_->SetBlendMord(GPipeline::NONE_BLEND);
+
 	Shader silhouetteShader(L"Resources/Shader/ObjVS.hlsl", L"Resources/Shader/SilhouettePS.hlsl");
+
+	modelPipeline_.reserve(blendMordNum);
+	Shader objShader(L"Resources/Shader/ObjVS.hlsl", L"Resources/Shader/ObjPS.hlsl");
 
 	modelSilhouettePipe_ = std::make_unique<GPipeline>();
 	modelSilhouettePipe_->Initialize(silhouetteShader, inputLayout, 5,

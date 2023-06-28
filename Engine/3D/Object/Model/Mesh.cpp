@@ -32,6 +32,8 @@ void Mesh::DrawShadowReciever()
 
 	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(mtl_->GetTextureHandle()));
 
+	mtl_->SetGraphicsRootCBuffView(2);
+
 	cmdList->DrawIndexedInstanced((UINT)indices_.size(), 1, 0, 0, 0);
 }
 

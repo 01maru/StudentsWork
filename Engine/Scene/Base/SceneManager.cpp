@@ -278,7 +278,7 @@ void SceneManager::Draw()
 	dx->PostEffectDraw(shadowEffect.get());
 
 
-	shadowBulr->Draw();
+	//shadowBulr->Draw();
 
 	
 	dx->PrevPostEffect(mainScene.get());

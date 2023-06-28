@@ -6,6 +6,24 @@ sampler g_sampler : register(s0);
 
 float4 main(VSOutput input) : SV_TARGET
 {
+	float3 eyedir = normalize(cameraPos - input.worldpos.xyz);
+	const float shininess = 4.0f;
+	float4 shadercolor = { 0.0f,0.0f,0.0f,0.0f };
+	shadercolor.a = m_alpha;
+	//	方向ライト
+	for (int i = 0; i < DIRLIGHT_NUM; i++) {
+		if (dirLights[i].active) {
+			float3 dolightnormal = dot(dirLights[i].lightv, input.normal);
+			float3 reflect = normalize(-dirLights[i].lightv + 2 * dolightnormal * input.normal);
+
+			float3 ambient = m_ambient;
+			float3 diffuse = dolightnormal * m_diffuse;
+			float3 specular = pow(saturate(dot(reflect, eyedir)), shininess) * m_specular;
+
+			shadercolor.rgb += (ambient + diffuse + specular) * dirLights[i].lightcolor;
+		}
+	}
+
     //  textureのカラー
     float4 texcolor = g_albedo.Sample(g_sampler, input.uv);
 
@@ -25,7 +43,7 @@ float4 main(VSOutput input) : SV_TARGET
         float2 shadowValue = g_shadowMap.Sample(g_sampler, shadowMapUV).xy;
 
         // このピクセルが遮蔽されているか(Lposとworldposの距離が1000以下)
-        if (zInLVP > shadowValue.x && zInLVP <= 1.0f)
+        if (zInLVP - 0.0005f > shadowValue.x && zInLVP <= 1.0f)
         {
             float depth_sq = shadowValue.x * shadowValue.x;
 
@@ -38,9 +56,6 @@ float4 main(VSOutput input) : SV_TARGET
             // 光が届く確率を求める
             float lit_factor = variance / (variance + md * md);
 
-
-
-
             // シャドウカラーを求める
             float3 shadowColor = texcolor.xyz * 0.5f;
 
@@ -49,5 +64,15 @@ float4 main(VSOutput input) : SV_TARGET
         }
     }
 
-    return texcolor;
+    //	フォグ
+    if (distanceFog.active) {
+        float4 fogColor = float4(distanceFog.fogColor, 1.0f);		//フォグカラー
+        const float linerDepth = 1.0 / (distanceFog.fogFar - distanceFog.fogNear);
+        float linerPos = length(cameraPos - input.worldpos.xyz) * linerDepth;
+        float fogFactor = saturate((distanceFog.fogEnd - linerPos) / (distanceFog.fogEnd - distanceFog.fogStart));
+
+        return lerp(fogColor, shadercolor * texcolor, fogFactor);
+    }
+
+    return shadercolor * texcolor;
 }
