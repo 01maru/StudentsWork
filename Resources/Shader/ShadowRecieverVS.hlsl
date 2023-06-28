@@ -48,6 +48,7 @@ VSOutput main(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXCOOR
 	output.uv = uv;
 
     output.posInLVP = mul(mLVP, output.worldpos);
+	output.depth = length(output.worldpos.xyz - cameraPos) / 1000.0;
 
     //  0~1000‚ð0~1.0‚É•ÏŠ·
     output.posInLVP.z = length(output.worldpos.xyz - lightPos) / 100.0f;

@@ -4,7 +4,7 @@ Texture2D<float4> g_albedo : register(t0);
 Texture2D<float4> g_shadowMap : register(t1);  // シャドウマップ
 sampler g_sampler : register(s0);
 
-float4 main(VSOutput input) : SV_TARGET
+PSOutput main(VSOutput input) : SV_TARGET
 {
 	float3 eyedir = normalize(cameraPos - input.worldpos.xyz);
 	const float shininess = 4.0f;
@@ -64,6 +64,7 @@ float4 main(VSOutput input) : SV_TARGET
         }
     }
 
+    PSOutput output;
     //	フォグ
     if (distanceFog.active) {
         float4 fogColor = float4(distanceFog.fogColor, 1.0f);		//フォグカラー
@@ -71,8 +72,12 @@ float4 main(VSOutput input) : SV_TARGET
         float linerPos = length(cameraPos - input.worldpos.xyz) * linerDepth;
         float fogFactor = saturate((distanceFog.fogEnd - linerPos) / (distanceFog.fogEnd - distanceFog.fogStart));
 
-        return lerp(fogColor, shadercolor * texcolor, fogFactor);
+        output.target1 = float4(input.depth, input.depth, input.depth, 1);
+        output.target0 = lerp(fogColor, shadercolor * texcolor, fogFactor);
+        return output;
     }
 
-    return shadercolor * texcolor;
+    output.target0 = shadercolor * texcolor;
+    output.target1 = float4(input.depth, input.depth, input.depth, 1);
+    return output;
 }
