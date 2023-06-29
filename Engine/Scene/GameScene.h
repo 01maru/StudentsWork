@@ -30,6 +30,7 @@ private:
 	std::unique_ptr<IModel> modelGround_;
 	std::unique_ptr<IModel> modelCube_;
 	std::unique_ptr<IModel> modelPlayer_;
+	std::unique_ptr<IModel> modelBox_;
 
 #pragma endregion
 

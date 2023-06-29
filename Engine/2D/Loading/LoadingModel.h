@@ -2,6 +2,7 @@
 #include "ICamera.h"
 #include "Object3D.h"
 #include "ILoadingObj.h"
+#include "IModel.h"
 
 #include <memory>
 

@@ -7,19 +7,15 @@
 #include "PipelineManager.h"
 #include "TextureManager.h"
 #include "SceneManager.h"
+#include "Light.h"
 #include <cassert>
 #include "CameraManager.h"
+#include "IModel.h"
+#include "DirectX.h"
 
 #include "ConstBuffStruct.h"
 
-Light* Object3D::sLight = nullptr;
 GPipeline* Object3D::sPipeline = nullptr;
-//ICamera* Object3D::sCamera = nullptr;
-
-void Object3D::SetLight(Light* light_)
-{
-	Object3D::sLight = light_;
-}
 
 void Object3D::SetPipeline(GPipeline* pipeline_)
 {
@@ -57,9 +53,7 @@ Object3D* Object3D::Create(IModel* model_)
 {
 	// 3Dオブジェクトのインスタンスを生成
 	Object3D* obj = new Object3D();
-	if (obj == nullptr) {
-		return nullptr;
-	}
+	if (obj == nullptr) return nullptr;
 
 	// 初期化
 	obj->Initialize();
@@ -120,7 +114,7 @@ void Object3D::ColliderUpdate()
 	//}
 }
 
-void Object3D::MatUpdate(ICamera* camera_)
+void Object3D::MatUpdate()
 {
 
 #pragma region WorldMatrix
@@ -203,7 +197,7 @@ void Object3D::Draw()
 	skinData_.SetGraphicsRootCBuffView(4);
 	colorMaterial_.SetGraphicsRootCBuffView(5);
 
-	sLight->SetGraphicsRootCBuffView(3);
+	Light::GetInstance()->SetGraphicsRootCBuffView(3);
 
 	model_->Draw();
 }
@@ -217,7 +211,7 @@ void Object3D::DrawSilhouette()
 	transform_.SetGraphicsRootCBuffView(2);
 	skinData_.SetGraphicsRootCBuffView(4);
 	colorMaterial_.SetGraphicsRootCBuffView(5);
-	sLight->SetGraphicsRootCBuffView(3);
+	Light::GetInstance()->SetGraphicsRootCBuffView(3);
 
 	model_->Draw();
 }
@@ -245,7 +239,7 @@ void Object3D::DrawShadowReciever()
 	transform_.SetGraphicsRootCBuffView(3);
 	lightMaterial_.SetGraphicsRootCBuffView(4);
 	skinData_.SetGraphicsRootCBuffView(5);
-	sLight->SetGraphicsRootCBuffView(6);
+	Light::GetInstance()->SetGraphicsRootCBuffView(6);
 
 	model_->DrawShadowReciever();
 }

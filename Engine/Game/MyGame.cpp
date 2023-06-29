@@ -16,8 +16,6 @@ void MyGame::Initialize()
 #pragma region SetLight
 	light->SetDirLightActive(0, true);
 	light->SetDirLightShadow(0, true);
-
-	Object3D::SetLight(light);
 #pragma endregion
 
 	SceneManager::GetInstance()->Initialize();

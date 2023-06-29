@@ -12,7 +12,8 @@
 
 #include "InputManager.h"
 #include "CameraManager.h"
-
+#include "Light.h"
+#include "BoxModel.h"
 
 void GameScene::LoadResources()
 {
@@ -21,6 +22,7 @@ void GameScene::LoadResources()
 	modelGround_ = std::make_unique<ObjModel>("ground");
 	modelCube_ = std::make_unique<ObjModel>("objCube");
 	modelPlayer_ = std::make_unique<FbxModel>("box1");
+	modelBox_ = std::make_unique<BoxModel>("");
 #pragma endregion
 	//	天球
 	skydome_.reset(Object3D::Create(modelSkydome_.get()));
@@ -28,7 +30,7 @@ void GameScene::LoadResources()
 	ground_.reset(Object3D::Create(modelGround_.get()));
 	player_.reset(Object3D::Create(modelPlayer_.get()));
 	//	Cube
-	cube_.reset(Object3D::Create(modelCube_.get()));
+	cube_.reset(Object3D::Create(modelBox_.get()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
 #pragma region Texture
 	reimuG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/reimu.png");
@@ -103,7 +105,7 @@ void GameScene::ImguiUpdate()
 
 void GameScene::DrawShadow()
 {
-	cube_->DrawShadow();
+	//cube_->DrawShadow();
 }
 
 void GameScene::Draw()
@@ -113,7 +115,7 @@ void GameScene::Draw()
 	//	地面
 	ground_->DrawShadowReciever();
 	cube_->DrawShadowReciever();
-	player_->DrawShadowReciever();
+	//player_->DrawShadowReciever();
 
 	//level.Draw();
 

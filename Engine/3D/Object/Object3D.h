@@ -1,12 +1,8 @@
 ﻿#pragma once
 #define NOMINMAX
 #include "GPipeline.h"
-#include "Light.h"
 #include "MyMath.h"
-#include "IModel.h"
-#include "ICamera.h"
 //#include "CollisionInfo.h"
-#include "DirectX.h"
 
 #include "ConstBuff.h"
 
@@ -18,6 +14,8 @@ namespace CBuff {
 }
 
 class BaseCollider;
+class ICamera;
+class IModel;
 
 class Object3D
 {
@@ -25,7 +23,7 @@ private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
 	static GPipeline* sPipeline;
-	static Light* sLight;
+	ICamera* camera_ = nullptr;
 
 #pragma region CBuff
 	
@@ -62,14 +60,13 @@ public:
 
 	virtual void Initialize();
 	virtual void ColliderUpdate();
-	void MatUpdate(ICamera* camera_ = nullptr);
+	void MatUpdate();
 	void PlayAnimation();
 	virtual void DrawShadow();
 	void DrawShadowReciever();
 	virtual void Draw();
 	void DrawSilhouette();
 
-	static void SetLight(Light* light);
 	static void SetPipeline(GPipeline* pipeline);
 	void SetModel(IModel* model);
 	//void SetCollider(BaseCollider* collider_);
@@ -94,6 +91,8 @@ public:
 
 	inline IModel* GetModel() { return model_; }
 	const Matrix& GetMatWorld() { return mat_.matWorld_; }
+
+	void SetCamera(ICamera* camera) { camera_ = camera; }
 
 	//virtual void OnCollision(const CollisionInfo& info) { (void)info; }
 };

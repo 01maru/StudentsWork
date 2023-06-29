@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp" />
     <ClCompile Include="Engine\3D\Camera\Base\CameraManager.cpp" />
     <ClCompile Include="Engine\3D\Camera\Base\ICamera.cpp" />
     <ClCompile Include="Engine\3D\Camera\ObjCamera2D.cpp" />
@@ -26,6 +27,16 @@
     <ClCompile Include="Engine\Base\Buffer\ConstBuff.cpp" />
     <ClCompile Include="Engine\Base\DirectX.cpp" />
     <ClCompile Include="Engine\3D\Light\DirLight.cpp" />
+    <ClCompile Include="Engine\Collider\BaseCollider.cpp" />
+    <ClCompile Include="Engine\Collider\Collision.cpp" />
+    <ClCompile Include="Engine\Collider\CollisionAttribute.cpp" />
+    <ClCompile Include="Engine\Collider\CollisionInfo.cpp" />
+    <ClCompile Include="Engine\Collider\CollisionManager.cpp" />
+    <ClCompile Include="Engine\Collider\CollisionPrimitive.cpp" />
+    <ClCompile Include="Engine\Collider\MeshCollider.cpp" />
+    <ClCompile Include="Engine\Collider\QueryCallBack.cpp" />
+    <ClCompile Include="Engine\Collider\RayCast.cpp" />
+    <ClCompile Include="Engine\Collider\SphereCollider.cpp" />
     <ClCompile Include="Engine\Math\Easing.cpp" />
     <ClCompile Include="Engine\Base\Framework.cpp" />
     <ClCompile Include="Engine\3D\Camera\GameCamera.cpp" />
@@ -77,6 +88,7 @@
     <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\3D\Object\Model\BoxModel.h" />
     <ClInclude Include="Engine\3D\Camera\Base\CameraManager.h" />
     <ClInclude Include="Engine\3D\Camera\ObjCamera2D.h" />
     <ClInclude Include="Engine\Base\Buffer\ConstBuffStruct.h" />
@@ -88,6 +100,17 @@
     <ClInclude Include="Engine\3D\Object\Object3D.h" />
     <ClInclude Include="Engine\Base\DepthStencil.h" />
     <ClInclude Include="Engine\Base\Window\FPSController.h" />
+    <ClInclude Include="Engine\Collider\BaseCollider.h" />
+    <ClInclude Include="Engine\Collider\Collision.h" />
+    <ClInclude Include="Engine\Collider\CollisionAttribute.h" />
+    <ClInclude Include="Engine\Collider\CollisionInfo.h" />
+    <ClInclude Include="Engine\Collider\CollisionManager.h" />
+    <ClInclude Include="Engine\Collider\CollisionPrimitive.h" />
+    <ClInclude Include="Engine\Collider\CollisionType.h" />
+    <ClInclude Include="Engine\Collider\MeshCollider.h" />
+    <ClInclude Include="Engine\Collider\QueryCallBack.h" />
+    <ClInclude Include="Engine\Collider\RayCast.h" />
+    <ClInclude Include="Engine\Collider\SphereCollider.h" />
     <ClInclude Include="Engine\Math\FrameCounter.h" />
     <ClInclude Include="Engine\Scene\Base\AbstractSceneFactory.h" />
     <ClInclude Include="Engine\3D\Light\CircleShadow.h" />

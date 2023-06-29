@@ -15,6 +15,8 @@ void LoadingModel::Initialize()
 	loadObj_->SetPosition({ Window::sWIN_WIDTH / 2.0f - 100.0f,-Window::sWIN_HEIGHT / 2.0f + 50.0f,0.0f });
 
     camera_ = std::make_unique<ObjCamera2D>();
+
+    loadObj_->SetCamera(camera_.get());
 }
 
 void LoadingModel::Update()
@@ -51,7 +53,7 @@ void LoadingModel::Update()
         Vector3D rot = loadObj_->GetRotation();
         rot.y -= 0.1f;
         loadObj_->SetRotation(rot);
-        loadObj_->MatUpdate(camera_.get());
+        loadObj_->MatUpdate();
     }
 }
 
