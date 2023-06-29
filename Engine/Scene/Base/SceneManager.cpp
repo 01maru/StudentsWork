@@ -95,9 +95,9 @@ void SceneManager::Initialize()
 
 #pragma endregion
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
 	ImGuiManager::GetInstance()->Initialize();
-//#endif // _DEBUG
+#endif // _DEBUG
 
 #pragma region SplashScreen
 
@@ -119,11 +119,11 @@ void SceneManager::Finalize()
 {
 	scene_->Finalize();
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
 
 	ImGuiManager::GetInstance()->Finalize();
 
-//#endif // _DEBUG
+#endif // _DEBUG
 }
 
 void SceneManager::ScreenColorUpdate()
@@ -229,7 +229,7 @@ void SceneManager::SceneUpdate()
 
 void SceneManager::ImguiUpdate()
 {
-//#ifdef _DEBUG
+#ifdef _DEBUG
 
 	ImGuiManager::GetInstance()->Begin();
 	ImGuiController::GetInstance()->Update();
@@ -247,7 +247,7 @@ void SceneManager::ImguiUpdate()
 	}
 	ImGuiManager::GetInstance()->End();
 
-//#endif // _DEBUG
+#endif // _DEBUG
 }
 
 void SceneManager::Update()
@@ -347,9 +347,9 @@ void SceneManager::Draw()
 
 #endif // NDEBUG
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
 	ImGuiManager::GetInstance()->Draw();
-//#endif // _DEBUG
+#endif // _DEBUG
 
 	dx->PostDraw();
 #pragma endregion
