@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "XAudioManager.h"
 #include "LoadingSprite.h"
+#include "LoadingModel.h"
 #include "SceneFactory.h"
 #include "TextureManager.h"
 #include "UIManager.h"
@@ -55,7 +56,7 @@ void SceneManager::Initialize()
 #pragma region Loading
 
 	endLoading_ = true;
-	loadObj_ = std::make_unique<LoadingSprite>();
+	loadObj_ = std::make_unique<LoadingModel>();
 	loadObj_->Initialize();
 	loadObj_->SetIsLoading(!endLoading_);
 
