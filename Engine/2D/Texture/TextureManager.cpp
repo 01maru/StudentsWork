@@ -335,6 +335,17 @@ Texture* TextureManager::CreateNoneGraphTexture(const std::string& texName)
 	//int32_t buffIndex = index - 1;
 
 	//texture.Initialize(texName, index, texBuff_[buffIndex].Get());
+
+	////	既に画像読み込まれているかの確認
+	//for (int i = 0; i < textures_.size(); i++) {
+	//	if (textures_[i]->GetTextureName() == texName)
+	//	{
+	//		assert(0);
+	//		//	既にあったら
+	//		return textures_[i].get();
+	//	}
+	//}
+
 	texIndex_++;
 	textures_.emplace_back();
 

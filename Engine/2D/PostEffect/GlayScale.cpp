@@ -20,7 +20,7 @@ void GlayScale::Initialize(PostEffect* original)
 
 	pipeline_ = PipelineManager::GetInstance()->GetPipeline("glayScale");
 
-	PostEffect::Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
+	PostEffect::Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT,"glay", 2, DXGI_FORMAT_R11G11B10_FLOAT);
 }
 
 void GlayScale::DrawGlay()

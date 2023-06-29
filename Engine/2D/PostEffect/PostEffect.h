@@ -30,7 +30,7 @@ private:
 #pragma endregion
 
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
-
+	std::string name_;
 	int32_t width_ = 0;
 	int32_t height_ = 0;
 	Vector4D clearColor_ = { 0.1f,0.25f, 0.5f,0.0f };
@@ -41,9 +41,7 @@ private:
 
 	DepthStencil dsv_;
 public:
-	void Initialize(int32_t width, int32_t height, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
-
-	void Initialize(int32_t width, int32_t height, int32_t textureNum, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
+	void Initialize(int32_t width, int32_t height, const std::string& texName, int32_t textureNum = 1, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 	void RSSetVPandSR();
 	void DrawLuminnce();
@@ -60,6 +58,7 @@ public:
 	int32_t const GetWidth() { return width_; }
 	int32_t const GetHeight() { return height_; }
 	const Vector4D& GetClearColor() { return clearColor_; }
+	const std::string& GetName() { return name_; }
 
 	ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }
 	ID3D12Resource** GetTextureBuffPtr(int32_t index = 0) { return texture_[index]->GetResourceBuffAddress(); }

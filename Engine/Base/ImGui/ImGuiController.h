@@ -11,6 +11,7 @@ private:
 	bool activeLightManager_ = false;
 	bool activeDoF_ = false;
 	bool activeTask_ = false;
+	bool activeParticleManager_ = false;
 
 private:	//	関数
 	ImGuiController() {};
@@ -32,5 +33,6 @@ public:
 	bool GetActiveLightManager() { return activeLightManager_; }
 	bool GetActiveDof() { return activeDoF_; }
 	bool GetActiveTask() { return activeTask_; }
+	bool GetActiveParticleManager() { return activeParticleManager_; }
 };
 

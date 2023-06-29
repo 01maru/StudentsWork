@@ -12,6 +12,7 @@
 #include "UIManager.h"
 #include "CameraManager.h"
 #include "Light.h"
+#include "ParticleManager.h"
 
 #include "Window.h"
 
@@ -65,19 +66,19 @@ void SceneManager::Initialize()
 #pragma region PostEffect
 
 	mainScene = std::make_unique<PostEffect>();
-	mainScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
+	mainScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "main", 2, DXGI_FORMAT_R11G11B10_FLOAT);
 
 	dofscene = std::make_unique<PostEffect>();
-	dofscene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, 2, DXGI_FORMAT_R11G11B10_FLOAT);
+	dofscene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "dof", 2, DXGI_FORMAT_R11G11B10_FLOAT);
 
 	taskScene = std::make_unique<PostEffect>();
-	taskScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
+	taskScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "task", 2, DXGI_FORMAT_R11G11B10_FLOAT);
 
 	glayscale = std::make_unique<GlayScale>();
 	glayscale->Initialize(mainScene.get());
 
 	luminnce = std::make_unique<PostEffect>();
-	luminnce->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R11G11B10_FLOAT);
+	luminnce->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "luminnce", 2, DXGI_FORMAT_R11G11B10_FLOAT);
 
 	luminnceBulr = std::make_unique<GaussBlur>();
 	luminnceBulr->Initialize(5.0f, luminnce.get(), DXGI_FORMAT_R11G11B10_FLOAT);
@@ -85,7 +86,7 @@ void SceneManager::Initialize()
 		PipelineManager::GetInstance()->GetPipeline("luminnceyBlur"));
 
 	shadowEffect = std::make_unique<PostEffect>();
-	shadowEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_R32G32_FLOAT);
+	shadowEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "shadow", 2, DXGI_FORMAT_R32G32_FLOAT);
 
 	shadowBulr = std::make_unique<GaussBlur>();
 	shadowBulr->Initialize(1.0f, shadowEffect.get(), DXGI_FORMAT_R32G32_FLOAT);
@@ -241,6 +242,7 @@ void SceneManager::ImguiUpdate()
 	XAudioManager::GetInstance()->ImguiUpdate(endLoading_);
 	TextureManager::GetInstance()->ImGuiUpdate();
 	Light::GetInstance()->ImGuiUpdate();
+	ParticleManager::GetInstance()->ImGuiUpdate();
 
 	if (endLoading_) {
 		scene_->ImguiUpdate();

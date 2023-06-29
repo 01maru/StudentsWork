@@ -21,6 +21,7 @@ void ImGuiController::Update()
 	man->CheckBox("UIManager", activeUIManager_);
 	man->CheckBox("CameraManager", activeCameraManager_);
 	man->CheckBox("LightManager", activeLightManager_);
+	man->CheckBox("ParticleManager", activeParticleManager_);
 	man->CheckBox("DoF", activeDoF_);
 	man->CheckBox("Task", activeTask_);
 

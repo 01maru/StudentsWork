@@ -31,11 +31,11 @@ void GaussBlur::Initialize(float weight, PostEffect* original, DXGI_FORMAT forma
 	int32_t width = original_->GetWidth() / 2;
 	int32_t height = original_->GetHeight();
 	blurX_ = std::make_unique<PostEffect>();
-	blurX_->Initialize(width, height, 1, format);
+	blurX_->Initialize(width, height, original_->GetName() + "/xblur", 1, format);
 
 	height /= 2;
 	blurY_ = std::make_unique<PostEffect>();
-	blurY_->Initialize(width, height, 1, format);
+	blurY_->Initialize(width, height, original_->GetName() + "/yblur", 1, format);
 }
 
 void GaussBlur::Draw()

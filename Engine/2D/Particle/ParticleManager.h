@@ -21,6 +21,7 @@ public:
 	void Initialize();
 	void Update();
 	void MatUpdate();
+	void ImGuiUpdate();
 	void Draw();
 
 #pragma region ADD
