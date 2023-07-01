@@ -1,6 +1,7 @@
-#pragma once
-#include "BaseCollider.h"
+﻿#pragma once
+#include "Vector3D.h"
 
+class BaseCollider;
 class Object3D;
 
 struct RayCast

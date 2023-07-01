@@ -1,9 +1,9 @@
-#pragma once
-#include "MyMath.h"
+﻿#pragma once
+#include "Vector3D.h"
 
 struct Sphere {
-	Vector3D center;
-	float radius = 1.0f;
+	Vector3D center_;
+	float radius_ = 1.0f;
 };
 
 struct Plane {

@@ -2,7 +2,7 @@
 #define NOMINMAX
 #include "GPipeline.h"
 #include "MyMath.h"
-//#include "CollisionInfo.h"
+#include "CollisionInfo.h"
 
 #include "ConstBuff.h"
 
@@ -50,7 +50,7 @@ private:
 protected:
 	MyMath::ObjMatrix mat_;
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
-	//BaseCollider* collider = nullptr;
+	BaseCollider* collider = nullptr;
 	
 public:
 	Object3D() = default;
@@ -69,9 +69,10 @@ public:
 
 	static void SetPipeline(GPipeline* pipeline);
 	void SetModel(IModel* model);
-	//void SetCollider(BaseCollider* collider_);
-	//BaseCollider* GetCollider() { return collider; }
-	//void SetAttribute(unsigned short attribute);
+
+	void SetCollider(BaseCollider* collider_);
+	BaseCollider* GetCollider() { return collider; }
+	void SetAttribute(unsigned short attribute);
 
 	void SetColor(const Vector4D& color) { color_ = color; }
 	void SetColor(const Vector3D& color) { color_ = Vector4D(color, color_.w); }
@@ -94,6 +95,6 @@ public:
 
 	void SetCamera(ICamera* camera) { camera_ = camera; }
 
-	//virtual void OnCollision(const CollisionInfo& info) { (void)info; }
+	virtual void OnCollision(const CollisionInfo& info) { (void)info; }
 };
 

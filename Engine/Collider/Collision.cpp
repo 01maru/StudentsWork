@@ -83,27 +83,27 @@ void Collision::ClosestPtPoint2Triangle(const Vector3D& point, const Triangle& t
 
 bool Collision::CheckSphere2Sphere(const Sphere& sphereA, const Sphere& sphereB, Vector3D* inter, Vector3D* reject)
 {
-    float dis = sphereA.radius + sphereB.radius;
+    float dis = sphereA.radius_ + sphereB.radius_;
 	dis *= dis;
 
-    Vector3D disV = sphereA.center;
-    disV -= sphereB.center;
+    Vector3D disV = sphereA.center_;
+    disV -= sphereB.center_;
 	float vecDis = disV.GetLength();
 	vecDis *= vecDis;
 
 	if (vecDis <= dis) {
 		if (inter) {
 			// Aの半径が0の時座標はBの中心　Bの半径が0の時座標はAの中心　となるよう補完
-			float t = sphereB.radius / (sphereA.radius + sphereB.radius);
+			float t = sphereB.radius_ / (sphereA.radius_ + sphereB.radius_);
 			Vector3D intVec;
-			intVec.x = Easing::lerp(sphereA.center.x, sphereB.center.x, t);
-			intVec.y = Easing::lerp(sphereA.center.y, sphereB.center.y, t);
-			intVec.z = Easing::lerp(sphereA.center.z, sphereB.center.z, t);
+			intVec.x = Easing::lerp(sphereA.center_.x, sphereB.center_.x, t);
+			intVec.y = Easing::lerp(sphereA.center_.y, sphereB.center_.y, t);
+			intVec.z = Easing::lerp(sphereA.center_.z, sphereB.center_.z, t);
 			*inter = intVec;
 		}
 		// 押し出すベクトルを計算
 		if (reject) {
-			float rejectLen = sphereA.radius + sphereB.radius - sqrtf(vecDis);
+			float rejectLen = sphereA.radius_ + sphereB.radius_ - sqrtf(vecDis);
 
 			disV.Normalize();
 			*reject = disV;
@@ -117,14 +117,14 @@ bool Collision::CheckSphere2Sphere(const Sphere& sphereA, const Sphere& sphereB,
 
 bool Collision::CheckSphere2Plane(const Sphere& sphere, const Plane& plane, Vector3D* inter)
 {
-    Vector3D distV = sphere.center;
+    Vector3D distV = sphere.center_;
     float dist = distV.dot(plane.normal) - plane.distance;
 
-    if (fabsf(dist) > sphere.radius) return false;
+    if (fabsf(dist) > sphere.radius_) return false;
 
     if (inter) {
         *inter = -dist * plane.normal;
-        *inter += sphere.center;
+        *inter += sphere.center_;
     }
 
     return true;
@@ -133,16 +133,16 @@ bool Collision::CheckSphere2Plane(const Sphere& sphere, const Plane& plane, Vect
 bool Collision::CheckSphere2Triangle(const Sphere& sphere, const Triangle& triangle, Vector3D* inter, Vector3D* reject)
 {
     Vector3D p;
-    ClosestPtPoint2Triangle(sphere.center, triangle, &p);
-    Vector3D v = p - sphere.center;
-    if (v.dot(v) > sphere.radius * sphere.radius) return false;
+    ClosestPtPoint2Triangle(sphere.center_, triangle, &p);
+    Vector3D v = p - sphere.center_;
+    if (v.dot(v) > sphere.radius_ * sphere.radius_) return false;
 
     if (inter) *inter = p;
 
 	if (reject) {
-		float ds = sphere.center.dot(triangle.normal);
+		float ds = sphere.center_.dot(triangle.normal);
 		float dt = triangle.p0.dot(triangle.normal);
-		float rejectLen = dt - ds + sphere.radius;
+		float rejectLen = dt - ds + sphere.radius_;
 		*reject = triangle.normal * rejectLen;
 	}
     return true;
@@ -171,9 +171,9 @@ bool Collision::CheckRay2Plane(const Ray& ray, const Plane& plane, float* distan
 bool Collision::CheckRay2Sphere(const Ray& ray, const Sphere& sphere, float* distance, Vector3D* inter)
 {
     Vector3D m = ray.start;
-    m -= sphere.center;
+    m -= sphere.center_;
     float b = m.dot(ray.dir);
-    float c = m.dot(m) - sphere.radius * sphere.radius;
+    float c = m.dot(m) - sphere.radius_ * sphere.radius_;
     if (c > 0.0f && b > 0.0f) return false;
 
     float discr = b * b - c;

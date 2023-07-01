@@ -4,21 +4,22 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cassert>
 
-void UIManager::LoadFile()
+std::map<std::string, Sprite, std::less<>> UIManager::LoadFile(const std::string& filename)
 {
-	int ind = (int)filename_.find_last_of('\0');
-	if (ind > 0) filename_ = filename_.substr(0, ind);
-
-	std::string filePath = "Resources/Levels/" + filename_ + ".txt";
+	std::string filePath = "Resources/Levels/" + filename + ".txt";
 
 	//ファイル開く(開けなかったら新規作成)
 	std::ifstream file;
 	file.open(filePath.c_str());
 
+	std::map<std::string, Sprite, std::less<>> ans;
+
 	if (file.fail()) {
-		editUI_ = true;
-		return;
+		if (editUI_) return ans;
+		
+		assert(0);
 	}
 
 	// 1行ずつ読み込む
@@ -62,12 +63,22 @@ void UIManager::LoadFile()
 
 			sprite.SetAnchorPoint(pos);
 
-			sprites_.emplace(key, sprite);
+			ans.emplace(key, sprite);
 		}
 	}
 
 	//ファイル閉じる
 	file.close();
+
+	return ans;
+}
+
+void UIManager::LoadEditFile()
+{
+	int ind = (int)filename_.find_last_of('\0');
+	if (ind > 0) filename_ = filename_.substr(0, ind);
+
+	sprites_ = LoadFile(filename_);
 
 	editUI_ = true;
 }
@@ -178,6 +189,15 @@ void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::itera
 	}
 }
 
+void UIManager::DrawEditUI()
+{
+	if (!editUI_) return;
+
+	for (auto& sprite : sprites_) {
+		sprite.second.Draw();
+	}
+}
+
 UIManager* UIManager::GetInstance()
 {
 	static UIManager instance;
@@ -195,7 +215,7 @@ void UIManager::ImGuiUpdate()
 	if (imguiMan->BeginMenuBar()) {
 		if (imguiMan->BeginMenu("File")) {
 			if (imguiMan->MenuItem("New")) editUI_ = true;
-			if (imguiMan->MenuItem("Load")) LoadFile();
+			if (imguiMan->MenuItem("Load")) LoadEditFile();
 			if (imguiMan->MenuItem("Save")) SaveFile();
 			if (imguiMan->MenuItem("Close")) CloseEditer();
 			imguiMan->EndMenu();
@@ -239,9 +259,5 @@ void UIManager::ImGuiUpdate()
 
 void UIManager::Draw()
 {
-	if (!editUI_) return;
-
-	for (auto& sprite : sprites_) {
-		sprite.second.Draw();
-	}
+	DrawEditUI();
 }

@@ -1,13 +1,16 @@
 #pragma once
-#include "MyMath.h"
+#include "Vector3D.h"
+
 class Object3D;
 class BaseCollider;
 
 struct CollisionInfo
 {
+private:
 	Object3D* object = nullptr;
 	BaseCollider* collider = nullptr;
 	Vector3D inter;
+
 public:
 	CollisionInfo(Object3D* object, BaseCollider* collider,
 		const Vector3D& inter) {

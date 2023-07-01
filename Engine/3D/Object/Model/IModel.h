@@ -18,7 +18,7 @@ protected:
 	static const int sMAX_BONE_INDICES = 4;
 
 	//	メッシュ
-	std::vector<std::unique_ptr<Mesh>> meshes_;
+	std::vector<Mesh> meshes_;
 	//	マテリアル
 	std::unordered_map<std::string, std::unique_ptr<Material>> materials_;
 
@@ -42,7 +42,7 @@ public:
 	void AddMaterial(Material* material) { materials_.emplace(material->name_, material); }
 
 	//　Getter
-	//const std::vector<Mesh*>& GetMeshes() { return meshes_; }
+	const std::vector<Mesh>& GetMeshes() { return meshes_; }
 	const Matrix& GetModelTransform() { return globalInverseTransform_; }
 	size_t GetNumBones() { return numBones_; }
 	std::vector<BoneInfo> GetBoneInfo() { return boneInfo_; }

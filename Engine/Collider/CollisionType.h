@@ -1,4 +1,5 @@
-#pragma once
+﻿#pragma once
+
 enum CollisionShapeType
 {
 	SHAPE_UNKNOWN = -1,

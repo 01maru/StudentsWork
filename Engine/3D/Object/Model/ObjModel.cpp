@@ -56,8 +56,8 @@ void ObjModel::LoadModel(const std::string& modelname, bool smoothing)
 	file_.open(directoryPath + filename);
 	assert(!file_.fail());
 
-	meshes_.emplace_back(new Mesh);
-	Mesh* mesh = meshes_.back().get();
+	meshes_.emplace_back();
+	Mesh* mesh = &meshes_.back();
 	int indexCount = 0;
 
 	string line;
@@ -99,8 +99,8 @@ void ObjModel::LoadModel(const std::string& modelname, bool smoothing)
 					mesh->CalcSmoothedNormals();
 				}
 				// 次のメッシュ生成
-				meshes_.emplace_back(new Mesh);
-				mesh = meshes_.back().get();
+				meshes_.emplace_back();
+				mesh = &meshes_.back();
 				indexCount = 0;
 			}
 

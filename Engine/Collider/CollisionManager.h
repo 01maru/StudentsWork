@@ -13,11 +13,11 @@ private:
 	std::forward_list<BaseCollider*> colliders;
 
 	CollisionManager() {};
-	CollisionManager(const CollisionManager&) = delete;
 	~CollisionManager() = default;
-	CollisionManager& operator=(const CollisionManager&) = delete;
 public:
 	static CollisionManager* GetInstance();
+	CollisionManager(const CollisionManager&) = delete;
+	CollisionManager& operator=(const CollisionManager&) = delete;
 	
 	void CheckAllCollisions();
 	void AddCollider(BaseCollider* collider) { colliders.push_front(collider); }

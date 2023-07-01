@@ -5,7 +5,7 @@ void IModel::Initialize(const char* filename, bool smoothing)
 	LoadModel(filename, smoothing);
 
 	for (auto& m : meshes_) {
-		m->Initialzie();
+		m.Initialzie();
 	}
 
 	for (auto& m : materials_) {
@@ -20,13 +20,13 @@ void IModel::Initialize(const char* filename, bool smoothing)
 void IModel::Draw()
 {
 	for (auto& mesh : meshes_) {
-		mesh->Draw();
+		mesh.Draw();
 	}
 }
 
 void IModel::DrawShadowReciever()
 {
 	for (auto& mesh : meshes_) {
-		mesh->DrawShadowReciever();
+		mesh.DrawShadowReciever();
 	}
 }

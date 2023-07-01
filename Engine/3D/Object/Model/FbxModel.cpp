@@ -215,8 +215,8 @@ void FbxModel::LoadModel(const std::string& modelname, bool /*smoothing*/)
 		const auto pMesh = modelScene->mMeshes[i];
 
 		//	Œ^•ÏŠ·
-		meshes_.emplace_back(new Mesh);
-		Mesh* mesh = meshes_.back().get();
+		meshes_.emplace_back();
+		Mesh* mesh = &meshes_.back();
 		LoadMesh(*mesh, pMesh);
 		//	ƒ{[ƒ“æ“¾
 		LoadBone(i, pMesh);
@@ -320,7 +320,7 @@ void FbxModel::LoadBone(size_t meshIndex, const aiMesh* src)
 		for (size_t j = 0; j < src->mBones[i]->mNumWeights; j++) {
 			size_t VertexID = src->mBones[i]->mWeights[j].mVertexId;
 			float Weight = src->mBones[i]->mWeights[j].mWeight;
-			meshes_[meshIndex]->SetBone(VertexID, BoneIndex, Weight);
+			meshes_[meshIndex].SetBone(VertexID, BoneIndex, Weight);
 		}
 	}
 }

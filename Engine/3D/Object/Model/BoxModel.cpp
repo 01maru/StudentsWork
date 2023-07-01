@@ -10,8 +10,8 @@ void BoxModel::LoadModel(const std::string& /*modelname*/, bool /*smoothing*/)
 
 	AddMaterial(material);
 
-	meshes_.emplace_back(new Mesh);
-	Mesh* mesh = meshes_.back().get();
+	meshes_.emplace_back();
+	Mesh* mesh = &meshes_.back();
 
 	AddVertex(mesh);
 	AddIndex(mesh);

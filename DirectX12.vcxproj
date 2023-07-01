@@ -29,13 +29,10 @@
     <ClCompile Include="Engine\3D\Light\DirLight.cpp" />
     <ClCompile Include="Engine\Collider\BaseCollider.cpp" />
     <ClCompile Include="Engine\Collider\Collision.cpp" />
-    <ClCompile Include="Engine\Collider\CollisionAttribute.cpp" />
-    <ClCompile Include="Engine\Collider\CollisionInfo.cpp" />
     <ClCompile Include="Engine\Collider\CollisionManager.cpp" />
     <ClCompile Include="Engine\Collider\CollisionPrimitive.cpp" />
     <ClCompile Include="Engine\Collider\MeshCollider.cpp" />
     <ClCompile Include="Engine\Collider\QueryCallBack.cpp" />
-    <ClCompile Include="Engine\Collider\RayCast.cpp" />
     <ClCompile Include="Engine\Collider\SphereCollider.cpp" />
     <ClCompile Include="Engine\Math\Easing.cpp" />
     <ClCompile Include="Engine\Base\Framework.cpp" />
@@ -86,6 +83,7 @@
     <ClCompile Include="Engine\2D\Sprite\SplashSprite.cpp" />
     <ClCompile Include="Engine\2D\Sprite\Base\UIManager.cpp" />
     <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp" />
+    <ClCompile Include="PauseScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h" />
@@ -169,6 +167,7 @@
     <ClInclude Include="Engine\Base\JSONLoader.h" />
     <ClInclude Include="Engine\2D\PostEffect\PlanePolygon.h" />
     <ClInclude Include="Engine\2D\PostEffect\GlayScale.h" />
+    <ClInclude Include="PauseScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

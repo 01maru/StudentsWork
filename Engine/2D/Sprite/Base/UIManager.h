@@ -18,13 +18,14 @@ private:
 	UIManager() {};
 	~UIManager() {};
 
-	void LoadFile();
+	void LoadEditFile();
 	void SaveFile();
 	void CloseEditer();
 	void DeleteSpriteForList();
 	void AddSprite();
 	void ReNameSprite(std::map<std::string, Sprite, std::less<>>::iterator& itr);
 	void DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::iterator& itr);
+	void DrawEditUI();
 public:
 	static UIManager* GetInstance();
 	UIManager(const UIManager& obj) = delete;
@@ -35,5 +36,6 @@ public:
 
 	bool GetActiveGlayscale() { return activeGlayscale_; }
 	bool GetEditUI() { return editUI_; }
+	std::map<std::string, Sprite, std::less<>> LoadFile(const std::string& filename);
 };
 

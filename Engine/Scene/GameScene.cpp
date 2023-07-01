@@ -14,6 +14,7 @@
 #include "CameraManager.h"
 #include "Light.h"
 #include "BoxModel.h"
+#include "PauseScreen.h"
 
 void GameScene::LoadResources()
 {
@@ -21,14 +22,14 @@ void GameScene::LoadResources()
 	modelSkydome_ = std::make_unique<ObjModel>("skydome");
 	modelGround_ = std::make_unique<ObjModel>("ground");
 	modelCube_ = std::make_unique<ObjModel>("objCube");
-	modelPlayer_ = std::make_unique<FbxModel>("box1");
+	//modelPlayer_ = std::make_unique<FbxModel>("box1");
 	modelBox_ = std::make_unique<BoxModel>("");
 #pragma endregion
 	//	天球
 	skydome_.reset(Object3D::Create(modelSkydome_.get()));
 	//	地面
 	ground_.reset(Object3D::Create(modelGround_.get()));
-	player_.reset(Object3D::Create(modelPlayer_.get()));
+	//player_.reset(Object3D::Create(modelPlayer_.get()));
 	//	Cube
 	cube_.reset(Object3D::Create(modelBox_.get()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
@@ -50,6 +51,9 @@ void GameScene::LoadResources()
 
 void GameScene::Initialize()
 {
+	//	pause設定
+	PauseScreen::GetInstance()->SetIsActive(false);
+
 	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
 	LoadResources();
 
@@ -76,8 +80,8 @@ void GameScene::MatUpdate()
 	skydome_->MatUpdate();
 
 	cube_->MatUpdate();
-	player_->MatUpdate();
-	player_->PlayAnimation();
+	//player_->MatUpdate();
+	//player_->PlayAnimation();
 
 	level.MatUpdate();
 }
@@ -85,6 +89,8 @@ void GameScene::MatUpdate()
 void GameScene::Update()
 {
 #pragma region 更新処理
+	if (InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_ESCAPE)) PauseScreen::GetInstance()->SetIsActive(true);
+
 	if (InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_B)) {
 		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
 	}
@@ -117,7 +123,7 @@ void GameScene::Draw()
 	cube_->DrawShadowReciever();
 	//player_->DrawShadowReciever();
 
-	//level.Draw();
+	level.Draw();
 
 	//sprite_->Draw();
 

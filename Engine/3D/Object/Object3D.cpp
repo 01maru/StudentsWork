@@ -27,26 +27,26 @@ void Object3D::SetModel(IModel* model)
 	model_ = model;
 }
 
-//void Object3D::SetCollider(BaseCollider* collider_)
-//{
-//	collider_->SetObject3D(this);
-//	//this->collider = collider_;
-//	CollisionManager::GetInstance()->AddCollider(collider_);
-//	MatUpdate();
-//	collider_->Update();
-//}
+void Object3D::SetCollider(BaseCollider* collider_)
+{
+	collider_->SetObject3D(this);
+	this->collider = collider_;
+	CollisionManager::GetInstance()->AddCollider(collider_);
+	MatUpdate();
+	collider_->Update();
+}
 
-//void Object3D::SetAttribute(unsigned short /*attribute*/)
-//{
-//	//collider->SetAttribute(attribute);
-//}
+void Object3D::SetAttribute(unsigned short attribute)
+{
+	collider->SetAttribute(attribute);
+}
 
 Object3D::~Object3D()
 {
-	//if (collider) {
-	//	CollisionManager::GetInstance()->RemoveCollider(collider);
-	//	delete collider;
-	//}
+	if (collider) {
+		CollisionManager::GetInstance()->RemoveCollider(collider);
+		delete collider;
+	}
 }
 
 Object3D* Object3D::Create(IModel* model_)
@@ -109,9 +109,9 @@ void Object3D::Initialize()
 
 void Object3D::ColliderUpdate()
 {
-	//if (collider) {
-	//	collider->RSSetVPandSR();
-	//}
+	if (collider) {
+		collider->Update();
+	}
 }
 
 void Object3D::MatUpdate()

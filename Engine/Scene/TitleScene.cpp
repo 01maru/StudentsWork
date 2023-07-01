@@ -5,6 +5,8 @@
 #include "TextureManager.h"
 #include "XAudioManager.h"
 
+#include "PauseScreen.h"
+
 void TitleScene::LoadResources()
 {
 #pragma region Sound
@@ -22,6 +24,8 @@ void TitleScene::LoadResources()
 
 void TitleScene::Initialize()
 {
+	PauseScreen::GetInstance()->SetIsActive(true);
+
 	camera = std::make_unique<NormalCamera>();
 	camera->Initialize(Vector3D(0.0f, 0.0f, -10.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector3D(0.0f, 1.0f, 0.0f));
 
