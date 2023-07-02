@@ -215,6 +215,16 @@ float Norm(const Quaternion& quaternion)
     return sqrtf(quaternion.w * quaternion.w + quaternion.x * quaternion.x + quaternion.y * quaternion.y + quaternion.z * quaternion.z);
 }
 
+float GetAngle(const Vector3D& axis, const Vector3D& v)
+{
+    Quaternion qAxis(0.0f, axis);
+    Quaternion qV(0.0f, v);
+    qAxis.Normalize();
+    qV.Normalize();
+
+    return acosf(qAxis.Dot(qV));
+}
+
 Quaternion Normalize(const Quaternion& quaternion)
 {
     float len = Norm(quaternion);

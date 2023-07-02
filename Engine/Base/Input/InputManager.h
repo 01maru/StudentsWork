@@ -34,5 +34,8 @@ public:
 	InputMouse* GetMouse() { return mouse_.get(); }
 	InputJoypad* GetPad() { return joypad_.get(); }
 	InputKeyboard* GetKeyboard() { return keyboard_.get(); }
+
+	bool GetKeyAndButton(int key, InputJoypad::JoyPadButton button);
+	bool GetTriggerKeyAndButton(int key, InputJoypad::JoyPadButton button);
 };
 

@@ -10,11 +10,16 @@
 #include "DebugTextManager.h"
 #include "SceneManager.h"
 
+#include "CollisionManager.h"
+#include "CollisionAttribute.h"
+#include "MeshCollider.h"
+
 #include "InputManager.h"
 #include "CameraManager.h"
 #include "Light.h"
 #include "BoxModel.h"
 #include "PauseScreen.h"
+#include "ImGuiManager.h"
 
 void GameScene::LoadResources()
 {
@@ -22,14 +27,20 @@ void GameScene::LoadResources()
 	modelSkydome_ = std::make_unique<ObjModel>("skydome");
 	modelGround_ = std::make_unique<ObjModel>("ground");
 	modelCube_ = std::make_unique<ObjModel>("objCube");
-	//modelPlayer_ = std::make_unique<FbxModel>("box1");
+	modelPlayer_ = std::make_unique<ObjModel>("chr_sword");
 	modelBox_ = std::make_unique<BoxModel>("");
 #pragma endregion
 	//	天球
 	skydome_.reset(Object3D::Create(modelSkydome_.get()));
 	//	地面
 	ground_.reset(Object3D::Create(modelGround_.get()));
-	//player_.reset(Object3D::Create(modelPlayer_.get()));
+	MeshCollider* collider_ = new MeshCollider;
+	collider_->ConstructTriangles(modelGround_.get());
+	collider_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
+	ground_->SetCollider(collider_);
+	//	player
+	player_ = std::make_unique<Player>();
+	player_->PlayerInitialize(modelPlayer_.get());
 	//	Cube
 	cube_.reset(Object3D::Create(modelBox_.get()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
@@ -80,7 +91,7 @@ void GameScene::MatUpdate()
 	skydome_->MatUpdate();
 
 	cube_->MatUpdate();
-	//player_->MatUpdate();
+	player_->MatUpdate();
 	//player_->PlayAnimation();
 
 	level.MatUpdate();
@@ -98,15 +109,26 @@ void GameScene::Update()
 	sprite_->Update();
 	ParticleManager::GetInstance()->Update();
 
+	player_->Update();
+
 	//DebugTextManager::GetInstance()->Print("test", { 0,Window::sWIN_HEIGHT/2.0f }, 5);
 #pragma endregion
 	MatUpdate();
 
-	Light::GetInstance()->SetDirLightColor(0, Vector3D(1.0f, 1.0f, 1.0f));
+	player_->CollisionUpdate();
+
+	CollisionManager::GetInstance()->CheckAllCollisions();
 }
 
 void GameScene::ImguiUpdate()
 {
+	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+
+	imguiMan->BeginWindow("SceneManager", true);
+
+	imguiMan->Text("Angle : %f", player_->angle());
+
+	imguiMan->EndWindow();
 }
 
 void GameScene::DrawShadow()
@@ -121,9 +143,9 @@ void GameScene::Draw()
 	//	地面
 	ground_->DrawShadowReciever();
 	cube_->DrawShadowReciever();
-	//player_->DrawShadowReciever();
+	player_->DrawShadowReciever();
 
-	level.Draw();
+	//level.Draw();
 
 	//sprite_->Draw();
 

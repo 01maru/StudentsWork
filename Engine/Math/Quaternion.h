@@ -49,6 +49,7 @@ Quaternion Multiply(const Quaternion& q, const Quaternion& r);
 Quaternion IdentityQuaternion();
 Quaternion Conjugate(const Quaternion& quaternion);
 float Norm(const Quaternion& quaternion);
+float GetAngle(const Vector3D& axis, const Vector3D& v);
 Quaternion Normalize(const Quaternion& quaternion);
 Quaternion Inverse(const Quaternion& quaternion);
 Quaternion MakeAxisAngle(const Vector3D& axis, float angle);

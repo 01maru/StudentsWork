@@ -1,5 +1,9 @@
 #include "Player.h"
-#include "Input.h"
+#include "InputManager.h"
+#include "CameraManager.h"
+#include <cassert>
+#include "Quaternion.h"
+
 #include "SphereCollider.h"
 #include "CollisionManager.h"
 #include "CollisionAttribute.h"
@@ -7,19 +11,15 @@
 #include "InputJoypad.h"
 #include "XAudioManager.h"
 
-ICamera* Player::camera = nullptr;
+using namespace CollAttribute;
+
 const float Player::MAX_SPD = 0.1f;
 const int Player::INVINCIBLE_TIME = 90;
 
-void Player::SetCamera(ICamera* camera_)
-{
-	camera = camera_;
-}
-
-void Player::PlayerInitialize(IModel* model_)
+void Player::PlayerInitialize(IModel* model)
 {
 	Initialize();
-	SetModel(model_);
+	SetModel(model);
 	float radius = 0.6f;
 	SetCollider(new SphereCollider(Vector3D(0.0f, radius, 0.0f), radius));
 	collider->SetAttribute(COLLISION_ATTR_ALLIES);
@@ -29,13 +29,21 @@ void Player::PlayerInitialize(IModel* model_)
 
 void Player::Update()
 {
-	InputJoypad* pad = InputJoypad::GetInstance();
-	int front = (Input::GetInstance()->GetKey(DIK_W) || pad->GetButton(XINPUT_GAMEPAD_DPAD_UP)) - (Input::GetInstance()->GetKey(DIK_S) || pad->GetButton(XINPUT_GAMEPAD_DPAD_DOWN));
-	int side = (Input::GetInstance()->GetKey(DIK_D) || pad->GetButton(XINPUT_GAMEPAD_DPAD_RIGHT)) - (Input::GetInstance()->GetKey(DIK_A) || pad->GetButton(XINPUT_GAMEPAD_DPAD_LEFT));
+	InputManager* input = InputManager::GetInstance();
+	
+	int32_t front = input->GetKeyAndButton(DIK_W, InputJoypad::DPAD_Up) -
+		input->GetKeyAndButton(DIK_S, InputJoypad::DPAD_Down);
+	int32_t side = input->GetKeyAndButton(DIK_D, InputJoypad::DPAD_Right) -
+		input->GetKeyAndButton(DIK_A, InputJoypad::DPAD_Left);
 
+	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+	
 	Vector3D moveVec;
-	moveVec.x = front * camera->GetFrontVec().x + side * camera->GetRightVec().x;
-	moveVec.z = front * camera->GetFrontVec().z + side * camera->GetRightVec().z;
+	moveVec = (float)front * camera->GetFrontVec() + (float)side * camera->GetRightVec();
+	moveVec.y = 0;
+	
+	bool isMove = front != 0 || side != 0;
+
 	if (front != 0 && side != 0) {
 		spd = MAX_SPD / 1.4142f;
 	}
@@ -44,12 +52,12 @@ void Player::Update()
 	}
 
 	if (!onGround) {
-		//const float fallAcc = -0.01f;
-		//const float fallVYMin = -0.5f;
-		//fallVec.y = max(fallVec.y + fallAcc, fallVYMin);
-		mat.trans += fallVec;
+		const float fallAcc = -0.01f;
+		const float fallVYMin = -0.5f;
+		fallVec.y = MyMath::mMax (fallVec.y + fallAcc, fallVYMin);
+		mat_.trans_ += fallVec;
 	}
-	else if (Input::GetInstance()->GetTrigger(DIK_SPACE)) {
+	else if (input->GetTriggerKeyAndButton(DIK_SPACE,InputJoypad::A_Button)) {
 		onGround = false;
 		const float jumpVYFist = 0.2f;
 		fallVec = { 0.0f,jumpVYFist,0.0f };
@@ -57,14 +65,15 @@ void Player::Update()
 	}
 
 	moveVec *= spd;
-	mat.trans += moveVec;
+	mat_.trans_ += moveVec;
 	//camera->SetTarget({ mat.trans.x,mat.trans.y + 1.0f,mat.trans.z });
 	//camera->EyeMove(moveVec);
 	//camera->MatUpdate();
 
-	if (Input::GetInstance()->GetKey(DIK_W) || Input::GetInstance()->GetKey(DIK_S) ||
-		Input::GetInstance()->GetKey(DIK_A) || Input::GetInstance()->GetKey(DIK_D)) {
-		mat.rotAngle.y = atan2(moveVec.x, moveVec.z);
+	if (isMove) {
+		Vector3D axis(0, 0, -1);
+
+		mat_.angle_.y = GetAngle(axis, moveVec);	//	atan2はダメ
 	}
 
 	ColliderUpdate();
@@ -93,7 +102,7 @@ void Player::CollisionUpdate()
 			const float threshold = cosf(MyMath::ConvertToRad(30.0f));
 
 			if (-threshold < cos && cos < threshold) {
-				sphere->center += info.reject;
+				sphere->center_ += info.reject;
 				move += info.reject;
 			}
 
@@ -108,13 +117,13 @@ void Player::CollisionUpdate()
 	// 球と地形の交差を全検索
 	CollisionManager::GetInstance()->QuerySphere(*sphereCollider, &callback, COLLISION_ATTR_LANDSHAPE);
 	// 交差による排斥分動かす
-	mat.trans += callback.move;
+	mat_.trans_ += callback.move;
 
 	MatUpdate();
 	collider->Update();
 
 	Ray ray;
-	ray.start = sphereCollider->center;
+	ray.start = sphereCollider->center_;
 	ray.start.y += sphereCollider->GetRadius();
 	ray.dir = { 0,-1,0 };
 	RayCast raycastHit;
@@ -125,7 +134,7 @@ void Player::CollisionUpdate()
 		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &raycastHit,
 			sphereCollider->GetRadius() * 2.0f + adsDis)) {
 			onGround = true;
-			mat.trans.y -= (raycastHit.distance - sphereCollider->GetRadius() * 2.0f);
+			mat_.trans_.y -= (raycastHit.distance - sphereCollider->GetRadius() * 2.0f);
 			ColliderUpdate();
 			MatUpdate();
 		}
@@ -138,7 +147,7 @@ void Player::CollisionUpdate()
 		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &raycastHit,
 			sphereCollider->GetRadius() * 2.0f)) {
 			onGround = true;
-			mat.trans.y -= (raycastHit.distance - sphereCollider->GetRadius() * 2.0f);
+			mat_.trans_.y -= (raycastHit.distance - sphereCollider->GetRadius() * 2.0f);
 			ColliderUpdate();
 			MatUpdate();
 		}

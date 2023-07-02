@@ -50,3 +50,13 @@ void InputManager::ImGuiUpdate()
 
 	imgui->EndWindow();
 }
+
+bool InputManager::GetKeyAndButton(int key, InputJoypad::JoyPadButton button)
+{
+	return keyboard_->GetKey(key) || joypad_->GetButton(button);
+}
+
+bool InputManager::GetTriggerKeyAndButton(int key, InputJoypad::JoyPadButton button)
+{
+	return keyboard_->GetTrigger(key) || joypad_->GetButtonTrigger(button);
+}

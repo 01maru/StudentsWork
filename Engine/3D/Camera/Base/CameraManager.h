@@ -31,6 +31,7 @@ public:
 	//	Getter
 	ICamera* GetCamera();
 	ICamera* GetLightCamera();
+	ICamera* GetMainCamera();
 
 	//	Setter
 	void SetMainCamera(std::unique_ptr<ICamera> camera) { mainCamera_ = std::move(camera); }

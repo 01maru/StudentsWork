@@ -10,12 +10,12 @@ void MyGame::Initialize()
 	Framework::Initialize();
 
 	Light* light = Light::GetInstance();
-	//	ライトの初期化
-	light->Initialize();
 
 #pragma region SetLight
 	light->SetDirLightActive(0, true);
 	light->SetDirLightShadow(0, true);
+	//	ライトの初期化
+	light->Initialize();
 #pragma endregion
 
 	SceneManager::GetInstance()->Initialize();

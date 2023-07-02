@@ -6,6 +6,7 @@
 
 #include "ICamera.h"
 #include "Texture.h"
+#include "Player.h"
 
 #include "JSONLoader.h"
 
@@ -20,7 +21,7 @@ private:
 	std::unique_ptr<Object3D> skydome_;
 	std::unique_ptr<Object3D> ground_;
 	std::unique_ptr<Object3D> cube_;
-	std::unique_ptr<Object3D> player_;
+	std::unique_ptr<Player> player_;
 
 #pragma endregion
 
