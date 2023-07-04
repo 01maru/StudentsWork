@@ -213,6 +213,16 @@ void ImGuiManager::InputText(const std::string& name, std::string& text, size_t 
 	ImGui::InputText(name.c_str(), &text.front(), strLen);
 }
 
+void ImGuiManager::PushID(int32_t id)
+{
+	ImGui::PushID(id);
+}
+
+void ImGuiManager::PopID()
+{
+	ImGui::PopID();
+}
+
 bool ImGuiManager::BeginChild(const Vector2D& size)
 {
 	return ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(size.x, size.y), ImGuiWindowFlags_NoTitleBar);

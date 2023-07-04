@@ -147,7 +147,7 @@ void GameScene::Draw()
 
 	//level.Draw();
 
-	sprite_->Draw();
+	//sprite_->Draw();
 
 	//DebugTextManager::GetInstance()->Draw();
 	ParticleManager::GetInstance()->Draw();

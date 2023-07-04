@@ -72,57 +72,70 @@ void Light::ImGuiUpdate()
 
 	imguiMan->BeginWindow("LightManager", true);
 
+	int32_t id = 0;
+
 	//	方向ライト
 	for (size_t i = 0; i < DIRLIGHT_NUM; i++)
 	{
+		imguiMan->PushID(id++);
+
 		std::string name = "DirLight" + std::to_string(i);
 		if (imguiMan->CollapsingHeader(name))
 		{
 			bool active = dirLights_[i].GetIsActive();
-			imguiMan->CheckBox(name + " : Active", active);
+			imguiMan->CheckBox("Active", active);
 			dirLights_[i].SetActive(active);
 
 			active = dirLights_[i].GetShadowing();
-			imguiMan->CheckBox(name + " : Shadow", active);
+			imguiMan->CheckBox("Shadow", active);
 			dirLights_[i].SetShadow(active);
 
 			Vector3D vec = dirLights_[i].GetLightDir();
-			imguiMan->SetSliderFloat3(name + " : Dir", vec, 0.001f);
+			imguiMan->SetSliderFloat3("Dir", vec, 0.001f);
 			dirLights_[i].SetLightDir(vec);
 
 			vec = dirLights_[i].GetLightColor();
-			imguiMan->ColorPicker3(name + " : Color", vec);
+			imguiMan->ColorPicker3("Color", vec);
 			dirLights_[i].SetLightColor(vec);
 		}
+
+		imguiMan->PopID();
 	}
 
 	std::string name = "DistanceFog";
 	if (imguiMan->CollapsingHeader(name))
 	{
+		imguiMan->PushID(id++);
+
 		bool active = distanceFog_.GetIsActive();
-		imguiMan->CheckBox(name + " : Active", active);
+		imguiMan->CheckBox("Active", active);
 		distanceFog_.SetActive(active);
 
 		float len= distanceFog_.GetStart();
-		imguiMan->SetSliderFloat(name + " : Start", len, 0.001f, 0.001f);
+		imguiMan->SetSliderFloat("Start", len, 0.001f, 0.001f);
 		distanceFog_.SetStart(len);
 
 		len= distanceFog_.GetEnd();
-		imguiMan->SetSliderFloat(name + " : End", len, 0.001f, 0.001f);
+		imguiMan->SetSliderFloat("End", len, 0.001f, 0.001f);
 		distanceFog_.SetEnd(len);
 
 		len= distanceFog_.GetNear();
-		imguiMan->SetSliderFloat(name + " : Near", len, 0.001f, 0.001f);
+		imguiMan->SetSliderFloat("Near", len, 0.001f, 0.001f);
 		distanceFog_.SetNear(len);
 
 		len= distanceFog_.GetFar();
-		imguiMan->SetSliderFloat(name + " : Far", len, 0.001f, 0.001f);
+		imguiMan->SetSliderFloat("Far", len, 0.001f, 0.001f);
 		distanceFog_.SetFar(len);
 
 		Vector3D vec = distanceFog_.GetColor();
-		imguiMan->ColorPicker3(name + " : Color", vec);
+		imguiMan->ColorPicker3("Color", vec);
 		distanceFog_.SetColor(vec);
+
+		imguiMan->PopID();
 	}
+
+	//	無駄アリ
+	TransferConstBuffer();
 
 	imguiMan->EndWindow();
 }

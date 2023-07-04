@@ -82,6 +82,9 @@ public:
 	void Text(const char* fmt, ...);
 	void InputText(const std::string& name, std::string& text, size_t strLen);
 
+	void PushID(int32_t id);
+	void PopID();
+
 #pragma region Scroll
 
 	//	return isActive;

@@ -47,19 +47,21 @@ void CameraManager::ImGuiCameraInfo(ICamera* camera, const std::string& name)
 	if (imguiMan->CollapsingHeader(name))
 	{
 		if (camera == nullptr) return;
-
+		
 		Vector3D vec = camera->GetEye();
-		imguiMan->SetSliderFloat3(name + " : Eye", vec);
+		imguiMan->SetSliderFloat3("Eye", vec);
 		camera->SetEye(vec);
 
 		vec = camera->GetTarget();
-		imguiMan->SetSliderFloat3(name + " : Target", vec);
+		imguiMan->SetSliderFloat3("Target", vec);
 		camera->SetTarget(vec);
 
 		vec = camera->GetUp();
-		imguiMan->SetSliderFloat3(name + " : UP", vec);
+		imguiMan->SetSliderFloat3("UP", vec);
 		camera->SetUp(vec);
 	}
+
+	imguiMan->PopID();
 }
 
 void CameraManager::ImGuiUpdate()
@@ -74,10 +76,17 @@ void CameraManager::ImGuiUpdate()
 	imguiMan->CheckBox("IsDebug", isDebug_);
 
 	//if (imguiMan->SetButton("Pos : MainCamera = DebugCamera")) SetDebugCameraPosToMain();
+	int id = 0;
+
+	imguiMan->PushID(id++);
 
 	ImGuiCameraInfo(mainCamera_.get(), "MainCamera");
 
+	imguiMan->PushID(id++);
+
 	ImGuiCameraInfo(debugCamera_.get(), "DebugCamera");
+
+	imguiMan->PushID(id++);
 
 	ImGuiCameraInfo(lightCamera_.get(), "LightCamera");
 	

@@ -200,14 +200,21 @@ void XAudioManager::ImguiUpdate(bool endLoading)
 	if (isDebug_) {
 		imguiMan->BeginChild(Vector2D(0, 200));
 
+		int id = 0;
+
 		if (endLoading) {
 			for (auto itr = data_.begin(); itr != data_.end(); ++itr)
 			{
+				imguiMan->PushID(id);
+
 				imguiMan->SetSliderFloat(itr->first.c_str(), itr->second.volume, 0.005f, 0.0f, 1.0f);
 
-				if (imguiMan->SetButton("Play	"+ itr->first)) {
+				if (imguiMan->SetButton("Play")) {
 					PlayDebugSoundWave(itr->first, Master, false, true);
 				}
+				imguiMan->PopID();
+				
+				id++;
 			}
 		}
 		imguiMan->EndChild();

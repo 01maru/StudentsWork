@@ -154,38 +154,37 @@ void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::itera
 	if (imguiMan->CollapsingHeader(itr->first))
 	{
 		Sprite* sprite = &itr->second;
-		std::string name = itr->first;
 
-		if (imguiMan->SetButton(name + " : ReName")) {
+		if (imguiMan->SetButton("ReName")) {
 			ReNameSprite(itr);
 			return;
 		}
 
 		Vector2D vec = sprite->GetPosition();
-		imguiMan->SetSliderFloat2(name + " : PosLeftTop", vec);
+		imguiMan->SetSliderFloat2("PosLeftTop", vec);
 		sprite->SetPosition(vec);
 
 		vec = sprite->GetSize();
-		imguiMan->SetSliderFloat2(name + " : Size", vec);
+		imguiMan->SetSliderFloat2("Size", vec);
 		sprite->SetSize(vec);
 
 		imguiMan->Text("Texture");
 		std::string texName = sprite->GetTexture()->GetTextureName();
-		imguiMan->InputText(name + " : TexName ", texName, texName.length() + 1);
+		imguiMan->InputText("TexName ", texName, texName.length() + 1);
 
 		vec = sprite->GetTextureLeftTop();
-		imguiMan->SetSliderFloat2(name + " : TexLeftTop", vec);
+		imguiMan->SetSliderFloat2("TexLeftTop", vec);
 		sprite->SetTextureLeftTop(vec);
 
 		vec = sprite->GetTextureSize();
-		imguiMan->SetSliderFloat2(name + " : TexSize ", vec);
+		imguiMan->SetSliderFloat2("TexSize ", vec);
 		sprite->SetTextureSize(vec);
 
 		vec = sprite->GetAnchorPoint();
-		imguiMan->SetSliderFloat2(name + " : AnchorPoint ", vec, 0.1f, 0.0f, 1.0f);
+		imguiMan->SetSliderFloat2("AnchorPoint ", vec, 0.1f, 0.0f, 1.0f);
 		sprite->SetAnchorPoint(vec);
 
-		if (imguiMan->SetButton(name + " : Delete")) 	eraseSpriteName_.push_back(itr->first);
+		if (imguiMan->SetButton("Delete")) 	eraseSpriteName_.push_back(itr->first);
 	}
 }
 
@@ -238,11 +237,16 @@ void UIManager::ImGuiUpdate()
 	
 		imguiMan->BeginChild();
 
+		int id = 0;
 		for (auto itr = sprites_.begin(); itr != sprites_.end(); ++itr)
 		{
+			imguiMan->PushID(id++);
+
 			DrawSpriteInfo(itr);
 
 			imguiMan->Spacing();
+
+			imguiMan->PopID();
 		}
 
 		DeleteSpriteForList();
