@@ -84,19 +84,19 @@ void Light::ImGuiUpdate()
 		{
 			bool active = dirLights_[i].GetIsActive();
 			imguiMan->CheckBox("Active", active);
-			dirLights_[i].SetActive(active);
+			SetDirLightActive((int32_t)i, active);
 
 			active = dirLights_[i].GetShadowing();
 			imguiMan->CheckBox("Shadow", active);
-			dirLights_[i].SetShadow(active);
+			SetDirLightShadow((int32_t)i, active);
 
 			Vector3D vec = dirLights_[i].GetLightDir();
 			imguiMan->SetSliderFloat3("Dir", vec, 0.001f);
-			dirLights_[i].SetLightDir(vec);
+			SetDirLightDir((int32_t)i, vec);
 
 			vec = dirLights_[i].GetLightColor();
 			imguiMan->ColorPicker3("Color", vec);
-			dirLights_[i].SetLightColor(vec);
+			SetDirLightColor((int32_t)i, vec);
 		}
 
 		imguiMan->PopID();
@@ -109,33 +109,30 @@ void Light::ImGuiUpdate()
 
 		bool active = distanceFog_.GetIsActive();
 		imguiMan->CheckBox("Active", active);
-		distanceFog_.SetActive(active);
+		SetFogActive(active);
 
-		float len= distanceFog_.GetStart();
+		float len = distanceFog_.GetStart();
 		imguiMan->SetSliderFloat("Start", len, 0.001f, 0.001f);
-		distanceFog_.SetStart(len);
+		SetFogStart(len);
 
-		len= distanceFog_.GetEnd();
+		len = distanceFog_.GetEnd();
 		imguiMan->SetSliderFloat("End", len, 0.001f, 0.001f);
-		distanceFog_.SetEnd(len);
+		SetFogEnd(len);
 
-		len= distanceFog_.GetNear();
+		len = distanceFog_.GetNear();
 		imguiMan->SetSliderFloat("Near", len, 0.001f, 0.001f);
-		distanceFog_.SetNear(len);
+		SetFogNear(len);
 
-		len= distanceFog_.GetFar();
+		len = distanceFog_.GetFar();
 		imguiMan->SetSliderFloat("Far", len, 0.001f, 0.001f);
-		distanceFog_.SetFar(len);
+		SetFogFar(len);
 
 		Vector3D vec = distanceFog_.GetColor();
 		imguiMan->ColorPicker3("Color", vec);
-		distanceFog_.SetColor(vec);
+		SetFogColor(vec);
 
 		imguiMan->PopID();
 	}
-
-	//	無駄アリ
-	TransferConstBuffer();
 
 	imguiMan->EndWindow();
 }
@@ -148,12 +145,17 @@ void Light::SetGraphicsRootCBuffView(int32_t lootparaIdx)
 void Light::SetDirLightActive(int32_t index, bool active)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
+	if (dirLights_[index].GetIsActive() == active) return;
+
 	dirLights_[index].SetActive(active);
+	dirty_ = true;
 }
 
 void Light::SetDirLightDir(int32_t index, const Vector3D& lightdir_)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
+	if (dirLights_[index].GetLightDir() == lightdir_) return;
+
 	dirLights_[index].SetLightDir(lightdir_);
 	dirty_ = true;
 }
@@ -161,11 +163,66 @@ void Light::SetDirLightDir(int32_t index, const Vector3D& lightdir_)
 void Light::SetDirLightColor(int32_t index, const Vector3D& lightcolor_)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
+	if (dirLights_[index].GetLightColor() == lightcolor_) return;
+
 	dirLights_[index].SetLightColor(lightcolor_);
 	dirty_ = true;
 }
 
 void Light::SetDirLightShadow(int32_t index, bool shadowflag)
 {
+	assert(0 <= index && index < DIRLIGHT_NUM);
+	if (dirLights_[index].GetShadowing() == shadowflag) return;
+
 	dirLights_[index].SetShadow(shadowflag);
+
+	dirty_ = true;
+}
+
+void Light::SetFogActive(bool active)
+{
+	if (distanceFog_.GetIsActive() == active) return;
+
+	distanceFog_.SetActive(active);
+	dirty_ = true;
+}
+
+void Light::SetFogStart(float start)
+{
+	if (distanceFog_.GetStart() == start) return;
+
+	distanceFog_.SetStart(start);
+	dirty_ = true;
+}
+
+void Light::SetFogEnd(float end)
+{
+	if (distanceFog_.GetEnd() == end) return;
+
+	distanceFog_.SetEnd(end);
+	dirty_ = true;
+}
+
+void Light::SetFogNear(float fogNear)
+{
+	if (distanceFog_.GetNear() == fogNear) return;
+
+	distanceFog_.SetNear(fogNear);
+	dirty_ = true;
+}
+
+void Light::SetFogFar(float fogFar)
+{
+	if (distanceFog_.GetFar() == fogFar) return;
+
+	distanceFog_.SetFar(fogFar);
+	dirty_ = true;
+}
+
+void Light::SetFogColor(const Vector3D& color)
+{
+	if (distanceFog_.GetColor() == color) return;
+
+	distanceFog_.SetColor(color);
+	dirty_ = true;
 }

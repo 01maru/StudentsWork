@@ -35,10 +35,11 @@ public:
 	void SetDirLightColor(int32_t index, const Vector3D& lightcolor_);
 	void SetDirLightShadow(int32_t index, bool shadowflag);
 
-	void SetFogActive(bool active) { distanceFog_.SetActive(active); }
-	void SetFogStart(float start) { distanceFog_.SetStart(start); }
-	void SetFogEnd(float end) { distanceFog_.SetEnd(end); }
-	void SetFogNear(float fogNear) { distanceFog_.SetNear(fogNear); }
-	void SetFogFar(float fogFar) { distanceFog_.SetFar(fogFar); }
+	void SetFogActive(bool active);
+	void SetFogStart(float start);
+	void SetFogEnd(float end);
+	void SetFogNear(float fogNear);
+	void SetFogFar(float fogFar);
+	void SetFogColor(const Vector3D& color);
 };
 
