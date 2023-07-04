@@ -237,7 +237,7 @@ void UIManager::ImGuiUpdate()
 	
 		imguiMan->BeginChild();
 
-		int id = 0;
+		int32_t id = 0;
 		for (auto itr = sprites_.begin(); itr != sprites_.end(); ++itr)
 		{
 			imguiMan->PushID(id++);

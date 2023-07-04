@@ -76,7 +76,7 @@ void CameraManager::ImGuiUpdate()
 	imguiMan->CheckBox("IsDebug", isDebug_);
 
 	//if (imguiMan->SetButton("Pos : MainCamera = DebugCamera")) SetDebugCameraPosToMain();
-	int id = 0;
+	int32_t id = 0;
 
 	imguiMan->PushID(id++);
 

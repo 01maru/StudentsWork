@@ -200,7 +200,7 @@ void XAudioManager::ImguiUpdate(bool endLoading)
 	if (isDebug_) {
 		imguiMan->BeginChild(Vector2D(0, 200));
 
-		int id = 0;
+		int32_t id = 0;
 
 		if (endLoading) {
 			for (auto itr = data_.begin(); itr != data_.end(); ++itr)
