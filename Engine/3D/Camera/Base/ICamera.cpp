@@ -38,16 +38,10 @@ void ICamera::CalcDirectionVec()
 	frontVec_.Normalize();
 
 	//	右方向ベクトル
-	rightVec_ = Vector3D(0, 1, 0).cross(frontVec_);
-	if (rightVec_ == Vector3D()) {
-		rightVec_ = Vector3D(1.0f, 0.0f, 0.0f);
-	}
-	//	下方向ベクトル
-	downVec_ = rightVec_.cross(frontVec_);
+	rightVec_ = up_.cross(frontVec_).GetNormalize();
 
-	//	ベクトルの正規化
-	rightVec_.Normalize();
-	downVec_.Normalize();
+	//	下方向ベクトル
+	downVec_ = rightVec_.cross(frontVec_).GetNormalize();
 }
 
 void ICamera::SetProjectionMatrix(int32_t width, int32_t height, float fovY)

@@ -137,6 +137,16 @@ Quaternion& Quaternion::operator*=(float s)
     return *this;
 }
 
+Quaternion& Quaternion::operator*=(const Quaternion& q)
+{
+    Quaternion temp(*this);
+    w = -temp.x * q.x - temp.y * q.y - temp.z * q.z + temp.w * q.w;
+    x =  temp.x * q.w + temp.y * q.z - temp.z * q.y + temp.w * q.x;
+    y = -temp.x * q.z + temp.y * q.w + temp.z * q.x + temp.w * q.y;
+    z =  temp.x * q.y - temp.y * q.x + temp.z * q.w + temp.w * q.z;
+    return *this;
+}
+
 Quaternion& Quaternion::operator+=(const Quaternion& q)
 {
     x += q.x;
@@ -169,6 +179,12 @@ Quaternion operator*(const Quaternion& q, float s)
 Quaternion operator*(float s, const Quaternion& q)
 {
     return q * s;
+}
+
+Quaternion operator*(const Quaternion& q1, const Quaternion& q2)
+{
+    Quaternion temp(q1);
+    return temp *= q2;
 }
 
 Quaternion operator+(const Quaternion& q1, const Quaternion& q2)
@@ -354,4 +370,17 @@ Quaternion DirectionToDirection(const Vector3D& u, const Vector3D& v)
     float theta = (float)acos(dot);
 
     return MakeAxisAngle(cross, theta);
+}
+
+Vector3D MyMath::GetAxis(const Quaternion& q)
+{
+    Vector3D result;
+
+    float len = Norm(q);
+
+    result.x = q.x / len;
+    result.y = q.y / len;
+    result.z = q.z / len;
+
+    return result;
 }

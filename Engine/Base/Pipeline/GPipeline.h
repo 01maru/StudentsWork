@@ -4,8 +4,6 @@
 #include <cstdint>
 #include <vector>
 
-#pragma comment(lib, "d3d12.lib")
-
 class Shader;
 
 class GPipeline

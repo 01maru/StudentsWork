@@ -3,8 +3,6 @@
 #include <wrl.h>
 #include <cstdint>
 
-#pragma comment(lib, "d3d12.lib")
-
 class DepthStencil
 {
 private:

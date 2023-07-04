@@ -405,7 +405,7 @@
     <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp">
       <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
     </ClCompile>
-    <ClCompile Include="PauseScreen.cpp">
+    <ClCompile Include="Engine\Game\PauseScreen.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Player.cpp">
@@ -656,7 +656,7 @@
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
-    <ClInclude Include="PauseScreen.h">
+    <ClInclude Include="Engine\Game\PauseScreen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Player.h">

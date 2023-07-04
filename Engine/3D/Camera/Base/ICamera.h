@@ -8,9 +8,9 @@ protected:
 	Matrix matView_;
 	Matrix matProjection_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, MyMath::ConvertToRad(48.0f), 0.1f, 1000.0f);
 
-	Vector3D eye_;		//	視点座標
-	Vector3D target_;	//	注視点座標
-	Vector3D up_;		//	上方向ベクトル
+	Vector3D eye_;						//	視点座標
+	Vector3D target_;					//	注視点座標
+	Vector3D up_ = { 0.0f,1.0f,0.0f };	//	上方向ベクトル
 	Vector3D frontVec_;
 	Vector3D rightVec_;
 	Vector3D downVec_;

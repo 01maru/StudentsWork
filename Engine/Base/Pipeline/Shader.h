@@ -2,8 +2,6 @@
 #include <d3dcompiler.h>
 #include <wrl.h>
 
-#pragma comment(lib, "d3dcompiler.lib")
-
 class Shader
 {
 private:

@@ -7,14 +7,20 @@ class MyDebugCamera :public ICamera
 private:
 	float disEyeTarget_ = 0.0f;
 
-	Vector2D cursorPos_;
+	Vector2D rotValue_;
 
 	enum MoveMode {
-		NoMove,
 		TranslationMove,
 		RotationMove,
 	};
-	MoveMode mode_ = NoMove;
+	MoveMode mode_ = TranslationMove;
+
+private:
+	void CalcDisEyeToTarget();
+	void SetMoveMode(bool active);
+	Vector3D CalcMoveTarget(bool active, Vector2D& moveCursor);
+	void CalcRotValue(bool active, Vector2D& moveCursor);
+	void SetPosition(const Vector3D& moveTarget);
 public:
 	MyDebugCamera() {};
 	~MyDebugCamera() override {};
