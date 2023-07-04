@@ -9,8 +9,6 @@ private:
 	bool activeUIManager_ = false;
 	bool activeCameraManager_ = false;
 	bool activeLightManager_ = false;
-	bool activeDoF_ = false;
-	bool activeTask_ = false;
 	bool activeParticleManager_ = false;
 
 private:	//	関数
@@ -31,8 +29,6 @@ public:
 	bool GetActiveUIManager() { return activeUIManager_; }
 	bool GetActiveCameraManager() { return activeCameraManager_; }
 	bool GetActiveLightManager() { return activeLightManager_; }
-	bool GetActiveDof() { return activeDoF_; }
-	bool GetActiveTask() { return activeTask_; }
 	bool GetActiveParticleManager() { return activeParticleManager_; }
 };
 

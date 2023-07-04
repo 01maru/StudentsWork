@@ -40,7 +40,6 @@ private:
 
 #pragma region PostEffect
 	std::unique_ptr<PostEffect> mainScene;
-	std::unique_ptr<PostEffect> taskScene;
 	std::unique_ptr<PostEffect> luminnce;
 
 	std::unique_ptr<PostEffect> shadowEffect;
@@ -48,7 +47,6 @@ private:
 	std::unique_ptr<GaussBlur> shadowBulr;
 	std::unique_ptr<GlayScale> glayscale;
 
-	std::unique_ptr<PostEffect> dofscene;
 	std::unique_ptr<GaussBlur> strongBulr;
 	std::unique_ptr<GaussBlur> weakBulr;
 #pragma endregion
