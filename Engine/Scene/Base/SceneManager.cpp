@@ -284,6 +284,8 @@ void SceneManager::Draw()
 		scene_->Draw();
 		CameraManager::GetInstance()->DrawTarget();
 		UIManager::GetInstance()->Draw();
+
+		TextureManager::GetInstance()->DrawPreview();
 	}
 
 	dx->PostEffectDraw(mainScene.get());

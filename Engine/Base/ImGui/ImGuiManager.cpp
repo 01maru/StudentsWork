@@ -134,9 +134,9 @@ bool ImGuiManager::SetButton(const std::string& buttonName, const Vector2D& size
 	return ImGui::Button(buttonName.c_str(), ImVec2(size.x, size.y));
 }
 
-void ImGuiManager::SetRadioButton(const std::string& buttonName, bool& flag)
+void ImGuiManager::SetRadioButton(const std::string& buttonName, int32_t& v, int32_t vButton)
 {
-	flag = ImGui::RadioButton(buttonName.c_str(), !flag);
+	ImGui::RadioButton(buttonName.c_str(), &v, vButton);
 }
 
 void ImGuiManager::InputFloat3(const std::string& name, Vector3D& vec)

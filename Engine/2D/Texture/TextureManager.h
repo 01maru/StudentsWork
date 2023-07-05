@@ -33,6 +33,7 @@ private:
 	bool drawPreview_ = false;
 	std::unique_ptr<Sprite> previewSprite_;
 
+	int32_t previewIdx_ = 0;
 private:
 	TextureManager() {}
 	~TextureManager() {}

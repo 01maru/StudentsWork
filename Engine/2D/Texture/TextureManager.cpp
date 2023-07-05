@@ -29,7 +29,7 @@ void TextureManager::PreviewUpdate()
 {
 	if (!drawPreview_) return;
 
-	//previewSprite_->Update();
+	previewSprite_->Update();
 }
 
 TextureManager* TextureManager::GetInstance()
@@ -74,14 +74,16 @@ void TextureManager::Initialize()
 
 #pragma endregion
 
-	previewSprite_ = std::make_unique<Sprite>();
-
 	//textureNum_ = 0;
 
 	//texExist_.clear();
 
 	//	ロード失敗した際の白色テクスチャのロード
 	sWhiteTexHandle = LoadTextureGraph(L"Resources/Sprite/white1x1.png");
+
+	previewSprite_ = std::make_unique<Sprite>();
+	previewSprite_->Initialize();
+	previewSprite_->SetSize(Vector2D(500.0f, 500.0f));
 }
 
 void TextureManager::ImGuiUpdate()
@@ -92,23 +94,29 @@ void TextureManager::ImGuiUpdate()
 
 	imguiMan->BeginWindow("TextureManager", true);
 
-	imguiMan->PushID(1);
-	imguiMan->SetRadioButton("PreView", drawPreview_);
-	imguiMan->Text("Preview : %s", drawPreview_ ? "TRUE" : "FALSE");
-	imguiMan->PopID();
+	imguiMan->CheckBox("PreView", drawPreview_);
+	imguiMan->Text("Handle : %d", previewIdx_);
+
+	int32_t prevIdx = previewIdx_;
 
 	imguiMan->BeginChild();
 
 	for (size_t i = 0; i < textures_.size(); i++)
 	{
-		//imguiMan->SetRadioButton("PreviewTex")
+		imguiMan->PushID((int32_t)i);
 		imguiMan->Text("Name : %s", textures_[i]->GetTextureName().c_str());
 		imguiMan->Text("Handle : %d", textures_[i]->GetHandle());
+		imguiMan->SetRadioButton("PreviewTex", previewIdx_, (int32_t)i);
+
+		imguiMan->PopID();
 	}
 	imguiMan->EndChild();
 
 	imguiMan->EndWindow();
 
+	if (prevIdx != previewIdx_) {
+		previewSprite_->SetHandle(textures_[previewIdx_].get());
+	}
 	PreviewUpdate();
 }
 
@@ -154,7 +162,7 @@ void TextureManager::DrawPreview()
 {
 	if (!drawPreview_)	return;
 
-	//previewSprite_->Draw();
+	previewSprite_->Draw();
 }
 
 Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)

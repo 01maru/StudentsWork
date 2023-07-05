@@ -19,6 +19,7 @@ void Sprite::Initialize(Texture* texture)
 	}
 	else {
 		handle_ = TextureManager::GetWhiteTexture();
+		AdjustTextureSize();
 	}
 
 #pragma region VertBuff
@@ -242,4 +243,10 @@ void Sprite::SetTextureSize(const Vector2D& size)
 		dirtyFlagUV_ = true;
 		textureSize_ = size;
 	}
+}
+
+void Sprite::SetHandle(Texture* handle)
+{
+	handle_ = handle;
+	AdjustTextureSize();
 }
