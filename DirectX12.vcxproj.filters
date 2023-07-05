@@ -187,6 +187,12 @@
     <Filter Include="リソース ファイル\ParticleShader\GrassShader">
       <UniqueIdentifier>{2a242e27-92dc-4014-97cf-671e92e50af5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Scene\Setting">
+      <UniqueIdentifier>{8ce6c2b1-5b56-44c9-a010-e738adcd0f46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Scene\Setting">
+      <UniqueIdentifier>{bb7b3579-d049-4d1b-ba9a-f80a446e4103}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -405,14 +411,17 @@
     <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp">
       <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\PauseScreen.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\Player.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Enemy.cpp">
       <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\OptionScene.cpp">
+      <Filter>ソース ファイル\Game\Scene\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\PauseScreen.cpp">
+      <Filter>ソース ファイル\Game\Scene\Setting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -659,14 +668,17 @@
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\PauseScreen.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Player.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Enemy.h">
       <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\OptionScene.h">
+      <Filter>ヘッダー ファイル\Game\Scene\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\PauseScreen.h">
+      <Filter>ヘッダー ファイル\Game\Scene\Setting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

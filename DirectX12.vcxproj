@@ -86,6 +86,7 @@
     <ClCompile Include="Engine\2D\Sprite\Base\UIManager.cpp" />
     <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp" />
     <ClCompile Include="Engine\Game\PauseScreen.cpp" />
+    <ClCompile Include="Engine\Game\OptionScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Game\Enemy.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Engine\2D\PostEffect\PlanePolygon.h" />
     <ClInclude Include="Engine\2D\PostEffect\GlayScale.h" />
     <ClInclude Include="Engine\Game\PauseScreen.h" />
+    <ClInclude Include="Engine\Game\OptionScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
