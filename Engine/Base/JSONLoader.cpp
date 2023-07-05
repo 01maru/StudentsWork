@@ -131,9 +131,9 @@ void JSONLoader::LoadJSON(std::string jsonname)
 
 	LoadModel();
 
-	std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
-	camera->Initialize(cameraData_.eye, cameraData_.target, Vector3D(0.0f, 1.0f, 0.0f));
-	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
+	//std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
+	//camera->Initialize(cameraData_.eye, cameraData_.target, Vector3D(0.0f, 1.0f, 0.0f));
+	//CameraManager::GetInstance()->SetMainCamera(std::move(camera));
 
 	for (auto& objectData : levelData_->objects)
 	{

@@ -3,7 +3,6 @@
 
 #include "LightManager.h"
 #include "Object3D.h"
-#include "CameraManager.h"
 
 void MyGame::Initialize()
 {
@@ -24,8 +23,6 @@ void MyGame::Initialize()
 void MyGame::Update()
 {
 	Framework::Update();
-
-	CameraManager::GetInstance()->Update();
 
 	SceneManager::GetInstance()->Update();
 	LightManager::GetInstance()->Update();

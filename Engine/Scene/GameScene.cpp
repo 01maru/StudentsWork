@@ -39,7 +39,7 @@ void GameScene::LoadResources()
 	ground_->SetCollider(collider_);
 	//	player
 	player_ = std::make_unique<Player>();
-	player_->PlayerInitialize(modelPlayer_.get());
+	player_->PlayerInitialize(modelCube_.get());
 	//	enemy
 	enemy_ = std::make_unique<Enemy>();
 	enemy_->Initialize(modelBox_.get());
@@ -63,7 +63,7 @@ void GameScene::LoadResources()
 }
 
 void GameScene::Initialize()
-{
+{	
 	//	pause設定
 	PauseScreen::GetInstance()->SetIsActive(false);
 
@@ -72,8 +72,12 @@ void GameScene::Initialize()
 
 	level.LoadJSON("gamescene");
 
-	//player_->SetPosition(level.GetPlayerSpownPoint().pos);
+	player_->SetPosition(level.GetPlayerSpownPoint().pos);
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
+
+	std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
+	camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
+	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
 
 	XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 
@@ -147,7 +151,7 @@ void GameScene::Draw()
 	////	地面
 	//ground_->DrawShadowReciever();
 	//cube_->DrawShadowReciever();
-	//player_->DrawShadowReciever();
+	player_->DrawShadowReciever();
 	enemy_->Draw();
 
 	//level.Draw();

@@ -73,6 +73,12 @@ Vector2D operator-(const Vector2D& v1, const Vector2D& v2)
 	return temp -= v2;
 }
 
+Vector2D operator+(const Vector2D& v1, const Vector2D& v2)
+{
+	Vector2D temp(v1);
+	return temp += v2;
+}
+
 Vector2D operator*(const Vector2D& v, float s)
 {
 	Vector2D temp(v);

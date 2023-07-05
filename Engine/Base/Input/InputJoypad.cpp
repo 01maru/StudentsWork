@@ -227,6 +227,8 @@ size_t InputJoypad::GetRTriggerValue()
 
 Vector2D InputJoypad::GetThumbR()
 {
+	if (!active_) return Vector2D();
+
     return Vector2D(state_.Gamepad.sThumbRX, state_.Gamepad.sThumbRY);
 }
 

@@ -65,6 +65,7 @@ public:
     Vector2D GetThumbL();
     bool GetTriggerThumbLX();
     bool GetTriggerThumbLY();
+    int32_t GetMaxThumbRange() { return 32767; }
     
     //  Setter
 
