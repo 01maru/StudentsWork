@@ -5,13 +5,13 @@
 
 #include "Quaternion.h"
 
+#include "ImGuiManager.h"
+
 void MyDebugCamera::SetMoveMode(bool active)
 {
-	InputKeyboard* keyboard = InputManager::GetInstance()->GetKeyboard();
-
 	if (!active) return;
 
-	bool dikShift = keyboard->GetKey(DIK_LSHIFT) || keyboard->GetKey(DIK_RSHIFT);
+	bool dikShift = keyboard_->GetKey(DIK_LSHIFT) || keyboard_->GetKey(DIK_RSHIFT);
 
 	if (dikShift)	mode_ = TranslationMove;
 	else			mode_ = RotationMove;
@@ -19,45 +19,44 @@ void MyDebugCamera::SetMoveMode(bool active)
 
 void MyDebugCamera::CalcDisEyeToTarget()
 {
-	InputMouse* mouse = InputManager::GetInstance()->GetMouse();
-
 	//	キー入力
-	disEyeTarget_ -= mouse->GetWheel() * (disEyeTarget_ * 0.001f);
+	disEyeTarget_ -= mouse_->GetWheel() * (disEyeTarget_ * 0.001f);
 	//	範囲設定
 	float minDis_ = 10.0f;	//	最小値
 	disEyeTarget_ = MyMath::mMax(disEyeTarget_, minDis_);
 }
 
-Vector3D MyDebugCamera::CalcMoveTarget(bool active, Vector2D& moveCursor)
+Vector3D MyDebugCamera::CalcTransMove(bool active)
 {
-	InputKeyboard* keyboard = InputManager::GetInstance()->GetKeyboard();
 	Vector3D ans;
 
 	//	前後移動
-	ans += -frontVec_ * (float)(keyboard->GetKey(DIK_Z) - keyboard->GetKey(DIK_X)) * 0.1f;
+	ans += frontVec_ * (float)(keyboard_->GetKey(DIK_X) - keyboard_->GetKey(DIK_Z)) * 0.1f;
 
 	if (!active)				return ans;
 	if (mode_ == RotationMove)	return ans;
 
+	Vector2D moveCursor = mouse_->GetMoveCursor();
 	moveCursor.Normalize();
 	//	左右移動
-	ans -= rightVec_ * (float)(moveCursor.x) * 0.1f;
+	ans -= rightVec_ * (float)(moveCursor.x);
 	//	上下移動
-	ans -= downVec_ * (float)(moveCursor.y) * 0.1f;
+	ans -= downVec_ * (float)(moveCursor.y);
 
 	return ans;
 }
 
-void MyDebugCamera::CalcRotValue(bool active, Vector2D& moveCursor)
+void MyDebugCamera::CalcRotMove(bool active)
 {
 	if (!active)					return;
 	if (mode_ == TranslationMove)	return;
 
+	Vector2D moveCursor = mouse_->GetMoveCursor();
 	moveCursor /= 1000;
 
 	if (up_.y < 0) moveCursor.x = -moveCursor.x;
 
-	rotValue_ = moveCursor;
+	rotValue_ += moveCursor;
 }
 
 void MyDebugCamera::SetPosition(const Vector3D& moveTarget)
@@ -83,6 +82,9 @@ void MyDebugCamera::SetPosition(const Vector3D& moveTarget)
 
 void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
 {
+	mouse_ = InputManager::GetInstance()->GetMouse();
+	keyboard_ = InputManager::GetInstance()->GetKeyboard();
+
 	SetProjectionMatrix(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, MyMath::ConvertToRad(90.0f));
 
 	eye_ = eye;
@@ -101,22 +103,17 @@ void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, cons
 
 void MyDebugCamera::Update()
 {
-	InputKeyboard* keyboard = InputManager::GetInstance()->GetKeyboard();
-	InputMouse* mouse = InputManager::GetInstance()->GetMouse();
+	bool dikWheel = mouse_->GetClick(InputMouse::WheelClick);
 
-	Vector2D moveCursor = mouse->GetCursor() - mouse->GetPrevCursor();
-
-	bool active = mouse->GetClickTrigger(InputMouse::WheelClick);
-
-	SetMoveMode(active);
+	SetMoveMode(mouse_->GetClickTrigger(InputMouse::WheelClick));
 
 	CalcDisEyeToTarget();
 
-	Vector3D moveTarget = CalcMoveTarget(active, moveCursor);
+	movetrans = CalcTransMove(dikWheel);
 
-	CalcRotValue(active, moveCursor);
+	CalcRotMove(dikWheel);
 
-	target_ += moveTarget;
+	target_ += movetrans;
 
 	//	範囲　0　>　cursorPos　>　PIx2　に設定
 	if (rotValue_.x >= MyMath::PIx2) rotValue_.x -= MyMath::PIx2;
@@ -137,20 +134,7 @@ void MyDebugCamera::Update()
 	CalcBillboard();
 
 	MatUpdate();
-	//InputMouse* mouse = InputManager::GetInstance()->GetMouse();
 
-	//Vector2D moveCursor = mouse->GetCursor() - mouse->GetPrevCursor();
-
-	//bool active = mouse->GetClickTrigger(InputMouse::WheelClick);
-
-	//SetMoveMode(active);
-
-	//CalcDisEyeToTarget();
-
-	//Vector3D moveTarget = CalcMoveTarget(active, moveCursor);
-
-	//CalcRotValue(active, moveCursor);
-	//
 	////	範囲　0　>　cursorPos　>　PIx2　に設定
 	////if (rotValue_.x >= MyMath::PIx2) rotValue_.x -= MyMath::PIx2;
 	////if (rotValue_.x < 0) rotValue_.x += MyMath::PIx2;
@@ -158,10 +142,18 @@ void MyDebugCamera::Update()
 	////if (rotValue_.y < 0) rotValue_.y += MyMath::PIx2;
 
 	//SetPosition(moveTarget);
+}
 
-	//CalcDirectionVec();
+void MyDebugCamera::ImGuiInfo()
+{
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
-	//CalcBillboard();
+	imgui->Text("Mode : %d", mode_);
+	imgui->Text("     : 0->Trans 1->Rot");
 
-	//MatUpdate();
+	imgui->Text("RotValue  : (%.f, %.f)", rotValue_.x, rotValue_.y);
+
+	imgui->Text("MoveTrans  : (%f, %f, %f)", movetrans.x, movetrans.y, movetrans.z);
+
+	imgui->Text("DisEyeTarget : %f", disEyeTarget_);
 }

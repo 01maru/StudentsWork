@@ -23,3 +23,7 @@ void NormalCamera::Update()
 
 	MatUpdate();
 }
+
+void NormalCamera::ImGuiInfo()
+{
+}

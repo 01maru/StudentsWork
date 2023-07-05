@@ -12,22 +12,21 @@ CameraManager* CameraManager::GetInstance()
 
 void CameraManager::Initialize()
 {
+#ifdef NDEBUG
+	isDebug_ = false;
+#endif // NDEBUG
+
+#ifdef _DEBUG
 	debugCamera_ = std::make_unique<MyDebugCamera>();
 	debugCamera_->Initialize(Vector3D(0.0f, 0.0f, -10.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector3D(0.0f, 1.0f, 0.0f));
-}
-
-void CameraManager::Finalize()
-{
-	mainCamera_.release();
-	debugCamera_.release();
-	lightCamera_.release();
+#endif // _DEBUG
 }
 
 void CameraManager::Update()
 {
-	if(isDebug_)				debugCamera_->Update();
-	if (mainCamera_ != nullptr) mainCamera_->Update();
-	if (lightCamera_ != nullptr) lightCamera_->Update();
+	if(isDebug_)					debugCamera_->Update();
+	if (mainCamera_ != nullptr)		mainCamera_->Update();
+	if (lightCamera_ != nullptr)	lightCamera_->Update();
 }
 
 void CameraManager::SetDebugCameraPosToMain()
@@ -59,6 +58,8 @@ void CameraManager::ImGuiCameraInfo(ICamera* camera, const std::string& name)
 		vec = camera->GetUp();
 		imguiMan->SetSliderFloat3("UP", vec);
 		camera->SetUp(vec);
+
+		camera->ImGuiUpdate();
 	}
 
 	imguiMan->PopID();
@@ -66,7 +67,6 @@ void CameraManager::ImGuiCameraInfo(ICamera* camera, const std::string& name)
 
 void CameraManager::ImGuiUpdate()
 {
-    //  Activeじゃなかったら
     if (!ImGuiController::GetInstance()->GetActiveCameraManager()) return;
 
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
@@ -108,4 +108,9 @@ ICamera* CameraManager::GetLightCamera()
 ICamera* CameraManager::GetMainCamera()
 {
 	return mainCamera_.get();
+}
+
+ICamera* CameraManager::GetDebugCamera()
+{
+	return debugCamera_.get();
 }

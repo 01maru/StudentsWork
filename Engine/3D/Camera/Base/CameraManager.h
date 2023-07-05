@@ -24,7 +24,6 @@ public:
 	CameraManager& operator=(const CameraManager& obj) = delete;
 
 	void Initialize();
-	void Finalize();
 	void Update();
 	void ImGuiUpdate();
 
@@ -32,6 +31,7 @@ public:
 	ICamera* GetCamera();
 	ICamera* GetLightCamera();
 	ICamera* GetMainCamera();
+	ICamera* GetDebugCamera();
 
 	//	Setter
 	void SetMainCamera(std::unique_ptr<ICamera> camera) { mainCamera_ = std::move(camera); }

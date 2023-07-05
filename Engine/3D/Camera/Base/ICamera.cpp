@@ -1,4 +1,5 @@
 ﻿#include "ICamera.h"
+#include "ImGuiManager.h"
 
 void ICamera::CalcBillboard()
 {
@@ -42,6 +43,21 @@ void ICamera::CalcDirectionVec()
 
 	//	下方向ベクトル
 	downVec_ = rightVec_.cross(frontVec_).GetNormalize();
+}
+
+void ICamera::ImGuiUpdate()
+{
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
+	if (!imgui->TreeNode("Info")) return;
+
+	imgui->Text("Front  : (%.f, %.f, %.f)", frontVec_.x, frontVec_.y, frontVec_.z);
+	imgui->Text("Right  : (%.f, %.f, %.f)", rightVec_.x, rightVec_.y, rightVec_.z);
+	imgui->Text("Down   : (%.f, %.f, %.f)", downVec_.x, downVec_.y, downVec_.z);
+
+	ImGuiInfo();
+
+	imgui->TreePop();
 }
 
 void ICamera::SetProjectionMatrix(int32_t width, int32_t height, float fovY)

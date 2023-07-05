@@ -24,10 +24,13 @@ protected:
 	//	方向ベクトル計算
 	void CalcDirectionVec();
 
+	virtual void ImGuiInfo() = 0;
+
 public:
 	virtual ~ICamera() = default;
 	virtual void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up) = 0;
 	virtual void Update() = 0;
+	void ImGuiUpdate();
 	//	ビュー行列更新
 	void MatUpdate() { matView_ = MyMath::LookAtLH(eye_, target_, up_); }
 

@@ -1,7 +1,6 @@
 ﻿#include "GameScene.h"
 #include "GameCamera.h"
 #include "XAudioManager.h"
-#include "NormalCamera.h"
 #include "TextureManager.h"
 #include "ObjModel.h"
 #include "FbxModel.h"
@@ -140,10 +139,10 @@ void GameScene::Draw()
 {
 	//	天球
 	skydome_->DrawShadowReciever();
-	//	地面
-	ground_->DrawShadowReciever();
-	cube_->DrawShadowReciever();
-	player_->DrawShadowReciever();
+	////	地面
+	//ground_->DrawShadowReciever();
+	//cube_->DrawShadowReciever();
+	//player_->DrawShadowReciever();
 
 	//level.Draw();
 

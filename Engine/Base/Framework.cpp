@@ -70,7 +70,6 @@ void Framework::Update()
 
 void Framework::Finalize()
 {
-	CameraManager::GetInstance()->Finalize();
 	XAudioManager::GetInstance()->Finalize();
 	Window::GetInstance()->Finalize();
 }
