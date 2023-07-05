@@ -42,7 +42,7 @@
     <ClCompile Include="Engine\Math\FrameCounter.cpp" />
     <ClCompile Include="Engine\Scene\GameScene.cpp" />
     <ClCompile Include="Engine\Base\ImGui\ImGuiManager.cpp" />
-    <ClCompile Include="Engine\3D\Light\Light.cpp" />
+    <ClCompile Include="Engine\3D\Light\LightManager.cpp" />
     <ClCompile Include="Engine\3D\Camera\Base\MyDebugCamera.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\GPipeline.cpp" />
     <ClCompile Include="Engine\Base\Input\InputKeyboard.cpp" />
@@ -126,7 +126,7 @@
     <ClInclude Include="Engine\3D\Camera\Base\ICamera.h" />
     <ClInclude Include="Engine\Base\ImGui\ImGuiManager.h" />
     <ClInclude Include="Engine\Scene\Base\IScene.h" />
-    <ClInclude Include="Engine\3D\Light\Light.h" />
+    <ClInclude Include="Engine\3D\Light\LightManager.h" />
     <ClInclude Include="Engine\3D\Camera\Base\MyDebugCamera.h" />
     <ClInclude Include="Engine\Base\Pipeline\GPipeline.h" />
     <ClInclude Include="Engine\Base\Input\InputKeyboard.h" />

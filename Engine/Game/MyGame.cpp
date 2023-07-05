@@ -1,7 +1,7 @@
 ﻿#include "MyGame.h"
 #include "SceneManager.h"
 
-#include "Light.h"
+#include "LightManager.h"
 #include "Object3D.h"
 #include "CameraManager.h"
 
@@ -9,7 +9,7 @@ void MyGame::Initialize()
 {
 	Framework::Initialize();
 
-	Light* light = Light::GetInstance();
+	LightManager* light = LightManager::GetInstance();
 
 #pragma region SetLight
 	//	ライトの初期化
@@ -28,7 +28,7 @@ void MyGame::Update()
 	CameraManager::GetInstance()->Update();
 
 	SceneManager::GetInstance()->Update();
-	Light::GetInstance()->Update();
+	LightManager::GetInstance()->Update();
 }
 
 void MyGame::Draw()

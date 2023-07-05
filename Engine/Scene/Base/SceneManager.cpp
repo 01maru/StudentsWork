@@ -11,7 +11,7 @@
 #include "TextureManager.h"
 #include "UIManager.h"
 #include "CameraManager.h"
-#include "Light.h"
+#include "LightManager.h"
 #include "ParticleManager.h"
 
 #include "Window.h"
@@ -235,7 +235,7 @@ void SceneManager::ImguiUpdate()
 	CameraManager::GetInstance()->ImGuiUpdate();
 	XAudioManager::GetInstance()->ImguiUpdate(endLoading_);
 	TextureManager::GetInstance()->ImGuiUpdate();
-	Light::GetInstance()->ImGuiUpdate();
+	LightManager::GetInstance()->ImGuiUpdate();
 	ParticleManager::GetInstance()->ImGuiUpdate();
 
 	if (endLoading_) {

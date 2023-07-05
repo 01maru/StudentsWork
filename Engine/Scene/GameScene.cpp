@@ -15,7 +15,7 @@
 
 #include "InputManager.h"
 #include "CameraManager.h"
-#include "Light.h"
+#include "LightManager.h"
 #include "BoxModel.h"
 #include "PauseScreen.h"
 #include "ImGuiManager.h"

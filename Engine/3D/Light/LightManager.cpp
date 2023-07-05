@@ -1,4 +1,4 @@
-﻿#include "Light.h"
+﻿#include "LightManager.h"
 #include <cassert>
 
 #include "ImGuiController.h"
@@ -6,13 +6,13 @@
 
 using namespace CBuff;
 
-Light* Light::GetInstance()
+LightManager* LightManager::GetInstance()
 {
-	static Light instance;
+	static LightManager instance;
 	return &instance;
 }
 
-void Light::TransferConstBuffer()
+void LightManager::TransferConstBuffer()
 {
 	HRESULT result;
 
@@ -49,14 +49,14 @@ void Light::TransferConstBuffer()
 	}
 }
 
-void Light::Initialize()
+void LightManager::Initialize()
 {
 	constBuff_.Initialize((sizeof(CBuffLightData) + 0xFF) & ~0xFF);
 
 	TransferConstBuffer();
 }
 
-void Light::Update()
+void LightManager::Update()
 {
 	if (dirty_) {
 		TransferConstBuffer();
@@ -64,13 +64,21 @@ void Light::Update()
 	}
 }
 
-void Light::ImGuiUpdate()
+void LightManager::ImGuiUpdate()
 {
 	if (!ImGuiController::GetInstance()->GetActiveLightManager()) return;
 
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
 	imguiMan->BeginWindow("LightManager", true);
+
+	imguiMan->Text("Material");
+	if (imguiMan->BeginChild(Vector2D(0, 90))) {
+		imguiMan->SetSliderFloat3("Ambient", ambient_, 0.01f, 0.0f, 1.0f);
+		imguiMan->SetSliderFloat3("Diffuse", diffuse_, 0.01f, 0.0f, 1.0f);
+		imguiMan->SetSliderFloat3("Specular", specular_, 0.01f, 0.0f, 1.0f);
+		imguiMan->EndChild();
+	}
 
 	int32_t id = 0;
 
@@ -137,12 +145,12 @@ void Light::ImGuiUpdate()
 	imguiMan->EndWindow();
 }
 
-void Light::SetGraphicsRootCBuffView(int32_t lootparaIdx)
+void LightManager::SetGraphicsRootCBuffView(int32_t lootparaIdx)
 {
 	constBuff_.SetGraphicsRootCBuffView(lootparaIdx);
 }
 
-void Light::SetDirLightActive(int32_t index, bool active)
+void LightManager::SetDirLightActive(int32_t index, bool active)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
 	if (dirLights_[index].GetIsActive() == active) return;
@@ -151,7 +159,7 @@ void Light::SetDirLightActive(int32_t index, bool active)
 	dirty_ = true;
 }
 
-void Light::SetDirLightDir(int32_t index, const Vector3D& lightdir_)
+void LightManager::SetDirLightDir(int32_t index, const Vector3D& lightdir_)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
 	if (dirLights_[index].GetLightDir() == lightdir_) return;
@@ -160,7 +168,7 @@ void Light::SetDirLightDir(int32_t index, const Vector3D& lightdir_)
 	dirty_ = true;
 }
 
-void Light::SetDirLightColor(int32_t index, const Vector3D& lightcolor_)
+void LightManager::SetDirLightColor(int32_t index, const Vector3D& lightcolor_)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
 	if (dirLights_[index].GetLightColor() == lightcolor_) return;
@@ -169,7 +177,7 @@ void Light::SetDirLightColor(int32_t index, const Vector3D& lightcolor_)
 	dirty_ = true;
 }
 
-void Light::SetDirLightShadow(int32_t index, bool shadowflag)
+void LightManager::SetDirLightShadow(int32_t index, bool shadowflag)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
 	if (dirLights_[index].GetShadowing() == shadowflag) return;
@@ -179,7 +187,7 @@ void Light::SetDirLightShadow(int32_t index, bool shadowflag)
 	dirty_ = true;
 }
 
-void Light::SetFogActive(bool active)
+void LightManager::SetFogActive(bool active)
 {
 	if (distanceFog_.GetIsActive() == active) return;
 
@@ -187,7 +195,7 @@ void Light::SetFogActive(bool active)
 	dirty_ = true;
 }
 
-void Light::SetFogStart(float start)
+void LightManager::SetFogStart(float start)
 {
 	if (distanceFog_.GetStart() == start) return;
 
@@ -195,7 +203,7 @@ void Light::SetFogStart(float start)
 	dirty_ = true;
 }
 
-void Light::SetFogEnd(float end)
+void LightManager::SetFogEnd(float end)
 {
 	if (distanceFog_.GetEnd() == end) return;
 
@@ -203,7 +211,7 @@ void Light::SetFogEnd(float end)
 	dirty_ = true;
 }
 
-void Light::SetFogNear(float fogNear)
+void LightManager::SetFogNear(float fogNear)
 {
 	if (distanceFog_.GetNear() == fogNear) return;
 
@@ -211,7 +219,7 @@ void Light::SetFogNear(float fogNear)
 	dirty_ = true;
 }
 
-void Light::SetFogFar(float fogFar)
+void LightManager::SetFogFar(float fogFar)
 {
 	if (distanceFog_.GetFar() == fogFar) return;
 
@@ -219,7 +227,7 @@ void Light::SetFogFar(float fogFar)
 	dirty_ = true;
 }
 
-void Light::SetFogColor(const Vector3D& color)
+void LightManager::SetFogColor(const Vector3D& color)
 {
 	if (distanceFog_.GetColor() == color) return;
 
