@@ -2,15 +2,22 @@
 #include "ICamera.h"
 #include <memory>
 #include <string>
+#include "Object3D.h"
+#include "IModel.h"
 
 class CameraManager
 {
 private:
 	bool isDebug_ = true;
+	bool lightView_ = false;
+	bool drawTarget_ = false;
 
 	std::unique_ptr<ICamera> mainCamera_;
 	std::unique_ptr<ICamera> debugCamera_;
 	std::unique_ptr<ICamera> lightCamera_;
+
+	std::unique_ptr<Object3D> target_;
+	std::unique_ptr<IModel> modelBox_;
 
 private:
 	CameraManager() {};
@@ -26,6 +33,7 @@ public:
 	void Initialize();
 	void Update();
 	void ImGuiUpdate();
+	void DrawTarget();
 
 	//	Getter
 	ICamera* GetCamera();

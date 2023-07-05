@@ -282,6 +282,7 @@ void SceneManager::Draw()
 
 	if (endLoading_ && !isSplashScreen_) {
 		scene_->Draw();
+		CameraManager::GetInstance()->DrawTarget();
 		UIManager::GetInstance()->Draw();
 	}
 
