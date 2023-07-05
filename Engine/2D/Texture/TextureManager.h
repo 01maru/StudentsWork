@@ -4,6 +4,7 @@
 #include <memory>
 #include <map>
 #include <list>
+#include "Sprite.h"
 
 class TextureManager
 {
@@ -29,9 +30,14 @@ private:
 	UINT64 uploadTexFenceVal_ = 0;
 	std::list<ComPtr<ID3D12Resource>> textureUploadBuff_;
 
+	bool drawPreview_ = false;
+	std::unique_ptr<Sprite> previewSprite_;
+
 private:
 	TextureManager() {}
 	~TextureManager() {}
+
+	void PreviewUpdate();
 
 public:
 	static TextureManager* GetInstance();
@@ -41,6 +47,7 @@ public:
 	void Initialize();
 	void ImGuiUpdate();
 	void UploadTexture();
+	void DrawPreview();
 
 	Texture* LoadTextureGraph(const wchar_t* textureName);
 	Texture* CreateNoneGraphTexture(const std::string& texName);

@@ -188,15 +188,6 @@ void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::itera
 	}
 }
 
-void UIManager::DrawEditUI()
-{
-	if (!editUI_) return;
-
-	for (auto& sprite : sprites_) {
-		sprite.second.Draw();
-	}
-}
-
 UIManager* UIManager::GetInstance()
 {
 	static UIManager instance;
@@ -258,6 +249,15 @@ void UIManager::ImGuiUpdate()
 
 	for (auto& sprite : sprites_) {
 		sprite.second.Update();
+	}
+}
+
+void UIManager::DrawEditUI()
+{
+	if (!editUI_) return;
+
+	for (auto& sprite : sprites_) {
+		sprite.second.Draw();
 	}
 }
 

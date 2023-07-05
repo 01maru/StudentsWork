@@ -25,6 +25,13 @@ std::string ConvertToString(const wchar_t* name)
 }
 #pragma endregion
 
+void TextureManager::PreviewUpdate()
+{
+	if (!drawPreview_) return;
+
+	//previewSprite_->Update();
+}
+
 TextureManager* TextureManager::GetInstance()
 {
 	static TextureManager instance;
@@ -67,6 +74,8 @@ void TextureManager::Initialize()
 
 #pragma endregion
 
+	previewSprite_ = std::make_unique<Sprite>();
+
 	//textureNum_ = 0;
 
 	//texExist_.clear();
@@ -83,25 +92,24 @@ void TextureManager::ImGuiUpdate()
 
 	imguiMan->BeginWindow("TextureManager", true);
 
-	//if (imguiMan->BeginMenuBar()) {
-	//	if (imguiMan->BeginMenu("File")) {
-	//		if (imguiMan->MenuItem("Save")) ;
-	//		if (imguiMan->MenuItem("Load")) ;
-	//		imguiMan->EndMenu();
-	//	}
-	//	imguiMan->EndMenuBar();
-	//}
+	imguiMan->PushID(1);
+	imguiMan->SetRadioButton("PreView", drawPreview_);
+	imguiMan->Text("Preview : %s", drawPreview_ ? "TRUE" : "FALSE");
+	imguiMan->PopID();
 
 	imguiMan->BeginChild();
 
 	for (size_t i = 0; i < textures_.size(); i++)
 	{
+		//imguiMan->SetRadioButton("PreviewTex")
 		imguiMan->Text("Name : %s", textures_[i]->GetTextureName().c_str());
 		imguiMan->Text("Handle : %d", textures_[i]->GetHandle());
 	}
 	imguiMan->EndChild();
 
 	imguiMan->EndWindow();
+
+	PreviewUpdate();
 }
 
 void TextureManager::UploadTexture()
@@ -140,6 +148,13 @@ void TextureManager::UploadTexture()
 	textureUploadBuff_.clear();
 
 #pragma endregion ChangeScreen
+}
+
+void TextureManager::DrawPreview()
+{
+	if (!drawPreview_)	return;
+
+	//previewSprite_->Draw();
 }
 
 Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
