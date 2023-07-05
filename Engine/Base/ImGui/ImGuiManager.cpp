@@ -1,6 +1,7 @@
 ﻿#include "ImGuiManager.h"
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx12.h>
+#include <imgui_stdlib.h>
 #include "Window.h"
 #include "DirectX.h"
 
@@ -208,9 +209,9 @@ void ImGuiManager::Text(const char* fmt, ...)
 	va_end(args);
 }
 
-void ImGuiManager::InputText(const std::string& name, std::string& text, size_t strLen)
+void ImGuiManager::InputText(const std::string& name, std::string& text)
 {
-	ImGui::InputText(name.c_str(), &text.front(), strLen);
+	ImGui::InputText(name.c_str(), &text);
 }
 
 void ImGuiManager::PushID(int32_t id)

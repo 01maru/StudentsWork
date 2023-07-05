@@ -34,6 +34,10 @@ private:
 	std::unique_ptr<Sprite> previewSprite_;
 
 	int32_t previewIdx_ = 0;
+
+	std::string searchWord_;
+	std::string loadTexPath_;
+
 private:
 	TextureManager() {}
 	~TextureManager() {}

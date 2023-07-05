@@ -80,7 +80,7 @@ public:
 
 	void LabelText(const std::string& name, const std::string& text, float value);
 	void Text(const char* fmt, ...);
-	void InputText(const std::string& name, std::string& text, size_t strLen);
+	void InputText(const std::string& name, std::string& text);
 
 	void PushID(int32_t id);
 	void PopID();

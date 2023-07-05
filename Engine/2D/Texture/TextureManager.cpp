@@ -23,6 +23,20 @@ std::string ConvertToString(const wchar_t* name)
 
 	return result;
 }
+namespace Util {
+	std::wstring ToWideString(const std::string& str)
+	{
+		auto num1 = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS, str.c_str(), -1, nullptr, 0);
+
+		std::wstring wstr;
+		wstr.resize(num1);
+
+		auto num2 = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS, str.c_str(), -1, &wstr[0], num1);
+
+		assert(num1 == num2);
+		return wstr;
+	}
+}
 #pragma endregion
 
 void TextureManager::PreviewUpdate()
@@ -94,6 +108,14 @@ void TextureManager::ImGuiUpdate()
 
 	imguiMan->BeginWindow("TextureManager", true);
 
+	imguiMan->InputText("LoadPath", loadTexPath_);
+	if (imguiMan->SetButton("Load")) {
+		LoadTextureGraph(Util::ToWideString(loadTexPath_).c_str());
+
+		UploadTexture();
+	}
+	imguiMan->InputText("Search", searchWord_);
+
 	imguiMan->CheckBox("PreView", drawPreview_);
 	imguiMan->Text("Handle : %d", previewIdx_);
 
@@ -103,6 +125,11 @@ void TextureManager::ImGuiUpdate()
 
 	for (size_t i = 0; i < textures_.size(); i++)
 	{
+		if (searchWord_.length() != 0) {
+			//	Wordがなかったら
+			if (textures_[i]->GetTextureName().find(searchWord_) == -1) continue;
+		}
+
 		imguiMan->PushID((int32_t)i);
 		imguiMan->Text("Name : %s", textures_[i]->GetTextureName().c_str());
 		imguiMan->Text("Handle : %d", textures_[i]->GetHandle());
@@ -122,6 +149,8 @@ void TextureManager::ImGuiUpdate()
 
 void TextureManager::UploadTexture()
 {
+	if (textureUploadBuff_.empty()) return;
+
 	// 命令のクローズ
 #pragma region CmdClose
 
