@@ -3,6 +3,9 @@
 
 class NormalCamera :public ICamera
 {
+private:
+	void ImGuiInfo() override;
+
 public:
 	NormalCamera() {};
 	~NormalCamera() override {};

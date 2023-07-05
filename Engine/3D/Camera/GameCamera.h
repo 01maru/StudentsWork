@@ -3,6 +3,9 @@
 
 class GameCamera :public ICamera
 {
+private:
+	void ImGuiInfo() override;
+
 public:
 	GameCamera() {};
 	~GameCamera() override {};

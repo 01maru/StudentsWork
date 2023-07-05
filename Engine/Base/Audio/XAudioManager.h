@@ -5,8 +5,6 @@
 #include <string>
 #include <map>
 
-#pragma comment(lib,"xaudio2.lib")
-
 #pragma region Struct
 
 //	音データ

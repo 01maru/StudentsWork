@@ -5,7 +5,7 @@
 #include "ConstBuff.h"
 #include "ConstBuffStruct.h"
 
-class Light
+class LightManager
 {
 private:
 	ConstBuff constBuff_;
@@ -15,30 +15,41 @@ private:
 	DirLight dirLights_[CBuff::DIRLIGHT_NUM];
 	DistanceFog distanceFog_;
 
+	Vector3D ambient_ = { 0.3f, 0.3f, 0.3f };
+	Vector3D diffuse_;
+	Vector3D specular_;
+
 private:
-	Light() {};
-	~Light() {};
+	LightManager() {};
+	~LightManager() {};
 
 	void TransferConstBuffer();
 public:
-	static Light* GetInstance();
-	Light(const Light& obj) = delete;
-	Light& operator=(const Light& obj) = delete;
+	static LightManager* GetInstance();
+	LightManager(const LightManager& obj) = delete;
+	LightManager& operator=(const LightManager& obj) = delete;
 
 	void Initialize();
 	void Update();
 	void ImGuiUpdate();
 	void SetGraphicsRootCBuffView(int32_t lootparaIdx);
 
+	//	Getter
+	Vector3D GetMtlAmbient()const { return ambient_; }
+	Vector3D GetMtlDiffuse()const { return diffuse_; }
+	Vector3D GetMtlSpecular()const { return specular_; }
+
+	//	Setter
 	void SetDirLightActive(int32_t index, bool active);
 	void SetDirLightDir(int32_t index, const Vector3D& lightdir_);
 	void SetDirLightColor(int32_t index, const Vector3D& lightcolor_);
 	void SetDirLightShadow(int32_t index, bool shadowflag);
 
-	void SetFogActive(bool active) { distanceFog_.SetActive(active); }
-	void SetFogStart(float start) { distanceFog_.SetStart(start); }
-	void SetFogEnd(float end) { distanceFog_.SetEnd(end); }
-	void SetFogNear(float fogNear) { distanceFog_.SetNear(fogNear); }
-	void SetFogFar(float fogFar) { distanceFog_.SetFar(fogFar); }
+	void SetFogActive(bool active);
+	void SetFogStart(float start);
+	void SetFogEnd(float end);
+	void SetFogNear(float fogNear);
+	void SetFogFar(float fogFar);
+	void SetFogColor(const Vector3D& color);
 };
 

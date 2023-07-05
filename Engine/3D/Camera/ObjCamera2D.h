@@ -3,6 +3,9 @@
 
 class ObjCamera2D :public ICamera
 {
+private:
+	void ImGuiInfo() override;
+
 public:
 	ObjCamera2D();
 	~ObjCamera2D() override {};

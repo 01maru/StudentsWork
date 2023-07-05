@@ -258,7 +258,7 @@
     <ClCompile Include="Engine\3D\Light\CircleShadow.cpp">
       <Filter>ソース ファイル\lib\Engine\Light</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\3D\Light\Light.cpp">
+    <ClCompile Include="Engine\3D\Light\LightManager.cpp">
       <Filter>ソース ファイル\lib\Engine\Light</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\IModel.cpp">
@@ -405,11 +405,14 @@
     <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp">
       <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
     </ClCompile>
-    <ClCompile Include="PauseScreen.cpp">
+    <ClCompile Include="Engine\Game\PauseScreen.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Player.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Enemy.cpp">
+      <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -485,7 +488,7 @@
     <ClInclude Include="Engine\2D\Particle\Particle.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\3D\Light\Light.h">
+    <ClInclude Include="Engine\3D\Light\LightManager.h">
       <Filter>ヘッダー ファイル\lib\Engine\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Light\DirLight.h">
@@ -656,11 +659,14 @@
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
-    <ClInclude Include="PauseScreen.h">
+    <ClInclude Include="Engine\Game\PauseScreen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Player.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Enemy.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

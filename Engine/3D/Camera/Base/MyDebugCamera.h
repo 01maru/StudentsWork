@@ -2,19 +2,36 @@
 #include "Vector2D.h"
 #include "ICamera.h"
 
+class InputMouse;
+class InputKeyboard;
+
 class MyDebugCamera :public ICamera
 {
 private:
+	const float MIN_EYE_TO_TARGET = 1.0f;
+
+	InputMouse* mouse_ = nullptr;
+	InputKeyboard* keyboard_ = nullptr;
+
 	float disEyeTarget_ = 0.0f;
 
-	Vector2D cursorPos_;
+	Vector2D rotValue_;
 
 	enum MoveMode {
-		NoMove,
 		TranslationMove,
 		RotationMove,
 	};
-	MoveMode mode_ = NoMove;
+	MoveMode mode_ = TranslationMove;
+
+private:
+	void CalcDisEyeToTarget();
+	void SetMoveMode(bool active);
+	Vector3D CalcTransMove(bool active);
+	void CalcRotMove(bool active);
+	void SetPosition(const Vector3D& moveTarget);
+
+	void ImGuiInfo() override;
+
 public:
 	MyDebugCamera() {};
 	~MyDebugCamera() override {};

@@ -8,9 +8,9 @@ protected:
 	Matrix matView_;
 	Matrix matProjection_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, MyMath::ConvertToRad(48.0f), 0.1f, 1000.0f);
 
-	Vector3D eye_;		//	視点座標
-	Vector3D target_;	//	注視点座標
-	Vector3D up_;		//	上方向ベクトル
+	Vector3D eye_;						//	視点座標
+	Vector3D target_;					//	注視点座標
+	Vector3D up_ = { 0.0f,1.0f,0.0f };	//	上方向ベクトル
 	Vector3D frontVec_;
 	Vector3D rightVec_;
 	Vector3D downVec_;
@@ -24,10 +24,13 @@ protected:
 	//	方向ベクトル計算
 	void CalcDirectionVec();
 
+	virtual void ImGuiInfo() = 0;
+
 public:
 	virtual ~ICamera() = default;
 	virtual void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up) = 0;
 	virtual void Update() = 0;
+	void ImGuiUpdate();
 	//	ビュー行列更新
 	void MatUpdate() { matView_ = MyMath::LookAtLH(eye_, target_, up_); }
 

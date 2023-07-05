@@ -3,8 +3,6 @@
 #include <Xinput.h>
 #include <stdint.h>
 
-#pragma comment (lib, "xinput.lib")
-
 class Vector2D;
 class ImGuiManager;
 

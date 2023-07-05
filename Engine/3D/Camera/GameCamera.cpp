@@ -19,3 +19,7 @@ void GameCamera::Update()
 
 	MatUpdate();
 }
+
+void GameCamera::ImGuiInfo()
+{
+}

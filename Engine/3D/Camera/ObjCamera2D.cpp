@@ -34,3 +34,7 @@ void ObjCamera2D::Update()
 
 	MatUpdate();
 }
+
+void ObjCamera2D::ImGuiInfo()
+{
+}

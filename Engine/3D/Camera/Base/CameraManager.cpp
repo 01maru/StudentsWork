@@ -3,6 +3,7 @@
 #include "ImGuiManager.h"
 
 #include "MyDebugCamera.h"
+#include "BoxModel.h"
 
 CameraManager* CameraManager::GetInstance()
 {
@@ -12,22 +13,35 @@ CameraManager* CameraManager::GetInstance()
 
 void CameraManager::Initialize()
 {
+#ifdef NDEBUG
+	isDebug_ = false;
+#endif // NDEBUG
+
+#ifdef _DEBUG
 	debugCamera_ = std::make_unique<MyDebugCamera>();
 	debugCamera_->Initialize(Vector3D(0.0f, 0.0f, -10.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector3D(0.0f, 1.0f, 0.0f));
-}
-
-void CameraManager::Finalize()
-{
-	mainCamera_.release();
-	debugCamera_.release();
-	lightCamera_.release();
+	modelBox_ = std::make_unique<BoxModel>("");
+	target_.reset(Object3D::Create(modelBox_.get()));
+	target_->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
+	target_->SetColor(Vector4D(1.0f, 1.0f, 1.0f, 0.2f));
+#endif // _DEBUG
 }
 
 void CameraManager::Update()
 {
-	if(isDebug_)				debugCamera_->Update();
-	if (mainCamera_ != nullptr) mainCamera_->Update();
-	if (lightCamera_ != nullptr) lightCamera_->Update();
+	if(isDebug_)					debugCamera_->Update();
+	if (mainCamera_ != nullptr)		mainCamera_->Update();
+	if (lightCamera_ != nullptr)	lightCamera_->Update();
+
+
+	if (!drawTarget_) return;
+
+	ICamera* main = mainCamera_.get();
+	if (isDebug_) main = debugCamera_.get();
+	if (lightView_) main = lightCamera_.get();
+
+	target_->SetPosition(main->GetTarget());
+	target_->MatUpdate();
 }
 
 void CameraManager::SetDebugCameraPosToMain()
@@ -35,9 +49,7 @@ void CameraManager::SetDebugCameraPosToMain()
 	//	mainCameraがセットされていなかったら
 	if (mainCamera_ == nullptr) return;
 
-	debugCamera_->SetEye(mainCamera_->GetEye());
-	debugCamera_->SetTarget(mainCamera_->GetTarget());
-	debugCamera_->SetUp(mainCamera_->GetUp());
+	debugCamera_->Initialize(mainCamera_->GetEye(), mainCamera_->GetTarget(), mainCamera_->GetUp());
 }
 
 void CameraManager::ImGuiCameraInfo(ICamera* camera, const std::string& name)
@@ -59,6 +71,8 @@ void CameraManager::ImGuiCameraInfo(ICamera* camera, const std::string& name)
 		vec = camera->GetUp();
 		imguiMan->SetSliderFloat3("UP", vec);
 		camera->SetUp(vec);
+
+		camera->ImGuiUpdate();
 	}
 
 	imguiMan->PopID();
@@ -66,7 +80,6 @@ void CameraManager::ImGuiCameraInfo(ICamera* camera, const std::string& name)
 
 void CameraManager::ImGuiUpdate()
 {
-    //  Activeじゃなかったら
     if (!ImGuiController::GetInstance()->GetActiveCameraManager()) return;
 
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
@@ -74,8 +87,16 @@ void CameraManager::ImGuiUpdate()
 	imguiMan->BeginWindow("CameraManager", true);
 
 	imguiMan->CheckBox("IsDebug", isDebug_);
+	imguiMan->CheckBox("LightCameraView", lightView_);
 
-	//if (imguiMan->SetButton("Pos : MainCamera = DebugCamera")) SetDebugCameraPosToMain();
+	imguiMan->Spacing();
+	imguiMan->Separator();
+	imguiMan->Spacing();
+
+	imguiMan->CheckBox("DrawTarget", drawTarget_);
+
+
+	if (imguiMan->SetButton("SetDebugPos = MainCamera")) SetDebugCameraPosToMain();
 	int32_t id = 0;
 
 	imguiMan->PushID(id++);
@@ -93,8 +114,16 @@ void CameraManager::ImGuiUpdate()
 	imguiMan->EndWindow();
 }
 
+void CameraManager::DrawTarget()
+{
+	if (!drawTarget_) return;
+
+	target_->Draw();
+}
+
 ICamera* CameraManager::GetCamera()
 {
+	if (lightView_) return lightCamera_.get();
 	if (isDebug_) return debugCamera_.get();
 
 	return mainCamera_.get();
@@ -108,4 +137,9 @@ ICamera* CameraManager::GetLightCamera()
 ICamera* CameraManager::GetMainCamera()
 {
 	return mainCamera_.get();
+}
+
+ICamera* CameraManager::GetDebugCamera()
+{
+	return debugCamera_.get();
 }
