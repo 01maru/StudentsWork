@@ -34,9 +34,7 @@ void CameraManager::SetDebugCameraPosToMain()
 	//	mainCameraがセットされていなかったら
 	if (mainCamera_ == nullptr) return;
 
-	debugCamera_->SetEye(mainCamera_->GetEye());
-	debugCamera_->SetTarget(mainCamera_->GetTarget());
-	debugCamera_->SetUp(mainCamera_->GetUp());
+	debugCamera_->Initialize(mainCamera_->GetEye(), mainCamera_->GetTarget(), mainCamera_->GetUp());
 }
 
 void CameraManager::ImGuiCameraInfo(ICamera* camera, const std::string& name)
@@ -75,7 +73,7 @@ void CameraManager::ImGuiUpdate()
 
 	imguiMan->CheckBox("IsDebug", isDebug_);
 
-	//if (imguiMan->SetButton("Pos : MainCamera = DebugCamera")) SetDebugCameraPosToMain();
+	if (imguiMan->SetButton("SetDebugPos = MainCamera")) SetDebugCameraPosToMain();
 	int32_t id = 0;
 
 	imguiMan->PushID(id++);

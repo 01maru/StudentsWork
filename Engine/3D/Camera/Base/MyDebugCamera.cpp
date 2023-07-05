@@ -78,7 +78,7 @@ void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, cons
 	mouse_ = InputManager::GetInstance()->GetMouse();
 	keyboard_ = InputManager::GetInstance()->GetKeyboard();
 
-	SetProjectionMatrix(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, MyMath::ConvertToRad(90.0f));
+	//SetProjectionMatrix(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, MyMath::ConvertToRad(90.0f));
 
 	eye_ = eye;
 	target_ = target;
@@ -87,8 +87,7 @@ void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, cons
 	MatUpdate();
 
 	//	disEyeTraget初期化
-	frontVec_ = target - eye;
-	disEyeTarget_ = frontVec_.GetLength();
+	disEyeTarget_ = Vector3D(target_ - eye_).GetLength();
 
 	//	方向ベクトル
 	CalcDirectionVec();
