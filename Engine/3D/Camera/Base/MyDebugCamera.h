@@ -8,6 +8,8 @@ class InputKeyboard;
 class MyDebugCamera :public ICamera
 {
 private:
+	const float MIN_EYE_TO_TARGET = 1.0f;
+
 	InputMouse* mouse_ = nullptr;
 	InputKeyboard* keyboard_ = nullptr;
 

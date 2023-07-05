@@ -40,6 +40,9 @@ void GameScene::LoadResources()
 	//	player
 	player_ = std::make_unique<Player>();
 	player_->PlayerInitialize(modelPlayer_.get());
+	//	enemy
+	enemy_ = std::make_unique<Enemy>();
+	enemy_->Initialize(modelBox_.get());
 	//	Cube
 	cube_.reset(Object3D::Create(modelBox_.get()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
@@ -91,6 +94,7 @@ void GameScene::MatUpdate()
 
 	cube_->MatUpdate();
 	player_->MatUpdate();
+	enemy_->MatUpdate();
 	//player_->PlayAnimation();
 
 	level.MatUpdate();
@@ -109,6 +113,7 @@ void GameScene::Update()
 	ParticleManager::GetInstance()->Update();
 
 	player_->Update();
+	enemy_->Update();
 
 	//DebugTextManager::GetInstance()->Print("test", { 0,Window::sWIN_HEIGHT/2.0f }, 5);
 #pragma endregion
@@ -143,6 +148,7 @@ void GameScene::Draw()
 	//ground_->DrawShadowReciever();
 	//cube_->DrawShadowReciever();
 	//player_->DrawShadowReciever();
+	enemy_->Draw();
 
 	//level.Draw();
 

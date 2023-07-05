@@ -22,8 +22,7 @@ void MyDebugCamera::CalcDisEyeToTarget()
 	//	キー入力
 	disEyeTarget_ -= mouse_->GetWheel() * (disEyeTarget_ * 0.001f);
 	//	範囲設定
-	float minDis_ = 10.0f;	//	最小値
-	disEyeTarget_ = MyMath::mMax(disEyeTarget_, minDis_);
+	disEyeTarget_ = MyMath::mMax(disEyeTarget_, MIN_EYE_TO_TARGET);
 }
 
 Vector3D MyDebugCamera::CalcTransMove(bool active)
@@ -63,21 +62,34 @@ void MyDebugCamera::SetPosition(const Vector3D& moveTarget)
 {
 	target_ += moveTarget;
 
-	Quaternion pRightAngle(rotValue_.x, up_);
-	Quaternion pUpAngle(rotValue_.y, rightVec_);
+	//Quaternion pRightAngle(rotValue_.x, up_);
+	//Quaternion pUpAngle(rotValue_.y, rightVec_);
 
-	Quaternion q = pRightAngle * pUpAngle;
-	Quaternion qq = Conjugate(q);
+	//Quaternion q = pRightAngle * pUpAngle;
+	//Quaternion qq = Conjugate(q);
 
-	Quaternion qPos(0.0f, eye_);
-	qPos = q * qPos * qq;
-	eye_ = qPos.GetVector3();
+	////Quaternion qPos(0.0f, eye_);
+	////qPos = q * qPos * qq;
+	////eye_ = qPos.GetVector3();
 
-	Quaternion qCameraUp(0.0f, up_);
-	qCameraUp = q * qCameraUp * qq;
+	//Quaternion qCameraUp(0.0f, up_);
+	//qCameraUp = q * qCameraUp * qq;
 
-	up_ = MyMath::GetAxis(qCameraUp);
-	up_.y = -up_.y;
+	//up_ = MyMath::GetAxis(qCameraUp);
+	//up_.y = -up_.y;
+
+	//Quaternion upMove = MakeAxisAngle(up_, rotValue_.x);
+	//Quaternion rightMove = MakeAxisAngle(rightVec_, rotValue_.y);
+	//frontVec_ = RotateVector(frontVec_, upMove);
+	//frontVec_ = RotateVector(frontVec_, rightMove);
+
+	//eye_ = target_ - disEyeTarget_ * frontVec_;
+
+	up_.y = cosf(rotValue_.y);
+
+	eye_.x = target_.x - disEyeTarget_ * cosf(rotValue_.y) * sinf(rotValue_.x);
+	eye_.y = target_.y + disEyeTarget_ * sinf(rotValue_.y);
+	eye_.z = target_.z - disEyeTarget_ * cosf(rotValue_.y) * cosf(rotValue_.x);
 }
 
 void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
@@ -113,19 +125,14 @@ void MyDebugCamera::Update()
 
 	CalcRotMove(dikWheel);
 
-	target_ += movetrans;
-
 	//	範囲　0　>　cursorPos　>　PIx2　に設定
 	if (rotValue_.x >= MyMath::PIx2) rotValue_.x -= MyMath::PIx2;
 	if (rotValue_.x < 0) rotValue_.x += MyMath::PIx2;
 	if (rotValue_.y >= MyMath::PIx2) rotValue_.y -= MyMath::PIx2;
 	if (rotValue_.y < 0) rotValue_.y += MyMath::PIx2;
 
-	//	上方向ベクトルと視点座標更新
-	up_.y = cosf(rotValue_.y);
-	eye_.x = target_.x - disEyeTarget_ * cosf(rotValue_.y) * sinf(rotValue_.x);
-	eye_.y = target_.y + disEyeTarget_ * sinf(rotValue_.y);
-	eye_.z = target_.z - disEyeTarget_ * cosf(rotValue_.y) * cosf(rotValue_.x);
+	//	座標更新
+	SetPosition(movetrans);
 
 	//	方向ベクトル
 	CalcDirectionVec();
@@ -134,14 +141,6 @@ void MyDebugCamera::Update()
 	CalcBillboard();
 
 	MatUpdate();
-
-	////	範囲　0　>　cursorPos　>　PIx2　に設定
-	////if (rotValue_.x >= MyMath::PIx2) rotValue_.x -= MyMath::PIx2;
-	////if (rotValue_.x < 0) rotValue_.x += MyMath::PIx2;
-	////if (rotValue_.y >= MyMath::PIx2) rotValue_.y -= MyMath::PIx2;
-	////if (rotValue_.y < 0) rotValue_.y += MyMath::PIx2;
-
-	//SetPosition(moveTarget);
 }
 
 void MyDebugCamera::ImGuiInfo()

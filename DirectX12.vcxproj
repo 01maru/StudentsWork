@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Game\Enemy.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp" />
     <ClCompile Include="Engine\3D\Camera\Base\CameraManager.cpp" />
     <ClCompile Include="Engine\3D\Camera\Base\ICamera.cpp" />
@@ -87,6 +88,7 @@
     <ClCompile Include="Engine\Game\PauseScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Game\Enemy.h" />
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h" />
     <ClInclude Include="Engine\3D\Camera\Base\CameraManager.h" />
     <ClInclude Include="Engine\3D\Camera\ObjCamera2D.h" />
