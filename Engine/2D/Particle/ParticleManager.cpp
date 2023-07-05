@@ -1,6 +1,7 @@
 ﻿#include "ParticleManager.h"
 #include "TextureManager.h"
 #include "ImGuiController.h"
+#include "ImGuiManager.h"
 
 ParticleManager* ParticleManager::GetInstance()
 {
@@ -38,6 +39,12 @@ void ParticleManager::MatUpdate()
 void ParticleManager::ImGuiUpdate()
 {
 	if (!ImGuiController::GetInstance()->GetActiveParticleManager()) return;
+
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
+	imgui->BeginWindow("ParticleManager");
+
+	imgui->EndWindow();
 }
 
 void ParticleManager::Draw()
