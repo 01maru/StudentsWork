@@ -55,41 +55,22 @@ void MyDebugCamera::CalcRotMove(bool active)
 
 	if (up_.y < 0) moveCursor.x = -moveCursor.x;
 
-	rotValue_ += moveCursor;
+	rotValue_ = moveCursor;
 }
 
 void MyDebugCamera::SetPosition(const Vector3D& moveTarget)
 {
+	Quaternion pRightAngle(rotValue_.x, up_);
+	Quaternion pUpAngle(rotValue_.y, rightVec_);
+
+	Quaternion upMove = MakeAxisAngle(up_, rotValue_.x);
+	Quaternion rightMove = MakeAxisAngle(rightVec_, rotValue_.y);
+	Quaternion qMove = upMove * rightMove;
+	frontVec_ = RotateVector(frontVec_, qMove);
+
 	target_ += moveTarget;
-
-	//Quaternion pRightAngle(rotValue_.x, up_);
-	//Quaternion pUpAngle(rotValue_.y, rightVec_);
-
-	//Quaternion q = pRightAngle * pUpAngle;
-	//Quaternion qq = Conjugate(q);
-
-	////Quaternion qPos(0.0f, eye_);
-	////qPos = q * qPos * qq;
-	////eye_ = qPos.GetVector3();
-
-	//Quaternion qCameraUp(0.0f, up_);
-	//qCameraUp = q * qCameraUp * qq;
-
-	//up_ = MyMath::GetAxis(qCameraUp);
-	//up_.y = -up_.y;
-
-	//Quaternion upMove = MakeAxisAngle(up_, rotValue_.x);
-	//Quaternion rightMove = MakeAxisAngle(rightVec_, rotValue_.y);
-	//frontVec_ = RotateVector(frontVec_, upMove);
-	//frontVec_ = RotateVector(frontVec_, rightMove);
-
-	//eye_ = target_ - disEyeTarget_ * frontVec_;
-
-	up_.y = cosf(rotValue_.y);
-
-	eye_.x = target_.x - disEyeTarget_ * cosf(rotValue_.y) * sinf(rotValue_.x);
-	eye_.y = target_.y + disEyeTarget_ * sinf(rotValue_.y);
-	eye_.z = target_.z - disEyeTarget_ * cosf(rotValue_.y) * cosf(rotValue_.x);
+	up_ = RotateVector(up_, qMove);
+	eye_ = target_ - disEyeTarget_ * frontVec_;
 }
 
 void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
@@ -115,24 +96,19 @@ void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, cons
 
 void MyDebugCamera::Update()
 {
+	rotValue_ = Vector2D();
 	bool dikWheel = mouse_->GetClick(InputMouse::WheelClick);
 
 	SetMoveMode(mouse_->GetClickTrigger(InputMouse::WheelClick));
 
 	CalcDisEyeToTarget();
 
-	movetrans = CalcTransMove(dikWheel);
+	Vector3D moveTarget = CalcTransMove(dikWheel);
 
 	CalcRotMove(dikWheel);
 
-	//	範囲　0　>　cursorPos　>　PIx2　に設定
-	if (rotValue_.x >= MyMath::PIx2) rotValue_.x -= MyMath::PIx2;
-	if (rotValue_.x < 0) rotValue_.x += MyMath::PIx2;
-	if (rotValue_.y >= MyMath::PIx2) rotValue_.y -= MyMath::PIx2;
-	if (rotValue_.y < 0) rotValue_.y += MyMath::PIx2;
-
 	//	座標更新
-	SetPosition(movetrans);
+	SetPosition(moveTarget);
 
 	//	方向ベクトル
 	CalcDirectionVec();
@@ -150,9 +126,7 @@ void MyDebugCamera::ImGuiInfo()
 	imgui->Text("Mode : %d", mode_);
 	imgui->Text("     : 0->Trans 1->Rot");
 
-	imgui->Text("RotValue  : (%.f, %.f)", rotValue_.x, rotValue_.y);
-
-	imgui->Text("MoveTrans  : (%f, %f, %f)", movetrans.x, movetrans.y, movetrans.z);
+	imgui->Text("RotValue  : (%.2f, %.2f)", rotValue_.x, rotValue_.y);
 
 	imgui->Text("DisEyeTarget : %f", disEyeTarget_);
 }

@@ -17,8 +17,6 @@ private:
 
 	Vector2D rotValue_;
 
-	Vector3D movetrans;
-
 	enum MoveMode {
 		TranslationMove,
 		RotationMove,

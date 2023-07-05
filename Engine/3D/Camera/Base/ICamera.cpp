@@ -51,9 +51,9 @@ void ICamera::ImGuiUpdate()
 
 	if (!imgui->TreeNode("Info")) return;
 
-	imgui->Text("Front  : (%.f, %.f, %.f)", frontVec_.x, frontVec_.y, frontVec_.z);
-	imgui->Text("Right  : (%.f, %.f, %.f)", rightVec_.x, rightVec_.y, rightVec_.z);
-	imgui->Text("Down   : (%.f, %.f, %.f)", downVec_.x, downVec_.y, downVec_.z);
+	imgui->Text("Front  : (%.2f, %.2f, %.2f)", frontVec_.x, frontVec_.y, frontVec_.z);
+	imgui->Text("Right  : (%.2f, %.2f, %.2f)", rightVec_.x, rightVec_.y, rightVec_.z);
+	imgui->Text("Down   : (%.2f, %.2f, %.2f)", downVec_.x, downVec_.y, downVec_.z);
 
 	ImGuiInfo();
 
