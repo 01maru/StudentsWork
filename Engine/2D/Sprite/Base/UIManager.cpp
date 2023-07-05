@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <cassert>
+#include "TextureManager.h"
 
 std::map<std::string, Sprite, std::less<>> UIManager::LoadFile(const std::string& filename)
 {
@@ -38,7 +39,7 @@ std::map<std::string, Sprite, std::less<>> UIManager::LoadFile(const std::string
 			line_stream >> texname;
 
 			Sprite sprite;
-			sprite.Initialize(nullptr);
+			sprite.Initialize(TextureManager::GetInstance()->LoadTextureGraph(texname));
 
 			Vector2D pos;
 			Vector2D size;
@@ -171,6 +172,7 @@ void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::itera
 		imguiMan->Text("Texture");
 		std::string texName = sprite->GetTexture()->GetTextureName();
 		imguiMan->InputText("TexName ", texName);
+		if (imguiMan->SetButton("Paste")) sprite->SetHandle(TextureManager::GetInstance()->PasteTexture());
 
 		vec = sprite->GetTextureLeftTop();
 		imguiMan->SetSliderFloat2("TexLeftTop", vec);

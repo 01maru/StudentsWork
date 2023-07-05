@@ -32,8 +32,10 @@ private:
 
 	bool drawPreview_ = false;
 	std::unique_ptr<Sprite> previewSprite_;
+	std::unique_ptr<Sprite> backSprite_;
 
 	int32_t previewIdx_ = 0;
+	int32_t copyIdx_ = 0;
 
 	std::string searchWord_;
 	std::string loadTexPath_;
@@ -54,7 +56,10 @@ public:
 	void UploadTexture();
 	void DrawPreview();
 
+	Texture* PasteTexture() { return textures_[copyIdx_].get(); }
+
 	Texture* LoadTextureGraph(const wchar_t* textureName);
+	Texture* LoadTextureGraph(const std::string& textureName);
 	Texture* CreateNoneGraphTexture(const std::string& texName);
 
 	//Texture* CreateNoneGraphTexture(const std::string& textureName);

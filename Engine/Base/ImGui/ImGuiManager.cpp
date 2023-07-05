@@ -209,9 +209,9 @@ void ImGuiManager::Text(const char* fmt, ...)
 	va_end(args);
 }
 
-void ImGuiManager::InputText(const std::string& name, std::string& text)
+bool ImGuiManager::InputText(const std::string& name, std::string& text)
 {
-	ImGui::InputText(name.c_str(), &text);
+	return ImGui::InputText(name.c_str(), &text);
 }
 
 void ImGuiManager::PushID(int32_t id)

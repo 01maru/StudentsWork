@@ -178,6 +178,8 @@ void Sprite::AdjustTextureSize()
 	D3D12_RESOURCE_DESC resDesc = texBuff->GetDesc();
 	textureSize_.x = static_cast<float>(resDesc.Width);
 	textureSize_.y = static_cast<float>(resDesc.Height);
+
+	dirtyFlagUV_ = true;
 }
 
 void Sprite::SetPosition(const Vector2D& position)

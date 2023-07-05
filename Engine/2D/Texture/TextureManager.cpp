@@ -43,6 +43,9 @@ void TextureManager::PreviewUpdate()
 {
 	if (!drawPreview_) return;
 
+	backSprite_->SetSize(previewSprite_->GetSize());
+
+	backSprite_->Update();
 	previewSprite_->Update();
 }
 
@@ -95,6 +98,10 @@ void TextureManager::Initialize()
 	//	ロード失敗した際の白色テクスチャのロード
 	sWhiteTexHandle = LoadTextureGraph(L"Resources/Sprite/white1x1.png");
 
+	backSprite_ = std::make_unique<Sprite>();
+	backSprite_->Initialize();
+	backSprite_->SetColor(Vector4D(1.0f, 1.0f, 1.0f, 0.1f));
+
 	previewSprite_ = std::make_unique<Sprite>();
 	previewSprite_->Initialize();
 	previewSprite_->SetSize(Vector2D(500.0f, 500.0f));
@@ -119,6 +126,8 @@ void TextureManager::ImGuiUpdate()
 	imguiMan->CheckBox("PreView", drawPreview_);
 	imguiMan->Text("Handle : %d", previewIdx_);
 
+	if (imguiMan->SetButton("Copy")) copyIdx_ = previewIdx_;
+
 	int32_t prevIdx = previewIdx_;
 
 	imguiMan->BeginChild();
@@ -134,6 +143,10 @@ void TextureManager::ImGuiUpdate()
 		imguiMan->Text("Name : %s", textures_[i]->GetTextureName().c_str());
 		imguiMan->Text("Handle : %d", textures_[i]->GetHandle());
 		imguiMan->SetRadioButton("PreviewTex", previewIdx_, (int32_t)i);
+
+		imguiMan->Spacing();
+		imguiMan->Separator();
+		imguiMan->Spacing();
 
 		imguiMan->PopID();
 	}
@@ -191,7 +204,13 @@ void TextureManager::DrawPreview()
 {
 	if (!drawPreview_)	return;
 
+	backSprite_->Draw();
 	previewSprite_->Draw();
+}
+
+Texture* TextureManager::LoadTextureGraph(const std::string& textureName)
+{
+	return LoadTextureGraph(Util::ToWideString(textureName).c_str());
 }
 
 Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
