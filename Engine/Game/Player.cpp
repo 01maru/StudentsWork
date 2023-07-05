@@ -66,9 +66,9 @@ void Player::Update()
 
 	moveVec *= spd;
 	mat_.trans_ += moveVec;
-	//camera->SetTarget({ mat.trans.x,mat.trans.y + 1.0f,mat.trans.z });
+	camera->SetTarget({ mat_.trans_.x,mat_.trans_.y + 1.0f,mat_.trans_.z });
 	//camera->EyeMove(moveVec);
-	//camera->MatUpdate();
+	camera->MatUpdate();
 
 	if (isMove) {
 		Vector3D axis(0, 0, -1);

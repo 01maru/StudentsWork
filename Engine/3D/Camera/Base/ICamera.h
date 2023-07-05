@@ -8,6 +8,7 @@ protected:
 	Matrix matView_;
 	Matrix matProjection_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, MyMath::ConvertToRad(48.0f), 0.1f, 1000.0f);
 
+	float disEyeTarget_ = 0.0f;
 	Vector3D eye_;						//	視点座標
 	Vector3D target_;					//	注視点座標
 	Vector3D up_ = { 0.0f,1.0f,0.0f };	//	上方向ベクトル
@@ -28,6 +29,7 @@ protected:
 
 public:
 	virtual ~ICamera() = default;
+	virtual void Initialize(const Vector3D& frontVec, const Vector3D& center, float dis) = 0;
 	virtual void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up) = 0;
 	virtual void Update() = 0;
 	void ImGuiUpdate();
@@ -35,6 +37,7 @@ public:
 	void MatUpdate() { matView_ = MyMath::LookAtLH(eye_, target_, up_); }
 
 	//	Getter
+	float GetDisEyeTarget() { return disEyeTarget_; }
 	const Vector3D& GetEye() { return eye_; }
 	const Vector3D& GetTarget() { return target_; }
 	const Vector3D& GetUp() { return up_; }
@@ -49,6 +52,7 @@ public:
 
 	//	Setter
 	//	fovYの単位はラジアン
+	void SetDisEyeTarget(float dis) { disEyeTarget_ = dis; }
 	void SetProjectionMatrix(int32_t width, int32_t height, float fovY);
 	void SetTarget(const Vector3D& t) { target_ = t; }
 	void SetEye(const Vector3D& e) { eye_ = e; }

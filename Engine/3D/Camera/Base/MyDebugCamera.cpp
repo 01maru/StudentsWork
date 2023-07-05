@@ -60,9 +60,6 @@ void MyDebugCamera::CalcRotMove(bool active)
 
 void MyDebugCamera::SetPosition(const Vector3D& moveTarget)
 {
-	Quaternion pRightAngle(rotValue_.x, up_);
-	Quaternion pUpAngle(rotValue_.y, rightVec_);
-
 	Quaternion upMove = MakeAxisAngle(up_, rotValue_.x);
 	Quaternion rightMove = MakeAxisAngle(rightVec_, rotValue_.y);
 	Quaternion qMove = upMove * rightMove;
@@ -71,6 +68,10 @@ void MyDebugCamera::SetPosition(const Vector3D& moveTarget)
 	target_ += moveTarget;
 	up_ = RotateVector(up_, qMove);
 	eye_ = target_ - disEyeTarget_ * frontVec_;
+}
+
+void MyDebugCamera::Initialize(const Vector3D& /*frontVec*/, const Vector3D& /*center*/, float /*dis*/)
+{
 }
 
 void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)

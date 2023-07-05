@@ -248,6 +248,8 @@ void SceneManager::ImguiUpdate()
 
 void SceneManager::Update()
 {
+	CameraManager::GetInstance()->Update();
+
 	ScreenColorUpdate();
 
 	SplashUpdate();
