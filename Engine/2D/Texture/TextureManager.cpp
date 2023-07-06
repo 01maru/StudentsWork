@@ -4,26 +4,12 @@
 
 #include "ImGuiManager.h"
 #include "ImGuiController.h"
+#include "ConvertString.h"
 
 #include <DirectXTex.h>
 using namespace DirectX;
 
 Texture* TextureManager::sWhiteTexHandle = nullptr;
-
-#pragma region string変換
-std::string ConvertToString(const wchar_t* name)
-{
-	std::wstring ws = name;
-
-	size_t inLen = (size_t)ws.length();
-	size_t outLen = WideCharToMultiByte(CP_ACP, 0, ws.c_str(), (int)inLen, 0, 0, 0, 0);
-
-	std::string result(outLen, '\0');
-	if (outLen) WideCharToMultiByte(CP_ACP, 0, ws.c_str(), (int)inLen, &result[0], (int)outLen, 0, 0);
-
-	return result;
-}
-#pragma endregion
 
 TextureManager* TextureManager::GetInstance()
 {
@@ -73,6 +59,58 @@ void TextureManager::Initialize()
 
 	//	ロード失敗した際の白色テクスチャのロード
 	sWhiteTexHandle = LoadTextureGraph(L"Resources/Sprite/white1x1.png");
+
+	backSprite_ = std::make_unique<Sprite>();
+	backSprite_->Initialize();
+	backSprite_->SetColor(Vector4D(1.0f, 1.0f, 1.0f, 0.1f));
+
+	previewSprite_ = std::make_unique<Sprite>();
+	previewSprite_->Initialize();
+}
+
+void TextureManager::ImGuiTexUpdate()
+{
+	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+
+	imguiMan->BeginChild();
+
+	for (size_t i = 0; i < textures_.size(); i++)
+	{
+		if (searchWord_.length() != 0) {
+			//	Wordがなかったら
+			if (textures_[i]->GetTextureName().find(searchWord_) == -1) continue;
+		}
+
+		imguiMan->PushID((int32_t)i);
+		imguiMan->Text("Name : %s", textures_[i]->GetTextureName().c_str());
+		imguiMan->Text("Handle : %d", textures_[i]->GetHandle());
+		imguiMan->SetRadioButton("PreviewTex", previewIdx_, (int32_t)i);
+
+		imguiMan->Spacing();
+		imguiMan->Separator();
+		imguiMan->Spacing();
+
+		imguiMan->PopID();
+	}
+	imguiMan->EndChild();
+}
+
+void TextureManager::ImGuiPreviewUpdate()
+{
+	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+
+	imguiMan->CheckBox("PreView", drawPreview_);
+	imguiMan->Text("PreviewHandle : %d", previewIdx_);
+
+	if (!drawPreview_) return;
+
+	Vector2D pos = previewSprite_->GetPosition();
+	imguiMan->SetSliderFloat2("Pos", pos);
+	previewSprite_->SetPosition(pos);
+
+	imguiMan->SetSliderFloat("Scale", previewSize_);
+	Vector2D texsize = previewSprite_->GetTextureSize();
+	previewSprite_->SetSize(texsize * previewSize_);
 }
 
 void TextureManager::ImGuiUpdate()
@@ -81,65 +119,55 @@ void TextureManager::ImGuiUpdate()
 
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
-	imguiMan->BeginWindow("TextureManager", true);
+	imguiMan->BeginWindow("TextureManager");
 
-	//if (imguiMan->BeginMenuBar()) {
-	//	if (imguiMan->BeginMenu("File")) {
-	//		if (imguiMan->MenuItem("Save")) ;
-	//		if (imguiMan->MenuItem("Load")) ;
-	//		imguiMan->EndMenu();
-	//	}
-	//	imguiMan->EndMenuBar();
-	//}
+	imguiMan->InputText("LoadPath", loadTexPath_);
+	if (imguiMan->SetButton("Load")) {
+		LoadTextureGraph(Util::ToWideString(loadTexPath_).c_str());
 
-	imguiMan->BeginChild();
-
-	for (size_t i = 0; i < textures_.size(); i++)
-	{
-		imguiMan->Text("Name : %s", textures_[i]->GetTextureName().c_str());
-		imguiMan->Text("Handle : %d", textures_[i]->GetHandle());
+		UploadTexture();
 	}
-	imguiMan->EndChild();
+	imguiMan->InputText("Search", searchWord_);
+
+	ImGuiPreviewUpdate();
+
+	if (imguiMan->SetButton("Copy")) copyIdx_ = previewIdx_;
+
+	int32_t prevIdx = previewIdx_;
+
+	ImGuiTexUpdate();
 
 	imguiMan->EndWindow();
+
+	if (prevIdx != previewIdx_) {
+		previewSprite_->SetHandle(textures_[previewIdx_].get());
+		previewSize_ = 1.0f;
+	}
+	PreviewUpdate();
 }
 
-void TextureManager::UploadTexture()
+void TextureManager::PreviewUpdate()
 {
-	// 命令のクローズ
-#pragma region CmdClose
+	if (!drawPreview_) return;
 
-	HRESULT result = loadTexCmdList_->Close();
-	assert(SUCCEEDED(result));
-	// 溜めていたコマンドリストの実行(close必須)
-	ID3D12CommandList* commandLists[] = { loadTexCmdList_.Get() };
-	loadTexQueue_->ExecuteCommandLists(1, commandLists);
+	backSprite_->SetSize(previewSprite_->GetSize());
+	backSprite_->SetPosition(previewSprite_->GetPosition());
 
-#pragma endregion CmdClose
+	backSprite_->Update();
+	previewSprite_->Update();
+}
 
-#pragma region ChangeScreen
+void TextureManager::DrawPreview()
+{
+	if (!drawPreview_)	return;
 
-	// コマンドの実行完了を待つ
-	loadTexQueue_->Signal(uploadTexFence_.Get(), ++uploadTexFenceVal_);
-	if (uploadTexFence_->GetCompletedValue() != uploadTexFenceVal_)	//	GPUの処理が完了したか判定
-	{
-		HANDLE event = CreateEvent(nullptr, false, false, nullptr);
-		uploadTexFence_->SetEventOnCompletion(uploadTexFenceVal_, event);
-		if (event != 0) {
-			WaitForSingleObject(event, INFINITE);
-			CloseHandle(event);
-		}
-	}
-	// キューをクリア
-	result = loadTexAllocator_->Reset();
-	assert(SUCCEEDED(result));
-	// 再びコマンドリストを貯める準備
-	result = loadTexCmdList_->Reset(loadTexAllocator_.Get(), nullptr);
-	assert(SUCCEEDED(result));
+	backSprite_->Draw();
+	previewSprite_->Draw();
+}
 
-	textureUploadBuff_.clear();
-
-#pragma endregion ChangeScreen
+Texture* TextureManager::LoadTextureGraph(const std::string& textureName)
+{
+	return LoadTextureGraph(Util::ToWideString(textureName).c_str());
 }
 
 Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
@@ -151,7 +179,7 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 
 	//	既に画像読み込まれているかの確認
 	for (int i = 0; i < textures_.size(); i++) {
-		std::string textureName_str = ConvertToString(textureName);
+		std::string textureName_str = Util::ConvertToString(textureName);
 		if (textures_[i]->GetTextureName() == textureName_str)
 		{
 			//	既にあったら
@@ -314,7 +342,7 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 	dx->GetDev()->CreateShaderResourceView(textures_[texIndex_]->GetResourceBuff(), &srvDesc, srvHandle);
 #pragma endregion
 	
-	textures_[texIndex_]->Initialize(ConvertToString(textureName), texIndex_, textures_[texIndex_]->GetResourceBuff());
+	textures_[texIndex_]->Initialize(Util::ConvertToString(textureName), texIndex_, textures_[texIndex_]->GetResourceBuff());
 	return textures_[texIndex_].get();
 }
 
@@ -353,6 +381,46 @@ Texture* TextureManager::CreateNoneGraphTexture(const std::string& texName)
 	textures_[texIndex_]->Initialize(texName, texIndex_, textures_[texIndex_]->GetResourceBuff());
 
 	return textures_[texIndex_].get();
+}
+
+void TextureManager::UploadTexture()
+{
+	if (textureUploadBuff_.empty()) return;
+
+	// 命令のクローズ
+#pragma region CmdClose
+
+	HRESULT result = loadTexCmdList_->Close();
+	assert(SUCCEEDED(result));
+	// 溜めていたコマンドリストの実行(close必須)
+	ID3D12CommandList* commandLists[] = { loadTexCmdList_.Get() };
+	loadTexQueue_->ExecuteCommandLists(1, commandLists);
+
+#pragma endregion CmdClose
+
+#pragma region ChangeScreen
+
+	// コマンドの実行完了を待つ
+	loadTexQueue_->Signal(uploadTexFence_.Get(), ++uploadTexFenceVal_);
+	if (uploadTexFence_->GetCompletedValue() != uploadTexFenceVal_)	//	GPUの処理が完了したか判定
+	{
+		HANDLE event = CreateEvent(nullptr, false, false, nullptr);
+		uploadTexFence_->SetEventOnCompletion(uploadTexFenceVal_, event);
+		if (event != 0) {
+			WaitForSingleObject(event, INFINITE);
+			CloseHandle(event);
+		}
+	}
+	// キューをクリア
+	result = loadTexAllocator_->Reset();
+	assert(SUCCEEDED(result));
+	// 再びコマンドリストを貯める準備
+	result = loadTexCmdList_->Reset(loadTexAllocator_.Get(), nullptr);
+	assert(SUCCEEDED(result));
+
+	textureUploadBuff_.clear();
+
+#pragma endregion ChangeScreen
 }
 
 //void TextureManager::DeleteTexture(int32_t handle)
