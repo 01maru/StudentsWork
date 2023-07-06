@@ -184,9 +184,6 @@
     <Filter Include="ヘッダー ファイル\lib\2D\Sprite">
       <UniqueIdentifier>{ced67229-c305-43ef-825f-4d31272b0ad6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル\ParticleShader\GrassShader">
-      <UniqueIdentifier>{2a242e27-92dc-4014-97cf-671e92e50af5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game\Scene\Setting">
       <UniqueIdentifier>{8ce6c2b1-5b56-44c9-a010-e738adcd0f46}</UniqueIdentifier>
     </Filter>
@@ -706,9 +703,6 @@
     <None Include="Resources\Shader\Particle.hlsli">
       <Filter>リソース ファイル\ParticleShader</Filter>
     </None>
-    <None Include="Resources\Shader\GrassParticle.hlsli">
-      <Filter>リソース ファイル\ParticleShader\GrassShader</Filter>
-    </None>
     <None Include="Resources\Shader\ObjShadowHeader.hlsli">
       <Filter>リソース ファイル\ObjShader\Shadow</Filter>
     </None>
@@ -750,15 +744,6 @@
     <FxCompile Include="Resources\Shader\ParticleVS.hlsl">
       <Filter>リソース ファイル\ParticleShader</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\GrassParticleGS.hlsl">
-      <Filter>リソース ファイル\ParticleShader\GrassShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\GrassParticlePS.hlsl">
-      <Filter>リソース ファイル\ParticleShader\GrassShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\GrassParticleVS.hlsl">
-      <Filter>リソース ファイル\ParticleShader\GrassShader</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shader\ObjShadowPS.hlsl">
       <Filter>リソース ファイル\ObjShader\Shadow</Filter>
     </FxCompile>
@@ -793,9 +778,6 @@
       <Filter>リソース ファイル\ScreenShader</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\DepthOfFieldPS.hlsl">
-      <Filter>リソース ファイル\ScreenShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\TaskPS.hlsl">
       <Filter>リソース ファイル\ScreenShader</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\MultiTexTaskPS.hlsl">
