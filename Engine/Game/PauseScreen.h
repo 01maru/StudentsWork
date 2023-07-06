@@ -29,7 +29,7 @@ public:
 	bool GetIsEnd() { return isEnd_; }
 
 	//	Setter
-	void SetIsActive(bool isActive) { active_ = isActive; }
+	void SetIsActive(bool active);
 	void SetFileName(const std::string& filename);
 };
 

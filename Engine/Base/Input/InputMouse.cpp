@@ -30,22 +30,32 @@ void InputMouse::LockCursor()
 	RECT rec;
 	//	ウィンドウの大きさ取得
 	GetWindowRect(Window::GetInstance()->GetHwnd(), &rec);
+	//	カーソルの情報
+	POINT cursor;
+	//	ScreenLeftTop(0, 0)
+	GetCursorPos(&cursor); 
 
-	Vector2D center((float)(rec.right + rec.left) / 2.0f, (float)(rec.bottom + rec.top) / 2.0f);
+	//	範囲指定しない
+	ClipCursor(NULL);
+
+	//	UpdateCursor
+	cursor_.x = (float)cursor.x;
+	cursor_.y = (float)cursor.y;
+
+	Vector2D center((rec.right + rec.left) / 2, (rec.bottom + rec.top) / 2);
 	float width = Window::sWIN_WIDTH / 2.0f;
 	float height = Window::sWIN_HEIGHT / 2.0f;
 	rec.left = (LONG)(center.x - width);
 	rec.right = (LONG)(center.x + width);
 	rec.top = (LONG)(center.y - height);
 	rec.bottom = (LONG)(center.y + height);
-
+	
 	SetCursorPos((int)center.x, (int)center.y);
 	//	範囲指定
 	ClipCursor(&rec);
 
 	//	UpdateCursor
 	prevCursor_ = center;
-	cursor_ = center;
 }
 
 void InputMouse::UnLockCursor()
@@ -96,11 +106,13 @@ void InputMouse::ImGuiUpdateCursor(ImGuiManager* imgui)
 	if (!imgui->TreeNode("Cursor")) return;
 
 	imgui->Text("CursorPos  : (%.f, %.f)", cursor_.x, cursor_.y);
-	imgui->Text("CursorMove : (%d, %d)", cursorMoveLen_.x, cursorMoveLen_.y);
+	imgui->Text("PrevCursorPos  : (%.f, %.f)", prevCursor_.x, prevCursor_.y);
+	imgui->Text("CursorMove : (%.f, %.f)", cursorMoveLen_.x, cursorMoveLen_.y);
 
 	imgui->Text("ShowCursor : %s", showCursor_ ? "True" : "False");
 
 	imgui->Text("LockCursor : %s", isLockCursor_ ? "True" : "False");
+	imgui->CheckBox("LockCursor", isLockCursor_);
 
 	imgui->TreePop();
 }

@@ -29,6 +29,12 @@ void PauseScreen::Draw()
     }
 }
 
+void PauseScreen::SetIsActive(bool active)
+{
+    if (active) InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
+    active_ = active;
+}
+
 void PauseScreen::SetFileName(const std::string& filename)
 {
     filename_ = filename;

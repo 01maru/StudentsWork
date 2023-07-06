@@ -5,6 +5,7 @@
 
 void GameCamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float dis)
 {
+	InputManager::GetInstance()->GetMouse()->SetLockCursor(true);
 	lockOn_ = false;
 
 	target_ = center;
