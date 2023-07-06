@@ -31,6 +31,7 @@ private:
 	std::list<ComPtr<ID3D12Resource>> textureUploadBuff_;
 
 	bool drawPreview_ = false;
+	float previewSize_ = 1.0f;
 	std::unique_ptr<Sprite> previewSprite_;
 	std::unique_ptr<Sprite> backSprite_;
 
@@ -44,6 +45,8 @@ private:
 	TextureManager() {}
 	~TextureManager() {}
 
+	void ImGuiPreviewUpdate();
+	void ImGuiTexUpdate();
 	void PreviewUpdate();
 
 public:
@@ -53,16 +56,13 @@ public:
 
 	void Initialize();
 	void ImGuiUpdate();
-	void UploadTexture();
 	void DrawPreview();
 
-	Texture* PasteTexture() { return textures_[copyIdx_].get(); }
 
 	Texture* LoadTextureGraph(const wchar_t* textureName);
 	Texture* LoadTextureGraph(const std::string& textureName);
 	Texture* CreateNoneGraphTexture(const std::string& texName);
-
-	//Texture* CreateNoneGraphTexture(const std::string& textureName);
+	void UploadTexture();
 
 	//	Delete
 	void DeleteTextureData(const std::string& textureName);
@@ -70,5 +70,6 @@ public:
 	//	Getter
 	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureHandle(int32_t handle);
 	static Texture* GetWhiteTexture() { return sWhiteTexHandle; }
+	Texture* PasteTexture() { return textures_[copyIdx_].get(); }
 };
 
