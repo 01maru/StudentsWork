@@ -36,6 +36,38 @@ void GameCamera::LockOnUpdate()
 {
 	if (!lockOn_) return;
 
+	//Vector3D vec = middle;
+	//vec -= target;
+	//float disY = vec.y;
+	//float dis = vec.length();
+	//float len = dis / 3.0f * 2;
+	//target = middle;
+	//target -= vec.normalize() * len;
+
+	//Vector2D vec2(vec.x, vec.z);
+	//vec2.normalize();
+	//float angleY = MyMath::ConvertToRad(20.0f) * dis / 50.0f;
+	//angleY -= MyMath::ConvertToRad(5.0f) * disY / 10.0f;
+
+	//vec = Vector3D(vec2.x, tanf(angleY), vec2.y);
+	////if (cos(angleY) == 0) vec.y = 0;
+	//eye = middle;
+	//len = 10.0f;
+	//eye += vec * len;
+	//if (vec2.length() != 0) {
+	//	eye.x -= vec2.x * disY;
+	//	eye.z -= vec2.y * disY;
+	//}
+	//else {
+	//	Vector2D modelVec(modelFrontVec->x, modelFrontVec->y);
+	//	modelVec.normalize();
+	//	eye.x += modelVec.x * disY;
+	//	eye.z += modelVec.y * disY;
+	//}
+
+	//if (dis > 50.0f) {
+	//	lockOn = !lockOn;
+	//}
 }
 
 void GameCamera::UnLockOnUpdate()
