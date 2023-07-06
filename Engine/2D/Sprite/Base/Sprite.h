@@ -79,7 +79,7 @@ private:
 	void AdjustTextureSize();
 public:
 	
-	void Initialize(Texture* texture);
+	void Initialize(Texture* texture = nullptr);
 	void Update();
 	void Draw(GPipeline* pipeline = nullptr);
 
@@ -105,6 +105,6 @@ public:
 
 	void SetTextureLeftTop(const Vector2D& leftTop);
 	void SetTextureSize(const Vector2D& size);
-	void SetHandle(Texture* handle) { handle_ = handle; }
+	void SetHandle(Texture* handle);
 };
 

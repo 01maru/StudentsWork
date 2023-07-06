@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <cassert>
+#include "TextureManager.h"
 
 std::map<std::string, Sprite, std::less<>> UIManager::LoadFile(const std::string& filename)
 {
@@ -38,7 +39,7 @@ std::map<std::string, Sprite, std::less<>> UIManager::LoadFile(const std::string
 			line_stream >> texname;
 
 			Sprite sprite;
-			sprite.Initialize(nullptr);
+			sprite.Initialize(TextureManager::GetInstance()->LoadTextureGraph(texname));
 
 			Vector2D pos;
 			Vector2D size;
@@ -170,7 +171,8 @@ void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::itera
 
 		imguiMan->Text("Texture");
 		std::string texName = sprite->GetTexture()->GetTextureName();
-		imguiMan->InputText("TexName ", texName, texName.length() + 1);
+		imguiMan->InputText("TexName ", texName);
+		if (imguiMan->SetButton("Paste")) sprite->SetHandle(TextureManager::GetInstance()->PasteTexture());
 
 		vec = sprite->GetTextureLeftTop();
 		imguiMan->SetSliderFloat2("TexLeftTop", vec);
@@ -185,15 +187,6 @@ void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::itera
 		sprite->SetAnchorPoint(vec);
 
 		if (imguiMan->SetButton("Delete")) 	eraseSpriteName_.push_back(itr->first);
-	}
-}
-
-void UIManager::DrawEditUI()
-{
-	if (!editUI_) return;
-
-	for (auto& sprite : sprites_) {
-		sprite.second.Draw();
 	}
 }
 
@@ -222,7 +215,7 @@ void UIManager::ImGuiUpdate()
 		imguiMan->EndMenuBar();
 	}
 
-	imguiMan->InputText("FileName", filename_, 30);
+	imguiMan->InputText("FileName", filename_);
 
 	imguiMan->CheckBox("GlayScale", activeGlayscale_);
 
@@ -231,7 +224,7 @@ void UIManager::ImGuiUpdate()
 		imguiMan->Separator();
 		imguiMan->Spacing();
 
-		imguiMan->InputText("SpriteName", spritename_, 500);
+		imguiMan->InputText("SpriteName", spritename_);
 	
 		if (imguiMan->SetButton("AddSprite"))	AddSprite();
 	
@@ -258,6 +251,15 @@ void UIManager::ImGuiUpdate()
 
 	for (auto& sprite : sprites_) {
 		sprite.second.Update();
+	}
+}
+
+void UIManager::DrawEditUI()
+{
+	if (!editUI_) return;
+
+	for (auto& sprite : sprites_) {
+		sprite.second.Draw();
 	}
 }
 

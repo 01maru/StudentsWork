@@ -66,7 +66,7 @@ public:
 	void Separator();
 
 	bool SetButton(const std::string& buttonName, const Vector2D& size = Vector2D());
-	void SetRadioButton(const std::string& buttonName, bool& flag);
+	void SetRadioButton(const std::string& buttonName, int32_t& v, int32_t vButton);
 	void InputFloat3(const std::string& name, Vector3D& vec);
 	void InputFloat2(const std::string& name, Vector2D& vec);
 	void SetSliderFloat(const std::string& sliderName, float& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
@@ -80,7 +80,7 @@ public:
 
 	void LabelText(const std::string& name, const std::string& text, float value);
 	void Text(const char* fmt, ...);
-	void InputText(const std::string& name, std::string& text, size_t strLen);
+	bool InputText(const std::string& name, std::string& text);
 
 	void PushID(int32_t id);
 	void PopID();

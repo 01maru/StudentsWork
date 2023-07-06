@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\ConvertString.cpp" />
     <ClCompile Include="Engine\Game\Enemy.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp" />
     <ClCompile Include="Engine\3D\Camera\Base\CameraManager.cpp" />
@@ -88,6 +89,7 @@
     <ClCompile Include="Engine\Game\PauseScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\ConvertString.h" />
     <ClInclude Include="Engine\Game\Enemy.h" />
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h" />
     <ClInclude Include="Engine\3D\Camera\Base\CameraManager.h" />
@@ -402,7 +404,7 @@
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>Default</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -425,7 +427,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>Default</LanguageStandard>
       <Optimization>MinSpace</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
