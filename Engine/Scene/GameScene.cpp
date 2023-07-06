@@ -19,32 +19,34 @@
 #include "BoxModel.h"
 #include "PauseScreen.h"
 #include "ImGuiManager.h"
+#include "ModelManager.h"
 
 void GameScene::LoadResources()
 {
 #pragma region Model
-	modelSkydome_ = std::make_unique<ObjModel>("skydome");
-	modelGround_ = std::make_unique<ObjModel>("ground");
-	modelCube_ = std::make_unique<ObjModel>("objCube");
-	modelPlayer_ = std::make_unique<ObjModel>("chr_sword");
-	modelBox_ = std::make_unique<BoxModel>("");
+	ModelManager* models = ModelManager::GetInstance();
+	models->LoadModel("skydome");
+	models->LoadModel("ground");
+	models->LoadModel("objCube");
+	models->LoadModel("chr_sword");
+	models->LoadModel();
 #pragma endregion
 	//	天球
-	skydome_.reset(Object3D::Create(modelSkydome_.get()));
+	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
 	//	地面
-	ground_.reset(Object3D::Create(modelGround_.get()));
+	ground_.reset(Object3D::Create(models->GetModel("ground")));
 	MeshCollider* collider_ = new MeshCollider;
-	collider_->ConstructTriangles(modelGround_.get());
+	collider_->ConstructTriangles(ground_->GetModel());
 	collider_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
 	ground_->SetCollider(collider_);
 	//	player
 	player_ = std::make_unique<Player>();
-	player_->PlayerInitialize(modelCube_.get());
+	player_->PlayerInitialize(models->GetModel());
 	//	enemy
 	enemy_ = std::make_unique<Enemy>();
-	enemy_->Initialize(modelBox_.get());
+	enemy_->Initialize(models->GetModel());
 	//	Cube
-	cube_.reset(Object3D::Create(modelBox_.get()));
+	cube_.reset(Object3D::Create(models->GetModel()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
 #pragma region Texture
 	reimuG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/reimu.png");
@@ -86,6 +88,9 @@ void GameScene::Initialize()
 
 void GameScene::Finalize()
 {
+	ModelManager* models = ModelManager::GetInstance();
+	models->DeleteModel("skydome");
+
 	XAudioManager::GetInstance()->StopAllSound();
 	XAudioManager::GetInstance()->DeleteAllSound();
 }

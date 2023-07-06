@@ -16,6 +16,7 @@
 
 #include "Window.h"
 
+#include "ModelManager.h"
 #include "PipelineManager.h"
 
 SceneManager* SceneManager::GetInstance()
@@ -239,6 +240,7 @@ void SceneManager::ImguiUpdate()
 	TextureManager::GetInstance()->ImGuiUpdate();
 	LightManager::GetInstance()->ImGuiUpdate();
 	ParticleManager::GetInstance()->ImGuiUpdate();
+	ModelManager::GetInstance()->ImGuiUpdate();
 
 	if (endLoading_) {
 		scene_->ImguiUpdate();

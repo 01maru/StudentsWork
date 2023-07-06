@@ -83,7 +83,7 @@ public:
 	void ChangeScreenColor(const Vector4D& color) { mainScene->SetColor(color); }
 	void SetNextScene(const std::string& sceneName);
 
-	void ChangeIsActivePause() { pauseScreen_->SetIsActive(pauseScreen_->GetIsActive()); }
+	void ChangeIsActivePause() { pauseScreen_->SetIsActive(!pauseScreen_->GetIsActive()); }
 	void SetIsActivePause(bool flag) { pauseScreen_->SetIsActive(flag); }
 	void SetUIFilename(const std::string& filename) { pauseScreen_->SetFileName(filename); }
 	bool EndGameLoop() { return pauseScreen_->GetIsEnd(); }

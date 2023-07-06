@@ -10,6 +10,7 @@ private:
 	bool activeCameraManager_ = false;
 	bool activeLightManager_ = false;
 	bool activeParticleManager_ = false;
+	bool activeModelManager_ = false;
 
 private:	//	関数
 	ImGuiController() {};
@@ -30,5 +31,6 @@ public:
 	bool GetActiveCameraManager() { return activeCameraManager_; }
 	bool GetActiveLightManager() { return activeLightManager_; }
 	bool GetActiveParticleManager() { return activeParticleManager_; }
+	bool GetActiveModelManager() { return activeModelManager_; }
 };
 
