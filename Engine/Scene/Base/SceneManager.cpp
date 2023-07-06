@@ -111,6 +111,8 @@ void SceneManager::Initialize()
 #endif // _DEBUG
 
 #pragma endregion
+
+	ModelManager::GetInstance()->Initialize();
 }
 
 void SceneManager::Finalize()
@@ -290,6 +292,7 @@ void SceneManager::Draw()
 
 	if (endLoading_ && !isSplashScreen_) {
 		scene_->Draw();
+		ModelManager::GetInstance()->DrawPreview();
 		CameraManager::GetInstance()->DrawTarget();
 		UIManager::GetInstance()->Draw();
 		pauseScreen_->Draw();

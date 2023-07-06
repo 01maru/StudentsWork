@@ -11,6 +11,12 @@ ModelManager* ModelManager::GetInstance()
     return &instance;
 }
 
+void ModelManager::Initialize()
+{
+    LoadModel("");
+    previewObj_.reset(Object3D::Create(GetModel("")));
+}
+
 void ModelManager::ImGuiUpdate()
 {
     if (!ImGuiController::GetInstance()->GetActiveModelManager()) return;
@@ -22,7 +28,12 @@ void ModelManager::ImGuiUpdate()
 
     imgui->InputText("Search", searchWord_);
 
+    imgui->CheckBox("Preview", preview_);
+
+    int32_t previdx = previewIdx_;
+
     int32_t i = 0;
+    std::string modelname;
     for (auto& model : models_)
     {
         //	Wordがなかったら
@@ -30,9 +41,9 @@ void ModelManager::ImGuiUpdate()
             if (model.first.find(searchWord_) == -1) continue;
         }
 
-		imgui->PushID(i);
+		imgui->PushID(i++);
 		imgui->Text("Name : %s", model.first.c_str());
-		imgui->SetRadioButton("PreviewTex", previewIdx_, i);
+        if (imgui->SetRadioButton("PreviewTex", previewIdx_, i)) modelname = model.first;
 
 		imgui->Spacing();
 		imgui->Separator();
@@ -42,6 +53,21 @@ void ModelManager::ImGuiUpdate()
     }
 
     imgui->EndWindow();
+
+    if (previdx != previewIdx_) {
+        previewObj_.reset(Object3D::Create(GetModel(modelname)));
+    }
+
+    if (!preview_) return;
+
+    previewObj_->MatUpdate();
+}
+
+void ModelManager::DrawPreview()
+{
+    if (!preview_) return;
+
+    previewObj_->Draw();
 }
 
 void ModelManager::LoadModel(const std::string& filename, bool fbx)
