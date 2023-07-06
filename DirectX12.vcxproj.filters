@@ -423,6 +423,9 @@
     <ClCompile Include="Engine\ConvertString.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Game\OptionScene.cpp">
+      <Filter>ソース ファイル\Game\Scene\Setting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -679,6 +682,9 @@
     </ClInclude>
     <ClInclude Include="Engine\ConvertString.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\OptionScene.h">
+      <Filter>ヘッダー ファイル\Game\Scene\Setting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

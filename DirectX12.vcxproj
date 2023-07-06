@@ -36,6 +36,7 @@
     <ClCompile Include="Engine\Collider\MeshCollider.cpp" />
     <ClCompile Include="Engine\Collider\QueryCallBack.cpp" />
     <ClCompile Include="Engine\Collider\SphereCollider.cpp" />
+    <ClCompile Include="Engine\Game\OptionScene.cpp" />
     <ClCompile Include="Engine\Game\Player.cpp" />
     <ClCompile Include="Engine\Math\Easing.cpp" />
     <ClCompile Include="Engine\Base\Framework.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Engine\Collider\QueryCallBack.h" />
     <ClInclude Include="Engine\Collider\RayCast.h" />
     <ClInclude Include="Engine\Collider\SphereCollider.h" />
+    <ClInclude Include="Engine\Game\OptionScene.h" />
     <ClInclude Include="Engine\Game\Player.h" />
     <ClInclude Include="Engine\Math\FrameCounter.h" />
     <ClInclude Include="Engine\Scene\Base\AbstractSceneFactory.h" />
