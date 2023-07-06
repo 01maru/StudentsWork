@@ -62,7 +62,7 @@ void GameCamera::UnLockOnUpdate()
 	//	座標更新
 	Quaternion upMove = MakeAxisAngle(up_, moveVec.x);
 	Quaternion rightMove = MakeAxisAngle(rightVec_, moveVec.y);
-	Quaternion qMove = upMove * rightMove;
+	Quaternion qMove = rightMove * upMove;
 	frontVec_ = RotateVector(frontVec_, qMove);
 
 	up_ = RotateVector(up_, qMove);

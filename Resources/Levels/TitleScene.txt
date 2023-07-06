@@ -1,0 +1,2 @@
+pressKey Resources/Sprite/press.png 640 615 100 100 0 0 300 32 0.5 0.5
+title Resources/Sprite/title.png 640 210 640 360 0 0 1280 720 0.5 0.5

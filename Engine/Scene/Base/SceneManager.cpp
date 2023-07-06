@@ -49,6 +49,8 @@ void SceneManager::SplashScreenInitialize()
 
 void SceneManager::Initialize()
 {
+	pauseScreen_ = std::make_unique<PauseScreen>();
+
 	sceneChangeCounter_.Initialize(60, true, true);
 
 	sceneFactry_ = std::make_unique<SceneFactory>();
@@ -250,6 +252,8 @@ void SceneManager::Update()
 {
 	CameraManager::GetInstance()->Update();
 
+	pauseScreen_->Update();
+
 	ScreenColorUpdate();
 
 	SplashUpdate();
@@ -286,6 +290,7 @@ void SceneManager::Draw()
 		scene_->Draw();
 		CameraManager::GetInstance()->DrawTarget();
 		UIManager::GetInstance()->Draw();
+		pauseScreen_->Draw();
 
 		TextureManager::GetInstance()->DrawPreview();
 	}

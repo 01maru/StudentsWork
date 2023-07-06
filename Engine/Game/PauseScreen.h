@@ -11,15 +11,7 @@ private:
 	std::string filename_;
 	std::map<std::string, Sprite, std::less<>> sprites_;
 
-private:
-	PauseScreen() {};
-	~PauseScreen() {};
-
 public:
-	static PauseScreen* GetInstance();
-	PauseScreen(const PauseScreen& obj) = delete;
-	PauseScreen& operator=(const PauseScreen& obj) = delete;
-
 	void Initialize();
 	void Update();
 	void Draw();

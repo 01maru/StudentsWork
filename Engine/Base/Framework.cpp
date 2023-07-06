@@ -11,6 +11,7 @@
 #include "FPSController.h"
 #include "CameraManager.h"
 #include "PauseScreen.h"
+#include "SceneManager.h"
 
 void Framework::Run()
 {
@@ -52,20 +53,16 @@ void Framework::Initialize()
 	XAudioManager::GetInstance()->Initialize();
 
 	CameraManager::GetInstance()->Initialize();
-
-	PauseScreen::GetInstance()->Initialize();
 }
 
 void Framework::Update()
 {
-	gameroopFlag_ = !(Window::GetInstance()->MsgUpdate() || PauseScreen::GetInstance()->GetIsEnd());
+	gameroopFlag_ = !(Window::GetInstance()->MsgUpdate() || SceneManager::GetInstance()->EndGameLoop());
 
 	InputManager::GetInstance()->Update();
 
 	//	60fps固定
 	FPSController::GetInstance()->Update();
-
-	PauseScreen::GetInstance()->Update();
 }
 
 void Framework::Finalize()

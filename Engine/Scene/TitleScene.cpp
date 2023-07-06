@@ -20,11 +20,13 @@ void TitleScene::LoadResources()
 	titleG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/title.png");
 	pressG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/press.png");
 #pragma endregion
+
+	SceneManager::GetInstance()->SetUIFilename("TitleScene");
 }
 
 void TitleScene::Initialize()
 {
-	PauseScreen::GetInstance()->SetIsActive(true);
+	SceneManager::GetInstance()->SetIsActivePause(true);
 
 	camera = std::make_unique<NormalCamera>();
 	camera->Initialize(Vector3D(0.0f, 0.0f, -10.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector3D(0.0f, 1.0f, 0.0f));

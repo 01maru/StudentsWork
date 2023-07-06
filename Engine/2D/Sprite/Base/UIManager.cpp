@@ -6,6 +6,7 @@
 #include <sstream>
 #include <cassert>
 #include "TextureManager.h"
+#include "Window.h"
 
 std::map<std::string, Sprite, std::less<>> UIManager::LoadFile(const std::string& filename)
 {
@@ -19,8 +20,6 @@ std::map<std::string, Sprite, std::less<>> UIManager::LoadFile(const std::string
 
 	if (file.fail()) {
 		if (editUI_) return ans;
-		
-		assert(0);
 	}
 
 	// 1行ずつ読み込む
@@ -95,7 +94,7 @@ void UIManager::SaveFile()
 	std::string filePath = "Resources/Levels/" + filename_ + ".txt";
 
 	std::ofstream outPutFile;
-	outPutFile.open(filePath, std::ios_base::app);
+	outPutFile.open(filePath);
 	
 	for (auto itr = sprites_.begin(); itr != sprites_.end(); ++itr)
 	{
@@ -131,7 +130,7 @@ void UIManager::AddSprite()
 {
 	Sprite sprite;
 	sprite.Initialize(nullptr);
-	sprites_.emplace(std::to_string(sprites_.size()), sprite);
+	sprites_.emplace(spritename_, sprite);
 }
 
 void UIManager::ReNameSprite(std::map<std::string, Sprite, std::less<>>::iterator& itr)
@@ -164,6 +163,8 @@ void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::itera
 		Vector2D vec = sprite->GetPosition();
 		imguiMan->SetSliderFloat2("PosLeftTop", vec);
 		sprite->SetPosition(vec);
+
+		if (imguiMan->SetButton("SetWinCenterPos")) sprite->SetPosition(Vector2D(Window::sWIN_WIDTH / 2.0f, Window::sWIN_HEIGHT / 2.0f));
 
 		vec = sprite->GetSize();
 		imguiMan->SetSliderFloat2("Size", vec);
@@ -207,7 +208,6 @@ void UIManager::ImGuiUpdate()
 	if (imguiMan->BeginMenuBar()) {
 		if (imguiMan->BeginMenu("File")) {
 			if (imguiMan->MenuItem("New")) editUI_ = true;
-			if (imguiMan->MenuItem("Load")) LoadEditFile();
 			if (imguiMan->MenuItem("Save")) SaveFile();
 			if (imguiMan->MenuItem("Close")) CloseEditer();
 			imguiMan->EndMenu();
@@ -216,6 +216,8 @@ void UIManager::ImGuiUpdate()
 	}
 
 	imguiMan->InputText("FileName", filename_);
+	imguiMan->SameLine();
+	if (imguiMan->SetButton("Load")) LoadEditFile();
 
 	imguiMan->CheckBox("GlayScale", activeGlayscale_);
 
