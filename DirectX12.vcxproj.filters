@@ -424,7 +424,10 @@
       <Filter>ソース ファイル\Game\Scene\Setting</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\ModelManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -687,7 +690,10 @@
       <Filter>ヘッダー ファイル\Game\Scene\Setting</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\ModelManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\SliderSprite.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -96,9 +96,10 @@ void GameCamera::UnLockOnUpdate()
 	Quaternion rightMove = MakeAxisAngle(rightVec_, moveVec.y);
 	Quaternion qMove = rightMove * upMove;
 	frontVec_ = RotateVector(frontVec_, qMove);
-
-	up_ = RotateVector(up_, qMove);
 	eye_ = target_ - disEyeTarget_ * frontVec_;
+	CalcDirectionVec();
+
+	//up_ = RotateVector(up_, qMove);
 
 	//if (eye.y <= 0) {
 	//	eye.y = 0;

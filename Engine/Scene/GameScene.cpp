@@ -154,7 +154,7 @@ void GameScene::Draw()
 	//	天球
 	skydome_->DrawShadowReciever();
 	////	地面
-	//ground_->DrawShadowReciever();
+	ground_->DrawShadowReciever();
 	//cube_->DrawShadowReciever();
 	player_->DrawShadowReciever();
 	enemy_->Draw();
