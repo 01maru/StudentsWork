@@ -13,12 +13,7 @@ private:
 
 	static Texture* sWhiteTexHandle;
 
-	//	texturesのindex
-	//int texIndex_ = -1;
-	//int32_t textureNum_ = 0;
-	//std::vector<std::unique_ptr<Texture>> textures_;
-
-	std::map<std::string, std::unique_ptr<Texture>, std::less<>> textures;
+	std::map<std::string, std::unique_ptr<Texture>, std::less<>> textures_;
 	std::vector<bool> texExist_;
 
 	ComPtr<ID3D12CommandAllocator> loadTexAllocator_;
@@ -36,7 +31,8 @@ private:
 	std::unique_ptr<Sprite> backSprite_;
 
 	int32_t previewIdx_ = 0;
-	std::string copyTexName_ = 0;
+	std::string previewTexName_;
+	std::string copyTexName_;
 
 	std::string searchWord_;
 	std::string loadTexPath_;
@@ -70,6 +66,6 @@ public:
 	//	Getter
 	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureHandle(int32_t handle);
 	static Texture* GetWhiteTexture() { return sWhiteTexHandle; }
-	Texture* PasteTexture() { return textures[copyTexName_].get(); }
+	Texture* PasteTexture() { return textures_[copyTexName_].get(); }
 };
 
