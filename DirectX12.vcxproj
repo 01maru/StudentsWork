@@ -404,14 +404,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir)External\assimp\include;$(SolutionDir)External\DirectXTex;$(SolutionDir)External\imgui;$(SolutionDir)External\Json;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)External\assimp\lib;$(LibraryPath);</LibraryPath>
+    <LibraryPath>$(ProjectDir)External\assimp\lib;$(ProjectDir)External\assimp\contrib\zlib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(ProjectDir)External\assimp\include;$(SolutionDir)External\DirectXTex;$(SolutionDir)External\imgui;$(SolutionDir)External\Json;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)External\assimp\lib;$(LibraryPath);</LibraryPath>
+    <LibraryPath>$(ProjectDir)External\assimp\lib;$(ProjectDir)External\assimp\contrib\zlib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -428,14 +428,14 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Debug\assimp-vc143-mtd.lib;d3d12.lib;xaudio2.lib;winmm.lib;d3dcompiler.lib;dinput8.lib;dxguid.lib;xinput.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Debug\assimp-vc143-mtd.lib;Debug\zlibstaticd.lib;d3d12.lib;xaudio2.lib;winmm.lib;d3dcompiler.lib;dinput8.lib;dxguid.lib;xinput.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
     </FxCompile>
     <PostBuildEvent>
-      <Command>copy "$(ProjectDir)External\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc143-mtd.dll"</Command>
+      <Command>copy "$(ProjectDir)External\assimp\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc143-mtd.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -456,13 +456,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Release\assimp-vc143-mt.lib;d3d12.lib;xaudio2.lib;winmm.lib;d3dcompiler.lib;dinput8.lib;dxguid.lib;xinput.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Release\assimp-vc143-mt.lib;Release\zlibstatic.lib;d3d12.lib;xaudio2.lib;winmm.lib;d3dcompiler.lib;dinput8.lib;dxguid.lib;xinput.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
     </FxCompile>
     <PostBuildEvent>
-      <Command>copy "$(ProjectDir)External\assimp\lib\assimp-vc143-mt.dll" "$(TargetDir)assimp-vc143-mt.dll"</Command>
+      <Command>copy "$(ProjectDir)External\assimp\assimp-vc143-mt.dll" "$(TargetDir)assimp-vc143-mt.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

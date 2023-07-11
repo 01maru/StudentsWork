@@ -42,7 +42,7 @@ void InputMouse::LockCursor()
 	cursor_.x = (float)cursor.x;
 	cursor_.y = (float)cursor.y;
 
-	Vector2D center((rec.right + rec.left) / 2, (rec.bottom + rec.top) / 2);
+	Vector2D center((rec.right + rec.left) / 2.0f, (rec.bottom + rec.top) / 2.0f);
 	float width = Window::sWIN_WIDTH / 2.0f;
 	float height = Window::sWIN_HEIGHT / 2.0f;
 	rec.left = (LONG)(center.x - width);
