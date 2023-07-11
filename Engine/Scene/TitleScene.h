@@ -2,6 +2,7 @@
 #include "IScene.h"
 #include "Sprite.h"
 #include "UIData.h"
+#include "OptionScene.h"
 
 class TitleScene :public IScene
 {
@@ -14,13 +15,16 @@ private:
 	};
 
 private:
+
+	uint16_t selectMord_ = 0;
+
+	std::unique_ptr<OptionScene> optionScene_;
+
 #pragma region Sprite
 
 	std::unique_ptr<Sprite> backSprite_;
 	std::unique_ptr<UIData> ui_;
 	bool drawUI_ = true;
-	
-	uint16_t selectMord_ = 0;
 
 #pragma endregion
 

@@ -432,7 +432,7 @@
     <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="UIData.cpp">
+    <ClCompile Include="Engine\2D\Sprite\Base\UIData.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\Base\UIEditor.cpp">
@@ -704,7 +704,7 @@
     <ClInclude Include="Engine\2D\Sprite\Base\UIEditor.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
-    <ClInclude Include="UIData.h">
+    <ClInclude Include="Engine\2D\Sprite\Base\UIData.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
   </ItemGroup>

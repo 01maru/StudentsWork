@@ -65,10 +65,7 @@ void GameScene::LoadResources()
 }
 
 void GameScene::Initialize()
-{	
-	//	pause設定
-	SceneManager::GetInstance()->SetIsActivePause(false);
-
+{
 	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
 	LoadResources();
 
@@ -112,8 +109,6 @@ void GameScene::MatUpdate()
 void GameScene::Update()
 {
 #pragma region 更新処理
-	if (InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_ESCAPE))	SceneManager::GetInstance()->ChangeIsActivePause();
-
 	if (InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_B)) {
 		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
 	}

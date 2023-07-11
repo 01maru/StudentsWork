@@ -90,7 +90,7 @@
     <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp" />
     <ClCompile Include="Engine\Game\PauseScreen.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ModelManager.cpp" />
-    <ClCompile Include="UIData.cpp" />
+    <ClCompile Include="Engine\2D\Sprite\Base\UIData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\2D\Sprite\SliderSprite.h" />
@@ -181,7 +181,7 @@
     <ClInclude Include="Engine\2D\PostEffect\GlayScale.h" />
     <ClInclude Include="Engine\Game\PauseScreen.h" />
     <ClInclude Include="Engine\3D\Object\Model\ModelManager.h" />
-    <ClInclude Include="UIData.h" />
+    <ClInclude Include="Engine\2D\Sprite\Base\UIData.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

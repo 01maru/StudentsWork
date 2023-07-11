@@ -1,16 +1,23 @@
 ﻿#pragma once
 #include "SliderSprite.h"
+#include "UIData.h"
 
-class OptionScene
+class OptionScene :public UIData
 {
 private:
-	//	感度
-	float sensitivity_ = 1.0f;
+	bool active_ = false;
+
 	//	音量
 	//	光度
 public:
-	void Initialize();
+	void Initialize(const std::string& filename);
 	void Update();
 	void Draw();
+
+	//	Getter
+	bool GetIsActive() { return active_; }
+
+	//	Setter
+	void SetIsActive(bool active) { active_ = active; }
 };
 

@@ -1,4 +1,0 @@
-0 Resources/Sprite/white1x1.png 410 208 510 154 0 0 100 100
-1 Resources/Sprite/white1x1.png 520 481 296 95 0 0 100 100
-Press Resources/Sprite/white1x1.png 520 481 296 95 0 0 100 100
-Title Resources/Sprite/white1x1.png 410 208 510 154 0 0 100 100

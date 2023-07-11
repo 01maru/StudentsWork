@@ -17,11 +17,14 @@ void TitleScene::LoadResources()
 	
 	ui_ = std::make_unique<UIData>();
 	ui_->LoadSprites("TitleScene");
-	ui_->SetTag(0b0000000000000001);
+	ui_->SetTag(UIData::Tag1);
 }
 
 void TitleScene::Initialize()
 {
+	optionScene_ = std::make_unique<OptionScene>();
+	optionScene_->Initialize("Option");
+
 	LoadResources();
 
 #pragma region Sprite
@@ -45,18 +48,18 @@ void TitleScene::MatUpdate()
 	//	背景
 	backSprite_->Update();
 	ui_->Update();
+
+	optionScene_->Update();
 }
 
 void TitleScene::Update()
 {
-	if (ui_->GetTags() & 1) {
+	if (ui_->GetTags() & UIData::Tag1) {
 		if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
-			ui_->SetTag(0b0010);
+			ui_->SetTag(UIData::Tag2);
 		}
 	}
-	else {
-		//	option開いてないとき
-
+	else if (ui_->GetTags() & UIData::Tag2) {
 		if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
 			switch (selectMord_)
 			{
@@ -64,12 +67,17 @@ void TitleScene::Update()
 				SceneManager::GetInstance()->SetNextScene("GAMESCENE");
 				break;
 			case Option:
+				optionScene_->SetIsActive(true);
+				ui_->SetTag(UIData::Tag3);
 				break;
 			case GameEnd:
 				SceneManager::GetInstance()->GameLoopEnd();
 				break;
 			}
 		}
+	}
+	else if (ui_->GetTags() & UIData::Tag3) {
+		optionScene_->Update();
 	}
 
 	MatUpdate();
@@ -88,6 +96,8 @@ void TitleScene::ImguiUpdate()
 	if (imguiMan->SetButton("End"))		selectMord_ = GameEnd;
 	imguiMan->CheckBox("DrawUI", drawUI_);
 
+	imguiMan->Text("Option : %f", optionScene_->GetIsActive() ? "True" : "False");
+
 	imguiMan->EndWindow();
 }
 
@@ -100,4 +110,6 @@ void TitleScene::Draw()
 
 	if (!drawUI_) return;
 	ui_->Draw();
+
+	optionScene_->Draw();
 }
