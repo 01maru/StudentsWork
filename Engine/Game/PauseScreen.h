@@ -1,15 +1,27 @@
 ﻿#pragma once
-#include <map>
-#include "Sprite.h"
+#include "UIData.h"
+#include "OptionScene.h"
 
 class PauseScreen
 {
-private:
-	bool active_ = true;
-	bool isEnd_ = false;
+public:
+	enum Mord
+	{
+		Continue,
+		Option,
+		BackTitle,
+	};
 
-	std::string filename_;
-	std::map<std::string, Sprite, std::less<>> sprites_;
+private:
+	uint16_t selectMord_;
+
+	bool active_ = true;
+
+	std::unique_ptr<UIData> ui_;
+	std::unique_ptr<OptionScene> option_;
+
+private:
+	void PauseUpdate();
 
 public:
 	void Initialize();
@@ -18,10 +30,12 @@ public:
 
 	//	Getter
 	bool GetIsActive() { return active_; }
-	bool GetIsEnd() { return isEnd_; }
+	uint16_t GetOptionMord() { return option_->GetMord(); }
+	uint16_t GetMord() { return selectMord_; }
+	bool GetOptionIsActive() { return option_->GetIsActive(); }
 
 	//	Setter
 	void SetIsActive(bool active);
-	void SetFileName(const std::string& filename);
+	void SetMord(Mord mord) { selectMord_ = (uint16_t)mord; }
 };
 

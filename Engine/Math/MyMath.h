@@ -12,6 +12,10 @@ namespace MyMath {
 	//	小さい値を返す
 	template<typename T>
 	T mMin(T a, T b);
+	//	valueの値をloopする用関数
+	int32_t mLoop(int32_t maxValue, int32_t minValue, int32_t value);
+
+	float mClamp(float minValue, float maxValue, float value);
 
 #pragma region 円周率
 	const float PI = 3.14159265358979f;

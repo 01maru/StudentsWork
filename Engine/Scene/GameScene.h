@@ -9,12 +9,15 @@
 #include "Enemy.h"
 
 #include "JSONLoader.h"
+#include "PauseScreen.h"
 
 class GameScene :public IScene
 {
 private:
 
 	JSONLoader level;
+
+	std::unique_ptr<PauseScreen> pause_;
 
 #pragma region Obj3D
 

@@ -66,6 +66,8 @@ void GameScene::LoadResources()
 
 void GameScene::Initialize()
 {
+	pause_ = std::make_unique<PauseScreen>();
+
 	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
 	LoadResources();
 
@@ -132,9 +134,17 @@ void GameScene::ImguiUpdate()
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
-	imguiMan->BeginWindow("SceneManager", true);
+	imguiMan->BeginWindow("GameScene", true);
 
-	imguiMan->Text("Angle : %f", player_->angle());
+
+	imguiMan->Text("mord : %d",pause_->GetMord());
+
+	if (imguiMan->SetButton("Continue"))	pause_->SetMord(PauseScreen::Continue);
+	if (imguiMan->SetButton("Option"))		pause_->SetMord(PauseScreen::Option);
+	if (imguiMan->SetButton("BackTitle"))	pause_->SetMord(PauseScreen::BackTitle);
+
+	imguiMan->Text("Option : %s", pause_->GetOptionIsActive() ? "True" : "False");
+	imguiMan->Text("OptionMord : %d",pause_->GetOptionMord());
 
 	imguiMan->EndWindow();
 }

@@ -89,7 +89,7 @@ void GameCamera::UnLockOnUpdate()
 	//	Mouse&Pad
 	Vector2D moveVec = padVec + mouseVec;
 	moveVec.Normalize();
-	moveVec *= 0.01f;	//	感度変える
+	moveVec *= input->GetSensitivity() * 0.1f;
 
 	//	座標更新
 	Quaternion upMove = MakeAxisAngle(up_, moveVec.x);

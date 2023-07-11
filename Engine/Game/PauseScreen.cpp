@@ -1,41 +1,60 @@
 ﻿#include "PauseScreen.h"
 #include "InputManager.h"
-#include "UIEditor.h"
+#include "SceneManager.h"
 
 void PauseScreen::Initialize()
 {
-    
+	active_ = false;
+
+    selectMord_ = Continue;
+
+	ui_ = std::make_unique<UIData>();
+	ui_->LoadSprites("Pause");
+
+	option_ = std::make_unique<OptionScene>();
+	option_->Initialize("Option");
+}
+
+void PauseScreen::PauseUpdate()
+{
+	if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
+		switch (selectMord_)
+		{
+		case Continue:
+			active_ = false;
+			break;
+		case Option:
+			option_->SetIsActive(true);
+			ui_->SetTag(UIData::Tag3);
+			break;
+		case BackTitle:
+			SceneManager::GetInstance()->SetNextScene("TITLESCENE");
+			break;
+		}
+	}
 }
 
 void PauseScreen::Update()
 {
     if (!active_) return;
 
-    if (InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_SPACE)) isEnd_ = true;
+	if (option_->GetIsActive())	option_->Update();
+	else						PauseUpdate();
+
+    ui_->Update();
 }
 
 void PauseScreen::Draw()
 {
     if (!active_) return;
 
-    for (auto& sprite : sprites_) {
-        sprite.second.Draw();
-    }
+    ui_->Draw();
+
+	option_->Draw();
 }
 
 void PauseScreen::SetIsActive(bool active)
 {
     if (active) InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
     active_ = active;
-}
-
-void PauseScreen::SetFileName(const std::string& filename)
-{
-    filename_ = filename;
-
-    sprites_ = UIEditor::GetInstance()->LoadFile(filename);
-
-    for (auto& sprite : sprites_) {
-        sprite.second.Update();
-    }
 }
