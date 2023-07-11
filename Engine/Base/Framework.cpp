@@ -57,7 +57,7 @@ void Framework::Initialize()
 
 void Framework::Update()
 {
-	gameroopFlag_ = !(Window::GetInstance()->MsgUpdate() || SceneManager::GetInstance()->EndGameLoop());
+	gameroopFlag_ = !(Window::GetInstance()->MsgUpdate() || !SceneManager::GetInstance()->GetGameLoop());
 
 	InputManager::GetInstance()->Update();
 

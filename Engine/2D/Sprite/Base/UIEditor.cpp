@@ -1,4 +1,4 @@
-﻿#include "UIManager.h"
+﻿#include "UIEditor.h"
 #include "ImGuiManager.h"
 #include "ImGuiController.h"
 #include <iostream>
@@ -8,7 +8,7 @@
 #include "TextureManager.h"
 #include "Window.h"
 
-std::map<std::string, Sprite, std::less<>> UIManager::LoadFile(const std::string& filename)
+std::map<std::string, Sprite, std::less<>> UIEditor::LoadFile(const std::string& filename)
 {
 	std::string filePath = "Resources/Levels/" + filename + ".txt";
 
@@ -63,6 +63,10 @@ std::map<std::string, Sprite, std::less<>> UIManager::LoadFile(const std::string
 
 			sprite.SetAnchorPoint(pos);
 
+			uint16_t tag;
+			line_stream >> tag;
+			sprite.SetTags(tag);
+
 			ans.emplace(key, sprite);
 		}
 	}
@@ -73,7 +77,7 @@ std::map<std::string, Sprite, std::less<>> UIManager::LoadFile(const std::string
 	return ans;
 }
 
-void UIManager::LoadEditFile()
+void UIEditor::LoadEditFile()
 {
 	int ind = (int)filename_.find_last_of('\0');
 	if (ind > 0) filename_ = filename_.substr(0, ind);
@@ -83,7 +87,7 @@ void UIManager::LoadEditFile()
 	editUI_ = true;
 }
 
-void UIManager::SaveFile()
+void UIEditor::SaveFile()
 {
 	//	編集中じゃなかったら
 	if (!editUI_) return;
@@ -103,7 +107,8 @@ void UIManager::SaveFile()
 			<< " " << itr->second.GetSize().x << " " << itr->second.GetSize().y 
 			<< " " << itr->second.GetTextureLeftTop().x << " " << itr->second.GetTextureLeftTop().y
 			<< " " << itr->second.GetTextureSize().x << " " << itr->second.GetTextureSize().y
-			<< " " << itr->second.GetAnchorPoint().x << " " << itr->second.GetAnchorPoint().y << std::endl;
+			<< " " << itr->second.GetAnchorPoint().x << " " << itr->second.GetAnchorPoint().y
+			<< " " << itr->second.GetTags() << std::endl;
 	}
 
 	outPutFile.close();
@@ -111,13 +116,13 @@ void UIManager::SaveFile()
 	CloseEditer();
 }
 
-void UIManager::CloseEditer()
+void UIEditor::CloseEditer()
 {
 	editUI_ = false;
 	sprites_.clear();
 }
 
-void UIManager::DeleteSpriteForList()
+void UIEditor::DeleteSpriteForList()
 {
 	for (auto itr = eraseSpriteName_.begin(); itr != eraseSpriteName_.end(); ++itr)
 	{
@@ -126,14 +131,14 @@ void UIManager::DeleteSpriteForList()
 	eraseSpriteName_.clear();
 }
 
-void UIManager::AddSprite()
+void UIEditor::AddSprite()
 {
 	Sprite sprite;
 	sprite.Initialize(nullptr);
 	sprites_.emplace(spritename_, sprite);
 }
 
-void UIManager::ReNameSprite(std::map<std::string, Sprite, std::less<>>::iterator& itr)
+void UIEditor::ReNameSprite(std::map<std::string, Sprite, std::less<>>::iterator& itr)
 {
 	//	既にある名前だったら
 	if (sprites_.count(spritename_) == 1) return;
@@ -147,7 +152,7 @@ void UIManager::ReNameSprite(std::map<std::string, Sprite, std::less<>>::iterato
 	sprites_.emplace(spritename_, sprite);
 }
 
-void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::iterator& itr)
+void UIEditor::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::iterator& itr)
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
@@ -158,6 +163,22 @@ void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::itera
 		if (imguiMan->SetButton("ReName")) {
 			ReNameSprite(itr);
 			return;
+		}
+		
+		imguiMan->Text("Tag");
+		for (size_t i = 0; i < 16; i++)
+		{
+			if (i % 8 != 0) imguiMan->SameLine();
+
+			uint16_t tagIdx = 0b1 << i;
+			bool tagFlag = sprite->GetTags() & tagIdx;
+			bool prevFlag = tagFlag;
+			imguiMan->CheckBox(std::to_string(i), tagFlag);
+
+			if (tagFlag == prevFlag) continue;
+
+			if(tagFlag) sprite->SetTags(sprite->GetTags() | tagIdx);
+			else		sprite->SetTags(sprite->GetTags() ^ tagIdx);
 		}
 
 		Vector2D vec = sprite->GetPosition();
@@ -191,19 +212,19 @@ void UIManager::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::itera
 	}
 }
 
-UIManager* UIManager::GetInstance()
+UIEditor* UIEditor::GetInstance()
 {
-	static UIManager instance;
+	static UIEditor instance;
 	return &instance;
 }
 
-void UIManager::ImGuiUpdate()
+void UIEditor::ImGuiUpdate()
 {
 	if (!ImGuiController::GetInstance()->GetActiveUIManager()) return;
 
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
-	imguiMan->BeginWindow("UIManager", true);
+	imguiMan->BeginWindow("UIEditor", true);
 
 	if (imguiMan->BeginMenuBar()) {
 		if (imguiMan->BeginMenu("File")) {
@@ -220,6 +241,22 @@ void UIManager::ImGuiUpdate()
 	if (imguiMan->SetButton("Load")) LoadEditFile();
 
 	imguiMan->CheckBox("GlayScale", activeGlayscale_);
+	
+	imguiMan->Text("DrawTag");
+	for (size_t i = 0; i < 16; i++)
+	{
+		if (i % 8 != 0) imguiMan->SameLine();
+
+		uint16_t tagIdx = 0b1 << i;
+		bool tagFlag = drawTag_ & tagIdx;
+		bool prevFlag = tagFlag;
+		imguiMan->CheckBox(std::to_string(i), tagFlag);
+
+		if (tagFlag == prevFlag) continue;
+
+		if (tagFlag) drawTag_ = drawTag_ | tagIdx;
+		else		 drawTag_ = drawTag_ ^ tagIdx;
+	}
 
 	if (editUI_) {
 		imguiMan->Spacing();
@@ -256,16 +293,18 @@ void UIManager::ImGuiUpdate()
 	}
 }
 
-void UIManager::DrawEditUI()
+void UIEditor::DrawEditUI()
 {
 	if (!editUI_) return;
 
 	for (auto& sprite : sprites_) {
-		sprite.second.Draw();
+		if (sprite.second.GetTags() & drawTag_) {
+			sprite.second.Draw();
+		}
 	}
 }
 
-void UIManager::Draw()
+void UIEditor::Draw()
 {
 	DrawEditUI();
 }

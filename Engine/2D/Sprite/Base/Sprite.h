@@ -20,6 +20,8 @@ private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
 	static Matrix sMAT_2DTRANSFORM;
+
+	uint16_t tag_ = 0b0000000000000000;
 	
 	//	画像を張り付けるポリゴンの設定
 	MyMath::SpriteMatrix mat_;
@@ -94,6 +96,8 @@ public:
 
 	Texture* GetTexture() { return handle_; }
 
+	uint16_t GetTags() { return tag_; }
+
 	//	Setter
 	void SetPosition(const Vector2D& position);
 	void SetRotation(float rotation);
@@ -106,5 +110,7 @@ public:
 	void SetTextureLeftTop(const Vector2D& leftTop);
 	void SetTextureSize(const Vector2D& size);
 	void SetHandle(Texture* handle);
+
+	void SetTags(const uint16_t tag) { tag_ = tag; }
 };
 

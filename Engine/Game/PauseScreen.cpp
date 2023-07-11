@@ -1,6 +1,6 @@
 ﻿#include "PauseScreen.h"
 #include "InputManager.h"
-#include "UIManager.h"
+#include "UIEditor.h"
 
 void PauseScreen::Initialize()
 {
@@ -33,7 +33,7 @@ void PauseScreen::SetFileName(const std::string& filename)
 {
     filename_ = filename;
 
-    sprites_ = UIManager::GetInstance()->LoadFile(filename);
+    sprites_ = UIEditor::GetInstance()->LoadFile(filename);
 
     for (auto& sprite : sprites_) {
         sprite.second.Update();

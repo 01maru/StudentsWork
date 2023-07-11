@@ -9,7 +9,7 @@
 #include "LoadingModel.h"
 #include "SceneFactory.h"
 #include "TextureManager.h"
-#include "UIManager.h"
+#include "UIEditor.h"
 #include "CameraManager.h"
 #include "LightManager.h"
 #include "ParticleManager.h"
@@ -235,8 +235,8 @@ void SceneManager::ImguiUpdate()
 	ImGuiController::GetInstance()->Update();
 
 	InputManager::GetInstance()->ImGuiUpdate();
-	UIManager::GetInstance()->ImGuiUpdate();
-	glayscale->SetGlayScale(UIManager::GetInstance()->GetActiveGlayscale());
+	UIEditor::GetInstance()->ImGuiUpdate();
+	glayscale->SetGlayScale(UIEditor::GetInstance()->GetActiveGlayscale());
 	CameraManager::GetInstance()->ImGuiUpdate();
 	XAudioManager::GetInstance()->ImguiUpdate(endLoading_);
 	TextureManager::GetInstance()->ImGuiUpdate();
@@ -294,7 +294,7 @@ void SceneManager::Draw()
 		scene_->Draw();
 		ModelManager::GetInstance()->DrawPreview();
 		CameraManager::GetInstance()->DrawTarget();
-		UIManager::GetInstance()->Draw();
+		UIEditor::GetInstance()->Draw();
 		pauseScreen_->Draw();
 
 		TextureManager::GetInstance()->DrawPreview();

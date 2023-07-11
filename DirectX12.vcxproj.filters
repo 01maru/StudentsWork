@@ -190,6 +190,12 @@
     <Filter Include="ヘッダー ファイル\Game\Scene\Setting">
       <UniqueIdentifier>{bb7b3579-d049-4d1b-ba9a-f80a446e4103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\lib\2D\Sprite\UI">
+      <UniqueIdentifier>{56c3dd44-b154-4592-860f-67feb7481337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\lib\2D\Sprite\UI">
+      <UniqueIdentifier>{d663767c-f4a2-450f-b8e1-9e018c1d19f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -366,9 +372,6 @@
     <ClCompile Include="Engine\2D\Sprite\DebugTextManager.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\Base\UIManager.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Base\JSONLoader.cpp">
       <Filter>ソース ファイル\lib\Engine</Filter>
     </ClCompile>
@@ -428,6 +431,12 @@
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="UIData.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\Base\UIEditor.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -620,9 +629,6 @@
     <ClInclude Include="Engine\2D\Sprite\SplashSprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\Base\UIManager.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Base\JSONLoader.h">
       <Filter>ヘッダー ファイル\lib\Engine</Filter>
     </ClInclude>
@@ -694,6 +700,12 @@
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\SliderSprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\Base\UIEditor.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIData.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

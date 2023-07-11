@@ -3,11 +3,13 @@
 #include <map>
 #include <list>
 
-class UIManager
+class UIEditor
 {
 private:
 	std::string filename_;
 	std::string spritename_;
+
+	uint16_t drawTag_ = 0;
 
 	std::map<std::string, Sprite, std::less<>> sprites_;
 	std::list<std::string> eraseSpriteName_;
@@ -15,8 +17,8 @@ private:
 	bool activeGlayscale_ = false;
 	bool editUI_ = false;
 private:
-	UIManager() {};
-	~UIManager() {};
+	UIEditor() {};
+	~UIEditor() {};
 
 	void LoadEditFile();
 	void SaveFile();
@@ -27,9 +29,9 @@ private:
 	void DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::iterator& itr);
 	void DrawEditUI();
 public:
-	static UIManager* GetInstance();
-	UIManager(const UIManager& obj) = delete;
-	UIManager& operator=(const UIManager& obj) = delete;
+	static UIEditor* GetInstance();
+	UIEditor(const UIEditor& obj) = delete;
+	UIEditor& operator=(const UIEditor& obj) = delete;
 
 	void ImGuiUpdate();
 	void Draw();

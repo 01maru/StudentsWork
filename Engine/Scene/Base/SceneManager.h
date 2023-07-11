@@ -16,6 +16,8 @@
 class SceneManager
 {
 private:
+	bool gameLoop_ = true;
+
 	std::unique_ptr<PauseScreen> pauseScreen_;
 
 	FrameCounter sceneChangeCounter_;
@@ -86,7 +88,8 @@ public:
 	void ChangeIsActivePause() { pauseScreen_->SetIsActive(!pauseScreen_->GetIsActive()); }
 	void SetIsActivePause(bool flag) { pauseScreen_->SetIsActive(flag); }
 	void SetUIFilename(const std::string& filename) { pauseScreen_->SetFileName(filename); }
-	bool EndGameLoop() { return pauseScreen_->GetIsEnd(); }
+	bool GetGameLoop() { return gameLoop_; }
+	void GameLoopEnd() { gameLoop_ = false; }
 
 	Texture* GetShadowMap() { return shadowEffect->GetTexture(0); }
 };
