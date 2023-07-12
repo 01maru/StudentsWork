@@ -38,6 +38,8 @@ private:	//	関数
 	void ImGuiUpdateCursor(ImGuiManager* imgui);
 	void ImGuiUpdateClick(ImGuiManager* imgui);
 public:
+	~InputMouse();
+
 	void Initialize(IDirectInput8* directInput);
 	void Update();
 	void ImGuiUpdate();

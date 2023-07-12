@@ -146,6 +146,12 @@ void InputMouse::ImGuiUpdateClick(ImGuiManager* imgui)
 	imgui->TreePop();
 }
 
+InputMouse::~InputMouse()
+{
+	//	範囲指定しない
+	ClipCursor(NULL);
+}
+
 void InputMouse::ImGuiUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
