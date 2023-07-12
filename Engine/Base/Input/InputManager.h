@@ -15,7 +15,7 @@ private:
 	std::unique_ptr<InputJoypad> joypad_;
 	std::unique_ptr<InputKeyboard> keyboard_;
 
-	float sensitivity_ = 1.0f;
+	float sensitivity_ = 0.2f;
 
 private:
 	InputManager() {};

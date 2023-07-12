@@ -58,7 +58,7 @@ Vector3D Player::CalcMoveVec(InputKeyboard* keyboard, InputJoypad* pad, ICamera*
 	int32_t frontKey = keyboard->GetKey(DIK_W) - keyboard->GetKey(DIK_S);
 	int32_t sideKey = keyboard->GetKey(DIK_D) - keyboard->GetKey(DIK_A);
 
-	Vector2D inputVec = pad->GetThumbL() + Vector2D(sideKey, frontKey);
+	Vector2D inputVec = pad->GetThumbL().GetNormalize() + Vector2D(sideKey, frontKey);
 	moveVec = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
 	moveVec.y = 0;
 

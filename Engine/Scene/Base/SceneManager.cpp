@@ -36,6 +36,7 @@ void SceneManager::SplashScreenInitialize()
 {
 	//	非同期
 	sceneInitInfo_ = std::async(std::launch::async, [this] {return FirstSceneInitialize(); });
+
 	isSplashScreen_ = true;
 
 	splashSprite_ = std::make_unique<SplashSprite>();
