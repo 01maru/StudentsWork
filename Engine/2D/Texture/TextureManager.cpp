@@ -4,26 +4,12 @@
 
 #include "ImGuiManager.h"
 #include "ImGuiController.h"
+#include "ConvertString.h"
 
 #include <DirectXTex.h>
 using namespace DirectX;
 
 Texture* TextureManager::sWhiteTexHandle = nullptr;
-
-#pragma region string変換
-std::string ConvertToString(const wchar_t* name)
-{
-	std::wstring ws = name;
-
-	size_t inLen = (size_t)ws.length();
-	size_t outLen = WideCharToMultiByte(CP_ACP, 0, ws.c_str(), (int)inLen, 0, 0, 0, 0);
-
-	std::string result(outLen, '\0');
-	if (outLen) WideCharToMultiByte(CP_ACP, 0, ws.c_str(), (int)inLen, &result[0], (int)outLen, 0, 0);
-
-	return result;
-}
-#pragma endregion
 
 TextureManager* TextureManager::GetInstance()
 {
@@ -67,12 +53,62 @@ void TextureManager::Initialize()
 
 #pragma endregion
 
-	//textureNum_ = 0;
-
-	//texExist_.clear();
-
 	//	ロード失敗した際の白色テクスチャのロード
-	sWhiteTexHandle = LoadTextureGraph(L"Resources/Sprite/white1x1.png");
+	sWhiteTexHandle = LoadTextureGraph("Resources/Sprite/white1x1.png");
+
+	backSprite_ = std::make_unique<Sprite>();
+	backSprite_->Initialize();
+	backSprite_->SetColor(Vector4D(1.0f, 1.0f, 1.0f, 0.1f));
+
+	previewSprite_ = std::make_unique<Sprite>();
+	previewSprite_->Initialize();
+}
+
+void TextureManager::ImGuiTexUpdate()
+{
+	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+
+	imguiMan->BeginChild();
+
+	int32_t i = 0;
+	for (auto itr = textures_.begin(); itr != textures_.end(); ++itr)
+	{
+		if (searchWord_.length() != 0) {
+			//	Wordがなかったら
+			if (itr->second->GetTextureName().find(searchWord_) == -1) continue;
+		}
+
+		imguiMan->PushID(i++);
+		imguiMan->Text("Name : %s", itr->first.c_str());
+		imguiMan->Text("Handle : %d", itr->second->GetHandle());
+		if (imguiMan->SetRadioButton("PreviewTex", previewIdx_, i)) previewTexName_ = itr->first;
+
+		imguiMan->Spacing();
+		imguiMan->Separator();
+		imguiMan->Spacing();
+
+		imguiMan->PopID();
+	}
+	
+	imguiMan->EndChild();
+}
+
+void TextureManager::ImGuiPreviewUpdate()
+{
+	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+
+	imguiMan->CheckBox("PreView", drawPreview_);
+	imguiMan->Text("PreviewHandle : %d", previewIdx_);
+
+	if (!drawPreview_) return;
+
+	Vector2D pos = previewSprite_->GetPosition();
+	imguiMan->SetSliderFloat2("Pos", pos);
+	previewSprite_->SetPosition(pos);
+
+	imguiMan->SetSliderFloat("Scale", previewSize_);
+	Vector2D texsize = previewSprite_->GetTextureSize();
+	previewSprite_->SetSize(texsize * previewSize_);
 }
 
 void TextureManager::ImGuiUpdate()
@@ -81,68 +117,53 @@ void TextureManager::ImGuiUpdate()
 
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
-	imguiMan->BeginWindow("TextureManager", true);
+	imguiMan->BeginWindow("TextureManager");
 
-	//if (imguiMan->BeginMenuBar()) {
-	//	if (imguiMan->BeginMenu("File")) {
-	//		if (imguiMan->MenuItem("Save")) ;
-	//		if (imguiMan->MenuItem("Load")) ;
-	//		imguiMan->EndMenu();
-	//	}
-	//	imguiMan->EndMenuBar();
-	//}
+	imguiMan->InputText("LoadPath", loadTexPath_);
+	if (imguiMan->SetButton("Load")) {
+		LoadTextureGraph(Util::ToWideString(loadTexPath_).c_str());
 
-	imguiMan->BeginChild();
-
-	for (size_t i = 0; i < textures_.size(); i++)
-	{
-		imguiMan->Text("Name : %s", textures_[i]->GetTextureName().c_str());
-		imguiMan->Text("Handle : %d", textures_[i]->GetHandle());
+		UploadTexture();
 	}
-	imguiMan->EndChild();
+	imguiMan->InputText("Search", searchWord_);
+
+	ImGuiPreviewUpdate();
+
+	if (imguiMan->SetButton("Copy")) copyTexName_ = previewTexName_;
+
+	int32_t prevIdx = previewIdx_;
+
+	ImGuiTexUpdate();
 
 	imguiMan->EndWindow();
-}
 
-void TextureManager::UploadTexture()
-{
-	// 命令のクローズ
-#pragma region CmdClose
-
-	HRESULT result = loadTexCmdList_->Close();
-	assert(SUCCEEDED(result));
-	// 溜めていたコマンドリストの実行(close必須)
-	ID3D12CommandList* commandLists[] = { loadTexCmdList_.Get() };
-	loadTexQueue_->ExecuteCommandLists(1, commandLists);
-
-#pragma endregion CmdClose
-
-#pragma region ChangeScreen
-
-	// コマンドの実行完了を待つ
-	loadTexQueue_->Signal(uploadTexFence_.Get(), ++uploadTexFenceVal_);
-	if (uploadTexFence_->GetCompletedValue() != uploadTexFenceVal_)	//	GPUの処理が完了したか判定
-	{
-		HANDLE event = CreateEvent(nullptr, false, false, nullptr);
-		uploadTexFence_->SetEventOnCompletion(uploadTexFenceVal_, event);
-		if (event != 0) {
-			WaitForSingleObject(event, INFINITE);
-			CloseHandle(event);
-		}
+	if (prevIdx != previewIdx_) {
+		previewSprite_->SetHandle(textures_[previewTexName_].get());
+		previewSize_ = 1.0f;
 	}
-	// キューをクリア
-	result = loadTexAllocator_->Reset();
-	assert(SUCCEEDED(result));
-	// 再びコマンドリストを貯める準備
-	result = loadTexCmdList_->Reset(loadTexAllocator_.Get(), nullptr);
-	assert(SUCCEEDED(result));
-
-	textureUploadBuff_.clear();
-
-#pragma endregion ChangeScreen
+	PreviewUpdate();
 }
 
-Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
+void TextureManager::PreviewUpdate()
+{
+	if (!drawPreview_) return;
+
+	backSprite_->SetSize(previewSprite_->GetSize());
+	backSprite_->SetPosition(previewSprite_->GetPosition());
+
+	backSprite_->Update();
+	previewSprite_->Update();
+}
+
+void TextureManager::DrawPreview()
+{
+	if (!drawPreview_)	return;
+
+	backSprite_->Draw();
+	previewSprite_->Draw();
+}
+
+Texture* TextureManager::LoadTextureGraph(const std::string& textureName)
 {
 	HRESULT result;
 	TexMetadata metadata{};
@@ -150,17 +171,12 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 	MyDirectX* dx = MyDirectX::GetInstance();
 
 	//	既に画像読み込まれているかの確認
-	for (int i = 0; i < textures_.size(); i++) {
-		std::string textureName_str = ConvertToString(textureName);
-		if (textures_[i]->GetTextureName() == textureName_str)
-		{
-			//	既にあったら
-			return textures_[i].get();
-		}
+	if (textures_.count(textureName) != 0) {
+		return textures_[textureName].get();
 	}
 
 	result = LoadFromWICFile(
-		textureName,
+		Util::ToWideString(textureName).c_str(),
 		WIC_FLAGS_NONE,
 		&metadata, scratchImg);
 
@@ -169,23 +185,22 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 		return sWhiteTexHandle;
 	}
 
-	//int32_t index = 0;		//	画像のindex
-	//for (size_t i = 0; i < texExist_.size(); i++)
-	//{
-	//	//	画像がその配列になかったら
-	//	if (texExist_[i] == false)
-	//	{
-	//		texExist_[i] = true;
-	//		index = (int32_t)i;
-	//		break;
-	//	}
-	//}
-	//textureNum_++;
+	if (textures_.size() >= texExist_.size()) texExist_.emplace_back();
+	int32_t index = 0;		//	画像のindex
+	for (size_t i = 0; i < texExist_.size(); i++)
+	{
+		//	画像がその配列になかったら
+		if (texExist_[i] == false)
+		{
+			texExist_[i] = true;
+			index = (int32_t)i;
+			break;
+		}
+	}
 
-	//	indexを進める
-	texIndex_++;
-	textures_.emplace_back();
-	textures_[texIndex_] = std::make_unique<Texture>();
+	std::unique_ptr<Texture> tex = std::make_unique<Texture>();
+	textures_.emplace(textureName, std::move(tex));
+	Texture* texture = textures_[textureName].get();
 
 	//	ミニマップ生成
 	ScratchImage mipChain{};
@@ -223,7 +238,7 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 		&tectureResourceDesc,
 		D3D12_RESOURCE_STATE_COPY_DEST,
 		nullptr,
-		IID_PPV_ARGS(textures_[texIndex_]->GetResourceBuffAddress()));
+		IID_PPV_ARGS(texture->GetResourceBuffAddress()));
 
 	//	FootPrint取得
 	D3D12_PLACED_SUBRESOURCE_FOOTPRINT footprint;
@@ -278,7 +293,7 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 #pragma region CopyCommand
 	//	グラフィックボード上のコピー先アドレス
 	D3D12_TEXTURE_COPY_LOCATION texCopyDest{};
-	texCopyDest.pResource = textures_[texIndex_]->GetResourceBuff();
+	texCopyDest.pResource = texture->GetResourceBuff();
 	texCopyDest.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
 	texCopyDest.SubresourceIndex = 0;
 	//	グラフィックボード上のコピー元アドレス
@@ -293,7 +308,7 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 	//	resourceBarrier挿入
 	D3D12_RESOURCE_BARRIER copyBarrier{};
 	copyBarrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
-	copyBarrier.Transition.pResource = textures_[texIndex_]->GetResourceBuff();
+	copyBarrier.Transition.pResource = texture->GetResourceBuff();
 	copyBarrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
 	copyBarrier.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;
 	copyBarrier.Transition.StateAfter = D3D12_RESOURCE_STATE_GENERIC_READ;
@@ -303,7 +318,7 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 #pragma region SetSRV
 	UINT incrementSize = dx->GetDev()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	D3D12_CPU_DESCRIPTOR_HANDLE srvHandle = dx->GetCPUSRVHeapForHeapStart();
-	srvHandle.ptr += incrementSize * texIndex_;
+	srvHandle.ptr += incrementSize * index;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
 	srvDesc.Format = DXGI_FORMAT_UNKNOWN;
@@ -311,74 +326,100 @@ Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
 	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MipLevels = 1;
 
-	dx->GetDev()->CreateShaderResourceView(textures_[texIndex_]->GetResourceBuff(), &srvDesc, srvHandle);
+	dx->GetDev()->CreateShaderResourceView(texture->GetResourceBuff(), &srvDesc, srvHandle);
 #pragma endregion
-	
-	textures_[texIndex_]->Initialize(ConvertToString(textureName), texIndex_, textures_[texIndex_]->GetResourceBuff());
-	return textures_[texIndex_].get();
+
+	texture->Initialize(textureName, index, texture->GetResourceBuff());
+	return texture;
+}
+
+Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
+{
+	return LoadTextureGraph(Util::ConvertToString(textureName));
 }
 
 Texture* TextureManager::CreateNoneGraphTexture(const std::string& texName)
 {
-	//int32_t index = 0;		//	画像のindex
-	//for (size_t i = 0; i < texExist_.size(); i++)
-	//{
-	//	//	画像がその配列になかったら
-	//	if (texExist_[i] == false)
-	//	{
-	//		texExist_[i] = true;
-	//		index = (int32_t)i;
-	//		break;
-	//	}
-	//}
-	//textureNum_++;
-	//int32_t buffIndex = index - 1;
+	if (textures_.size() >= texExist_.size()) texExist_.emplace_back();
+	int32_t index = 0;		//	画像のindex
+	for (size_t i = 0; i < texExist_.size(); i++)
+	{
+		//	画像がその配列になかったら
+		if (texExist_[i] == false)
+		{
+			texExist_[i] = true;
+			index = (int32_t)i;
+			break;
+		}
+	}
 
-	//texture.Initialize(texName, index, texBuff_[buffIndex].Get());
+	if (textures_.count(texName) != 0) {
+		assert(0);
+	}
 
-	////	既に画像読み込まれているかの確認
-	//for (int i = 0; i < textures_.size(); i++) {
-	//	if (textures_[i]->GetTextureName() == texName)
-	//	{
-	//		assert(0);
-	//		//	既にあったら
-	//		return textures_[i].get();
-	//	}
-	//}
+	std::unique_ptr<Texture> tex = std::make_unique<Texture>();
+	textures_.emplace(texName, std::move(tex));
 
-	texIndex_++;
-	textures_.emplace_back();
+	Texture* texture = textures_[texName].get();
 
-	textures_[texIndex_] = std::make_unique<Texture>();
-	textures_[texIndex_]->Initialize(texName, texIndex_, textures_[texIndex_]->GetResourceBuff());
+	texture->Initialize(texName, index, texture->GetResourceBuff());
 
-	return textures_[texIndex_].get();
+	return texture;
 }
 
-//void TextureManager::DeleteTexture(int32_t handle)
-//{
-//	if (texExist_[handle])
-//	{
-//		texExist_[handle] = false;
-//	}
-//}
+void TextureManager::UploadTexture()
+{
+	if (textureUploadBuff_.empty()) return;
 
-//void TextureManager::DeleteTextureData(const std::string& textureName)
-//{
-//	//	データがあったら
-//	assert(textures.count(textureName) != 0);
-//
-//	int32_t handle = textures[textureName]->GetHandle();
-//	//	範囲外参照回避用
-//	assert(!(texExist_.size() >= handle));
-//
-//	if (texExist_[handle])
-//	{
-//		texExist_[handle] = false;
-//	}
-//
-//	textures.erase(textureName);
-//}
+	// 命令のクローズ
+#pragma region CmdClose
+
+	HRESULT result = loadTexCmdList_->Close();
+	assert(SUCCEEDED(result));
+	// 溜めていたコマンドリストの実行(close必須)
+	ID3D12CommandList* commandLists[] = { loadTexCmdList_.Get() };
+	loadTexQueue_->ExecuteCommandLists(1, commandLists);
+
+#pragma endregion CmdClose
+
+#pragma region ChangeScreen
+
+	// コマンドの実行完了を待つ
+	loadTexQueue_->Signal(uploadTexFence_.Get(), ++uploadTexFenceVal_);
+	if (uploadTexFence_->GetCompletedValue() != uploadTexFenceVal_)	//	GPUの処理が完了したか判定
+	{
+		HANDLE event = CreateEvent(nullptr, false, false, nullptr);
+		uploadTexFence_->SetEventOnCompletion(uploadTexFenceVal_, event);
+		if (event != 0) {
+			WaitForSingleObject(event, INFINITE);
+			CloseHandle(event);
+		}
+	}
+	// キューをクリア
+	result = loadTexAllocator_->Reset();
+	assert(SUCCEEDED(result));
+	// 再びコマンドリストを貯める準備
+	result = loadTexCmdList_->Reset(loadTexAllocator_.Get(), nullptr);
+	assert(SUCCEEDED(result));
+
+	textureUploadBuff_.clear();
+
+#pragma endregion ChangeScreen
+}
+
+void TextureManager::DeleteTextureData(const std::string& textureName)
+{
+	//	データがあったら
+	assert(textures_.count(textureName) != 0);
+
+	int32_t handle = textures_[textureName]->GetHandle();
+	//	範囲外参照回避用
+	assert(!(texExist_.size() >= handle));
+
+	if (texExist_[handle])	texExist_[handle] = false;
+
+	textures_.erase(textureName);
+}
 
 D3D12_GPU_DESCRIPTOR_HANDLE TextureManager::GetTextureHandle(int32_t handle)
 {

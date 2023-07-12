@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\Assimp.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\CApi\CInterfaceIOWrapper.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\Compression.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\BaseImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\BaseProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\PostStepRegistry.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\ImporterRegistry.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\DefaultIOStream.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\IOSystem.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\DefaultIOSystem.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\ZipArchiveIOSystem.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\Importer.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\SGSpatialSort.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\VertexTriangleAdjacency.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\SpatialSort.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\SceneCombiner.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\ScenePreprocessor.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\SkeletonMeshBuilder.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\StandardShapes.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\TargetAnimation.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\RemoveComments.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\Subdivision.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\scene.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\Bitmap.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\Version.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\CreateAnimMesh.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\simd.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\material.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\AssertHandler.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\Exceptional.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\Base64.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\DefaultLogger.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Common\Exporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\CApi\AssimpCExport.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\CalcTangentsProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\ComputeUVMappingProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\ConvertToLHProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\EmbedTexturesProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\FindDegenerates.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\FindInstancesProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\FindInvalidDataProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\FixNormalsStep.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\DropFaceNormalsProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\GenFaceNormalsProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\GenVertexNormalsProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\PretransformVertices.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\ImproveCacheLocality.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\JoinVerticesProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\LimitBoneWeightsProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\RemoveRedundantMaterials.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\RemoveVCProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\SortByPTypeProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\SplitLargeMeshes.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\TextureTransform.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\TriangulateProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\ValidateDataStructure.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\OptimizeGraph.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\OptimizeMeshes.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\DeboneProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\ProcessHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\MakeVerboseFormat.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\ScaleProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\ArmaturePopulate.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\GenBoundingBoxesProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\PostProcessing\SplitByBoneCountProcess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Material\MaterialSystem.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\STEPParser\STEPFileReader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\STEPParser\STEPFileEncoding.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\AMF\AMFImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\AMF\AMFImporter_Geometry.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\AMF\AMFImporter_Material.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\AMF\AMFImporter_Postprocess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\3DS\3DSConverter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\3DS\3DSLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\AC\ACLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\ASE\ASELoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\ASE\ASEParser.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Assbin\AssbinLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\B3D\B3DImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\BVH\BVHLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Collada\ColladaHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Collada\ColladaLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Collada\ColladaParser.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\DXF\DXFLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\CSM\CSMLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\HMP\HMPLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Irr\IRRMeshLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Irr\IRRShared.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IQM\IQMImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Irr\IRRLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\LWO\LWOAnimation.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\LWO\LWOBLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\LWO\LWOLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\LWO\LWOMaterial.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\LWS\LWSLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\M3D\M3DImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\M3D\M3DWrapper.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MD2\MD2Loader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MD3\MD3Loader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MD5\MD5Loader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MD5\MD5Parser.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MDC\MDCLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\MDLLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\MDLMaterialLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\HalfLife\HL1MDLLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\HalfLife\UniqueNameGenerator.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\NFF\NFFLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\NDO\NDOLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\OFF\OFFLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Obj\ObjFileImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Obj\ObjFileMtlImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Obj\ObjFileParser.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Ogre\OgreImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Ogre\OgreStructs.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Ogre\OgreBinarySerializer.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Ogre\OgreXmlSerializer.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Ogre\OgreMaterial.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\OpenGEX\OpenGEXImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Ply\PlyLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Ply\PlyParser.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MS3D\MS3DLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\COB\COBLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderDNA.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderScene.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderModifier.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderBMesh.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderTessellator.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderCustomData.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCReaderGen1_2x3.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCReaderGen2_2x3.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCUtil.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCGeometry.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCMaterial.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCProfile.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCCurve.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCBoolean.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCOpenings.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\XGL\XGLLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXParser.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXTokenizer.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXConverter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXUtil.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXDocument.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXProperties.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXMeshGeometry.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXMaterial.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXModel.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXAnimation.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXNodeAttribute.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXDeformer.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXBinaryTokenizer.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXDocumentUtil.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Q3D\Q3DLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Q3BSP\Q3BSPFileParser.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Q3BSP\Q3BSPFileImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Raw\RawLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\SIB\SIBImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\SMD\SMDLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\STL\STLLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Terragen\TerragenLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Unreal\UnrealLoader.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X\XFileImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X\XFileParser.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Geometry2D.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Geometry3D.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Group.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Light.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Metadata.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Networking.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Postprocess.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Rendering.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Shape.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Texturing.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DGeoHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DXmlHelper.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF\glTFCommon.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF\glTFImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF2\glTF2Importer.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\3MF\XmlSerializer.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\3MF\D3MFImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\3MF\D3MFOpcPackage.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MMD\MMDImporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\MMD\MMDPmxParser.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Obj\ObjExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\OpenGEX\OpenGEXExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Ply\PlyExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\3DS\3DSExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Assbin\AssbinExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Assbin\AssbinFileWriter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Assxml\AssxmlExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Assxml\AssxmlFileWriter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\M3D\M3DExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Collada\ColladaExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXExportNode.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXExportProperty.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\STL\STLExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X\XFileExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF\glTFExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF2\glTF2Exporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\3MF\D3MFExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\Pbrt\PbrtExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Assjson\cencode.c" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Assjson\json_exporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Assjson\mesh_splitter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\code\AssetLib\Step\StepExporter.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\unzip\crypt.c" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\unzip\ioapi.c" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\unzip\unzip.c" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\common\shapes.cc" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\sweep\advancing_front.cc" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\sweep\cdt.cc" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\sweep\sweep.cc" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\sweep\sweep_context.cc" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\clipper\clipper.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\openddlparser\code\OpenDDLParser.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\openddlparser\code\DDLNode.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\openddlparser\code\OpenDDLCommon.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\openddlparser\code\OpenDDLExport.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\openddlparser\code\Value.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\openddlparser\code\OpenDDLStream.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcArithmeticCodec.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcDynamicVectorDecoder.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcDynamicVectorEncoder.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcTools.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcTriangleFans.cpp" />
+    <ClCompile Include="$(SolutionDir)\External\assimp\contrib\zip\src\zip.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\CApi\CInterfaceIOWrapper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\StbCommon.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\Compression.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\BaseProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\Importer.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\ScenePrivate.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\DefaultProgressHandler.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\PolyTools.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\Maybe.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\IFF.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\VertexTriangleAdjacency.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\ScenePreprocessor.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\TargetAnimation.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\simd.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\DefaultLogger.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\LogStream.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\Logger.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\NullLogger.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\Win32DebugLogStream.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\FileLogStream.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Common\StdOStreamLogStream.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\BlobIOSystem.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\CalcTangentsProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\ComputeUVMappingProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\ConvertToLHProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\EmbedTexturesProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\FindDegenerates.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\FindInstancesProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\FindInvalidDataProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\FixNormalsStep.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\DropFaceNormalsProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\GenFaceNormalsProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\GenVertexNormalsProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\PretransformVertices.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\ImproveCacheLocality.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\JoinVerticesProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\LimitBoneWeightsProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\RemoveRedundantMaterials.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\RemoveVCProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\SortByPTypeProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\SplitLargeMeshes.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\TextureTransform.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\TriangulateProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\ValidateDataStructure.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\OptimizeGraph.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\OptimizeMeshes.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\DeboneProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\ProcessHelper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\MakeVerboseFormat.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\ScaleProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\ArmaturePopulate.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\GenBoundingBoxesProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\PostProcessing\SplitByBoneCountProcess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Material\MaterialSystem.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\STEPParser\STEPFileReader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\STEPParser\STEPFileEncoding.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\AMF\AMFImporter.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\AMF\AMFImporter_Node.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\3DS\3DSHelper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\3DS\3DSLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\AC\ACLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\ASE\ASELoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\ASE\ASEParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Assbin\AssbinLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\B3D\B3DImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\BVH\BVHLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Collada\ColladaHelper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Collada\ColladaLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Collada\ColladaParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\DXF\DXFLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\DXF\DXFHelper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\CSM\CSMLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\HMP\HMPFileData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\HMP\HMPLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\HMP\HalfLifeFileData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Irr\IRRMeshLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Irr\IRRShared.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\IQM\iqm.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\IQM\IQMImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Irr\IRRLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\LWO\LWOAnimation.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\LWO\LWOFileData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\LWO\LWOLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\LWS\LWSLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\M3D\M3DMaterials.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\M3D\M3DImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\M3D\M3DWrapper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\M3D\m3d.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MD2\MD2FileData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MD2\MD2Loader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MD2\MD2NormalTable.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MD3\MD3FileData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MD3\MD3Loader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MD5\MD5Loader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MD5\MD5Parser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDC\MDCFileData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDC\MDCLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDC\MDCNormalTable.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\MDLDefaultColorMap.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\MDLFileData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\MDLLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\HalfLife\HalfLifeMDLBaseHeader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\HalfLife\HL1FileData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\HalfLife\HL1MDLLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\HalfLife\HL1ImportDefinitions.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\HalfLife\HL1ImportSettings.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\HalfLife\HL1MeshTrivert.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\HalfLife\LogFunctions.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MDL\HalfLife\UniqueNameGenerator.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\NFF\NFFLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\NDO\NDOLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\OFF\OFFLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Obj\ObjFileData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Obj\ObjFileImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Obj\ObjFileMtlImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Obj\ObjFileParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Obj\ObjTools.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Ogre\OgreImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Ogre\OgreStructs.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Ogre\OgreParsingUtils.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Ogre\OgreBinarySerializer.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Ogre\OgreXmlSerializer.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\OpenGEX\OpenGEXImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\OpenGEX\OpenGEXStructs.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Ply\PlyLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Ply\PlyParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MS3D\MS3DLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\COB\COBLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\COB\COBScene.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderDNA.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderDNA.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderScene.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderSceneGen.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderIntermediate.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderModifier.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderBMesh.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderTessellator.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Blender\BlenderCustomData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCReaderGen_2x3.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\IFC\IFCUtil.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\XGL\XGLLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXCompileConfig.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXTokenizer.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXImportSettings.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXConverter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXUtil.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXDocument.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXProperties.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXMeshGeometry.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXCommon.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Q3D\Q3DLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Q3BSP\Q3BSPFileData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Q3BSP\Q3BSPFileParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Q3BSP\Q3BSPFileImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Raw\RawLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\SIB\SIBImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\SMD\SMDLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\STL\STLLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Terragen\TerragenLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Unreal\UnrealLoader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\X\XFileHelper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\X\XFileImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\X\XFileParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Macro.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DImporter_Node.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DGeoHelper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DXmlHelper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF\glTFCommon.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF\glTFAsset.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF\glTFAsset.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF\glTFAssetWriter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF\glTFAssetWriter.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF\glTFImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF2\glTF2Asset.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF2\glTF2Asset.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF2\glTF2AssetWriter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF2\glTF2AssetWriter.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF2\glTF2Importer.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\3MF\3MFTypes.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\3MF\XmlSerializer.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\3MF\D3MFImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\3MF\D3MFOpcPackage.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\3MF\3MFXmlTags.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MMD\MMDCpp14.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MMD\MMDImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MMD\MMDPmdParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MMD\MMDPmxParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\MMD\MMDVmdParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Obj\ObjExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\OpenGEX\OpenGEXExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Ply\PlyExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\3DS\3DSExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Assbin\AssbinExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Assbin\AssbinFileWriter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Assxml\AssxmlExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Assxml\AssxmlFileWriter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\M3D\M3DExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Collada\ColladaExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXExportNode.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\FBX\FBXExportProperty.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\STL\STLExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\X\XFileExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\X3D\X3DExporter.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF\glTFExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\glTF2\glTF2Exporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\3MF\D3MFExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\Pbrt\PbrtExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Assjson\cencode.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Assjson\mesh_splitter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\code\AssetLib\Step\StepExporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\unzip\crypt.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\unzip\ioapi.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\unzip\unzip.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\common\shapes.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\common\utils.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\sweep\advancing_front.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\sweep\cdt.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\sweep\sweep.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\poly2tri\poly2tri\sweep\sweep_context.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\clipper\clipper.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\openddlparser\include\openddlparser\OpenDDLParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\openddlparser\include\openddlparser\OpenDDLParserUtils.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\openddlparser\include\openddlparser\OpenDDLCommon.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\openddlparser\include\openddlparser\OpenDDLExport.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\openddlparser\include\openddlparser\OpenDDLStream.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\openddlparser\include\openddlparser\DDLNode.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\openddlparser\include\openddlparser\Value.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcAdjacencyInfo.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcArithmeticCodec.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcBinaryStream.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcCommon.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcDVEncodeParams.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcDynamicVectorDecoder.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcDynamicVectorEncoder.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcDynamicVector.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcFIFO.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcIndexedFaceSet.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcIndexedFaceSet.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcSC3DMCDecoder.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcSC3DMCDecoder.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcSC3DMCEncodeParams.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcSC3DMCEncoder.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcSC3DMCEncoder.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcTimer.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcTriangleFans.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcTriangleListDecoder.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcTriangleListDecoder.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcTriangleListEncoder.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcTriangleListEncoder.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcVector.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\Open3DGC\o3dgcVector.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\zip\src\miniz.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\zip\src\zip.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\pugixml\src\pugiconfig.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\pugixml\src\pugixml.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\contrib\stb\stb_image.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\anim.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\aabb.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\ai_assert.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\camera.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\color4.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\color4.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\config.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\ColladaMetaData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\commonMetaData.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\defs.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\cfileio.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\light.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\material.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\material.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\matrix3x3.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\matrix3x3.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\matrix4x4.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\matrix4x4.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\mesh.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\ObjMaterial.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\pbrmaterial.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\GltfMaterial.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\postprocess.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\quaternion.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\quaternion.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\scene.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\metadata.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\texture.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\types.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\vector2.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\vector2.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\vector3.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\vector3.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\version.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\cimport.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\importerdesc.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Importer.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\ProgressHandler.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\IOStream.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\IOSystem.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\cexport.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Exporter.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\DefaultIOStream.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\DefaultIOSystem.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\ZipArchiveIOSystem.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\SceneCombiner.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\fast_atof.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\qnan.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\BaseImporter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Hash.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\MemoryIOWrapper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\ParsingUtils.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\StreamReader.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\StreamWriter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\StringComparison.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\StringUtils.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\SGSpatialSort.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\GenericProperty.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\SpatialSort.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\SkeletonMeshBuilder.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\SmallVector.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\SmoothingGroups.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\SmoothingGroups.inl" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\StandardShapes.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\RemoveComments.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Subdivision.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Vertex.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\LineSplitter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\TinyFormatter.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Profiler.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\LogAux.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Bitmap.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\XMLTools.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\IOStreamBuffer.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\CreateAnimMesh.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\XmlParser.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\MathFunctions.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Exceptional.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\ByteSwapper.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Base64.hpp" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Compiler\pushpack1.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Compiler\poppack1.h" />
+    <ClInclude Include="$(SolutionDir)\External\assimp\include\assimp\Compiler\pstdint.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(SolutionDir)\External\assimp\code\res\assimp.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="AssetLib">
+      <UniqueIdentifier>{17989CA1-B980-3E45-842E-3A3D1F4CA247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\3D">
+      <UniqueIdentifier>{7DF340E3-BF76-30BD-9FC5-14189B3BFC1D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\3DS">
+      <UniqueIdentifier>{F9828CF4-62F1-3068-BB74-34F82FDB13A1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\3MF">
+      <UniqueIdentifier>{C2C43A13-C5D1-3D57-85E5-89C56C862673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\AC">
+      <UniqueIdentifier>{670096A9-BB3A-3EC8-AF37-7A4CC985DFD6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\AMF">
+      <UniqueIdentifier>{41922591-3CDE-39CD-B091-503B9DB9C6E7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\ASE">
+      <UniqueIdentifier>{937E0D23-9CD8-38B4-B53A-9129B9FF8787}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\ASSBIN">
+      <UniqueIdentifier>{1CFBAEBF-0992-3696-BD1F-1D25C959AAB4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\ASSJSON">
+      <UniqueIdentifier>{3539AA0B-D2B7-3AD7-90B0-3A436BC47348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\ASSXML">
+      <UniqueIdentifier>{925F397B-A6C1-3D1D-81FA-E4DAE0CFD57D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\B3D">
+      <UniqueIdentifier>{2D657DAC-E741-3273-9163-3201978C8CBF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\BLEND">
+      <UniqueIdentifier>{845A837B-2DC7-3E1C-B98F-6ABE972AD0F9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\BVH">
+      <UniqueIdentifier>{D2B994B3-0DD3-3C75-87C3-0F3D4782B05A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\COB">
+      <UniqueIdentifier>{7399EB37-B1B4-3392-BD9E-309E82360744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\COLLADA">
+      <UniqueIdentifier>{BEBAF70D-C9B2-39C9-AA45-97B9EE8E35B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\CSM">
+      <UniqueIdentifier>{F45FE294-0CE1-3AB1-9AFC-12850F686398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\DXF">
+      <UniqueIdentifier>{A5C65E5A-D263-315B-9976-5D03B223E2C8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\FBX">
+      <UniqueIdentifier>{EE378E2C-4946-3A90-AC2D-F87E6FCB66E3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\GLTF">
+      <UniqueIdentifier>{27CB7A13-848D-3866-B818-B5FF33BE6BF2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\HMP">
+      <UniqueIdentifier>{245E6B0B-67D7-3027-8E0E-E5A22B2E6C7A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\IFC">
+      <UniqueIdentifier>{2B5247EC-55BC-362C-ADFB-2D535C15D3F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\IQM">
+      <UniqueIdentifier>{63E7A9EC-9D98-3696-A525-BB238B9F54C4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\IRR">
+      <UniqueIdentifier>{2CCBCB69-670E-3744-9232-95B2DD4DE596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\IRRMESH">
+      <UniqueIdentifier>{B2536825-CB13-3F7F-A229-2655676F3737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\LWO">
+      <UniqueIdentifier>{202C33F2-A1B4-3BB7-BB7A-71B9CC7C13A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\LWS">
+      <UniqueIdentifier>{BA9EB0EF-6F04-3BA9-82EF-C7499CFF7301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\M3D">
+      <UniqueIdentifier>{2D9607CD-56DB-3577-974D-1E333A275779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\MD2">
+      <UniqueIdentifier>{8AEB6343-A247-3CB1-B509-8297F66F8AB5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\MD3">
+      <UniqueIdentifier>{C8D4CE9C-15C5-353A-8B07-4B4E23667839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\MD5">
+      <UniqueIdentifier>{6F799D06-B0A5-3462-977E-EA3B547B232D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\MDC">
+      <UniqueIdentifier>{BE413038-D2E1-3E5A-9CEF-61355F7D0C17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\MDL">
+      <UniqueIdentifier>{07919312-26EF-34CC-9F10-7D93E35F885E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\MMD">
+      <UniqueIdentifier>{F83B0AFA-09DC-3AC2-A7A7-30CE3F3CBA25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\MS3D">
+      <UniqueIdentifier>{97A43B2A-C83D-323C-B4A6-5F7B99623A2A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\NDO">
+      <UniqueIdentifier>{4BD351C4-3B9A-3DBD-B25A-D17C3066D699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\NFF">
+      <UniqueIdentifier>{211E7955-209F-332E-9105-A863B34BB62E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\OBJ">
+      <UniqueIdentifier>{FD6D1B6F-F2C7-32E2-8A08-24455153130E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\OFF">
+      <UniqueIdentifier>{7C835BF6-22E8-3E1F-8F61-B2D955319957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\OGRE">
+      <UniqueIdentifier>{8A09CCF6-E939-3666-8AB4-2D8E04100133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\OPENGEX">
+      <UniqueIdentifier>{FBF367DD-8DDA-38AF-B113-2F2008970CD6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\PBRT">
+      <UniqueIdentifier>{4A4172ED-AD53-3CD7-9E58-A0449625615A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\PLY">
+      <UniqueIdentifier>{68FCCAFC-F052-3DDF-8034-368F668AE5AC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\Q3BSP">
+      <UniqueIdentifier>{1D7CAB06-5690-337C-8A73-CE5DE882DD8B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\Q3D">
+      <UniqueIdentifier>{830BD3C8-01B8-3868-B8A0-DDCD7AFD6586}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\RAW">
+      <UniqueIdentifier>{EAA77C36-D361-396B-A362-E69291FFA5A8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\SIB">
+      <UniqueIdentifier>{50C2B79B-8188-3C92-A048-68260F526C33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\SMD">
+      <UniqueIdentifier>{A0FFA5A6-61B5-3CA4-8DBC-CD9B4AF68AAF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\STEP">
+      <UniqueIdentifier>{3842F6F7-EB24-3D82-968B-42275F0326CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\STL">
+      <UniqueIdentifier>{53A4F62A-3936-3C71-B38D-62F45970787C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\TERRAGEN">
+      <UniqueIdentifier>{8AB95CB6-A1D8-3967-B961-330576B0D012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\X">
+      <UniqueIdentifier>{B7824C1A-2CDD-380A-AF11-FDAD7EF0FF6D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\X3D">
+      <UniqueIdentifier>{158B6DE8-C6C9-3B1E-8729-51E1EDE28865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AssetLib\XGL">
+      <UniqueIdentifier>{9D0867DB-F9EA-3E04-AA37-396DC060677E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CApi">
+      <UniqueIdentifier>{3FA8CEDA-92AC-3C82-8355-0DA8B5795535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{02302E5B-9F59-3AD9-83CE-C2F9F93C895B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compiler">
+      <UniqueIdentifier>{EC901AD1-8448-350E-97D9-39E0501C8292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contrib">
+      <UniqueIdentifier>{3F90BDAD-63B6-34EA-A3FA-EE2DB95E5C5E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contrib\Clipper">
+      <UniqueIdentifier>{94A069DB-7AED-3E99-AA79-17A047A094AE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contrib\Poly2Tri">
+      <UniqueIdentifier>{370733CB-34C2-3E5A-A5A6-D8DBCFEF1A3E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contrib\Pugixml">
+      <UniqueIdentifier>{08B3D11A-BB68-3678-8618-91397C957E30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contrib\open3dgc">
+      <UniqueIdentifier>{231F4CAB-B8A3-3D47-939A-2F007A06E412}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contrib\openddl_parser">
+      <UniqueIdentifier>{BC8EB5DB-09C3-3528-B095-4E167D8AD591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contrib\stb">
+      <UniqueIdentifier>{B1E39BFC-DE32-389B-9F6A-FFCD0381817A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contrib\unzip">
+      <UniqueIdentifier>{C9DF1F71-08B5-3E81-B2D1-042CAB6C489D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exporter">
+      <UniqueIdentifier>{BD064700-1F59-3B2E-A5EE-5A1D4790EB24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logging">
+      <UniqueIdentifier>{4375BBC0-0592-34AA-B671-CA0FC0FE1456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MaterialSystem">
+      <UniqueIdentifier>{32636F6C-CB30-3BBC-8508-BD56CBCB0230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PostProcessing">
+      <UniqueIdentifier>{C8634A56-9A06-37AF-8CCD-13AE343FD523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="STEPParser">
+      <UniqueIdentifier>{018F0950-4638-391F-8F38-86BBD8031AE4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8CCDA796-E4E7-37C9-966B-DB6EC5AA0E81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{DED603B3-8583-3D00-9F43-CE6182F1A6D9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\assimp">
+      <UniqueIdentifier>{A84739FE-D7DF-3C74-81C9-B564323B6D69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ziplib">
+      <UniqueIdentifier>{937C4E7D-9F88-3ACF-8F4E-1CF7E05FB427}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

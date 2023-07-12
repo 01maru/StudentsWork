@@ -97,18 +97,6 @@ void PipelineManager::InitializePostEffect()
 	dofPipeline_->Initialize(dofShader, inputLayout, 1, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
 		, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R11G11B10_FLOAT, 2);
 
-	Shader multiShader(L"Resources/Shader/ScreenVS.hlsl", L"Resources/Shader/MultiTexTaskPS.hlsl");
-
-	multiTaskPipeline_ = std::make_unique<GPipeline>();
-	multiTaskPipeline_->Initialize(multiShader, inputLayout, 1, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
-		, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R11G11B10_FLOAT, 2);
-
-	Shader taskShader(L"Resources/Shader/ScreenVS.hlsl", L"Resources/Shader/TaskPS.hlsl");
-	
-	taskPipeline_ = std::make_unique<GPipeline>();
-	taskPipeline_->Initialize(taskShader, inputLayout, 1, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
-		, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R11G11B10_FLOAT);
-
 	Shader luminncePostEffect(L"Resources/Shader/ScreenVS.hlsl", L"Resources/Shader/LuminncePS.hlsl");
 	
 	luminncePipeline_ = std::make_unique<GPipeline>();
@@ -257,12 +245,6 @@ GPipeline* PipelineManager::GetPipeline(const std::string& name, GPipeline::Blen
 	}
 	else if (name == "dof") {
 		return dofPipeline_.get();
-	}
-	else if (name == "task") {
-		return taskPipeline_.get();
-	}
-	else if (name == "multiTask") {
-		return multiTaskPipeline_.get();
 	}
 	return nullptr;
 }

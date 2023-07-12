@@ -9,13 +9,14 @@
 #include "LoadingModel.h"
 #include "SceneFactory.h"
 #include "TextureManager.h"
-#include "UIManager.h"
+#include "UIEditor.h"
 #include "CameraManager.h"
-#include "Light.h"
+#include "LightManager.h"
 #include "ParticleManager.h"
 
 #include "Window.h"
 
+#include "ModelManager.h"
 #include "PipelineManager.h"
 
 SceneManager* SceneManager::GetInstance()
@@ -52,7 +53,7 @@ void SceneManager::Initialize()
 	sceneChangeCounter_.Initialize(60, true, true);
 
 	sceneFactry_ = std::make_unique<SceneFactory>();
-	scene_ = sceneFactry_->CreateScene("GAMESCENE");
+	scene_ = sceneFactry_->CreateScene("TITLESCENE");
 
 #pragma region Loading
 
@@ -67,12 +68,6 @@ void SceneManager::Initialize()
 
 	mainScene = std::make_unique<PostEffect>();
 	mainScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "main", 2, DXGI_FORMAT_R11G11B10_FLOAT);
-
-	dofscene = std::make_unique<PostEffect>();
-	dofscene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "dof", 2, DXGI_FORMAT_R11G11B10_FLOAT);
-
-	taskScene = std::make_unique<PostEffect>();
-	taskScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "task", 2, DXGI_FORMAT_R11G11B10_FLOAT);
 
 	glayscale = std::make_unique<GlayScale>();
 	glayscale->Initialize(mainScene.get());
@@ -114,6 +109,8 @@ void SceneManager::Initialize()
 #endif // _DEBUG
 
 #pragma endregion
+
+	ModelManager::GetInstance()->Initialize();
 }
 
 void SceneManager::Finalize()
@@ -236,13 +233,14 @@ void SceneManager::ImguiUpdate()
 	ImGuiController::GetInstance()->Update();
 
 	InputManager::GetInstance()->ImGuiUpdate();
-	UIManager::GetInstance()->ImGuiUpdate();
-	glayscale->SetGlayScale(UIManager::GetInstance()->GetActiveGlayscale());
+	UIEditor::GetInstance()->ImGuiUpdate();
+	glayscale->SetGlayScale(UIEditor::GetInstance()->GetActiveGlayscale());
 	CameraManager::GetInstance()->ImGuiUpdate();
 	XAudioManager::GetInstance()->ImguiUpdate(endLoading_);
 	TextureManager::GetInstance()->ImGuiUpdate();
-	Light::GetInstance()->ImGuiUpdate();
+	LightManager::GetInstance()->ImGuiUpdate();
 	ParticleManager::GetInstance()->ImGuiUpdate();
+	ModelManager::GetInstance()->ImGuiUpdate();
 
 	if (endLoading_) {
 		scene_->ImguiUpdate();
@@ -254,6 +252,8 @@ void SceneManager::ImguiUpdate()
 
 void SceneManager::Update()
 {
+	CameraManager::GetInstance()->Update();
+
 	ScreenColorUpdate();
 
 	SplashUpdate();
@@ -288,29 +288,14 @@ void SceneManager::Draw()
 
 	if (endLoading_ && !isSplashScreen_) {
 		scene_->Draw();
-		UIManager::GetInstance()->Draw();
+		ModelManager::GetInstance()->DrawPreview();
+		CameraManager::GetInstance()->DrawTarget();
+		UIEditor::GetInstance()->Draw();
+
+		TextureManager::GetInstance()->DrawPreview();
 	}
 
 	dx->PostEffectDraw(mainScene.get());
-	
-	if (ImGuiController::GetInstance()->GetActiveDof() ||
-		ImGuiController::GetInstance()->GetActiveTask()) {
-		dx->PrevPostEffect(dofscene.get());
-
-		if(ImGuiController::GetInstance()->GetActiveTask())	mainScene->DrawTask();
-		else												mainScene->DrawDoF();
-
-		dx->PostEffectDraw(dofscene.get());
-	}
-	
-	if (ImGuiController::GetInstance()->GetActiveTask()) {
-		dx->PrevPostEffect(taskScene.get());
-
-		dofscene->DrawMultiTask();
-
-		dx->PostEffectDraw(taskScene.get());
-	}
-
 
 	Vector4D luminnceClearColor_(0.0f, 0.0f, 0.0f, 1.0f);
 	dx->PrevPostEffect(luminnce.get(), luminnceClearColor_);
@@ -325,8 +310,6 @@ void SceneManager::Draw()
 
 	if (!isSplashScreen_) {
 		PostEffect* main = mainScene.get();
-		if (ImGuiController::GetInstance()->GetActiveDof()) main = dofscene.get();
-		if (ImGuiController::GetInstance()->GetActiveTask()) main = taskScene.get();
 
 		main->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect"), false, luminnceBulr->GetTexture(0)->GetHandle());
 	}

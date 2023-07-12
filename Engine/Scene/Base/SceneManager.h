@@ -14,6 +14,8 @@
 class SceneManager
 {
 private:
+	bool gameLoop_ = true;
+
 	FrameCounter sceneChangeCounter_;
 
 	std::unique_ptr<IScene> scene_;
@@ -40,7 +42,6 @@ private:
 
 #pragma region PostEffect
 	std::unique_ptr<PostEffect> mainScene;
-	std::unique_ptr<PostEffect> taskScene;
 	std::unique_ptr<PostEffect> luminnce;
 
 	std::unique_ptr<PostEffect> shadowEffect;
@@ -48,7 +49,6 @@ private:
 	std::unique_ptr<GaussBlur> shadowBulr;
 	std::unique_ptr<GlayScale> glayscale;
 
-	std::unique_ptr<PostEffect> dofscene;
 	std::unique_ptr<GaussBlur> strongBulr;
 	std::unique_ptr<GaussBlur> weakBulr;
 #pragma endregion
@@ -80,6 +80,9 @@ public:
 
 	void ChangeScreenColor(const Vector4D& color) { mainScene->SetColor(color); }
 	void SetNextScene(const std::string& sceneName);
+
+	bool GetGameLoop() { return gameLoop_; }
+	void GameLoopEnd() { gameLoop_ = false; }
 
 	Texture* GetShadowMap() { return shadowEffect->GetTexture(0); }
 };

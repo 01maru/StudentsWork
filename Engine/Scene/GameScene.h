@@ -1,14 +1,15 @@
 ﻿#pragma once
 #include "IScene.h"
-#include "IModel.h"
 #include "Object3D.h"
 #include "Sprite.h"
 
 #include "ICamera.h"
 #include "Texture.h"
 #include "Player.h"
+#include "Enemy.h"
 
 #include "JSONLoader.h"
+#include "PauseScreen.h"
 
 class GameScene :public IScene
 {
@@ -16,22 +17,15 @@ private:
 
 	JSONLoader level;
 
+	std::unique_ptr<PauseScreen> pause_;
+
 #pragma region Obj3D
 
 	std::unique_ptr<Object3D> skydome_;
 	std::unique_ptr<Object3D> ground_;
 	std::unique_ptr<Object3D> cube_;
 	std::unique_ptr<Player> player_;
-
-#pragma endregion
-
-#pragma region Model
-
-	std::unique_ptr<IModel> modelSkydome_;
-	std::unique_ptr<IModel> modelGround_;
-	std::unique_ptr<IModel> modelCube_;
-	std::unique_ptr<IModel> modelPlayer_;
-	std::unique_ptr<IModel> modelBox_;
+	std::unique_ptr<Enemy> enemy_;
 
 #pragma endregion
 

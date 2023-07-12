@@ -18,12 +18,11 @@ void ImGuiController::Update()
 	man->CheckBox("VolumeManager", activeVolumeManager_);
 	man->CheckBox("InputManager", activeInputManager_);
 	man->CheckBox("TextureManager", activeTextureManager_);
-	man->CheckBox("UIManager", activeUIManager_);
+	man->CheckBox("UIEditor", activeUIManager_);
 	man->CheckBox("CameraManager", activeCameraManager_);
 	man->CheckBox("LightManager", activeLightManager_);
 	man->CheckBox("ParticleManager", activeParticleManager_);
-	man->CheckBox("DoF", activeDoF_);
-	man->CheckBox("Task", activeTask_);
+	man->CheckBox("ModelManager", activeModelManager_);
 
 	man->EndWindow();
 }

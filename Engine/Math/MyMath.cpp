@@ -22,6 +22,20 @@ template float MyMath::mMin<float>(float, float);
 template int32_t MyMath::mMin<int32_t>(int32_t, int32_t);
 template double MyMath::mMin<double>(double, double);
 
+int32_t MyMath::mLoop(int32_t maxValue, int32_t minValue, int32_t value)
+{
+	if (value < minValue) return maxValue;
+	if (value > maxValue) return minValue;
+	return value;
+}
+
+float MyMath::mClamp(float minValue, float maxValue, float value)
+{
+	value = mMax(value, minValue);
+	value = mMin(value, maxValue);
+	return value;
+}
+
 void MyMath::CalcGaussianWeightsTable(std::vector<float>& weights, float sigma)
 {
 	// 重みの合計を記録する変数を定義する

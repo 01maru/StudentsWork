@@ -184,8 +184,17 @@
     <Filter Include="ヘッダー ファイル\lib\2D\Sprite">
       <UniqueIdentifier>{ced67229-c305-43ef-825f-4d31272b0ad6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル\ParticleShader\GrassShader">
-      <UniqueIdentifier>{2a242e27-92dc-4014-97cf-671e92e50af5}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Game\Scene\Setting">
+      <UniqueIdentifier>{8ce6c2b1-5b56-44c9-a010-e738adcd0f46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Scene\Setting">
+      <UniqueIdentifier>{bb7b3579-d049-4d1b-ba9a-f80a446e4103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\lib\2D\Sprite\UI">
+      <UniqueIdentifier>{56c3dd44-b154-4592-860f-67feb7481337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\lib\2D\Sprite\UI">
+      <UniqueIdentifier>{d663767c-f4a2-450f-b8e1-9e018c1d19f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -258,7 +267,7 @@
     <ClCompile Include="Engine\3D\Light\CircleShadow.cpp">
       <Filter>ソース ファイル\lib\Engine\Light</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\3D\Light\Light.cpp">
+    <ClCompile Include="Engine\3D\Light\LightManager.cpp">
       <Filter>ソース ファイル\lib\Engine\Light</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\IModel.cpp">
@@ -363,9 +372,6 @@
     <ClCompile Include="Engine\2D\Sprite\DebugTextManager.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\Base\UIManager.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Base\JSONLoader.cpp">
       <Filter>ソース ファイル\lib\Engine</Filter>
     </ClCompile>
@@ -405,11 +411,32 @@
     <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp">
       <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
     </ClCompile>
-    <ClCompile Include="PauseScreen.cpp">
+    <ClCompile Include="Engine\Game\Player.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Enemy.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\PauseScreen.cpp">
+      <Filter>ソース ファイル\Game\Scene\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ConvertString.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Player.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\OptionScene.cpp">
+      <Filter>ソース ファイル\Game\Scene\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\3D\Object\Model\ModelManager.cpp">
+      <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\Base\UIData.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\Base\UIEditor.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -485,7 +512,7 @@
     <ClInclude Include="Engine\2D\Particle\Particle.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\3D\Light\Light.h">
+    <ClInclude Include="Engine\3D\Light\LightManager.h">
       <Filter>ヘッダー ファイル\lib\Engine\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Light\DirLight.h">
@@ -602,9 +629,6 @@
     <ClInclude Include="Engine\2D\Sprite\SplashSprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\Base\UIManager.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Base\JSONLoader.h">
       <Filter>ヘッダー ファイル\lib\Engine</Filter>
     </ClInclude>
@@ -656,11 +680,32 @@
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
-    <ClInclude Include="PauseScreen.h">
+    <ClInclude Include="Engine\Game\Player.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Enemy.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\PauseScreen.h">
+      <Filter>ヘッダー ファイル\Game\Scene\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ConvertString.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Player.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\OptionScene.h">
+      <Filter>ヘッダー ファイル\Game\Scene\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\3D\Object\Model\ModelManager.h">
+      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\SliderSprite.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\Base\UIEditor.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\Base\UIData.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -675,9 +720,6 @@
     </None>
     <None Include="Resources\Shader\Particle.hlsli">
       <Filter>リソース ファイル\ParticleShader</Filter>
-    </None>
-    <None Include="Resources\Shader\GrassParticle.hlsli">
-      <Filter>リソース ファイル\ParticleShader\GrassShader</Filter>
     </None>
     <None Include="Resources\Shader\ObjShadowHeader.hlsli">
       <Filter>リソース ファイル\ObjShader\Shadow</Filter>
@@ -720,15 +762,6 @@
     <FxCompile Include="Resources\Shader\ParticleVS.hlsl">
       <Filter>リソース ファイル\ParticleShader</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\GrassParticleGS.hlsl">
-      <Filter>リソース ファイル\ParticleShader\GrassShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\GrassParticlePS.hlsl">
-      <Filter>リソース ファイル\ParticleShader\GrassShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\GrassParticleVS.hlsl">
-      <Filter>リソース ファイル\ParticleShader\GrassShader</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shader\ObjShadowPS.hlsl">
       <Filter>リソース ファイル\ObjShader\Shadow</Filter>
     </FxCompile>
@@ -763,12 +796,6 @@
       <Filter>リソース ファイル\ScreenShader</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\DepthOfFieldPS.hlsl">
-      <Filter>リソース ファイル\ScreenShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\TaskPS.hlsl">
-      <Filter>リソース ファイル\ScreenShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\MultiTexTaskPS.hlsl">
       <Filter>リソース ファイル\ScreenShader</Filter>
     </FxCompile>
   </ItemGroup>

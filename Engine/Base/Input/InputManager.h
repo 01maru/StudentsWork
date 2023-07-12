@@ -9,14 +9,13 @@ class InputManager
 private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-	bool activeMouseImGui_ = false;
-	bool activePadImGui_ = false;
-
 	ComPtr<IDirectInput8> directInput_ = nullptr;
 
 	std::unique_ptr<InputMouse> mouse_;
 	std::unique_ptr<InputJoypad> joypad_;
 	std::unique_ptr<InputKeyboard> keyboard_;
+
+	float sensitivity_ = 1.0f;
 
 private:
 	InputManager() {};
@@ -37,5 +36,9 @@ public:
 
 	bool GetKeyAndButton(int key, InputJoypad::JoyPadButton button);
 	bool GetTriggerKeyAndButton(int key, InputJoypad::JoyPadButton button);
+	float GetSensitivity() { return sensitivity_; }
+
+	//	Setter
+	void SetSensitivity(float sens) { sensitivity_ = sens; }
 };
 

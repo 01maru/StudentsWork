@@ -1,57 +1,42 @@
 ﻿#include "TitleScene.h"
 #include "InputManager.h"
 #include "SceneManager.h"
-#include "NormalCamera.h"
 #include "TextureManager.h"
 #include "XAudioManager.h"
+#include "Window.h"
 
-#include "PauseScreen.h"
+#include "ImGuiManager.h"
 
 void TitleScene::LoadResources()
 {
 #pragma region Sound
 	XAudioManager* xAudioMan = XAudioManager::GetInstance();
-	xAudioMan->LoadSoundWave("titleBGM.wav");
 	xAudioMan->LoadSoundWave("cursorMove.wav");
 	xAudioMan->LoadSoundWave("decision.wav");
 #pragma endregion
-
-#pragma region Texture
-	titleG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/title.png");
-	pressG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/press.png");
-#pragma endregion
+	
+	ui_ = std::make_unique<UIData>();
+	ui_->LoadSprites("TitleScene");
+	ui_->SetTag(UIData::Tag1);
 }
 
 void TitleScene::Initialize()
 {
-	PauseScreen::GetInstance()->SetIsActive(true);
+	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
 
-	camera = std::make_unique<NormalCamera>();
-	camera->Initialize(Vector3D(0.0f, 0.0f, -10.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector3D(0.0f, 1.0f, 0.0f));
+	optionScene_ = std::make_unique<OptionScene>();
+	optionScene_->Initialize("Option");
 
 	LoadResources();
 
 #pragma region Sprite
 	backSprite_ = std::make_unique<Sprite>();
 	backSprite_->Initialize(TextureManager::GetInstance()->GetWhiteTexture());
-	backSprite_->SetPosition(Vector2D{ Window::sWIN_WIDTH / 2.0f,Window::sWIN_HEIGHT / 2.0f });
 	backSprite_->SetSize(Vector2D{ Window::sWIN_WIDTH,Window::sWIN_HEIGHT });
-	backSprite_->SetAnchorPoint(Vector2D{ 0.5f,0.5f });
 	backSprite_->SetColor({ 0.0f,0.0f,0.0f,1.0f });
-
-	titleSprite_ = std::make_unique<Sprite>();
-	titleSprite_->Initialize(titleG);
-	titleSprite_->SetPosition(Vector2D{ Window::sWIN_WIDTH / 2.0f,200.0f });
-	titleSprite_->SetAnchorPoint(Vector2D{ 0.5f,0.5f });
-
-	pressSprite_ = std::make_unique<Sprite>();
-	pressSprite_->Initialize(pressG);
-	pressSprite_->SetPosition(Vector2D{ Window::sWIN_WIDTH / 2.0f,620.0f });
-	pressSprite_->SetAnchorPoint(Vector2D{ 0.5f,0.5f });
 #pragma endregion
 
-	//	playBGM
-	XAudioManager::GetInstance()->PlaySoundWave("titleBGM.wav", XAudioManager::BGM, true);
+	selectMord_ = GameStart;
 }
 
 void TitleScene::Finalize()
@@ -64,16 +49,37 @@ void TitleScene::MatUpdate()
 {
 	//	背景
 	backSprite_->Update();
-	//	タイトル
-	titleSprite_->Update();
-	//	pressKey
-	pressSprite_->Update();
+	ui_->Update();
+
+	optionScene_->Update();
 }
 
 void TitleScene::Update()
 {
-	if (InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_B)) {
-		SceneManager::GetInstance()->SetNextScene("GAMESCENE");
+	if (ui_->GetTags() & UIData::Tag1) {
+		if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
+			ui_->SetTag(UIData::Tag2);
+		}
+	}
+	else if (ui_->GetTags() & UIData::Tag2) {
+		if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
+			switch (selectMord_)
+			{
+			case GameStart:
+				SceneManager::GetInstance()->SetNextScene("GAMESCENE");
+				break;
+			case Option:
+				optionScene_->SetIsActive(true);
+				ui_->SetTag(UIData::Tag3);
+				break;
+			case GameEnd:
+				SceneManager::GetInstance()->GameLoopEnd();
+				break;
+			}
+		}
+	}
+	else if (ui_->GetTags() & UIData::Tag3) {
+		optionScene_->Update();
 	}
 
 	MatUpdate();
@@ -81,6 +87,20 @@ void TitleScene::Update()
 
 void TitleScene::ImguiUpdate()
 {
+	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+
+	imguiMan->BeginWindow("TitleScene");
+
+	imguiMan->Text("mord : %d", selectMord_);
+
+	if (imguiMan->SetButton("Start"))	selectMord_ = GameStart;
+	if (imguiMan->SetButton("Option"))	selectMord_ = Option;
+	if (imguiMan->SetButton("End"))		selectMord_ = GameEnd;
+	imguiMan->CheckBox("DrawUI", drawUI_);
+
+	imguiMan->Text("Option : %f", optionScene_->GetIsActive() ? "True" : "False");
+
+	imguiMan->EndWindow();
 }
 
 void TitleScene::DrawShadow() {}
@@ -89,8 +109,9 @@ void TitleScene::Draw()
 {
 	//	背景
 	backSprite_->Draw();
-	////	タイトル
-	//titleSprite_->Draw();
-	////	pressKey
-	//pressSprite_->Draw();
+
+	if (!drawUI_) return;
+	ui_->Draw();
+
+	optionScene_->Draw();
 }

@@ -1,7 +1,6 @@
 ﻿#include "GameScene.h"
 #include "GameCamera.h"
 #include "XAudioManager.h"
-#include "NormalCamera.h"
 #include "TextureManager.h"
 #include "ObjModel.h"
 #include "FbxModel.h"
@@ -16,33 +15,38 @@
 
 #include "InputManager.h"
 #include "CameraManager.h"
-#include "Light.h"
+#include "LightManager.h"
 #include "BoxModel.h"
 #include "PauseScreen.h"
 #include "ImGuiManager.h"
+#include "ModelManager.h"
 
 void GameScene::LoadResources()
 {
 #pragma region Model
-	modelSkydome_ = std::make_unique<ObjModel>("skydome");
-	modelGround_ = std::make_unique<ObjModel>("ground");
-	modelCube_ = std::make_unique<ObjModel>("objCube");
-	modelPlayer_ = std::make_unique<ObjModel>("chr_sword");
-	modelBox_ = std::make_unique<BoxModel>("");
+	ModelManager* models = ModelManager::GetInstance();
+	models->LoadModel("skydome");
+	models->LoadModel("ground");
+	models->LoadModel("objCube");
+	models->LoadModel("chr_sword");
+	models->LoadModel();
 #pragma endregion
 	//	天球
-	skydome_.reset(Object3D::Create(modelSkydome_.get()));
+	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
 	//	地面
-	ground_.reset(Object3D::Create(modelGround_.get()));
+	ground_.reset(Object3D::Create(models->GetModel("ground")));
 	MeshCollider* collider_ = new MeshCollider;
-	collider_->ConstructTriangles(modelGround_.get());
+	collider_->ConstructTriangles(ground_->GetModel());
 	collider_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
 	ground_->SetCollider(collider_);
 	//	player
 	player_ = std::make_unique<Player>();
-	player_->PlayerInitialize(modelPlayer_.get());
+	player_->Initialize(models->GetModel());
+	//	enemy
+	enemy_ = std::make_unique<Enemy>();
+	enemy_->Initialize(models->GetModel());
 	//	Cube
-	cube_.reset(Object3D::Create(modelBox_.get()));
+	cube_.reset(Object3D::Create(models->GetModel()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
 #pragma region Texture
 	reimuG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/reimu.png");
@@ -62,16 +66,20 @@ void GameScene::LoadResources()
 
 void GameScene::Initialize()
 {
-	//	pause設定
-	PauseScreen::GetInstance()->SetIsActive(false);
+	pause_ = std::make_unique<PauseScreen>();
+	pause_->Initialize();
 
 	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
 	LoadResources();
 
 	level.LoadJSON("gamescene");
 
-	//player_->SetPosition(level.GetPlayerSpownPoint().pos);
+	player_->SetPosition(level.GetPlayerSpownPoint().pos);
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
+
+	std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
+	camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
+	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
 
 	XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 
@@ -80,6 +88,9 @@ void GameScene::Initialize()
 
 void GameScene::Finalize()
 {
+	ModelManager* models = ModelManager::GetInstance();
+	models->DeleteModel("skydome");
+
 	XAudioManager::GetInstance()->StopAllSound();
 	XAudioManager::GetInstance()->DeleteAllSound();
 }
@@ -92,6 +103,7 @@ void GameScene::MatUpdate()
 
 	cube_->MatUpdate();
 	player_->MatUpdate();
+	enemy_->MatUpdate();
 	//player_->PlayAnimation();
 
 	level.MatUpdate();
@@ -100,8 +112,6 @@ void GameScene::MatUpdate()
 void GameScene::Update()
 {
 #pragma region 更新処理
-	if (InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_ESCAPE)) PauseScreen::GetInstance()->SetIsActive(true);
-
 	if (InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_B)) {
 		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
 	}
@@ -110,6 +120,7 @@ void GameScene::Update()
 	ParticleManager::GetInstance()->Update();
 
 	player_->Update();
+	enemy_->Update();
 
 	//DebugTextManager::GetInstance()->Print("test", { 0,Window::sWIN_HEIGHT/2.0f }, 5);
 #pragma endregion
@@ -124,9 +135,17 @@ void GameScene::ImguiUpdate()
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
-	imguiMan->BeginWindow("SceneManager", true);
+	imguiMan->BeginWindow("GameScene", true);
 
-	imguiMan->Text("Angle : %f", player_->angle());
+
+	imguiMan->Text("mord : %d",pause_->GetMord());
+
+	if (imguiMan->SetButton("Continue"))	pause_->SetMord(PauseScreen::Continue);
+	if (imguiMan->SetButton("Option"))		pause_->SetMord(PauseScreen::Option);
+	if (imguiMan->SetButton("BackTitle"))	pause_->SetMord(PauseScreen::BackTitle);
+
+	imguiMan->Text("Option : %s", pause_->GetOptionIsActive() ? "True" : "False");
+	imguiMan->Text("OptionMord : %d",pause_->GetOptionMord());
 
 	imguiMan->EndWindow();
 }
@@ -140,14 +159,15 @@ void GameScene::Draw()
 {
 	//	天球
 	skydome_->DrawShadowReciever();
-	//	地面
+	////	地面
 	ground_->DrawShadowReciever();
-	cube_->DrawShadowReciever();
+	//cube_->DrawShadowReciever();
 	player_->DrawShadowReciever();
+	enemy_->Draw();
 
 	//level.Draw();
 
-	sprite_->Draw();
+	//sprite_->Draw();
 
 	//DebugTextManager::GetInstance()->Draw();
 	ParticleManager::GetInstance()->Draw();

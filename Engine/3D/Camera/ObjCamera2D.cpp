@@ -13,6 +13,10 @@ ObjCamera2D::ObjCamera2D()
 	CalcDirectionVec();
 }
 
+void ObjCamera2D::Initialize(const Vector3D& /*frontVec*/, const Vector3D& /*center*/, float /*dis*/)
+{
+}
+
 void ObjCamera2D::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
 {
 	eye_ = eye;
@@ -33,4 +37,8 @@ void ObjCamera2D::Update()
 #pragma endregion
 
 	MatUpdate();
+}
+
+void ObjCamera2D::ImGuiInfo()
+{
 }

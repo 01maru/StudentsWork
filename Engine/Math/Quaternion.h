@@ -30,6 +30,7 @@ public:
 
 	Quaternion& operator/=(float s);
 	Quaternion& operator*=(float s);
+	Quaternion& operator*=(const Quaternion& q);
 	Quaternion& operator+=(const Quaternion& q);
 	Quaternion& operator-=(const Quaternion& q);
 
@@ -42,6 +43,7 @@ Quaternion operator-(const Quaternion& q);
 
 Quaternion operator*(const Quaternion& q, float s);
 Quaternion operator*(float s, const Quaternion& q);
+Quaternion operator*(const Quaternion& q1, const Quaternion& q2);
 Quaternion operator+(const Quaternion& q1, const Quaternion& q2);
 Quaternion operator-(const Quaternion& q1, const Quaternion& q2);
 
@@ -60,3 +62,9 @@ Quaternion Slerp(const Quaternion& q0, const Quaternion& q1, float t);
 Quaternion CameraSlerp(const Quaternion& q0, const Quaternion& q1, float t);
 
 Quaternion DirectionToDirection(const Vector3D& u, const Vector3D& v);
+
+
+
+namespace MyMath {
+	Vector3D GetAxis(const Quaternion& q);
+}

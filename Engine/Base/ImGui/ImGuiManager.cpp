@@ -1,6 +1,7 @@
 ﻿#include "ImGuiManager.h"
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx12.h>
+#include <imgui_stdlib.h>
 #include "Window.h"
 #include "DirectX.h"
 
@@ -134,9 +135,9 @@ bool ImGuiManager::SetButton(const std::string& buttonName, const Vector2D& size
 	return ImGui::Button(buttonName.c_str(), ImVec2(size.x, size.y));
 }
 
-void ImGuiManager::SetRadioButton(const std::string& buttonName, bool& flag)
+bool ImGuiManager::SetRadioButton(const std::string& buttonName, int32_t& v, int32_t vButton)
 {
-	flag = ImGui::RadioButton(buttonName.c_str(), !flag);
+	return ImGui::RadioButton(buttonName.c_str(), &v, vButton);
 }
 
 void ImGuiManager::InputFloat3(const std::string& name, Vector3D& vec)
@@ -208,9 +209,19 @@ void ImGuiManager::Text(const char* fmt, ...)
 	va_end(args);
 }
 
-void ImGuiManager::InputText(const std::string& name, std::string& text, size_t strLen)
+bool ImGuiManager::InputText(const std::string& name, std::string& text)
 {
-	ImGui::InputText(name.c_str(), &text.front(), strLen);
+	return ImGui::InputText(name.c_str(), &text);
+}
+
+void ImGuiManager::PushID(int32_t id)
+{
+	ImGui::PushID(id);
+}
+
+void ImGuiManager::PopID()
+{
+	ImGui::PopID();
 }
 
 bool ImGuiManager::BeginChild(const Vector2D& size)

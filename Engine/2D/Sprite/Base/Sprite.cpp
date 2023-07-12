@@ -19,6 +19,7 @@ void Sprite::Initialize(Texture* texture)
 	}
 	else {
 		handle_ = TextureManager::GetWhiteTexture();
+		AdjustTextureSize();
 	}
 
 #pragma region VertBuff
@@ -177,6 +178,8 @@ void Sprite::AdjustTextureSize()
 	D3D12_RESOURCE_DESC resDesc = texBuff->GetDesc();
 	textureSize_.x = static_cast<float>(resDesc.Width);
 	textureSize_.y = static_cast<float>(resDesc.Height);
+
+	dirtyFlagUV_ = true;
 }
 
 void Sprite::SetPosition(const Vector2D& position)
@@ -242,4 +245,10 @@ void Sprite::SetTextureSize(const Vector2D& size)
 		dirtyFlagUV_ = true;
 		textureSize_ = size;
 	}
+}
+
+void Sprite::SetHandle(Texture* handle)
+{
+	handle_ = handle;
+	AdjustTextureSize();
 }

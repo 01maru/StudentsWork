@@ -89,12 +89,12 @@ Vector3D& Vector3D::operator*=(float s)
 	return *this;
 }
 
-bool Vector3D::operator==(const Vector3D& vec)
+bool Vector3D::operator==(const Vector3D& vec) const
 {
 	return (this->x == vec.x) && (this->y == vec.y) && (this->z == vec.z);
 }
 
-bool Vector3D::operator!=(const Vector3D& vec)
+bool Vector3D::operator!=(const Vector3D& vec) const
 {
 	return (this->x != vec.x) || (this->y != vec.y) || (this->z != vec.z);
 }

@@ -3,8 +3,6 @@
 #include <Xinput.h>
 #include <stdint.h>
 
-#pragma comment (lib, "xinput.lib")
-
 class Vector2D;
 class ImGuiManager;
 
@@ -67,6 +65,7 @@ public:
     Vector2D GetThumbL();
     bool GetTriggerThumbLX();
     bool GetTriggerThumbLY();
+    int32_t GetMaxThumbRange() { return 32767; }
     
     //  Setter
 

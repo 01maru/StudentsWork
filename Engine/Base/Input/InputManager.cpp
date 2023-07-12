@@ -44,6 +44,8 @@ void InputManager::ImGuiUpdate()
 
 	imgui->BeginWindow("InputManager");
 
+	imgui->SetSliderFloat("Sensitivity", sensitivity_, 0.01f, 0.01f, 1.0f);
+
 	mouse_->ImGuiUpdate();
 
 	joypad_->ImGuiUpdate();

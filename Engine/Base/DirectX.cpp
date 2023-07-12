@@ -3,8 +3,6 @@
 #include "PostEffect.h"
 #include <cassert>
 
-#pragma comment (lib, "winmm.lib")
-
 // 対応レベルの配列
 D3D_FEATURE_LEVEL levels[] = {
 	D3D_FEATURE_LEVEL_12_1,

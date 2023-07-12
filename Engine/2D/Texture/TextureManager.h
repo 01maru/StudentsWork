@@ -4,6 +4,7 @@
 #include <memory>
 #include <map>
 #include <list>
+#include "Sprite.h"
 
 class TextureManager
 {
@@ -12,13 +13,8 @@ private:
 
 	static Texture* sWhiteTexHandle;
 
-	//	texturesのindex
-	int texIndex_ = -1;
-	//int32_t textureNum_ = 0;
-	std::vector<std::unique_ptr<Texture>> textures_;
-
-	//std::map<std::string, std::unique_ptr<Texture>, std::less<>> textures;
-	//std::vector<bool> texExist_;
+	std::map<std::string, std::unique_ptr<Texture>, std::less<>> textures_;
+	std::vector<bool> texExist_;
 
 	ComPtr<ID3D12CommandAllocator> loadTexAllocator_;
 	ComPtr<ID3D12GraphicsCommandList> loadTexCmdList_;
@@ -29,9 +25,25 @@ private:
 	UINT64 uploadTexFenceVal_ = 0;
 	std::list<ComPtr<ID3D12Resource>> textureUploadBuff_;
 
+	bool drawPreview_ = false;
+	float previewSize_ = 1.0f;
+	std::unique_ptr<Sprite> previewSprite_;
+	std::unique_ptr<Sprite> backSprite_;
+
+	int32_t previewIdx_ = 0;
+	std::string previewTexName_;
+	std::string copyTexName_;
+
+	std::string searchWord_;
+	std::string loadTexPath_;
+
 private:
 	TextureManager() {}
 	~TextureManager() {}
+
+	void ImGuiPreviewUpdate();
+	void ImGuiTexUpdate();
+	void PreviewUpdate();
 
 public:
 	static TextureManager* GetInstance();
@@ -40,12 +52,13 @@ public:
 
 	void Initialize();
 	void ImGuiUpdate();
-	void UploadTexture();
+	void DrawPreview();
+
 
 	Texture* LoadTextureGraph(const wchar_t* textureName);
+	Texture* LoadTextureGraph(const std::string& textureName);
 	Texture* CreateNoneGraphTexture(const std::string& texName);
-
-	//Texture* CreateNoneGraphTexture(const std::string& textureName);
+	void UploadTexture();
 
 	//	Delete
 	void DeleteTextureData(const std::string& textureName);
@@ -53,5 +66,6 @@ public:
 	//	Getter
 	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureHandle(int32_t handle);
 	static Texture* GetWhiteTexture() { return sWhiteTexHandle; }
+	Texture* PasteTexture() { return textures_[copyTexName_].get(); }
 };
 

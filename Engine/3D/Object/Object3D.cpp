@@ -7,7 +7,7 @@
 #include "PipelineManager.h"
 #include "TextureManager.h"
 #include "SceneManager.h"
-#include "Light.h"
+#include "LightManager.h"
 #include <cassert>
 #include "CameraManager.h"
 #include "IModel.h"
@@ -32,7 +32,6 @@ void Object3D::SetCollider(BaseCollider* collider_)
 	collider_->SetObject3D(this);
 	this->collider = collider_;
 	CollisionManager::GetInstance()->AddCollider(collider_);
-	MatUpdate();
 	collider_->Update();
 }
 
@@ -197,7 +196,7 @@ void Object3D::Draw()
 	skinData_.SetGraphicsRootCBuffView(4);
 	colorMaterial_.SetGraphicsRootCBuffView(5);
 
-	Light::GetInstance()->SetGraphicsRootCBuffView(3);
+	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
 
 	model_->Draw();
 }
@@ -211,7 +210,7 @@ void Object3D::DrawSilhouette()
 	transform_.SetGraphicsRootCBuffView(2);
 	skinData_.SetGraphicsRootCBuffView(4);
 	colorMaterial_.SetGraphicsRootCBuffView(5);
-	Light::GetInstance()->SetGraphicsRootCBuffView(3);
+	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
 
 	model_->Draw();
 }
@@ -239,7 +238,7 @@ void Object3D::DrawShadowReciever()
 	transform_.SetGraphicsRootCBuffView(3);
 	lightMaterial_.SetGraphicsRootCBuffView(4);
 	skinData_.SetGraphicsRootCBuffView(5);
-	Light::GetInstance()->SetGraphicsRootCBuffView(6);
+	LightManager::GetInstance()->SetGraphicsRootCBuffView(6);
 
 	model_->DrawShadowReciever();
 }
