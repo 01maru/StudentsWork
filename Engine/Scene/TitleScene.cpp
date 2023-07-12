@@ -22,6 +22,8 @@ void TitleScene::LoadResources()
 
 void TitleScene::Initialize()
 {
+	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
+
 	optionScene_ = std::make_unique<OptionScene>();
 	optionScene_->Initialize("Option");
 

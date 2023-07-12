@@ -50,12 +50,12 @@ void InputMouse::LockCursor()
 	rec.top = (LONG)(center.y - height);
 	rec.bottom = (LONG)(center.y + height);
 	
-	SetCursorPos((int)center.x, (int)center.y);
+	SetCursorPos((int32_t)center.x, (int32_t)center.y);
 	//	範囲指定
 	ClipCursor(&rec);
 
 	//	UpdateCursor
-	prevCursor_ = center;
+	prevCursor_ = Vector2D((int32_t)center.x, (int32_t)center.y);
 }
 
 void InputMouse::UnLockCursor()
@@ -105,9 +105,9 @@ void InputMouse::ImGuiUpdateCursor(ImGuiManager* imgui)
 {
 	if (!imgui->TreeNode("Cursor")) return;
 
-	imgui->Text("CursorPos  : (%.f, %.f)", cursor_.x, cursor_.y);
-	imgui->Text("PrevCursorPos  : (%.f, %.f)", prevCursor_.x, prevCursor_.y);
-	imgui->Text("CursorMove : (%.f, %.f)", cursorMoveLen_.x, cursorMoveLen_.y);
+	imgui->Text("CursorPos  : (%.2f, %.2f)", cursor_.x, cursor_.y);
+	imgui->Text("PrevCursorPos  : (%.2f, %.2f)", prevCursor_.x, prevCursor_.y);
+	imgui->Text("CursorMove : (%.2f, %.2f)", cursorMoveLen_.x, cursorMoveLen_.y);
 
 	imgui->Text("ShowCursor : %s", showCursor_ ? "True" : "False");
 

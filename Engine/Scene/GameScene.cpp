@@ -41,7 +41,7 @@ void GameScene::LoadResources()
 	ground_->SetCollider(collider_);
 	//	player
 	player_ = std::make_unique<Player>();
-	player_->PlayerInitialize(models->GetModel());
+	player_->Initialize(models->GetModel());
 	//	enemy
 	enemy_ = std::make_unique<Enemy>();
 	enemy_->Initialize(models->GetModel());
@@ -67,6 +67,7 @@ void GameScene::LoadResources()
 void GameScene::Initialize()
 {
 	pause_ = std::make_unique<PauseScreen>();
+	pause_->Initialize();
 
 	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
 	LoadResources();
