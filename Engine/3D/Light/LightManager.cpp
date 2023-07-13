@@ -72,15 +72,30 @@ void LightManager::ImGuiUpdate()
 
 	imguiMan->BeginWindow("LightManager", true);
 
+	int32_t id = 0;
+
 	imguiMan->Text("Material");
 	if (imguiMan->BeginChild(Vector2D(0, 90))) {
+		imguiMan->PushID(id++);
 		imguiMan->SetSliderFloat3("Ambient", ambient_, 0.01f, 0.0f, 1.0f);
+		imguiMan->SameLine();
+		if (imguiMan->SetButton("SameValue")) ambient_ = { ambient_.x,ambient_.x ,ambient_.x };
+		imguiMan->PopID();
+
+		imguiMan->PushID(id++);
 		imguiMan->SetSliderFloat3("Diffuse", diffuse_, 0.01f, 0.0f, 1.0f);
+		imguiMan->SameLine();
+		if (imguiMan->SetButton("SameValue")) diffuse_ = { diffuse_.x,diffuse_.x ,diffuse_.x };
+		imguiMan->PopID();
+
+		imguiMan->PushID(id++);
 		imguiMan->SetSliderFloat3("Specular", specular_, 0.01f, 0.0f, 1.0f);
+		imguiMan->SameLine();
+		if (imguiMan->SetButton("SameValue")) specular_ = { specular_.x,specular_.x ,specular_.x };
+		imguiMan->PopID();
+
 		imguiMan->EndChild();
 	}
-
-	int32_t id = 0;
 
 	//	方向ライト
 	for (size_t i = 0; i < DIRLIGHT_NUM; i++)

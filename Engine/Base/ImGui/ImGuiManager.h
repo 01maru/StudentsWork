@@ -69,6 +69,7 @@ public:
 	bool SetRadioButton(const std::string& buttonName, int32_t& v, int32_t vButton);
 	void InputFloat3(const std::string& name, Vector3D& vec);
 	void InputFloat2(const std::string& name, Vector2D& vec);
+	void InputFloat(const std::string& name, float& v);
 	void SetSliderFloat(const std::string& sliderName, float& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
 	void SetSliderFloat2(const std::string& sliderName, Vector2D& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
 	void SetSliderFloat3(const std::string& sliderName, Vector3D& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);

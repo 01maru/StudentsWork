@@ -196,6 +196,12 @@
     <Filter Include="ソース ファイル\lib\2D\Sprite\UI">
       <UniqueIdentifier>{d663767c-f4a2-450f-b8e1-9e018c1d19f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\lib\Converter">
+      <UniqueIdentifier>{597041fd-1303-4218-a81f-a33bc16b173d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\lib\Converter">
+      <UniqueIdentifier>{9850619c-2658-4931-a3df-06ed138e1b0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -420,9 +426,6 @@
     <ClCompile Include="Engine\Game\PauseScreen.cpp">
       <Filter>ソース ファイル\Game\Scene\Setting</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\ConvertString.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\OptionScene.cpp">
       <Filter>ソース ファイル\Game\Scene\Setting</Filter>
     </ClCompile>
@@ -437,6 +440,15 @@
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\Base\UIEditor.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugScene.cpp">
+      <Filter>ソース ファイル\lib\Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ConvertString.cpp">
+      <Filter>ソース ファイル\lib\Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="ConvertAiStruct.cpp">
+      <Filter>ソース ファイル\lib\Converter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -689,9 +701,6 @@
     <ClInclude Include="Engine\Game\PauseScreen.h">
       <Filter>ヘッダー ファイル\Game\Scene\Setting</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\ConvertString.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\OptionScene.h">
       <Filter>ヘッダー ファイル\Game\Scene\Setting</Filter>
     </ClInclude>
@@ -706,6 +715,15 @@
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\Base\UIData.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugScene.h">
+      <Filter>ヘッダー ファイル\lib\Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ConvertAiStruct.h">
+      <Filter>ヘッダー ファイル\lib\Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ConvertString.h">
+      <Filter>ヘッダー ファイル\lib\Converter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

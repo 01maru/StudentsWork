@@ -54,7 +54,7 @@ void SceneManager::Initialize()
 	sceneChangeCounter_.Initialize(60, true, true);
 
 	sceneFactry_ = std::make_unique<SceneFactory>();
-	scene_ = sceneFactry_->CreateScene("TITLESCENE");
+	scene_ = sceneFactry_->CreateScene("DEBUGSCENE");
 
 #pragma region Loading
 

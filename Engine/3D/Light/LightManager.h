@@ -15,9 +15,9 @@ private:
 	DirLight dirLights_[CBuff::DIRLIGHT_NUM];
 	DistanceFog distanceFog_;
 
-	Vector3D ambient_ = { 0.3f, 0.3f, 0.3f };
-	Vector3D diffuse_;
-	Vector3D specular_;
+	Vector3D ambient_ = { 0.8f, 0.8f, 0.8f };
+	Vector3D diffuse_ = { 0.7f, 0.7f, 0.7f };
+	Vector3D specular_= { 0.3f, 0.3f, 0.3f };
 
 private:
 	LightManager() {};

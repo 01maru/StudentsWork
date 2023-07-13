@@ -27,3 +27,10 @@ std::string Util::ConvertToString(const wchar_t* name)
 
 	return result;
 }
+
+std::string Util::GetDirectoryPath(const std::string& origin)
+{
+	int ind = (int)origin.find_last_of('/');
+	ind++;
+	return origin.substr(0, ind);
+}
