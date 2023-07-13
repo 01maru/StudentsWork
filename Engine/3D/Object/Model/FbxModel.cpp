@@ -2,7 +2,6 @@
 #include "Quaternion.h"
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include <cassert>
 #include "LightManager.h"
 
 #include "ConvertString.h"
@@ -15,36 +14,7 @@ FbxModel::FbxModel(const char* filename, bool smoothing)
 	Initialize(filename, smoothing);
 }
 
-FbxModel::~FbxModel()
-{
-	meshes_.clear();
-
-	materials_.clear();
-}
-
-struct AnimationData
-{
-	float mTicksPerSecond;
-	float mDuration;
-	std::vector<std::string> nodeName;
-};
-
-void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms)
-{
-	Matrix Identity;
-
-	double TicksPerSecond = modelScene->mAnimations[0]->mTicksPerSecond != 0 ? modelScene->mAnimations[0]->mTicksPerSecond : 25.0f;
-	float TimeInTicks = TimeInSeconds * (float)TicksPerSecond;
-	float AnimationTime = (float)fmod(TimeInTicks, modelScene->mAnimations[0]->mDuration);
-
-	ReadNodeHeirarchy(AnimationTime, modelScene->mRootNode, Identity);
-
-	transforms.resize(numBones_);
-
-	for (size_t i = 0; i < numBones_; i++) {
-		transforms[i] = boneInfo_[i].finalTransformation;
-	}
-}
+FbxModel::~FbxModel() {}
 
 void FbxModel::LoadModel(const std::string& modelname, bool /*smoothing*/)
 {
@@ -82,6 +52,58 @@ void FbxModel::LoadModel(const std::string& modelname, bool /*smoothing*/)
 
 		SetTextureFilePath(directoryPath + filename, *mesh, pMaterial);
 	}
+
+	LoadAnimation();
+}
+
+void FbxModel::LoadAnimation()
+{
+	for (size_t i = 0; i < modelScene->mNumAnimations; i++)
+	{
+		AnimationData data;
+
+		aiAnimation* animation = modelScene->mAnimations[i];
+
+		data.ticksPerSecond = (float)animation->mTicksPerSecond;
+		data.duration = (float)animation->mDuration;
+
+		for (size_t channelIdx = 0; channelIdx < animation->mNumChannels; channelIdx++)
+		{
+			KeyChannels channel;
+			channel.nodeName = animation->mChannels[channelIdx]->mNodeName.C_Str();
+
+			for (size_t keyIdx = 0; keyIdx < animation->mChannels[channelIdx]->mNumPositionKeys; keyIdx++)
+			{
+				Key key;
+				key.time = (float)animation->mChannels[channelIdx]->mPositionKeys[keyIdx].mTime;
+				aiVector3D pos = animation->mChannels[channelIdx]->mPositionKeys[keyIdx].mValue;
+				key.value = { pos.x,pos.y,pos.z };
+				channel.positionKeys.emplace_back(key);
+			}
+
+			for (size_t scaleIdx = 0; scaleIdx < animation->mChannels[channelIdx]->mNumScalingKeys; scaleIdx++)
+			{
+				Key key;
+				key.time = (float)animation->mChannels[channelIdx]->mScalingKeys[scaleIdx].mTime;
+				aiVector3D scale = animation->mChannels[channelIdx]->mScalingKeys[scaleIdx].mValue;
+				key.value = { scale.x,scale.y,scale.z };
+				channel.scalingKeys.emplace_back(key);
+			}
+
+			for (size_t rotIdx = 0; rotIdx < animation->mChannels[channelIdx]->mNumRotationKeys; rotIdx++)
+			{
+				RotKey key;
+				key.time = (float)animation->mChannels[channelIdx]->mRotationKeys[rotIdx].mTime;
+				aiQuaternion rot = animation->mChannels[channelIdx]->mRotationKeys[rotIdx].mValue;
+				key.value = { rot.w,rot.x,rot.y,rot.z };
+				channel.rotationKeys.emplace_back(key);
+			}
+
+			data.channels.emplace_back(channel);
+		}
+
+		animations_.emplace_back(data);
+	}
 }
 
 void FbxModel::LoadMaterial(Mesh* dst, const aiMaterial* /*src*/, size_t index)
@@ -90,18 +112,12 @@ void FbxModel::LoadMaterial(Mesh* dst, const aiMaterial* /*src*/, size_t index)
 
 	material->name_ += to_string(index);
 
-	////	Diffuse
-	//aiColor3D difcolor(0.f, 0.f, 0.f);
-	//src->Get(AI_MATKEY_COLOR_DIFFUSE, difcolor);
+	//	Diffuse
 	LightManager* light = LightManager::GetInstance();
 	material->diffuse_ = light->GetMtlDiffuse();
-	////	AMBIENT
-	//aiColor3D amcolor(0.3f, 0.3f, 0.3f);
-	//src->Get(AI_MATKEY_COLOR_AMBIENT, amcolor);
+	//	AMBIENT
 	material->ambient_ = light->GetMtlAmbient();
-	////	SPECULAR
-	//aiColor3D specolor(0.3f, 0.3f, 0.3f);
-	//src->Get(AI_MATKEY_COLOR_SPECULAR, specolor);
+	//	SPECULAR
 	material->specular_ = light->GetMtlSpecular();
 
 	if (material) {
@@ -186,6 +202,23 @@ void FbxModel::SetTextureFilePath(const std::string& filename, Mesh& dst, const 
 	}
 }
 
+void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms)
+{
+	Matrix Identity;
+
+	double TicksPerSecond = modelScene->mAnimations[0]->mTicksPerSecond != 0 ? modelScene->mAnimations[0]->mTicksPerSecond : 25.0f;
+	float TimeInTicks = TimeInSeconds * (float)TicksPerSecond;	//	frame数
+	float AnimationTime = (float)fmod(TimeInTicks, modelScene->mAnimations[0]->mDuration);	//	現在のフレーム数/1Loopのフレーム数　のあまり
+
+	ReadNodeHeirarchy(AnimationTime, modelScene->mRootNode, Identity);
+
+	transforms.resize(numBones_);
+
+	for (size_t i = 0; i < numBones_; i++) {
+		transforms[i] = boneInfo_[i].finalTransformation;
+	}
+}
+
 void FbxModel::ReadNodeHeirarchy(float AnimationTime, const aiNode* pNode, const Matrix& ParentTransform)
 {
 	string NodeName(pNode->mName.data);
@@ -199,10 +232,11 @@ void FbxModel::ReadNodeHeirarchy(float AnimationTime, const aiNode* pNode, const
 	const aiNodeAnim* pNodeAnim = Util::FindNodeAnim(pAnimation, NodeName);
 
 	if (pNodeAnim) {
+		MyMath::ObjMatrix mat;
+
 		// スケーリングを補間し、スケーリング変換行列を生成する
 		aiVector3D Scaling;
 		Util::CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
-		MyMath::ObjMatrix mat;
 		mat.scale_ = Vector3D(Scaling.x, Scaling.y, Scaling.z);
 		mat.SetMatScaling();
 

@@ -56,5 +56,5 @@ void DebugScene::DrawShadow()
 void DebugScene::Draw()
 {
 	ground_->DrawShadowReciever();
-	fbx_->DrawShadowReciever();
+	fbx_->Draw();
 }
