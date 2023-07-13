@@ -112,9 +112,8 @@ void GameScene::MatUpdate()
 void GameScene::Update()
 {
 #pragma region 更新処理
-	if (InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_B)) {
-		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
-	}
+
+	pause_->Update();
 
 	sprite_->Update();
 	ParticleManager::GetInstance()->Update();
@@ -138,6 +137,7 @@ void GameScene::ImguiUpdate()
 	imguiMan->BeginWindow("GameScene", true);
 
 
+	imguiMan->Text("Pause : %s", pause_->GetIsActive() ? "True" : "False");
 	imguiMan->Text("mord : %d",pause_->GetMord());
 
 	if (imguiMan->SetButton("Continue"))	pause_->SetMord(PauseScreen::Continue);
@@ -168,6 +168,7 @@ void GameScene::Draw()
 	//level.Draw();
 
 	//sprite_->Draw();
+	pause_->Draw();
 
 	//DebugTextManager::GetInstance()->Draw();
 	ParticleManager::GetInstance()->Draw();

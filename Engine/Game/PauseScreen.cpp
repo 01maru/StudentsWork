@@ -36,6 +36,11 @@ void PauseScreen::PauseUpdate()
 
 void PauseScreen::Update()
 {
+	if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_ESCAPE, InputJoypad::START_Button)) {
+		active_ = !active_;
+		if (active_) InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
+	}
+
     if (!active_) return;
 
 	if (option_->GetIsActive())	option_->Update();
