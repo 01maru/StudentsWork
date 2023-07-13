@@ -8,6 +8,7 @@ void DebugScene::LoadResources()
 	ModelManager* models = ModelManager::GetInstance();
 	models->LoadModel("ground");
 	models->LoadModel("objCube", true);
+	models->LoadModel("moveCube", true);
 #pragma endregion
 
 	//	地面

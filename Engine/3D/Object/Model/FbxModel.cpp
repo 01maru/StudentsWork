@@ -22,6 +22,13 @@ FbxModel::~FbxModel()
 	materials_.clear();
 }
 
+struct AnimationData
+{
+	float mTicksPerSecond;
+	float mDuration;
+	std::vector<std::string> nodeName;
+};
+
 void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms)
 {
 	Matrix Identity;
@@ -119,7 +126,7 @@ void FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 		uv->y = 1 - uv->y;
 
 		ModelVertex vertex_ = {};
-		vertex_.pos = Vector3D(position->x, position->y, position->z);
+		vertex_.pos = Vector3D(position->x, position->y, -position->z);
 		vertex_.normal = Vector3D(normal->x, normal->y, normal->z);
 		vertex_.uv = Vector2D(uv->x, uv->y);
 		vertex_.boneIndex[0] = 31;				//	boneÅ‘å‹–—e”-1
@@ -134,8 +141,8 @@ void FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 		const auto& face = src->mFaces[i];
 
 		dst.AddIndex((unsigned short)face.mIndices[0]);
-		dst.AddIndex((unsigned short)face.mIndices[1]);
 		dst.AddIndex((unsigned short)face.mIndices[2]);
+		dst.AddIndex((unsigned short)face.mIndices[1]);
 	}
 }
 
