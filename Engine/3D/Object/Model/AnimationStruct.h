@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Quaternion.h"
 #include "Vector3D.h"
 #include "Matrix.h"
@@ -19,7 +19,7 @@ struct RotKey
 
 struct KeyChannels
 {
-	//	‘Î‰‚·‚éƒm[ƒh‚Ì–¼‘O
+	//	å¯¾å¿œã™ã‚‹ãƒãƒ¼ãƒ‰ã®åå‰
 	std::string nodeName;
 
 	std::vector<Key> positionKeys;
@@ -31,7 +31,7 @@ struct AnimationData
 {
 	//	frame/1sec
 	float ticksPerSecond;
-	//	ƒAƒjƒ[ƒVƒ‡ƒ“1Loop‚Ìframe”
+	//	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³1Loopã®frameæ•°
 	float duration;
 
 	std::vector<KeyChannels> channels;

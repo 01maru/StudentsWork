@@ -11,9 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AnimationStruct.cpp" />
-    <ClCompile Include="ConvertAiStruct.cpp" />
-    <ClCompile Include="DebugScene.cpp" />
+    <ClCompile Include="Engine\ConvertAiStruct.cpp" />
+    <ClCompile Include="Engine\Scene\Base\DebugScene.cpp" />
     <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp" />
     <ClCompile Include="Engine\ConvertString.cpp" />
     <ClCompile Include="Engine\Game\Enemy.cpp" />
@@ -96,9 +95,9 @@
     <ClCompile Include="Engine\2D\Sprite\Base\UIData.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimationStruct.h" />
-    <ClInclude Include="ConvertAiStruct.h" />
-    <ClInclude Include="DebugScene.h" />
+    <ClInclude Include="Engine\3D\Object\Model\AnimationStruct.h" />
+    <ClInclude Include="Engine\ConvertAiStruct.h" />
+    <ClInclude Include="Engine\Scene\Base\DebugScene.h" />
     <ClInclude Include="Engine\2D\Sprite\SliderSprite.h" />
     <ClInclude Include="Engine\ConvertString.h" />
     <ClInclude Include="Engine\Game\Enemy.h" />

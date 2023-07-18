@@ -441,17 +441,14 @@
     <ClCompile Include="Engine\2D\Sprite\Base\UIEditor.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
     </ClCompile>
-    <ClCompile Include="DebugScene.cpp">
+    <ClCompile Include="Engine\Scene\Base\DebugScene.cpp">
       <Filter>ソース ファイル\lib\Engine\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ConvertString.cpp">
       <Filter>ソース ファイル\lib\Converter</Filter>
     </ClCompile>
-    <ClCompile Include="ConvertAiStruct.cpp">
+    <ClCompile Include="Engine\ConvertAiStruct.cpp">
       <Filter>ソース ファイル\lib\Converter</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationStruct.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -719,17 +716,17 @@
     <ClInclude Include="Engine\2D\Sprite\Base\UIData.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
-    <ClInclude Include="DebugScene.h">
+    <ClInclude Include="Engine\Scene\Base\DebugScene.h">
       <Filter>ヘッダー ファイル\lib\Engine\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="ConvertAiStruct.h">
+    <ClInclude Include="Engine\ConvertAiStruct.h">
       <Filter>ヘッダー ファイル\lib\Converter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ConvertString.h">
       <Filter>ヘッダー ファイル\lib\Converter</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationStruct.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\3D\Object\Model\AnimationStruct.h">
+      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
