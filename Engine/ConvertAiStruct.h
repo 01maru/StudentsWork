@@ -2,22 +2,11 @@
 #include <string>
 #include "Matrix.h"
 
-struct aiNodeAnim;
-struct aiAnimation;
-
 typedef float ai_real;
 
 template<typename T>
 class aiMatrix4x4t;
 typedef aiMatrix4x4t<ai_real> aiMatrix4x4;
-
-template<typename T>
-class aiQuaterniont;
-typedef aiQuaterniont<ai_real> aiQuaternion;
-
-template<typename T>
-class aiVector3t;
-typedef aiVector3t<ai_real> aiVector3D;
 
 struct Key;
 struct RotKey;

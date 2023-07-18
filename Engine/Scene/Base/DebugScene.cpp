@@ -19,7 +19,6 @@ void DebugScene::LoadResources()
 
 void DebugScene::Initialize()
 {
-	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
 	LoadResources();
 }
 
@@ -55,6 +54,7 @@ void DebugScene::DrawShadow()
 
 void DebugScene::Draw()
 {
-	ground_->DrawShadowReciever();
-	fbx_->Draw();
+	bool drawShadow = false;
+	ground_->Draw(drawShadow);
+	fbx_->Draw(drawShadow);
 }

@@ -238,9 +238,9 @@ void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transform
 
 	Matrix Identity;
 
-	double TicksPerSecond = animations_[index].ticksPerSecond != 0 ? animations_[index].ticksPerSecond : 25.0f;
-	float TimeInTicks = TimeInSeconds * (float)TicksPerSecond;	//	frame数
-	float AnimationTime = (float)fmod(TimeInTicks, animations_[index].duration);	//	現在のフレーム数/1Loopのフレーム数　のあまり
+	//double TicksPerSecond = animations_[index].ticksPerSecond != 0 ? animations_[index].ticksPerSecond : 25.0f;
+	//float TimeInTicks = TimeInSeconds * (float)TicksPerSecond;	//	frame数
+	float AnimationTime = (float)fmod(TimeInSeconds, animations_[index].duration);	//	現在のフレーム数/1Loopのフレーム数　のあまり
 
 	ReadNodeHeirarchy(animations_[index], AnimationTime, Identity, rootNodeName_);
 

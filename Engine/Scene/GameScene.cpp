@@ -69,7 +69,6 @@ void GameScene::Initialize()
 	pause_ = std::make_unique<PauseScreen>();
 	pause_->Initialize();
 
-	Object3D::SetPipeline(PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND));
 	LoadResources();
 
 	level.LoadJSON("gamescene");
@@ -157,13 +156,14 @@ void GameScene::DrawShadow()
 
 void GameScene::Draw()
 {
+	bool drawShadow = false;
 	//	天球
-	skydome_->DrawShadowReciever();
+	skydome_->Draw(drawShadow);
 	////	地面
-	ground_->DrawShadowReciever();
-	//cube_->DrawShadowReciever();
-	player_->DrawShadowReciever();
-	enemy_->Draw();
+	ground_->Draw(drawShadow);
+	//cube_->Draw(drawShadow);
+	player_->Draw(drawShadow);
+	enemy_->Draw(drawShadow);
 
 	//level.Draw();
 

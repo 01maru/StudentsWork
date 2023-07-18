@@ -176,6 +176,6 @@ void JSONLoader::Draw()
 {
 	for (size_t i = 0; i < objects_.size(); i++)
 	{
-		objects_[i]->Draw();
+		objects_[i]->Draw(false);
 	}
 }

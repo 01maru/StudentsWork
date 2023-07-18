@@ -1,9 +1,6 @@
 ﻿#include "Object3D.h"
 #include "BaseCollider.h"
 #include "CollisionManager.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
 #include "PipelineManager.h"
 #include "TextureManager.h"
 #include "SceneManager.h"
@@ -14,13 +11,6 @@
 #include "DirectX.h"
 
 #include "ConstBuffStruct.h"
-
-GPipeline* Object3D::sPipeline = nullptr;
-
-void Object3D::SetPipeline(GPipeline* pipeline_)
-{
-	Object3D::sPipeline = pipeline_;
-}
 
 void Object3D::SetModel(IModel* model)
 {
@@ -120,16 +110,6 @@ void Object3D::MatUpdate()
 	mat_.Update();
 #pragma endregion
 
-	//if (isBillboard) {
-	//	const XMMATRIX& matBillboard = camera->GetBillboardMatrix();
-
-	//	matWorld = XMMatrixIdentity();
-	//	matWorld *= matScale; // ワールド行列にスケーリングを反映
-	//	matWorld *= matRot; // ワールド行列に回転を反映
-	//	matWorld *= matBillboard;
-	//	matWorld *= matTrans; // ワールド行列に平行移動を反映
-	//}
-
 	// 親オブジェクトがあれば
 	if (parent_ != nullptr) {
 		mat_.matWorld_ *= parent_->mat_.matWorld_;
@@ -178,27 +158,13 @@ void Object3D::PlayAnimation()
 {
 	std::vector<Matrix> Transforms;
 
-	animationTimer_ += 0.1f;
+	animationTimer_++;
 	model_->BoneTransform(animationTimer_, Transforms);
 
 	for (size_t i = 0; i < model_->GetNumBones(); i++)
 	{
 		cSkinMap_->bones[i] = Transforms[i];
 	}
-}
-
-void Object3D::Draw()
-{
-	sPipeline->SetGraphicsRootSignature();
-	sPipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	transform_.SetGraphicsRootCBuffView(2);
-	skinData_.SetGraphicsRootCBuffView(4);
-	colorMaterial_.SetGraphicsRootCBuffView(5);
-
-	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
-
-	model_->Draw();
 }
 
 void Object3D::DrawSilhouette()
@@ -215,8 +181,21 @@ void Object3D::DrawSilhouette()
 	model_->Draw();
 }
 
-void Object3D::DrawShadow()
+void Object3D::Draw(bool drawShadow)
 {
+	DrawShadow(drawShadow);
+	
+	DrawShadowReciever(drawShadow);
+
+	DrawShadowUnReciever(drawShadow);
+}
+
+void Object3D::DrawShadow(bool drawShadow)
+{
+	if (!drawShadow) return;
+	//	影を生成しないなら
+	if (!shadowing_) return;
+
 	GPipeline* pipeline_ = PipelineManager::GetInstance()->GetPipeline("Shadow");
 	pipeline_->SetGraphicsRootSignature();
 	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -227,8 +206,12 @@ void Object3D::DrawShadow()
 	model_->Draw();
 }
 
-void Object3D::DrawShadowReciever()
+void Object3D::DrawShadowReciever(bool drawShadow)
 {
+	if (drawShadow) return;
+	//	影の影響を受けないなら
+	if (!shadowReciev_) return;
+
 	GPipeline* pipeline_= PipelineManager::GetInstance()->GetPipeline("ShadowReciever");
 	pipeline_->SetGraphicsRootSignature();
 	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -241,4 +224,23 @@ void Object3D::DrawShadowReciever()
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(6);
 
 	model_->DrawShadowReciever();
+}
+
+void Object3D::DrawShadowUnReciever(bool drawShadow)
+{
+	if (drawShadow) return;
+	//	影の影響を受けるなら
+	if (shadowReciev_) return;
+
+	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND);
+	pipeline->SetGraphicsRootSignature();
+	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	transform_.SetGraphicsRootCBuffView(2);
+	skinData_.SetGraphicsRootCBuffView(4);
+	colorMaterial_.SetGraphicsRootCBuffView(5);
+
+	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
+
+	model_->Draw();
 }
