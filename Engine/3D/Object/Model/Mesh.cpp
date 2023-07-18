@@ -11,6 +11,11 @@ void Mesh::Initialzie()
 	VertIdxBuff::Initialize(sizeVB, indices_);
 }
 
+void Mesh::SetGraphicsRootCBuffViewMtl(int32_t index)
+{
+	mtl_->SetGraphicsRootCBuffView(index);
+}
+
 void Mesh::Draw()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
@@ -18,21 +23,6 @@ void Mesh::Draw()
 	VertIdxBuff::IASetVertIdxBuff();
 
 	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(mtl_->GetTextureHandle()));
-
-	mtl_->SetGraphicsRootCBuffView(1);
-
-	cmdList->DrawIndexedInstanced((UINT)indices_.size(), 1, 0, 0, 0);
-}
-
-void Mesh::DrawShadowReciever()
-{
-	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
-
-	VertIdxBuff::IASetVertIdxBuff();
-
-	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(mtl_->GetTextureHandle()));
-
-	mtl_->SetGraphicsRootCBuffView(2);
 
 	cmdList->DrawIndexedInstanced((UINT)indices_.size(), 1, 0, 0, 0);
 }
@@ -69,7 +59,7 @@ void Mesh::SetBone(size_t vertexID, uint16_t boneIndex, float weight)
 
 void Mesh::SetTextureFilePath(const std::string& filePath)
 {
-	MultiByteToWideChar(CP_ACP, 0, filePath.c_str(), -1, mtl_->wfilepath_, _countof(mtl_->wfilepath_));
+	mtl_->filepath_ = filePath;
 }
 
 void Mesh::SetVertices()

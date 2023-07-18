@@ -61,6 +61,7 @@ private:
 	void DrawShadow(bool drawShadow);
 	void DrawShadowReciever(bool drawShadow);
 	void DrawShadowUnReciever(bool drawShadow);
+	void DrawDissolve(bool drawShadow);
 
 public:
 	Object3D() = default;

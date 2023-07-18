@@ -258,8 +258,7 @@ void ObjModel::LoadMaterial(const std::string& directoryPath, const std::string&
 			if (key == "map_Kd") {
 				line_stream >> material->textureFilename_;
 
-				string filepath = directoryPath + material->textureFilename_;
-				MultiByteToWideChar(CP_ACP, 0, filepath.c_str(), -1, material->wfilepath_, _countof(material->wfilepath_));
+				material->filepath_ = directoryPath + material->textureFilename_;
 			}
 		}
 	}

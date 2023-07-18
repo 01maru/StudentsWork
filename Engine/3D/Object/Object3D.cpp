@@ -217,13 +217,14 @@ void Object3D::DrawShadowReciever(bool drawShadow)
 	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	Texture* shadowmap = SceneManager::GetInstance()->GetShadowMap();
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(shadowmap->GetHandle()));
-
+	
+	model_->SetGraphicsRootCBuffViewMtl(2);
 	transform_.SetGraphicsRootCBuffView(3);
 	lightMaterial_.SetGraphicsRootCBuffView(4);
 	skinData_.SetGraphicsRootCBuffView(5);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(6);
 
-	model_->DrawShadowReciever();
+	model_->Draw();
 }
 
 void Object3D::DrawShadowUnReciever(bool drawShadow)
@@ -236,11 +237,33 @@ void Object3D::DrawShadowUnReciever(bool drawShadow)
 	pipeline->SetGraphicsRootSignature();
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+	model_->SetGraphicsRootCBuffViewMtl(1);
 	transform_.SetGraphicsRootCBuffView(2);
+	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
 	skinData_.SetGraphicsRootCBuffView(4);
 	colorMaterial_.SetGraphicsRootCBuffView(5);
 
-	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
+
+	model_->Draw();
+}
+
+void Object3D::DrawDissolve(bool drawShadow)
+{
+	if (drawShadow) return;
+
+	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND);
+	pipeline->SetGraphicsRootSignature();
+	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	//Texture* dissolve = TextureManager::GetInstance()->LoadTextureGraph("Re")
+	//MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
+
+	model_->SetGraphicsRootCBuffViewMtl(2);
+	transform_.SetGraphicsRootCBuffView(3);
+	LightManager::GetInstance()->SetGraphicsRootCBuffView(4);
+	skinData_.SetGraphicsRootCBuffView(5);
+	colorMaterial_.SetGraphicsRootCBuffView(5);
+
 
 	model_->Draw();
 }

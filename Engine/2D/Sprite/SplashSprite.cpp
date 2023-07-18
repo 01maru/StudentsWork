@@ -9,7 +9,7 @@ void SplashSprite::Initialize()
 	count_ = std::make_unique<FrameCounter>();
 	count_->Initialize(30, true, true, 4);
 
-	rogoTex_ = TextureManager::GetInstance()->LoadTextureGraph("Resources/Sprite/rogo.png");
+	rogoTex_ = TextureManager::GetInstance()->LoadTextureGraph("rogo.png");
 
 	splashSprite_ = std::make_unique<Sprite>();
 	splashSprite_->Initialize(rogoTex_);

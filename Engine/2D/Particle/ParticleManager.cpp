@@ -11,7 +11,7 @@ ParticleManager* ParticleManager::GetInstance()
 
 void ParticleManager::Initialize()
 {
-	particleTex_ = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/particle.png");
+	particleTex_ = TextureManager::GetInstance()->LoadTextureGraph("particle.png");
 }
 
 void ParticleManager::Update()

@@ -49,8 +49,8 @@ void GameScene::LoadResources()
 	cube_.reset(Object3D::Create(models->GetModel()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
 #pragma region Texture
-	reimuG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/reimu.png");
-	grassG = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/grass.png");
+	reimuG = TextureManager::GetInstance()->LoadTextureGraph("reimu.png");
+	grassG = TextureManager::GetInstance()->LoadTextureGraph("grass.png");
 #pragma endregion
 
 #pragma region Sprite

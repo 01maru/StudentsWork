@@ -6,7 +6,7 @@
 
 void LoadingSprite::Initialize()
 {
-	loadTex_ = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/loading.png");
+	loadTex_ = TextureManager::GetInstance()->LoadTextureGraph("loading.png");
 
 	loadSprite_ = std::make_unique<Sprite>();
 	loadSprite_->Initialize(loadTex_);

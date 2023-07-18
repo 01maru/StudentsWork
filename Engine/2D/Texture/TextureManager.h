@@ -54,9 +54,7 @@ public:
 	void ImGuiUpdate();
 	void DrawPreview();
 
-
-	Texture* LoadTextureGraph(const wchar_t* textureName);
-	Texture* LoadTextureGraph(const std::string& textureName);
+	Texture* LoadTextureGraph(const std::string& textureName, const std::string& path = "Resources/Sprite/");
 	Texture* CreateNoneGraphTexture(const std::string& texName);
 	void UploadTexture();
 

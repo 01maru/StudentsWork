@@ -21,7 +21,7 @@ public:
 	float alpha_ = 1.0f;
 
 	std::string textureFilename_;
-	wchar_t wfilepath_[128];
+	std::string filepath_;
 
 	ConstBuff material_;
 

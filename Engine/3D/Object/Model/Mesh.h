@@ -19,8 +19,8 @@ private:
 
 public:
     void Initialzie();
+    void SetGraphicsRootCBuffViewMtl(int32_t index);
     void Draw();
-    void DrawShadowReciever();
     void CalcSmoothedNormals();
 
     //  Getter

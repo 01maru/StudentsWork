@@ -15,7 +15,7 @@ DebugTextManager* DebugTextManager::GetInstance()
 
 void DebugTextManager::Initialize()
 {
-	sFontTex = TextureManager::GetInstance()->LoadTextureGraph(L"Resources/Sprite/debugfont.png");
+	sFontTex = TextureManager::GetInstance()->LoadTextureGraph("debugfont.png");
 	sprites.resize(sMaxSpritesNum);
 	for (size_t i = 0; i < sprites.size(); i++)
 	{

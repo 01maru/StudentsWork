@@ -7,6 +7,7 @@
 #include <cassert>
 #include "TextureManager.h"
 #include "Window.h"
+#include "ConvertString.h"
 
 std::map<std::string, Sprite, std::less<>> UIEditor::LoadFile(const std::string& filename)
 {
@@ -38,7 +39,16 @@ std::map<std::string, Sprite, std::less<>> UIEditor::LoadFile(const std::string&
 			line_stream >> texname;
 
 			Sprite sprite;
-			sprite.Initialize(TextureManager::GetInstance()->LoadTextureGraph(texname));
+			if (texname.find("/") != 0) {
+				std::string dirPath = Util::GetDirectoryPath(texname);
+				std::string fileName = Util::GetFileName(texname);
+
+				sprite.Initialize(TextureManager::GetInstance()->LoadTextureGraph(fileName, dirPath));
+			}
+			else //	pathが含まれていない
+			{
+				sprite.Initialize(TextureManager::GetInstance()->LoadTextureGraph(texname));
+			}
 
 			Vector2D pos;
 			Vector2D size;

@@ -54,7 +54,7 @@ void TextureManager::Initialize()
 #pragma endregion
 
 	//	ロード失敗した際の白色テクスチャのロード
-	sWhiteTexHandle = LoadTextureGraph("Resources/Sprite/white1x1.png");
+	sWhiteTexHandle = LoadTextureGraph("white1x1.png");
 
 	backSprite_ = std::make_unique<Sprite>();
 	backSprite_->Initialize();
@@ -121,7 +121,7 @@ void TextureManager::ImGuiUpdate()
 
 	imguiMan->InputText("LoadPath", loadTexPath_);
 	if (imguiMan->SetButton("Load")) {
-		LoadTextureGraph(Util::ToWideString(loadTexPath_).c_str());
+		LoadTextureGraph(loadTexPath_);
 
 		UploadTexture();
 	}
@@ -163,7 +163,7 @@ void TextureManager::DrawPreview()
 	previewSprite_->Draw();
 }
 
-Texture* TextureManager::LoadTextureGraph(const std::string& textureName)
+Texture* TextureManager::LoadTextureGraph(const std::string& textureName, const std::string& path)
 {
 	HRESULT result;
 	TexMetadata metadata{};
@@ -176,7 +176,7 @@ Texture* TextureManager::LoadTextureGraph(const std::string& textureName)
 	}
 
 	result = LoadFromWICFile(
-		Util::ToWideString(textureName).c_str(),
+		Util::ToWideString(path + textureName).c_str(),
 		WIC_FLAGS_NONE,
 		&metadata, scratchImg);
 
@@ -331,11 +331,6 @@ Texture* TextureManager::LoadTextureGraph(const std::string& textureName)
 
 	texture->Initialize(textureName, index, texture->GetResourceBuff());
 	return texture;
-}
-
-Texture* TextureManager::LoadTextureGraph(const wchar_t* textureName)
-{
-	return LoadTextureGraph(Util::ConvertToString(textureName));
 }
 
 Texture* TextureManager::CreateNoneGraphTexture(const std::string& texName)

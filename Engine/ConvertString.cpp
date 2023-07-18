@@ -34,3 +34,11 @@ std::string Util::GetDirectoryPath(const std::string& origin)
 	ind++;
 	return origin.substr(0, ind);
 }
+
+std::string Util::GetFileName(const std::string& origin)
+{
+	if (origin.find("/") == std::string::npos) return origin;
+	int offset = (int)origin.find_last_of('/') + 1;
+	int ind = (int)origin.length() - offset;
+	return origin.substr(offset, ind);
+}

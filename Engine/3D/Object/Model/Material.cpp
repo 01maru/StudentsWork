@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "ConstBuffStruct.h"
 #include <cassert>
+#include "ConvertString.h"
 
 Material* Material::Create()
 {
@@ -31,19 +32,22 @@ void Material::Update()
 	}
 }
 
-std::wstring ReplaceExtension(const std::wstring& origin, const wchar_t* ext)
-{
-	int last = (int)origin.find_last_of('.');
-	std::wstring ret = origin.substr(0, last + 1);
-	wchar_t buf[5];
-	std::swprintf(buf, 5, L"%s", ext);
-	ret.append(ext);
-	return ret;
-}
+//std::wstring ReplaceExtension(const std::wstring& origin, const wchar_t* ext)
+//{
+//	int last = (int)origin.find_last_of('.');
+//	std::wstring ret = origin.substr(0, last + 1);
+//	wchar_t buf[5];
+//	std::swprintf(buf, 5, L"%s", ext);
+//	ret.append(ext);
+//	return ret;
+//}
 
 void Material::LoadTexture()
 {
-	texture_ = TextureManager::GetInstance()->LoadTextureGraph(wfilepath_);
+	std::string fileName = Util::GetFileName(filepath_);
+	std::string dirPath = Util::GetDirectoryPath(filepath_);
+
+	texture_ = TextureManager::GetInstance()->LoadTextureGraph(fileName, dirPath);
 }
 
 void Material::SetGraphicsRootCBuffView(uint32_t rootparaIdx)
