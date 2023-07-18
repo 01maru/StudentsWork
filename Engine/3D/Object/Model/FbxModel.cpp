@@ -1,9 +1,9 @@
 #include "FbxModel.h"
-#include "Quaternion.h"
+#include <cassert>
 #include <assimp/scene.h>
+#include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include "LightManager.h"
-
 #include "ConvertString.h"
 #include "ConvertAiStruct.h"
 
@@ -14,16 +14,18 @@ FbxModel::FbxModel(const char* filename, bool smoothing)
 	Initialize(filename, smoothing);
 }
 
-FbxModel::~FbxModel() {}
-
-void FbxModel::LoadModel(const std::string& modelname, bool /*smoothing*/)
+void FbxModel::LoadModel(const std::string& modelname, bool smoothing)
 {
 	//	パスの設定
 	const string filename = modelname + ".fbx";
 	const string directoryPath = "Resources/Model/" + modelname + "/";
 
 	//	シーンのロード
-	modelScene = importer.ReadFile(directoryPath + filename, aiProcess_Triangulate);	//	三角面化
+	Assimp::Importer importer;
+	uint32_t aiProcess = aiProcess_Triangulate;
+	if (smoothing) aiProcess |= aiProcess_GenSmoothNormals;
+
+	const aiScene* modelScene = importer.ReadFile(directoryPath + filename, aiProcess);	//	三角面化
 
 	//	読み込み失敗したら
 	if (modelScene == nullptr) { return; }
@@ -48,15 +50,43 @@ void FbxModel::LoadModel(const std::string& modelname, bool /*smoothing*/)
 		//	material取得
 		aiMaterial* pMaterial = modelScene->mMaterials[i];
 
-		LoadMaterial(mesh, pMaterial, i);
+		LoadMaterial(mesh, pMaterial->GetName().C_Str());
 
 		SetTextureFilePath(directoryPath + filename, *mesh, pMaterial);
 	}
 
-	LoadAnimation();
+	LoadAnimation(modelScene);
+	LoadNodes(modelScene->mRootNode);
 }
 
-void FbxModel::LoadAnimation()
+void FbxModel::LoadNodeHeirarchy(const aiNode* pNode)
+{
+	Node node;
+
+	//	NodeTransform
+	Util::TransformMatToAiMat(node.transformation, pNode->mTransformation);
+
+	//	ChildrenName
+	for (size_t i = 0; i < pNode->mNumChildren; i++) {
+		node.childrenName.emplace_back(pNode->mChildren[i]->mName.C_Str());
+	}
+
+	nodes_.emplace(pNode->mName.C_Str(), node);
+
+	//	再帰
+	for (size_t i = 0; i < pNode->mNumChildren; i++) {
+		LoadNodeHeirarchy(pNode->mChildren[i]);
+	}
+}
+
+void FbxModel::LoadNodes(const aiNode* rootNode)
+{
+	rootNodeName_ = rootNode->mName.C_Str();
+
+	LoadNodeHeirarchy(rootNode);
+}
+
+void FbxModel::LoadAnimation(const aiScene* modelScene)
 {
 	for (size_t i = 0; i < modelScene->mNumAnimations; i++)
 	{
@@ -106,11 +136,11 @@ void FbxModel::LoadAnimation()
 	}
 }
 
-void FbxModel::LoadMaterial(Mesh* dst, const aiMaterial* /*src*/, size_t index)
+void FbxModel::LoadMaterial(Mesh* dst, const std::string& name)
 {
 	Material* material = Material::Create();
 
-	material->name_ += to_string(index);
+	material->name_ = name;
 
 	//	Diffuse
 	LightManager* light = LightManager::GetInstance();
@@ -204,13 +234,15 @@ void FbxModel::SetTextureFilePath(const std::string& filename, Mesh& dst, const 
 
 void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms)
 {
+	int32_t index = 1;
+
 	Matrix Identity;
 
-	double TicksPerSecond = modelScene->mAnimations[0]->mTicksPerSecond != 0 ? modelScene->mAnimations[0]->mTicksPerSecond : 25.0f;
+	double TicksPerSecond = animations_[index].ticksPerSecond != 0 ? animations_[index].ticksPerSecond : 25.0f;
 	float TimeInTicks = TimeInSeconds * (float)TicksPerSecond;	//	frame数
-	float AnimationTime = (float)fmod(TimeInTicks, modelScene->mAnimations[0]->mDuration);	//	現在のフレーム数/1Loopのフレーム数　のあまり
+	float AnimationTime = (float)fmod(TimeInTicks, animations_[index].duration);	//	現在のフレーム数/1Loopのフレーム数　のあまり
 
-	ReadNodeHeirarchy(AnimationTime, modelScene->mRootNode, Identity);
+	ReadNodeHeirarchy(animations_[index], AnimationTime, Identity, rootNodeName_);
 
 	transforms.resize(numBones_);
 
@@ -219,35 +251,31 @@ void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transform
 	}
 }
 
-void FbxModel::ReadNodeHeirarchy(float AnimationTime, const aiNode* pNode, const Matrix& ParentTransform)
+void FbxModel::ReadNodeHeirarchy(const AnimationData& animData, float AnimationTime, const Matrix& ParentTransform, const std::string& nodeName)
 {
-	string NodeName(pNode->mName.data);
+	//	nodeがあるか
+	if (nodes_.count(nodeName) == 0) assert(0);
+	Matrix NodeTransformation = nodes_[nodeName].transformation;
 
-	//	複数アニメーションあるならここで変更
-	const aiAnimation* pAnimation = modelScene->mAnimations[0];
-
-	Matrix NodeTransformation;
-	Util::TransformMatToAiMat(NodeTransformation, pNode->mTransformation);
-
-	const aiNodeAnim* pNodeAnim = Util::FindNodeAnim(pAnimation, NodeName);
+	const KeyChannels* pNodeAnim = Util::FindNodeChannel(animData, nodeName);
 
 	if (pNodeAnim) {
 		MyMath::ObjMatrix mat;
 
 		// スケーリングを補間し、スケーリング変換行列を生成する
-		aiVector3D Scaling;
+		Vector3D Scaling;
 		Util::CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
 		mat.scale_ = Vector3D(Scaling.x, Scaling.y, Scaling.z);
 		mat.SetMatScaling();
 
-		// 回転を補間し、回転変換行列を生成する
-		aiQuaternion RotationQ;
+		// 回転を補間し、回転変換行列を生成するl
+		Quaternion RotationQ;
 		Util::CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
 		Quaternion rotQ(RotationQ.w, RotationQ.x, RotationQ.y, RotationQ.z);
 		mat.matRot_ = rotQ.GetRotMatrix();
 
 		// 移動を補間し、移動変換行列を生成する
-		aiVector3D Translation;
+		Vector3D Translation;
 		Util::CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
 		mat.trans_ = Vector3D(Translation.x, Translation.y, Translation.z);
 		mat.SetMatTransform();
@@ -261,14 +289,14 @@ void FbxModel::ReadNodeHeirarchy(float AnimationTime, const aiNode* pNode, const
 	Matrix GlobalTransformation = NodeTransformation;
 	GlobalTransformation *= ParentTransform;
 
-	if (boneMapping_.find(NodeName) != boneMapping_.end()) {
-		size_t BoneIndex = boneMapping_[NodeName];
+	if (boneMapping_.find(nodeName) != boneMapping_.end()) {
+		size_t BoneIndex = boneMapping_[nodeName];
 		boneInfo_[BoneIndex].finalTransformation = globalInverseTransform_;
 		boneInfo_[BoneIndex].finalTransformation *= boneInfo_[BoneIndex].boneOffset;
 		boneInfo_[BoneIndex].finalTransformation *= GlobalTransformation;
 	}
 
-	for (size_t i = 0; i < pNode->mNumChildren; i++) {
-		ReadNodeHeirarchy(AnimationTime, pNode->mChildren[i], GlobalTransformation);
+	for (size_t i = 0; i < nodes_[nodeName].childrenName.size(); i++) {
+		ReadNodeHeirarchy(animData, AnimationTime, GlobalTransformation, nodes_[nodeName].childrenName[i]);
 	}
 }

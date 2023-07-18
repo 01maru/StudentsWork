@@ -1,6 +1,7 @@
 ﻿#include "ConvertAiStruct.h"
 #include <assimp/anim.h>
 #include <cassert>
+#include "AnimationStruct.h"
 
 void Util::TransformMatToAiMat(Matrix& mat, const aiMatrix4x4& aiMat)
 {
@@ -25,25 +26,24 @@ void Util::TransformMatToAiMat(Matrix& mat, const aiMatrix4x4& aiMat)
 	mat.m[3][3] = aiMat.d4;
 }
 
-const aiNodeAnim* Util::FindNodeAnim(const aiAnimation* pAnimation, const std::string& name)
+const KeyChannels* Util::FindNodeChannel(const AnimationData& animData, const std::string& name)
 {
-	for (size_t i = 0; i < pAnimation->mNumChannels; i++) {
-		const aiNodeAnim* pNodeAnim = pAnimation->mChannels[i];
-
-		if (std::string(pNodeAnim->mNodeName.data) == name) {
-			return pNodeAnim;
+	for (size_t i = 0; i < animData.channels.size(); i++) {
+		if (animData.channels[i].nodeName == name) {
+			return &animData.channels[i];
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
-size_t Util::FindRotation(float AnimationTime, const aiNodeAnim* pNodeAnim)
+size_t Util::FindRotation(float AnimationTime, const KeyChannels* pNodeAnim)
 {
-	assert(pNodeAnim->mNumRotationKeys > 0);
+	size_t keysSize = pNodeAnim->rotationKeys.size();
+	assert(keysSize > 0);
 
-	for (size_t i = 0; i < pNodeAnim->mNumRotationKeys - 1; i++) {
-		if (AnimationTime < (float)pNodeAnim->mRotationKeys[i + 1].mTime) {
+	for (size_t i = 0; i < keysSize - 1; i++) {
+		if (AnimationTime < (float)pNodeAnim->rotationKeys[i + 1].time) {
 			return i;
 		}
 	}
@@ -52,12 +52,13 @@ size_t Util::FindRotation(float AnimationTime, const aiNodeAnim* pNodeAnim)
 	return 0;
 }
 
-size_t Util::FindScaling(float AnimationTime, const aiNodeAnim* pNodeAnim)
+size_t Util::FindScaling(float AnimationTime, const KeyChannels* pNodeAnim)
 {
-	assert(pNodeAnim->mNumScalingKeys > 0);
+	size_t keysSize = pNodeAnim->scalingKeys.size();
+	assert(keysSize > 0);
 
-	for (size_t i = 0; i < pNodeAnim->mNumScalingKeys - 1; i++) {
-		if (AnimationTime < (float)pNodeAnim->mScalingKeys[i + 1].mTime) {
+	for (size_t i = 0; i < keysSize - 1; i++) {
+		if (AnimationTime < (float)pNodeAnim->scalingKeys[i + 1].time) {
 			return i;
 		}
 	}
@@ -66,10 +67,13 @@ size_t Util::FindScaling(float AnimationTime, const aiNodeAnim* pNodeAnim)
 	return 0;
 }
 
-size_t Util::FindPosition(float AnimationTime, const aiNodeAnim* pNodeAnim)
+size_t Util::FindPosition(float AnimationTime, const KeyChannels* pNodeAnim)
 {
-	for (size_t i = 0; i < pNodeAnim->mNumPositionKeys - 1; i++) {
-		if (AnimationTime < (float)pNodeAnim->mPositionKeys[i + 1].mTime) {
+	size_t keysSize = pNodeAnim->positionKeys.size();
+	assert(keysSize > 0);
+
+	for (size_t i = 0; i < keysSize - 1; i++) {
+		if (AnimationTime < (float)pNodeAnim->positionKeys[i + 1].time) {
 			return i;
 		}
 	}
@@ -79,60 +83,72 @@ size_t Util::FindPosition(float AnimationTime, const aiNodeAnim* pNodeAnim)
 	return 0;
 }
 
-void Util::CalcInterpolatedRotation(aiQuaternion& Out, float AnimationTime, const aiNodeAnim* pNodeAnim)
+void Util::CalcInterpolatedRotation(Quaternion& Out, float AnimationTime, const KeyChannels* pNodeAnim)
 {
 	// 補間には最低でも２つの値が必要
-	if (pNodeAnim->mNumRotationKeys == 1) {
-		Out = pNodeAnim->mRotationKeys[0].mValue;
+	if (pNodeAnim->rotationKeys.size() == 1) {
+		Out = pNodeAnim->rotationKeys[0].value;
 		return;
 	}
 
-	size_t RotationIndex = Util::FindRotation(AnimationTime, pNodeAnim);
+	size_t RotationIndex = FindRotation(AnimationTime, pNodeAnim);
 	size_t NextRotationIndex = (RotationIndex + 1);
-	assert(NextRotationIndex < pNodeAnim->mNumRotationKeys);
-	float DeltaTime = (float)(pNodeAnim->mRotationKeys[NextRotationIndex].mTime - pNodeAnim->mRotationKeys[RotationIndex].mTime);
-	float Factor = (AnimationTime - (float)pNodeAnim->mRotationKeys[RotationIndex].mTime) / DeltaTime;
+	assert(NextRotationIndex < pNodeAnim->rotationKeys.size());
+	float DeltaTime = (float)(pNodeAnim->rotationKeys[NextRotationIndex].time - pNodeAnim->rotationKeys[RotationIndex].time);
+	float Factor = (AnimationTime - (float)pNodeAnim->rotationKeys[RotationIndex].time) / DeltaTime;
 	assert(Factor >= 0.0f && Factor <= 1.0f);
-	const aiQuaternion& StartRotationQ = pNodeAnim->mRotationKeys[RotationIndex].mValue;
-	const aiQuaternion& EndRotationQ = pNodeAnim->mRotationKeys[NextRotationIndex].mValue;
-	aiQuaternion::Interpolate(Out, StartRotationQ, EndRotationQ, Factor);
-	Out = Out.Normalize();
+	const aiQuaternion& StartRotationQ = aiQuaternion(pNodeAnim->rotationKeys[RotationIndex].value.w,
+		pNodeAnim->rotationKeys[RotationIndex].value.x,
+		pNodeAnim->rotationKeys[RotationIndex].value.y,
+		pNodeAnim->rotationKeys[RotationIndex].value.z);
+	const aiQuaternion& EndRotationQ = aiQuaternion(pNodeAnim->rotationKeys[NextRotationIndex].value.w,
+		pNodeAnim->rotationKeys[NextRotationIndex].value.x,
+		pNodeAnim->rotationKeys[NextRotationIndex].value.y,
+		pNodeAnim->rotationKeys[NextRotationIndex].value.z);
+	aiQuaternion ans;
+	aiQuaternion::Interpolate(ans, StartRotationQ, EndRotationQ, Factor);
+	ans = ans.Normalize();
+
+	Out.x = ans.x;
+	Out.y = ans.y;
+	Out.z = ans.z;
+	Out.w = ans.w;
 }
 
-void Util::CalcInterpolatedScaling(aiVector3D& Out, float AnimationTime, const aiNodeAnim* pNodeAnim)
+void Util::CalcInterpolatedScaling(Vector3D& Out, float AnimationTime, const KeyChannels* pNodeAnim)
 {
-	if (pNodeAnim->mNumScalingKeys == 1) {
-		Out = pNodeAnim->mScalingKeys[0].mValue;
+	if (pNodeAnim->scalingKeys.size() == 1) {
+		Out = pNodeAnim->scalingKeys[0].value;
 		return;
 	}
 
-	size_t ScalingIndex = Util::FindScaling(AnimationTime, pNodeAnim);
+	size_t ScalingIndex = FindScaling(AnimationTime, pNodeAnim);
 	size_t NextScalingIndex = (ScalingIndex + 1);
-	assert(NextScalingIndex < pNodeAnim->mNumScalingKeys);
-	float DeltaTime = (float)(pNodeAnim->mScalingKeys[NextScalingIndex].mTime - pNodeAnim->mScalingKeys[ScalingIndex].mTime);
-	float Factor = (AnimationTime - (float)pNodeAnim->mScalingKeys[ScalingIndex].mTime) / DeltaTime;
+	assert(NextScalingIndex < pNodeAnim->scalingKeys.size());
+	float DeltaTime = (float)(pNodeAnim->scalingKeys[NextScalingIndex].time - pNodeAnim->scalingKeys[ScalingIndex].time);
+	float Factor = (AnimationTime - (float)pNodeAnim->scalingKeys[ScalingIndex].time) / DeltaTime;
 	assert(Factor >= 0.0f && Factor <= 1.0f);
-	const aiVector3D& Start = pNodeAnim->mScalingKeys[ScalingIndex].mValue;
-	const aiVector3D& End = pNodeAnim->mScalingKeys[NextScalingIndex].mValue;
-	aiVector3D Delta = End - Start;
+	const Vector3D& Start = pNodeAnim->scalingKeys[ScalingIndex].value;
+	const Vector3D& End = pNodeAnim->scalingKeys[NextScalingIndex].value;
+	Vector3D Delta = End - Start;
 	Out = Start + Factor * Delta;
 }
 
-void Util::CalcInterpolatedPosition(aiVector3D& Out, float AnimationTime, const aiNodeAnim* pNodeAnim)
+void Util::CalcInterpolatedPosition(Vector3D& Out, float AnimationTime, const KeyChannels* pNodeAnim)
 {
-	if (pNodeAnim->mNumPositionKeys == 1) {
-		Out = pNodeAnim->mPositionKeys[0].mValue;
+	if (pNodeAnim->positionKeys.size() == 1) {
+		Out = pNodeAnim->positionKeys[0].value;
 		return;
 	}
 
-	size_t PositionIndex = Util::FindPosition(AnimationTime, pNodeAnim);
+	size_t PositionIndex = FindPosition(AnimationTime, pNodeAnim);
 	size_t NextPositionIndex = (PositionIndex + 1);
-	assert(NextPositionIndex < pNodeAnim->mNumPositionKeys);
-	float DeltaTime = (float)(pNodeAnim->mPositionKeys[NextPositionIndex].mTime - pNodeAnim->mPositionKeys[PositionIndex].mTime);
-	float Factor = (AnimationTime - (float)pNodeAnim->mPositionKeys[PositionIndex].mTime) / DeltaTime;
+	assert(NextPositionIndex < pNodeAnim->positionKeys.size());
+	float DeltaTime = (float)(pNodeAnim->positionKeys[NextPositionIndex].time - pNodeAnim->positionKeys[PositionIndex].time);
+	float Factor = (AnimationTime - (float)pNodeAnim->positionKeys[PositionIndex].time) / DeltaTime;
 	assert(Factor >= 0.0f && Factor <= 1.0f);
-	const aiVector3D& Start = pNodeAnim->mPositionKeys[PositionIndex].mValue;
-	const aiVector3D& End = pNodeAnim->mPositionKeys[NextPositionIndex].mValue;
-	aiVector3D Delta = End - Start;
+	const Vector3D& Start = pNodeAnim->positionKeys[PositionIndex].value;
+	const Vector3D& End = pNodeAnim->positionKeys[NextPositionIndex].value;
+	Vector3D Delta = End - Start;
 	Out = Start + Factor * Delta;
 }

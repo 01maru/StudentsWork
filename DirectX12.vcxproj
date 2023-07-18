@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationStruct.cpp" />
     <ClCompile Include="ConvertAiStruct.cpp" />
     <ClCompile Include="DebugScene.cpp" />
     <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp" />
@@ -95,6 +96,7 @@
     <ClCompile Include="Engine\2D\Sprite\Base\UIData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationStruct.h" />
     <ClInclude Include="ConvertAiStruct.h" />
     <ClInclude Include="DebugScene.h" />
     <ClInclude Include="Engine\2D\Sprite\SliderSprite.h" />

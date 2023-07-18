@@ -450,6 +450,9 @@
     <ClCompile Include="ConvertAiStruct.cpp">
       <Filter>ソース ファイル\lib\Converter</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationStruct.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -724,6 +727,9 @@
     </ClInclude>
     <ClInclude Include="Engine\ConvertString.h">
       <Filter>ヘッダー ファイル\lib\Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationStruct.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
