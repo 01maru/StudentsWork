@@ -23,6 +23,7 @@ namespace CBuff
 	};
 
 	struct CBuffDissolveData {
+		Vector4D color;
 		float value;
 	};
 

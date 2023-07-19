@@ -161,6 +161,7 @@ void Object3D::MatUpdate()
 	dissolveValue_ += 0.001f;
 	if (dissolveValue_ > 1.0f) dissolveValue_ = 0.0f;
 	cDissolveMap_->value = dissolveValue_;
+	cDissolveMap_->color = { 2.0f,0.0f,0.0f,1.0f };
 }
 
 void Object3D::PlayAnimation()

@@ -53,6 +53,7 @@ cbuffer CBuffColorMaterial : register(b4)
 
 cbuffer CBuffColorMaterial : register(b5)
 {
+	float4 dissolveColor;
 	float dissolveValue;
 }
 

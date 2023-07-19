@@ -10,12 +10,10 @@ float4 main(VSOutput input) : SV_TARGET
     float4 texcolor = tex.Sample(g_sampler, input.uv);
     float4 dissolveMap = dissolve.Sample(g_sampler, input.uv);
 
-    //  0.5ˆÈ‰º‚ð•`‰æ”jŠü
-    float dissolve = smoothstep(dissolveValue, dissolveValue + 0.1f, dissolveMap.r);
+    float dissolve = smoothstep(dissolveValue, dissolveValue + 0.2f, dissolveMap.r);
 
     if (dissolve == 1) return texcolor;
     if (dissolve == 0) discard;
 
-    dissolve += 1.0f;
-    return float4(dissolve, 0, 0, 1.0f);
+    return dissolveColor;
 }
