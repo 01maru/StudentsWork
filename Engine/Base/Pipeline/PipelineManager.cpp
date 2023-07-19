@@ -182,6 +182,14 @@ void PipelineManager::InitializeModel()
 		modelpipeline_->SetBlendMord(i);
 	}
 
+	Shader dissolveShader(L"Resources/Shader/ObjVS.hlsl", L"Resources/Shader/DissolvePS.hlsl");
+
+	pipelines_.emplace("dissolve", std::make_unique<GPipeline>());
+	GPipeline* dissolvePipe = pipelines_["dissolve"].get();
+	dissolvePipe->Initialize(dissolveShader, inputLayout, 6
+		, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_NONE, D3D12_DEPTH_WRITE_MASK_ALL, true,
+		DXGI_FORMAT_R11G11B10_FLOAT, 2);
+
 #pragma endregion
 }
 
@@ -243,8 +251,8 @@ GPipeline* PipelineManager::GetPipeline(const std::string& name, GPipeline::Blen
 	else if (name == "glayScale") {
 		return glayScalePipeline_.get();
 	}
-	else if (name == "dof") {
-		return dofPipeline_.get();
+	else if (name == "dissolve") {
+		return pipelines_[name].get();
 	}
 	return nullptr;
 }

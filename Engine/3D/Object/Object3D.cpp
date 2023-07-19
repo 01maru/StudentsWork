@@ -85,6 +85,11 @@ void Object3D::Initialize()
 	result = colorMaterial_.GetResource()->Map(0, nullptr, (void**)&cColorMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
+	dissolve_.Initialize(sizeof(CBuff::CBuffDissolveData));
+	//	定数バッファのマッピング
+	result = dissolve_.GetResource()->Map(0, nullptr, (void**)&cDissolveMap_);	//	マッピング
+	assert(SUCCEEDED(result));
+
 #pragma endregion
 
 	mat_.Initialize();
@@ -152,6 +157,10 @@ void Object3D::MatUpdate()
 	cLightMap_->cameraPos = CameraManager::GetInstance()->GetLightCamera()->GetEye();
 
 	cColorMap_->color = color_;
+
+	dissolveValue_ += 0.001f;
+	if (dissolveValue_ > 1.0f) dissolveValue_ = 0.0f;
+	cDissolveMap_->value = dissolveValue_;
 }
 
 void Object3D::PlayAnimation()
@@ -243,7 +252,6 @@ void Object3D::DrawShadowUnReciever(bool drawShadow)
 	skinData_.SetGraphicsRootCBuffView(4);
 	colorMaterial_.SetGraphicsRootCBuffView(5);
 
-
 	model_->Draw();
 }
 
@@ -251,19 +259,19 @@ void Object3D::DrawDissolve(bool drawShadow)
 {
 	if (drawShadow) return;
 
-	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND);
+	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("dissolve");
 	pipeline->SetGraphicsRootSignature();
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	//Texture* dissolve = TextureManager::GetInstance()->LoadTextureGraph("Re")
-	//MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
+	Texture* dissolve = TextureManager::GetInstance()->LoadTextureGraph("DissolveMap.png");
+	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
 
 	model_->SetGraphicsRootCBuffViewMtl(2);
 	transform_.SetGraphicsRootCBuffView(3);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(4);
 	skinData_.SetGraphicsRootCBuffView(5);
-	colorMaterial_.SetGraphicsRootCBuffView(5);
-
+	colorMaterial_.SetGraphicsRootCBuffView(6);
+	dissolve_.SetGraphicsRootCBuffView(7);
 
 	model_->Draw();
 }

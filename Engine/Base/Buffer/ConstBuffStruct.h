@@ -22,6 +22,10 @@ namespace CBuff
 		Vector4D color;	//	RGBA
 	};
 
+	struct CBuffDissolveData {
+		float value;
+	};
+
 	struct CBuffGlayScale {
 		bool active;
 	};

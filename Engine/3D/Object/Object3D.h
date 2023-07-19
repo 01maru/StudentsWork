@@ -11,6 +11,7 @@ namespace CBuff {
 	struct CBuffObj3DTransform;
 	struct CBuffSkinData;
 	struct CBuffColorMaterial;
+	struct CBuffDissolveData;
 }
 
 class BaseCollider;
@@ -45,13 +46,16 @@ private:
 
 	ConstBuff colorMaterial_;
 	CBuff::CBuffColorMaterial* cColorMap_ = nullptr;
+	
+	ConstBuff dissolve_;
+	CBuff::CBuffDissolveData* cDissolveMap_ = nullptr;
 
 #pragma endregion
 
 	Object3D* parent_ = nullptr;
 	IModel* model_ = nullptr;
 	float animationTimer_ = 0.0f;
-
+	float dissolveValue_ = 1.0f;
 protected:
 	MyMath::ObjMatrix mat_;
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
@@ -61,7 +65,6 @@ private:
 	void DrawShadow(bool drawShadow);
 	void DrawShadowReciever(bool drawShadow);
 	void DrawShadowUnReciever(bool drawShadow);
-	void DrawDissolve(bool drawShadow);
 
 public:
 	Object3D() = default;
@@ -75,6 +78,7 @@ public:
 	void PlayAnimation();
 	virtual void Draw(bool drawShadow);
 	void DrawSilhouette();
+	void DrawDissolve(bool drawShadow);
 
 	virtual void OnCollision(const CollisionInfo& info) { (void)info; }
 

@@ -55,6 +55,6 @@ void DebugScene::DrawShadow()
 void DebugScene::Draw()
 {
 	bool drawShadow = false;
-	ground_->Draw(drawShadow);
+	ground_->DrawDissolve(drawShadow);
 	fbx_->Draw(drawShadow);
 }

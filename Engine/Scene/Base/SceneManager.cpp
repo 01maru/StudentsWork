@@ -342,6 +342,8 @@ void SceneManager::Draw()
 #pragma endregion
 
 	dx->DrawEnd();
+
+	if (endLoading_) TextureManager::GetInstance()->UploadTexture();
 }
 
 void SceneManager::SceneChange()

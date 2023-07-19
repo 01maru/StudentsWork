@@ -3,10 +3,13 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <map>
 
 class PipelineManager
 {
 private:
+	std::map<std::string, std::unique_ptr<GPipeline>, std::less<>> pipelines_;
+
 #pragma region Sprite
 
 	std::vector<std::unique_ptr<GPipeline>> spritePipeline_;
