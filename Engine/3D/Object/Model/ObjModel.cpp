@@ -17,7 +17,7 @@ ObjModel::~ObjModel()
 	materials_.clear();
 }
 
-void ObjModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& /*transforms*/)
+void ObjModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& /*transforms*/, int32_t /*animationIdx*/)
 {
 	//	objなのでboneなし
 }

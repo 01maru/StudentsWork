@@ -232,17 +232,17 @@ void FbxModel::SetTextureFilePath(const std::string& filename, Mesh& dst, const 
 	}
 }
 
-void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms)
+void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx)
 {
-	int32_t index = 1;
-
 	Matrix Identity;
+
+	if (animations_.size() <= animationIdx || animationIdx < 0) return;
 
 	//double TicksPerSecond = animations_[index].ticksPerSecond != 0 ? animations_[index].ticksPerSecond : 25.0f;
 	//float TimeInTicks = TimeInSeconds * (float)TicksPerSecond;	//	frame数
-	float AnimationTime = (float)fmod(TimeInSeconds, animations_[index].duration);	//	現在のフレーム数/1Loopのフレーム数　のあまり
+	float AnimationTime = (float)fmod(TimeInSeconds, animations_[animationIdx].duration);	//	現在のフレーム数/1Loopのフレーム数　のあまり
 
-	ReadNodeHeirarchy(animations_[index], AnimationTime, Identity, rootNodeName_);
+	ReadNodeHeirarchy(animations_[animationIdx], AnimationTime, Identity, rootNodeName_);
 
 	transforms.resize(numBones_);
 
@@ -268,7 +268,7 @@ void FbxModel::ReadNodeHeirarchy(const AnimationData& animData, float AnimationT
 		mat.scale_ = Vector3D(Scaling.x, Scaling.y, Scaling.z);
 		mat.SetMatScaling();
 
-		// 回転を補間し、回転変換行列を生成するl
+		// 回転を補間し、回転変換行列を生成する
 		Quaternion RotationQ;
 		Util::CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
 		Quaternion rotQ(RotationQ.w, RotationQ.x, RotationQ.y, RotationQ.z);

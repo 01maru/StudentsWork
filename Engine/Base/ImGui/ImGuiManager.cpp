@@ -161,6 +161,11 @@ void ImGuiManager::InputFloat(const std::string& name, float& v)
 	ImGui::InputFloat(name.c_str(), &v);
 }
 
+void ImGuiManager::InputInt(const std::string& name, int& v)
+{
+	ImGui::InputInt(name.c_str(), &v);
+}
+
 void ImGuiManager::SetSliderFloat(const std::string& sliderName, float& value, float spd, float minValue, float maxValue)
 {
 	//ImGui::SliderFloat(sliderName.c_str(), &value, minValue, maxValue);

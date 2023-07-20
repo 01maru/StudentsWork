@@ -8,7 +8,7 @@ class DebugScene :public IScene
 private:
 	std::unique_ptr<Object3D> fbx_;
 	std::unique_ptr<Object3D> ground_;
-
+	int32_t index = -1;
 private:	//	関数
 	void MatUpdate() override;
 

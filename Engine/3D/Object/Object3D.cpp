@@ -108,7 +108,7 @@ void Object3D::ColliderUpdate()
 	}
 }
 
-void Object3D::MatUpdate()
+void Object3D::MatUpdate(int32_t animationIdx)
 {
 
 #pragma region WorldMatrix
@@ -162,15 +162,13 @@ void Object3D::MatUpdate()
 	if (dissolveValue_ > 1.0f) dissolveValue_ = 0.0f;
 	cDissolveMap_->value = dissolveValue_;
 	cDissolveMap_->color = { 2.0f,0.0f,0.0f,1.0f };
-}
 
-void Object3D::PlayAnimation()
-{
+	//	Animation
 	std::vector<Matrix> Transforms;
+	//animationTimer_++;
+	model_->BoneTransform(animationTimer_, Transforms, animationIdx);
 
-	animationTimer_++;
-	model_->BoneTransform(animationTimer_, Transforms);
-
+	if (Transforms.empty()) return;
 	for (size_t i = 0; i < model_->GetNumBones(); i++)
 	{
 		cSkinMap_->bones[i] = Transforms[i];
@@ -188,7 +186,7 @@ void Object3D::DrawSilhouette()
 	colorMaterial_.SetGraphicsRootCBuffView(5);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
 
-	model_->Draw();
+	model_->Draw(1);
 }
 
 void Object3D::Draw(bool drawShadow)
@@ -213,7 +211,7 @@ void Object3D::DrawShadow(bool drawShadow)
 	shadowTransform_.SetGraphicsRootCBuffView(2);
 	lightMaterial_.SetGraphicsRootCBuffView(3);
 
-	model_->Draw();
+	model_->Draw(1);
 }
 
 void Object3D::DrawShadowReciever(bool drawShadow)
@@ -228,13 +226,12 @@ void Object3D::DrawShadowReciever(bool drawShadow)
 	Texture* shadowmap = SceneManager::GetInstance()->GetShadowMap();
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(shadowmap->GetHandle()));
 	
-	model_->SetGraphicsRootCBuffViewMtl(2);
 	transform_.SetGraphicsRootCBuffView(3);
 	lightMaterial_.SetGraphicsRootCBuffView(4);
 	skinData_.SetGraphicsRootCBuffView(5);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(6);
 
-	model_->Draw();
+	model_->Draw(2);
 }
 
 void Object3D::DrawShadowUnReciever(bool drawShadow)
@@ -247,13 +244,12 @@ void Object3D::DrawShadowUnReciever(bool drawShadow)
 	pipeline->SetGraphicsRootSignature();
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	model_->SetGraphicsRootCBuffViewMtl(1);
 	transform_.SetGraphicsRootCBuffView(2);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
 	skinData_.SetGraphicsRootCBuffView(4);
 	colorMaterial_.SetGraphicsRootCBuffView(5);
 
-	model_->Draw();
+	model_->Draw(1);
 }
 
 void Object3D::DrawDissolve(bool drawShadow)
@@ -267,12 +263,11 @@ void Object3D::DrawDissolve(bool drawShadow)
 	Texture* dissolve = TextureManager::GetInstance()->LoadTextureGraph("DissolveMap.png");
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
 
-	model_->SetGraphicsRootCBuffViewMtl(2);
 	transform_.SetGraphicsRootCBuffView(3);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(4);
 	skinData_.SetGraphicsRootCBuffView(5);
 	colorMaterial_.SetGraphicsRootCBuffView(6);
 	dissolve_.SetGraphicsRootCBuffView(7);
 
-	model_->Draw();
+	model_->Draw(2);
 }

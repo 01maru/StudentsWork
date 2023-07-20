@@ -1,6 +1,5 @@
 ﻿#pragma once
 #define NOMINMAX
-#include "GPipeline.h"
 #include "MyMath.h"
 #include "CollisionInfo.h"
 
@@ -74,8 +73,7 @@ public:
 
 	virtual void Initialize();
 	virtual void ColliderUpdate();
-	void MatUpdate();
-	void PlayAnimation();
+	void MatUpdate(int32_t animationIdx = -1);
 	virtual void Draw(bool drawShadow);
 	void DrawSilhouette();
 	void DrawDissolve(bool drawShadow);

@@ -9,6 +9,8 @@ public:
 	// ウィンドウサイズ
 	static const int32_t sWIN_WIDTH = 1280; // 横幅
 	static const int32_t sWIN_HEIGHT = 720; // 縦幅
+	//static const int32_t sWIN_WIDTH = 1920; // 横幅
+	//static const int32_t sWIN_HEIGHT = 1080; // 縦幅
 private:
 	// ウィンドウクラスの設定
 	WNDCLASSEX w_{};

@@ -35,10 +35,9 @@ public:
 	virtual ~IModel() = default;
 	//	ファイル名とスムージングするか
 	void Initialize(const char* filename, bool smoothing = false);
-	void SetGraphicsRootCBuffViewMtl(int32_t index);
-	void Draw();
+	void Draw(int32_t cBuffMtlIdx);
 
-	virtual void BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms) = 0;
+	virtual void BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx) = 0;
 	void AddMaterial(Material* material) { materials_.emplace(material->name_, material); }
 
 	//　Getter

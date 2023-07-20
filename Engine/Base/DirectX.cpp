@@ -137,8 +137,8 @@ void MyDirectX::Initialize()
 	ComPtr<IDXGISwapChain1> swapChain1;
 	// 設定
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
-	swapChainDesc.Width = 1280;										//	画面幅解像度
-	swapChainDesc.Height = 720;										//	画面高さ解像度
+	swapChainDesc.Width = Window::sWIN_WIDTH;						//	画面幅解像度
+	swapChainDesc.Height = Window::sWIN_HEIGHT;						//	画面高さ解像度
 	swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;				// 色情報の書式
 	swapChainDesc.SampleDesc.Count = 1;								// マルチサンプルしない
 	swapChainDesc.BufferUsage = DXGI_USAGE_BACK_BUFFER;				// バックバッファ用

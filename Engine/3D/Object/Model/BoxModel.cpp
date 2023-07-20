@@ -262,6 +262,6 @@ BoxModel::~BoxModel()
 	materials_.clear();
 }
 
-void BoxModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& /*transforms*/)
+void BoxModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& /*transforms*/, int32_t /*animationIdx*/)
 {
 }

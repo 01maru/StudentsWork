@@ -37,6 +37,6 @@ public:
 	FbxModel(const char* filename, bool smoothing = false);
 	~FbxModel() override {};
 
-	void BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms) override;
+	void BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx) override;
 };
 

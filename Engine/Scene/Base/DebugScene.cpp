@@ -1,6 +1,9 @@
 ﻿#include "DebugScene.h"
 #include "ModelManager.h"
 #include "PipelineManager.h"
+#include "ImGuiManager.h"
+
+#include "SceneManager.h"
 
 void DebugScene::LoadResources()
 {
@@ -8,13 +11,13 @@ void DebugScene::LoadResources()
 	ModelManager* models = ModelManager::GetInstance();
 	models->LoadModel("ground");
 	models->LoadModel("objCube", true);
-	models->LoadModel("moveCube", true);
+	models->LoadModel("human", true);
 #pragma endregion
 
 	//	地面
 	ground_.reset(Object3D::Create(models->GetModel("ground")));
 
-	fbx_.reset(Object3D::Create(models->GetModel("objCube")));
+	fbx_.reset(Object3D::Create(models->GetModel("human")));
 }
 
 void DebugScene::Initialize()
@@ -29,8 +32,8 @@ void DebugScene::Finalize()
 void DebugScene::MatUpdate()
 {
 	ground_->MatUpdate();
-	fbx_->PlayAnimation();
-	fbx_->MatUpdate();
+	
+	fbx_->MatUpdate(index);
 }
 
 void DebugScene::Update()
@@ -46,6 +49,19 @@ void DebugScene::Update()
 
 void DebugScene::ImguiUpdate()
 {
+	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+
+	imguiMan->BeginWindow("DebugScene", true);
+
+	imguiMan->Text("AnimationIndex : %d", index);
+
+	imguiMan->InputInt("AnimationIdx", index);
+
+	if(imguiMan->SetButton("GameScene")){
+		SceneManager::GetInstance()->SetNextScene("GAMESCENE");
+	}
+
+	imguiMan->EndWindow();
 }
 
 void DebugScene::DrawShadow()

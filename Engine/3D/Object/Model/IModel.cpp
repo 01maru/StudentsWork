@@ -17,16 +17,10 @@ void IModel::Initialize(const char* filename, bool smoothing)
 	}
 }
 
-void IModel::SetGraphicsRootCBuffViewMtl(int32_t index)
+void IModel::Draw(int32_t cBuffMtlIdx)
 {
 	for (auto& mesh : meshes_) {
-		mesh.SetGraphicsRootCBuffViewMtl(index);
-	}
-}
-
-void IModel::Draw()
-{
-	for (auto& mesh : meshes_) {
+		mesh.SetGraphicsRootCBuffViewMtl(cBuffMtlIdx);
 		mesh.Draw();
 	}
 }
