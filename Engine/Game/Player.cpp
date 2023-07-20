@@ -10,6 +10,7 @@
 #include "QueryCallBack.h"
 #include "InputJoypad.h"
 #include "XAudioManager.h"
+#include "ImGuiManager.h"
 
 using namespace CollAttribute;
 
@@ -129,6 +130,17 @@ void Player::Update()
 	}
 
 	ColliderUpdate();
+}
+
+void Player::ImGuiUpdate()
+{
+	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+
+	imguiMan->BeginWindow("PlayerStatus", true);
+
+
+
+	imguiMan->EndWindow();
 }
 
 void Player::CollisionUpdate()

@@ -9,6 +9,7 @@ void DebugScene::LoadResources()
 {
 #pragma region Model
 	ModelManager* models = ModelManager::GetInstance();
+	models->LoadModel("");
 	models->LoadModel("ground");
 	models->LoadModel("objCube", true);
 	models->LoadModel("human", true);
@@ -18,6 +19,8 @@ void DebugScene::LoadResources()
 	ground_.reset(Object3D::Create(models->GetModel("ground")));
 
 	fbx_.reset(Object3D::Create(models->GetModel("human")));
+	fbx_->SetPosition({ 0.0f,1.0f,0.0f });
+	fbx_->SetScale({ 1.0f,2.0f,1.0f });
 }
 
 void DebugScene::Initialize()
@@ -51,11 +54,16 @@ void DebugScene::ImguiUpdate()
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
-	imguiMan->BeginWindow("DebugScene", true);
+	fbx_->GetModel()->ImGuiUpdate();
+
+	imguiMan->BeginWindow("DebugScene");
 
 	imguiMan->Text("AnimationIndex : %d", index);
 
 	imguiMan->InputInt("AnimationIdx", index);
+	imguiMan->InputInt("AnimationTimer", timer);
+
+	fbx_->SetAnimatonTimer((float)timer);
 
 	if(imguiMan->SetButton("GameScene")){
 		SceneManager::GetInstance()->SetNextScene("GAMESCENE");

@@ -6,7 +6,7 @@ class ICamera
 {
 protected:
 	Matrix matView_;
-	Matrix matProjection_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, MyMath::ConvertToRad(48.0f), 0.1f, 1000.0f);
+	Matrix matProjection_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, MyMath::ConvertToRad(90.0f), 0.1f, 1000.0f);
 
 	float disEyeTarget_ = 0.0f;
 	Vector3D eye_;						//	視点座標

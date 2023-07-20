@@ -133,8 +133,9 @@ void GameScene::ImguiUpdate()
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
-	imguiMan->BeginWindow("GameScene", true);
+	player_->ImGuiUpdate();
 
+	imguiMan->BeginWindow("GameScene", true);
 
 	imguiMan->Text("Pause : %s", pause_->GetIsActive() ? "True" : "False");
 	imguiMan->Text("mord : %d",pause_->GetMord());
@@ -159,7 +160,7 @@ void GameScene::Draw()
 	bool drawShadow = false;
 	//	天球
 	skydome_->Draw(drawShadow);
-	////	地面
+	//	地面
 	ground_->Draw(drawShadow);
 	//cube_->Draw(drawShadow);
 	player_->Draw(drawShadow);

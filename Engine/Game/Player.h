@@ -16,7 +16,7 @@ private:
 	bool onGround_ = true;
 	Vector3D fallVec_;
 
-	//	status
+	//	status(í≤êÆÇµÇ‚Ç∑Ç¢ÇÊÇ§Ç…ïœçX)
 	bool isAlive_ = true;
 	int32_t hp_;
 	const int32_t MAX_HP = 100;
@@ -43,6 +43,7 @@ private:
 public:
 	void Initialize(IModel* model_);
 	void Update();
+	void ImGuiUpdate();
 	void CollisionUpdate();
 	void OnCollision(const CollisionInfo& info) override;
 

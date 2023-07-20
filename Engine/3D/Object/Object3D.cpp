@@ -131,7 +131,6 @@ void Object3D::MatUpdate(int32_t animationIdx)
 	const Vector3D& cameraPos = cam->GetEye();
 
 	cTransformMap_->matViewProj = matViewProjection;
-	cTransformMap_->matViewProj = matViewProjection;
 	if (model_ != nullptr) {
 		cTransformMap_->matWorld = model_->GetModelTransform();
 		cTransformMap_->matWorld *= mat_.matWorld_;

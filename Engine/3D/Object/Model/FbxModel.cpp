@@ -6,6 +6,7 @@
 #include "LightManager.h"
 #include "ConvertString.h"
 #include "ConvertAiStruct.h"
+#include "ImGuiManager.h"
 
 using namespace std;
 
@@ -230,6 +231,53 @@ void FbxModel::SetTextureFilePath(const std::string& filename, Mesh& dst, const 
 		dst.SetTextureFilePath(dir + file);
 		dst.GetMaterial()->name_ = file;
 	}
+}
+
+void FbxModel::ImGuiUpdate()
+{
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
+	imgui->BeginWindow("FbxInfo");
+
+	imgui->Text("Test");
+	if (imgui->CollapsingHeader("Node")) {
+		for (auto itr = nodes_.begin(); itr != nodes_.end(); ++itr)
+		{
+			if (imgui->TreeNode(itr->first)) {
+				for (auto child = itr->second.childrenName.begin()
+					; child != itr->second.childrenName.end(); ++child)
+				{
+					imgui->Text(child->c_str());
+				}
+
+				Matrix transformation = itr->second.transformation;
+				imgui->Text("Transformaion\n(%.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f)",
+					transformation.m[0][0], transformation.m[0][1], transformation.m[0][2], transformation.m[0][3],
+					transformation.m[1][0], transformation.m[1][1], transformation.m[1][2], transformation.m[1][3],
+					transformation.m[2][0], transformation.m[2][1], transformation.m[2][2], transformation.m[2][3],
+					transformation.m[3][0], transformation.m[3][1], transformation.m[3][2], transformation.m[3][3]);
+
+				imgui->TreePop();
+			}
+		}
+	}
+	if (imgui->CollapsingHeader("BoneTransformation")) {
+
+		for (auto itr = boneMapping_.begin(); itr != boneMapping_.end(); ++itr) {
+			if (imgui->TreeNode(itr->first)) {
+				Matrix transformation = boneInfo_[itr->second].finalTransformation;
+				imgui->Text("Transformaion\n(%.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f)",
+					transformation.m[0][0], transformation.m[0][1], transformation.m[0][2], transformation.m[0][3],
+					transformation.m[1][0], transformation.m[1][1], transformation.m[1][2], transformation.m[1][3],
+					transformation.m[2][0], transformation.m[2][1], transformation.m[2][2], transformation.m[2][3],
+					transformation.m[3][0], transformation.m[3][1], transformation.m[3][2], transformation.m[3][3]);
+
+				imgui->TreePop();
+			}
+		}
+	}
+
+	imgui->EndWindow();
 }
 
 void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx)

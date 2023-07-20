@@ -35,6 +35,7 @@ public:
 	virtual ~IModel() = default;
 	//	ファイル名とスムージングするか
 	void Initialize(const char* filename, bool smoothing = false);
+	virtual void ImGuiUpdate() = 0;
 	void Draw(int32_t cBuffMtlIdx);
 
 	virtual void BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx) = 0;
