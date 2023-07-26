@@ -11,6 +11,7 @@
 #include "InputJoypad.h"
 #include "XAudioManager.h"
 #include "ImGuiManager.h"
+#include "RayCast.h"
 
 using namespace CollAttribute;
 
@@ -93,7 +94,7 @@ void Player::Initialize(IModel* model)
 	SetModel(model);
 	float radius = 0.6f;
 	SetCollider(new SphereCollider(Vector3D(0.0f, radius, 0.0f), radius));
-	collider->SetAttribute(COLLISION_ATTR_ALLIES);
+	collider_->SetAttribute(COLLISION_ATTR_ALLIES);
 
 	hp_ = MAX_HP;
 	stamina_ = (float)MAX_STAMINA;
@@ -174,7 +175,7 @@ void Player::CollisionUpdate()
 		}
 	};
 
-	SphereCollider* sphereCollider = dynamic_cast<SphereCollider*>(collider);
+	SphereCollider* sphereCollider = dynamic_cast<SphereCollider*>(collider_);
 	assert(sphereCollider);
 	PlayerQueryCallback callback(sphereCollider);
 
@@ -184,7 +185,7 @@ void Player::CollisionUpdate()
 	mat_.trans_ += callback.move;
 
 	MatUpdate();
-	collider->Update();
+	collider_->Update();
 
 	Ray ray;
 	ray.start = sphereCollider->center_;

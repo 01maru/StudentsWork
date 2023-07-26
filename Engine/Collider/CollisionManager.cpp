@@ -1,7 +1,8 @@
 #include "CollisionManager.h"
-#include "BaseCollider.h"
 #include "Collision.h"
 #include "MeshCollider.h"
+#include "RayCast.h"
+#include "QueryCallBack.h"
 #include <cassert>
 
 #include "Object3D.h"
@@ -14,17 +15,16 @@ CollisionManager* CollisionManager::GetInstance()
 
 void CollisionManager::CheckAllCollisions()
 {
-    std::forward_list<BaseCollider*>::iterator itA;
-    std::forward_list<BaseCollider*>::iterator itB;
+    std::forward_list<std::unique_ptr<BaseCollider>>::iterator itB;
 
-    itA = colliders.begin();
+    auto itA = colliders.begin();
 
     for (; itA != colliders.end(); ++itA) {
         itB = itA;
         ++itB;
         for (; itB != colliders.end(); ++itB) {
-            BaseCollider* colA = *itA;
-            BaseCollider* colB = *itB;
+            BaseCollider* colA = itA->get();
+            BaseCollider* colB = itB->get();
 
             if (colA->GetShapeType() == COLLISIONSHAPE_SPHERE &&
                 colB->GetShapeType() == COLLISIONSHAPE_SPHERE) {
@@ -69,14 +69,13 @@ bool CollisionManager::Raycast(const Ray& ray, RayCast* hitinfo, float maxDistan
 bool CollisionManager::Raycast(const Ray& ray, unsigned short attribute, RayCast* hitinfo, float maxDistance)
 {
     bool ans = false;
-    std::forward_list<BaseCollider*>::iterator itr;
-    std::forward_list<BaseCollider*>::iterator itr_hit;
+    auto itr = colliders.begin();
+    std::forward_list<std::unique_ptr<BaseCollider>>::iterator itr_hit;
     float distance = maxDistance;
     Vector3D inter;
 
-    itr = colliders.begin();
     for (; itr != colliders.end(); ++itr) {
-        BaseCollider* colA = *itr;
+        BaseCollider* colA = itr->get();
 
         if (!(colA->attribute & attribute)) continue;
 
@@ -111,7 +110,7 @@ bool CollisionManager::Raycast(const Ray& ray, unsigned short attribute, RayCast
     if (ans && hitinfo) {
         hitinfo->distance = distance;
         hitinfo->inter = inter;
-        hitinfo->collider = *itr_hit;
+        hitinfo->collider = itr_hit->get();
         hitinfo->object = hitinfo->collider->GetObject3D();
     }
 
@@ -122,11 +121,8 @@ void CollisionManager::QuerySphere(const Sphere& sphere, QueryCallBack* callback
 {
     assert(callback);
 
-    std::forward_list<BaseCollider*>::iterator it;
-
-    it = colliders.begin();
-    for (; it != colliders.end(); ++it) {
-        BaseCollider* col = *it;
+    for (auto it = colliders.begin(); it != colliders.end(); ++it) {
+        BaseCollider* col = it->get();
 
         if (!(col->attribute & attribute)) continue;
 

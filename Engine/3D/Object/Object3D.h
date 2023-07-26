@@ -58,7 +58,7 @@ private:
 protected:
 	MyMath::ObjMatrix mat_;
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
-	BaseCollider* collider = nullptr;
+	BaseCollider* collider_ = nullptr;
 	
 private:
 	void DrawShadow(bool drawShadow);
@@ -83,7 +83,7 @@ public:
 	void SetAnimatonTimer(float timer) { animationTimer_ = timer; }
 	const float GetAnimationTimer() { return animationTimer_; }
 
-	BaseCollider* GetCollider() { return collider; }
+	BaseCollider* GetCollider() { return collider_; }
 	//	Getter
 	const Vector4D& GetColor() { return color_; }
 	const Vector3D& GetPosition() { return mat_.trans_; }
@@ -94,7 +94,7 @@ public:
 
 	//	Setter
 	void SetModel(IModel* model);
-	void SetCollider(BaseCollider* collider_);
+	void SetCollider(BaseCollider* collider);
 	void SetAttribute(unsigned short attribute);
 	void SetColor(const Vector4D& color) { color_ = color; }
 	void SetColor(const Vector3D& color) { color_ = Vector4D(color, color_.w); }

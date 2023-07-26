@@ -17,24 +17,25 @@ void Object3D::SetModel(IModel* model)
 	model_ = model;
 }
 
-void Object3D::SetCollider(BaseCollider* collider_)
+void Object3D::SetCollider(BaseCollider* collider)
 {
-	collider_->SetObject3D(this);
-	this->collider = collider_;
-	CollisionManager::GetInstance()->AddCollider(collider_);
+	collider->SetObject3D(this);
+	std::unique_ptr<BaseCollider> coll(collider);
+	this->collider_ = coll.get();
+	CollisionManager::GetInstance()->AddCollider(std::move(coll));
 	collider_->Update();
 }
 
 void Object3D::SetAttribute(unsigned short attribute)
 {
-	collider->SetAttribute(attribute);
+	collider_->SetAttribute(attribute);
 }
 
 Object3D::~Object3D()
 {
-	if (collider) {
-		CollisionManager::GetInstance()->RemoveCollider(collider);
-		delete collider;
+	if (collider_) {
+		CollisionManager::GetInstance()->RemoveCollider(collider_);
+		collider_ = nullptr;
 	}
 }
 
@@ -103,8 +104,8 @@ void Object3D::Initialize()
 
 void Object3D::ColliderUpdate()
 {
-	if (collider) {
-		collider->Update();
+	if (collider_) {
+		collider_->Update();
 	}
 }
 
