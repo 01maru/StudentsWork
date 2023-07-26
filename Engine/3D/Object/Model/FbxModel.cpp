@@ -23,7 +23,7 @@ void FbxModel::LoadModel(const std::string& modelname, bool smoothing)
 
 	//	シーンのロード
 	Assimp::Importer importer;
-	uint32_t aiProcess = aiProcess_Triangulate;
+	uint32_t aiProcess = aiProcess_Triangulate | aiProcess_ConvertToLeftHanded | aiProcess_JoinIdenticalVertices | aiProcess_CalcTangentSpace;
 	if (smoothing) aiProcess |= aiProcess_GenSmoothNormals;
 
 	const aiScene* modelScene = importer.ReadFile(directoryPath + filename, aiProcess);	//	三角面化
@@ -169,11 +169,9 @@ void FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 		auto position = &(src->mVertices[i]);
 		auto normal = &(src->mNormals[i]);
 		auto uv = (src->HasTextureCoords(0)) ? &(src->mTextureCoords[0][i]) : &zero3D;
-		//	uv反転
-		uv->y = 1 - uv->y;
 
 		ModelVertex vertex_ = {};
-		vertex_.pos = Vector3D(position->x, position->y, -position->z);
+		vertex_.pos = Vector3D(position->x, position->y, position->z);
 		vertex_.normal = Vector3D(normal->x, normal->y, normal->z);
 		vertex_.uv = Vector2D(uv->x, uv->y);
 		vertex_.boneIndex[0] = 31;				//	bone最大許容数-1
@@ -188,8 +186,8 @@ void FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 		const auto& face = src->mFaces[i];
 
 		dst.AddIndex((unsigned short)face.mIndices[0]);
-		dst.AddIndex((unsigned short)face.mIndices[2]);
 		dst.AddIndex((unsigned short)face.mIndices[1]);
+		dst.AddIndex((unsigned short)face.mIndices[2]);
 	}
 }
 
