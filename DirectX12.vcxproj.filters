@@ -450,6 +450,9 @@
     <ClCompile Include="Engine\ConvertAiStruct.cpp">
       <Filter>ソース ファイル\lib\Converter</Filter>
     </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -727,6 +730,9 @@
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\AnimationStruct.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

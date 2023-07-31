@@ -93,6 +93,7 @@
     <ClCompile Include="Engine\Game\PauseScreen.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ModelManager.cpp" />
     <ClCompile Include="Engine\2D\Sprite\Base\UIData.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\3D\Object\Model\AnimationStruct.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Engine\Game\PauseScreen.h" />
     <ClInclude Include="Engine\3D\Object\Model\ModelManager.h" />
     <ClInclude Include="Engine\2D\Sprite\Base\UIData.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
