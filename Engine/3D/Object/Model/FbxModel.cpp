@@ -23,7 +23,7 @@ void FbxModel::LoadModel(const std::string& modelname, bool smoothing)
 
 	//	シーンのロード
 	Assimp::Importer importer;
-	uint32_t aiProcess = aiProcess_Triangulate | aiProcess_ConvertToLeftHanded | aiProcess_JoinIdenticalVertices | aiProcess_CalcTangentSpace;
+	uint32_t aiProcess = aiProcess_Triangulate | aiProcess_ConvertToLeftHanded;
 	if (smoothing) aiProcess |= aiProcess_GenSmoothNormals;
 
 	const aiScene* modelScene = importer.ReadFile(directoryPath + filename, aiProcess);	//	三角面化

@@ -19,8 +19,8 @@ void DebugScene::LoadResources()
 	ground_.reset(Object3D::Create(models->GetModel("ground")));
 
 	fbx_.reset(Object3D::Create(models->GetModel("human")));
-	fbx_->SetPosition({ 0.0f,1.0f,0.0f });
-	fbx_->SetScale({ 1.0f,2.0f,1.0f });
+	//fbx_->SetPosition({ 0.0f,1.0f,0.0f });
+	//fbx_->SetScale({ 1.0f,2.0f,1.0f });
 }
 
 void DebugScene::Initialize()

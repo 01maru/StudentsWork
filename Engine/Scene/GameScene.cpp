@@ -29,6 +29,7 @@ void GameScene::LoadResources()
 	models->LoadModel("ground");
 	models->LoadModel("objCube");
 	models->LoadModel("chr_sword");
+	models->LoadModel("human", true);
 	models->LoadModel();
 #pragma endregion
 	//	天球
@@ -41,7 +42,7 @@ void GameScene::LoadResources()
 	ground_->SetCollider(collider_);
 	//	player
 	player_ = std::make_unique<Player>();
-	player_->Initialize(models->GetModel());
+	player_->Initialize(models->GetModel("human"));
 	//	enemy
 	enemy_ = std::make_unique<Enemy>();
 	enemy_->Initialize(models->GetModel());
@@ -80,7 +81,7 @@ void GameScene::Initialize()
 	camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
 	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
 
-	XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
+	//XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 
 	CameraManager::GetInstance()->GetLightCamera()->SetEye(Vector3D(78.0f, 50.0f, -30.0f));
 }

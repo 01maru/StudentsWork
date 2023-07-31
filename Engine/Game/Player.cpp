@@ -126,8 +126,10 @@ void Player::Update()
 
 	if (moveVec.GetLength() != 0.0f) {
 		Vector3D axis(0, 0, -1);
-
+		Vector3D axis_(-1, 0, 0);
+		float dot = axis_.dot(moveVec);
 		mat_.angle_.y = GetAngle(axis, moveVec);
+		if (dot < 0) mat_.angle_.y = -mat_.angle_.y;
 	}
 
 	ColliderUpdate();
@@ -139,7 +141,7 @@ void Player::ImGuiUpdate()
 
 	imguiMan->BeginWindow("PlayerStatus", true);
 
-
+	imguiMan->Text("angle : %.2f", mat_.angle_.y);
 
 	imguiMan->EndWindow();
 }
