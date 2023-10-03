@@ -435,7 +435,7 @@
     <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\Base\UIData.cpp">
+    <ClCompile Include="Engine\2D\Sprite\Base\UIDrawer.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\Base\UIEditor.cpp">
@@ -451,6 +451,15 @@
       <Filter>ソース ファイル\lib\Converter</Filter>
     </ClCompile>
     <ClCompile Include="Weapon.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Particle\ParticleStruct.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButtonManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -716,7 +725,7 @@
     <ClInclude Include="Engine\2D\Sprite\Base\UIEditor.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\Base\UIData.h">
+    <ClInclude Include="Engine\2D\Sprite\Base\UIDrawer.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\Base\DebugScene.h">
@@ -732,6 +741,18 @@
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
     <ClInclude Include="Weapon.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\ParticleStruct.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButtonManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="UIData.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

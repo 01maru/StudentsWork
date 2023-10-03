@@ -34,7 +34,7 @@ void Object3D::SetAttribute(unsigned short attribute)
 Object3D::~Object3D()
 {
 	if (collider_) {
-		CollisionManager::GetInstance()->RemoveCollider(collider_);
+		//CollisionManager::GetInstance()->RemoveCollider(collider_);
 		collider_ = nullptr;
 	}
 }

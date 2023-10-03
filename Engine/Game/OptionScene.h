@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "SliderSprite.h"
-#include "UIData.h"
+#include "UIDrawer.h"
 
-class OptionScene :public UIData
+class OptionScene :public UIDrawer
 {
 public:
 	enum Mord

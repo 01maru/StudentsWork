@@ -1,5 +1,7 @@
-exit Resources/Sprite/white1x1.png 640 650 250 75 0 0 1 1 0.5 0.5 2
-game Resources/Sprite/white1x1.png 640 400 250 75 0 0 1 1 0.5 0.5 2
-option Resources/Sprite/white1x1.png 640 525 250 75 0 0 1 1 0.5 0.5 2
-pressKey Resources/Sprite/press.png 640 557 600 100 0 0 300 32 0.5 0.5 1
-title Resources/Sprite/title.png 640 225 1000 250 0 0 1000 250 0.5 0.5 65535
+S exit white1x1.png 640 650 250 75 0 0 1 1 0.5 0.5 2
+S game white1x1.png 640 400 250 75 0 0 1 1 0.5 0.5 2
+S option white1x1.png 640 525 250 75 0 0 1 1 0.5 0.5 2
+S pressKey press.png 640 557 600 100 0 0 300 32 0.5 0.5 1
+S title title.png 640 225 1000 250 0 0 1000 250 0.5 0.5 65535
+T Menu 2
+T Title 1

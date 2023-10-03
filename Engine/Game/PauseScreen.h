@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "UIData.h"
+#include "UIDrawer.h"
 #include "OptionScene.h"
 
 class PauseScreen
@@ -17,7 +17,7 @@ private:
 
 	bool active_ = true;
 
-	std::unique_ptr<UIData> ui_;
+	std::unique_ptr<UIDrawer> ui_;
 	std::unique_ptr<OptionScene> option_;
 
 private:

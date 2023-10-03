@@ -92,6 +92,8 @@ void SceneManager::Initialize()
 
 #pragma endregion
 
+	ParticleManager::GetInstance()->Initialize();
+
 #ifdef _DEBUG
 	ImGuiManager::GetInstance()->Initialize();
 #endif // _DEBUG

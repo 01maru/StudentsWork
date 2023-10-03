@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "IScene.h"
 #include "Sprite.h"
-#include "UIData.h"
+#include "UIDrawer.h"
 #include "OptionScene.h"
 
 class TitleScene :public IScene
@@ -22,8 +22,7 @@ private:
 
 #pragma region Sprite
 
-	std::unique_ptr<Sprite> backSprite_;
-	std::unique_ptr<UIData> ui_;
+	std::unique_ptr<UIDrawer> uiDrawer_;
 	bool drawUI_ = true;
 
 #pragma endregion

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\2D\Particle\ParticleStruct.cpp" />
     <ClCompile Include="Engine\ConvertAiStruct.cpp" />
     <ClCompile Include="Engine\Scene\Base\DebugScene.cpp" />
     <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp" />
@@ -92,10 +93,13 @@
     <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp" />
     <ClCompile Include="Engine\Game\PauseScreen.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ModelManager.cpp" />
-    <ClCompile Include="Engine\2D\Sprite\Base\UIData.cpp" />
+    <ClCompile Include="Engine\2D\Sprite\Base\UIDrawer.cpp" />
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIButtonManager.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\2D\Particle\ParticleStruct.h" />
     <ClInclude Include="Engine\3D\Object\Model\AnimationStruct.h" />
     <ClInclude Include="Engine\ConvertAiStruct.h" />
     <ClInclude Include="Engine\Scene\Base\DebugScene.h" />
@@ -187,7 +191,10 @@
     <ClInclude Include="Engine\2D\PostEffect\GlayScale.h" />
     <ClInclude Include="Engine\Game\PauseScreen.h" />
     <ClInclude Include="Engine\3D\Object\Model\ModelManager.h" />
-    <ClInclude Include="Engine\2D\Sprite\Base\UIData.h" />
+    <ClInclude Include="Engine\2D\Sprite\Base\UIDrawer.h" />
+    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UIButtonManager.h" />
+    <ClInclude Include="UIData.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>

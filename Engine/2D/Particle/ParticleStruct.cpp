@@ -3,6 +3,8 @@
 
 void MoveParticle::Initialize(const Vector3D& pos, const Vector3D& velocity, float scale, const int lifeTime)
 {
+	Particle::Initialize();
+
 	SetPosition(pos);
 	SetScale(3.0f);
 
@@ -26,4 +28,6 @@ void MoveParticle::Update()
 	{
 		isEnd = true;
 	}
+
+	Particle::MatUpdate();
 }

@@ -13,28 +13,31 @@ void TitleScene::LoadResources()
 	XAudioManager* xAudioMan = XAudioManager::GetInstance();
 	xAudioMan->LoadSoundWave("cursorMove.wav");
 	xAudioMan->LoadSoundWave("decision.wav");
+	//	タイトル音
+#pragma endregion
+
+#pragma region Model
+	//	ステージ読み込み
 #pragma endregion
 	
-	ui_ = std::make_unique<UIData>();
-	ui_->LoadSprites("TitleScene");
-	ui_->SetTag(UIData::Tag1);
+#pragma region UI
+
+	uiDrawer_ = std::make_unique<UIDrawer>();
+	uiDrawer_->LoadSprites("TitleScene");
+	uiDrawer_->SetUI("Title");
+
+#pragma endregion
 }
 
 void TitleScene::Initialize()
 {
+	//	カーソル固定解除
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
 
 	optionScene_ = std::make_unique<OptionScene>();
 	optionScene_->Initialize("Option");
 
 	LoadResources();
-
-#pragma region Sprite
-	backSprite_ = std::make_unique<Sprite>();
-	backSprite_->Initialize(TextureManager::GetInstance()->GetWhiteTexture());
-	backSprite_->SetSize(Vector2D{ Window::sWIN_WIDTH,Window::sWIN_HEIGHT });
-	backSprite_->SetColor({ 0.0f,0.0f,0.0f,1.0f });
-#pragma endregion
 
 	selectMord_ = GameStart;
 }
@@ -47,40 +50,47 @@ void TitleScene::Finalize()
 
 void TitleScene::MatUpdate()
 {
-	//	背景
-	backSprite_->Update();
-	ui_->Update();
+	//	モデル
 
 	optionScene_->Update();
 }
 
 void TitleScene::Update()
 {
-	if (ui_->GetTags() & UIData::Tag1) {
-		if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
-			ui_->SetTag(UIData::Tag2);
+	bool select = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
+
+	if (select)
+	{
+
+		if (uiDrawer_->GetActiveTagName() == "Title") {
+			uiDrawer_->SetUI("Menu");
 		}
-	}
-	else if (ui_->GetTags() & UIData::Tag2) {
-		if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
-			switch (selectMord_)
-			{
-			case GameStart:
-				SceneManager::GetInstance()->SetNextScene("GAMESCENE");
-				break;
-			case Option:
-				optionScene_->SetIsActive(true);
-				ui_->SetTag(UIData::Tag3);
-				break;
-			case GameEnd:
-				SceneManager::GetInstance()->GameLoopEnd();
-				break;
-			}
+
+		else if (uiDrawer_->GetActiveTagName() == "Menu") {
+			uiDrawer_->SetUI("Menu");
 		}
+		//{
+		//case GameStart:
+		//	SceneManager::GetInstance()->SetNextScene("GAMESCENE");
+		//	break;
+		//case Option:
+		//	optionScene_->SetIsActive(true);
+		//	ui_->SetTag(UIData::Tag3);
+		//	break;
+		//case GameEnd:
+		//	SceneManager::GetInstance()->GameLoopEnd();
+		//	break;
+		//}
 	}
-	else if (ui_->GetTags() & UIData::Tag3) {
-		optionScene_->Update();
-	}
+
+	//else if (ui_->GetTags() & UIData::Tag3) {
+	//	optionScene_->Update();
+	//}
+
+	InputManager* inputMan = InputManager::GetInstance();
+	int16_t inputValue = inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up) -
+		inputMan->GetTriggerKeyAndButton(DIK_S, InputJoypad::DPAD_Down);
+	uiDrawer_->Update(inputValue);
 
 	MatUpdate();
 }
@@ -107,11 +117,10 @@ void TitleScene::DrawShadow() {}
 
 void TitleScene::Draw()
 {
-	//	背景
-	backSprite_->Draw();
+	//	ステージ描画
 
 	if (!drawUI_) return;
-	ui_->Draw();
+	uiDrawer_->Draw();
 
 	optionScene_->Draw();
 }

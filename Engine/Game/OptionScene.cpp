@@ -17,12 +17,12 @@ void OptionScene::Update()
 	mord_ += change;
 	mord_ = (uint16_t)MyMath::mLoop(Close, Sens, (int16_t)mord_);
 
-	UIData::Update();
+	//UIData::Update();
 }
 
 void OptionScene::Draw()
 {
 	if (!active_) return;
 
-	UIData::Draw();
+	UIDrawer::Draw();
 }

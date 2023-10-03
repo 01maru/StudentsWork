@@ -8,7 +8,7 @@ void PauseScreen::Initialize()
 
     selectMord_ = Continue;
 
-	ui_ = std::make_unique<UIData>();
+	ui_ = std::make_unique<UIDrawer>();
 	ui_->LoadSprites("Pause");
 
 	option_ = std::make_unique<OptionScene>();
@@ -17,21 +17,21 @@ void PauseScreen::Initialize()
 
 void PauseScreen::PauseUpdate()
 {
-	if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
-		switch (selectMord_)
-		{
-		case Continue:
-			active_ = false;
-			break;
-		case Option:
-			option_->SetIsActive(true);
-			ui_->SetTag(UIData::Tag3);
-			break;
-		case BackTitle:
-			SceneManager::GetInstance()->SetNextScene("TITLESCENE");
-			break;
-		}
-	}
+	//if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
+	//	switch (selectMord_)
+	//	{
+	//	case Continue:
+	//		active_ = false;
+	//		break;
+	//	case Option:
+	//		option_->SetIsActive(true);
+	//		ui_->SetTag(UIData::Tag3);
+	//		break;
+	//	case BackTitle:
+	//		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
+	//		break;
+	//	}
+	//}
 }
 
 void PauseScreen::Update()
@@ -46,7 +46,7 @@ void PauseScreen::Update()
 	if (option_->GetIsActive())	option_->Update();
 	else						PauseUpdate();
 
-    ui_->Update();
+    //ui_->Update();
 }
 
 void PauseScreen::Draw()

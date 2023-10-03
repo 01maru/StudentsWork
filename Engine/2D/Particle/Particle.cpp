@@ -2,8 +2,9 @@
 #include "TextureManager.h"
 #include "DirectX.h"
 #include <cassert>
-
+#include "PipelineManager.h"
 #include "ConstBuffStruct.h"
+#include "CameraManager.h"
 
 void Particle::TransferVertex()
 {
@@ -65,16 +66,17 @@ Particle::Particle(const Vector3D& pos)
 
 void Particle::MatUpdate()
 {
+	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	cTransformMap_->matBillboard = Matrix();
-	//if (isBillboardY_) {
-	//	cTransformMap_->matBillboard = camera->GetBillboardY();
-	//}
-	//if (isBillboard_) {
-	//	cTransformMap_->matBillboard = camera->GetBillboard();
-	//}
+	if (isBillboardY_) {
+		cTransformMap_->matBillboard = camera->GetBillboardY();
+	}
+	if (isBillboard_) {
+		cTransformMap_->matBillboard = camera->GetBillboard();
+	}
 	cTransformMap_->scale = scale_;
-	//cTransformMap_->cameraPos = camera->GetEye();
-	//cTransformMap_->mat = camera->GetViewProj();
+	cTransformMap_->cameraPos = camera->GetEye();
+	cTransformMap_->mat = camera->GetViewProj();
 
 	cColorMap_->color = color_;
 }
@@ -83,8 +85,9 @@ void Particle::Draw(int32_t handle)
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 
-	//pipeline->SetGraphicsRootSignature();
-	//pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("Particle", GPipeline::ALPHA_BLEND);
+	pipeline->SetGraphicsRootSignature();
+	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 
 	IASetVertIdxBuff();
 	//	テクスチャ
