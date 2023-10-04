@@ -9,6 +9,7 @@
 void UIDrawer::Update(int16_t inputValue)
 {
 	data_->buttonMan_.Update(inputValue);
+	data_->buttonMan_.MatUpdate();
 
 	for (auto& sprite : data_->sprites_) {
 		sprite.second.Update();
@@ -17,6 +18,8 @@ void UIDrawer::Update(int16_t inputValue)
 
 void UIDrawer::Draw()
 {
+	data_->buttonMan_.Draw();
+
 	for (auto& sprite : data_->sprites_) {
 		if (sprite.second.GetTags() & data_->tagName_[activeTagName_]) {
 			sprite.second.Draw();
