@@ -8,9 +8,7 @@
 
 void UIDrawer::Update(int16_t inputValue)
 {
-	if (data_->buttonMan_ != nullptr) {
-		data_->buttonMan_->Update(inputValue);
-	}
+	data_->buttonMan_.Update(inputValue);
 
 	for (auto& sprite : data_->sprites_) {
 		sprite.second.Update();
@@ -31,6 +29,9 @@ void UIDrawer::SetUI(const std::string& uiName)
 	if (data_->tagName_.count(uiName) == 0) return;
 
 	activeTagName_ = uiName;
+
+	//	ボタン初期化
+	data_->buttonMan_.SetNumber(data_->tagName_[activeTagName_]);
 }
 
 void UIDrawer::LoadSprites(const std::string& filename)

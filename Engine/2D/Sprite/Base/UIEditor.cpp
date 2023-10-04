@@ -93,6 +93,44 @@ void UIEditor::LoadFile(const std::string& filename)
 
 			data_->sprites_.emplace(spritename, sprite);
 		}
+
+		if (key == "B") {
+			std::string buttonname;
+			line_stream >> buttonname;
+
+			std::string texname;
+			line_stream >> texname;
+
+			UIButton button;
+			if (texname.find("/") != std::string::npos) {
+				std::string dirPath = Util::GetDirectoryPath(texname);
+				std::string fileName = Util::GetFileName(texname);
+
+				button.Initialize(TextureManager::GetInstance()->LoadTextureGraph(fileName, dirPath));
+			}
+			else //	pathが含まれていない
+			{
+				button.Initialize(TextureManager::GetInstance()->LoadTextureGraph(texname));
+			}
+
+			Vector2D pos;
+			Vector2D size;
+			line_stream >> pos.x;
+			line_stream >> pos.y;
+			line_stream >> size.x;
+			line_stream >> size.y;
+
+			button.SetPosition(pos);
+			button.SetSize(size);
+
+			button.SetAnchorPoint({ 0.5f,0.5f });
+
+			uint16_t tag;
+			line_stream >> tag;
+			button.SetTags(tag);
+
+			data_->buttonMan_.LoadUIButton(button, buttonname);
+		}
 	}
 
 	//ファイル閉じる
@@ -138,6 +176,8 @@ void UIEditor::SaveFile()
 	{
 		outPutFile << "T " << itr->first << " " << itr->second << std::endl;
 	}
+
+	data_->buttonMan_.SaveData(outPutFile);
 
 	outPutFile.close();
 
@@ -194,20 +234,20 @@ void UIEditor::DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::iterat
 		}
 		
 		imguiMan->Text("Tag");
-		//for (size_t i = 0; i < 16; i++)
-		//{
-		//	if (i % 8 != 0) imguiMan->SameLine();
+		for (size_t i = 0; i < 16; i++)
+		{
+			if (i % 8 != 0) imguiMan->SameLine();
 
-		//	uint16_t tagIdx = 0b1 << i;
-		//	bool tagFlag = sprite->GetTags() & tagIdx;
-		//	bool prevFlag = tagFlag;
-		//	imguiMan->CheckBox(std::to_string(i), tagFlag);
+			uint16_t tagIdx = 0b1 << i;
+			bool tagFlag = sprite->GetTags() & tagIdx;
+			bool prevFlag = tagFlag;
+			imguiMan->CheckBox(std::to_string(i), tagFlag);
 
-		//	if (tagFlag == prevFlag) continue;
+			if (tagFlag == prevFlag) continue;
 
-		//	if(tagFlag) sprite->SetTags(sprite->GetTags() | tagIdx);
-		//	else		sprite->SetTags(sprite->GetTags() ^ tagIdx);
-		//}
+			if(tagFlag) sprite->SetTags(sprite->GetTags() | tagIdx);
+			else		sprite->SetTags(sprite->GetTags() ^ tagIdx);
+		}
 
 		Vector2D vec = sprite->GetPosition();
 		imguiMan->SetSliderFloat2("PosLeftTop", vec);
@@ -299,6 +339,9 @@ void UIEditor::EditTag()
 			if (imguiMan->SetButton(itr->first.c_str())) drawTag_ = data_->tagName_[itr->first];
 		}
 	}
+
+	//	buttonTag設定
+	data_->buttonMan_.SetNumber(drawTag_);
 }
 
 void UIEditor::ImGuiUpdate()
@@ -353,13 +396,20 @@ void UIEditor::ImGuiUpdate()
 		DeleteSpriteFromList();
 
 		imguiMan->EndChild();
+
+		data_->buttonMan_.ImGuiUpdate(id);
 	}
+
+	
 
 	imguiMan->EndWindow();
 
+	if (data_ == nullptr) return;
 	for (auto& sprite : data_->sprites_) {
 		sprite.second.Update();
 	}
+
+	data_->buttonMan_.MatUpdate();
 }
 
 void UIEditor::DrawEditUI()
@@ -371,6 +421,8 @@ void UIEditor::DrawEditUI()
 			sprite.second.Draw();
 		}
 	}
+
+	data_->buttonMan_.Draw();
 }
 
 void UIEditor::Draw()

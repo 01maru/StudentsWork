@@ -1,14 +1,30 @@
 #include "UIButton.h"
 
-void UIButton::Update()
+void UIButton::EffectUpdate()
 {
-	//	“–‚½‚è”»’è
+	//if (!isActive_) return;
+
+	//	2D“–‚½‚è”»’è
+
+	if (isSelect_) {
+		//	Animation
+	}
+	else {
+		//	“§‰ß
+	}
 }
 
-void UIButton::SetNumber(int16_t& index)
+void UIButton::Draw()
 {
-	if (!isActive_)	return;
+	//if (!isActive_) return;
 
-	number_ = index;
-	index++;
+	Sprite::Draw();
 }
+
+////void UIButton::SetNumber(int16_t& index)
+////{
+////	//if (!isActive_)	return;
+////
+////	number_ = index;
+////	index++;
+////}

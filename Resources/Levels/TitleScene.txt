@@ -5,3 +5,4 @@ S pressKey press.png 640 557 600 100 0 0 300 32 0.5 0.5 1
 S title title.png 640 225 1000 250 0 0 1000 250 0.5 0.5 65535
 T Menu 2
 T Title 1
+B Test white1x1.png 372 499 100 100 1

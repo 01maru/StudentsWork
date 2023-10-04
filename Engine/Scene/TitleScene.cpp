@@ -120,7 +120,7 @@ void TitleScene::Draw()
 	//	ステージ描画
 
 	if (!drawUI_) return;
-	uiDrawer_->Draw();
+	//uiDrawer_->Draw();
 
 	optionScene_->Draw();
 }
