@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #define NOMINMAX
 #include "MyMath.h"
 #include "CollisionInfo.h"
@@ -81,7 +81,7 @@ public:
 	virtual void OnCollision(const CollisionInfo& info) { (void)info; }
 
 	void SetAnimatonTimer(float timer) { animationTimer_ = timer; }
-	const float GetAnimationTimer() { return animationTimer_; }
+	float GetAnimationTimer() const { return animationTimer_; }
 
 	BaseCollider* GetCollider() { return collider_; }
 	//	Getter

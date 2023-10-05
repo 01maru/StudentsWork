@@ -1,4 +1,4 @@
-﻿#include "LightManager.h"
+#include "LightManager.h"
 #include <cassert>
 
 #include "ImGuiController.h"
@@ -162,7 +162,7 @@ void LightManager::ImGuiUpdate()
 
 void LightManager::SetGraphicsRootCBuffView(int32_t lootparaIdx)
 {
-	constBuff_.SetGraphicsRootCBuffView(lootparaIdx);
+	constBuff_.SetGraphicsRootCBuffView(static_cast<uint32_t>(lootparaIdx));
 }
 
 void LightManager::SetDirLightActive(int32_t index, bool active)

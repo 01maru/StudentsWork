@@ -1,4 +1,4 @@
-﻿#include "TextureManager.h"
+#include "TextureManager.h"
 #include "DirectX.h"
 #include <cassert>
 
@@ -411,7 +411,7 @@ void TextureManager::DeleteTextureData(const std::string& textureName)
 	//	範囲外参照回避用
 	assert(!(texExist_.size() >= handle));
 
-	if (texExist_[handle])	texExist_[handle] = false;
+	if (texExist_[static_cast<uint64_t>(handle)])	texExist_[static_cast<uint64_t>(handle)] = false;
 
 	textures_.erase(textureName);
 }

@@ -1,4 +1,4 @@
-﻿#include "XAudioManager.h"
+#include "XAudioManager.h"
 #include <fstream>
 #include <assert.h>
 #include <sstream>
@@ -292,6 +292,8 @@ void XAudioManager::PlayDebugSoundWave(const std::string& soundName, SoundType t
 	float typeVolume = 1.0f;
 	switch (type)
 	{
+	case XAudioManager::Master:
+		break;
 	case XAudioManager::BGM:
 		typeVolume = bgmVolume_;
 		break;
@@ -308,6 +310,8 @@ void XAudioManager::PlayDebugSoundWave(const std::string& soundName, SoundType t
 	else {
 		switch (type)
 		{
+		case XAudioManager::Master:
+			break;
 		case XAudioManager::BGM:
 			bgmPtr_.push_back(pSourceVoice);
 			break;

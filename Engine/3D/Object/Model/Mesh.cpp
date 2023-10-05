@@ -1,4 +1,4 @@
-﻿#include "Mesh.h"
+#include "Mesh.h"
 #include "DirectX.h"
 #include "TextureManager.h"
 #include "Material.h"
@@ -13,7 +13,7 @@ void Mesh::Initialzie()
 
 void Mesh::SetGraphicsRootCBuffViewMtl(int32_t index)
 {
-	mtl_->SetGraphicsRootCBuffView(index);
+	mtl_->SetGraphicsRootCBuffView(static_cast<uint32_t>(index));
 }
 
 void Mesh::Draw()

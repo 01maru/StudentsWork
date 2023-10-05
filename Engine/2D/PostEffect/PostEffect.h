@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "ViewPortScissorRect.h"
 #include "ConstBuff.h"
 #include "Texture.h"
@@ -55,8 +55,8 @@ public:
 	void Draw();
 
 	//	Getter
-	int32_t const GetWidth() { return width_; }
-	int32_t const GetHeight() { return height_; }
+	int32_t GetWidth() const { return width_; }
+	int32_t GetHeight() const { return height_; }
 	const Vector4D& GetClearColor() { return clearColor_; }
 	const std::string& GetName() { return name_; }
 

@@ -1,4 +1,4 @@
-﻿#include "DirectX.h"
+#include "DirectX.h"
 #include "Window.h"
 #include "PostEffect.h"
 #include <cassert>
@@ -239,7 +239,7 @@ void MyDirectX::CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_STATES
 #pragma endregion ReleaseBarrier
 	// 2.描画先の変更
 #pragma region Change
-	cmdList_->OMSetRenderTargets(rtDescNum, &rtvHandle, false, &dsvHandle);
+	cmdList_->OMSetRenderTargets(static_cast<UINT>(rtDescNum), &rtvHandle, false, &dsvHandle);
 #pragma endregion Change
 	// 3.画面クリア
 #pragma region ScreenClear
