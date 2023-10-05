@@ -14,7 +14,7 @@ private:
 	std::map<std::string, UIButton, std::less<>> buttons_;
 
 	//int16_t activeButtonNum_ = 0;
-	int16_t selectButtonNum_ = 0;	//	ボタンの名前がわかるように
+	int16_t selectButtonNum_ = 0;
 
 	//	activeButtonnamelist
 	std::vector<std::string> activeNameArry;
@@ -25,7 +25,7 @@ private:
 	void SetButtonTag(UIButton* pButton);
 
 public:
-	void Update(int16_t inputValue);	//	入力値-1~1
+	void Update(int16_t inputValue);	//	蜈･蜉帛､-1~1
 	void ImGuiUpdate(int32_t& id);
 	void SaveData(std::ofstream& outPutFile);
 	void LoadUIButton(UIButton& button, const std::string& name);
@@ -33,7 +33,7 @@ public:
 	void MatUpdate();
 	void Draw();
 
-	const std::string& GetSelectName() { return activeNameArry[selectButtonNum_]; }
+	const std::string& GetSelectName();
 
 	void SetNumber(uint16_t drawTag);
 };

@@ -28,7 +28,7 @@ void CollisionManager::CheckAllCollisions()
 
             if (colA->GetShapeType() == COLLISIONSHAPE_SPHERE &&
                 colB->GetShapeType() == COLLISIONSHAPE_SPHERE) {
-                //  ‹…“¯m‚Ì“–‚½‚è”»’è
+                //  çƒåŒå£«ã®å½“ãŸã‚Šåˆ¤å®š
                 Sphere* sphereA = dynamic_cast<Sphere*>(colA);
                 Sphere* sphereB = dynamic_cast<Sphere*>(colB);
                 Vector3D inter;
@@ -126,7 +126,7 @@ void CollisionManager::QuerySphere(const Sphere& sphere, QueryCallBack* callback
 
         if (!(col->attribute & attribute)) continue;
 
-        // ‹…
+        // çƒ
         if (col->GetShapeType() == COLLISIONSHAPE_SPHERE) {
             Sphere* sphereB = dynamic_cast<Sphere*>(col);
 
@@ -142,7 +142,7 @@ void CollisionManager::QuerySphere(const Sphere& sphere, QueryCallBack* callback
 
             if (!callback->OnQueryHit(info)) return;
         }
-        // ƒƒbƒVƒ…
+        // ãƒ¡ãƒƒã‚·ãƒ¥
         else if (col->GetShapeType() == COLLISIONSHAPE_MESH) {
             MeshCollider* meshCollider = dynamic_cast<MeshCollider*>(col);
 

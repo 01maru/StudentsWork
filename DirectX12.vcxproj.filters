@@ -450,17 +450,17 @@
     <ClCompile Include="Engine\ConvertAiStruct.cpp">
       <Filter>ソース ファイル\lib\Converter</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Weapon.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\UIButtonManager.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\UIButton.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleStruct.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="UIButton.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="UIButtonManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\2D\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -740,20 +740,20 @@
     <ClInclude Include="Engine\3D\Object\Model\AnimationStruct.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\2D\Sprite\UIButton.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\UIButtonManager.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\UIData.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ParticleStruct.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\lib\2D\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="UIButton.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="UIButtonManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="UIData.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Weapon.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@ void LoadingModel::Initialize()
 void LoadingModel::Update()
 {
     if (!loading_ && !fadeIn_) {
-        //  ƒ[ƒfƒBƒ“ƒO’†‚¶‚á‚È‚­fadeInÏ‚Ý‚¾‚Á‚½‚ç
+        //  ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ä¸­ã˜ã‚ƒãªãfadeInæ¸ˆã¿ã ã£ãŸã‚‰
         if (easeCount_ > 0) {
             easeCount_--;
 
@@ -42,13 +42,13 @@ void LoadingModel::Update()
             loadObj_->SetColor({ 1.0f,1.0f,1.0f,alphaColor });
         }
 
-        //  “§‰ß’l1.0‚É‚È‚Á‚½‚çfalse‚É
+        //  é€éŽå€¤1.0ã«ãªã£ãŸã‚‰falseã«
         if (!isEasing)  fadeIn_ = false;
 
         camera_->MatUpdate();
     }
 
-    //  ƒ‚ƒfƒ‹•\Ž¦’†‚Í‰ñ“]‚³‚¹‚é
+    //  ãƒ¢ãƒ‡ãƒ«è¡¨ç¤ºä¸­ã¯å›žè»¢ã•ã›ã‚‹
     if (easeCount_ > 0) {
         Vector3D rot = loadObj_->GetRotation();
         rot.y -= 0.1f;

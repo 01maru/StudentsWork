@@ -119,7 +119,7 @@ void Player::Update()
 	
 	CalcFallSpd(input);
 
-	//	–{ˆÚ“®
+	//	æœ¬ç§»å‹•
 	mat_.trans_ += moveVec * spd_ + fallVec_;
 	camera->SetTarget({ mat_.trans_.x,mat_.trans_.y + 1.0f,mat_.trans_.z });
 	camera->MatUpdate();
@@ -148,7 +148,7 @@ void Player::ImGuiUpdate()
 
 void Player::CollisionUpdate()
 {
-	// ƒNƒGƒŠ[ƒR[ƒ‹ƒoƒbƒNƒNƒ‰ƒX
+	// ã‚¯ã‚¨ãƒªãƒ¼ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚¯ãƒ©ã‚¹
 	class PlayerQueryCallback : public QueryCallBack
 	{
 	public:
@@ -157,7 +157,7 @@ void Player::CollisionUpdate()
 
 		PlayerQueryCallback(Sphere* sphere) : sphere(sphere) {};
 
-		// Õ“ËƒR[ƒ‹ƒoƒbƒNŠÖ”
+		// è¡çªæ™‚ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°
 		bool OnQueryHit(const QueryHit& info) {
 
 			const Vector3D up = { 0,1,0 };
@@ -181,9 +181,9 @@ void Player::CollisionUpdate()
 	assert(sphereCollider);
 	PlayerQueryCallback callback(sphereCollider);
 
-	// ‹…‚Æ’nŒ`‚ÌŒğ·‚ğ‘SŒŸõ
+	// çƒã¨åœ°å½¢ã®äº¤å·®å…¨æ¤œç´¢
 	CollisionManager::GetInstance()->QuerySphere(*sphereCollider, &callback, COLLISION_ATTR_LANDSHAPE);
-	// Œğ·‚É‚æ‚é”rË•ª“®‚©‚·
+	// äº¤å·®ã«ã‚ˆã‚‹æ’æ–¥åˆ†å‹•ã‹ã™
 	mat_.trans_ += callback.move;
 
 	MatUpdate();

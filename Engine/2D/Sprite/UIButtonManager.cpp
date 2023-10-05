@@ -13,16 +13,16 @@ void UIButtonManager::AddButton()
 
 void UIButtonManager::RenameButton(std::map<std::string, UIButton, std::less<>>::iterator& itr)
 {
-	//	Šù‚É‚ ‚é–¼‘O‚¾‚Á‚½‚ç
+	//	æ—¢ã«ã‚ã‚‹åå‰ã ã£ãŸã‚‰
 	if (buttons_.count(buttonName_) == 1) return;
 
 	UIButton button = itr->second;
-	//	‘O‚Ì–¼‘O‚Ìƒ{ƒ^ƒ“‚Ííœ
+	//	å‰ã®åå‰ã®ãƒœã‚¿ãƒ³ã¯å‰Šé™¤
 	eraseButtonName_.push_back(itr->first);
 
 	int ind = (int)buttonName_.find_last_of('\0');
 	if (ind > 0) buttonName_ = buttonName_.substr(0, ind);
-	//	V‚µ‚¢–¼‘O‚Ìƒ{ƒ^ƒ“¶¬
+	//	æ–°ã—ã„åå‰ã®ãƒœã‚¿ãƒ³ç”Ÿæˆ
 	buttons_.emplace(buttonName_, button);
 }
 
@@ -81,12 +81,11 @@ void UIButtonManager::ButtonInfo(std::map<std::string, UIButton, std::less<>>::i
 
 void UIButtonManager::Update(int16_t inputValue)
 {
-	//	‘I‘ğ‚·‚éƒ{ƒ^ƒ“‚ª•¡”‚È‚©‚Á‚½‚ç
 	int32_t arrySize = (int32_t)activeNameArry.size();
+	//	é¸æŠã™ã‚‹ãƒœã‚¿ãƒ³ãŒè¤‡æ•°ãªã‹ã£ãŸã‚‰
 	if (arrySize <= 1) return;
 
-	selectButtonNum_ += inputValue;
-	MyMath::mLoop(arrySize, 1, selectButtonNum_);
+	selectButtonNum_ = (int16_t)MyMath::mLoop(arrySize - 1, 0, selectButtonNum_ + inputValue);
 
 	for (size_t i = 0; i < arrySize; i++)
 	{
@@ -136,6 +135,8 @@ void UIButtonManager::LoadUIButton(UIButton& button, const std::string& name)
 
 void UIButtonManager::MatUpdate()
 {
+	if (activeNameArry[0] == "NULL") return;
+
 	for (size_t i = 0; i < activeNameArry.size(); i++)
 	{
 		buttons_[activeNameArry[i]].Update();
@@ -144,10 +145,17 @@ void UIButtonManager::MatUpdate()
 
 void UIButtonManager::Draw()
 {
+	if (activeNameArry[0] == "NULL") return;
+
 	for (size_t i = 0; i < activeNameArry.size(); i++)
 	{
 		buttons_[activeNameArry[i]].Draw();
 	}
+}
+
+const std::string& UIButtonManager::GetSelectName()
+{
+	return activeNameArry[selectButtonNum_];
 }
 
 void UIButtonManager::SetNumber(uint16_t drawTag)
@@ -156,12 +164,17 @@ void UIButtonManager::SetNumber(uint16_t drawTag)
 
 	selectButtonNum_ = 0;
 
+	int16_t buttonNum = 0;
 	for (auto itr = buttons_.begin(); itr != buttons_.end(); ++itr)
 	{
 		UIButton& button = itr->second;
-		//	•`‰æ‚³‚ê‚Ä‚¢‚½‚ç
+		//	æç”»ã•ã‚Œã¦ã„ãŸã‚‰
 		if (button.GetTags() & drawTag) {
 			activeNameArry.push_back(itr->first);
+			
+			buttonNum++;
 		}
 	}
+	
+	if (buttonNum == 0) activeNameArry.push_back("NULL");
 }

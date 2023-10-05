@@ -16,7 +16,7 @@ private:
 	bool onGround_ = true;
 	Vector3D fallVec_;
 
-	//	status(’²®‚µ‚â‚·‚¢‚æ‚¤‚É•ÏX)
+	//	status(èª¿æ•´ã—ã‚„ã™ã„ã‚ˆã†ã«å¾Œã€…å¤‰æ›´)
 	bool isAlive_ = true;
 	int32_t hp_;
 	const int32_t MAX_HP = 100;
@@ -28,7 +28,7 @@ private:
 	const int AVOID_STAMINA = 20;
 	const float STAMINA_HEAL = 0.5f;
 
-	//	‰ñ”ğ
+	//	å›é¿
 	Vector2D modelFrontVec_;
 	bool isAvoid_ = false;
 	int32_t avoidTimer_ = 0;

@@ -63,24 +63,24 @@ void TitleScene::Update()
 	{
 
 		if (uiDrawer_->GetActiveTagName() == "Title") {
-			uiDrawer_->SetUI("Menu");
+			if (uiDrawer_->GetActiveButtonName() == "Test") {
+				uiDrawer_->SetUI("Menu");
+			}
 		}
 
 		else if (uiDrawer_->GetActiveTagName() == "Menu") {
-			uiDrawer_->SetUI("Menu");
+			if (uiDrawer_->GetActiveButtonName() == "Game") {
+				SceneManager::GetInstance()->SetNextScene("GAMESCENE");
+			}
+
+			if (uiDrawer_->GetActiveButtonName() == "Option") {
+				optionScene_->SetIsActive(true);
+			}
+
+			if (uiDrawer_->GetActiveButtonName() == "Exit") {
+				SceneManager::GetInstance()->GameLoopEnd();
+			}
 		}
-		//{
-		//case GameStart:
-		//	SceneManager::GetInstance()->SetNextScene("GAMESCENE");
-		//	break;
-		//case Option:
-		//	optionScene_->SetIsActive(true);
-		//	ui_->SetTag(UIData::Tag3);
-		//	break;
-		//case GameEnd:
-		//	SceneManager::GetInstance()->GameLoopEnd();
-		//	break;
-		//}
 	}
 
 	//else if (ui_->GetTags() & UIData::Tag3) {

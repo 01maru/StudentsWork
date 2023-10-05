@@ -4,13 +4,13 @@ void UIButton::EffectUpdate()
 {
 	//if (!isActive_) return;
 
-	//	2D“–‚½‚è”»’è
+	//	2Då½“ãŸã‚Šåˆ¤å®š
 
 	if (isSelect_) {
 		//	Animation
 	}
 	else {
-		//	“§‰ß
+		//	é€é
 	}
 }
 

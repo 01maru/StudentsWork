@@ -13,11 +13,11 @@ public:
 
 	bool GetIsEnd() { return isEnd; }
 private:
-	Vector3D spd;	//	速度
+	Vector3D spd;		//	騾溷ｺｦ
 
-	float maxScale = 0;	//	最大スケール
-	int timer = 0;		//	今の時間
-	int maxTime = 0;	//	生成時間
+	float maxScale = 0;	//	譛螟ｧ繧ｹ繧ｱ繝ｼ繝ｫ
+	int timer = 0;		//	迴ｾ蝨ｨ譎る俣
+	int maxTime = 0;	//	逕滓�先凾髢�
 	bool isEnd = false;
 };
 

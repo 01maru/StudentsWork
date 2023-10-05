@@ -8,9 +8,9 @@ void MoveParticle::Initialize(const Vector3D& pos, const Vector3D& velocity, flo
 	SetPosition(pos);
 	SetScale(3.0f);
 
-	// Œü‚«“Ç‚Ýž‚Ý
+	// å‘ãèª­ã¿è¾¼ã¿
 	this->spd = velocity;
-	// ‘å‚«‚³“Ç‚Ýž‚Ý
+	// å¤§ãã•èª­ã¿è¾¼ã¿
 	this->maxScale = scale;
 
 	maxTime = lifeTime;
@@ -20,10 +20,10 @@ void MoveParticle::Update()
 {
 	SetScale((float)Easing::EaseIn(3.0f, maxScale, (float)timer / (float)maxTime, 2));
 
-	// ˆÚ“®
+	// ç§»å‹•
 	Move(spd);
 
-	// Á‚¦‚éˆ—
+	// æ¶ˆãˆã‚‹å‡¦ç†
 	if (++timer >= maxTime)
 	{
 		isEnd = true;

@@ -17,38 +17,38 @@ FbxModel::FbxModel(const char* filename, bool smoothing)
 
 void FbxModel::LoadModel(const std::string& modelname, bool smoothing)
 {
-	//	ƒpƒX‚Ìİ’è
+	//	ãƒ‘ã‚¹ã®è¨­å®š
 	const string filename = modelname + ".fbx";
 	const string directoryPath = "Resources/Model/" + modelname + "/";
 
-	//	ƒV[ƒ“‚Ìƒ[ƒh
+	//	ã‚·ãƒ¼ãƒ³ã®ãƒ­ãƒ¼ãƒ‰
 	Assimp::Importer importer;
 	uint32_t aiProcess = aiProcess_Triangulate | aiProcess_ConvertToLeftHanded;
 	if (smoothing) aiProcess |= aiProcess_GenSmoothNormals;
 
-	const aiScene* modelScene = importer.ReadFile(directoryPath + filename, aiProcess);	//	OŠp–Ê‰»
+	const aiScene* modelScene = importer.ReadFile(directoryPath + filename, aiProcess);	//	ä¸‰è§’é¢åŒ–
 
-	//	“Ç‚İ‚İ¸”s‚µ‚½‚ç
+	//	èª­ã¿è¾¼ã¿å¤±æ•—ã—ãŸã‚‰
 	if (modelScene == nullptr) { return; }
 
-	//	GlobalInverseTransformİ’è
+	//	GlobalInverseTransformè¨­å®š
 	Util::TransformMatToAiMat(globalInverseTransform_, modelScene->mRootNode->mTransformation);
 
-	//	meshî•ñİ’è
+	//	meshæƒ…å ±è¨­å®š
 	meshes_.reserve(modelScene->mNumMeshes);
 	for (size_t i = 0; i < modelScene->mNumMeshes; i++)
 	{
-		//	aiMeshŒ^‚Ìî•ñæ“¾
+		//	aiMeshå‹ã®æƒ…å ±å–å¾—
 		const auto pMesh = modelScene->mMeshes[i];
 
-		//	Œ^•ÏŠ·
+		//	å‹å¤‰æ›
 		meshes_.emplace_back();
 		Mesh* mesh = &meshes_.back();
 		LoadMesh(*mesh, pMesh);
-		//	ƒ{[ƒ“æ“¾
+		//	ãƒœãƒ¼ãƒ³å–å¾—
 		LoadBone(i, pMesh);
 
-		//	materialæ“¾
+		//	materialå–å¾—
 		aiMaterial* pMaterial = modelScene->mMaterials[i];
 
 		LoadMaterial(mesh, pMaterial->GetName().C_Str());
@@ -74,7 +74,7 @@ void FbxModel::LoadNodeHeirarchy(const aiNode* pNode)
 
 	nodes_.emplace(pNode->mName.C_Str(), node);
 
-	//	Ä‹A
+	//	å†å¸°
 	for (size_t i = 0; i < pNode->mNumChildren; i++) {
 		LoadNodeHeirarchy(pNode->mChildren[i]);
 	}
@@ -152,7 +152,7 @@ void FbxModel::LoadMaterial(Mesh* dst, const std::string& name)
 	material->specular_ = light->GetMtlSpecular();
 
 	if (material) {
-		// ƒ}ƒeƒŠƒAƒ‹‚ğ“o˜^
+		// ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’ç™»éŒ²
 		AddMaterial(material);
 	}
 
@@ -163,7 +163,7 @@ void FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 {
 	aiVector3D zero3D(0.0f, 0.0f, 0.0f);
 
-	//	’¸“_¶¬
+	//	é ‚ç‚¹ç”Ÿæˆ
 	for (size_t i = 0; i < src->mNumVertices; i++)
 	{
 		auto position = &(src->mVertices[i]);
@@ -174,13 +174,13 @@ void FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 		vertex_.pos = Vector3D(position->x, position->y, position->z);
 		vertex_.normal = Vector3D(normal->x, normal->y, normal->z);
 		vertex_.uv = Vector2D(uv->x, uv->y);
-		vertex_.boneIndex[0] = 31;				//	boneÅ‘å‹–—e”-1
-		vertex_.boneWeight[0] = 1.0f;			//	ƒ{[ƒ“‚È‚µ—p
+		vertex_.boneIndex[0] = 31;				//	boneæœ€å¤§è¨±å®¹æ•°-1
+		vertex_.boneWeight[0] = 1.0f;			//	ãƒœãƒ¼ãƒ³ãªã—ç”¨
 
 		dst.AddVertex(vertex_);
 	}
 
-	//	indexİ’è
+	//	indexè¨­å®š
 	for (size_t i = 0; i < src->mNumFaces; i++)
 	{
 		const auto& face = src->mFaces[i];
@@ -193,7 +193,7 @@ void FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 
 void FbxModel::LoadBone(size_t meshIndex, const aiMesh* src)
 {
-	//	boneî•ñİ’è
+	//	boneæƒ…å ±è¨­å®š
 	for (size_t i = 0; i < src->mNumBones; i++) {
 		uint16_t BoneIndex = 0;
 		string BoneName(src->mBones[i]->mName.data);
@@ -203,7 +203,7 @@ void FbxModel::LoadBone(size_t meshIndex, const aiMesh* src)
 			numBones_++;
 			BoneInfo bi;
 			boneInfo_.push_back(bi);
-			//	Œ^•ÏŠ·
+			//	å‹å¤‰æ›
 			Util::TransformMatToAiMat(boneInfo_[BoneIndex].boneOffset, src->mBones[i]->mOffsetMatrix);
 			boneMapping_[BoneName] = BoneIndex;
 		}
@@ -285,8 +285,8 @@ void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transform
 	if (animations_.size() <= animationIdx || animationIdx < 0) return;
 
 	//double TicksPerSecond = animations_[index].ticksPerSecond != 0 ? animations_[index].ticksPerSecond : 25.0f;
-	//float TimeInTicks = TimeInSeconds * (float)TicksPerSecond;	//	frame”
-	float AnimationTime = (float)fmod(TimeInSeconds, animations_[animationIdx].duration);	//	Œ»İ‚ÌƒtƒŒ[ƒ€”/1Loop‚ÌƒtƒŒ[ƒ€”@‚Ì‚ ‚Ü‚è
+	//float TimeInTicks = TimeInSeconds * (float)TicksPerSecond;	//	frameæ•°
+	float AnimationTime = (float)fmod(TimeInSeconds, animations_[animationIdx].duration);	//	ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°/1Loopã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã€€ã®ã‚ã¾ã‚Š
 
 	ReadNodeHeirarchy(animations_[animationIdx], AnimationTime, Identity, rootNodeName_);
 
@@ -299,7 +299,7 @@ void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transform
 
 void FbxModel::ReadNodeHeirarchy(const AnimationData& animData, float AnimationTime, const Matrix& ParentTransform, const std::string& nodeName)
 {
-	//	node‚ª‚ ‚é‚©
+	//	nodeãŒã‚ã‚‹ã‹
 	if (nodes_.count(nodeName) == 0) assert(0);
 	Matrix NodeTransformation = nodes_[nodeName].transformation;
 
@@ -308,25 +308,25 @@ void FbxModel::ReadNodeHeirarchy(const AnimationData& animData, float AnimationT
 	if (pNodeAnim) {
 		MyMath::ObjMatrix mat;
 
-		// ƒXƒP[ƒŠƒ“ƒO‚ğ•âŠÔ‚µAƒXƒP[ƒŠƒ“ƒO•ÏŠ·s—ñ‚ğ¶¬‚·‚é
+		// ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã‚’è£œé–“ã—ã€ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°å¤‰æ›è¡Œåˆ—ã‚’ç”Ÿæˆã™ã‚‹
 		Vector3D Scaling;
 		Util::CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
 		mat.scale_ = Vector3D(Scaling.x, Scaling.y, Scaling.z);
 		mat.SetMatScaling();
 
-		// ‰ñ“]‚ğ•âŠÔ‚µA‰ñ“]•ÏŠ·s—ñ‚ğ¶¬‚·‚é
+		// å›è»¢ã‚’è£œé–“ã—ã€å›è»¢å¤‰æ›è¡Œåˆ—ã‚’ç”Ÿæˆã™ã‚‹
 		Quaternion RotationQ;
 		Util::CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
 		Quaternion rotQ(RotationQ.w, RotationQ.x, RotationQ.y, RotationQ.z);
 		mat.matRot_ = rotQ.GetRotMatrix();
 
-		// ˆÚ“®‚ğ•âŠÔ‚µAˆÚ“®•ÏŠ·s—ñ‚ğ¶¬‚·‚é
+		// ç§»å‹•ã‚’è£œé–“ã—ã€ç§»å‹•å¤‰æ›è¡Œåˆ—ã‚’ç”Ÿæˆã™ã‚‹
 		Vector3D Translation;
 		Util::CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
 		mat.trans_ = Vector3D(Translation.x, Translation.y, Translation.z);
 		mat.SetMatTransform();
 
-		// ‚±‚ê‚çã‹L‚Ì•ÏŠ·‚ğ‡¬‚·‚é
+		// ã“ã‚Œã‚‰ä¸Šè¨˜ã®å¤‰æ›ã‚’åˆæˆã™ã‚‹
 		NodeTransformation = mat.matScale_;
 		NodeTransformation *= mat.matRot_;
 		NodeTransformation *= mat.matTrans_;

@@ -6,13 +6,13 @@
 class UIButton :public Sprite
 {
 private:
-	Vector2D pos_;			//	’†SˆÊ’u
-	//Vector2D size_;			//	ƒTƒCƒY
+	Vector2D pos_;			//	ä¸­å¿ƒä½ç½®
+	//Vector2D size_;
 	
-	////bool isActive_ = false;	//	•\¦’†‚©
-	bool isSelect_ = false;	//	‘I‘ğ’†‚©
+	////bool isActive_ = false;
+	bool isSelect_ = false;	//	é¸æŠä¸­ã‹
 
-	////int16_t number_;		//	Active‚Ì‡”Ô
+	////int16_t number_;
 
 public:
 	void EffectUpdate();
