@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "GPipeline.h"
 #include <vector>
 #include <memory>
@@ -14,6 +14,7 @@ private:
 
 	std::vector<std::unique_ptr<GPipeline>> spritePipeline_;
 	std::unique_ptr<GPipeline> loadingSpritePipe_;		//	Loading用
+	std::unique_ptr<GPipeline> dissolveSpritePipe_;		//	シーン遷移用
 
 #pragma endregion
 

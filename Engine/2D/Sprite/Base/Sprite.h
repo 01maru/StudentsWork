@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "VertIdxBuff.h"
 #include "ConstBuff.h"
 
@@ -16,7 +16,7 @@ class GPipeline;
 
 class Sprite :public VertIdxBuff
 {
-private:
+protected:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
 	static Matrix sMAT_2DTRANSFORM;
@@ -83,7 +83,7 @@ public:
 	
 	void Initialize(Texture* texture = nullptr);
 	void Update();
-	void Draw(GPipeline* pipeline = nullptr);
+	virtual void Draw(GPipeline* pipeline = nullptr);
 
 	//	Getter
 	Vector2D& GetPosition() { return mat_.GetTrans(); }

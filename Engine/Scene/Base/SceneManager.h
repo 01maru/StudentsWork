@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "AbstractSceneFactory.h"
 #include "IScene.h"
 #include "PostEffect.h"
@@ -10,6 +10,8 @@
 
 #include "GaussBlur.h"
 #include "GlayScale.h"
+
+#include "DissolveSprite.h"
 
 class SceneManager
 {
@@ -24,6 +26,8 @@ private:
 	std::unique_ptr<AbstractSceneFactory> sceneFactry_;
 
 	Vector4D screenColor_ = { 1.0f,1.0f,1.0f,1.0f };
+
+	std::unique_ptr<DissolveSprite> dissolveSprite_;
 
 #pragma region SplashScreen
 
@@ -83,6 +87,9 @@ public:
 
 	bool GetGameLoop() { return gameLoop_; }
 	void GameLoopEnd() { gameLoop_ = false; }
+
+	float GetDissolveValue() { return dissolveSprite_->GetDissolveValue(); }
+	void SetDissolveValue(float value) { dissolveSprite_->SetDissolveValue(value); }
 
 	Texture* GetShadowMap() { return shadowEffect->GetTexture(0); }
 };

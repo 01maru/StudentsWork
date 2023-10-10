@@ -83,7 +83,7 @@ void TitleScene::Initialize()
 	selectCounter_.SetIsEndless(true);
 	selectCounter_.SetIsActive(true);
 
-	XAudioManager::GetInstance()->PlaySoundWave("title.wav", XAudioManager::BGM, true);
+	//XAudioManager::GetInstance()->PlaySoundWave("title.wav", XAudioManager::BGM, true);
 }
 
 void TitleScene::Finalize()
@@ -157,6 +157,10 @@ void TitleScene::ImguiUpdate()
 	imguiMan->BeginWindow("TitleScene");
 
 	imguiMan->Text("mord : %d", selectMord_);
+
+	float value = SceneManager::GetInstance()->GetDissolveValue();
+	imguiMan->SetSliderFloat("dissolve", value, 0.01f, 0.0f, 1.0f);
+	SceneManager::GetInstance()->SetDissolveValue(value);
 
 	if (imguiMan->SetButton("Start"))	selectMord_ = GameStart;
 	if (imguiMan->SetButton("Option"))	selectMord_ = Option;

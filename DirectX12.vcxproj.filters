@@ -465,6 +465,9 @@
     <ClCompile Include="TitleCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="DissolveSprite.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -761,6 +764,9 @@
     <ClInclude Include="TitleCamera.h">
       <Filter>ヘッダー ファイル\Game\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="DissolveSprite.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shader\ObjHeader.hlsli">
@@ -789,6 +795,9 @@
     </None>
     <None Include="Resources\Shader\DissolveHeader.hlsli">
       <Filter>リソース ファイル\ObjShader</Filter>
+    </None>
+    <None Include="Resources\Shader\DissolveSpriteHeader.hlsli">
+      <Filter>リソース ファイル\SpriteShader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -857,6 +866,9 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\DissolvePS.hlsl">
       <Filter>リソース ファイル\ObjShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\DissolveSpritePS.hlsl">
+      <Filter>リソース ファイル\SpriteShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

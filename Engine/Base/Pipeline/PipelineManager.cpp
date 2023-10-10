@@ -1,4 +1,4 @@
-﻿#include "PipelineManager.h"
+#include "PipelineManager.h"
 #include "Shader.h"
 
 PipelineManager* PipelineManager::GetInstance()
@@ -36,6 +36,13 @@ void PipelineManager::InitializeSprite()
 	loadingSpritePipe_->Initialize(shader, inputLayout, 2, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
 		D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB);
 	loadingSpritePipe_->SetBlendMord(GPipeline::ALPHA_BLEND);
+
+	Shader dissolveShader(L"Resources/Shader/SpriteVS.hlsl", L"Resources/Shader/DissolveSpritePS.hlsl");
+
+	dissolveSpritePipe_ = std::make_unique<GPipeline>();
+	dissolveSpritePipe_->Initialize(dissolveShader, inputLayout, 3, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
+		D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, 2);
+	dissolveSpritePipe_->SetBlendMord(GPipeline::ALPHA_BLEND);
 #pragma endregion
 }
 
@@ -223,6 +230,9 @@ GPipeline* PipelineManager::GetPipeline(const std::string& name, GPipeline::Blen
 	}
 	else if (name == "LoadingSprite") {
 		return loadingSpritePipe_.get();
+	}
+	else if (name == "DissolveSprite") {
+		return dissolveSpritePipe_.get();
 	}
 	else if (name == "Particle") {
 		return particlePipeline_[blend].get();

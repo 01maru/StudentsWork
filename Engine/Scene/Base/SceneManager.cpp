@@ -63,6 +63,13 @@ void SceneManager::Initialize()
 	loadObj_->Initialize();
 	loadObj_->SetIsLoading(!endLoading_);
 
+	dissolveSprite_ = std::make_unique<DissolveSprite>();
+	dissolveSprite_->Initialize();
+	dissolveSprite_->SetSize(Vector2D(Window::sWIN_WIDTH, Window::sWIN_HEIGHT));
+	dissolveSprite_->SetColor(Vector4D(0.0f, 0.0f, 0.0f, 1.0f));
+
+	TextureManager::GetInstance()->LoadTextureGraph("fogTex.jpg");
+
 #pragma endregion
 
 #pragma region PostEffect
@@ -264,6 +271,7 @@ void SceneManager::Update()
 	SceneUpdate();
 
 	loadObj_->Update();
+	dissolveSprite_->Update();
 
 	ImguiUpdate();
 }
@@ -324,6 +332,8 @@ void SceneManager::Draw()
 	dx->PrevDraw();
 
 	glayscale->DrawGlay();
+
+	dissolveSprite_->Draw();
 
 	loadObj_->Draw();
 

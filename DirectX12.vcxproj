@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DissolveSprite.cpp" />
     <ClCompile Include="Engine\2D\Particle\ParticleStruct.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UIButton.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UIButtonManager.cpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="TitleCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DissolveSprite.h" />
     <ClInclude Include="Engine\2D\Particle\ParticleStruct.h" />
     <ClInclude Include="Engine\2D\Sprite\UIButton.h" />
     <ClInclude Include="Engine\2D\Sprite\UIButtonManager.h" />
@@ -209,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shader\DissolveHeader.hlsli" />
+    <None Include="Resources\Shader\DissolveSpriteHeader.hlsli" />
     <None Include="Resources\Shader\GlayScaleHeader.hlsli" />
     <None Include="Resources\Shader\BlurHeader.hlsli" />
     <None Include="Resources\Shader\ObjShadowHeader.hlsli" />
@@ -232,6 +235,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\DissolveSpritePS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shader\GlayScalePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
