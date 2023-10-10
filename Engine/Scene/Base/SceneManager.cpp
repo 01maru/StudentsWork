@@ -1,4 +1,4 @@
-﻿#include "SceneManager.h"
+#include "SceneManager.h"
 #include "Easing.h"
 #include "ImGuiManager.h"
 #include "DirectX.h"
@@ -102,7 +102,8 @@ void SceneManager::Initialize()
 
 	//	releaseだったらスプラッシュスクリーンあり
 #ifdef NDEBUG
-	SplashScreenInitialize();
+	//SplashScreenInitialize();
+	FirstSceneInitialize();
 #endif // NDEBUG
 
 

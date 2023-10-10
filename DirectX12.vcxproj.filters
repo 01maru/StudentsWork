@@ -462,6 +462,9 @@
     <ClCompile Include="Engine\2D\Particle\ParticleStruct.cpp">
       <Filter>ソース ファイル\lib\2D\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="TitleCamera.cpp">
+      <Filter>ソース ファイル\Game\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -754,6 +757,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Weapon.h">
       <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleCamera.h">
+      <Filter>ヘッダー ファイル\Game\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

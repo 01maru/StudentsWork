@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <string>
 #include "Vector3D.h"
 #include "IModel.h"
@@ -51,7 +51,7 @@ public:
 	void LoadJSON(std::string jsonname);
 	void LoadModel();
 	void MatUpdate();
-	void Draw();
+	void Draw(bool drawShadow);
 
 	const PlayerData& GetPlayerSpownPoint() { return playerData_; }
 };

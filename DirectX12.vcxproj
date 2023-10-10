@@ -97,6 +97,7 @@
     <ClCompile Include="Engine\3D\Object\Model\ModelManager.cpp" />
     <ClCompile Include="Engine\2D\Sprite\Base\UIDrawer.cpp" />
     <ClCompile Include="Engine\Game\Weapon.cpp" />
+    <ClCompile Include="TitleCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\2D\Particle\ParticleStruct.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Engine\3D\Object\Model\ModelManager.h" />
     <ClInclude Include="Engine\2D\Sprite\Base\UIDrawer.h" />
     <ClInclude Include="Engine\Game\Weapon.h" />
+    <ClInclude Include="TitleCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

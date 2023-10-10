@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #define NOMINMAX
 #include <Windows.h>
 #include <stdint.h>
@@ -11,6 +11,10 @@ public:
 	static const int32_t sWIN_HEIGHT = 720; // 縦幅
 	//static const int32_t sWIN_WIDTH = 1920; // 横幅
 	//static const int32_t sWIN_HEIGHT = 1080; // 縦幅
+	//static const int32_t sRESOLUTION_WID = 1920; // 横幅
+	//static const int32_t sRESOLUTION_HEIGHT = 1080; // 縦幅
+	static const int32_t sRESOLUTION_WID = 1280; // 横幅
+	static const int32_t sRESOLUTION_HEIGHT = 720; // 縦幅
 private:
 	// ウィンドウクラスの設定
 	WNDCLASSEX w_{};

@@ -1,4 +1,4 @@
-﻿#include "NormalCamera.h"
+#include "NormalCamera.h"
 
 void NormalCamera::Initialize(const Vector3D& /*frontVec*/, const Vector3D& /*center*/, float /*dis*/)
 {
@@ -14,7 +14,7 @@ void NormalCamera::Initialize(const Vector3D& eye, const Vector3D& target, const
 
 	CalcDirectionVec();
 
-	up_ = -downVec_;
+	//up_ = -downVec_;
 
 	MatUpdate();
 }

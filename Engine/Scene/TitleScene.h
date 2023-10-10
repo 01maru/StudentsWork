@@ -1,8 +1,11 @@
-﻿#pragma once
+#pragma once
 #include "IScene.h"
 #include "Sprite.h"
 #include "UIDrawer.h"
 #include "OptionScene.h"
+#include "FrameCounter.h"
+
+#include "JSONLoader.h"
 
 class TitleScene :public IScene
 {
@@ -15,6 +18,11 @@ private:
 	};
 
 private:
+	std::unique_ptr<JSONLoader> level_;
+	std::unique_ptr<Object3D> ground_;
+	std::unique_ptr<Object3D> skydome_;
+	std::unique_ptr<Sprite> selectCursor_;
+	FrameCounter selectCounter_;
 
 	uint16_t selectMord_ = 0;
 

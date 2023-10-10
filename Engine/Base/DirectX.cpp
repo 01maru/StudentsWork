@@ -137,8 +137,8 @@ void MyDirectX::Initialize()
 	ComPtr<IDXGISwapChain1> swapChain1;
 	// 設定
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
-	swapChainDesc.Width = Window::sWIN_WIDTH;						//	画面幅解像度
-	swapChainDesc.Height = Window::sWIN_HEIGHT;						//	画面高さ解像度
+	swapChainDesc.Width = Window::sRESOLUTION_WID;					//	画面幅解像度
+	swapChainDesc.Height = Window::sRESOLUTION_HEIGHT;				//	画面高さ解像度
 	swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;				// 色情報の書式
 	swapChainDesc.SampleDesc.Count = 1;								// マルチサンプルしない
 	swapChainDesc.BufferUsage = DXGI_USAGE_BACK_BUFFER;				// バックバッファ用
@@ -201,7 +201,7 @@ void MyDirectX::Initialize()
 #pragma endregion
 
 #pragma region 深度バッファ
-	dsv_.Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, DXGI_FORMAT_D32_FLOAT);
+	dsv_.Initialize(Window::sRESOLUTION_WID, Window::sRESOLUTION_HEIGHT, DXGI_FORMAT_D32_FLOAT);
 #pragma endregion
 
 #pragma region fence
@@ -210,9 +210,9 @@ void MyDirectX::Initialize()
 #pragma endregion fence
 
 	//	ビューポート
-	viewPortSciRect_.InitializeVP(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, 0, 0, 0.0f, 1.0f);
+	viewPortSciRect_.InitializeVP(Window::sRESOLUTION_WID, Window::sRESOLUTION_HEIGHT, 0, 0, 0.0f, 1.0f);
 	// シザー矩形
-	viewPortSciRect_.InitializeSR(0, Window::sWIN_WIDTH, 0, Window::sWIN_HEIGHT);
+	viewPortSciRect_.InitializeSR(0, Window::sRESOLUTION_WID, 0, Window::sRESOLUTION_HEIGHT);
 }
 
 void MyDirectX::SetResourceBarrier(D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, ID3D12Resource* pResource)

@@ -1,4 +1,4 @@
-﻿#include "UIDrawer.h"
+#include "UIDrawer.h"
 #include "UIEditor.h"
 #include <iostream>
 #include <fstream>
@@ -18,13 +18,13 @@ void UIDrawer::Update(int16_t inputValue)
 
 void UIDrawer::Draw()
 {
-	data_->buttonMan_.Draw();
-
 	for (auto& sprite : data_->sprites_) {
 		if (sprite.second.GetTags() & data_->tagName_[activeTagName_]) {
 			sprite.second.Draw();
 		}
 	}
+
+	data_->buttonMan_.Draw();
 }
 
 void UIDrawer::SetUI(const std::string& uiName)

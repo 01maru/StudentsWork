@@ -1,10 +1,11 @@
-﻿#include "JSONLoader.h"
+#include "JSONLoader.h"
 #include <fstream>
 #include <assert.h>
 #include "CameraManager.h"
 #include "GameCamera.h"
 
 #include "ObjModel.h"
+#include "MyMath.h"
 
 #include <map>
 
@@ -72,9 +73,9 @@ void JSONLoader::LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nl
 		objectData->translation.y = (float)transform["translation"][2];
 		objectData->translation.z = -(float)transform["translation"][0];
 		//	回転角
-		objectData->rotation.x = -(float)transform["rotation"][1];
-		objectData->rotation.y = -(float)transform["rotation"][2];
-		objectData->rotation.z = (float)transform["rotation"][0];
+		objectData->rotation.x = -MyMath::ConvertToRad((float)transform["rotation"][1]);
+		objectData->rotation.y = -MyMath::ConvertToRad((float)transform["rotation"][2]);
+		objectData->rotation.z = MyMath::ConvertToRad((float)transform["rotation"][0]);
 		//	スケーリング
 		objectData->scaling.x = (float)transform["scaling"][1];
 		objectData->scaling.y = (float)transform["scaling"][2];
@@ -172,10 +173,10 @@ void JSONLoader::MatUpdate()
 	}
 }
 
-void JSONLoader::Draw()
+void JSONLoader::Draw(bool drawShadow)
 {
 	for (size_t i = 0; i < objects_.size(); i++)
 	{
-		objects_[i]->Draw(false);
+		objects_[i]->Draw(drawShadow);
 	}
 }
