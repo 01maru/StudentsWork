@@ -112,6 +112,7 @@ void TitleScene::Update()
 
 	if (select)
 	{
+		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 
 		if (uiDrawer_->GetActiveTagName() == "Title") {
 			if (uiDrawer_->GetActiveButtonName() == "Test") {

@@ -102,8 +102,7 @@ void SceneManager::Initialize()
 
 	//	releaseだったらスプラッシュスクリーンあり
 #ifdef NDEBUG
-	//SplashScreenInitialize();
-	FirstSceneInitialize();
+	SplashScreenInitialize();
 #endif // NDEBUG
 
 
