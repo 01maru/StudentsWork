@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "IScene.h"
 #include "Object3D.h"
 #include "Sprite.h"
@@ -48,6 +48,7 @@ public:
 	void Initialize() override;
 	void LoadResources() override;
 	void Finalize() override;
+	void FirstFrameUpdate() override;
 	void Update() override;
 	void ImguiUpdate() override;
 	void DrawShadow() override;

@@ -82,8 +82,6 @@ void TitleScene::Initialize()
 	selectCounter_.Initialize(40, true, true);
 	selectCounter_.SetIsEndless(true);
 	selectCounter_.SetIsActive(true);
-
-	//XAudioManager::GetInstance()->PlaySoundWave("title.wav", XAudioManager::BGM, true);
 }
 
 void TitleScene::Finalize()
@@ -102,6 +100,11 @@ void TitleScene::MatUpdate()
 	skydome_->MatUpdate();
 
 	optionScene_->Update();
+}
+
+void TitleScene::FirstFrameUpdate()
+{
+	XAudioManager::GetInstance()->PlaySoundWave("title.wav", XAudioManager::BGM, true);
 }
 
 void TitleScene::Update()

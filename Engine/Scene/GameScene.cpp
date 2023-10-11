@@ -95,6 +95,10 @@ void GameScene::Finalize()
 	XAudioManager::GetInstance()->DeleteAllSound();
 }
 
+void GameScene::FirstFrameUpdate()
+{
+}
+
 void GameScene::MatUpdate()
 {
 	ParticleManager::GetInstance()->MatUpdate();

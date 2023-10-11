@@ -43,6 +43,7 @@ public:
 	void Initialize() override;
 	void Finalize() override;
 	void LoadResources() override;
+	void FirstFrameUpdate() override;
 	void Update() override;
 	void ImguiUpdate() override;
 	void DrawShadow() override;

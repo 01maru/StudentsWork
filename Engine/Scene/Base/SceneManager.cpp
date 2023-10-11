@@ -37,6 +37,7 @@ void SceneManager::FirstScreenInitialize()
 	//	スプラッシュスクリーンがナシなら
 	if (!isSplashScreen_) {
 		SceneInitialize();
+		scene_->FirstFrameUpdate();
 		return;
 	}
 
@@ -156,9 +157,10 @@ void SceneManager::SplashUpdate()
 
 		//	次のシーン読み込み終了
 		std::future_status loadStatus = sceneInitInfo_.wait_for(std::chrono::seconds(0));
-		if (loadStatus == std::future_status::ready && InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_SPACE)) {
+		if (loadStatus == std::future_status::ready /*&& InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_SPACE)*/) {
 
 			isSplashScreen_ = false;
+			scene_->FirstFrameUpdate();
 			scene_->Update();
 			loadObj_->SetIsLoading(false);
 
@@ -213,6 +215,9 @@ void SceneManager::SceneAsyncUpdate()
 		//	ロード終わりフラグ
 		endLoading_ = true;
 		loadObj_->SetIsLoading(!endLoading_);
+		//	firstFrame(音再生タイミング)
+		scene_->FirstFrameUpdate();
+
 		//	フェードイン
 		sceneChangeCounter_.SetIsIncrement(false);
 		sceneChangeCounter_.StartCount();
