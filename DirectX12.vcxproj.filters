@@ -462,14 +462,14 @@
     <ClCompile Include="Engine\2D\Particle\ParticleStruct.cpp">
       <Filter>ソース ファイル\lib\2D\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="TitleCamera.cpp">
+    <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="DissolveSprite.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Scene\Base\SplashScreenScene.cpp">
+      <Filter>ソース ファイル\lib\Engine\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="SplashScreenScene.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -764,14 +764,14 @@
     <ClInclude Include="Engine\Game\Weapon.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
-    <ClInclude Include="TitleCamera.h">
+    <ClInclude Include="Engine\3D\Camera\TitleCamera.h">
       <Filter>ヘッダー ファイル\Game\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="DissolveSprite.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Scene\Base\SplashScreenScene.h">
+      <Filter>ヘッダー ファイル\lib\Engine\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="SplashScreenScene.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

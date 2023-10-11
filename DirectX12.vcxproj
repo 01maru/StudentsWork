@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DissolveSprite.cpp" />
+    <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp" />
     <ClCompile Include="Engine\2D\Particle\ParticleStruct.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UIButton.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UIButtonManager.cpp" />
@@ -98,11 +98,11 @@
     <ClCompile Include="Engine\3D\Object\Model\ModelManager.cpp" />
     <ClCompile Include="Engine\2D\Sprite\Base\UIDrawer.cpp" />
     <ClCompile Include="Engine\Game\Weapon.cpp" />
-    <ClCompile Include="SplashScreenScene.cpp" />
-    <ClCompile Include="TitleCamera.cpp" />
+    <ClCompile Include="Engine\Scene\Base\SplashScreenScene.cpp" />
+    <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DissolveSprite.h" />
+    <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h" />
     <ClInclude Include="Engine\2D\Particle\ParticleStruct.h" />
     <ClInclude Include="Engine\2D\Sprite\UIButton.h" />
     <ClInclude Include="Engine\2D\Sprite\UIButtonManager.h" />
@@ -200,8 +200,8 @@
     <ClInclude Include="Engine\3D\Object\Model\ModelManager.h" />
     <ClInclude Include="Engine\2D\Sprite\Base\UIDrawer.h" />
     <ClInclude Include="Engine\Game\Weapon.h" />
-    <ClInclude Include="SplashScreenScene.h" />
-    <ClInclude Include="TitleCamera.h" />
+    <ClInclude Include="Engine\Scene\Base\SplashScreenScene.h" />
+    <ClInclude Include="Engine\3D\Camera\TitleCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
