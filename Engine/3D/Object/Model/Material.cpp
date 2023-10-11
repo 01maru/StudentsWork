@@ -1,4 +1,4 @@
-﻿#include "Material.h"
+#include "Material.h"
 #include "TextureManager.h"
 #include "ConstBuffStruct.h"
 #include <cassert>
@@ -47,7 +47,7 @@ void Material::LoadTexture()
 	std::string fileName = Util::GetFileName(filepath_);
 	std::string dirPath = Util::GetDirectoryPath(filepath_);
 
-	texture_ = TextureManager::GetInstance()->LoadTextureGraph(fileName, dirPath);
+	texture_ = TextureManager::GetInstance()->AsyncLoadTextureGraph(fileName, dirPath);
 }
 
 void Material::SetGraphicsRootCBuffView(uint32_t rootparaIdx)

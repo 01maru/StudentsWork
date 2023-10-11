@@ -9,8 +9,8 @@ class DissolveSprite :public Sprite
 {
 private:
 	bool dirtyFlagDissolve_ = true;
-	float disolveValue_ = 0.3f;
-	Vector4D dissolveColor_ = Vector4D(0.2f, 0.2f, 0.2f, 1.0f);
+	float disolveValue_ = 0.0f;
+	Vector4D dissolveColor_;
 
 #pragma region CBuff
 	ConstBuff cbDissolve_;

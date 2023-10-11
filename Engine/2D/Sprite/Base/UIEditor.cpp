@@ -1,4 +1,4 @@
-﻿#include "UIEditor.h"
+#include "UIEditor.h"
 #include "ImGuiManager.h"
 #include "ImGuiController.h"
 #include <iostream>
@@ -57,11 +57,11 @@ void UIEditor::LoadFile(const std::string& filename)
 				std::string dirPath = Util::GetDirectoryPath(texname);
 				std::string fileName = Util::GetFileName(texname);
 
-				sprite.Initialize(TextureManager::GetInstance()->LoadTextureGraph(fileName, dirPath));
+				sprite.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(fileName, dirPath));
 			}
 			else //	pathが含まれていない
 			{
-				sprite.Initialize(TextureManager::GetInstance()->LoadTextureGraph(texname));
+				sprite.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(texname));
 			}
 
 			Vector2D pos;
@@ -106,11 +106,11 @@ void UIEditor::LoadFile(const std::string& filename)
 				std::string dirPath = Util::GetDirectoryPath(texname);
 				std::string fileName = Util::GetFileName(texname);
 
-				button.Initialize(TextureManager::GetInstance()->LoadTextureGraph(fileName, dirPath));
+				button.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(fileName, dirPath));
 			}
 			else //	pathが含まれていない
 			{
-				button.Initialize(TextureManager::GetInstance()->LoadTextureGraph(texname));
+				button.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(texname));
 			}
 
 			Vector2D pos;

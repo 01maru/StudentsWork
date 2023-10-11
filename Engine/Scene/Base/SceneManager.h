@@ -12,6 +12,7 @@
 #include "GlayScale.h"
 
 #include "DissolveSprite.h"
+#include "SplashScreenScene.h"
 
 class SceneManager
 {
@@ -32,7 +33,7 @@ private:
 #pragma region SplashScreen
 
 	bool isSplashScreen_ = false;
-	std::unique_ptr<SplashSprite> splashSprite_;
+	std::unique_ptr<SplashScreenScene> splashScene_;
 
 #pragma endregion
 
@@ -66,8 +67,8 @@ private:	//	関数
 	void SceneUpdate();
 	void ImguiUpdate();
 
-	void FirstSceneInitialize();		//	SplashScreen用
-	void SplashScreenInitialize();
+	void SceneInitialize();		//	SplashScreen用
+	void FirstScreenInitialize();
 	void SceneChange();
 
 	SceneManager() {};

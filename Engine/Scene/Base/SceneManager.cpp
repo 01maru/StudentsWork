@@ -25,28 +25,29 @@ SceneManager* SceneManager::GetInstance()
 	return &instance;
 }
 
-void SceneManager::FirstSceneInitialize()
+void SceneManager::SceneInitialize()
 {
 	scene_->Initialize();
 	//	画像転送
-	TextureManager::GetInstance()->UploadTexture();
+	TextureManager::GetInstance()->AsyncUploadTexture();
 }
 
-void SceneManager::SplashScreenInitialize()
+void SceneManager::FirstScreenInitialize()
 {
-	//	非同期
-	sceneInitInfo_ = std::async(std::launch::async, [this] {return FirstSceneInitialize(); });
+	//	スプラッシュスクリーンがナシなら
+	if (!isSplashScreen_) {
+		SceneInitialize();
+		return;
+	}
 
-	isSplashScreen_ = true;
-
-	splashSprite_ = std::make_unique<SplashSprite>();
-	splashSprite_->Initialize();
-
-	sceneChangeCounter_.SetIsIncrement(true);
-	sceneChangeCounter_.StartCount();
+	splashScene_ = std::make_unique<SplashScreenScene>();
+	splashScene_->Initialize();
 
 	//	画像転送
 	TextureManager::GetInstance()->UploadTexture();
+
+	//	非同期
+	sceneInitInfo_ = std::async(std::launch::async, [this] {return SceneInitialize(); });
 }
 
 void SceneManager::Initialize()
@@ -105,20 +106,12 @@ void SceneManager::Initialize()
 	ImGuiManager::GetInstance()->Initialize();
 #endif // _DEBUG
 
-#pragma region SplashScreen
-
 	//	releaseだったらスプラッシュスクリーンあり
 #ifdef NDEBUG
-	SplashScreenInitialize();
+	isSplashScreen_ = true;
 #endif // NDEBUG
 
-
-	//	debugだったらスプラッシュスクリーンなし
-#ifdef _DEBUG
-	FirstSceneInitialize();
-#endif // _DEBUG
-
-#pragma endregion
+	FirstScreenInitialize();
 
 	ModelManager::GetInstance()->Initialize();
 }
@@ -151,33 +144,35 @@ void SceneManager::ScreenColorUpdate()
 
 void SceneManager::SplashUpdate()
 {
-#ifdef NDEBUG
-
 	//	スプラッシュスクリーンじゃなかったら
 	if (!isSplashScreen_) return;
-
-	if (sceneChangeCounter_.GetFrameCount() == sceneChangeCounter_.GetMaxFrameCount()) splashSprite_->StartCounter();
 	
-	splashSprite_->Update();
+	splashScene_->Update();
 
-	std::future_status loadStatus = sceneInitInfo_.wait_for(std::chrono::seconds(0));
-	if (loadStatus == std::future_status::ready && splashSprite_->SplashEnd()) {
+	//	スプラッシュスクリーン終わり
+	if (splashScene_->EndScene()) {
+		//	ローディング表示
+		loadObj_->SetIsLoading(true);
 
-		//	スプラッシュスクリーン終わり
-		isSplashScreen_ = false;
-		scene_->Update();
+		//	次のシーン読み込み終了
+		std::future_status loadStatus = sceneInitInfo_.wait_for(std::chrono::seconds(0));
+		if (loadStatus == std::future_status::ready && InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_SPACE)) {
 
-		splashSprite_->Finalize();
+			isSplashScreen_ = false;
+			scene_->Update();
+			loadObj_->SetIsLoading(false);
 
-		sceneChangeCounter_.SetIsIncrement(false);
-		sceneChangeCounter_.StartCount();
+			splashScene_->Finalize();
+			splashScene_.release();
 
-		screenColor_ = { 0.0f,0.0f,0.0f,1.0f };
-		//	色設定
-		mainScene->SetColor(screenColor_);
+			sceneChangeCounter_.SetIsIncrement(false);
+			sceneChangeCounter_.StartCount();
+
+			screenColor_ = { 0.0f,0.0f,0.0f,1.0f };
+			//	色設定
+			mainScene->SetColor(screenColor_);
+		}
 	}
-
-#endif // NDEBUG
 }
 
 void SceneManager::SceneFadeInUpdate()
@@ -297,13 +292,18 @@ void SceneManager::Draw()
 	
 	dx->PrevPostEffect(mainScene.get());
 
-	if (endLoading_ && !isSplashScreen_) {
-		scene_->Draw();
-		ModelManager::GetInstance()->DrawPreview();
-		CameraManager::GetInstance()->DrawTarget();
-		UIEditor::GetInstance()->Draw();
+	if (isSplashScreen_) {
+		splashScene_->Draw();
+	}
+	else {
+		if (endLoading_) {
+			scene_->Draw();
+			ModelManager::GetInstance()->DrawPreview();
+			CameraManager::GetInstance()->DrawTarget();
+			UIEditor::GetInstance()->Draw();
 
-		TextureManager::GetInstance()->DrawPreview();
+			TextureManager::GetInstance()->DrawPreview();
+		}
 	}
 
 	dx->PostEffectDraw(mainScene.get());
@@ -319,11 +319,11 @@ void SceneManager::Draw()
 
 	dx->PrevPostEffect(glayscale.get());
 
-	if (!isSplashScreen_) {
+	//if (!isSplashScreen_) {
 		PostEffect* main = mainScene.get();
 
 		main->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect"), false, luminnceBulr->GetTexture(0)->GetHandle());
-	}
+	//}
 
 	dx->PostEffectDraw(glayscale.get());
 
@@ -336,14 +336,6 @@ void SceneManager::Draw()
 	dissolveSprite_->Draw();
 
 	loadObj_->Draw();
-
-#ifdef NDEBUG
-
-	if (isSplashScreen_) {
-		splashSprite_->Draw();
-	}
-
-#endif // NDEBUG
 
 #ifdef _DEBUG
 	ImGuiManager::GetInstance()->Draw();
@@ -366,9 +358,7 @@ void SceneManager::SceneChange()
 		}
 
 		scene_.reset(nextScene_.get());
-		scene_->Initialize();
-		//	画像転送
-		TextureManager::GetInstance()->UploadTexture();
+		SceneInitialize();
 		sceneInitialized_ = true;
 		nextScene_.release();
 	}

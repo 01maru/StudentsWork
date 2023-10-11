@@ -1,24 +1,18 @@
-﻿#include "SplashSprite.h"
+#include "SplashSprite.h"
 #include "TextureManager.h"
 #include "Window.h"
 #include "PipelineManager.h"
 #include "Easing.h"
 
-void SplashSprite::Initialize()
+void SplashSprite::Initialize(Texture* texture)
 {
 	count_ = std::make_unique<FrameCounter>();
 	count_->Initialize(30, true, true, 4);
 
-	rogoTex_ = TextureManager::GetInstance()->LoadTextureGraph("rogo.png");
-
-	splashSprite_ = std::make_unique<Sprite>();
-	splashSprite_->Initialize(rogoTex_);
-	splashSprite_->SetPosition(Vector2D{ Window::sWIN_WIDTH / 2.0f,Window::sWIN_HEIGHT / 2.0f });
-	splashSprite_->SetAnchorPoint(Vector2D{ 0.5f,0.5f });
-}
-
-void SplashSprite::Finalize()
-{
+	Sprite::Initialize(texture);
+	
+	mat_.SetTrans(Vector2D(Window::sWIN_WIDTH / 2.0f, Window::sWIN_HEIGHT / 2.0f));
+	anchorPoint_ = Vector2D(0.5f, 0.5f);
 }
 
 void SplashSprite::Update()
@@ -32,13 +26,14 @@ void SplashSprite::Update()
 
 	else color = Easing::lerp(0.0f, 1.0f, count_->GetCountPerMaxCount());
 
-	splashSprite_->SetColor({ 1.0f,1.0f,1.0f,color });
-	splashSprite_->Update();
+	color_.w = color;
+	dirtyFlagColor_ = true;
+	Sprite::Update();
 }
 
 void SplashSprite::Draw()
 {
 	if (!count_->GetIsActive()) return;
 
-	splashSprite_->Draw(PipelineManager::GetInstance()->GetPipeline("LoadingSprite"));
+	Sprite::Draw();
 }

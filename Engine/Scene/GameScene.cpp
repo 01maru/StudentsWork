@@ -1,4 +1,4 @@
-﻿#include "GameScene.h"
+#include "GameScene.h"
 #include "GameCamera.h"
 #include "XAudioManager.h"
 #include "TextureManager.h"
@@ -50,8 +50,8 @@ void GameScene::LoadResources()
 	cube_.reset(Object3D::Create(models->GetModel()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
 #pragma region Texture
-	reimuG = TextureManager::GetInstance()->LoadTextureGraph("reimu.png");
-	grassG = TextureManager::GetInstance()->LoadTextureGraph("grass.png");
+	reimuG = TextureManager::GetInstance()->AsyncLoadTextureGraph("reimu.png");
+	grassG = TextureManager::GetInstance()->AsyncLoadTextureGraph("grass.png");
 #pragma endregion
 
 #pragma region Sprite

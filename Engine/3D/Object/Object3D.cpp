@@ -1,4 +1,4 @@
-﻿#include "Object3D.h"
+#include "Object3D.h"
 #include "BaseCollider.h"
 #include "CollisionManager.h"
 #include "PipelineManager.h"
@@ -260,7 +260,7 @@ void Object3D::DrawDissolve(bool drawShadow)
 	pipeline->SetGraphicsRootSignature();
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	Texture* dissolve = TextureManager::GetInstance()->LoadTextureGraph("DissolveMap.png");
+	Texture* dissolve = TextureManager::GetInstance()->GetTextureGraph("DissolveMap.png");
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
 
 	transform_.SetGraphicsRootCBuffView(3);

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Texture.h"
 #include <vector>
 #include <memory>
@@ -24,6 +24,7 @@ private:
 	ComPtr<ID3D12Fence> uploadTexFence_;
 	UINT64 uploadTexFenceVal_ = 0;
 	std::list<ComPtr<ID3D12Resource>> textureUploadBuff_;
+	std::list<ComPtr<ID3D12Resource>> asyncUploadBuff_;		//	非同期用
 
 	bool drawPreview_ = false;
 	float previewSize_ = 1.0f;
@@ -54,9 +55,12 @@ public:
 	void ImGuiUpdate();
 	void DrawPreview();
 
+	Texture* GetTextureGraph(const std::string& textureName);
 	Texture* LoadTextureGraph(const std::string& textureName, const std::string& path = "Resources/Sprite/");
+	Texture* AsyncLoadTextureGraph(const std::string& textureName, const std::string& path = "Resources/Sprite/");
 	Texture* CreateNoneGraphTexture(const std::string& texName);
 	void UploadTexture();
+	void AsyncUploadTexture();
 
 	//	Delete
 	void DeleteTextureData(const std::string& textureName);

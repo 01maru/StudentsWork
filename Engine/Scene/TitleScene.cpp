@@ -47,7 +47,7 @@ void TitleScene::LoadResources()
 	uiDrawer_->SetUI("Title");
 
 	selectCursor_ = std::make_unique<Sprite>();
-	selectCursor_->Initialize(TextureManager::GetInstance()->LoadTextureGraph("select.png"));
+	selectCursor_->Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph("select.png"));
 	selectCursor_->SetPosition(Vector2D(200, 420));
 	selectCursor_->SetAnchorPoint(Vector2D(0.5f, 0.5f));
 

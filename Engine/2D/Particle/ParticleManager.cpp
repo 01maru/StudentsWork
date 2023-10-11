@@ -1,4 +1,4 @@
-﻿#include "ParticleManager.h"
+#include "ParticleManager.h"
 #include "TextureManager.h"
 #include "ImGuiController.h"
 #include "ImGuiManager.h"
@@ -11,7 +11,7 @@ ParticleManager* ParticleManager::GetInstance()
 
 void ParticleManager::Initialize()
 {
-	particleTex_ = TextureManager::GetInstance()->LoadTextureGraph("particle2.png");
+	//particleTex_ = TextureManager::GetInstance()->LoadTextureGraph("particle2.png");
 }
 
 void ParticleManager::Update()
