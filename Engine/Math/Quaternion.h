@@ -1,4 +1,9 @@
-﻿#pragma once
+#pragma once
+
+/**
+* @file Quaternion.h
+* @brief Quaternionをまとめたファイル
+*/
 
 class Vector3D;
 class Matrix;
@@ -12,9 +17,13 @@ public:
 	float w = 0.0f;	//	実数
 
 public:
+#pragma region Constructer
+
 	Quaternion() {};
 	Quaternion(float w, float x, float y, float z) :w(w), x(x), y(y), z(z) {};
 	Quaternion(float w, const Vector3D& vec);
+
+#pragma endregion
 	Quaternion SetQuaternion(const Vector3D& v);
 
 	Vector3D GetVector3();

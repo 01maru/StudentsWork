@@ -1,7 +1,12 @@
-﻿#pragma once
+#pragma once
 #include "Vector2D.h"
 #include "Vector4D.h"
 #include "Matrix.h"
+
+/**
+* @file ConstBuffStruct.h
+* @brief 定数バッファの構造体をまとめたファイル
+*/
 
 namespace CBuff
 {

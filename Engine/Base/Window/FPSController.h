@@ -1,6 +1,11 @@
-﻿#pragma once
+#pragma once
 #include <chrono>
 #include <list>
+
+/**
+* @file FPSController.h
+* @brief FPS制御用
+*/
 
 class FPSController
 {
@@ -17,7 +22,7 @@ private:
 
 	std::chrono::steady_clock::time_point reference_;
 
-public:
+private:
 	void CalcFps();
 
 	FPSController() {};
@@ -27,9 +32,27 @@ public:
 	FPSController(const FPSController& obj) = delete;
 	FPSController& operator=(const FPSController& obj) = delete;
 
+	/**
+	* @fn Initialize()
+	* 初期化用関数
+	*/
 	void Initialize();
+
+	/**
+	* @fn Update()
+	* 更新処理をまとめた関数
+	*/
 	void Update();
 
+#pragma region Getter
+
+	/**
+	* @fn GetFPS()
+	* FPS値を返す関数
+	* @return 現在のFPSの値
+	*/
 	float GetFPS() { return fpsValue_; }
+
+#pragma endregion
 };
 

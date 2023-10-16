@@ -5,6 +5,11 @@
 #include <string>
 #include <map>
 
+/**
+* @file PipelineManager.h
+* @brief 使用するパイプラインをまとめて管理しているファイル
+*/
+
 class PipelineManager
 {
 private:
@@ -60,9 +65,23 @@ public:
 	PipelineManager(const PipelineManager& obj) = delete;
 	PipelineManager& operator=(const PipelineManager& obj) = delete;
 
+	/**
+	* @fn Initialize()
+	* 初期化用関数
+	*/
 	void Initialize();
 
-	//	Getter
+#pragma region Getter
+
+	/**
+	* @fn GetPipeline(const std::string&, GPipeline::BlendMord)
+	* 引数で指定したパイプラインを返す関数
+	* @param name パイプラインの名前
+	* @param blend パイプラインのブレンドの種類指定
+	* @return 引数で指定したパイプラインを返す
+	*/
 	GPipeline* GetPipeline(const std::string& name, GPipeline::BlendMord blend = GPipeline::NONE_BLEND);
+
+#pragma endregion
 };
 

@@ -1,6 +1,11 @@
-﻿#pragma once
+#pragma once
 #include <string>
 #include "Matrix.h"
+
+/**
+* @file ConvertAiStruct.h
+* @brief assimp用の変換関数をまとめたファイル
+*/
 
 typedef float ai_real;
 

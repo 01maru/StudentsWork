@@ -1,8 +1,13 @@
-﻿#pragma once
+#pragma once
 #include <d3d12.h>
 #include <wrl.h>
 #include <cstdint>
 #include <vector>
+
+/**
+* @file GPipeline.h
+* @brief パイプラインに必要な処理をまとめたファイル
+*/
 
 class Shader;
 
@@ -32,12 +37,35 @@ private:	//	関数
 	void SetRootSignature(size_t rootParamNum = 1, int32_t textureNum = 1);
 
 public:
+	/**
+	* @fn Initialize()
+	* 初期化用関数
+	*/
 	void Initialize(Shader& shader, const std::vector<D3D12_INPUT_ELEMENT_DESC>& inputLayout, int32_t constBuffNum, D3D12_PRIMITIVE_TOPOLOGY_TYPE topologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE fillmord = D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE cullmord = D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK depth_write_mask = D3D12_DEPTH_WRITE_MASK_ALL, bool isDeep = true, DXGI_FORMAT format = DXGI_FORMAT_R11G11B10_FLOAT, int32_t textureNum = 1);
 	void Init(Shader& shader, D3D12_INPUT_ELEMENT_DESC* inputLayout, UINT inputLayoutSize, int32_t constBuffNum, D3D12_PRIMITIVE_TOPOLOGY_TYPE topologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE fillmord = D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE cullmord = D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK depth_write_mask = D3D12_DEPTH_WRITE_MASK_ALL, bool isDeep = true, DXGI_FORMAT format = DXGI_FORMAT_R11G11B10_FLOAT, int32_t textureNum = 1);
+
+	/**
+	* @fn SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY)
+	* コマンドリストにパイプラインステートとルートシグネチャを設定する関数(描画の際に使用する)
+	* @param primitive プリミティブ設定引数(初期値はトライアングルリスト)
+	*/
 	void SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY primitive = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	/**
+	* @fn SetGraphicsRootSignature()
+	* コマンドリストにRootSignatureをセットする関数(描画の際に使用する)
+	*/
 	void SetGraphicsRootSignature();
 
-	//	Setter
+#pragma region Setter
+
+	/**
+	* @fn SetBlendMord(size_t)
+	* パイプラインのブレンドモード変更用関数
+	* @param mord ブレンドモードの設定値
+	*/
 	void SetBlendMord(size_t mord);
+
+#pragma endregion
 };
 

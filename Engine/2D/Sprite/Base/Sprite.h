@@ -7,6 +7,11 @@
 #include <vector>
 #include <iostream>
 
+/**
+* @file Sprite.h
+* @brief スプライト表示用ファイル
+*/
+
 namespace CBuff {
 	struct CBuffColorMaterial;
 	struct CBuffSpriteTransform;
@@ -80,12 +85,25 @@ private:
 	//	画像サイズを取得する
 	void AdjustTextureSize();
 public:
-	
+	/**
+	* @fn Initialize(Texture*)
+	* 初期化用関数
+	* @param texture 表示する画像(何も設定しなかったら白色画像になる)
+	*/
 	void Initialize(Texture* texture = nullptr);
+	/**
+	* @fn Update()
+	* 更新処理関数
+	*/
 	void Update();
+	/**
+	* @fn Draw(GPipeline*)
+	* 描画処理関数
+	*/
 	virtual void Draw(GPipeline* pipeline = nullptr);
 
-	//	Getter
+#pragma region Getter
+
 	Vector2D& GetPosition() { return mat_.GetTrans(); }
 	Vector2D& GetSize() { return size_; }
 	Vector2D& GetAnchorPoint() { return anchorPoint_; }
@@ -98,7 +116,10 @@ public:
 
 	uint16_t GetTags() { return tag_; }
 
-	//	Setter
+#pragma endregion
+
+#pragma region Setter
+
 	void SetPosition(const Vector2D& position);
 	void SetRotation(float rotation);
 	
@@ -112,5 +133,7 @@ public:
 	void SetHandle(Texture* handle);
 
 	void SetTags(const uint16_t tag) { tag_ = tag; }
+
+#pragma endregion
 };
 

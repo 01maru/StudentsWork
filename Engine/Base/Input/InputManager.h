@@ -1,8 +1,13 @@
-﻿#pragma once
+#pragma once
 #include "InputMouse.h"
 #include "InputJoypad.h"
 #include "InputKeyboard.h"
 #include <memory>
+
+/**
+* @file InputManager.h
+* @brief コントローラー、マウス、キーボードすべての入力処理をまとめて管理しているファイル
+*/
 
 class InputManager
 {
@@ -25,11 +30,24 @@ public:
 	InputManager(const InputManager& obj) = delete;
 	InputManager& operator=(const InputManager& obj) = delete;
 
+	/**
+	* @fn Initialize()
+	* 初期化用関数
+	*/
 	void Initialize();
-	void Update();
-	void ImGuiUpdate();
+    /**
+    * @fn Update()
+    * 更新処理関数
+    */
+    void Update();
+    /**
+    * @fn Update()
+    * ImGui更新処理関数
+    */
+    void ImGuiUpdate();
 
-	//	Getter
+#pragma region Getter
+
 	InputMouse* GetMouse() { return mouse_.get(); }
 	InputJoypad* GetPad() { return joypad_.get(); }
 	InputKeyboard* GetKeyboard() { return keyboard_.get(); }
@@ -38,7 +56,12 @@ public:
 	bool GetTriggerKeyAndButton(int key, InputJoypad::JoyPadButton button);
 	float GetSensitivity() { return sensitivity_; }
 
-	//	Setter
+#pragma endregion
+
+#pragma region Setter
+
 	void SetSensitivity(float sens) { sensitivity_ = sens; }
+
+#pragma endregion
 };
 

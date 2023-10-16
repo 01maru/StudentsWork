@@ -1,20 +1,47 @@
-﻿#pragma once
+#pragma once
 #include "Vector2D.h"
 #include "Vector3D.h"
 #include "Vector4D.h"
 #include "Matrix.h"
 #include <vector>
 
+/**
+* @file MyMath.h
+* @brief 数学に関する処理をまとめたファイル
+*/
+
 namespace MyMath {
-	//	大きい値を返す
+	/**
+	* @fn mMax(T, T)
+	* 引数を比べ大きい方の値を返す関数
+	* @return 引数の大きい方の値
+	*/
 	template<typename T>
 	T mMax(T a, T b);
-	//	小さい値を返す
+	/**
+	* @fn mMin(T, T)
+	* 引数を比べ小さい方の値を返す関数
+	* @return 引数の小さい方の値
+	*/
 	template<typename T>
 	T mMin(T a, T b);
-	//	valueの値をloopする用関数
+	/**
+	* @fn mMin(int32_t, int32_t, int32_t)
+	* valueの値をloopする用関数
+	* @param maxValue ループの最大値
+	* @param minValue ループの最小値
+	* @param value ループさせる値
+	* @return ループ処理後のvalueの値
+	*/
 	int32_t mLoop(int32_t maxValue, int32_t minValue, int32_t value);
-
+	/**
+	* @fn mClamp(float, float, float)
+	* valueの値をloopする用関数
+	* @param minValue Clampの最小値
+	* @param maxValue Clampの最大値
+	* @param value Clampさせる値
+	* @return Clamp処理後のvalueの値
+	*/
 	float mClamp(float minValue, float maxValue, float value);
 
 #pragma region 円周率
@@ -30,15 +57,30 @@ namespace MyMath {
 	Matrix PerspectiveFovLH(int32_t winwidth, int32_t winheight, float fovY, float nearZ, float farZ);
 	Matrix OrthoLH(int32_t winwidth, int32_t winheight, float nearZ, float farZ);
 
-	//	ラジアン変換
+	/**
+	* @fn ConvertToRad(float)
+	* ラジアン変換関数
+	* @param angle 度数法の角度
+	* @return 弧度法(ラジアン)の角度
+	*/
 	float ConvertToRad(float angle);
 
-	//	乱数
+	/**
+	* @fn GetRand(float, float)
+	* 乱数関数
+	* @param min 乱数最大値
+	* @param max 乱数最小値
+	* @return 乱数値
+	*/
 	float GetRand(float min, float max);
 
 	bool CollisionCircleLay(const Vector3D& startL, const Vector3D& endL, const Vector3D& pos, float rad);
 
-	//頂点ABCで作られたポリゴンから法線を計算する。
+	/**
+	* @fn CreatePolygonNormal(const Vector3D&, const Vector3D&, const Vector3D&)
+	* 頂点ABCで作られたポリゴンから法線を計算する用関数
+	* @return 頂点ABCポリゴンの法線の値
+	*/
 	Vector3D CreatePolygonNormal(const Vector3D& a, const Vector3D& b, const Vector3D& c);
 
 	class MatView {

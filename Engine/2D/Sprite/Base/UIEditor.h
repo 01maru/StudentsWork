@@ -1,8 +1,13 @@
-﻿#pragma once
+#pragma once
 #include "Sprite.h"
 #include "UIData.h"
 #include <map>
 #include <list>
+
+/**
+* @file UIEditor.h
+* @brief UIの画面表示位置などを編集できる機能をまとめたファイル
+*/
 
 class UIEditor
 {
@@ -39,12 +44,39 @@ public:
 	UIEditor(const UIEditor& obj) = delete;
 	UIEditor& operator=(const UIEditor& obj) = delete;
 
+	/**
+	* @fn ImGuiUpdate()
+	* ImGui更新処理関数
+	*/
 	void ImGuiUpdate();
+	/**
+	* @fn Draw()
+	* 描画処理関数
+	*/
 	void Draw();
 
+#pragma region Getter
+
+	/**
+	* @fn GetActiveGlayscale()
+	* activeGlayscale_のGetter関数
+	* @return activeGlayscale_の値
+	*/
 	bool GetActiveGlayscale() { return activeGlayscale_; }
+	/**
+	* @fn GetEditUI()
+	* editUI_のGetter関数
+	* @return editUI_の値
+	*/
 	bool GetEditUI() { return editUI_; }
 
+#pragma endregion
+
+	/**
+	* @fn LoadUIData(const std::string&)
+	* レベルデータ読み込み用関数
+	* @param filename レベルデータのファイル名
+	*/
 	std::unique_ptr<UIData> LoadUIData(const std::string& filename);
 };
 

@@ -1,7 +1,12 @@
-﻿#pragma once
+#pragma once
 #include <Windows.h>
 #include <Xinput.h>
 #include <stdint.h>
+
+/**
+* @file InputJoypad.h
+* @brief コントローラーの入力処理をまとめたファイル
+*/
 
 class Vector2D;
 class ImGuiManager;
@@ -44,10 +49,19 @@ private:    //  関数
     void ImGuiUpdateStick(ImGuiManager* imgui);
     void ImGuiUpdateTrigger(ImGuiManager* imgui);
 public:
+    /**
+    * @fn Update()
+    * 更新処理関数
+    */
     void Update();
+    /**
+    * @fn Update()
+    * ImGui更新処理関数
+    */
     void ImGuiUpdate();
 
-    //  Getter
+#pragma region Getter
+
     bool GetIsActive() { return active_; }
 
     bool GetButton(JoyPadButton button);
@@ -66,10 +80,19 @@ public:
     bool GetTriggerThumbLX();
     bool GetTriggerThumbLY();
     int32_t GetMaxThumbRange() { return 32767; }
+
+#pragma endregion
     
-    //  Setter
+#pragma region Setter
 
     //  motorSpd(x, y) = (Left, Right)
     //  min ~ max = 0 ~ 65535
+    /**
+    * @fn SetVibration(const Vector2D&)
+    * バイブレーションの強さ設定用関数
+    * @param motorSpd バイブレーションの強さ motorSpd(x, y) = (Left, Right)
+    */
     void SetVibration(const Vector2D& motorSpd);
+
+#pragma endregion
 };

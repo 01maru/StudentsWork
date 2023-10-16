@@ -1,6 +1,11 @@
-﻿#pragma once
+#pragma once
 #include "MyMath.h"
 #include "Window.h"
+
+/**
+* @file ICamera.h
+* @brief 継承するカメラファイル
+*/
 
 class ICamera
 {
@@ -20,23 +25,59 @@ protected:
 	Matrix billboardY_;
 
 protected:
-	//	ビルボード計算用(視点や注視点の値が変わったら方向ベクトルの更新してから計算する必要あり)
+	/**
+	* @fn CalcBillboard()
+	* ビルボード計算用関数(視点や注視点の値が変わったら方向ベクトルの更新してから計算する必要あり)
+	*/
 	void CalcBillboard();
-	//	方向ベクトル計算
+	/**
+	* @fn CalcDirectionVec()
+	* 方向ベクトル計算関数
+	*/
 	void CalcDirectionVec();
 
+	/**
+	* @fn ImGuiInfo()
+	* ImGuiに表示する情報をまとめる関数
+	*/
 	virtual void ImGuiInfo() = 0;
 
 public:
 	virtual ~ICamera() = default;
+	/**
+	* @fn Initialize(const Vector3D&, const Vector3D&, float)
+	* 初期化用関数
+	* @param frontVec 前方方向ベクトル
+	* @param center 注視点座標
+	* @param dis 注視点と視点座標の距離
+	*/
 	virtual void Initialize(const Vector3D& frontVec, const Vector3D& center, float dis) = 0;
+	/**
+	* @fn Initialize(const Vector3D&, const Vector3D&, const Vector3D&)
+	* 初期化用関数
+	* @param eye 視点座標
+	* @param target 注視点座標
+	* @param up 上方向ベクトル
+	*/
 	virtual void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up) = 0;
+	/**
+	* @fn Update()
+	* 更新処理関数
+	*/
 	virtual void Update() = 0;
+	/**
+	* @fn ImGuiUpdate()
+	* ImGui更新処理関数
+	*/
 	void ImGuiUpdate();
-	//	ビュー行列更新
+	/**
+	* @fn MatUpdate()
+	* ビュー行列更新関数
+	*/
 	void MatUpdate() { matView_ = MyMath::LookAtLH(eye_, target_, up_); }
 
-	//	Getter
+#pragma region Getter
+
 	float GetDisEyeTarget() { return disEyeTarget_; }
 	const Vector3D& GetEye() { return eye_; }
 	const Vector3D& GetTarget() { return target_; }
@@ -50,7 +91,10 @@ public:
 	const Matrix& GetBillboard() { return billboard_; }
 	const Matrix& GetBillboardY() { return billboardY_; }
 
-	//	Setter
+#pragma endregion
+
+#pragma region Setter
+
 	//	fovYの単位はラジアン
 	void SetDisEyeTarget(float dis) { disEyeTarget_ = dis; }
 	void SetProjectionMatrix(int32_t width, int32_t height, float fovY);
@@ -58,5 +102,7 @@ public:
 	void SetEye(const Vector3D& e) { eye_ = e; }
 	void SetUp(const Vector3D& up) { up_ = up; }
 	void EyeMove(const Vector3D& moveE) { eye_ += moveE; }
+
+#pragma endregion
 };
 

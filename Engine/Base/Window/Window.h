@@ -3,6 +3,11 @@
 #include <Windows.h>
 #include <stdint.h>
 
+/**
+* @file Window.h
+* @brief 
+*/
+
 class Window
 {
 public:
@@ -35,13 +40,26 @@ public:
 	Window(const Window& obj) = delete;
 	Window& operator=(const Window& obj) = delete;
 
+	/**
+	* @fn Initialize()
+	* 初期化用関数
+	*/
 	void Initialize();
+
+	/**
+	* @fn Finalize()
+	* exe終了時に呼び出す関数
+	*/
 	void Finalize();
+
 	bool MsgUpdate();
 	bool EndLoop();
 
-	//	getter
+#pragma region Getter
+
 	const HWND& GetHwnd() const { return hwnd_; }
 	const WNDCLASSEX& GetWND() const { return w_;}
+
+#pragma endregion
 };
 

@@ -11,7 +11,7 @@ void UIButtonManager::AddButton()
 	buttons_.emplace(buttonName_, button);
 }
 
-void UIButtonManager::RenameButton(std::map<std::string, UIButton, std::less<>>::iterator& itr)
+void UIButtonManager::RenameButton(std::unordered_map<std::string, UIButton, std::less<>>::iterator& itr)
 {
 	//	既にある名前だったら
 	if (buttons_.count(buttonName_) == 1) return;
@@ -47,7 +47,7 @@ void UIButtonManager::SetButtonTag(UIButton* pButton)
 	}
 }
 
-void UIButtonManager::ButtonInfo(std::map<std::string, UIButton, std::less<>>::iterator& itr)
+void UIButtonManager::ButtonInfo(std::unordered_map<std::string, UIButton, std::less<>>::iterator& itr)
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 

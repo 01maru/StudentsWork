@@ -13,7 +13,11 @@ namespace CBuff {
 	struct CBuffGlayScale;
 }
 
-//	ぺらポリゴン
+/**
+* @file PostEffect.h
+* @brief 板ポリ描画のポストエフェクト用ファイル
+*/
+
 class PostEffect :public PlanePolygon
 {
 private:
@@ -44,17 +48,42 @@ public:
 	void Initialize(int32_t width, int32_t height, const std::string& texName, int32_t textureNum = 1, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 	void RSSetVPandSR();
-	void DrawLuminnce();
 	void SetGPipelineAndIAVertIdxBuff(GPipeline* pipeline);
+	/**
+	* @fn DrawLuminnce()
+	* 描画処理関数
+	*/
+	void DrawLuminnce();
+	/**
+	* @fn Draw(GPipeline* , bool , int32_t)
+	* 描画処理関数
+	*/
 	void Draw(GPipeline* pipeline, bool shadow, int32_t handle1 = -1);
+	/**
+	* @fn DrawDoF()
+	* 描画処理関数
+	*/
 	void DrawDoF();
+	/**
+	* @fn DrawTask()
+	* 描画処理関数
+	*/
 	void DrawTask();
+	/**
+	* @fn DrawMultiTask()
+	* 描画処理関数
+	*/
 	void DrawMultiTask();
-	void SetColor(const Vector4D& color);
-
+	/**
+	* @fn DrawIndexedInstanced()
+	* 描画処理関数
+	*/
 	void Draw();
 
-	//	Getter
+	void SetColor(const Vector4D& color);
+
+#pragma region Getter
+
 	int32_t GetWidth() const { return width_; }
 	int32_t GetHeight() const { return height_; }
 	const Vector4D& GetClearColor() { return clearColor_; }
@@ -67,4 +96,6 @@ public:
 	ID3D12DescriptorHeap* GetDSVHeap() { return dsv_.GetDSVHeap(); }
 	Texture* GetTexture() { return texture_[0]; }
 	Texture* GetTexture(int32_t index) { return texture_[index]; }
+
+#pragma endregion
 };

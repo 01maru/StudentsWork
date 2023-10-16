@@ -1,6 +1,11 @@
-﻿#pragma once
+#pragma once
 #include <d3dcompiler.h>
 #include <wrl.h>
+
+/**
+* @file Shader.h
+* @brief シェーダー読み込み、コンパイル処理まとめたファイル
+*/
 
 class Shader
 {
@@ -21,13 +26,51 @@ public:
 	Shader() {};
 	Shader(const LPCWSTR& VSFileName, const LPCWSTR& PSFileName, const LPCSTR& pEntryPoint = "main"
 		, const LPCWSTR& GSFileName = nullptr, const LPCWSTR& DSFileName = nullptr, const LPCWSTR& HSFileName = nullptr);
+	/**
+	* @fn Initialize(const LPCWSTR&, const LPCWSTR&, const LPCSTR&, const LPCWSTR&, const LPCWSTR&, const LPCWSTR&)
+	* 初期化用関数
+	* @param FileName パスを含めたそれぞれファイルの名前(例 : L"Resources/Shader/shaderName.hlsl")
+	* @param pEntryPoint エントリーポイントの名前
+	*/
 	void Initialize(const LPCWSTR& VSFileName, const LPCWSTR& PSFileName, const LPCSTR& pEntryPoint = "main"
 		, const LPCWSTR& GSFileName = nullptr, const LPCWSTR& DSFileName = nullptr, const LPCWSTR& HSFileName = nullptr);
 
-	//	Getter
-	ID3DBlob* VSBlob() { return vsBlob.Get(); }
-	ID3DBlob* HSBlob() { return hsBlob.Get(); }
-	ID3DBlob* DSBlob() { return dsBlob.Get(); }
-	ID3DBlob* GSBlob() { return gsBlob.Get(); }
-	ID3DBlob* PSBlob() { return psBlob.Get(); }
+#pragma region Getter
+
+	/**
+	* @fn GetVSBlob()
+	* ID3DBlob*型の頂点シェーダーオブジェクトを返す関数
+	* @return ID3DBlob*型の頂点シェーダーオブジェクト
+	*/
+	ID3DBlob* GetVSBlob() { return vsBlob.Get(); }
+
+	/**
+	* @fn GetHSBlob()
+	* ID3DBlob*型のハルシェーダーオブジェクトを返す関数
+	* @return ID3DBlob*型のハルシェーダーオブジェクト
+	*/
+	ID3DBlob* GetHSBlob() { return hsBlob.Get(); }
+
+	/**
+	* @fn GetDSBlob()
+	* ID3DBlob*型のドメインシェーダーオブジェクトを返す関数
+	* @return ID3DBlob*型のドメインシェーダーオブジェクト
+	*/
+	ID3DBlob* GetDSBlob() { return dsBlob.Get(); }
+
+	/**
+	* @fn GetGSBlob()
+	* ID3DBlob*型のジオメトリシェーダーオブジェクトを返す関数
+	* @return ID3DBlob*型のジオメトリシェーダーオブジェクト
+	*/
+	ID3DBlob* GetGSBlob() { return gsBlob.Get(); }
+
+	/**
+	* @fn GetPSBlob()
+	* ID3DBlob*型のピクセルシェーダーオブジェクトを返す関数
+	* @return ID3DBlob*型のピクセルシェーダーオブジェクト
+	*/
+	ID3DBlob* GetPSBlob() { return psBlob.Get(); }
+
+#pragma endregion
 };

@@ -1,5 +1,10 @@
-﻿#pragma once
+#pragma once
 #include "Sprite.h"
+
+/**
+* @file DebugTextManager.h
+* @brief デバッグテキスト表示用ファイル
+*/
 
 class DebugTextManager
 {
@@ -21,8 +26,23 @@ public:
 	DebugTextManager(const DebugTextManager& obj) = delete;
 	DebugTextManager& operator=(const DebugTextManager& obj) = delete;
 
+	/**
+	* @fn Initialize()
+	* 初期化用関数
+	*/
 	void Initialize();
+	/**
+	* @fn Print(const std::string&, const Vector2D&, float)
+	* 正規化用関数
+	* @param text 表示する文字列
+	* @param pos 表示する文字列の左上座標
+	* @param size 文字サイズ
+	*/
 	void Print(const std::string& text, const Vector2D& pos, float size);
+	/**
+	* @fn Draw()
+	* 描画処理関数
+	*/
 	void Draw();
 };
 

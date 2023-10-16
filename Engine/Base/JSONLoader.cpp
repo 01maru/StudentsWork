@@ -93,7 +93,7 @@ void JSONLoader::LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nl
 	}
 }
 
-void JSONLoader::LoadJSON(std::string jsonname)
+void JSONLoader::LoadJSON(const std::string& jsonname)
 {
 	std::ifstream file;
 	const string filename = jsonname + ".json";

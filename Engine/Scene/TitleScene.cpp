@@ -118,21 +118,15 @@ void TitleScene::Update()
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 
 		if (uiDrawer_->GetActiveTagName() == "Title") {
-			if (uiDrawer_->GetActiveButtonName() == "Test") {
-				uiDrawer_->SetUI("Menu");
-			}
-		}
-
-		else if (uiDrawer_->GetActiveTagName() == "Menu") {
-			if (uiDrawer_->GetActiveButtonName() == "Game") {
+			if (uiDrawer_->GetActiveButtonName() == "Start") {
 				SceneManager::GetInstance()->SetNextScene("GAMESCENE");
 			}
 
 			if (uiDrawer_->GetActiveButtonName() == "Option") {
-				optionScene_->SetIsActive(true);
+				//optionScene_->SetIsActive(true);
 			}
 
-			if (uiDrawer_->GetActiveButtonName() == "Exit") {
+			if (uiDrawer_->GetActiveButtonName() == "Quit") {
 				SceneManager::GetInstance()->GameLoopEnd();
 			}
 		}
@@ -146,8 +140,8 @@ void TitleScene::Update()
 	selectCursor_->SetSize(cursorSize * size);
 
 	InputManager* inputMan = InputManager::GetInstance();
-	int16_t inputValue = inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up) -
-		inputMan->GetTriggerKeyAndButton(DIK_S, InputJoypad::DPAD_Down);
+	int16_t inputValue = inputMan->GetTriggerKeyAndButton(DIK_S, InputJoypad::DPAD_Down) -
+		inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up);
 	uiDrawer_->Update(inputValue);
 
 	MatUpdate();
@@ -160,6 +154,9 @@ void TitleScene::ImguiUpdate()
 	imguiMan->BeginWindow("TitleScene");
 
 	imguiMan->Text("mord : %d", selectMord_);
+
+	std::string name = uiDrawer_->GetActiveButtonName();
+	imguiMan->Text("mord : %s", name.c_str());
 
 	float value = SceneManager::GetInstance()->GetDissolveValue();
 	imguiMan->SetSliderFloat("dissolve", value, 0.01f, 0.0f, 1.0f);

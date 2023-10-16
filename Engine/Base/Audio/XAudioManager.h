@@ -1,13 +1,21 @@
-﻿#pragma once
+#pragma once
 #include <xaudio2.h>
 #include <wrl.h>
 #include <vector>
 #include <string>
 #include <map>
 
+/**
+* @file XAudioManager.h
+* @brief 音再生に関連する機能をまとめたファイル
+*/
+
 #pragma region Struct
 
-//	音データ
+ /**
+ * @struct     SoundData
+ * @brief      音データ
+ **/
 struct SoundData {
 	WAVEFORMATEX wfex{};
 	BYTE* pBuffer = nullptr;
@@ -16,7 +24,10 @@ struct SoundData {
 	float volume = 1.0f;
 };
 
-//	再生中の音データ
+/**
+* @struct     SoundVoicePtr
+* @brief      再生中の音データ
+**/
 struct SoundVoicePtr {
 	std::string dataKey;
 	IXAudio2SourceVoice* ptr = nullptr;
@@ -29,7 +40,10 @@ class XAudioManager
 private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 public:
-	//	音量調節用Enum
+	/**
+	* @enum SoundType
+	* 音量調節用の列挙体。再生時に指定することで格納するvectorを変える
+	*/
 	enum SoundType {
 		Master,
 		BGM,
@@ -78,35 +92,113 @@ public:
 	XAudioManager(const XAudioManager& obj) = delete;
 	XAudioManager& operator=(const XAudioManager& obj) = delete;
 
+	/**
+	* @fn Initialize()
+	* 初期化用関数
+	*/
 	void Initialize();
+
+	/**
+	* @fn Finalize()
+	* exe終了時に呼び出す関数
+	*/
 	void Finalize();
+
+	/**
+	* @fn ImguiUpdate(bool)
+	* Debug用のImGuiを使う際に使用する関数
+	* @param endLoading 非同期処理による書き換えが終わるまでデータを使用しないように回避するための引数
+	*/
 	void ImguiUpdate(bool endLoading);
 
-	//	load
+	/**
+	* @fn LoadSoundWave(const std::string&)
+	* 音を読み込む際に使用する関数
+	* @param filename 音データのファイル名(例 : bgm.wav)
+	*/
 	void LoadSoundWave(const std::string& filename);
-	//	play
+
+	/**
+	* @fn PlaySoundWave(const std::string&, SoundType, bool)
+	* 音を再生する際に使用する関数
+	* @param soundName 音データのファイル名(例 : bgm.wav)
+	* @param type 再生する音の種類設定
+	* @param loop ループ再生するかの設定(初期値はfalse)
+	*/
 	void PlaySoundWave(const std::string& soundName, SoundType type, bool loop = false);
 
-	//	volume変更用(Optionとかで)
+	/**
+	* @fn VolumeUpdate(SoundType, int32_t)
+	* Optionなどでvolume変更する際に使用する関数
+	* @param type 音量調節するTypeの設定
+	* @param inputValue 音量の増加量0～100の値
+	*/
 	void VolumeUpdate(SoundType type, int32_t inputValue);
 
 	//void ChangeAllPitchRatio(float pitch);
 
-	//	stop
+#pragma region Stop
+
+	/**
+	* @fn StopAllSound()
+	* 再生中の音をすべて停止させる関数
+	*/
 	void StopAllSound();
+
+	/**
+	* @fn StopAllSound()
+	* BGMとして再生中の音を停止させる関数
+	*/
 	void StopBGM();
+
+	/**
+	* @fn StopAllSound()
+	* SEとして再生中の音を停止させる関数
+	*/
 	void StopSE();
 
-	//	delete
+#pragma endregion
+
+#pragma region Delete
+
+	/**
+	* @fn DeleteAllSound()
+	* 読み込んだ音データをすべて削除する関数
+	*/
 	void DeleteAllSound();
+
+	/**
+	* @fn DeleteSoundData(const std::string&)
+	* 読み込んだ音データを削除する関数
+	* @param soundName 音データのファイル名(例 : bgm.wav)
+	*/
 	void DeleteSoundData(const std::string& soundName);
 
-	//	Getter 
-	//	範囲は0.0f～1.0f
+#pragma endregion
+
+#pragma region Getter
+
+	/**
+	* @fn GetBGMVolume()
+	* BGMの音量の割合を返す関数
+	* @return 0.0f～1.0fに正規化されたBGMの音量を返す
+	*/
 	float GetBGMVolume() { return bgmVolume_; }
-	//	範囲は0.0f～1.0f
+
+	/**
+	* @fn GetSEVolume()
+	* SEの音量の割合を返す関数
+	* @return 0.0f～1.0fに正規化されたSEの音量を返す
+	*/
 	float GetSEVolume() { return seVolume_; }
-	//	範囲は0.0f～1.0f
+
+	/**
+	* @fn GetSEVolume()
+	* SEの音量の割合を返す関数
+	* @return 0.0f～1.0fに正規化されたSEの音量を返す
+	*/
 	float GetMasterVolume() { return masterVolume_; }
+
+#pragma endregion
 };
 

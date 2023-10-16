@@ -1,10 +1,15 @@
-﻿#pragma once
+#pragma once
 #include <wrl.h>
 #include <d3d12.h>
 #include <string>
 
 #include "Vector2D.h"
 #include "Vector3D.h"
+
+/**
+* @file ImGuiManager.h
+* @brief ImGuiの処理をまとめたファイル
+*/
 
 class ImGuiManager
 {
@@ -23,14 +28,32 @@ public:
 	//	代入演算子無効
 	ImGuiManager& operator=(const ImGuiManager& obj) = delete;
 
+	/**
+	* @fn Initialize()
+	* 初期化用関数
+	*/
 	void Initialize();
+
+	/**
+	* @fn Finalize()
+	* exe終了時に呼び出す関数
+	*/
 	void Finalize();
 	
-	//	更新前処理
+	/**
+	* @fn Begin()
+	* 更新前処理関数
+	*/
 	void Begin();
-	//	更新後処理
+	/**
+	* @fn End()
+	* 更新後処理関数
+	*/
 	void End();
-	//	描画処理
+	/**
+	* @fn Draw()
+	* 描画処理関数
+	*/
 	void Draw();
 
 #pragma region Window

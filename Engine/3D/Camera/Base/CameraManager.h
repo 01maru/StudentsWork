@@ -5,6 +5,11 @@
 #include "Object3D.h"
 #include "IModel.h"
 
+/**
+* @file CameraManager.h
+* @brief カメラをまとめて管理するファイル
+*/
+
 class CameraManager
 {
 private:
@@ -30,19 +35,71 @@ public:
 	CameraManager(const CameraManager& obj) = delete;
 	CameraManager& operator=(const CameraManager& obj) = delete;
 
+	/**
+	* @fn Initialize()
+	* 初期化用関数
+	*/
 	void Initialize();
+	/**
+	* @fn Update()
+	* 更新処理関数
+	*/
 	void Update();
+	/**
+	* @fn ImGuiUpdate()
+	* ImGui更新処理関数
+	*/
 	void ImGuiUpdate();
+	/**
+	* @fn DrawTarget()
+	* 注視点描画用関数
+	*/
 	void DrawTarget();
 
-	//	Getter
+#pragma region Getter
+
+	/**
+	* @fn GetCamera()
+	* 現在描画に使用しているカメラを返す関数
+	* @return 現在描画に使用しているカメラ
+	*/
 	ICamera* GetCamera();
+	/**
+	* @fn GetLightCamera()
+	* ライトカメラを返す関数
+	* @return ライトカメラ
+	*/
 	ICamera* GetLightCamera();
+	/**
+	* @fn GetMainCamera()
+	* メインカメラを返す関数
+	* @return メインカメラ
+	*/
 	ICamera* GetMainCamera();
+	/**
+	* @fn GetDebugCamera()
+	* デバッグカメラを返す関数
+	* @return デバッグカメラ
+	*/
 	ICamera* GetDebugCamera();
 
-	//	Setter
+#pragma endregion
+
+#pragma region Setter
+
+	/**
+	* @fn SetMainCamera(std::unique_ptr<ICamera>)
+	* メインカメラ設定用関数
+	* @param camera 設定するメインカメラ
+	*/
 	void SetMainCamera(std::unique_ptr<ICamera> camera) { mainCamera_ = std::move(camera); }
+	/**
+	* @fn SetMainCamera(std::unique_ptr<ICamera>)
+	* ライトカメラ設定用関数
+	* @param camera 設定するライトカメラ
+	*/
 	void SetLightCamera(std::unique_ptr<ICamera> camera) { lightCamera_ = std::move(camera); }
+
+#pragma endregion
 };
 

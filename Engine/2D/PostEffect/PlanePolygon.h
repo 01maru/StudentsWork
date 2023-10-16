@@ -1,5 +1,10 @@
-﻿#pragma once
+#pragma once
 #include "VertIdxBuff.h"
+
+/**
+* @file PlanePolygon.h
+* @brief 板ポリを表示する用ファイル
+*/
 
 class PlanePolygon :public VertIdxBuff
 {
@@ -11,7 +16,15 @@ private:
 	void SetVertices() override;
 
 public:
+	/**
+	* @fn Initialize()
+	* 初期化用関数
+	*/
 	void Initialize();
+	/**
+	* @fn DrawIndexedInstanced()
+	* 描画処理関数
+	*/
 	void DrawIndexedInstanced();
 };
 

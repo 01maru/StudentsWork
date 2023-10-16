@@ -1,13 +1,23 @@
-﻿#pragma once
+#pragma once
+
+/**
+* @file Matrix.h
+* @brief 4x4行列クラスをまとめたファイル
+*/
 
 class Matrix
 {
 public:
 	float m[4][4];
+
 public:
 	//	コンストラクタ
 	Matrix();
-	//	単位行列
+
+	/**
+	* @fn Normalize()
+	* 単位行列化用関数
+	*/
 	void Identity();
 
 	Matrix& operator*=(const Matrix& m2);

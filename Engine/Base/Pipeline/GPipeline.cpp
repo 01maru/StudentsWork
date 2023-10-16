@@ -7,30 +7,30 @@
 void GPipeline::SetShader(Shader& shader)
 {
 #pragma region VertexShader
-	pipelineDesc_.VS.pShaderBytecode = shader.VSBlob()->GetBufferPointer();
-	pipelineDesc_.VS.BytecodeLength = shader.VSBlob()->GetBufferSize();
+	pipelineDesc_.VS.pShaderBytecode = shader.GetVSBlob()->GetBufferPointer();
+	pipelineDesc_.VS.BytecodeLength = shader.GetVSBlob()->GetBufferSize();
 #pragma endregion
 #pragma region HShader
-	if (shader.HSBlob() != nullptr) {
-		pipelineDesc_.HS.pShaderBytecode = shader.HSBlob()->GetBufferPointer();
-		pipelineDesc_.HS.BytecodeLength = shader.HSBlob()->GetBufferSize();
+	if (shader.GetHSBlob() != nullptr) {
+		pipelineDesc_.HS.pShaderBytecode = shader.GetHSBlob()->GetBufferPointer();
+		pipelineDesc_.HS.BytecodeLength = shader.GetHSBlob()->GetBufferSize();
 	}
 #pragma endregion
 #pragma region DShader
-	if (shader.DSBlob() != nullptr) {
-		pipelineDesc_.DS.pShaderBytecode = shader.DSBlob()->GetBufferPointer();
-		pipelineDesc_.DS.BytecodeLength = shader.DSBlob()->GetBufferSize();
+	if (shader.GetDSBlob() != nullptr) {
+		pipelineDesc_.DS.pShaderBytecode = shader.GetDSBlob()->GetBufferPointer();
+		pipelineDesc_.DS.BytecodeLength = shader.GetDSBlob()->GetBufferSize();
 	}
 #pragma endregion
 #pragma region GShader
-	if (shader.GSBlob() != nullptr) {
-		pipelineDesc_.GS.pShaderBytecode = shader.GSBlob()->GetBufferPointer();
-		pipelineDesc_.GS.BytecodeLength = shader.GSBlob()->GetBufferSize();
+	if (shader.GetGSBlob() != nullptr) {
+		pipelineDesc_.GS.pShaderBytecode = shader.GetGSBlob()->GetBufferPointer();
+		pipelineDesc_.GS.BytecodeLength = shader.GetGSBlob()->GetBufferSize();
 	}
 #pragma endregion
 #pragma region PixcelShader
-	pipelineDesc_.PS.pShaderBytecode = shader.PSBlob()->GetBufferPointer();
-	pipelineDesc_.PS.BytecodeLength = shader.PSBlob()->GetBufferSize();
+	pipelineDesc_.PS.pShaderBytecode = shader.GetPSBlob()->GetBufferPointer();
+	pipelineDesc_.PS.BytecodeLength = shader.GetPSBlob()->GetBufferSize();
 #pragma endregion
 }
 

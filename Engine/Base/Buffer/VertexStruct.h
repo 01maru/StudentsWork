@@ -1,5 +1,10 @@
-﻿#pragma once
+#pragma once
 #include "MyMath.h"
+
+/**
+* @file VertexStruct.h
+* @brief 頂点バッファの構造体をまとめたファイル
+*/
 
 struct ParticleVertex
 {

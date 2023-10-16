@@ -1,8 +1,13 @@
-﻿#pragma once
+#pragma once
 #include "VertexStruct.h"
 #include <wrl.h>
 #include <d3d12.h>
 #include <vector>
+
+/**
+* @file VertIdxBuff.h
+* @brief 頂点とインデックスバッファをまとめたファイル
+*/
 
 class VertIdxBuff
 {
@@ -36,6 +41,9 @@ public:
 	virtual void SetVertices() = 0;
 	void SetIndices(const std::vector<uint16_t>& indices);
 
-	//	Getter
+#pragma region Getter
+
 	const D3D12_RESOURCE_DESC& GetResDesc() { return resDesc_; }
+
+#pragma endregion
 };
