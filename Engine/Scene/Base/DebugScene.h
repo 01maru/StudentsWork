@@ -11,7 +11,7 @@
 class DebugScene :public IScene
 {
 private:
-	std::unique_ptr<Object3D> fbx_;
+	std::unique_ptr<Object3D> skydome_;
 	std::unique_ptr<Object3D> ground_;
 	int32_t index = -1;
 	int32_t timer = 0;

@@ -9,7 +9,7 @@ float4 main(VSOutput input) : SV_TARGET
     float4 texcolor = tex.Sample(g_sampler, input.uv) * color;
     float4 dissolveMap = dissolve.Sample(g_sampler, input.uv);
 
-    float dissolve = smoothstep(dissolveValue + 0.1f, dissolveValue, dissolveMap.r);
+    float dissolve = smoothstep(dissolveValue + 0.1f, dissolveValue, 1.0f-dissolveMap.r);
 	
     if (dissolve == 1) return texcolor;
     if (dissolve == 0) discard;

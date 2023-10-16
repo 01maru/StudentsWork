@@ -104,7 +104,7 @@ void TitleScene::MatUpdate()
 
 void TitleScene::FirstFrameUpdate()
 {
-	XAudioManager::GetInstance()->PlaySoundWave("title.wav", XAudioManager::BGM, true);
+	//XAudioManager::GetInstance()->PlaySoundWave("title.wav", XAudioManager::BGM, true);
 }
 
 void TitleScene::Update()
@@ -119,7 +119,7 @@ void TitleScene::Update()
 
 		if (uiDrawer_->GetActiveTagName() == "Title") {
 			if (uiDrawer_->GetActiveButtonName() == "Start") {
-				SceneManager::GetInstance()->SetNextScene("GAMESCENE");
+				SceneManager::GetInstance()->SetNextScene("DEBUGSCENE");
 			}
 
 			if (uiDrawer_->GetActiveButtonName() == "Option") {
@@ -143,6 +143,7 @@ void TitleScene::Update()
 	int16_t inputValue = inputMan->GetTriggerKeyAndButton(DIK_S, InputJoypad::DPAD_Down) -
 		inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up);
 	uiDrawer_->Update(inputValue);
+	selectCursor_->SetPosition(uiDrawer_->GetSelectPosition());
 
 	MatUpdate();
 }

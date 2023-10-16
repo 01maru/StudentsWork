@@ -41,6 +41,7 @@ private:
 	std::future<void> sceneInitInfo_;
 	bool endLoading_ = false;
 	bool sceneInitialized_ = true;
+	bool sceneDrawable_ = true;
 
 	std::unique_ptr<ILoadingObj> loadObj_;
 #pragma endregion

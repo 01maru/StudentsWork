@@ -49,6 +49,7 @@ void SceneManager::FirstScreenInitialize()
 
 	//	非同期
 	sceneInitInfo_ = std::async(std::launch::async, [this] {return SceneInitialize(); });
+	sceneDrawable_ = false;
 }
 
 void SceneManager::Initialize()
@@ -70,7 +71,7 @@ void SceneManager::Initialize()
 	dissolveSprite_->SetSize(Vector2D(Window::sWIN_WIDTH, Window::sWIN_HEIGHT));
 	dissolveSprite_->SetColor(Vector4D(0.0f, 0.0f, 0.0f, 1.0f));
 
-	TextureManager::GetInstance()->LoadTextureGraph("fogTex.jpg");
+	TextureManager::GetInstance()->LoadTextureGraph("noise.png");
 
 #pragma endregion
 
@@ -133,14 +134,16 @@ void SceneManager::ScreenColorUpdate()
 	sceneChangeCounter_.Update();
 
 	if (sceneChangeCounter_.GetIsActive()) {
-		float color = Easing::lerp(1.0f, 0.0f, sceneChangeCounter_.GetCountPerMaxCount());
-		screenColor_.x = color;
-		screenColor_.y = color;
-		screenColor_.z = color;
+		//float color = Easing::lerp(1.0f, 0.0f, sceneChangeCounter_.GetCountPerMaxCount());
+		//screenColor_.x = color;
+		//screenColor_.y = color;
+		//screenColor_.z = color;
 
-		//	色設定
-		mainScene->SetColor(screenColor_);
+		////	色設定
+		//mainScene->SetColor(screenColor_);
 	}
+	float value = Easing::EaseOut(0.0f, 1.0f, sceneChangeCounter_.GetCountPerMaxCount(), 2);
+	SetDissolveValue(value);
 }
 
 void SceneManager::SplashUpdate()
@@ -161,8 +164,8 @@ void SceneManager::SplashUpdate()
 
 			isSplashScreen_ = false;
 			scene_->FirstFrameUpdate();
-			scene_->Update();
 			loadObj_->SetIsLoading(false);
+			sceneDrawable_ = true;
 
 			splashScene_->Finalize();
 			splashScene_.release();
@@ -170,9 +173,10 @@ void SceneManager::SplashUpdate()
 			sceneChangeCounter_.SetIsIncrement(false);
 			sceneChangeCounter_.StartCount();
 
-			screenColor_ = { 0.0f,0.0f,0.0f,1.0f };
-			//	色設定
-			mainScene->SetColor(screenColor_);
+			//screenColor_ = { 0.0f,0.0f,0.0f,1.0f };
+			////	色設定
+			//mainScene->SetColor(screenColor_);
+			SetDissolveValue(1.0f);
 		}
 	}
 }
@@ -182,12 +186,12 @@ void SceneManager::SceneFadeInUpdate()
 	if (!endLoading_)		return;
 	if (!sceneInitialized_)	return;
 
-	//	フェードイン済み
-	bool fadedIn = sceneChangeCounter_.GetFrameCount() == 0;
-	if (fadedIn) {
-		//	同期処理
-		scene_->Update();
-	}
+	////	フェードイン済み
+	//bool fadedIn = sceneChangeCounter_.GetFrameCount() == sceneChangeCounter_.GetMaxFrameCount();
+	//if (fadedIn) {
+	//	//	同期処理
+	//}
+	scene_->Update();
 }
 
 void SceneManager::SceneFadeOutUpdate()
@@ -198,6 +202,7 @@ void SceneManager::SceneFadeOutUpdate()
 	//	フェードアウト済み
 	bool fadedOut = sceneChangeCounter_.GetFrameCount() == sceneChangeCounter_.GetMaxFrameCount();
 	if (fadedOut) {
+		sceneDrawable_ = false;
 		//	フェードアウト済みロード画面へ
 		endLoading_ = false;
 		//	非同期
@@ -212,6 +217,7 @@ void SceneManager::SceneAsyncUpdate()
 
 	std::future_status loadStatus = sceneInitInfo_.wait_for(std::chrono::seconds(0));
 	if (loadStatus == std::future_status::ready) {
+		sceneDrawable_ = true;
 		//	ロード終わりフラグ
 		endLoading_ = true;
 		loadObj_->SetIsLoading(!endLoading_);
@@ -238,6 +244,7 @@ void SceneManager::SceneUpdate()
 void SceneManager::ImguiUpdate()
 {
 #ifdef _DEBUG
+	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
 	ImGuiManager::GetInstance()->Begin();
 	ImGuiController::GetInstance()->Update();
@@ -255,6 +262,10 @@ void SceneManager::ImguiUpdate()
 	if (endLoading_) {
 		scene_->ImguiUpdate();
 	}
+
+	imguiMan->Text("sceneInitialized : %d", sceneInitialized_);
+	imguiMan->Text("sceneDrawable : %d", sceneDrawable_);
+
 	ImGuiManager::GetInstance()->End();
 
 #endif // _DEBUG
@@ -285,7 +296,7 @@ void SceneManager::Draw()
 
 	dx->PrevPostEffect(shadowEffect.get(), shadowClearColor_);
 
-	if (endLoading_ && !isSplashScreen_) {
+	if (sceneDrawable_ && !isSplashScreen_) {
 		scene_->DrawShadow();
 	}
 	
@@ -301,14 +312,14 @@ void SceneManager::Draw()
 		splashScene_->Draw();
 	}
 	else {
-		if (endLoading_) {
-			scene_->Draw();
-			ModelManager::GetInstance()->DrawPreview();
-			CameraManager::GetInstance()->DrawTarget();
-			UIEditor::GetInstance()->Draw();
+	}
+	if (sceneDrawable_) {
+		scene_->Draw();
+		ModelManager::GetInstance()->DrawPreview();
+		CameraManager::GetInstance()->DrawTarget();
+		UIEditor::GetInstance()->Draw();
 
-			TextureManager::GetInstance()->DrawPreview();
-		}
+		TextureManager::GetInstance()->DrawPreview();
 	}
 
 	dx->PostEffectDraw(mainScene.get());

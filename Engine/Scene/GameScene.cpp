@@ -118,7 +118,6 @@ void GameScene::Update()
 #pragma region 更新処理
 	ParticleManager::GetInstance()->AddMoveParticle({ MyMath::GetRand(-1.0f,1.0f),0.0f,MyMath::GetRand(-1.0f,1.0f) }, { 0.0f,1.0f,0.0f }, 60);
 
-
 	pause_->Update();
 
 	sprite_->Update();
@@ -143,6 +142,10 @@ void GameScene::ImguiUpdate()
 	player_->ImGuiUpdate();
 
 	imguiMan->BeginWindow("GameScene", true);
+
+	float value = SceneManager::GetInstance()->GetDissolveValue();
+	imguiMan->SetSliderFloat("dissolve", value, 0.01f, 0.0f, 1.0f);
+	SceneManager::GetInstance()->SetDissolveValue(value);
 
 	imguiMan->Text("Pause : %s", pause_->GetIsActive() ? "True" : "False");
 	imguiMan->Text("mord : %d",pause_->GetMord());
@@ -179,5 +182,5 @@ void GameScene::Draw()
 	pause_->Draw();
 
 	//DebugTextManager::GetInstance()->Draw();
-	ParticleManager::GetInstance()->Draw();
+	//ParticleManager::GetInstance()->Draw();
 }

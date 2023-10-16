@@ -48,7 +48,7 @@ void DissolveSprite::Draw(GPipeline* pipeline)
 	//	テクスチャ
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(handle_->GetHandle()));
 
-	Texture* dissolve = TextureManager::GetInstance()->GetTextureGraph("fogTex.jpg");
+	Texture* dissolve = TextureManager::GetInstance()->GetTextureGraph("noise.png");
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
 
 	cbColorMaterial_.SetGraphicsRootCBuffView(2);

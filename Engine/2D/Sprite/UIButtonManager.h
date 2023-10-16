@@ -61,5 +61,7 @@ public:
 	const std::string& GetSelectName();
 
 	void SetNumber(uint16_t drawTag);
+
+	const Vector2D& GetSelectPosition() { return buttons_[activeNameArry[selectButtonNum_]].GetPosition(); }
 };
 

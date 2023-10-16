@@ -17,7 +17,6 @@ private:
 	std::unique_ptr<ICamera> camera_;
 	std::unique_ptr<Object3D> loadObj_;
 	std::unique_ptr<IModel> loadModel_;
-
 public:
 	/**
 	* @fn Initialize()
