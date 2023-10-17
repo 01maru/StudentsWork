@@ -1,8 +1,9 @@
 #include "MoveParticle.h"
 #include "Easing.h"
 #include "TextureManager.h"
+#include "GPipeline.h"
 
-void MoveParticle::Initialize(const Vector3D& pos, const Vector3D& velocity, float startScale, float maxScale, int lifeTime)
+void MoveParticle::Initialize(const Vector3D& pos, const Vector3D& velocity, float startScale, float maxScale, int32_t lifeTime, int32_t texHandle)
 {
 	IParticle::Initialize();
 
@@ -17,14 +18,16 @@ void MoveParticle::Initialize(const Vector3D& pos, const Vector3D& velocity, flo
 
 	maxTime_ = lifeTime;
 
-	texHandle_ = TextureManager::GetInstance()->GetTextureGraph("particle2.png")->GetHandle();
+	texHandle_ = texHandle;
 
 	isBillboard_ = true;
+
+	blendMord_ = Blend::ADD_BLEND;
 }
 
 void MoveParticle::Update()
 {
-	//scale_ = (float)Easing::EaseIn(startScale_, maxScale_, (float)timer_ / (float)maxTime_, 2);
+	scale_ = (float)Easing::EaseIn(startScale_, maxScale_, (float)timer_ / (float)maxTime_, 2);
 
 	// 移動
 	IParticle::vertex_ += spd_;

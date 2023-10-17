@@ -1,22 +1,26 @@
 #pragma once
+#include "IParticle.h"
 #include <forward_list>
 #include <memory>
-#include "IParticle.h"
 
 /**
 * @file ParticleManager.h
 * @brief すべてのパーティクルをまとめて管理するファイル
 */
 
+class GPipeline;
+
 class ParticleManager
 {
 private:
 	//	ぺらポリゴンのパーティクルリスト
 	std::forward_list<std::unique_ptr<IParticle>> particles_;
-
+	//	ぺらポリゴンの描画に使用するパイプライン配列
+	std::vector<GPipeline*> pipelines_;
 private:
 	ParticleManager() {};
 	~ParticleManager() {};
+
 public:
 	static ParticleManager* GetInstance();
 	ParticleManager(const ParticleManager& obj) = delete;

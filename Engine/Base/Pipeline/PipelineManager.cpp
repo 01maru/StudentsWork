@@ -35,14 +35,14 @@ void PipelineManager::InitializeSprite()
 	loadingSpritePipe_ = std::make_unique<GPipeline>();
 	loadingSpritePipe_->Initialize(shader, inputLayout, 2, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
 		D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB);
-	loadingSpritePipe_->SetBlendMord(GPipeline::ALPHA_BLEND);
+	loadingSpritePipe_->SetBlendMord(Blend::ALPHA_BLEND);
 
 	Shader dissolveShader(L"Resources/Shader/SpriteVS.hlsl", L"Resources/Shader/DissolveSpritePS.hlsl");
 
 	dissolveSpritePipe_ = std::make_unique<GPipeline>();
 	dissolveSpritePipe_->Initialize(dissolveShader, inputLayout, 3, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
 		D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO, true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, 2);
-	dissolveSpritePipe_->SetBlendMord(GPipeline::ALPHA_BLEND);
+	dissolveSpritePipe_->SetBlendMord(Blend::ALPHA_BLEND);
 #pragma endregion
 }
 
@@ -148,7 +148,7 @@ void PipelineManager::InitializeModel()
 	shadowPipeline_ = std::make_unique<GPipeline>();
 	shadowPipeline_->Initialize(shadowShader, inputLayout, 5
 		, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL, true, DXGI_FORMAT_R32G32_FLOAT);
-	shadowPipeline_->SetBlendMord(GPipeline::NONE_BLEND);
+	shadowPipeline_->SetBlendMord(Blend::NONE_BLEND);
 
 	inputLayout.emplace_back();
 	inputLayout.back() = { "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 };		//	法線ベクトル
@@ -165,7 +165,7 @@ void PipelineManager::InitializeModel()
 	shadowRecieverPipeline_ = std::make_unique<GPipeline>();
 	shadowRecieverPipeline_->Initialize(shadowRecieverShader, inputLayout
 		, 5, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL, true, DXGI_FORMAT_R11G11B10_FLOAT, 2);
-	shadowRecieverPipeline_->SetBlendMord(GPipeline::NONE_BLEND);
+	shadowRecieverPipeline_->SetBlendMord(Blend::NONE_BLEND);
 
 	Shader silhouetteShader(L"Resources/Shader/ObjVS.hlsl", L"Resources/Shader/SilhouettePS.hlsl");
 
@@ -175,7 +175,7 @@ void PipelineManager::InitializeModel()
 	modelSilhouettePipe_ = std::make_unique<GPipeline>();
 	modelSilhouettePipe_->Initialize(silhouetteShader, inputLayout, 5,
 		D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL, true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB);
-	modelSilhouettePipe_->SetBlendMord(GPipeline::ALPHA_BLEND);
+	modelSilhouettePipe_->SetBlendMord(Blend::ALPHA_BLEND);
 
 	for (size_t i = 0; i < blendMordNum; i++)
 	{
@@ -211,7 +211,7 @@ void PipelineManager::Initialize()
 	InitializeParticle();
 }
 
-GPipeline* PipelineManager::GetPipeline(const std::string& name, GPipeline::BlendMord blend)
+GPipeline* PipelineManager::GetPipeline(const std::string& name, Blend::BlendMord blend)
 {
 	if (name == "Model") {
 		return modelPipeline_[blend].get();

@@ -779,6 +779,9 @@
     <ClInclude Include="Engine\2D\Particle\IParticle.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
     </ClInclude>
+    <ClInclude Include="BlendMord.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shader\ObjHeader.hlsli">

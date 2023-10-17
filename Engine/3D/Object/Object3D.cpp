@@ -240,7 +240,7 @@ void Object3D::DrawShadowUnReciever(bool drawShadow)
 	//	影の影響を受けるなら
 	if (shadowReciev_) return;
 
-	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("Model", GPipeline::ALPHA_BLEND);
+	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("Model", Blend::ALPHA_BLEND);
 	pipeline->SetGraphicsRootSignature();
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 

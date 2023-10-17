@@ -80,7 +80,7 @@ public:
 	* @param blend パイプラインのブレンドの種類指定
 	* @return 引数で指定したパイプラインを返す
 	*/
-	GPipeline* GetPipeline(const std::string& name, GPipeline::BlendMord blend = GPipeline::NONE_BLEND);
+	GPipeline* GetPipeline(const std::string& name, Blend::BlendMord blend = Blend::NONE_BLEND);
 
 #pragma endregion
 };

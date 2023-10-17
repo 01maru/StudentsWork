@@ -119,7 +119,7 @@ void TitleScene::Update()
 
 	if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_1, InputJoypad::A_Button)) {
 		MoveParticle particle;
-		particle.Initialize({}, { 0.0f,0.1f,0.0f }, 1.0f, 5.0f, 120);
+		particle.Initialize({}, { 0.0f,0.1f,0.0f }, 1.0f, 5.0f, 120, TextureManager::GetInstance()->GetTextureGraph("particle.png")->GetHandle());
 		std::unique_ptr<IParticle> pParticle = std::make_unique<MoveParticle>(particle);
 		ParticleManager::GetInstance()->AddParticle(pParticle);
 	}

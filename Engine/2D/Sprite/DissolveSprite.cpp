@@ -40,7 +40,7 @@ void DissolveSprite::Draw(GPipeline* pipeline)
 	GPipeline* pipeline_ = nullptr;
 	if (pipeline != nullptr) pipeline_ = pipeline;
 
-	else					 pipeline_ = PipelineManager::GetInstance()->GetPipeline("DissolveSprite", GPipeline::ALPHA_BLEND);
+	else					 pipeline_ = PipelineManager::GetInstance()->GetPipeline("DissolveSprite", Blend::ALPHA_BLEND);
 	pipeline_->SetGraphicsRootSignature();
 	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 

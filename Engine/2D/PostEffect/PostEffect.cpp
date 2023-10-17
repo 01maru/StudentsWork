@@ -1,4 +1,4 @@
-﻿#include "PostEffect.h"
+#include "PostEffect.h"
 #include "DirectX.h"
 #include "TextureManager.h"
 #include "PipelineManager.h"
@@ -215,7 +215,7 @@ void PostEffect::RSSetVPandSR()
 
 void PostEffect::DrawLuminnce()
 {
-	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("Luminnce", GPipeline::NONE_BLEND);
+	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("Luminnce", Blend::NONE_BLEND);
 
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 	pipeline->SetGraphicsRootSignature();

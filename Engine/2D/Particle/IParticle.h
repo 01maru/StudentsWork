@@ -1,10 +1,11 @@
 #pragma once
 #include "VertIdxBuff.h"
 #include "ConstBuff.h"
+#include "BlendMord.h"
 
 /**
 * @file IParticle.h
-* @brief パーティクル一つの機能をまとめたファイル
+* @brief 1つのパーティクルの機能をまとめたファイル
 */
 
 namespace CBuff {
@@ -30,6 +31,7 @@ private:
 protected:
 	//	中心座標
 	Vector3D vertex_;
+	//	色
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 	//	パーティクルのスケール
 	float scale_ = 1.0f;
@@ -38,11 +40,16 @@ protected:
 	bool isBillboardY_ = false;
 	//	画像のハンドル
 	int32_t texHandle_ = -1;
-
 	//	パーティクル終了フラグ
 	bool isEnd_ = false;
+	//	ブレンド設定
+	Blend::BlendMord blendMord_ = Blend::ALPHA_BLEND;
 
 private:
+	/**
+	* @fn SetVertices()
+	* 頂点バッファ設定用関数
+	*/
 	void SetVertices() override;
 
 protected:
@@ -72,7 +79,7 @@ public:
 	*/
 	void MatUpdate();
 	/**
-	* @fn Draw(int32_t)
+	* @fn Draw()
 	* 描画処理用関数
 	*/
 	void Draw();
@@ -115,6 +122,12 @@ public:
 	* @return isBillboardY_の値
 	*/
 	bool GetIsBillboardY() { return isBillboardY_; }
+	/**
+	* @fn GetBlendMord()
+	* blendMord_のGetter関数
+	* @return blendMord_
+	*/
+	Blend::BlendMord GetBlendMord() { return blendMord_; }
 
 #pragma endregion
 

@@ -1,4 +1,4 @@
-﻿#include "GPipeline.h"
+#include "GPipeline.h"
 #include "Shader.h"
 #include "DirectX.h"
 #include <cassert>
@@ -37,7 +37,7 @@ void GPipeline::SetShader(Shader& shader)
 void GPipeline::SetBlendDesc(D3D12_RENDER_TARGET_BLEND_DESC& blenddesc, size_t mord)
 {
 	//	ブレンドなしだったら
-	if (mord == NONE_BLEND) return;
+	if (mord == Blend::NONE_BLEND) return;
 
 	//	共通設定
 	blenddesc.BlendEnable = true;
@@ -47,22 +47,22 @@ void GPipeline::SetBlendDesc(D3D12_RENDER_TARGET_BLEND_DESC& blenddesc, size_t m
 
 	switch (mord)
 	{
-	case ADD_BLEND:
+	case Blend::ADD_BLEND:
 		blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
 		blenddesc.SrcBlend = D3D12_BLEND_ONE;
 		blenddesc.DestBlend = D3D12_BLEND_ONE;
 		break;
-	case SUB_BLEND:
+	case Blend::SUB_BLEND:
 		blenddesc.BlendOp = D3D12_BLEND_OP_REV_SUBTRACT;
 		blenddesc.SrcBlend = D3D12_BLEND_ONE;
 		blenddesc.DestBlend = D3D12_BLEND_ONE;
 		break;
-	case INV_BLEND:
+	case Blend::INV_BLEND:
 		blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
 		blenddesc.SrcBlend = D3D12_BLEND_INV_DEST_COLOR;
 		blenddesc.DestBlend = D3D12_BLEND_ZERO;
 		break;
-	case ALPHA_BLEND:
+	case Blend::ALPHA_BLEND:
 		blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
 		blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
 		blenddesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
