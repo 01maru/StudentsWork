@@ -31,12 +31,12 @@ protected:
 	//	中心座標
 	Vector3D vertex_;
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
-
+	//	パーティクルのスケール
 	float scale_ = 1.0f;
-
+	//	ビルボード
 	bool isBillboard_ = false;
 	bool isBillboardY_ = false;
-
+	//	画像のハンドル
 	int32_t texHandle_ = -1;
 
 	//	パーティクル終了フラグ
@@ -44,7 +44,12 @@ protected:
 
 private:
 	void SetVertices() override;
+
 protected:
+	/**
+	* @fn TransferVertex()
+	* GPUのバッファに座標情報をMapする関数
+	*/
 	void TransferVertex();
 
 public:
@@ -86,20 +91,65 @@ public:
 	* @return vertex_の値
 	*/
 	const Vector3D& GetPosition() { return vertex_; }
+	/**
+	* @fn GetColor()
+	* color_のGetter関数
+	* @return color_の値
+	*/
 	const Vector4D& GetColor() { return color_; }
+	/**
+	* @fn GetScale()
+	* scale_のGetter関数
+	* @return scale_の値
+	*/
 	float GetScale() { return scale_; }
-	bool IsBillboard() { return isBillboard_; }
-	bool IsBillboardY() { return isBillboardY_; }
+	/**
+	* @fn GetIsBillboard()
+	* isBillboard_のGetter関数
+	* @return isBillboard_の値
+	*/
+	bool GetIsBillboard() { return isBillboard_; }
+	/**
+	* @fn GetIsBillboardY()
+	* isBillboardY_のGetter関数
+	* @return isBillboardY_の値
+	*/
+	bool GetIsBillboardY() { return isBillboardY_; }
 
 #pragma endregion
 
 #pragma region Setter
 
+	/**
+	* @fn SetPosition(const Vector3D&)
+	* 中心座標の値を変更し、GPUに転送する関数
+	* @param pos 中心座標の変更後の値
+	*/
 	void SetPosition(const Vector3D& pos);
+	/**
+	* @fn SetColor(const Vector4D&)
+	* color_の値を変更するための関数
+	* @param color color_の変更後の値
+	*/
 	void SetColor(const Vector4D& color) { color_ = color; }
+	/**
+	* @fn SetScale(float)
+	* scale_の値を変更するための関数
+	* @param scale scale_の変更後の値
+	*/
 	void SetScale(float scale) { scale_ = scale; }
-	void SetIsBillboard(bool flag) { isBillboard_ = flag; }
-	void SetIsBillboardY(bool flag) { isBillboardY_ = flag; }
+	/**
+	* @fn SetIsBillboard(bool)
+	* isBillboard_の値を変更するための関数
+	* @param isBillboard isBillboard_の変更後の値
+	*/
+	void SetIsBillboard(bool isBillboard) { isBillboard_ = isBillboard; }
+	/**
+	* @fn SetIsBillboardY(bool)
+	* isBillboardY_の値を変更するための関数
+	* @param isBillboardY isBillboardY_の変更後の値
+	*/
+	void SetIsBillboardY(bool isBillboardY) { isBillboardY_ = isBillboardY; }
 
 #pragma endregion
 };
