@@ -102,7 +102,7 @@
     <ClCompile Include="Engine\2D\Particle\MoveParticle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BlendMord.h" />
+    <ClInclude Include="Engine\Base\Pipeline\BlendMord.h" />
     <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h" />
     <ClInclude Include="Engine\2D\Sprite\UIButton.h" />
     <ClInclude Include="Engine\2D\Sprite\UIButtonManager.h" />

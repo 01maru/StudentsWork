@@ -14,15 +14,6 @@ class Shader;
 
 class GPipeline
 {
-//public:
-//	enum BlendMord
-//	{
-//		ADD_BLEND = 0,
-//		SUB_BLEND,
-//		INV_BLEND,
-//		ALPHA_BLEND,
-//		NONE_BLEND,
-//	};
 private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
