@@ -3,6 +3,8 @@
 #include "ImGuiController.h"
 #include "ImGuiManager.h"
 
+#include "Texture.h"
+
 ParticleManager* ParticleManager::GetInstance()
 {
 	static ParticleManager instance;
@@ -11,19 +13,20 @@ ParticleManager* ParticleManager::GetInstance()
 
 void ParticleManager::Initialize()
 {
-	//particleTex_ = TextureManager::GetInstance()->LoadTextureGraph("particle2.png");
+	//	画像読み込み
+	particleTex_ = TextureManager::GetInstance()->LoadTextureGraph("particle2.png");
 }
 
 void ParticleManager::Update()
 {
 #pragma region Delete
-	particles.remove_if([](MoveParticle& x) {
+	particles_.remove_if([](MoveParticle& x) {
 		return x.GetIsEnd();
 		});
 #pragma endregion
 
-	for (std::forward_list<MoveParticle>::iterator it = particles.begin();
-		it != particles.end();
+	for (std::forward_list<MoveParticle>::iterator it = particles_.begin();
+		it != particles_.end();
 		it++) {
 		it->Update();
 	}
@@ -31,8 +34,8 @@ void ParticleManager::Update()
 
 void ParticleManager::MatUpdate()
 {
-	for (std::forward_list<MoveParticle>::iterator it = particles.begin();
-		it != particles.end();
+	for (std::forward_list<MoveParticle>::iterator it = particles_.begin();
+		it != particles_.end();
 		it++) {
 		it->MatUpdate();
 	}
@@ -51,8 +54,8 @@ void ParticleManager::ImGuiUpdate()
 
 void ParticleManager::Draw()
 {
-	for (std::forward_list<MoveParticle>::iterator it = particles.begin();
-		it != particles.end();
+	for (std::forward_list<MoveParticle>::iterator it = particles_.begin();
+		it != particles_.end();
 		it++) {
 		it->Draw(particleTex_->GetHandle());
 	}
@@ -60,8 +63,8 @@ void ParticleManager::Draw()
 
 void ParticleManager::AddMoveParticle(const Vector3D& pos, const Vector3D& spd, int time, float scale)
 {
-	particles.emplace_front();
-	MoveParticle& p = particles.front();
+	particles_.emplace_front();
+	MoveParticle& p = particles_.front();
 	p.SetIsBillboard(true);
 	p.SetColor(Vector4D(1.0f, 1.0f, 1.0f, 1.0f));
 	p.Initialize(pos, spd, scale, time);
