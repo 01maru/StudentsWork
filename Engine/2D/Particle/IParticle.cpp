@@ -1,4 +1,4 @@
-﻿#include "Particle.h"
+#include "IParticle.h"
 #include "TextureManager.h"
 #include "DirectX.h"
 #include <cassert>
@@ -6,19 +6,20 @@
 #include "ConstBuffStruct.h"
 #include "CameraManager.h"
 
-void Particle::TransferVertex()
+void IParticle::TransferVertex()
 {
 	// GPU上のバッファに対応した仮想メモリ(メインメモリ上)を取得
 	Vector3D* vertMap = nullptr;
 	HRESULT result = vertBuff_->Map(0, nullptr, (void**)&vertMap);
 	assert(SUCCEEDED(result));
 
-	vertMap = &vertex_; // 座標をコピー
+	vertMap[0] = vertex_; // 座標をコピー
+
 	// 繋がりを解除
 	vertBuff_->Unmap(0, nullptr);
 }
 
-void Particle::SetVertices()
+void IParticle::SetVertices()
 {
 	// 頂点1つ分のデータサイズ
 	vbView_.StrideInBytes = sizeof(vertex_);
@@ -27,7 +28,7 @@ void Particle::SetVertices()
 	TransferVertex();
 }
 
-void Particle::Initialize()
+void IParticle::Initialize()
 {
 	HRESULT result;
 	
@@ -53,18 +54,7 @@ void Particle::Initialize()
 #pragma endregion
 }
 
-Particle::Particle()
-{
-	Initialize();
-}
-
-Particle::Particle(const Vector3D& pos)
-{
-	vertex_ = pos;
-	Initialize();
-}
-
-void Particle::MatUpdate()
+void IParticle::MatUpdate()
 {
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	cTransformMap_->matBillboard = Matrix();
@@ -81,7 +71,7 @@ void Particle::MatUpdate()
 	cColorMap_->color = color_;
 }
 
-void Particle::Draw(int32_t handle)
+void IParticle::Draw()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 
@@ -91,26 +81,15 @@ void Particle::Draw(int32_t handle)
 
 	IASetVertIdxBuff();
 	//	テクスチャ
-	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(handle));
+	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texHandle_));
 	colorMaterial_.SetGraphicsRootCBuffView(1);
 	transform_.SetGraphicsRootCBuffView(2);
 
 	cmdList->DrawInstanced(1, 1, 0, 0);
 }
 
-void Particle::SetScale(float scale)
-{
-	scale_ = scale;
-}
-
-void Particle::SetPosition(const Vector3D& pos)
+void IParticle::SetPosition(const Vector3D& pos)
 {
 	vertex_ = pos;
-	TransferVertex();
-}
-
-void Particle::Move(const Vector3D& spd)
-{
-	vertex_ += spd;
 	TransferVertex();
 }

@@ -13,31 +13,31 @@ ParticleManager* ParticleManager::GetInstance()
 
 void ParticleManager::Initialize()
 {
-	//	画像読み込み
-	particleTex_ = TextureManager::GetInstance()->LoadTextureGraph("particle2.png");
+	//	パーティクルに使用する画像読み込み
+	TextureManager::GetInstance()->LoadTextureGraph("particle2.png");
 }
 
 void ParticleManager::Update()
 {
 #pragma region Delete
-	particles_.remove_if([](MoveParticle& x) {
-		return x.GetIsEnd();
+	particles_.remove_if([](std::unique_ptr<IParticle>& x) {
+		return x.get()->GetIsEnd();
 		});
 #pragma endregion
 
-	for (std::forward_list<MoveParticle>::iterator it = particles_.begin();
+	for (std::forward_list<std::unique_ptr<IParticle>>::iterator it = particles_.begin();
 		it != particles_.end();
 		it++) {
-		it->Update();
+		it->get()->Update();
 	}
 }
 
 void ParticleManager::MatUpdate()
 {
-	for (std::forward_list<MoveParticle>::iterator it = particles_.begin();
+	for (std::forward_list<std::unique_ptr<IParticle>>::iterator it = particles_.begin();
 		it != particles_.end();
 		it++) {
-		it->MatUpdate();
+		it->get()->MatUpdate();
 	}
 }
 
@@ -54,19 +54,15 @@ void ParticleManager::ImGuiUpdate()
 
 void ParticleManager::Draw()
 {
-	for (std::forward_list<MoveParticle>::iterator it = particles_.begin();
+	for (std::forward_list<std::unique_ptr<IParticle>>::iterator it = particles_.begin();
 		it != particles_.end();
 		it++) {
-		it->Draw(particleTex_->GetHandle());
+		it->get()->Draw();
 	}
 }
 
-void ParticleManager::AddMoveParticle(const Vector3D& pos, const Vector3D& spd, int time, float scale)
+void ParticleManager::AddParticle(std::unique_ptr<IParticle>& particle)
 {
-	particles_.emplace_front();
-	MoveParticle& p = particles_.front();
-	p.SetIsBillboard(true);
-	p.SetColor(Vector4D(1.0f, 1.0f, 1.0f, 1.0f));
-	p.Initialize(pos, spd, scale, time);
+	particles_.push_front(std::move(particle));
 }
 

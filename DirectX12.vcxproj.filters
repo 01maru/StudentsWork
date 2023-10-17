@@ -202,6 +202,12 @@
     <Filter Include="ソース ファイル\lib\Converter">
       <UniqueIdentifier>{9850619c-2658-4931-a3df-06ed138e1b0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\lib\2D\Particle\Base">
+      <UniqueIdentifier>{2dff0dd9-3c2b-4e97-9fc6-144c2763927d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\lib\2D\Particle\Base">
+      <UniqueIdentifier>{0dbf8005-6bcd-45fa-86e5-8bb0dca24d3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -261,9 +267,6 @@
     <ClCompile Include="Engine\Base\Window\Window.cpp">
       <Filter>ソース ファイル\lib\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\Particle\Particle.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\3D\Light\SpotLight.cpp">
       <Filter>ソース ファイル\lib\Engine\Light</Filter>
     </ClCompile>
@@ -305,9 +308,6 @@
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp">
       <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Particle\ParticleManager.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\MyGame.cpp">
       <Filter>ソース ファイル\Game</Filter>
@@ -459,9 +459,6 @@
     <ClCompile Include="Engine\2D\Sprite\UIButton.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\Particle\ParticleStruct.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
     </ClCompile>
@@ -470,6 +467,15 @@
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Particle\MoveParticle.cpp">
+      <Filter>ソース ファイル\lib\2D\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Particle\IParticle.cpp">
+      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Particle\ParticleManager.cpp">
+      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -542,9 +548,6 @@
     <ClInclude Include="Engine\Base\Buffer\VertexStruct.h">
       <Filter>ヘッダー ファイル\lib\Engine\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\Particle.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\3D\Light\LightManager.h">
       <Filter>ヘッダー ファイル\lib\Engine\Light</Filter>
     </ClInclude>
@@ -586,9 +589,6 @@
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\ObjModel.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\ParticleManager.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\MyGame.h">
       <Filter>ヘッダー ファイル\Game</Filter>
@@ -758,9 +758,6 @@
     <ClInclude Include="Engine\2D\Sprite\UIData.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\ParticleStruct.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Weapon.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
@@ -772,6 +769,15 @@
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\MoveParticle.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\ParticleManager.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\IParticle.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

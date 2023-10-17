@@ -116,7 +116,7 @@ void GameScene::MatUpdate()
 void GameScene::Update()
 {
 #pragma region 更新処理
-	ParticleManager::GetInstance()->AddMoveParticle({ MyMath::GetRand(-1.0f,1.0f),0.0f,MyMath::GetRand(-1.0f,1.0f) }, { 0.0f,1.0f,0.0f }, 60);
+	//ParticleManager::GetInstance()->AddMoveParticle({ MyMath::GetRand(-1.0f,1.0f),0.0f,MyMath::GetRand(-1.0f,1.0f) }, { 0.0f,1.0f,0.0f }, 60);
 
 	pause_->Update();
 

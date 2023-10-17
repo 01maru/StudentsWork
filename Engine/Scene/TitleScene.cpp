@@ -11,6 +11,8 @@
 #include "ModelManager.h"
 #include "Easing.h"
 #include "LightManager.h"
+#include "ParticleManager.h"
+#include "MoveParticle.h"
 
 void TitleScene::LoadResources()
 {
@@ -100,6 +102,8 @@ void TitleScene::MatUpdate()
 	skydome_->MatUpdate();
 
 	optionScene_->Update();
+
+	ParticleManager::GetInstance()->MatUpdate();
 }
 
 void TitleScene::FirstFrameUpdate()
@@ -112,6 +116,13 @@ void TitleScene::Update()
 	bool select = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
 
 	selectCounter_.Update();
+
+	if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_1, InputJoypad::A_Button)) {
+		MoveParticle particle;
+		particle.Initialize({}, { 0.0f,0.1f,0.0f }, 1.0f, 5.0f, 120);
+		std::unique_ptr<IParticle> pParticle = std::make_unique<MoveParticle>(particle);
+		ParticleManager::GetInstance()->AddParticle(pParticle);
+	}
 
 	if (select)
 	{
@@ -144,6 +155,8 @@ void TitleScene::Update()
 		inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up);
 	uiDrawer_->Update(inputValue);
 	selectCursor_->SetPosition(uiDrawer_->GetSelectPosition());
+
+	ParticleManager::GetInstance()->Update();
 
 	MatUpdate();
 }
@@ -193,4 +206,6 @@ void TitleScene::Draw()
 	selectCursor_->Draw();
 
 	optionScene_->Draw();
+
+	ParticleManager::GetInstance()->Draw();
 }

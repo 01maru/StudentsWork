@@ -1,4 +1,4 @@
-﻿#include "VertIdxBuff.h"
+#include "VertIdxBuff.h"
 #include "DirectX.h"
 #include <cassert>
 

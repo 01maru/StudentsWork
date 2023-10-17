@@ -1,22 +1,18 @@
 #pragma once
 #include <forward_list>
-#include "ParticleStruct.h"
+#include <memory>
+#include "IParticle.h"
 
 /**
 * @file ParticleManager.h
 * @brief すべてのパーティクルをまとめて管理するファイル
 */
 
-class Texture;
-
 class ParticleManager
 {
 private:
-	std::forward_list<MoveParticle> particles_;
-
-#pragma region Texture
-	Texture* particleTex_ = nullptr;
-#pragma endregion
+	//	ぺらポリゴンのパーティクルリスト
+	std::forward_list<std::unique_ptr<IParticle>> particles_;
 
 private:
 	ParticleManager() {};
@@ -54,7 +50,12 @@ public:
 
 #pragma region ADD
 
-	void AddMoveParticle(const Vector3D& pos, const Vector3D& spd, int time, float scale = 3.0f);
+	/**
+	* @fn AddParticle(std::unique_ptr<IParticle>&)
+	* パーティクル追加用関数
+	* @param particle 追加するパーティクルの情報
+	*/
+	void AddParticle(std::unique_ptr<IParticle>& particle);
 
 #pragma endregion
 };
