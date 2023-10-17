@@ -200,12 +200,12 @@ void TitleScene::Draw()
 	ground_->Draw(false);
 	skydome_->Draw(false);
 
+	ParticleManager::GetInstance()->Draw();
+
 	if (!drawUI_) return;
 	uiDrawer_->Draw();
 
 	selectCursor_->Draw();
 
 	optionScene_->Draw();
-
-	ParticleManager::GetInstance()->Draw();
 }

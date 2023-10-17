@@ -27,7 +27,7 @@ void MoveParticle::Initialize(const Vector3D& pos, const Vector3D& velocity, flo
 
 void MoveParticle::Update()
 {
-	scale_ = (float)Easing::EaseIn(startScale_, maxScale_, (float)timer_ / (float)maxTime_, 2);
+	scale_ = static_cast<float>(Easing::EaseIn(startScale_, maxScale_, static_cast<float>(timer_) / maxTime_, 2));
 
 	// 移動
 	IParticle::vertex_ += spd_;

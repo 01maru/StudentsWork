@@ -17,6 +17,7 @@ private:
 	//	時間
 	int32_t timer_ = 0;
 	int32_t maxTime_ = 0;
+
 public:
 	/**
 	* @fn Initialize()
