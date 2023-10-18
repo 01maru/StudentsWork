@@ -100,8 +100,6 @@ void TitleScene::MatUpdate()
 	ground_->MatUpdate();
 	skydome_->MatUpdate();
 
-	optionScene_->Update();
-
 	ParticleManager::GetInstance()->MatUpdate();
 }
 
@@ -116,7 +114,7 @@ void TitleScene::Update()
 
 	selectCounter_.Update();
 
-	if (select)
+	if (select && !optionScene_->GetIsActive())
 	{
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 
@@ -126,7 +124,7 @@ void TitleScene::Update()
 			}
 
 			if (uiDrawer_->GetActiveButtonName() == "Option") {
-				//optionScene_->SetIsActive(true);
+				optionScene_->SetIsActive(true);
 			}
 
 			if (uiDrawer_->GetActiveButtonName() == "Quit") {
@@ -135,9 +133,8 @@ void TitleScene::Update()
 		}
 	}
 
-	//else if (ui_->GetTags() & UIData::Tag3) {
-	//	optionScene_->Update();
-	//}
+	optionScene_->Update();
+
 	float size = Easing::EaseIn(1.0f, 1.05f, selectCounter_.GetCountPerMaxCount(), 2);
 	Vector2D cursorSize(298, 82);
 	selectCursor_->SetSize(cursorSize * size);

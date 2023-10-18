@@ -12,6 +12,7 @@
 void UIEditor::LoadFile(const std::string& filename)
 {
 	data_ = std::make_unique<UIData>();
+	data_->buttonMan_.Initialize();
 	std::string filePath = "Resources/Levels/" + filename + ".txt";
 
 	//ファイル開く(開けなかったら新規作成)

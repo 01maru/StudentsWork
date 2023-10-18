@@ -47,6 +47,12 @@ void UIButtonManager::SetButtonTag(UIButton* pButton)
 	}
 }
 
+void UIButtonManager::Initialize()
+{
+	activeNameArry.clear();
+	activeNameArry.push_back("NULL");
+}
+
 void UIButtonManager::ButtonInfo(std::unordered_map<std::string, UIButton, std::less<>>::iterator& itr)
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();

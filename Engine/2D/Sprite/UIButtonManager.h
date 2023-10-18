@@ -32,6 +32,7 @@ private:
 	void SetButtonTag(UIButton* pButton);
 
 public:
+	void Initialize();
 	/**
 	* @fn Update(int16_t)
 	* 更新処理関数
