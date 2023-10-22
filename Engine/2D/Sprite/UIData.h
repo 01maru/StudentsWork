@@ -15,7 +15,6 @@ class UIData
 protected:
 	std::unique_ptr<FrameCounter> count_;
 	std::map<std::string, uint16_t, std::less<>> tagName_;
-	//std::map<std::string, Sprite, std::less<>> sprites_;
 	std::map<std::string, std::unique_ptr<UIObject>, std::less<>> obj_;
 	UIButtonManager buttonMan_;
 

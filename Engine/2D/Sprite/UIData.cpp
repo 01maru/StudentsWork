@@ -17,12 +17,7 @@ void UIData::LoadData(const std::string& filename)
 	std::ifstream file;
 	file.open(filePath.c_str());
 
-	//if (file.fail()) {
-	//	if (editUI_) return ans;
-	//}
-
 	std::unique_ptr<UIObject> object;
-	UISprite* uiSprite = nullptr;
 
 	// データの上から1行ずつ読み込む
 	std::string line;
@@ -57,9 +52,8 @@ void UIData::LoadData(const std::string& filename)
 		}
 
 		if (key == "S") {
-			//	本当は最初だけ
 			if (object == nullptr) object = std::make_unique<UIObject>();
-			uiSprite = object->GetComponent<UISprite>();
+			UISprite* uiSprite = object->GetComponent<UISprite>();
 			if (uiSprite == nullptr) uiSprite = object->AddComponent<UISprite>();
 
 			std::string spritename;
@@ -108,7 +102,6 @@ void UIData::LoadData(const std::string& filename)
 			sprite.SetTags(tag);
 
 			uiSprite->AddSprite(spritename, sprite);
-			//data_->sprites_.emplace(spritename, sprite);
 		}
 		if (key == "AnimeTimer") {
 			UIAnimationTimer* uiTimer = object->AddComponent<UIAnimationTimer>();
