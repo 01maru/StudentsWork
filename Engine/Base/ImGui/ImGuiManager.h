@@ -114,6 +114,7 @@ public:
 
 	//	return isActive;
 	bool BeginChild(const Vector2D& size = Vector2D());
+	bool BeginChild(int64_t childId, const Vector2D& size = Vector2D());
 	void EndChild();
 
 	void BeginGroup();

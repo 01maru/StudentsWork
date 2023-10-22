@@ -106,6 +106,8 @@ void TitleScene::MatUpdate()
 void TitleScene::FirstFrameUpdate()
 {
 	//XAudioManager::GetInstance()->PlaySoundWave("title.wav", XAudioManager::BGM, true);
+
+	uiDrawer_->Initialize();
 }
 
 void TitleScene::Update()

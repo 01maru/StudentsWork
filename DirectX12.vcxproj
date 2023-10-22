@@ -14,6 +14,7 @@
     <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UIButton.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UIButtonManager.cpp" />
+    <ClCompile Include="Engine\2D\Sprite\UIData.cpp" />
     <ClCompile Include="Engine\ConvertAiStruct.cpp" />
     <ClCompile Include="Engine\Scene\Base\DebugScene.cpp" />
     <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp" />
@@ -100,6 +101,12 @@
     <ClCompile Include="Engine\Scene\Base\SplashScreenScene.cpp" />
     <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp" />
     <ClCompile Include="Engine\2D\Particle\MoveParticle.cpp" />
+    <ClCompile Include="UIAnimationTimer.cpp" />
+    <ClCompile Include="UIComponent.cpp" />
+    <ClCompile Include="UIMoveAnimation.cpp" />
+    <ClCompile Include="UIObject.cpp" />
+    <ClCompile Include="UIPosition.cpp" />
+    <ClCompile Include="UISprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h" />
@@ -203,6 +210,12 @@
     <ClInclude Include="Engine\Scene\Base\SplashScreenScene.h" />
     <ClInclude Include="Engine\3D\Camera\TitleCamera.h" />
     <ClInclude Include="Engine\2D\Particle\MoveParticle.h" />
+    <ClInclude Include="UIAnimationTimer.h" />
+    <ClInclude Include="UIComponent.h" />
+    <ClInclude Include="UIMoveAnimation.h" />
+    <ClInclude Include="UIObject.h" />
+    <ClInclude Include="UIPosition.h" />
+    <ClInclude Include="UISprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

@@ -1,4 +1,4 @@
-﻿#include "ImGuiManager.h"
+#include "ImGuiManager.h"
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx12.h>
 #include <imgui_stdlib.h>
@@ -237,6 +237,11 @@ void ImGuiManager::PopID()
 bool ImGuiManager::BeginChild(const Vector2D& size)
 {
 	return ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(size.x, size.y), ImGuiWindowFlags_NoTitleBar);
+}
+
+bool ImGuiManager::BeginChild(int64_t childId, const Vector2D& size)
+{
+	return ImGui::BeginChild(ImGui::GetID((void*)childId), ImVec2(size.x, size.y), ImGuiWindowFlags_NoTitleBar);
 }
 
 void ImGuiManager::EndChild()

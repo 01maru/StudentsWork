@@ -69,7 +69,7 @@ void SceneManager::Initialize()
 	dissolveSprite_ = std::make_unique<DissolveSprite>();
 	dissolveSprite_->Initialize();
 	dissolveSprite_->SetSize(Vector2D(Window::sWIN_WIDTH, Window::sWIN_HEIGHT));
-	dissolveSprite_->SetColor(Vector4D(0.0f, 0.0f, 0.0f, 1.0f));
+	dissolveSprite_->SetColor(Vector4D(0.8f, 0.8f, 0.8f, 1.0f));
 
 	TextureManager::GetInstance()->LoadTextureGraph("noise.png");
 

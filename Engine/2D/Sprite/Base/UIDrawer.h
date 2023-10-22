@@ -6,14 +6,13 @@
 * @brief UIEditor用で作成したレベルデータを表示するためのファイル
 */
 
-class UIDrawer
+class UIDrawer :public UIData
 {
 private:
 	std::string activeTagName_;
 
-	std::unique_ptr<UIData> data_;
-
 public:
+	void Initialize();
 	/**
 	* @fn Update(int16_t)
 	* 更新処理関数
@@ -35,9 +34,9 @@ public:
 
 #pragma region Getter
 
-	const Vector2D& GetSelectPosition() { return data_->buttonMan_.GetSelectPosition(); }
+	const Vector2D& GetSelectPosition() { return buttonMan_.GetSelectPosition(); }
 	const std::string& GetActiveTagName() { return activeTagName_; }
-	const std::string& GetActiveButtonName() { return data_->buttonMan_.GetSelectName(); }
+	const std::string& GetActiveButtonName() { return buttonMan_.GetSelectName(); }
 
 #pragma endregion
 

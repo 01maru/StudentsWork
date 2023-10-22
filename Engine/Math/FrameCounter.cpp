@@ -1,4 +1,4 @@
-﻿#include "FrameCounter.h"
+#include "FrameCounter.h"
 
 void FrameCounter::StartCount()
 {
@@ -31,8 +31,6 @@ void FrameCounter::Update()
 {
 	if (isActive_) {
 
-		bool countContinue = isEndless_ || count_ <= maxCount_;
-
 		if (isIncrement_)	//	インクリメント
 		{
 			frameCount_++;
@@ -43,6 +41,7 @@ void FrameCounter::Update()
 				//	範囲外になったらインクリメント
 				count_++;
 
+				bool countContinue = isEndless_ || count_ < maxCount_;
 				if (countContinue) {
 					//	ループだったらデクリメントに変更
 					if (isLoop_)	isIncrement_ = false;
@@ -61,6 +60,7 @@ void FrameCounter::Update()
 				//	範囲外になったらインクリメント
 				count_++;
 
+				bool countContinue = isEndless_ || count_ < maxCount_;
 				if (countContinue) {
 					//	ループだったらインクリメントに変更
 					if (isLoop_)	isIncrement_ = true;

@@ -103,23 +103,28 @@ void UIButtonManager::ImGuiUpdate(int32_t& id)
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
-	imguiMan->Spacing();
-	imguiMan->Separator();
-	imguiMan->Spacing();
+	if (imguiMan->TreeNode("Button")) {
 
-	imguiMan->InputText("ButtonName", buttonName_);
+		imguiMan->InputText("ButtonName", buttonName_);
 
-	if (imguiMan->SetButton("AddButton"))	AddButton();
+		if (imguiMan->SetButton("AddButton"))	AddButton();
 
-	for (auto itr = buttons_.begin(); itr != buttons_.end(); ++itr)
-	{
-		imguiMan->PushID(id++);
+		imguiMan->BeginChild(1, Vector2D{ 0.0f,200.0f });
 
-		ButtonInfo(itr);
+		for (auto itr = buttons_.begin(); itr != buttons_.end(); ++itr)
+		{
+			imguiMan->PushID(id++);
 
-		imguiMan->Spacing();
+			ButtonInfo(itr);
 
-		imguiMan->PopID();
+			imguiMan->Spacing();
+
+			imguiMan->PopID();
+		}
+
+		imguiMan->EndChild();
+
+		imguiMan->TreePop();
 	}
 }
 

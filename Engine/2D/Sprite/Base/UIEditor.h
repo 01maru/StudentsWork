@@ -9,36 +9,70 @@
 * @brief UIの画面表示位置などを編集できる機能をまとめたファイル
 */
 
-class UIEditor
+class UIAnimationTimer;
+
+class UIEditor :public UIData
 {
 private:
 	std::string filename_;
 	std::string spritename_;
+	std::string objName_;
 	std::string tagname_;
 	std::list<std::string> eraseSpriteName_;
 
 	uint16_t drawTag_ = 0;
 
-	std::unique_ptr<UIData> data_;
+	//std::unique_ptr<UIData> data_;
 
 	bool activeGlayscale_ = false;
 	bool editUI_ = false;
+	bool editAnimation_ = false;
 private:
 	UIEditor() {};
 	~UIEditor() {};
 
+	/**
+	* @fn LoadEditFileData()
+	* 編集する用のUIData読み込み用関数
+	*/
+	void LoadEditFileData();
+	/**
+	* @fn SaveFileData()
+	* 編集したUIDataを保存する用関数
+	*/
+	void SaveFileData();
+
+	/**
+	* @fn CloseEditer()
+	* Editer終了時関数
+	*/
+	void CloseEditer();
+	void EditUIAnimationTimer(UIAnimationTimer* pComponent);
+	void DrawUIAnimationTimerInfo(UIAnimationTimer* pComponent);
+	bool ImGuiUpdateUIAnimationTimer(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr);
+	
+	void ImGuiUpdateMoveAnimation(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr);
+	void ImGuiObjAnimation(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr, int32_t& id);
+#pragma region UIData::count_
+
+	void CreateAnimationCount();
+	void DeleteAnimationCount();
+	void AnimationImGuiUpdate();
+
+#pragma endregion
+
+
 	void AddTag();
 	void DeleteTag();
-	void LoadEditFile();
-	void SaveFile();
-	void CloseEditer();
 	void EditTag();
-	void DeleteSpriteFromList();
-	void AddSprite();
-	void ReNameSprite(std::map<std::string, Sprite, std::less<>>::iterator& itr);
-	void DrawSpriteInfo(std::map<std::string, Sprite, std::less<>>::iterator& itr);
-	void DrawEditUI();
-	void LoadFile(const std::string& filename);
+	void DeleteSpriteFromList(std::unordered_map<std::string, Sprite>& sprites);
+	void AddSprite(std::unordered_map<std::string, Sprite>& sprites);
+	void ReNameSprite(std::unordered_map<std::string, Sprite>& sprites, std::pair<const std::string, Sprite> data);
+	void ImGuiSpriteInfo(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr, int32_t& id);
+
+	void AddUIObject();
+	void EditUIObject(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr, int32_t& id);
+
 public:
 	static UIEditor* GetInstance();
 	UIEditor(const UIEditor& obj) = delete;
@@ -71,12 +105,5 @@ public:
 	bool GetEditUI() { return editUI_; }
 
 #pragma endregion
-
-	/**
-	* @fn LoadUIData(const std::string&)
-	* レベルデータ読み込み用関数
-	* @param filename レベルデータのファイル名
-	*/
-	std::unique_ptr<UIData> LoadUIData(const std::string& filename);
 };
 

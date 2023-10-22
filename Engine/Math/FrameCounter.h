@@ -17,7 +17,7 @@ private:
 	//	範囲外に言った回数
 	int32_t count_ = 0;
 	//	終了までのnowCountの回数
-	int32_t maxCount_ = 0;
+	int32_t maxCount_ = 1;
 
 	bool isEndless_ = false;
 	bool isLoop_ = true;
@@ -123,6 +123,8 @@ public:
 	* @param isEndless isEndless_の変更後の値
 	*/
 	void SetIsEndless(bool isEndless) { isEndless_ = isEndless; }
+
+	void SetMaxFrameCount(int32_t maxFrame) { maxFrameCount_ = maxFrame; }
 
 #pragma endregion
 };
