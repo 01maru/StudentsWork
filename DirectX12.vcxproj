@@ -103,6 +103,7 @@
     <ClCompile Include="Engine\2D\Particle\MoveParticle.cpp" />
     <ClCompile Include="UIAnimationTimer.cpp" />
     <ClCompile Include="UIComponent.cpp" />
+    <ClCompile Include="UIFadeAnimation.cpp" />
     <ClCompile Include="UIMoveAnimation.cpp" />
     <ClCompile Include="UIObject.cpp" />
     <ClCompile Include="UIPosition.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="Engine\2D\Particle\MoveParticle.h" />
     <ClInclude Include="UIAnimationTimer.h" />
     <ClInclude Include="UIComponent.h" />
+    <ClInclude Include="UIFadeAnimation.h" />
     <ClInclude Include="UIMoveAnimation.h" />
     <ClInclude Include="UIObject.h" />
     <ClInclude Include="UIPosition.h" />

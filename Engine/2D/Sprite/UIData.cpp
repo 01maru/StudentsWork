@@ -6,6 +6,7 @@
 #include "ConvertString.h"
 #include "UIAnimationTimer.h"
 #include "UIMoveAnimation.h"
+#include "UIFadeAnimation.h"
 
 void UIData::LoadData(const std::string& filename)
 {
@@ -134,6 +135,17 @@ void UIData::LoadData(const std::string& filename)
 			line_stream >> pos.x;
 			line_stream >> pos.y;
 			uiMove->SetEndPos(pos);
+		}
+		if (key == "FadeAnime") {
+			UIFadeAnimation* uiFade = object->AddComponent<UIFadeAnimation>();
+			uiFade->Initialize();
+
+			float value;
+			line_stream >> value;
+			uiFade->SetEnd(value);
+
+			line_stream >> value;
+			uiFade->SetStart(value);
 		}
 		if (key == "EndData") {
 			std::string spritename;

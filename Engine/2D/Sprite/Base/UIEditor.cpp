@@ -311,8 +311,8 @@ void UIEditor::ImGuiUpdateMoveAnimation(std::map<std::string, std::unique_ptr<UI
 
 	if (pComponent == nullptr) {
 		if (imgui->SetButton("AddMove")) {
-			UIMoveAnimation* uiMove = itr->second->AddComponent<UIMoveAnimation>();
-			uiMove->Initialize();
+			pComponent = itr->second->AddComponent<UIMoveAnimation>();
+			pComponent->Initialize();
 		}
 		else {
 			return;
