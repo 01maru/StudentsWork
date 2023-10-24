@@ -11,10 +11,10 @@ void UIDrawer::Initialize()
 	count_->StartCount();
 }
 
-void UIDrawer::Update(int16_t inputValue)
+void UIDrawer::Update(int16_t /*inputValue*/)
 {
-	buttonMan_.Update(inputValue);
-	buttonMan_.MatUpdate();
+	//buttonMan_.Update(inputValue);
+	//buttonMan_.MatUpdate();
 
 	for (auto& sprite : obj_) {
 		sprite.second->Update();
@@ -37,7 +37,7 @@ void UIDrawer::Draw()
 		//}
 	}
 
-	buttonMan_.Draw();
+	//buttonMan_.Draw();
 }
 
 void UIDrawer::SetUI(const std::string& uiName)
@@ -47,7 +47,7 @@ void UIDrawer::SetUI(const std::string& uiName)
 	activeTagName_ = uiName;
 
 	//	ボタン初期化
-	buttonMan_.SetNumber(tagName_[activeTagName_]);
+	//buttonMan_.SetNumber(tagName_[activeTagName_]);
 }
 
 void UIDrawer::LoadSprites(const std::string& filename)

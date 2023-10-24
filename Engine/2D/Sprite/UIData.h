@@ -1,6 +1,6 @@
 #pragma once
 #include "Sprite.h"
-#include "UIButtonManager.h"
+//#include "UIButtonManager.h"
 #include "FrameCounter.h"
 #include <map>
 #include "UIObject.h"
@@ -16,7 +16,7 @@ protected:
 	std::unique_ptr<FrameCounter> count_;
 	std::map<std::string, uint16_t, std::less<>> tagName_;
 	std::map<std::string, std::unique_ptr<UIObject>, std::less<>> obj_;
-	UIButtonManager buttonMan_;
+	//UIButtonManager buttonMan_;
 
 public:
 	void LoadData(const std::string& filename);

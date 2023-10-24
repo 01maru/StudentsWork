@@ -1,5 +1,7 @@
-﻿#include "ICamera.h"
+#include "ICamera.h"
 #include "ImGuiManager.h"
+
+using namespace MyMath;
 
 void ICamera::CalcBillboard()
 {
@@ -45,6 +47,15 @@ void ICamera::CalcDirectionVec()
 	downVec_ = rightVec_.cross(frontVec_).GetNormalize();
 }
 
+void ICamera::ShakeUpdate()
+{
+	if (isShaking_ == false) return;
+
+	target_ = oldTarget_ + move_.x * rightVec_ + move_.z * downVec_;
+
+	eye_ = oldEye_ + move_.x * rightVec_ + move_.z * downVec_;
+}
+
 void ICamera::ImGuiUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
@@ -58,6 +69,20 @@ void ICamera::ImGuiUpdate()
 	ImGuiInfo();
 
 	imgui->TreePop();
+}
+
+void ICamera::SetShake(float min, float max)
+{
+	isShaking_ = true;
+	move_.x = GetRand(min, max);
+	move_.z = GetRand(min, max);
+}
+
+void ICamera::StopShake()
+{
+	isShaking_ = false;
+	target_ = oldTarget_;
+	eye_ = oldEye_;
 }
 
 void ICamera::SetProjectionMatrix(int32_t width, int32_t height, float fovY)

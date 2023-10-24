@@ -3,6 +3,11 @@
 #include "Object3D.h"
 #include <memory>
 
+#include "SpaceShip.h"
+
+#include "Sprite.h"
+#include "FrameCounter.h"
+
 /**
 * @file DebugScene.h
 * @brief デバッグで確認する用のシーンファイル
@@ -15,6 +20,11 @@ private:
 	std::unique_ptr<Object3D> ground_;
 	int32_t index = -1;
 	int32_t timer = 0;
+
+	std::unique_ptr<SpaceShip> ship_;
+
+	Sprite sprite_;
+	FrameCounter counter_;
 
 private:	//	関数
 	/**

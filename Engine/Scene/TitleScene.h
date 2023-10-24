@@ -26,7 +26,7 @@ private:
 
 	uint16_t selectMord_ = 0;
 
-	std::unique_ptr<OptionScene> optionScene_;
+	//std::unique_ptr<OptionScene> optionScene_;
 
 #pragma region Sprite
 

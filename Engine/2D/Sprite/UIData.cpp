@@ -10,7 +10,7 @@
 
 void UIData::LoadData(const std::string& filename)
 {
-	buttonMan_.Initialize();
+	//buttonMan_.Initialize();
 	std::string filePath = "Resources/Levels/" + filename + ".txt";
 
 	//ファイル開く(開けなかったら新規作成)
@@ -153,35 +153,35 @@ void UIData::LoadData(const std::string& filename)
 			std::string texname;
 			line_stream >> texname;
 
-			UIButton button;
-			if (texname.find("/") != std::string::npos) {
-				std::string dirPath = Util::GetDirectoryPath(texname);
-				std::string fileName = Util::GetFileName(texname);
+			//UIButton button;
+			//if (texname.find("/") != std::string::npos) {
+			//	std::string dirPath = Util::GetDirectoryPath(texname);
+			//	std::string fileName = Util::GetFileName(texname);
 
-				button.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(fileName, dirPath));
-			}
-			else //	pathが含まれていない
-			{
-				button.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(texname));
-			}
+			//	button.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(fileName, dirPath));
+			//}
+			//else //	pathが含まれていない
+			//{
+			//	button.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(texname));
+			//}
 
-			Vector2D pos;
-			Vector2D size;
-			line_stream >> pos.x;
-			line_stream >> pos.y;
-			line_stream >> size.x;
-			line_stream >> size.y;
+			//Vector2D pos;
+			//Vector2D size;
+			//line_stream >> pos.x;
+			//line_stream >> pos.y;
+			//line_stream >> size.x;
+			//line_stream >> size.y;
 
-			button.SetPosition(pos);
-			button.SetSize(size);
+			//button.SetPosition(pos);
+			//button.SetSize(size);
 
-			button.SetAnchorPoint({ 0.5f,0.5f });
+			//button.SetAnchorPoint({ 0.5f,0.5f });
 
-			uint16_t tag;
-			line_stream >> tag;
-			button.SetTags(tag);
+			//uint16_t tag;
+			//line_stream >> tag;
+			//button.SetTags(tag);
 
-			buttonMan_.LoadUIButton(button, buttonname);
+			//buttonMan_.LoadUIButton(button, buttonname);
 		}
 	}
 
@@ -193,6 +193,7 @@ void UIData::Finalize()
 {
 	count_.release();
 	obj_.clear();
+	tagName_.clear();
 }
 
 void UIData::Update()
@@ -209,7 +210,7 @@ void UIData::Update()
 		count_->Update();
 	}
 
-	buttonMan_.MatUpdate();
+	//buttonMan_.MatUpdate();
 }
 
 void UIData::Draw()

@@ -101,6 +101,7 @@
     <ClCompile Include="Engine\Scene\Base\SplashScreenScene.cpp" />
     <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp" />
     <ClCompile Include="Engine\2D\Particle\MoveParticle.cpp" />
+    <ClCompile Include="SpaceShip.cpp" />
     <ClCompile Include="UIAnimationTimer.cpp" />
     <ClCompile Include="UIComponent.cpp" />
     <ClCompile Include="UIFadeAnimation.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Engine\Scene\Base\SplashScreenScene.h" />
     <ClInclude Include="Engine\3D\Camera\TitleCamera.h" />
     <ClInclude Include="Engine\2D\Particle\MoveParticle.h" />
+    <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="UIAnimationTimer.h" />
     <ClInclude Include="UIComponent.h" />
     <ClInclude Include="UIFadeAnimation.h" />

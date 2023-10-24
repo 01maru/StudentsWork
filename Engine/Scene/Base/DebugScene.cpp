@@ -6,14 +6,25 @@
 #include "SceneManager.h"
 #include "InputManager.h"
 
+#include "CameraManager.h"
+#include "LightManager.h"
+#include "TextureManager.h"
+#include "Easing.h"
+
 void DebugScene::LoadResources()
 {
+	TextureManager::GetInstance()->LoadTextureGraph("space.png");
+
 #pragma region Model
 	ModelManager* models = ModelManager::GetInstance();
 	models->LoadModel("");
 	models->LoadModel("ground");
 	models->LoadModel("objCube", true);
 	models->LoadModel("human", true);
+	models->LoadModel("spaceShip");
+
+	ship_ = std::make_unique<SpaceShip>();
+	ship_->Initialize(models->GetModel("spaceShip"));
 #pragma endregion
 
 	//	地面
@@ -24,7 +35,18 @@ void DebugScene::LoadResources()
 
 void DebugScene::Initialize()
 {
+	LightManager::GetInstance()->SetFogStart(0.7f);
+	LightManager::GetInstance()->SetFogEnd(3.0);
+
 	LoadResources();
+	CameraManager::GetInstance()->GetMainCamera()->Initialize(Vector3D(0.0f,-0.5f,1.0f), Vector3D(0.0f, 1.0f, 0.0f), 18.0f);
+
+	ship_->Start();
+
+	sprite_.Initialize(TextureManager::GetInstance()->GetTextureGraph("space.png"));
+	sprite_.SetPosition({ 750,400 });
+
+	counter_.Initialize(30, true);
 }
 
 void DebugScene::Finalize()
@@ -36,19 +58,28 @@ void DebugScene::MatUpdate()
 	ground_->MatUpdate();
 	
 	skydome_->MatUpdate(index);
+	ship_->MatUpdate();
+	sprite_.Update();
 }
 
 void DebugScene::Update()
 {
 #pragma region 更新処理
 
+	counter_.Update();
 
 	if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button))
 	{
 		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
+		//ship_->OpenDoor();
 	}
-
-
+	float fade = Easing::EaseIn(0.0f, 1.0f, counter_.GetCountPerMaxCount(), 2);
+	sprite_.SetColor({ 1.0f,1.0f,1.0f,fade });
+	ship_->Update();
+	if (ship_->GetIsEnd()) {
+		counter_.StartCount();
+		ship_->SetIsEnd(false);
+	}
 #pragma endregion
 
 	MatUpdate();
@@ -69,6 +100,10 @@ void DebugScene::ImguiUpdate()
 		SceneManager::GetInstance()->SetNextScene("GAMESCENE");
 	}
 
+	if (imguiMan->SetButton("ShipMove"))	ship_->Start();
+
+	if (imguiMan->SetButton("OpenDoor"))	ship_->OpenDoor();
+
 	imguiMan->EndWindow();
 }
 
@@ -81,4 +116,8 @@ void DebugScene::Draw()
 	bool drawShadow = false;
 	ground_->Draw(drawShadow);
 	skydome_->Draw(drawShadow);
+
+	ship_->Draw(false);
+
+	sprite_.Draw();
 }

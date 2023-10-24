@@ -34,9 +34,9 @@ public:
 
 #pragma region Getter
 
-	const Vector2D& GetSelectPosition() { return buttonMan_.GetSelectPosition(); }
+	//const Vector2D& GetSelectPosition() { return buttonMan_.GetSelectPosition(); } 
 	const std::string& GetActiveTagName() { return activeTagName_; }
-	const std::string& GetActiveButtonName() { return buttonMan_.GetSelectName(); }
+	//const std::string& GetActiveButtonName() { return buttonMan_.GetSelectName(); }
 
 #pragma endregion
 

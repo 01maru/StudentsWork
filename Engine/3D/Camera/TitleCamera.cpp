@@ -10,6 +10,9 @@ void TitleCamera::Initialize(const Vector3D& frontVec, const Vector3D& center, f
 
 	eye_ = target_ - disEyeTarget_ * front;
 
+	oldEye_ = eye_;
+	oldTarget_ = target_;
+
 	MatUpdate();
 
 	CalcDirectionVec();
@@ -19,6 +22,8 @@ void TitleCamera::Initialize(const Vector3D& eye, const Vector3D& target, const 
 {
 	eye_ = eye;
 	target_ = target;
+	oldEye_ = eye;
+	oldTarget_ = target;
 	up_ = up;
 
 	MatUpdate();
@@ -35,6 +40,8 @@ void TitleCamera::Update()
 	CalcDirectionVec();
 
 	CalcBillboard();
+
+	ShakeUpdate();
 
 	MatUpdate();
 }

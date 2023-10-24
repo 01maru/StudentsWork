@@ -104,7 +104,7 @@ void UIEditor::SaveFileData()
 		outPutFile << "T " << itr->first << " " << itr->second << std::endl;
 	}
 
-	buttonMan_.SaveData(outPutFile);
+	//buttonMan_.SaveData(outPutFile);
 
 	outPutFile.close();
 
@@ -423,7 +423,7 @@ void UIEditor::EditTag()
 	}
 
 	//	buttonTag設定
-	buttonMan_.SetNumber(drawTag_);
+	//buttonMan_.SetNumber(drawTag_);
 }
 
 void UIEditor::ImGuiUpdate()
@@ -478,7 +478,7 @@ void UIEditor::ImGuiUpdate()
 			imguiMan->EndChild();
 		}
 
-		buttonMan_.ImGuiUpdate(id);
+		//buttonMan_.ImGuiUpdate(id);
 
 	}
 

@@ -21,6 +21,12 @@ protected:
 	Vector3D rightVec_;
 	Vector3D downVec_;
 
+	//	shake
+	bool isShaking_ = false;
+	Vector3D move_;
+	Vector3D oldEye_;						//	視点座標
+	Vector3D oldTarget_;					//	注視点座標
+
 	Matrix billboard_;
 	Matrix billboardY_;
 
@@ -41,6 +47,8 @@ protected:
 	* ImGuiに表示する情報をまとめる関数
 	*/
 	virtual void ImGuiInfo() = 0;
+
+	void ShakeUpdate();
 
 public:
 	virtual ~ICamera() = default;
@@ -76,6 +84,9 @@ public:
 	*/
 	void MatUpdate() { matView_ = MyMath::LookAtLH(eye_, target_, up_); }
 
+	void SetShake(float min, float max);
+	void StopShake();
+
 #pragma region Getter
 
 	float GetDisEyeTarget() { return disEyeTarget_; }
@@ -98,7 +109,7 @@ public:
 	//	fovYの単位はラジアン
 	void SetDisEyeTarget(float dis) { disEyeTarget_ = dis; }
 	void SetProjectionMatrix(int32_t width, int32_t height, float fovY);
-	void SetTarget(const Vector3D& t) { target_ = t; }
+	void SetTarget(const Vector3D& t) { target_ = t; oldTarget_ = t; }
 	void SetEye(const Vector3D& e) { eye_ = e; }
 	void SetUp(const Vector3D& up) { up_ = up; }
 	void EyeMove(const Vector3D& moveE) { eye_ += moveE; }

@@ -39,10 +39,10 @@ void TitleScene::LoadResources()
 	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
 	//	地面
 	ground_.reset(Object3D::Create(models->GetModel("ground")));
+
 #pragma endregion
 	
 #pragma region UI
-
 	uiDrawer_ = std::make_unique<UIDrawer>();
 	uiDrawer_->LoadSprites("TitleScene");
 	uiDrawer_->SetUI("Title");
@@ -66,8 +66,8 @@ void TitleScene::Initialize()
 	//	カーソル固定解除
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
 
-	optionScene_ = std::make_unique<OptionScene>();
-	optionScene_->Initialize("Option");
+	//optionScene_ = std::make_unique<OptionScene>();
+	//optionScene_->Initialize("Option");
 
 	LoadResources();
 
@@ -116,26 +116,27 @@ void TitleScene::Update()
 
 	selectCounter_.Update();
 
-	if (select && !optionScene_->GetIsActive())
+	if (select/* && !optionScene_->GetIsActive()*/)
 	{
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 
-		if (uiDrawer_->GetActiveTagName() == "Title") {
-			if (uiDrawer_->GetActiveButtonName() == "Start") {
-				SceneManager::GetInstance()->SetNextScene("DEBUGSCENE");
-			}
+		SceneManager::GetInstance()->SetNextScene("DEBUGSCENE");
+		//if (uiDrawer_->GetActiveTagName() == "Title") {
+		//	if (uiDrawer_->GetActiveButtonName() == "Start") {
+		//		SceneManager::GetInstance()->SetNextScene("DEBUGSCENE");
+		//	}
 
-			if (uiDrawer_->GetActiveButtonName() == "Option") {
-				optionScene_->SetIsActive(true);
-			}
+		//	if (uiDrawer_->GetActiveButtonName() == "Option") {
+		//		optionScene_->SetIsActive(true);
+		//	}
 
-			if (uiDrawer_->GetActiveButtonName() == "Quit") {
-				SceneManager::GetInstance()->GameLoopEnd();
-			}
-		}
+		//	if (uiDrawer_->GetActiveButtonName() == "Quit") {
+		//		SceneManager::GetInstance()->GameLoopEnd();
+		//	}
+		//}
 	}
 
-	optionScene_->Update();
+	//optionScene_->Update();
 
 	float size = Easing::EaseIn(1.0f, 1.05f, selectCounter_.GetCountPerMaxCount(), 2);
 	Vector2D cursorSize(298, 82);
@@ -145,7 +146,7 @@ void TitleScene::Update()
 	int16_t inputValue = inputMan->GetTriggerKeyAndButton(DIK_S, InputJoypad::DPAD_Down) -
 		inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up);
 	uiDrawer_->Update(inputValue);
-	selectCursor_->SetPosition(uiDrawer_->GetSelectPosition());
+	//selectCursor_->SetPosition(uiDrawer_.GetSelectPosition());
 
 	ParticleManager::GetInstance()->Update();
 
@@ -160,8 +161,8 @@ void TitleScene::ImguiUpdate()
 
 	imguiMan->Text("mord : %d", selectMord_);
 
-	std::string name = uiDrawer_->GetActiveButtonName();
-	imguiMan->Text("mord : %s", name.c_str());
+	//std::string name = uiDrawer_.GetActiveButtonName();
+	//imguiMan->Text("mord : %s", name.c_str());
 
 	float value = SceneManager::GetInstance()->GetDissolveValue();
 	imguiMan->SetSliderFloat("dissolve", value, 0.01f, 0.0f, 1.0f);
@@ -172,7 +173,7 @@ void TitleScene::ImguiUpdate()
 	if (imguiMan->SetButton("End"))		selectMord_ = GameEnd;
 	imguiMan->CheckBox("DrawUI", drawUI_);
 
-	imguiMan->Text("Option : %f", optionScene_->GetIsActive() ? "True" : "False");
+	//imguiMan->Text("Option : %f", optionScene_->GetIsActive() ? "True" : "False");
 
 	imguiMan->EndWindow();
 }
@@ -198,5 +199,5 @@ void TitleScene::Draw()
 
 	selectCursor_->Draw();
 
-	optionScene_->Draw();
+	//optionScene_->Draw();
 }
