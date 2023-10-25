@@ -1,5 +1,4 @@
 #include "UIData.h"
-#include <iostream>
 #include <fstream>
 #include <sstream>
 #include "TextureManager.h"
@@ -7,10 +6,12 @@
 #include "UIAnimationTimer.h"
 #include "UIMoveAnimation.h"
 #include "UIFadeAnimation.h"
+#include "UIPosition.h"
+#include "UIButton.h"
+#include "UISprite.h"
 
 void UIData::LoadData(const std::string& filename)
 {
-	//buttonMan_.Initialize();
 	std::string filePath = "Resources/Levels/" + filename + ".txt";
 
 	//ファイル開く(開けなかったら新規作成)
@@ -18,6 +19,7 @@ void UIData::LoadData(const std::string& filename)
 	file.open(filePath.c_str());
 
 	std::unique_ptr<UIObject> object;
+	std::map<std::string, UIButton*, std::less<>> buttons;
 
 	// データの上から1行ずつ読み込む
 	std::string line;
@@ -146,47 +148,55 @@ void UIData::LoadData(const std::string& filename)
 			obj_.emplace(spritename, std::move(object));
 		}
 
-		if (key == "B") {
+		if (key == "Button") {
+			UIButton* button = object->AddComponent<UIButton>();
+
+			if (buttonMan_ == nullptr) {
+				buttonMan_ = std::make_unique<UIButtonManager>();
+				buttonMan_->SetSelectButton(button);
+			}
 			std::string buttonname;
 			line_stream >> buttonname;
 
-			std::string texname;
-			line_stream >> texname;
+			button->SetName(buttonname);
+			buttons.emplace(buttonname, button);
 
-			//UIButton button;
-			//if (texname.find("/") != std::string::npos) {
-			//	std::string dirPath = Util::GetDirectoryPath(texname);
-			//	std::string fileName = Util::GetFileName(texname);
+			Vector2D pos;
+			line_stream >> pos.x;
+			line_stream >> pos.y;
 
-			//	button.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(fileName, dirPath));
-			//}
-			//else //	pathが含まれていない
-			//{
-			//	button.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(texname));
-			//}
+			UIPosition* uiPos = object->AddComponent<UIPosition>();
+			uiPos->SetPosition(pos);
+		}
 
-			//Vector2D pos;
-			//Vector2D size;
-			//line_stream >> pos.x;
-			//line_stream >> pos.y;
-			//line_stream >> size.x;
-			//line_stream >> size.y;
+		if (key == "ButtonArray") {
+			std::string buttonname;
+			line_stream >> buttonname;
 
-			//button.SetPosition(pos);
-			//button.SetSize(size);
+			//	データがなかったら
+			if (buttons.count(buttonname) == 0) return;
 
-			//button.SetAnchorPoint({ 0.5f,0.5f });
+			std::string nextname;
+			line_stream >> nextname;
+			std::string prevname;
+			line_stream >> prevname;
 
-			//uint16_t tag;
-			//line_stream >> tag;
-			//button.SetTags(tag);
-
-			//buttonMan_.LoadUIButton(button, buttonname);
+			if (buttons.count(nextname) != 0) {
+				buttons[buttonname]->SetNextButton(buttons[nextname]);
+			}
+			if (buttons.count(prevname) != 0) {
+				buttons[buttonname]->SetPrevButton(buttons[prevname]);
+			}
 		}
 	}
 
 	//ファイル閉じる
 	file.close();
+}
+
+void UIData::Initialize()
+{
+	count_->StartCount();
 }
 
 void UIData::Finalize()
@@ -198,6 +208,8 @@ void UIData::Finalize()
 
 void UIData::Update()
 {
+	buttonMan_->Update();
+
 	for (auto& sprite : obj_) {
 		sprite.second->Update();
 		sprite.second->MatUpdate();
@@ -222,4 +234,18 @@ void UIData::Draw()
 	}
 
 	//buttonMan_.Draw();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+const std::string& UIData::GetSelectName()
+{
+	return buttonMan_->GetSelectObjName();
+}
+
+Vector2D& UIData::GetSelectPosition()
+{
+	return buttonMan_->GetSelectPos();
 }

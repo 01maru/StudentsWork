@@ -1,30 +1,47 @@
 #include "UIButton.h"
+#include "UIObject.h"
+#include "UIPosition.h"
+#include "Vector2D.h"
 
-void UIButton::EffectUpdate()
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+Vector2D& UIButton::GetPosition()
 {
-	//if (!isActive_) return;
-
-	//	2D当たり判定
-
-	if (isSelect_) {
-		//	Animation
-	}
-	else {
-		//	透過
-	}
+	return parent_->GetComponent<UIPosition>()->GetPosition();
 }
 
-void UIButton::Draw()
+const std::string& UIButton::GetButtonName()
 {
-	//if (!isActive_) return;
-
-	Sprite::Draw();
+	return name_;
 }
 
-////void UIButton::SetNumber(int16_t& index)
-////{
-////	//if (!isActive_)	return;
-////
-////	number_ = index;
-////	index++;
-////}
+UIButton* UIButton::GetNextButton()
+{
+	return pNext_;
+}
+
+UIButton* UIButton::GetPrevButton()
+{
+	return pPrev_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void UIButton::SetName(const std::string& name)
+{
+	name_ = name;
+}
+
+void UIButton::SetNextButton(UIButton* pNext)
+{
+	pNext_ = pNext;
+}
+
+void UIButton::SetPrevButton(UIButton* pPrev)
+{
+	pPrev_ = pPrev;
+}

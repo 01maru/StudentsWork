@@ -532,3 +532,17 @@ void UIEditor::Draw()
 
 	UIData::Draw();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+bool UIEditor::GetActiveGlayscale()
+{
+	return activeGlayscale_;
+}
+
+bool UIEditor::GetEditUI()
+{
+	return editUI_;
+}

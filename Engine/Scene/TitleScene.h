@@ -1,7 +1,7 @@
 #pragma once
 #include "IScene.h"
 #include "Sprite.h"
-#include "UIDrawer.h"
+#include "UIData.h"
 #include "OptionScene.h"
 #include "FrameCounter.h"
 
@@ -30,7 +30,7 @@ private:
 
 #pragma region Sprite
 
-	std::unique_ptr<UIDrawer> uiDrawer_;
+	std::unique_ptr<UIData> uiData_;
 	bool drawUI_ = true;
 
 #pragma endregion

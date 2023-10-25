@@ -1,6 +1,7 @@
 #pragma once
 #include "Sprite.h"
 #include "UIData.h"
+#include <unordered_map>
 #include <map>
 #include <list>
 
@@ -9,10 +10,33 @@
 * @brief UIの画面表示位置などを編集できる機能をまとめたファイル
 */
 
+#pragma region 前置宣言
+
 class UIAnimationTimer;
+
+#pragma endregion
 
 class UIEditor :public UIData
 {
+public:
+	static UIEditor* GetInstance();
+	UIEditor(const UIEditor& obj) = delete;
+	UIEditor& operator=(const UIEditor& obj) = delete;
+
+	UIEditor() {};
+	~UIEditor() {};
+
+	/**
+	* @fn ImGuiUpdate()
+	* ImGui更新処理関数
+	*/
+	void ImGuiUpdate();
+	/**
+	* @fn Draw()
+	* 描画処理関数
+	*/
+	void Draw();
+
 private:
 	std::string filename_;
 	std::string spritename_;
@@ -22,15 +46,11 @@ private:
 
 	uint16_t drawTag_ = 0;
 
-	//std::unique_ptr<UIData> data_;
-
 	bool activeGlayscale_ = false;
 	bool editUI_ = false;
 	bool editAnimation_ = false;
-private:
-	UIEditor() {};
-	~UIEditor() {};
 
+private:
 	/**
 	* @fn LoadEditFileData()
 	* 編集する用のUIData読み込み用関数
@@ -72,22 +92,7 @@ private:
 
 	void AddUIObject();
 	void EditUIObject(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr, int32_t& id);
-
 public:
-	static UIEditor* GetInstance();
-	UIEditor(const UIEditor& obj) = delete;
-	UIEditor& operator=(const UIEditor& obj) = delete;
-
-	/**
-	* @fn ImGuiUpdate()
-	* ImGui更新処理関数
-	*/
-	void ImGuiUpdate();
-	/**
-	* @fn Draw()
-	* 描画処理関数
-	*/
-	void Draw();
 
 #pragma region Getter
 
@@ -96,13 +101,13 @@ public:
 	* activeGlayscale_のGetter関数
 	* @return activeGlayscale_の値
 	*/
-	bool GetActiveGlayscale() { return activeGlayscale_; }
+	bool GetActiveGlayscale();
 	/**
 	* @fn GetEditUI()
 	* editUI_のGetter関数
 	* @return editUI_の値
 	*/
-	bool GetEditUI() { return editUI_; }
+	bool GetEditUI();
 
 #pragma endregion
 };

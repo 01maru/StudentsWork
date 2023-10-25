@@ -23,3 +23,31 @@ void UIMoveAnimation::Update()
 		sprite.second.SetPosition(ans);
 	}
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+Vector2D& UIMoveAnimation::GetStartPos()
+{
+	return startPos;
+}
+
+Vector2D& UIMoveAnimation::GetEndPos()
+{
+	return endPos;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void UIMoveAnimation::SetStartPos(const Vector2D& pos)
+{
+	startPos = pos;
+}
+
+void UIMoveAnimation::SetEndPos(const Vector2D& pos)
+{
+	endPos = pos;
+}

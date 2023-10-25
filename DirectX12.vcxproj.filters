@@ -208,6 +208,12 @@
     <Filter Include="ソース ファイル\lib\2D\Particle\Base">
       <UniqueIdentifier>{0dbf8005-6bcd-45fa-86e5-8bb0dca24d3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\lib\2D\Sprite\UI\Component">
+      <UniqueIdentifier>{890852bf-62c7-404e-a40c-96842c75f5c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\lib\2D\Sprite\UI\Component">
+      <UniqueIdentifier>{0e5fc657-c26b-44a0-9c5b-59f263f3cb79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -435,9 +441,6 @@
     <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\Base\UIDrawer.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\Base\UIEditor.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
     </ClCompile>
@@ -452,12 +455,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\Weapon.cpp">
       <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\UIButtonManager.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\UIButton.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
@@ -477,32 +474,41 @@
     <ClCompile Include="Engine\2D\Particle\ParticleManager.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
     </ClCompile>
-    <ClCompile Include="UIObject.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="UISprite.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="UIPosition.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="UIAnimationTimer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="UIMoveAnimation.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="UIComponent.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\UIData.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="UIFadeAnimation.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="SpaceShip.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEmitter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\UIButton.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\UIButtonManager.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UISprite.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UIPosition.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UIObject.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\UIData.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIComponent.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UIMoveAnimation.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UIFadeAnimation.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UIAnimationTimer.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -761,9 +767,6 @@
     <ClInclude Include="Engine\2D\Sprite\Base\UIEditor.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\Base\UIDrawer.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Scene\Base\DebugScene.h">
       <Filter>ヘッダー ファイル\lib\Engine\Scene</Filter>
     </ClInclude>
@@ -775,12 +778,6 @@
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\AnimationStruct.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\UIButton.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\UIButtonManager.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UIData.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
@@ -809,29 +806,38 @@
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h">
       <Filter>ヘッダー ファイル\lib\Engine\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="UIObject.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="UIComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="UISprite.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="UIPosition.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="UIAnimationTimer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="UIMoveAnimation.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="UIFadeAnimation.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="SpaceShip.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEmitter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\UIButton.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\UIButtonManager.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UISprite.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UIPosition.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UIObject.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UIComponent.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UIMoveAnimation.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UIFadeAnimation.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UIAnimationTimer.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,3 +23,31 @@ void UIFadeAnimation::Update()
 		sprite.second.SetColor(Vector4D(1.0f, 1.0f, 1.0f, fade));
 	}
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+float UIFadeAnimation::GetStart()
+{
+	return start_;
+}
+
+float UIFadeAnimation::GetEnd()
+{
+	return end_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void UIFadeAnimation::SetStart(float start)
+{
+	start_ = start;
+}
+
+void UIFadeAnimation::SetEnd(float end)
+{
+	end_ = end;
+}

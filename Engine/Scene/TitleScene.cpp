@@ -43,9 +43,8 @@ void TitleScene::LoadResources()
 #pragma endregion
 	
 #pragma region UI
-	uiDrawer_ = std::make_unique<UIDrawer>();
-	uiDrawer_->LoadSprites("TitleScene");
-	uiDrawer_->SetUI("Title");
+	uiData_ = std::make_unique<UIData>();
+	uiData_->LoadData("TitleScene");
 
 	selectCursor_ = std::make_unique<Sprite>();
 	selectCursor_->Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph("select.png"));
@@ -107,7 +106,7 @@ void TitleScene::FirstFrameUpdate()
 {
 	//XAudioManager::GetInstance()->PlaySoundWave("title.wav", XAudioManager::BGM, true);
 
-	uiDrawer_->Initialize();
+	uiData_->Initialize();
 }
 
 void TitleScene::Update()
@@ -120,19 +119,18 @@ void TitleScene::Update()
 	{
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 
-		SceneManager::GetInstance()->SetNextScene("DEBUGSCENE");
-		//if (uiDrawer_->GetActiveTagName() == "Title") {
-		//	if (uiDrawer_->GetActiveButtonName() == "Start") {
-		//		SceneManager::GetInstance()->SetNextScene("DEBUGSCENE");
-		//	}
+		//if (uidata->GetActiveTagName() == "Title") {
+			if (uiData_->GetSelectName() == "Start") {
+				SceneManager::GetInstance()->SetNextScene("DEBUGSCENE");
+			}
 
-		//	if (uiDrawer_->GetActiveButtonName() == "Option") {
-		//		optionScene_->SetIsActive(true);
-		//	}
+			if (uiData_->GetSelectName() == "Option") {
+				//optionScene_->SetIsActive(true);
+			}
 
-		//	if (uiDrawer_->GetActiveButtonName() == "Quit") {
-		//		SceneManager::GetInstance()->GameLoopEnd();
-		//	}
+			if (uiData_->GetSelectName() == "Quit") {
+				SceneManager::GetInstance()->GameLoopEnd();
+			}
 		//}
 	}
 
@@ -142,11 +140,8 @@ void TitleScene::Update()
 	Vector2D cursorSize(298, 82);
 	selectCursor_->SetSize(cursorSize * size);
 
-	InputManager* inputMan = InputManager::GetInstance();
-	int16_t inputValue = inputMan->GetTriggerKeyAndButton(DIK_S, InputJoypad::DPAD_Down) -
-		inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up);
-	uiDrawer_->Update(inputValue);
-	//selectCursor_->SetPosition(uiDrawer_.GetSelectPosition());
+	uiData_->Update();
+	selectCursor_->SetPosition(uiData_->GetSelectPosition());
 
 	ParticleManager::GetInstance()->Update();
 
@@ -162,7 +157,7 @@ void TitleScene::ImguiUpdate()
 	imguiMan->Text("mord : %d", selectMord_);
 
 	//std::string name = uiDrawer_.GetActiveButtonName();
-	//imguiMan->Text("mord : %s", name.c_str());
+	imguiMan->Text("mord : %s", uiData_->GetSelectName().c_str());
 
 	float value = SceneManager::GetInstance()->GetDissolveValue();
 	imguiMan->SetSliderFloat("dissolve", value, 0.01f, 0.0f, 1.0f);
@@ -195,7 +190,7 @@ void TitleScene::Draw()
 	ParticleManager::GetInstance()->Draw();
 
 	if (!drawUI_) return;
-	uiDrawer_->Draw();
+	uiData_->Draw();
 
 	selectCursor_->Draw();
 

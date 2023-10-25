@@ -2,25 +2,22 @@
 #include <list>
 #include <memory>
 #include "UIComponent.h"
-#include "UISprite.h"
-#include "FrameCounter.h"
 
 /**
 * @file UIObject.h
 * @brief コンポーネント指向で作成したUI用Objectファイル
 */
 
+#pragma region 前置宣言
+
+class FrameCounter;
+
+#pragma endregion
+
+
 class UIObject
 {
-private:
-	//	コンポーネントリスト
-	std::list<std::unique_ptr<UIComponent>> components_;
-	
-	FrameCounter* count_ = nullptr;
-
 public:
-	UIObject() {};
-
 	/**
 	* @fn Update()
 	* 更新処理関数
@@ -37,13 +34,20 @@ public:
 	*/
 	void Draw();
 
+private:
+	//	コンポーネントリスト
+	std::list<std::unique_ptr<UIComponent>> components_;
+	//	全体のcounterのポインター(実体はunique_ptrなのでdeleteいらない)
+	FrameCounter* count_ = nullptr;
+
+public:
+
 	/**
 	* @fn AddComponent()
 	* コンポーネント追加用関数
 	*/
 	template<class T>
 	T* AddComponent();
-
 	/**
 	* @fn DeleteComponent()
 	* コンポーネント削除用関数
@@ -59,14 +63,23 @@ public:
 	*/
 	template<class T>
 	T* GetComponent();
-
-	FrameCounter* GetCount() { return count_; }
+	/**
+	* @fn GetCount()
+	* 全体のcounterのポインターのGetter関数
+	* @return 全体のcounterのポインター
+	*/
+	FrameCounter* GetCount();
 
 #pragma endregion
 
 #pragma region Setter
 
-	void SetCount(FrameCounter* pCount) { count_ = pCount; }
+	/**
+	* @fn SetCount(FrameCounter*)
+	* 全体のcounterのポインターをセットするための関数
+	* @param pCount 全体のcounterのポインター
+	*/
+	void SetCount(FrameCounter* pCount);
 
 #pragma endregion
 };

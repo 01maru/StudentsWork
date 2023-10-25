@@ -13,3 +13,21 @@ void UIAnimationTimer::Update()
 	}
 	FrameCounter::Update();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+int32_t UIAnimationTimer::GetStartCount()
+{
+	return startCount_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void UIAnimationTimer::SetStartCount(int32_t startCount)
+{
+	startCount_ = startCount;
+}

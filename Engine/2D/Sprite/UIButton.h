@@ -1,47 +1,82 @@
 #pragma once
-#include "Vector2D.h"
-#include "Sprite.h"
+#include "UIComponent.h"
 #include <cstdint>
+#include <string>
 
 /**
 * @file UIButton.h
-* @brief UIEditor用のButtonをまとめたファイル
+* @brief ボタン切り替えに必要な情報をまとめたButtonファイル
 */
 
-class UIButton :public Sprite
+#pragma region 前置宣言
+
+class UIPosition;
+class Vector2D;
+
+#pragma endregion
+
+class UIButton :public UIComponent
 {
 private:
-	Vector2D pos_;			//	中心位置
-	//Vector2D size_;
-	
-	////bool isActive_ = false;
-	bool isSelect_ = false;	//	選択中か
+	//	ボタンの名前
+	std::string name_;
 
-	////int16_t number_;
-	int16_t priorityNum_;
+	//	次のボタンポインター
+	UIButton* pNext_ = nullptr;
+	//	前のボタンポインター
+	UIButton* pPrev_ = nullptr;
 
 public:
-	/**
-	* @fn EffectUpdate()
-	* エフェクト更新処理関数
-	*/
-	void EffectUpdate();
-	/**
-	* @fn Draw()
-	* 描画処理関数
-	*/
-	void Draw();
+	
+#pragma region Getter
 
-	//	Getter
-	////bool GetIsActive() { return isActive_; }
-	////int16_t GetNumber() { return number_; }
+	/**
+	* @fn GetPosition()
+	* UIPositionの座標のGetter関数
+	* @return UIPositionの座標
+	*/
+	Vector2D& GetPosition();
+	/**
+	* @fn GetButtonName()
+	* name_のGetter関数
+	* @return このボタンの名前
+	*/
+	const std::string& GetButtonName();
+	/**
+	* @fn GetNextButton()
+	* pNext_のGetter関数
+	* @return pNext_の値
+	*/
+	UIButton* GetNextButton();
+	/**
+	* @fn GetPrevButton()
+	* pPrev_のGetter関数
+	* @return pPrev_の値
+	*/
+	UIButton* GetPrevButton();
+
+#pragma endregion
 
 #pragma region Setter
 
-	void SetPos(const Vector2D& pos) { pos_ = pos; }
-	//void SetSize(const Vector2D& size) { size_ = size; }
-	////void SetIsActive(bool isActive) { isActive_ = isActive; }
-	////void SetNumber(int16_t& index);
+	/**
+	* @fn SetName(const std::string&)
+	* name_の値を変更するための関数
+	* @param name name_の変更後の値
+	*/
+	void SetName(const std::string& name);
+	/**
+	* @fn SetNextButton(UIButton*)
+	* pNext_の値を変更するための関数
+	* @param pNext pNext_の変更後の値
+	*/
+	void SetNextButton(UIButton* pNext);
+	/**
+	* @fn SetPrevButton(UIButton*)
+	* pPrev_の値を変更するための関数
+	* @param pPrev pPrev_の変更後の値
+	*/
+	void SetPrevButton(UIButton* pPrev);
 
 #pragma endregion
 };

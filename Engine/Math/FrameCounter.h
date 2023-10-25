@@ -83,7 +83,6 @@ public:
 	* @return maxFrameCount_の値
 	*/
 	int32_t GetMaxFrameCount()	{ return maxFrameCount_; }
-	//	0~1.0fの間の値を返す
 	/**
 	* @fn GetCountPerMaxCount()
 	* frameCount_ / maxFrameCount_の値を返す関数(返り値は0.0f～1.0f)

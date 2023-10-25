@@ -1,4 +1,5 @@
 #include "UIObject.h"
+#include "FrameCounter.h"
 
 void UIObject::Update()
 {
@@ -22,4 +23,22 @@ void UIObject::Draw()
 	{
 		itr->get()->Draw();
 	}
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+FrameCounter* UIObject::GetCount()
+{
+	return count_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void UIObject::SetCount(FrameCounter* pCount)
+{
+	count_ = pCount;
 }

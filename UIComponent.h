@@ -1,17 +1,17 @@
 #pragma once
-
 /**
 * @file UIComponent.h
-* @brief コンポーネント指向で作成する用のUI用継承用ファイル
+* @brief コンポーネント指向で作成するUI用継承クラスファイル
 */
+
+#pragma region 前置宣言
 
 class UIObject;
 
+#pragma endregion
+
 class UIComponent
 {
-protected:
-	UIObject* parent_ = nullptr;
-
 public:
 	virtual ~UIComponent() = default;
 	/**
@@ -35,12 +35,20 @@ public:
 	*/
 	virtual void Draw() {};
 
-	//	Setter
+protected:
+	//	親Object
+	UIObject* parent_ = nullptr;
+
+public:
+#pragma region Setter
+
 	/**
 	* @fn SetParent(UIObject*)
 	* parent_の設定用関数
 	* @param parent parent_の変更後の値
 	*/
 	void SetParent(UIObject* parent);
+
+#pragma endregion
 };
 
