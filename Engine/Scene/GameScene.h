@@ -11,6 +11,8 @@
 #include "JSONLoader.h"
 #include "PauseScreen.h"
 
+#include "FrameCounter.h"
+
 class GameScene :public IScene
 {
 private:

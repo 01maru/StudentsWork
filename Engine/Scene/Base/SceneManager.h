@@ -27,6 +27,8 @@ private:
 	std::unique_ptr<AbstractSceneFactory> sceneFactry_;
 
 	Vector4D screenColor_ = { 1.0f,1.0f,1.0f,1.0f };
+	float alpha_ = 0.0f;
+	Sprite blackScreen_;
 
 	std::unique_ptr<DissolveSprite> dissolveSprite_;
 
@@ -84,7 +86,8 @@ public:
 	void Update();
 	void Draw();
 
-	void ChangeScreenColor(const Vector4D& color) { mainScene->SetColor(color); }
+	void ChangeScreenAlpha(float alpha);
+	//void ChangeScreenColor(const Vector4D& color) { mainScene->SetColor(color); }
 	void SetNextScene(const std::string& sceneName);
 
 	bool GetGameLoop() { return gameLoop_; }

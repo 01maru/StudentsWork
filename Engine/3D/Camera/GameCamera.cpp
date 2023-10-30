@@ -1,4 +1,4 @@
-﻿#include "GameCamera.h"
+#include "GameCamera.h"
 #include "ImGuiManager.h"
 #include "InputManager.h"
 #include "Quaternion.h"

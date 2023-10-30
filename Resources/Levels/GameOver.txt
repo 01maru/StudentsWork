@@ -1,0 +1,13 @@
+Timer 170
+
+S gameOver gameOver.png 640 260 653 134 1 1 653 134 0.5 0.5 0
+AnimeTimer 60 0
+FadeAnime 1.0 0.0
+EndData GameOver
+
+S Back backUI.png 640 450 280 64 0 0 280 64 0.5 0.5 1
+S Quit quit.png 640 450 130 39 0 0 130 39 0.5 0.5 0
+AnimeTimer 30 120
+FadeAnime 1.0 0.0
+EndData Quit
+

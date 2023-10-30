@@ -510,6 +510,12 @@
     <ClCompile Include="UIAnimationTimer.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverCamera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverUI.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -838,6 +844,12 @@
     </ClInclude>
     <ClInclude Include="UIAnimationTimer.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverCamera.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverUI.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

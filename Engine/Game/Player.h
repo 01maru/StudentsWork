@@ -50,5 +50,7 @@ public:
 	//	Getter
 	int32_t GetHP() { return hp_; }
 	float GetStamina() { return stamina_; }
+
+	void SetIsAlive(bool isAlive) { isAlive_ = isAlive; }
 };
 

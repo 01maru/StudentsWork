@@ -36,6 +36,7 @@ void ICamera::CalcBillboard()
 
 void ICamera::CalcDirectionVec()
 {
+	disEyeTarget_ = (target_ - eye_).GetLength();
 	//	前方方向ベクトル
 	frontVec_ = target_ - eye_;
 	frontVec_.Normalize();

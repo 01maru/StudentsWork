@@ -87,6 +87,8 @@
     <ClCompile Include="Engine\2D\PostEffect\GaussBlur.cpp" />
     <ClCompile Include="Engine\Base\JSONLoader.cpp" />
     <ClCompile Include="Engine\2D\PostEffect\GlayScale.cpp" />
+    <ClCompile Include="GameOverCamera.cpp" />
+    <ClCompile Include="GameOverUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -211,6 +213,8 @@
     <ClInclude Include="Engine\Scene\Base\SplashScreenScene.h" />
     <ClInclude Include="Engine\3D\Camera\TitleCamera.h" />
     <ClInclude Include="Engine\2D\Particle\MoveParticle.h" />
+    <ClInclude Include="GameOverCamera.h" />
+    <ClInclude Include="GameOverUI.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="UIAnimationTimer.h" />

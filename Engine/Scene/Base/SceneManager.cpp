@@ -19,6 +19,8 @@
 #include "ModelManager.h"
 #include "PipelineManager.h"
 
+#include "GameOverUI.h"
+
 SceneManager* SceneManager::GetInstance()
 {
 	static SceneManager instance;
@@ -59,6 +61,9 @@ void SceneManager::Initialize()
 	sceneFactry_ = std::make_unique<SceneFactory>();
 	scene_ = sceneFactry_->CreateScene("TITLESCENE");
 
+	blackScreen_.Initialize();
+	blackScreen_.SetSize({ Window::sWIN_WIDTH,Window::sWIN_HEIGHT });
+	blackScreen_.SetColor({ 0.0f,0.0f,0.0f,alpha_ });
 #pragma region Loading
 
 	endLoading_ = true;
@@ -284,6 +289,8 @@ void SceneManager::Update()
 	loadObj_->Update();
 	dissolveSprite_->Update();
 
+	blackScreen_.Update();
+
 	ImguiUpdate();
 }
 
@@ -320,6 +327,10 @@ void SceneManager::Draw()
 		UIEditor::GetInstance()->Draw();
 
 		TextureManager::GetInstance()->DrawPreview();
+		if (alpha_ != 0.0f) {
+			blackScreen_.Draw();
+		}
+		GameOverUI::GetInstance()->Draw();
 	}
 
 	dx->PostEffectDraw(mainScene.get());
@@ -364,6 +375,13 @@ void SceneManager::Draw()
 	dx->DrawEnd();
 
 	if (endLoading_) TextureManager::GetInstance()->UploadTexture();
+}
+
+void SceneManager::ChangeScreenAlpha(float alpha)
+{
+	if (alpha_ == alpha) return;
+	alpha_ = alpha;
+	blackScreen_.SetColor({ 0.0f,0.0f,0.0f,alpha_ });
 }
 
 void SceneManager::SceneChange()

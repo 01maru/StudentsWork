@@ -21,6 +21,10 @@
 #include "ImGuiManager.h"
 #include "ModelManager.h"
 
+#include "Easing.h"
+
+#include "GameOverCamera.h"
+
 void GameScene::LoadResources()
 {
 #pragma region Model
@@ -42,7 +46,7 @@ void GameScene::LoadResources()
 	ground_->SetCollider(collider_);
 	//	player
 	player_ = std::make_unique<Player>();
-	player_->Initialize(models->GetModel("human"));
+	player_->Initialize(models->GetModel(""));
 	//	enemy
 	enemy_ = std::make_unique<Enemy>();
 	enemy_->Initialize(models->GetModel());
@@ -116,6 +120,19 @@ void GameScene::MatUpdate()
 void GameScene::Update()
 {
 #pragma region 更新処理
+	bool select = InputManager::GetInstance()->GetKeyAndButton(DIK_RETURN, InputJoypad::START_Button);
+
+	if (select) {
+		InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
+		player_->SetIsAlive(false);
+		CameraManager* cameraMan = CameraManager::GetInstance();
+		std::unique_ptr<GameOverCamera> camera = std::make_unique<GameOverCamera>();
+		camera->Initialize(cameraMan->GetMainCamera()->GetEye()
+			, cameraMan->GetMainCamera()->GetTarget()
+			, cameraMan->GetMainCamera()->GetUp());
+		cameraMan->SetMainCamera(std::move(camera));
+	}
+
 	//ParticleManager::GetInstance()->AddMoveParticle({ MyMath::GetRand(-1.0f,1.0f),0.0f,MyMath::GetRand(-1.0f,1.0f) }, { 0.0f,1.0f,0.0f }, 60);
 
 	//pause_->Update();

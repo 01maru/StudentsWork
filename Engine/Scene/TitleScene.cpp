@@ -121,7 +121,7 @@ void TitleScene::Update()
 
 		//if (uidata->GetActiveTagName() == "Title") {
 			if (uiData_->GetSelectName() == "Start") {
-				SceneManager::GetInstance()->SetNextScene("DEBUGSCENE");
+				SceneManager::GetInstance()->SetNextScene("GAMESCENE");
 			}
 
 			if (uiData_->GetSelectName() == "Option") {
