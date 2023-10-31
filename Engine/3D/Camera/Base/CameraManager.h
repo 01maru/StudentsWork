@@ -32,7 +32,9 @@ private:
 	void ImGuiCameraInfo(ICamera* camera, const std::string& name);
 public:
 	static CameraManager* GetInstance();
+	//	コピーコンストラクタ無効
 	CameraManager(const CameraManager& obj) = delete;
+	//	代入演算子無効
 	CameraManager& operator=(const CameraManager& obj) = delete;
 
 	/**

@@ -23,7 +23,9 @@ private:
 
 public:
 	static ParticleManager* GetInstance();
+	//	コピーコンストラクタ無効
 	ParticleManager(const ParticleManager& obj) = delete;
+	//	代入演算子無効
 	ParticleManager& operator=(const ParticleManager& obj) = delete;
 
 	/**

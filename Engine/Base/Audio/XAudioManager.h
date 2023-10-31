@@ -39,6 +39,16 @@ class XAudioManager
 {
 private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
+	XAudioManager() {};
+	~XAudioManager() {};
+
+public:
+	static XAudioManager* GetInstance();
+	//	コピーコンストラクタ無効
+	XAudioManager(const XAudioManager& obj) = delete;
+	//	代入演算子無効
+	XAudioManager& operator=(const XAudioManager& obj) = delete;
+
 public:
 	/**
 	* @enum SoundType
@@ -84,13 +94,7 @@ private:	//	関数
 	void SaveVolume();
 
 	void PlayDebugSoundWave(const std::string& soundName, SoundType type, bool loop = false, bool isDebug = false);
-
-	XAudioManager() {};
-	~XAudioManager() {};
 public:
-	static XAudioManager* GetInstance();
-	XAudioManager(const XAudioManager& obj) = delete;
-	XAudioManager& operator=(const XAudioManager& obj) = delete;
 
 	/**
 	* @fn Initialize()

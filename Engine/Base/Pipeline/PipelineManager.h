@@ -62,7 +62,9 @@ private:
 	~PipelineManager() {};
 public:
 	static PipelineManager* GetInstance();
+	//	コピーコンストラクタ無効
 	PipelineManager(const PipelineManager& obj) = delete;
+	//	代入演算子無効
 	PipelineManager& operator=(const PipelineManager& obj) = delete;
 
 	/**

@@ -17,19 +17,20 @@ void GameOverUI::Initialize()
 void GameOverUI::Update()
 {
 	if (isActive_ == false) return;
-//	bool select = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
-//
-//	if (select)
-//	{
-//		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
-//
-//		//if (data_.GetSelectName() == "Continue") {
-//		//}
-//
-//		if (data_.GetSelectName() == "Quit") {
-//			SceneManager::GetInstance()->SetNextScene("TITLESCENE");
-//		}
-//	}
+	bool select = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
+
+	if (select)
+	{
+		//XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
+
+		//if (data_.GetSelectName() == "Continue") {
+		//}
+
+		if (data_.GetSelectName() == "Quit") {
+			SceneManager::GetInstance()->SetNextScene("TITLESCENE");
+			isActive_ = false;
+		}
+	}
 
 	data_.Update();
 }

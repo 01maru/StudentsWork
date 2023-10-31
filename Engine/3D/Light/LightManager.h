@@ -31,7 +31,9 @@ private:
 	void TransferConstBuffer();
 public:
 	static LightManager* GetInstance();
+	//	コピーコンストラクタ無効
 	LightManager(const LightManager& obj) = delete;
+	//	代入演算子無効
 	LightManager& operator=(const LightManager& obj) = delete;
 
 	/**

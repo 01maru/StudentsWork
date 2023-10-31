@@ -56,6 +56,7 @@ void TitleScene::LoadResources()
 
 void TitleScene::Initialize()
 {
+	SceneManager::GetInstance()->ChangeScreenAlpha(0.0f);
 	//	Fog
 	LightManager::GetInstance()->SetFogActive(true);
 	LightManager::GetInstance()->SetFogStart(0.55f);

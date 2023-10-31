@@ -53,7 +53,9 @@ private:
 
 public:
 	static TextureManager* GetInstance();
+	//	コピーコンストラクタ無効
 	TextureManager(const TextureManager& obj) = delete;
+	//	代入演算子無効
 	TextureManager& operator=(const TextureManager& obj) = delete;
 
 	/**

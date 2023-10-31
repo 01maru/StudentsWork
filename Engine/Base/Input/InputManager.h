@@ -27,7 +27,9 @@ private:
 	~InputManager() {};
 public:
 	static InputManager* GetInstance();
+	//	コピーコンストラクタ無効
 	InputManager(const InputManager& obj) = delete;
+	//	代入演算子無効
 	InputManager& operator=(const InputManager& obj) = delete;
 
 	/**
