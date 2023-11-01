@@ -184,12 +184,6 @@
     <Filter Include="ヘッダー ファイル\lib\2D\Sprite">
       <UniqueIdentifier>{ced67229-c305-43ef-825f-4d31272b0ad6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Scene\Setting">
-      <UniqueIdentifier>{8ce6c2b1-5b56-44c9-a010-e738adcd0f46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Scene\Setting">
-      <UniqueIdentifier>{bb7b3579-d049-4d1b-ba9a-f80a446e4103}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\lib\2D\Sprite\UI">
       <UniqueIdentifier>{56c3dd44-b154-4592-860f-67feb7481337}</UniqueIdentifier>
     </Filter>
@@ -213,6 +207,12 @@
     </Filter>
     <Filter Include="ソース ファイル\lib\2D\Sprite\UI\Component">
       <UniqueIdentifier>{0e5fc657-c26b-44a0-9c5b-59f263f3cb79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\UI">
+      <UniqueIdentifier>{7d9b8718-abab-4ee5-bf09-52e0e1630a6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\UI">
+      <UniqueIdentifier>{408dec68-e845-43bb-b5ba-0923d81b029c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -429,17 +429,8 @@
     <ClCompile Include="Engine\Game\Enemy.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\PauseScreen.cpp">
-      <Filter>ソース ファイル\Game\Scene\Setting</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\OptionScene.cpp">
-      <Filter>ソース ファイル\Game\Scene\Setting</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\ModelManager.cpp">
       <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\SliderSprite.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\Base\UIEditor.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
@@ -474,47 +465,59 @@
     <ClCompile Include="Engine\2D\Particle\ParticleManager.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
     </ClCompile>
-    <ClCompile Include="SpaceShip.cpp">
+    <ClCompile Include="Engine\2D\Particle\ParticleEmitter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleEmitter.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\UIButton.cpp">
+    <ClCompile Include="Engine\2D\Sprite\UI\UIButton.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\UIButtonManager.cpp">
+    <ClCompile Include="Engine\2D\Sprite\UI\UIButtonManager.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="UISprite.cpp">
+    <ClCompile Include="Engine\2D\Sprite\UI\UISprite.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="UIPosition.cpp">
+    <ClCompile Include="Engine\2D\Sprite\UI\UIPosition.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="UIObject.cpp">
+    <ClCompile Include="Engine\2D\Sprite\UI\UIObject.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\UIData.cpp">
+    <ClCompile Include="Engine\2D\Sprite\UI\UIData.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
     </ClCompile>
-    <ClCompile Include="UIComponent.cpp">
+    <ClCompile Include="Engine\2D\Sprite\UI\UIComponent.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="UIMoveAnimation.cpp">
+    <ClCompile Include="Engine\2D\Sprite\UI\UIMoveAnimation.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="UIFadeAnimation.cpp">
+    <ClCompile Include="Engine\2D\Sprite\UI\UIFadeAnimation.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="UIAnimationTimer.cpp">
+    <ClCompile Include="Engine\2D\Sprite\UI\UIAnimationTimer.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="GameOverCamera.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\2D\Sprite\UI\UIRotation.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="GameOverUI.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\2D\Sprite\UI\SliderSprite.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\SpaceShip.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\GameOverCamera.cpp">
+      <Filter>ソース ファイル\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\PauseScreen.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\OptionScene.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\GameOverUI.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -758,17 +761,8 @@
     <ClInclude Include="Engine\Game\Enemy.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\PauseScreen.h">
-      <Filter>ヘッダー ファイル\Game\Scene\Setting</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\OptionScene.h">
-      <Filter>ヘッダー ファイル\Game\Scene\Setting</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\ModelManager.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\SliderSprite.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\Base\UIEditor.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
@@ -785,7 +779,7 @@
     <ClInclude Include="Engine\3D\Object\Model\AnimationStruct.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\UIData.h">
+    <ClInclude Include="Engine\2D\Sprite\UI\UIData.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Weapon.h">
@@ -812,44 +806,56 @@
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h">
       <Filter>ヘッダー ファイル\lib\Engine\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="SpaceShip.h">
+    <ClInclude Include="Engine\2D\Particle\ParticleEmitter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleEmitter.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\UIButton.h">
+    <ClInclude Include="Engine\2D\Sprite\UI\UIButton.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\UIButtonManager.h">
+    <ClInclude Include="Engine\2D\Sprite\UI\UIButtonManager.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="UISprite.h">
+    <ClInclude Include="Engine\2D\Sprite\UI\UISprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="UIPosition.h">
+    <ClInclude Include="Engine\2D\Sprite\UI\UIPosition.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="UIObject.h">
+    <ClInclude Include="Engine\2D\Sprite\UI\UIObject.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="UIComponent.h">
+    <ClInclude Include="Engine\2D\Sprite\UI\UIComponent.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="UIMoveAnimation.h">
+    <ClInclude Include="Engine\2D\Sprite\UI\UIMoveAnimation.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="UIFadeAnimation.h">
+    <ClInclude Include="Engine\2D\Sprite\UI\UIFadeAnimation.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="UIAnimationTimer.h">
+    <ClInclude Include="Engine\2D\Sprite\UI\UIAnimationTimer.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="GameOverCamera.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\2D\Sprite\UI\UIRotation.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="GameOverUI.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\2D\Sprite\UI\SliderSprite.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\SpaceShip.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\GameOverCamera.h">
+      <Filter>ヘッダー ファイル\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\PauseScreen.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\OptionScene.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\GameOverUI.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

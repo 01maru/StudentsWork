@@ -1,41 +1,53 @@
-//#pragma once
-//#include "UIDrawer.h"
-//#include "OptionScene.h"
-//
-//class PauseScreen
-//{
-//public:
-//	enum Mord
-//	{
-//		Continue,
-//		Option,
-//		BackTitle,
-//	};
-//
-//private:
-//	uint16_t selectMord_;
-//
-//	bool active_ = true;
-//
-//	std::unique_ptr<UIDrawer> ui_;
-//	std::unique_ptr<OptionScene> option_;
-//
-//private:
-//	void PauseUpdate();
-//
-//public:
-//	void Initialize();
-//	void Update();
-//	void Draw();
-//
-//	//	Getter
-//	bool GetIsActive() { return active_; }
-//	uint16_t GetOptionMord() { return option_->GetMord(); }
-//	uint16_t GetMord() { return selectMord_; }
-//	bool GetOptionIsActive() { return option_->GetIsActive(); }
-//
-//	//	Setter
-//	void SetIsActive(bool active);
-//	void SetMord(Mord mord) { selectMord_ = (uint16_t)mord; }
-//};
-//
+#pragma once
+#include "OptionScene.h"
+
+/**
+* @file PauseScreen.h
+* @brief Pause画面の表示や設定を管理するファイル
+*/
+
+class PauseScreen
+{
+public:
+	/**
+	* @fn Initialize()
+	* 初期化関数
+	*/
+	void Initialize();
+	/**
+	* @fn Update()
+	* 更新処理関数
+	*/
+	void Update();
+	/**
+	* @fn Draw()
+	* 描画処理関数
+	*/
+	void Draw();
+
+private:
+	//	ポーズ中か
+	bool isActive_ = false;
+	//	ポーズ画面のUI情報
+	UIData data_;
+	//	オプションデータ
+	OptionScene option_;
+
+private:
+	void IsActiveUpdate();
+	void PauseUpdate();
+
+public:
+#pragma region Getter
+
+	bool GetIsActive();
+
+#pragma endregion
+
+#pragma region Setter
+
+	void SetIsActive(bool isActive);
+
+#pragma endregion
+};
+

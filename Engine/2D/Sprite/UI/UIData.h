@@ -22,6 +22,7 @@ public:
 	* 終了処理関数
 	*/
 	void Finalize();
+	void InputUpdate();
 	/**
 	* @fn Update()
 	* 更新処理関数
@@ -63,6 +64,8 @@ public:
 	* @return 選択中の座標
 	*/
 	Vector2D& GetSelectPosition();
+
+	UIObject* GetUIObject(const std::string& name);
 
 #pragma endregion
 };

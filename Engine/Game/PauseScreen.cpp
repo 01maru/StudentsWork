@@ -1,65 +1,87 @@
-//#include "PauseScreen.h"
-//#include "InputManager.h"
-//#include "SceneManager.h"
-//
-//void PauseScreen::Initialize()
-//{
-//	active_ = false;
-//
-//    selectMord_ = Continue;
-//
-//	ui_ = std::make_unique<UIDrawer>();
-//	ui_->LoadSprites("Pause");
-//
-//	option_ = std::make_unique<OptionScene>();
-//	option_->Initialize("Option");
-//}
-//
-//void PauseScreen::PauseUpdate()
-//{
-//	//if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
-//	//	switch (selectMord_)
-//	//	{
-//	//	case Continue:
-//	//		active_ = false;
-//	//		break;
-//	//	case Option:
-//	//		option_->SetIsActive(true);
-//	//		ui_->SetTag(UIData::Tag3);
-//	//		break;
-//	//	case BackTitle:
-//	//		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
-//	//		break;
-//	//	}
-//	//}
-//}
-//
-//void PauseScreen::Update()
-//{
-//	if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_ESCAPE, InputJoypad::START_Button)) {
-//		active_ = !active_;
-//		if (active_) InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
-//	}
-//
-//    if (!active_) return;
-//
-//	if (option_->GetIsActive())	option_->Update();
-//	else						PauseUpdate();
-//
-//    //ui_->Update();
-//}
-//
-//void PauseScreen::Draw()
-//{
-//    if (!active_) return;
-//
-//    ui_->Draw();
-//
-//	option_->Draw();
-//}
-//
-//void PauseScreen::SetIsActive(bool active)
-//{
-//    if (active) InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
-//    active_ = active;
-//}
+#include "PauseScreen.h"
+#include "InputManager.h"
+#include "SceneManager.h"
+
+void PauseScreen::Initialize()
+{
+	isActive_ = false;
+
+	data_.LoadData("Pause");
+	data_.Initialize();
+
+	option_.Initialize("Option");
+}
+
+void PauseScreen::IsActiveUpdate()
+{
+	InputManager* input = InputManager::GetInstance();
+
+	if (input->GetTriggerKeyAndButton(DIK_ESCAPE, InputJoypad::START_Button)) {
+		isActive_ = !isActive_;
+
+		//	ポーズ画面になったら
+		if (isActive_ == true) {
+			//	カーソル表示
+			InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
+		}
+	}
+}
+
+void PauseScreen::PauseUpdate()
+{
+	//	オプションだったら
+	if (option_.GetIsActive() == true) return;
+
+	data_.InputUpdate();
+
+	if (data_.GetSelectName() == "Continue") {
+		isActive_ = false;
+	}
+	else if (data_.GetSelectName() == "Option") {
+		option_.SetIsActive(true);
+	}
+	else if (data_.GetSelectName() == "Quit") {
+		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
+	}
+}
+
+void PauseScreen::Update()
+{
+	IsActiveUpdate();
+
+	//	ポーズ中じゃなかったら終了
+    if (!isActive_) return;
+
+	PauseUpdate();
+
+	option_.Update();
+	
+	data_.Update();
+}
+
+void PauseScreen::Draw()
+{
+    if (!isActive_) return;
+
+    data_.Draw();
+
+	option_.Draw();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+bool PauseScreen::GetIsActive()
+{
+	return isActive_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void PauseScreen::SetIsActive(bool isActive)
+{
+    isActive_ = isActive;
+}

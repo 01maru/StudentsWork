@@ -9,6 +9,7 @@
 #include "UIPosition.h"
 #include "UIButton.h"
 #include "UISprite.h"
+#include "UIRotation.h"
 
 void UIData::LoadData(const std::string& filename)
 {
@@ -142,6 +143,12 @@ void UIData::LoadData(const std::string& filename)
 			line_stream >> value;
 			uiFade->SetStart(value);
 		}
+		if (key == "RotAnime") {
+			UIRotation* uiRot = object->AddComponent<UIRotation>();
+			float rot;
+			line_stream >> rot;
+			uiRot->SetRotSpd(rot);
+		}
 		if (key == "EndData") {
 			std::string spritename;
 			line_stream >> spritename;
@@ -206,10 +213,14 @@ void UIData::Finalize()
 	tagName_.clear();
 }
 
-void UIData::Update()
+void UIData::InputUpdate()
 {
 	buttonMan_->Update();
 
+}
+
+void UIData::Update()
+{
 	for (auto& sprite : obj_) {
 		sprite.second->Update();
 		sprite.second->MatUpdate();
@@ -248,4 +259,11 @@ const std::string& UIData::GetSelectName()
 Vector2D& UIData::GetSelectPosition()
 {
 	return buttonMan_->GetSelectPos();
+}
+
+UIObject* UIData::GetUIObject(const std::string& name)
+{
+	if (obj_.count(name) == 0) return nullptr;
+
+	return obj_[name].get();
 }

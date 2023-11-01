@@ -1,5 +1,11 @@
 Timer 170
 
+S Back LoadBack.png 640 260 300 300 1 1 1000 1000 0.5 0.5 0
+AnimeTimer 60 0
+FadeAnime 1.0 0.0
+RotAnime -0.005
+EndData GameOver
+
 S gameOver gameOver.png 640 260 653 134 1 1 653 134 0.5 0.5 0
 AnimeTimer 60 0
 FadeAnime 1.0 0.0
