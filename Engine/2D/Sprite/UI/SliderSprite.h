@@ -38,6 +38,7 @@ private:
 	float minValue_ = 0.0f;
 	float maxValue_ = 1.0f;
 	float value_ = 0.0f;
+	float spd_ = 0.01f;
 
 	UISprite* sprites_ = nullptr;
 
@@ -57,6 +58,7 @@ public:
 
 #pragma region Setter
 
+	void ValueUpdate(float& v, int32_t inputValue);
 	void SetValue(float v);
 
 	void SetRailLength(float len);

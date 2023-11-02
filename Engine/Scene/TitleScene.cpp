@@ -17,8 +17,6 @@ void TitleScene::LoadResources()
 {
 #pragma region Sound
 	XAudioManager* xAudioMan = XAudioManager::GetInstance();
-	xAudioMan->LoadSoundWave("cursorMove.wav");
-	xAudioMan->LoadSoundWave("decision.wav");
 	//	タイトル音
 	xAudioMan->LoadSoundWave("title.wav");
 #pragma endregion
@@ -43,13 +41,8 @@ void TitleScene::LoadResources()
 #pragma endregion
 	
 #pragma region UI
-	uiData_ = std::make_unique<UIData>();
-	uiData_->LoadData("TitleScene");
 
-	selectCursor_ = std::make_unique<Sprite>();
-	selectCursor_->Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph("select.png"));
-	selectCursor_->SetPosition(Vector2D(200, 420));
-	selectCursor_->SetAnchorPoint(Vector2D(0.5f, 0.5f));
+	uiData_.Initialize();
 
 #pragma endregion
 }
@@ -66,12 +59,7 @@ void TitleScene::Initialize()
 	//	カーソル固定解除
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
 
-	//optionScene_ = std::make_unique<OptionScene>();
-	//optionScene_->Initialize("Option");
-
 	LoadResources();
-
-	selectMord_ = GameStart;
 
 	//	Camera
 	std::unique_ptr<TitleCamera> camera = std::make_unique<TitleCamera>();
@@ -79,10 +67,6 @@ void TitleScene::Initialize()
 	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
 	//	LightCamera
 	CameraManager::GetInstance()->GetLightCamera()->SetEye(Vector3D(78.0f, 50.0f, -30.0f));
-
-	selectCounter_.Initialize(40, true, true);
-	selectCounter_.SetIsEndless(true);
-	selectCounter_.SetIsActive(true);
 }
 
 void TitleScene::Finalize()
@@ -91,10 +75,24 @@ void TitleScene::Finalize()
 	XAudioManager::GetInstance()->DeleteAllSound();
 }
 
+void TitleScene::FirstFrameUpdate()
+{
+	//XAudioManager::GetInstance()->PlaySoundWave("title.wav", XAudioManager::BGM, true);
+
+	uiData_.Start();
+}
+
+void TitleScene::Update()
+{
+	uiData_.Update();
+
+	ParticleManager::GetInstance()->Update();
+
+	MatUpdate();
+}
+
 void TitleScene::MatUpdate()
 {
-	selectCursor_->Update();
-
 	//	モデル
 	level_->MatUpdate();
 	ground_->MatUpdate();
@@ -103,73 +101,19 @@ void TitleScene::MatUpdate()
 	ParticleManager::GetInstance()->MatUpdate();
 }
 
-void TitleScene::FirstFrameUpdate()
-{
-	//XAudioManager::GetInstance()->PlaySoundWave("title.wav", XAudioManager::BGM, true);
-
-	uiData_->Initialize();
-}
-
-void TitleScene::Update()
-{
-	bool select = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
-
-	selectCounter_.Update();
-
-	if (select/* && !optionScene_->GetIsActive()*/)
-	{
-		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
-
-		//if (uidata->GetActiveTagName() == "Title") {
-			if (uiData_->GetSelectName() == "Start") {
-				SceneManager::GetInstance()->SetNextScene("GAMESCENE");
-			}
-
-			if (uiData_->GetSelectName() == "Option") {
-				//optionScene_->SetIsActive(true);
-			}
-
-			if (uiData_->GetSelectName() == "Quit") {
-				SceneManager::GetInstance()->GameLoopEnd();
-			}
-		//}
-	}
-
-	//optionScene_->Update();
-
-	float size = Easing::EaseIn(1.0f, 1.05f, selectCounter_.GetCountPerMaxCount(), 2);
-	Vector2D cursorSize(298, 82);
-	selectCursor_->SetSize(cursorSize * size);
-
-	uiData_->Update();
-	selectCursor_->SetPosition(uiData_->GetSelectPosition());
-
-	ParticleManager::GetInstance()->Update();
-
-	MatUpdate();
-}
-
 void TitleScene::ImguiUpdate()
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
 	imguiMan->BeginWindow("TitleScene");
 
-	imguiMan->Text("mord : %d", selectMord_);
-
-	//std::string name = uiDrawer_.GetActiveButtonName();
-	imguiMan->Text("mord : %s", uiData_->GetSelectName().c_str());
-
 	float value = SceneManager::GetInstance()->GetDissolveValue();
 	imguiMan->SetSliderFloat("dissolve", value, 0.01f, 0.0f, 1.0f);
 	SceneManager::GetInstance()->SetDissolveValue(value);
 
-	if (imguiMan->SetButton("Start"))	selectMord_ = GameStart;
-	if (imguiMan->SetButton("Option"))	selectMord_ = Option;
-	if (imguiMan->SetButton("End"))		selectMord_ = GameEnd;
 	imguiMan->CheckBox("DrawUI", drawUI_);
 
-	//imguiMan->Text("Option : %f", optionScene_->GetIsActive() ? "True" : "False");
+	uiData_.ImGuiUpdate();
 
 	imguiMan->EndWindow();
 }
@@ -191,9 +135,5 @@ void TitleScene::Draw()
 	ParticleManager::GetInstance()->Draw();
 
 	if (!drawUI_) return;
-	uiData_->Draw();
-
-	selectCursor_->Draw();
-
-	//optionScene_->Draw();
+	uiData_.Draw();
 }

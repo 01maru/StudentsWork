@@ -112,6 +112,7 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIPosition.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIRotation.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UISprite.cpp" />
+    <ClCompile Include="TitleUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="Engine\2D\Sprite\UI\UIPosition.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIRotation.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UISprite.h" />
+    <ClInclude Include="TitleUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

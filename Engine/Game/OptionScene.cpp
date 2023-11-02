@@ -1,5 +1,6 @@
 #include "OptionScene.h"
 #include "InputManager.h"
+#include "ImGuiManager.h"
 
 void OptionScene::Initialize(const std::string& filename)
 {
@@ -19,12 +20,12 @@ void OptionScene::SensUpdate()
 	
 	float sens = input->GetSensitivity();
 	
-	//	値変更
-
-
-	//	値反映
+	//	値変更&反映
+	int32_t inputValue = input->GetKeyAndButton(DIK_D, InputJoypad::DPAD_Right) -
+		input->GetKeyAndButton(DIK_A, InputJoypad::DPAD_Left);
 	SliderSprite* slider = obj->GetComponent<SliderSprite>();
-	slider->SetValue(sens);
+	slider->ValueUpdate(sens, inputValue);
+	input->SetSensitivity(sens);
 }
 
 void OptionScene::MasterVolumeUpdate()
@@ -39,9 +40,11 @@ void OptionScene::SEVolumeUpdate()
 {
 }
 
-void OptionScene::Update()
+void OptionScene::InputUpdate(bool selectButton)
 {
 	if (!isActive_) return;
+
+	data_.InputUpdate();
 
 	if (data_.GetSelectName() == "Sens") {
 		SensUpdate();
@@ -59,7 +62,25 @@ void OptionScene::Update()
 	//	SEVolumeUpdate();
 	//}
 
+	else if (data_.GetSelectName() == "Back") {
+		if (selectButton == true) {
+			isActive_ = false;
+		}
+	}
+}
+
+void OptionScene::Update()
+{
 	data_.Update();
+}
+
+void OptionScene::ImGuiUpdate()
+{
+	if (!isActive_) return;
+
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
+	imgui->Text("SelectButton : %s", data_.GetSelectName().c_str());
 }
 
 void OptionScene::Draw()
@@ -67,6 +88,11 @@ void OptionScene::Draw()
 	if (!isActive_) return;
 
 	data_.Draw();
+}
+
+void OptionScene::ResetSelectButton()
+{
+	data_.SetSelectButton("Sens");
 }
 
 //-----------------------------------------------------------------------------

@@ -10,6 +10,7 @@
 #include "UIButton.h"
 #include "UISprite.h"
 #include "UIRotation.h"
+#include "SliderSprite.h"
 
 void UIData::LoadData(const std::string& filename)
 {
@@ -156,6 +157,7 @@ void UIData::LoadData(const std::string& filename)
 		}
 
 		if (key == "Button") {
+			if (object == nullptr) object = std::make_unique<UIObject>();
 			UIButton* button = object->AddComponent<UIButton>();
 
 			if (buttonMan_ == nullptr) {
@@ -174,6 +176,26 @@ void UIData::LoadData(const std::string& filename)
 
 			UIPosition* uiPos = object->AddComponent<UIPosition>();
 			uiPos->SetPosition(pos);
+		}
+
+		if (key == "Slider") {
+			SliderSprite* slider = object->AddComponent<SliderSprite>();
+
+			std::string name;
+			line_stream >> name;
+			slider->SetCircleTexture(name);
+
+			line_stream >> name;
+			slider->SetRailTexture(name);
+
+			Vector2D pos;
+			line_stream >> pos.x;
+			line_stream >> pos.y;
+			slider->SetRailStartPos(pos);
+
+			float len;
+			line_stream >> len;
+			slider->SetRailLength(len);
 		}
 
 		if (key == "ButtonArray") {
@@ -203,7 +225,9 @@ void UIData::LoadData(const std::string& filename)
 
 void UIData::Initialize()
 {
-	count_->StartCount();
+	if (count_ != nullptr) {
+		count_->StartCount();
+	}
 }
 
 void UIData::Finalize()
@@ -216,7 +240,6 @@ void UIData::Finalize()
 void UIData::InputUpdate()
 {
 	buttonMan_->Update();
-
 }
 
 void UIData::Update()
@@ -266,4 +289,9 @@ UIObject* UIData::GetUIObject(const std::string& name)
 	if (obj_.count(name) == 0) return nullptr;
 
 	return obj_[name].get();
+}
+
+void UIData::SetSelectButton(const std::string& name)
+{
+	buttonMan_->SetSelectButton(obj_[name]->GetComponent<UIButton>());
 }

@@ -16,16 +16,24 @@ public:
 	* @param filename レベルデータのファイル名
 	*/
 	void Initialize(const std::string& filename);
+	void InputUpdate(bool selectButton);
 	/**
 	* @fn Update()
 	* 更新処理関数
 	*/
 	void Update();
 	/**
+	* @fn ImGuiUpdate()
+	* ImGui更新処理関数
+	*/
+	void ImGuiUpdate();
+	/**
 	* @fn Draw()
 	* 描画処理関数
 	*/
 	void Draw();
+
+	void ResetSelectButton();
 
 private:
 	bool isActive_ = false;
