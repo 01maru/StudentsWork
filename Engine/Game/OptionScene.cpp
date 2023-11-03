@@ -78,7 +78,7 @@ void OptionScene::InputUpdate(bool selectButton)
 		VolumeUpdate("SE", XAudioManager::SE, inputValue);
 	}
 
-	else if (data_.GetSelectName() == "Back") {
+	else if (data_.GetSelectName() == "Quit") {
 		if (selectButton == true) {
 			isActive_ = false;
 		}
@@ -108,7 +108,7 @@ void OptionScene::Draw()
 
 void OptionScene::ResetSelectButton()
 {
-	data_.SetSelectButton("Sens");
+	data_.SetSelectButton("Master");
 }
 
 //-----------------------------------------------------------------------------
