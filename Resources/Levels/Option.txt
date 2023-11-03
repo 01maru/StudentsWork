@@ -1,11 +1,27 @@
-Button Sens 200 420
-Slider white1x1.png white1x1.png 0 10 500
+S Back backUI.png 320 100 600 80 0 0 280 64 0.5 0.5 0
+Button Sens 200 50
+Slider white1x1.png white1x1.png 320 100 300
 EndData Sens
+
+Button Master 200 100
+Slider white1x1.png white1x1.png 50 100 500
+EndData Master
+
+Button BGM 200 150
+Slider white1x1.png white1x1.png 50 150 500
+EndData BGM
+
+Button SE 200 200
+Slider white1x1.png white1x1.png 50 200 500
+EndData SE
 
 S BackSprite backUI.png 640 450 280 64 0 0 280 64 0.5 0.5 1
 S Back quit.png 640 450 130 39 0 0 130 39 0.5 0.5 0
 Button Back 640 450
 EndData Back
 
-ButtonArray Sens Back Back
-ButtonArray Back Sens Sens
+ButtonArray Sens Master Back
+ButtonArray Master BGM Sens
+ButtonArray BGM SE Master
+ButtonArray SE Back BGM
+ButtonArray Back Sens SE

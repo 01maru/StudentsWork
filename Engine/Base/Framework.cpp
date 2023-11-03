@@ -1,4 +1,4 @@
-﻿#include "Framework.h"
+#include "Framework.h"
 #include "ParticleManager.h"
 #include "DebugTextManager.h"
 #include "TextureManager.h"
@@ -10,7 +10,6 @@
 #include "XAudioManager.h"
 #include "FPSController.h"
 #include "CameraManager.h"
-#include "PauseScreen.h"
 #include "SceneManager.h"
 
 void Framework::Run()

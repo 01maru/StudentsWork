@@ -17,7 +17,6 @@
 #include "CameraManager.h"
 #include "LightManager.h"
 #include "BoxModel.h"
-#include "PauseScreen.h"
 #include "ImGuiManager.h"
 #include "ModelManager.h"
 
@@ -71,8 +70,7 @@ void GameScene::LoadResources()
 
 void GameScene::Initialize()
 {
-	//pause_ = std::make_unique<PauseScreen>();
-	//pause_->Initialize();
+	pause_.Initialize();
 
 	LoadResources();
 
@@ -135,7 +133,7 @@ void GameScene::Update()
 
 	//ParticleManager::GetInstance()->AddMoveParticle({ MyMath::GetRand(-1.0f,1.0f),0.0f,MyMath::GetRand(-1.0f,1.0f) }, { 0.0f,1.0f,0.0f }, 60);
 
-	//pause_->Update();
+	pause_.Update();
 
 	sprite_->Update();
 	ParticleManager::GetInstance()->Update();
@@ -164,15 +162,7 @@ void GameScene::ImguiUpdate()
 	imguiMan->SetSliderFloat("dissolve", value, 0.01f, 0.0f, 1.0f);
 	SceneManager::GetInstance()->SetDissolveValue(value);
 
-	//imguiMan->Text("Pause : %s", pause_->GetIsActive() ? "True" : "False");
-	//imguiMan->Text("mord : %d",pause_->GetMord());
-
-	//if (imguiMan->SetButton("Continue"))	pause_->SetMord(PauseScreen::Continue);
-	//if (imguiMan->SetButton("Option"))		pause_->SetMord(PauseScreen::Option);
-	//if (imguiMan->SetButton("BackTitle"))	pause_->SetMord(PauseScreen::BackTitle);
-
-	//imguiMan->Text("Option : %s", pause_->GetOptionIsActive() ? "True" : "False");
-	//imguiMan->Text("OptionMord : %d",pause_->GetOptionMord());
+	pause_.ImGuiUpdate();
 
 	imguiMan->EndWindow();
 }
@@ -196,7 +186,7 @@ void GameScene::Draw()
 	//level.Draw();
 
 	//sprite_->Draw();
-	//pause_->Draw();
+	pause_.Draw();
 
 	//DebugTextManager::GetInstance()->Draw();
 	//ParticleManager::GetInstance()->Draw();

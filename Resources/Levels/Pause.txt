@@ -1,0 +1,23 @@
+Timer 20
+
+S Back backUI.png 640 280 250 64 0 0 1 1 0.5 0.5 0
+Button Resume 640 280
+AnimeTimer 10 0
+MoveAnime 640 320 640 280
+EndData Resume
+
+S Back backUI.png 640 360 250 64 0 0 1 1 0.5 0.5 0
+Button Option 640 360
+AnimeTimer 10 0
+MoveAnime 640 400 640 360
+EndData Option
+
+S Back backUI.png 640 440 250 64 0 0 1 1 0.5 0.5 0
+Button Quit 640 440
+AnimeTimer 10 0
+MoveAnime 640 480 640 440
+EndData Quit
+
+ButtonArray Resume Option Quit
+ButtonArray Option Quit Resume
+ButtonArray Quit Resume Option

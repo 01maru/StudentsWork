@@ -1,6 +1,7 @@
 #pragma once
 #include "SliderSprite.h"
 #include "UIData.h"
+#include "XAudioManager.h"
 
 /**
 * @file OptionScene.h
@@ -47,27 +48,18 @@ private:
 	* @fn SensUpdate()
 	* 視点感度更新処理用関数
 	*/
-	void SensUpdate();
+	void SensUpdate(int16_t inputValue);
 	/**
-	* @fn MasterVolumeUpdate()
-	* マスターボリューム更新処理用関数
+	* @fn VolumeUpdate()
+	* ボリューム更新処理用関数
 	*/
-	void MasterVolumeUpdate();
-	/**
-	* @fn BGMVolumeUpdate()
-	* BGM音量更新処理用関数
-	*/
-	void BGMVolumeUpdate();
-	/**
-	* @fn UpdSEVolumeUpdateate()
-	* SE音量更新処理関数
-	*/
-	void SEVolumeUpdate();
+	void VolumeUpdate(const std::string& objectName, XAudioManager::SoundType type, int16_t inputValue);
 
 public:
 #pragma region Getter
 
 	bool GetIsActive();
+	Vector2D& GetSelectPosition();
 
 #pragma endregion
 

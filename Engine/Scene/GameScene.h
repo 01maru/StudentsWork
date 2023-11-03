@@ -19,7 +19,7 @@ private:
 
 	JSONLoader level;
 
-	//std::unique_ptr<PauseScreen> pause_;
+	PauseScreen pause_;
 
 #pragma region Obj3D
 

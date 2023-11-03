@@ -137,7 +137,7 @@ public:
 	* @param type 音量調節するTypeの設定
 	* @param inputValue 音量の増加量0～100の値
 	*/
-	void VolumeUpdate(SoundType type, int32_t inputValue);
+	void VolumeUpdate(SoundType type, float volume);
 
 	//void ChangeAllPitchRatio(float pitch);
 

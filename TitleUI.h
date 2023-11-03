@@ -1,6 +1,6 @@
 #pragma once
 #include "OptionScene.h"
-#include "Sprite.h"
+#include "SelectCursor.h"
 
 class TitleUI
 {
@@ -43,14 +43,12 @@ private:
 	//	オプションの配置データ
 	OptionScene option_;
 	//	カーソルのスプライト
-	Sprite cursor_;
-	FrameCounter selectCounter_;
+	SelectCursor cursor_;
 
 private:
 	void TitleInputUpdate(bool selectButton);
 	void TitleUpdate(bool selectButton);
 	void OptionUpdate(bool selectButton);
-	void CursorUpdate();
 public:
 	void Start();
 };

@@ -6,22 +6,13 @@
 #include "ImGuiManager.h"
 #include "TextureManager.h"
 
-#include "Easing.h"
-
-using namespace Easing;
 
 void TitleUI::Initialize()
 {
 	LoadResources();
 	option_.Initialize("Option");
 
-	cursor_.Initialize(TextureManager::GetInstance()->GetTextureGraph("select.png"));
-	cursor_.SetPosition(Vector2D(200, 420));
-	cursor_.SetAnchorPoint(Vector2D(0.5f, 0.5f));
-
-	selectCounter_.Initialize(40, true, true);
-	selectCounter_.SetIsEndless(true);
-	selectCounter_.SetIsActive(true);
+	cursor_.Initialize();
 }
 
 void TitleUI::Finalize()
@@ -31,8 +22,8 @@ void TitleUI::Finalize()
 void TitleUI::LoadResources()
 {
 	XAudioManager* xAudioMan = XAudioManager::GetInstance();
-	xAudioMan->LoadSoundWave("cursorMove.wav");
 	xAudioMan->LoadSoundWave("decision.wav");
+	cursor_.LoadResources();
 
 	TextureManager::GetInstance()->AsyncLoadTextureGraph("select.png");
 	data_.LoadData("TitleScene");
@@ -65,6 +56,9 @@ void TitleUI::TitleInputUpdate(bool selectButton)
 	}
 
 	data_.InputUpdate();
+
+	//	カーソル移動
+	cursor_.SetCursorPosition(data_.GetSelectPosition());
 }
 
 void TitleUI::TitleUpdate(bool selectButton)
@@ -78,15 +72,11 @@ void TitleUI::OptionUpdate(bool selectButton)
 {
 	option_.InputUpdate(selectButton);
 	option_.Update();
-}
 
-void TitleUI::CursorUpdate()
-{
-	float size = Easing::EaseIn(1.0f, 1.05f, selectCounter_.GetCountPerMaxCount(), 2);
-	Vector2D cursorSize(298, 82);
-	cursor_.SetSize(cursorSize * size);
-
-	cursor_.SetPosition(data_.GetSelectPosition());
+	//	オプション中だったら
+	if (option_.GetIsActive() == false) return;
+	//	カーソル移動
+	cursor_.SetCursorPosition(option_.GetSelectPosition());
 }
 
 void TitleUI::Start()
@@ -98,13 +88,9 @@ void TitleUI::Update()
 {
 	bool isSelect = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
 
-	selectCounter_.Update();
-
 	TitleUpdate(isSelect);
 
 	OptionUpdate(isSelect);
-
-	CursorUpdate();
 
 	cursor_.Update();
 }

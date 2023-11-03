@@ -12,7 +12,7 @@ void OptionScene::Initialize(const std::string& filename)
 	slider->SetValue(InputManager::GetInstance()->GetSensitivity());
 }
 
-void OptionScene::SensUpdate()
+void OptionScene::SensUpdate(int16_t inputValue)
 {
 	InputManager* input = InputManager::GetInstance();
 
@@ -21,46 +21,62 @@ void OptionScene::SensUpdate()
 	float sens = input->GetSensitivity();
 	
 	//	値変更&反映
-	int32_t inputValue = input->GetKeyAndButton(DIK_D, InputJoypad::DPAD_Right) -
-		input->GetKeyAndButton(DIK_A, InputJoypad::DPAD_Left);
 	SliderSprite* slider = obj->GetComponent<SliderSprite>();
 	slider->ValueUpdate(sens, inputValue);
 	input->SetSensitivity(sens);
 }
 
-void OptionScene::MasterVolumeUpdate()
+void OptionScene::VolumeUpdate(const std::string& objectName, XAudioManager::SoundType type, int16_t inputValue)
 {
-}
+	UIObject* obj = data_.GetUIObject(objectName);
 
-void OptionScene::BGMVolumeUpdate()
-{
-}
+	XAudioManager* xAudio = XAudioManager::GetInstance();
+	float volume;
+	switch (type)
+	{
+	case XAudioManager::Master:
+		volume = xAudio->GetMasterVolume();
+		break;
+	case XAudioManager::BGM:
+		volume = xAudio->GetBGMVolume();
+		break;
+	case XAudioManager::SE:
+		volume = xAudio->GetSEVolume();
+		break;
+	}
 
-void OptionScene::SEVolumeUpdate()
-{
+	//	値変更&反映
+	SliderSprite* slider = obj->GetComponent<SliderSprite>();
+	slider->ValueUpdate(volume, inputValue);
+
+	xAudio->VolumeUpdate(type, volume);
 }
 
 void OptionScene::InputUpdate(bool selectButton)
 {
 	if (!isActive_) return;
 
+	InputManager* input = InputManager::GetInstance();
+	int16_t inputValue = input->GetKeyAndButton(DIK_D, InputJoypad::DPAD_Right) -
+		input->GetKeyAndButton(DIK_A, InputJoypad::DPAD_Left);
+
 	data_.InputUpdate();
 
 	if (data_.GetSelectName() == "Sens") {
-		SensUpdate();
+		SensUpdate(inputValue);
 	}
 
-	//else if (data_.GetSelectName() == "Volume") {
-	//	MasterVolumeUpdate();
-	//}
+	else if (data_.GetSelectName() == "Master") {
+		VolumeUpdate("Master", XAudioManager::Master, inputValue);
+	}
 
-	//else if (data_.GetSelectName() == "Volume") {
-	//	BGMVolumeUpdate();
-	//}
+	else if (data_.GetSelectName() == "BGM") {
+		VolumeUpdate("BGM", XAudioManager::BGM, inputValue);
+	}
 
-	//else if (data_.GetSelectName() == "Volume") {
-	//	SEVolumeUpdate();
-	//}
+	else if (data_.GetSelectName() == "SE") {
+		VolumeUpdate("SE", XAudioManager::SE, inputValue);
+	}
 
 	else if (data_.GetSelectName() == "Back") {
 		if (selectButton == true) {
@@ -102,6 +118,11 @@ void OptionScene::ResetSelectButton()
 bool OptionScene::GetIsActive()
 {
 	return isActive_;
+}
+
+Vector2D& OptionScene::GetSelectPosition()
+{
+	return data_.GetSelectPosition();
 }
 
 //-----------------------------------------------------------------------------

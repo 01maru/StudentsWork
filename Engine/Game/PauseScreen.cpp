@@ -2,13 +2,20 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 
+#include "ImGuiManager.h"
+
 void PauseScreen::Initialize()
 {
 	isActive_ = false;
+	
+	LoadResources();
 
-	data_.LoadData("Pause");
 	data_.Initialize();
+}
 
+void PauseScreen::LoadResources()
+{
+	data_.LoadData("Pause");
 	option_.Initialize("Option");
 }
 
@@ -27,22 +34,48 @@ void PauseScreen::IsActiveUpdate()
 	}
 }
 
-void PauseScreen::PauseUpdate()
+void PauseScreen::PauseInputUpdate(bool selectButton)
 {
 	//	オプションだったら
 	if (option_.GetIsActive() == true) return;
 
+	if (selectButton) {
+		std::string buttonName = data_.GetSelectName();
+
+		if (buttonName == "Resume") {
+			isActive_ = false;
+		}
+
+		else if (buttonName == "Option") {
+			option_.SetIsActive(true);
+		}
+
+		else if (buttonName == "Quit") {
+			SceneManager::GetInstance()->SetNextScene("TITLESCENE");
+		}
+	}
+
 	data_.InputUpdate();
 
-	if (data_.GetSelectName() == "Continue") {
-		isActive_ = false;
-	}
-	else if (data_.GetSelectName() == "Option") {
-		option_.SetIsActive(true);
-	}
-	else if (data_.GetSelectName() == "Quit") {
-		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
-	}
+	//	カーソル移動
+
+}
+
+void PauseScreen::PauseUpdate(bool selectButton)
+{
+	PauseInputUpdate(selectButton);
+
+	data_.Update();
+}
+
+void PauseScreen::OptionUpdate(bool selectButton)
+{
+	option_.InputUpdate(selectButton);
+	option_.Update();
+
+	//	オプション中だったら
+	if (option_.GetIsActive() == false) return;
+	//	カーソル移動
 }
 
 void PauseScreen::Update()
@@ -52,11 +85,20 @@ void PauseScreen::Update()
 	//	ポーズ中じゃなかったら終了
     if (!isActive_) return;
 
-	PauseUpdate();
+	bool isSelect = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
 
-	option_.Update();
-	
-	data_.Update();
+	PauseUpdate(isSelect);
+	OptionUpdate(isSelect);
+}
+
+void PauseScreen::ImGuiUpdate()
+{
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
+	imgui->Text("Pause : %s", isActive_ ? "True" : "False");
+	imgui->Text("SelectButton : %s", data_.GetSelectName().c_str());
+
+	option_.ImGuiUpdate();
 }
 
 void PauseScreen::Draw()

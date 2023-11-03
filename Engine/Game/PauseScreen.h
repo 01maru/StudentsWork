@@ -14,11 +14,15 @@ public:
 	* 初期化関数
 	*/
 	void Initialize();
+
+	void LoadResources();
 	/**
 	* @fn Update()
 	* 更新処理関数
 	*/
 	void Update();
+
+	void ImGuiUpdate();
 	/**
 	* @fn Draw()
 	* 描画処理関数
@@ -35,7 +39,9 @@ private:
 
 private:
 	void IsActiveUpdate();
-	void PauseUpdate();
+	void PauseInputUpdate(bool selectButton);
+	void PauseUpdate(bool selectButton);
+	void OptionUpdate(bool selectButton);
 
 public:
 #pragma region Getter

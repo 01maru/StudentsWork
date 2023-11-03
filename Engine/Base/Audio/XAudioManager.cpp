@@ -364,27 +364,8 @@ void XAudioManager::ChangeVolume(float volume, SoundType type)
 	}
 }
 
-void XAudioManager::VolumeUpdate(SoundType type, int32_t inputValue)
+void XAudioManager::VolumeUpdate(SoundType type, float volume)
 {
-	float volume = inputValue * 0.01f;
-
-	switch (type)
-	{
-	case XAudioManager::Master:
-		volume += masterVolume_;
-		break;
-	case XAudioManager::BGM:
-		volume += bgmVolume_;
-		break;
-	case XAudioManager::SE:
-		volume += seVolume_;
-		break;
-	default:
-		break;
-	}
-	volume = MyMath::mMax(0.0f, volume);
-	volume = MyMath::mMin(1.0f, volume);
-
 	ChangeVolume(volume, type);
 }
 
