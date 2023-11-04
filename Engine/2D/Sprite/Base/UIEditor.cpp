@@ -149,7 +149,7 @@ void UIEditor::ReNameSprite(std::unordered_map<std::string, Sprite>& sprites, st
 	sprites.emplace(spritename_, sprite);
 }
 
-void UIEditor::ImGuiSpriteInfo(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr, int32_t& /*id*/)
+void UIEditor::ImGuiSpriteInfo(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& /*id*/)
 {
 	UISprite* pComponent = itr->second->GetComponent<UISprite>();
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
@@ -273,7 +273,7 @@ void UIEditor::DrawUIAnimationTimerInfo(UIAnimationTimer* pComponent)
 	imgui->Text("Count : %d", pComponent->GetFrameCount());
 }
 
-bool UIEditor::ImGuiUpdateUIAnimationTimer(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr)
+bool UIEditor::ImGuiUpdateUIAnimationTimer(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr)
 {
 	UIAnimationTimer* pComponent = itr->second->GetComponent<UIAnimationTimer>();
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
@@ -304,7 +304,7 @@ bool UIEditor::ImGuiUpdateUIAnimationTimer(std::map<std::string, std::unique_ptr
 	return true;
 }
 
-void UIEditor::ImGuiUpdateMoveAnimation(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr)
+void UIEditor::ImGuiUpdateMoveAnimation(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr)
 {
 	UIMoveAnimation* pComponent = itr->second->GetComponent<UIMoveAnimation>();
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
@@ -332,7 +332,7 @@ void UIEditor::ImGuiUpdateMoveAnimation(std::map<std::string, std::unique_ptr<UI
 	imgui->Separator();
 }
 
-void UIEditor::ImGuiObjAnimation(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr, int32_t& /*id*/)
+void UIEditor::ImGuiObjAnimation(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& /*id*/)
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
@@ -348,7 +348,7 @@ void UIEditor::ImGuiObjAnimation(std::map<std::string, std::unique_ptr<UIObject>
 	}
 }
 
-void UIEditor::EditUIObject(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr, int32_t& id)
+void UIEditor::EditUIObject(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& id)
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 

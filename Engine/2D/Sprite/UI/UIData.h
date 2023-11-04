@@ -3,6 +3,7 @@
 #include "FrameCounter.h"
 #include "UIObject.h"
 #include <map>
+#include <unordered_map>
 
 /**
 * @file UIData.h
@@ -38,7 +39,7 @@ protected:
 	//	全体のFrameCounter
 	std::unique_ptr<FrameCounter> count_;
 	std::unique_ptr<UIButtonManager> buttonMan_;
-	std::map<std::string, std::unique_ptr<UIObject>, std::less<>> obj_;
+	std::unordered_map<std::string, std::unique_ptr<UIObject>> obj_;
 
 	std::map<std::string, uint16_t, std::less<>> tagName_;
 

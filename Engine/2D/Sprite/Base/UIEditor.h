@@ -69,10 +69,10 @@ private:
 	void CloseEditer();
 	void EditUIAnimationTimer(UIAnimationTimer* pComponent);
 	void DrawUIAnimationTimerInfo(UIAnimationTimer* pComponent);
-	bool ImGuiUpdateUIAnimationTimer(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr);
+	bool ImGuiUpdateUIAnimationTimer(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr);
 	
-	void ImGuiUpdateMoveAnimation(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr);
-	void ImGuiObjAnimation(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr, int32_t& id);
+	void ImGuiUpdateMoveAnimation(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr);
+	void ImGuiObjAnimation(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& id);
 #pragma region UIData::count_
 
 	void CreateAnimationCount();
@@ -88,10 +88,10 @@ private:
 	void DeleteSpriteFromList(std::unordered_map<std::string, Sprite>& sprites);
 	void AddSprite(std::unordered_map<std::string, Sprite>& sprites);
 	void ReNameSprite(std::unordered_map<std::string, Sprite>& sprites, std::pair<const std::string, Sprite> data);
-	void ImGuiSpriteInfo(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr, int32_t& id);
+	void ImGuiSpriteInfo(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& id);
 
 	void AddUIObject();
-	void EditUIObject(std::map<std::string, std::unique_ptr<UIObject>, std::less<>>::iterator& itr, int32_t& id);
+	void EditUIObject(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& id);
 public:
 
 #pragma region Getter
