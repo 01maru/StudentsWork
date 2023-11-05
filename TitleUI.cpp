@@ -77,6 +77,8 @@ void TitleUI::OptionUpdate(bool selectButton)
 	if (option_.GetIsActive() == false) return;
 	//	カーソル移動
 	cursor_.SetCursorPosition(option_.GetSelectPosition());
+	cursor_.SetMinSize(option_.GetSelectScale());
+	cursor_.SetMaxSize(option_.GetSelectScale() + Vector2D(16, 8));
 }
 
 void TitleUI::Start()

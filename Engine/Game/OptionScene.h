@@ -60,6 +60,7 @@ public:
 
 	bool GetIsActive();
 	Vector2D& GetSelectPosition();
+	Vector2D GetSelectScale();
 
 #pragma endregion
 

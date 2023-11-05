@@ -125,6 +125,15 @@ Vector2D& OptionScene::GetSelectPosition()
 	return data_.GetSelectPosition();
 }
 
+Vector2D OptionScene::GetSelectScale()
+{
+	Vector2D ans(818, 82);
+	if (data_.GetSelectName() == "Quit") {
+		ans = { 298, 82 };
+	}
+	return ans;
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
