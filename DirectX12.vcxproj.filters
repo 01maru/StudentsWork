@@ -214,6 +214,24 @@
     <Filter Include="ヘッダー ファイル\Game\UI">
       <UniqueIdentifier>{408dec68-e845-43bb-b5ba-0923d81b029c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\lib\2D\Particle\Emitter">
+      <UniqueIdentifier>{27c28fb4-ecd5-413e-a722-6c652fcd1fbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\lib\2D\Particle\Component">
+      <UniqueIdentifier>{1d89ae3f-71e8-425d-b714-a8f5a96fd945}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\lib\2D\Particle\Component">
+      <UniqueIdentifier>{56c5cf86-1428-4c39-b820-b83198088869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\lib\2D\Particle\Emitter">
+      <UniqueIdentifier>{13054eda-4ced-4919-bbbf-c69af0bd5102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Particle">
+      <UniqueIdentifier>{0ebd4eff-ec97-490e-aeed-c241b826b128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Particle">
+      <UniqueIdentifier>{13d09f46-8654-4c4c-9405-73f6447b6bd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -456,17 +474,8 @@
     <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\Particle\MoveParticle.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Particle\IParticle.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleManager.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Particle\Emitter\ParticleEmitter.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIButton.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
@@ -519,50 +528,56 @@
     <ClCompile Include="Engine\Game\GameOverUI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="TitleUI.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectCursor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterComponent.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterPosComp.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterScaleAnimation.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterSpdAnimation.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterSpdComp.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\Particle\ParticleResource.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Particle\ParticleScaleAnimation.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Particle\ParticleSpdAnimation.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Particle\ParticleValue.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\2D\Particle\Emitter\ParticleEmitter.cpp">
+      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\SpriteParticle.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ObjectParticle.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Particle.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Particle\ParticleSpdAnimation.cpp">
+      <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Particle\ParticleScaleAnimation.cpp">
+      <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleComponent.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Particle\ParticleValue.cpp">
+      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Particle\ParticleResource.cpp">
+      <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectCursor.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FireParticleEmitter.cpp">
+      <Filter>ソース ファイル\Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleUI.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -839,20 +854,11 @@
     <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\MoveParticle.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ParticleManager.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\IParticle.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h">
       <Filter>ヘッダー ファイル\lib\Engine\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\Emitter\ParticleEmitter.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIButton.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
@@ -903,49 +909,55 @@
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="TitleUI.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="SelectCursor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterSpdComp.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterPosComp.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterScaleAnimation.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterSpdAnimation.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\SpriteParticle.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterSpdComp.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\ParticleResource.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\ParticleScaleAnimation.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\ParticleSpdAnimation.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\ParticleValue.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\ParticleComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Particle\ObjectParticle.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\2D\Particle\Emitter\ParticleEmitter.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Particle.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\SpriteParticle.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\ObjectParticle.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\ParticleValue.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\ParticleSpdAnimation.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\ParticleScaleAnimation.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\ParticleResource.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Particle\ParticleComponent.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FireParticleEmitter.h">
+      <Filter>ヘッダー ファイル\Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

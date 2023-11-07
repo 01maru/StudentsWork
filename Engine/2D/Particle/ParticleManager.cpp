@@ -3,14 +3,6 @@
 #include "ImGuiController.h"
 #include "ImGuiManager.h"
 #include "PipelineManager.h"
-#include "SpriteParticle.h"
-
-#include "CameraManager.h"
-#include "EmitterScaleAnimation.h"
-#include "ParticleResource.h"
-#include "ParticleValue.h"
-#include "EmitterPosComp.h"
-#include "EmitterSpdAnimation.h"
 
 ParticleManager* ParticleManager::GetInstance()
 {
@@ -29,28 +21,6 @@ void ParticleManager::Initialize()
 	pipelines_.push_back(PipelineManager::GetInstance()->GetPipeline("Particle", Blend::SUB_BLEND));
 	pipelines_.push_back(PipelineManager::GetInstance()->GetPipeline("Particle", Blend::INV_BLEND));
 	pipelines_.push_back(PipelineManager::GetInstance()->GetPipeline("Particle", Blend::ALPHA_BLEND));
-
-	std::unique_ptr<ParticleEmitter> emitter_ = std::make_unique<ParticleEmitter>();
-	EmitterScaleAnimation* scale = emitter_->AddComponent<EmitterScaleAnimation>();
-	std::unique_ptr<ParticleRandValue> v = std::make_unique<ParticleRandValue>();
-	v->SetMinValue(Vector3D{ 1,0,0 });
-	v->SetMaxValue(Vector3D{ 5,0,0 });
-	std::unique_ptr<ParticleValue> v1 = std::move(v);
-	scale->SetValue(v1);
-	std::unique_ptr<ParticleRandValue> addV = std::make_unique<ParticleRandValue>();
-	addV->SetMinValue(Vector3D{ -5,0,-5 });
-	addV->SetMaxValue(Vector3D{ 5,0,5 });
-	std::unique_ptr<ParticleValue> v2 = std::move(addV);
-	//emitter_->SetPosition({-0.0f,5.0f,0.0f });
-	EmitterPosComp* pos = emitter_->AddComponent<EmitterPosComp>();
-	pos->SetAddValue(v2);
-	emitter_->SetBlendMord(Blend::ADD_BLEND);
-	emitter_->AddComponent<EmitterSpdAnimation>();
-
-	ParticleResource* resource = emitter_->AddComponent<ParticleResource>();
-	resource->SetResourceName("particle.png");
-
-	emitters_.push_front(std::move(emitter_));
 }
 
 void ParticleManager::Update()
@@ -132,4 +102,9 @@ void ParticleManager::AddParticle(std::unique_ptr<Particle>& particle, bool isOb
 
 		return;
 	}
+}
+
+void ParticleManager::AddEmitter(std::unique_ptr<ParticleEmitter>& emitter)
+{
+	emitters_.push_front(std::move(emitter));
 }

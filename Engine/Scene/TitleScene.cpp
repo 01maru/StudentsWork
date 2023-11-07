@@ -13,6 +13,8 @@
 #include "LightManager.h"
 #include "ParticleManager.h"
 
+#include "FireParticleEmitter.h"
+
 void TitleScene::LoadResources()
 {
 #pragma region Sound
@@ -40,6 +42,9 @@ void TitleScene::LoadResources()
 
 #pragma endregion
 	
+	FireParticleEmitter emitter;
+	ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
+
 #pragma region UI
 
 	uiData_.Initialize();
@@ -87,7 +92,7 @@ void TitleScene::Update()
 	uiData_.Update();
 
 	ParticleManager::GetInstance()->Update();
-
+	
 	MatUpdate();
 }
 

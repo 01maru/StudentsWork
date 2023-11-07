@@ -79,7 +79,6 @@
     <ClCompile Include="Engine\2D\PostEffect\PostEffect.cpp" />
     <ClCompile Include="Engine\3D\Light\SpotLight.cpp" />
     <ClCompile Include="Engine\2D\Sprite\Base\Sprite.cpp" />
-    <ClCompile Include="Engine\2D\Particle\IParticle.cpp" />
     <ClCompile Include="Engine\2D\Texture\TextureManager.cpp" />
     <ClCompile Include="Engine\Math\Vector\Vector2D.cpp" />
     <ClCompile Include="Engine\Math\Vector\Vector3D.cpp" />
@@ -102,6 +101,7 @@
     <ClCompile Include="Engine\2D\PostEffect\GlayScale.cpp" />
     <ClCompile Include="Engine\Game\GameOverCamera.cpp" />
     <ClCompile Include="Engine\Game\GameOverUI.cpp" />
+    <ClCompile Include="FireParticleEmitter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -114,7 +114,6 @@
     <ClCompile Include="Engine\Game\Weapon.cpp" />
     <ClCompile Include="Engine\Scene\Base\SplashScreenScene.cpp" />
     <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp" />
-    <ClCompile Include="Engine\2D\Particle\MoveParticle.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\ParticleEmitter.cpp" />
     <ClCompile Include="Engine\Game\SpaceShip.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIAnimationTimer.cpp" />
@@ -207,7 +206,6 @@
     <ClInclude Include="Engine\2D\PostEffect\PostEffect.h" />
     <ClInclude Include="Engine\3D\Light\SpotLight.h" />
     <ClInclude Include="Engine\2D\Sprite\Base\Sprite.h" />
-    <ClInclude Include="Engine\2D\Particle\IParticle.h" />
     <ClInclude Include="Engine\2D\Texture\TextureManager.h" />
     <ClInclude Include="Engine\Math\Vector\Vector2D.h" />
     <ClInclude Include="Engine\Math\Vector\Vector3D.h" />
@@ -241,7 +239,6 @@
     <ClInclude Include="Engine\Game\Weapon.h" />
     <ClInclude Include="Engine\Scene\Base\SplashScreenScene.h" />
     <ClInclude Include="Engine\3D\Camera\TitleCamera.h" />
-    <ClInclude Include="Engine\2D\Particle\MoveParticle.h" />
     <ClInclude Include="Engine\Game\GameOverCamera.h" />
     <ClInclude Include="Engine\Game\GameOverUI.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\ParticleEmitter.h" />
@@ -254,6 +251,7 @@
     <ClInclude Include="Engine\2D\Sprite\UI\UIPosition.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIRotation.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UISprite.h" />
+    <ClInclude Include="FireParticleEmitter.h" />
     <ClInclude Include="SelectCursor.h" />
     <ClInclude Include="TitleUI.h" />
   </ItemGroup>

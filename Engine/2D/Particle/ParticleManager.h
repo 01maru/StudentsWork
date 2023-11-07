@@ -1,13 +1,13 @@
 #pragma once
 #include "Particle.h"
 #include "ParticleEmitter.h"
+#include "GPipeline.h"
 #include <forward_list>
 #include <memory>
-#include "GPipeline.h"
 
 /**
 * @file ParticleManager.h
-* @brief すべてのパーティクルをまとめて管理するファイル
+* @brief すべてのパーティクルとエミッターをまとめて管理するファイル
 */
 
 class ParticleManager
@@ -62,11 +62,19 @@ public:
 #pragma region ADD
 
 	/**
-	* @fn AddParticle(const Particle&)
+	* @fn AddParticle(std::unique_ptr<Particle>&, bool)
 	* パーティクル追加用関数
 	* @param particle 追加するパーティクルの情報
+	* @param isObj 追加するパーティクルがオブジェクトかどうか
 	*/
 	void AddParticle(std::unique_ptr<Particle>& particle, bool isObj);
+
+	/**
+	* @fn AddEmitter(std::unique_ptr<ParticleEmitter>&)
+	* エミッター追加用関数
+	* @param emitter 追加するエミッター
+	*/
+	void AddEmitter(std::unique_ptr<ParticleEmitter>& emitter);
 
 #pragma endregion
 };
