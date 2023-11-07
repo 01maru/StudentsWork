@@ -11,6 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterComponent.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterPosComp.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterScaleAnimation.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterSpdAnimation.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterSpdComp.cpp" />
+    <ClCompile Include="Engine\2D\Particle\ObjectParticle.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Particle.cpp" />
+    <ClCompile Include="Engine\2D\Particle\ParticleComponent.cpp" />
+    <ClCompile Include="Engine\2D\Particle\ParticleResource.cpp" />
+    <ClCompile Include="Engine\2D\Particle\ParticleScaleAnimation.cpp" />
+    <ClCompile Include="Engine\2D\Particle\ParticleSpdAnimation.cpp" />
+    <ClCompile Include="Engine\2D\Particle\ParticleValue.cpp" />
+    <ClCompile Include="Engine\2D\Particle\SpriteParticle.cpp" />
     <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIButton.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIButtonManager.cpp" />
@@ -102,7 +115,7 @@
     <ClCompile Include="Engine\Scene\Base\SplashScreenScene.cpp" />
     <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp" />
     <ClCompile Include="Engine\2D\Particle\MoveParticle.cpp" />
-    <ClCompile Include="Engine\2D\Particle\ParticleEmitter.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\ParticleEmitter.cpp" />
     <ClCompile Include="Engine\Game\SpaceShip.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIAnimationTimer.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIComponent.cpp" />
@@ -116,6 +129,19 @@
     <ClCompile Include="TitleUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterComponent.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterPosComp.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterScaleAnimation.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterSpdAnimation.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterSpdComp.h" />
+    <ClInclude Include="Engine\2D\Particle\ObjectParticle.h" />
+    <ClInclude Include="Engine\2D\Particle\Particle.h" />
+    <ClInclude Include="Engine\2D\Particle\ParticleComponent.h" />
+    <ClInclude Include="Engine\2D\Particle\ParticleResource.h" />
+    <ClInclude Include="Engine\2D\Particle\ParticleScaleAnimation.h" />
+    <ClInclude Include="Engine\2D\Particle\ParticleSpdAnimation.h" />
+    <ClInclude Include="Engine\2D\Particle\ParticleValue.h" />
+    <ClInclude Include="Engine\2D\Particle\SpriteParticle.h" />
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h" />
     <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIButton.h" />
@@ -218,7 +244,7 @@
     <ClInclude Include="Engine\2D\Particle\MoveParticle.h" />
     <ClInclude Include="Engine\Game\GameOverCamera.h" />
     <ClInclude Include="Engine\Game\GameOverUI.h" />
-    <ClInclude Include="Engine\2D\Particle\ParticleEmitter.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\ParticleEmitter.h" />
     <ClInclude Include="Engine\Game\SpaceShip.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIAnimationTimer.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIComponent.h" />
@@ -485,7 +511,7 @@
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\Particle\Emitter;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -513,7 +539,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <Optimization>MinSpace</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\Particle\Emitter;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>

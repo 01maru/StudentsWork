@@ -1,4 +1,4 @@
-﻿#include "MyMath.h"
+#include "MyMath.h"
 #include <cassert>
 #include <random>
 
@@ -102,6 +102,16 @@ float MyMath::GetRand(float min, float max)
 	std::mt19937_64 eng(rd());
 	std::uniform_real_distribution<float> distr(min, max);
 	return distr(eng);
+}
+
+Vector3D MyMath::GetRand(const Vector3D& minV, const Vector3D& maxV)
+{
+	Vector3D ans;
+	ans.x = GetRand(minV.x, maxV.x);
+	ans.y = GetRand(minV.y, maxV.y);
+	ans.z = GetRand(minV.z, maxV.z);
+
+	return ans;
 }
 
 bool MyMath::CollisionCircleLay(const Vector3D& startL, const Vector3D& endL, const Vector3D& pos, float rad)

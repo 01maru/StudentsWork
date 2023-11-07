@@ -1,31 +1,24 @@
 #pragma once
-#include "IParticle.h"
+#include "Particle.h"
+#include "ParticleEmitter.h"
 #include <forward_list>
 #include <memory>
+#include "GPipeline.h"
 
 /**
 * @file ParticleManager.h
 * @brief すべてのパーティクルをまとめて管理するファイル
 */
 
-class GPipeline;
-
 class ParticleManager
 {
-private:
-	//	ぺらポリゴンのパーティクルリスト
-	std::forward_list<std::unique_ptr<IParticle>> particles_;
-	//	ぺらポリゴンの描画に使用するパイプライン配列
-	std::vector<GPipeline*> pipelines_;
 private:
 	ParticleManager() {};
 	~ParticleManager() {};
 
 public:
 	static ParticleManager* GetInstance();
-	//	コピーコンストラクタ無効
 	ParticleManager(const ParticleManager& obj) = delete;
-	//	代入演算子無効
 	ParticleManager& operator=(const ParticleManager& obj) = delete;
 
 	/**
@@ -54,14 +47,26 @@ public:
 	*/
 	void Draw();
 
+private:
+	//	エミッターリスト
+	std::forward_list <std::unique_ptr<ParticleEmitter>> emitters_;
+	//	ぺらポリゴンのパーティクルリスト
+	std::forward_list<std::unique_ptr<Particle>> particles_;
+	//	ぺらポリゴンの描画に使用するパイプライン配列
+	std::vector<GPipeline*> pipelines_;
+
+	//	モデルを使ったパーティクルのリスト
+	std::forward_list<std::unique_ptr<Particle>> objParticles_;
+
+public:
 #pragma region ADD
 
 	/**
-	* @fn AddParticle(std::unique_ptr<IParticle>&)
+	* @fn AddParticle(const Particle&)
 	* パーティクル追加用関数
 	* @param particle 追加するパーティクルの情報
 	*/
-	void AddParticle(std::unique_ptr<IParticle>& particle);
+	void AddParticle(std::unique_ptr<Particle>& particle, bool isObj);
 
 #pragma endregion
 };

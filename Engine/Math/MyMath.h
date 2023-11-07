@@ -74,6 +74,8 @@ namespace MyMath {
 	*/
 	float GetRand(float min, float max);
 
+	Vector3D GetRand(const Vector3D& minV, const Vector3D& maxV);
+
 	bool CollisionCircleLay(const Vector3D& startL, const Vector3D& endL, const Vector3D& pos, float rad);
 
 	/**
