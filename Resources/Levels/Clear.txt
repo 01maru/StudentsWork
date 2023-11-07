@@ -1,0 +1,12 @@
+Timer 20
+
+S Text clear.png 640 360 354 82 0 0 354 82 0.5 0.5 0
+AnimeTimer 30 0
+FadeAnime 1.0 0.0
+EndData Clear
+
+S Back backUI.png 640 360 1317 120 10 10 1 1 0.5 0.5 0
+AnimeTimer 30 0
+FadeAnime 0.75 0.0
+EndData Back
+
