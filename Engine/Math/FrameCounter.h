@@ -125,6 +125,8 @@ public:
 
 	void SetMaxFrameCount(int32_t maxFrame) { maxFrameCount_ = maxFrame; }
 
+	void SetFrameCountIsMax() { frameCount_ = maxFrameCount_; }
+
 #pragma endregion
 };
 

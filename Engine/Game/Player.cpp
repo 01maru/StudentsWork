@@ -1,91 +1,30 @@
 #include "Player.h"
 #include "InputManager.h"
 #include "CameraManager.h"
-#include <cassert>
 #include "Quaternion.h"
+#include <cassert>
 
 #include "SphereCollider.h"
 #include "CollisionManager.h"
 #include "CollisionAttribute.h"
 #include "QueryCallBack.h"
-#include "InputJoypad.h"
 #include "XAudioManager.h"
 #include "ImGuiManager.h"
 #include "RayCast.h"
 
+#include "PlayerIdleState.h"
+
 using namespace CollAttribute;
 
-void Player::StaminaUpdate()
+void Player::StatusInitialize()
 {
-	if (staminaHealTimer_ > 0) {
-		staminaHealTimer_--;
-	}
-	else {
-		stamina_ = MyMath::mMin((float)MAX_STAMINA, stamina_ + STAMINA_HEAL);
-	}
-}
+	//	初期ステート
+	moveState_ = std::make_unique<PlayerIdleState>();
+	PlayerMoveState::SetPlayer(this);
 
-void Player::AvoidUpdate(InputManager* input)
-{
-	if (isAvoid_)		return;
-	if (stamina_ <= 0)	return;
-	if (!onGround_)		return;
-	if (!input->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) return;
-
-	if (input->GetTriggerKeyAndButton(DIK_LSHIFT, InputJoypad::B_Button)) {
-		isAvoid_ = true;
-		spd_ = INVINCIBLE_SPD;
-		avoidTimer_ = INVINCIBLE_TIME;
-
-		//	stamina
-		stamina_ = MyMath::mMax(stamina_ - AVOID_STAMINA, 0.0f);
-		staminaHealTimer_ = STAMINA_HEAL_TIME;
-		
-		//	playDashwav
-	}
-
-	if (avoidTimer_-- <= 0) { isAvoid_ = false; }
-}
-
-Vector3D Player::CalcMoveVec(InputKeyboard* keyboard, InputJoypad* pad, ICamera* camera)
-{
-	Vector3D moveVec;
-
-	if (isAvoid_) {
-		moveVec = Vector3D(modelFrontVec_.x, 0.0f, modelFrontVec_.y) * spd_;
-
-		return moveVec;
-	}
-
-	int32_t frontKey = keyboard->GetKey(DIK_W) - keyboard->GetKey(DIK_S);
-	int32_t sideKey = keyboard->GetKey(DIK_D) - keyboard->GetKey(DIK_A);
-
-	Vector2D inputVec = pad->GetThumbL().GetNormalize() + Vector2D(sideKey, frontKey);
-	moveVec = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
-	moveVec.y = 0;
-
-	spd_ = MAX_SPD;
-
-	return moveVec;
-}
-
-void Player::CalcFallSpd(InputManager* input)
-{
-	if (!onGround_) {
-		const float fallAcc = -0.01f;
-		const float fallVYMin = -0.5f;
-		fallVec_.y = MyMath::mMax(fallVec_.y + fallAcc, fallVYMin);
-	}
-	else if (input->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
-		onGround_ = false;
-		const float jumpVYFist = 0.2f;
-		fallVec_ = { 0.0f,jumpVYFist,0.0f };
-
-		//	stamina
-		stamina_ = MyMath::mMax(stamina_ - JUMP_STAMINA, 0.0f);
-		staminaHealTimer_ = STAMINA_HEAL_TIME;
-		//	playJumpwav
-	}
+	avoid_.SetMaxTime(avoidCoolTime_);
+	avoid_.Initialize();
+	hp_.Initialize();
 }
 
 void Player::Initialize(IModel* model)
@@ -96,54 +35,140 @@ void Player::Initialize(IModel* model)
 	SetCollider(new SphereCollider(Vector3D(0.0f, radius, 0.0f), radius));
 	collider_->SetAttribute(COLLISION_ATTR_ALLIES);
 
-	hp_ = MAX_HP;
-	stamina_ = (float)MAX_STAMINA;
+	StatusInitialize();
+}
+
+void Player::IsMovingUpdate()
+{
+	InputManager* input = InputManager::GetInstance();
+	InputKeyboard* keyboard = input->GetKeyboard();
+	int32_t frontKey = keyboard->GetKey(DIK_W) - keyboard->GetKey(DIK_S);
+	int32_t sideKey = keyboard->GetKey(DIK_D) - keyboard->GetKey(DIK_A);
+
+	InputJoypad* pad = input->GetPad();
+	Vector2D inputVec = pad->GetThumbL().GetNormalize() + Vector2D(sideKey, frontKey);
+
+	isMoving_ = inputVec.GetLength() != 0;
+
+	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+	moveVec_ = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
+	moveVec_.y = 0;
+
+	//	Running
+	if (input->GetTriggerKeyAndButton(DIK_LSHIFT, InputJoypad::B_Button)) {
+		isRunning_ = !isRunning_;
+	}
+}
+
+void Player::CalcModelFront()
+{
+	if (moveVec_.GetLength() != 0.0f) {
+		Vector3D axis(0, 0, -1);
+		Vector3D axis_(-1, 0, 0);
+		float dot = axis_.dot(moveVec_);
+		mat_.angle_.y = GetAngle(axis, moveVec_);
+		if (dot < 0) mat_.angle_.y = -mat_.angle_.y;
+	}
+}
+
+void Player::CoolTimeUpdate()
+{
+	avoid_.Update();
+}
+
+void Player::JumpUpdate()
+{
+	InputManager* input = InputManager::GetInstance();
+
+	if (onGround_ == true) {
+		if (input->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button)) {
+			onGround_ = false;
+			//	playerの状態に応じて変更予定
+			moveY_ = jumpFirstSpd_;
+
+			//	playJumpwav
+		}
+	}
+	else {
+		moveY_ = MyMath::mMax(moveY_ + fallAcc, fallVYMin);
+	}
 }
 
 void Player::Update()
 {
-	InputManager* input = InputManager::GetInstance();
-	InputKeyboard* keyboard = input->GetKeyboard();
-	InputJoypad* pad = input->GetPad();
-	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+	//	死亡判定
+	hp_.Update();
 
-	if (hp_ <= 0) isAlive_ = false;
+	//	死亡していたら
+	if (hp_.GetIsAlive() == false) return;
 
-	if (!isAlive_) return;
+	IsMovingUpdate();
 
-	StaminaUpdate();
+	//	modelの正面(走らなくする判定もここで)
+	CalcModelFront();
 
-	AvoidUpdate(input);
-	
-	Vector3D moveVec = CalcMoveVec(keyboard, pad, camera);
-	
-	CalcFallSpd(input);
+	CoolTimeUpdate();
+
+	//	ジャンプの判定
+	JumpUpdate();
+
+	moveState_->Update();
 
 	//	本移動
-	mat_.trans_ += moveVec * spd_ + fallVec_;
+	mat_.trans_ += moveVec_ * spd_ + Vector3D(0.0f, moveY_, 0.0f);
+
+	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	camera->SetTarget({ mat_.trans_.x,mat_.trans_.y + 1.0f,mat_.trans_.z });
 	camera->MatUpdate();
-
-	if (moveVec.GetLength() != 0.0f) {
-		Vector3D axis(0, 0, -1);
-		Vector3D axis_(-1, 0, 0);
-		float dot = axis_.dot(moveVec);
-		mat_.angle_.y = GetAngle(axis, moveVec);
-		if (dot < 0) mat_.angle_.y = -mat_.angle_.y;
-	}
 
 	ColliderUpdate();
 }
 
+void Player::ImGuiMenuUpdate()
+{
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
+	if (imgui->BeginMenuBar()) {
+		if (imgui->BeginMenu("File")) {
+			if (imgui->MenuItem("Save")) SavePlayerStatus();
+			imgui->EndMenu();
+		}
+		imgui->EndMenuBar();
+	}
+}
+
+void Player::SavePlayerStatus()
+{
+}
+
 void Player::ImGuiUpdate()
 {
-	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
-	imguiMan->BeginWindow("PlayerStatus", true);
+	imgui->BeginWindow("PlayerStatus", true);
 
-	imguiMan->Text("angle : %.2f", mat_.angle_.y);
+	ImGuiMenuUpdate();
 
-	imguiMan->EndWindow();
+	imgui->Text("angle : %.2f", mat_.angle_.y);
+
+	if (imgui->CollapsingHeader("HP")) {
+		//imgui->Text("Avoid : %s", avoid_.GetIsAvoiding() ? "TRUE" : "FALSE");
+	}
+	
+	if (imgui->CollapsingHeader("Avoid")) {
+		imgui->Text("Avoid : %s", avoid_.GetIsAvoiding() ? "TRUE" : "FALSE");
+		imgui->InputInt("AvoidTime", avoidTime_);
+		imgui->InputInt("AvoidCoolTime", avoidCoolTime_);
+	}
+
+	if(imgui->CollapsingHeader("Jump")) {
+		imgui->Text("OnGround : %s", onGround_ ? "TRUE" : "FALSE");
+		imgui->InputFloat("FallAcc", fallAcc);
+		imgui->InputFloat("FallVYMin", fallVYMin);
+		imgui->InputFloat("JumpFirstSpd", jumpFirstSpd_);
+	}
+
+	imgui->EndWindow();
 }
 
 void Player::CollisionUpdate()
@@ -207,10 +232,10 @@ void Player::CollisionUpdate()
 		}
 		else {
 			onGround_ = false;
-			fallVec_ = {};
+			moveY_ = 0.0f;
 		}
 	}
-	else if (fallVec_.y <= 0.0f) {
+	else if (moveY_ <= 0.0f) {
 		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &raycastHit,
 			sphereCollider->GetRadius() * 2.0f)) {
 			onGround_ = true;
@@ -224,7 +249,69 @@ void Player::CollisionUpdate()
 void Player::OnCollision(const CollisionInfo& info)
 {
 	(void)info;
-	//mat.trans.x -= camera->GetFrontVec().x;
-	//mat.trans.z -= camera->GetFrontVec().z;
 	MatUpdate();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+bool Player::GetOnGround()
+{
+	return onGround_;
+}
+
+float Player::GetWalkSpd()
+{
+	return walkSpd_;
+}
+
+float Player::GetRunSpd()
+{
+	return runSpd_;
+}
+
+float Player::GetJumpingSpdDec()
+{
+	return jumpingSpdDec_;
+}
+
+bool Player::GetIsRunning()
+{
+	return isRunning_;
+}
+
+bool Player::GetIsAvoid()
+{
+	return avoid_.GetIsAvoiding();
+}
+
+bool Player::GetIsMoving()
+{
+	return isMoving_;
+}
+
+int32_t Player::GetAvoidTime()
+{
+	return avoidTime_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void Player::SetMoveState(std::unique_ptr<PlayerMoveState>& moveState)
+{
+	moveState_ = std::move(moveState);
+	moveState_->Initialize();
+}
+
+void Player::SetSpd(float spd)
+{
+	spd_ = spd;
+}
+
+void Player::SetIsAvoid(bool isAvoid)
+{
+	avoid_.SetIsAvoiding(isAvoid);
 }

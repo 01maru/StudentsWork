@@ -11,6 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AvoidCoolTimer.cpp" />
+    <ClCompile Include="CharacterHP.cpp" />
+    <ClCompile Include="CoolTime.cpp" />
     <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIButton.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIButtonManager.cpp" />
@@ -112,10 +115,17 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIPosition.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIRotation.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UISprite.cpp" />
+    <ClCompile Include="PlayerAvoidState.cpp" />
+    <ClCompile Include="PlayerIdleState.cpp" />
+    <ClCompile Include="PlayerMoveState.cpp" />
+    <ClCompile Include="PlayerWalkState.cpp" />
     <ClCompile Include="SelectCursor.cpp" />
     <ClCompile Include="TitleUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AvoidCoolTimer.h" />
+    <ClInclude Include="CharacterHP.h" />
+    <ClInclude Include="CoolTime.h" />
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h" />
     <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIButton.h" />
@@ -228,6 +238,10 @@
     <ClInclude Include="Engine\2D\Sprite\UI\UIPosition.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIRotation.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UISprite.h" />
+    <ClInclude Include="PlayerAvoidState.h" />
+    <ClInclude Include="PlayerIdleState.h" />
+    <ClInclude Include="PlayerMoveState.h" />
+    <ClInclude Include="PlayerWalkState.h" />
     <ClInclude Include="SelectCursor.h" />
     <ClInclude Include="TitleUI.h" />
   </ItemGroup>

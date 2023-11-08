@@ -214,6 +214,21 @@
     <Filter Include="ヘッダー ファイル\Game\UI">
       <UniqueIdentifier>{408dec68-e845-43bb-b5ba-0923d81b029c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Player">
+      <UniqueIdentifier>{1036525c-b6f1-4d0c-b438-3856e792133a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player\MoveStatus">
+      <UniqueIdentifier>{124bdf16-5bec-4865-8459-b7fa9d5474f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player\AttackStatus">
+      <UniqueIdentifier>{d85786f5-bb0a-4054-b238-39b370ddf153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player">
+      <UniqueIdentifier>{0a47b83a-5341-4bf0-bf55-fcb8b85c6759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player\MoveStatus">
+      <UniqueIdentifier>{3b14ee0b-3ad4-4aff-80ab-b5720b6f22dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -423,9 +438,6 @@
     <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp">
       <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Player.cpp">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\Enemy.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
@@ -524,6 +536,30 @@
     </ClCompile>
     <ClCompile Include="SelectCursor.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Player.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAvoidState.cpp">
+      <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMoveState.cpp">
+      <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerWalkState.cpp">
+      <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="AvoidCoolTimer.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CoolTime.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterHP.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -761,9 +797,6 @@
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Player.h">
-      <Filter>ヘッダー ファイル\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Enemy.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
@@ -868,6 +901,30 @@
     </ClInclude>
     <ClInclude Include="SelectCursor.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Player.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CoolTime.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterHP.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AvoidCoolTimer.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWalkState.h">
+      <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMoveState.h">
+      <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAvoidState.h">
+      <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

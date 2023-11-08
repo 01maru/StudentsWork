@@ -122,7 +122,6 @@ void GameScene::Update()
 
 	if (select) {
 		InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
-		player_->SetIsAlive(false);
 		CameraManager* cameraMan = CameraManager::GetInstance();
 		std::unique_ptr<GameOverCamera> camera = std::make_unique<GameOverCamera>();
 		camera->Initialize(cameraMan->GetMainCamera()->GetEye()
