@@ -22,7 +22,10 @@ public:
 	
 	void CheckAllCollisions();
 	void AddCollider(std::unique_ptr<BaseCollider> collider) { colliders.push_front(std::move(collider)); }
-	void RemoveCollider(BaseCollider* collider) { colliders.remove(std::unique_ptr<BaseCollider>(collider)); }
+	void RemoveCollider() { colliders.remove_if([](std::unique_ptr<BaseCollider>& collider) {
+		return collider->GetDeleteFlag();
+		});
+	}
 
 	bool Raycast(const Ray& ray, RayCast* hitinfo = nullptr, float maxDistance = D3D12_FLOAT32_MAX);
 	bool Raycast(const Ray& ray, unsigned short attribute, RayCast* hitinfo = nullptr, float maxDistance = D3D12_FLOAT32_MAX);

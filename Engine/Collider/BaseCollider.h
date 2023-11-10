@@ -10,6 +10,8 @@ protected:
 	Object3D* object_ = nullptr;
 	CollisionShapeType shapeType_ = SHAPE_UNKNOWN;
 
+	bool deleteFlag_ = false;
+
 	uint16_t attribute = 0b1111111111111111;
 public:
 	friend class CollisionManager;
@@ -19,10 +21,12 @@ public:
 
 	virtual void Update() = 0;
 	inline void OnCollision(const CollisionInfo& info) { object_->OnCollision(info); }
+	void Finalize() { deleteFlag_ = true; }
 
 	//	Getter
 	inline Object3D* GetObject3D() { return object_; }
 	inline CollisionShapeType GetShapeType() { return shapeType_; }
+	bool GetDeleteFlag() { return deleteFlag_; }
 
 	//	Setter
 	inline void SetObject3D(Object3D* object) { object_ = object; }
