@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AvoidCoolTimer.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CharacterHP.cpp" />
     <ClCompile Include="CoolTime.cpp" />
     <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp" />
@@ -115,15 +116,19 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIPosition.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIRotation.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UISprite.cpp" />
+    <ClCompile Include="PlayerAttackState.cpp" />
     <ClCompile Include="PlayerAvoidState.cpp" />
     <ClCompile Include="PlayerIdleState.cpp" />
     <ClCompile Include="PlayerMoveState.cpp" />
+    <ClCompile Include="PlayerNoAttackState.cpp" />
+    <ClCompile Include="PlayerNormalBulletState.cpp" />
     <ClCompile Include="PlayerWalkState.cpp" />
     <ClCompile Include="SelectCursor.cpp" />
     <ClCompile Include="TitleUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AvoidCoolTimer.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="CharacterHP.h" />
     <ClInclude Include="CoolTime.h" />
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h" />
@@ -238,9 +243,12 @@
     <ClInclude Include="Engine\2D\Sprite\UI\UIPosition.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIRotation.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UISprite.h" />
+    <ClInclude Include="PlayerAttackState.h" />
     <ClInclude Include="PlayerAvoidState.h" />
     <ClInclude Include="PlayerIdleState.h" />
     <ClInclude Include="PlayerMoveState.h" />
+    <ClInclude Include="PlayerNoAttackState.h" />
+    <ClInclude Include="PlayerNormalBulletState.h" />
     <ClInclude Include="PlayerWalkState.h" />
     <ClInclude Include="SelectCursor.h" />
     <ClInclude Include="TitleUI.h" />

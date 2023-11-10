@@ -15,10 +15,10 @@ void PlayerWalkState::SpdUpdate()
 {
 	float spd;
 	if (sPlayer_->GetIsRunning() == true) {
-		spd = sPlayer_->GetWalkSpd();
+		spd = sPlayer_->GetRunSpd();
 	}
 	else {
-		spd = sPlayer_->GetRunSpd();
+		spd = sPlayer_->GetWalkSpd();
 	}
 
 	//	空中にいたら

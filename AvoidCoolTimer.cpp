@@ -1,11 +1,19 @@
 #include "AvoidCoolTimer.h"
 #include "InputManager.h"
+#include "ImGuiManager.h"
 
 void AvoidCoolTimer::Update()
 {
 	CoolTime::Update();
 
 	InputUpdate();
+}
+
+void AvoidCoolTimer::ImGuiUpdate()
+{
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
+	imgui->Text("AvoidCoolTimer : %d", coolTimer_.GetFrameCount() );
 }
 
 void AvoidCoolTimer::InputUpdate()

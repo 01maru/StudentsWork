@@ -185,6 +185,8 @@ void GameScene::Draw()
 	//level.Draw();
 
 	//sprite_->Draw();
+	player_->DrawUI();
+
 	pause_.Draw();
 
 	//DebugTextManager::GetInstance()->Draw();

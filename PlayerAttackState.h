@@ -2,12 +2,11 @@
 
 class Player;
 
-class PlayerMoveState
+class PlayerAttackState
 {
 public:
 	virtual void Initialize() {};
 	virtual void Update() {};
-	virtual void ImGuiUpdate() {};
 
 protected:
 	static Player* sPlayer_;
@@ -15,4 +14,3 @@ protected:
 public:
 	static void SetPlayer(Player* player);
 };
-

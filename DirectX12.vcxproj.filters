@@ -229,6 +229,9 @@
     <Filter Include="ヘッダー ファイル\Game\Player\MoveStatus">
       <UniqueIdentifier>{3b14ee0b-3ad4-4aff-80ab-b5720b6f22dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player\AttackState">
+      <UniqueIdentifier>{28915d08-df12-4821-a57b-6a9761b4b8f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -560,6 +563,18 @@
     </ClCompile>
     <ClCompile Include="CharacterHP.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttackState.cpp">
+      <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerNoAttackState.cpp">
+      <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerNormalBulletState.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -925,6 +940,18 @@
     </ClInclude>
     <ClInclude Include="PlayerAvoidState.h">
       <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackState.h">
+      <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNoAttackState.h">
+      <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNormalBulletState.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

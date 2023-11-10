@@ -5,7 +5,7 @@ class AvoidCoolTimer :public CoolTime
 {
 public:
 	void Update() override;
-
+	void ImGuiUpdate();
 private:
 	void InputUpdate();
 

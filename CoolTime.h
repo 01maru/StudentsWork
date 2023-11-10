@@ -14,6 +14,7 @@ protected:
 	FrameCounter coolTimer_;
 
 public:
+	bool GetIsActive();
 #pragma region Setter
 
 	void SetMaxTime(int32_t time);

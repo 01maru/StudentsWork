@@ -13,6 +13,10 @@
 #include "RayCast.h"
 
 #include "PlayerIdleState.h"
+#include "PlayerNoAttackState.h"
+
+#include "UIData.h"
+#include "UISprite.h"
 
 using namespace CollAttribute;
 
@@ -21,6 +25,8 @@ void Player::StatusInitialize()
 	//	初期ステート
 	moveState_ = std::make_unique<PlayerIdleState>();
 	PlayerMoveState::SetPlayer(this);
+	attackState_ = std::make_unique<PlayerNoAttackState>();
+	PlayerAttackState::SetPlayer(this);
 
 	avoid_.SetMaxTime(avoidCoolTime_);
 	avoid_.Initialize();
@@ -36,6 +42,12 @@ void Player::Initialize(IModel* model)
 	collider_->SetAttribute(COLLISION_ATTR_ALLIES);
 
 	StatusInitialize();
+
+	UIData ui;
+	ui.LoadData("PlayerUI");
+	UIObject* hpObj = ui.GetUIObject("HP");
+	UISprite* hpSprite = hpObj->GetComponent<UISprite>();
+	hp_.SetSprite(hpSprite->GetSprites()["hp"]);
 }
 
 void Player::IsMovingUpdate()
@@ -51,11 +63,13 @@ void Player::IsMovingUpdate()
 	isMoving_ = inputVec.GetLength() != 0;
 
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
-	moveVec_ = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
-	moveVec_.y = 0;
+	if (isMoving_ == true) {
+		moveVec_ = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
+		moveVec_.y = 0;
+	}
 
 	//	Running
-	if (input->GetTriggerKeyAndButton(DIK_LSHIFT, InputJoypad::B_Button)) {
+	if (input->GetTriggerKeyAndButton(DIK_LCONTROL, InputJoypad::B_Button)) {
 		isRunning_ = !isRunning_;
 	}
 }
@@ -117,6 +131,8 @@ void Player::Update()
 	//	本移動
 	mat_.trans_ += moveVec_ * spd_ + Vector3D(0.0f, moveY_, 0.0f);
 
+	attackState_->Update();
+
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	camera->SetTarget({ mat_.trans_.x,mat_.trans_.y + 1.0f,mat_.trans_.z });
 	camera->MatUpdate();
@@ -152,13 +168,31 @@ void Player::ImGuiUpdate()
 	imgui->Text("angle : %.2f", mat_.angle_.y);
 
 	if (imgui->CollapsingHeader("HP")) {
-		//imgui->Text("Avoid : %s", avoid_.GetIsAvoiding() ? "TRUE" : "FALSE");
+		imgui->Text("isAlive : %s", hp_.GetIsAlive() ? "TRUE" : "FALSE");
+		imgui->Text("HP : %d", hp_.GetHP());
+
+		int32_t maxHP = hp_.GetMaxHP();
+		imgui->InputInt("MaxHP", maxHP);
+		hp_.SetMaxHP(maxHP);
+	}
+
+	if (imgui->CollapsingHeader("Move")) {
+		imgui->Text("IsMoving : %s", isMoving_ ? "TRUE" : "FALSE");
+		imgui->Text("IsRunning : %s", isRunning_ ? "TRUE" : "FALSE");
+		imgui->Text("Spd : %.2f", spd_);
+
+		imgui->InputFloat("walkSpd", walkSpd_);
+		imgui->InputFloat("runSpd", runSpd_);
+		imgui->InputFloat("jumpingSpdDec", jumpingSpdDec_);
 	}
 	
 	if (imgui->CollapsingHeader("Avoid")) {
+		imgui->Text("AvoidIsActive : %s", avoid_.GetIsActive() ? "TRUE" : "FALSE");
 		imgui->Text("Avoid : %s", avoid_.GetIsAvoiding() ? "TRUE" : "FALSE");
-		imgui->InputInt("AvoidTime", avoidTime_);
+		imgui->InputInt("AvoidAccTime", avoidAccTime_);
+		imgui->InputInt("AvoidDecTime", avoidDecTime_);
 		imgui->InputInt("AvoidCoolTime", avoidCoolTime_);
+		avoid_.ImGuiUpdate();
 	}
 
 	if(imgui->CollapsingHeader("Jump")) {
@@ -166,6 +200,11 @@ void Player::ImGuiUpdate()
 		imgui->InputFloat("FallAcc", fallAcc);
 		imgui->InputFloat("FallVYMin", fallVYMin);
 		imgui->InputFloat("JumpFirstSpd", jumpFirstSpd_);
+		imgui->Text("MoveY : %.2f", moveY_);
+	}
+
+	if (imgui->CollapsingHeader("State")) {
+		moveState_->ImGuiUpdate();
 	}
 
 	imgui->EndWindow();
@@ -252,6 +291,11 @@ void Player::OnCollision(const CollisionInfo& info)
 	MatUpdate();
 }
 
+void Player::DrawUI()
+{
+	hp_.Draw();
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
@@ -291,9 +335,24 @@ bool Player::GetIsMoving()
 	return isMoving_;
 }
 
-int32_t Player::GetAvoidTime()
+int32_t Player::GetAvoidAccTime()
 {
-	return avoidTime_;
+	return avoidAccTime_;
+}
+
+int32_t Player::GetAvoidDecTime()
+{
+	return avoidDecTime_;
+}
+
+float Player::GetSpd()
+{
+	return spd_;
+}
+
+float Player::GetAvoidMaxSpd()
+{
+	return avoidMaxSpd_;
 }
 
 //-----------------------------------------------------------------------------
@@ -306,6 +365,12 @@ void Player::SetMoveState(std::unique_ptr<PlayerMoveState>& moveState)
 	moveState_->Initialize();
 }
 
+void Player::SetAttackState(std::unique_ptr<PlayerAttackState>& attackState)
+{
+	attackState_ = std::move(attackState);
+	attackState_->Initialize();
+}
+
 void Player::SetSpd(float spd)
 {
 	spd_ = spd;
@@ -314,4 +379,9 @@ void Player::SetSpd(float spd)
 void Player::SetIsAvoid(bool isAvoid)
 {
 	avoid_.SetIsAvoiding(isAvoid);
+}
+
+void Player::SetIsRunning(bool isRunning)
+{
+	isRunning_ = isRunning;
 }
