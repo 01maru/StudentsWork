@@ -17,5 +17,6 @@ public:
 	void SetMoveVec(const Vector3D& moveVec);
 	void SetSpd(float spd);
 	void SetLifeTime(int32_t time);
+	bool GetIsActive();
 };
 

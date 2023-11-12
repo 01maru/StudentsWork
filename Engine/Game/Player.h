@@ -6,6 +6,9 @@
 #include "AvoidCoolTimer.h"
 #include <memory>
 
+#include "Bullet.h"
+#include <list>
+
 class Player :public Object3D
 {
 private:
@@ -18,6 +21,9 @@ private:
 	bool onGround_ = true;
 	//	攻撃
 	std::unique_ptr<PlayerAttackState> attackState_;
+
+	std::list<std::unique_ptr<Bullet>> bullets_;
+	FrameCounter rate_;
 	
 	//	平面上のスピード
 	float spd_;
@@ -62,7 +68,10 @@ public:
 	void CollisionUpdate();
 	void OnCollision(const CollisionInfo& info) override;
 
+	void DrawBullets();
 	void DrawUI();
+
+	void AddBullet(std::unique_ptr<Bullet>& bullet);
 #pragma region Getter
 
 	bool GetOnGround();
@@ -76,6 +85,8 @@ public:
 	int32_t GetAvoidDecTime();
 	float GetSpd();
 	float GetAvoidMaxSpd();
+	Vector3D GetFrontVec();
+	bool GetRateCountIsActive();
 
 #pragma endregion
 
@@ -86,6 +97,8 @@ public:
 	void SetSpd(float spd);
 	void SetIsAvoid(bool isAvoid);
 	void SetIsRunning(bool isRunning);
+	void SetBulletRate(int32_t rate);
+	void StartRateCount();
 
 #pragma endregion
 };

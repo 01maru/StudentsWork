@@ -180,6 +180,7 @@ void GameScene::Draw()
 	ground_->Draw(drawShadow);
 	//cube_->Draw(drawShadow);
 	player_->Draw(drawShadow);
+	player_->DrawBullets();
 	//enemy_->Draw(drawShadow);
 
 	//level.Draw();

@@ -126,6 +126,15 @@ void Player::Update()
 	//	ジャンプの判定
 	JumpUpdate();
 
+	rate_.Update();
+	bullets_.remove_if([](std::unique_ptr<Bullet>& bullet) {
+		return bullet->GetIsActive() == false;
+		});
+	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
+	{
+		itr->get()->Update();
+	}
+
 	moveState_->Update();
 
 	//	本移動
@@ -166,6 +175,8 @@ void Player::ImGuiUpdate()
 	ImGuiMenuUpdate();
 
 	imgui->Text("angle : %.2f", mat_.angle_.y);
+	imgui->Text("bullet : %d", bullets_.size());
+	imgui->Text("bulletRate : %d", rate_.GetFrameCount());
 
 	if (imgui->CollapsingHeader("HP")) {
 		imgui->Text("isAlive : %s", hp_.GetIsAlive() ? "TRUE" : "FALSE");
@@ -291,9 +302,22 @@ void Player::OnCollision(const CollisionInfo& info)
 	MatUpdate();
 }
 
+void Player::DrawBullets()
+{
+	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
+	{
+		itr->get()->Draw(false);
+	}
+}
+
 void Player::DrawUI()
 {
 	hp_.Draw();
+}
+
+void Player::AddBullet(std::unique_ptr<Bullet>& bullet)
+{
+	bullets_.push_back(std::move(bullet));
 }
 
 //-----------------------------------------------------------------------------
@@ -355,6 +379,17 @@ float Player::GetAvoidMaxSpd()
 	return avoidMaxSpd_;
 }
 
+Vector3D Player::GetFrontVec()
+{
+
+	return CameraManager::GetInstance()->GetCamera()->GetFrontVec();
+}
+
+bool Player::GetRateCountIsActive()
+{
+	return rate_.GetIsActive();
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
@@ -384,4 +419,14 @@ void Player::SetIsAvoid(bool isAvoid)
 void Player::SetIsRunning(bool isRunning)
 {
 	isRunning_ = isRunning;
+}
+
+void Player::SetBulletRate(int32_t rate)
+{
+	rate_.SetMaxFrameCount(rate);
+}
+
+void Player::StartRateCount()
+{
+	rate_.StartCount();
 }

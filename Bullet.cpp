@@ -11,6 +11,8 @@ void Bullet::Update()
 	lifeTime_.Update();
 
 	mat_.trans_ += moveVec_ * spd_;
+
+	MatUpdate();
 }
 
 void Bullet::SetMoveVec(const Vector3D& moveVec)
@@ -26,4 +28,9 @@ void Bullet::SetSpd(float spd)
 void Bullet::SetLifeTime(int32_t time)
 {
 	lifeTime_.SetMaxFrameCount(time);
+}
+
+bool Bullet::GetIsActive()
+{
+	return lifeTime_.GetIsActive();
 }
