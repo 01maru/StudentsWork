@@ -232,6 +232,36 @@
     <Filter Include="ヘッダー ファイル\Game\Particle">
       <UniqueIdentifier>{13d09f46-8654-4c4c-9405-73f6447b6bd8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Player">
+      <UniqueIdentifier>{1036525c-b6f1-4d0c-b438-3856e792133a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player\MoveStatus">
+      <UniqueIdentifier>{124bdf16-5bec-4865-8459-b7fa9d5474f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player\AttackStatus">
+      <UniqueIdentifier>{d85786f5-bb0a-4054-b238-39b370ddf153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player">
+      <UniqueIdentifier>{0a47b83a-5341-4bf0-bf55-fcb8b85c6759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player\MoveStatus">
+      <UniqueIdentifier>{3b14ee0b-3ad4-4aff-80ab-b5720b6f22dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player\AttackState">
+      <UniqueIdentifier>{28915d08-df12-4821-a57b-6a9761b4b8f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Enemy">
+      <UniqueIdentifier>{45b95463-fb26-497f-ab20-53267f0a2eaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Enemy">
+      <UniqueIdentifier>{e53a36a1-e4e9-4c34-b07e-492bb3b16d2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Enemy\State">
+      <UniqueIdentifier>{6c08f7ec-d875-4f92-9460-fcda75b23015}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Enemy\State">
+      <UniqueIdentifier>{c2597db6-511b-4c69-a060-f1c1257fff80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -441,9 +471,6 @@
     <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp">
       <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Player.cpp">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\Enemy.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
@@ -578,6 +605,57 @@
     </ClCompile>
     <ClCompile Include="TitleUI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Player.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAvoidState.cpp">
+      <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMoveState.cpp">
+      <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerWalkState.cpp">
+      <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="AvoidCoolTimer.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CoolTime.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterHP.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttackState.cpp">
+      <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerNoAttackState.cpp">
+      <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerNormalBulletState.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaneCollider.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyState.cpp">
+      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossIdleState.cpp">
+      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDeathState.cpp">
+      <Filter>ソース ファイル\Game\Enemy\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -815,9 +893,6 @@
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Player.h">
-      <Filter>ヘッダー ファイル\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Enemy.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
@@ -958,6 +1033,57 @@
     </ClInclude>
     <ClInclude Include="FireParticleEmitter.h">
       <Filter>ヘッダー ファイル\Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Player.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CoolTime.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterHP.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AvoidCoolTimer.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWalkState.h">
+      <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMoveState.h">
+      <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAvoidState.h">
+      <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackState.h">
+      <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNoAttackState.h">
+      <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNormalBulletState.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneCollider.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BossDeathState.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="BossIdleState.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyState.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

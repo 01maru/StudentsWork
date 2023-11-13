@@ -78,7 +78,7 @@ public:
 	void DrawSilhouette();
 	void DrawDissolve(bool drawShadow);
 
-	virtual void OnCollision(const CollisionInfo& info) { (void)info; }
+	virtual void OnCollision(CollisionInfo& info) { (void)info; }
 
 	void SetAnimatonTimer(float timer) { animationTimer_ = timer; }
 	float GetAnimationTimer() const { return animationTimer_; }

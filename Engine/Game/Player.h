@@ -1,56 +1,108 @@
 #pragma once
 #include "Object3D.h"
+#include "PlayerMoveState.h"
+#include "PlayerAttackState.h"
+#include "CharacterHP.h"
+#include "AvoidCoolTimer.h"
+#include <memory>
 
-class InputManager;
-class InputKeyboard;
-class InputJoypad;
+#include "Bullet.h"
+#include <list>
+#include "Sprite.h"
 
 class Player :public Object3D
 {
 private:
-	//	spd
-	float spd_;
-	const float MAX_SPD = 0.1f;
+	CharacterHP hp_;
 
-	//	jump
+	//	state
+	std::unique_ptr<PlayerMoveState> moveState_;
+	bool isRunning_ = false;
+	bool isMoving_ = false;
 	bool onGround_ = true;
-	Vector3D fallVec_;
+	//	攻撃
+	std::unique_ptr<PlayerAttackState> attackState_;
 
-	//	status(調整しやすいように後々変更)
-	bool isAlive_ = true;
-	int32_t hp_;
-	const int32_t MAX_HP = 100;
-	float stamina_;
-	int32_t staminaHealTimer_ = 0;
-	const int MAX_STAMINA = 100;
-	const int STAMINA_HEAL_TIME = 150;
-	const int JUMP_STAMINA = 10;
-	const int AVOID_STAMINA = 20;
-	const float STAMINA_HEAL = 0.5f;
+	std::list<std::unique_ptr<Bullet>> bullets_;
+	FrameCounter rate_;
 
-	//	回避
-	Vector2D modelFrontVec_;
-	bool isAvoid_ = false;
-	int32_t avoidTimer_ = 0;
-	const int32_t INVINCIBLE_TIME = 40;
-	const float INVINCIBLE_SPD = 0.15f;
+	Sprite crossHair_;
+	
+	//	平面上のスピード
+	float spd_;
+	//	平面上の移動方向
+	Vector3D moveVec_;
+	//	１フレームでの上下の移動量(上が+)
+	float moveY_;
+
+	Vector3D modelFront_;
+
+	//	cooltimer
+	AvoidCoolTimer avoid_;
+
+	//	Load&Save
+	float walkSpd_ = 0.15f;
+	float runSpd_ = 0.2f;
+	float jumpingSpdDec_ = 0.75f;
+	int32_t avoidDecTime_ = 70;
+	int32_t avoidAccTime_ = 50;
+	int32_t avoidCoolTime_ = 240;
+
+	float fallAcc = -0.01f;
+	float fallVYMin = -0.5f;
+	float jumpFirstSpd_ = 0.2f;
+
+	float avoidMaxSpd_ = 0.3f;
 
 private:
-	void StaminaUpdate();
-	void AvoidUpdate(InputManager* input);
-	Vector3D CalcMoveVec(InputKeyboard* keyboard, InputJoypad* pad, ICamera* camera);
-	void CalcFallSpd(InputManager* input);
+	void StatusInitialize();
+	void IsMovingUpdate();
+	void CalcModelFront();
+	void CoolTimeUpdate();
+	void JumpUpdate();
+
+	void ImGuiMenuUpdate();
+
+	void SavePlayerStatus();
 public:
 	void Initialize(IModel* model_);
 	void Update();
 	void ImGuiUpdate();
 	void CollisionUpdate();
-	void OnCollision(const CollisionInfo& info) override;
+	void OnCollision(CollisionInfo& info) override;
 
-	//	Getter
-	int32_t GetHP() { return hp_; }
-	float GetStamina() { return stamina_; }
+	void DrawBullets();
+	void DrawUI();
 
-	void SetIsAlive(bool isAlive) { isAlive_ = isAlive; }
+	void AddBullet(std::unique_ptr<Bullet>& bullet);
+#pragma region Getter
+
+	bool GetOnGround();
+	float GetWalkSpd();
+	float GetRunSpd();
+	float GetJumpingSpdDec();
+	bool GetIsRunning();
+	bool GetIsAvoid();
+	bool GetIsMoving();
+	int32_t GetAvoidAccTime();
+	int32_t GetAvoidDecTime();
+	float GetSpd();
+	float GetAvoidMaxSpd();
+	Vector3D GetFrontVec();
+	bool GetRateCountIsActive();
+
+#pragma endregion
+
+#pragma region Setter
+
+	void SetMoveState(std::unique_ptr<PlayerMoveState>& moveState);
+	void SetAttackState(std::unique_ptr<PlayerAttackState>& attackState);
+	void SetSpd(float spd);
+	void SetIsAvoid(bool isAvoid);
+	void SetIsRunning(bool isRunning);
+	void SetBulletRate(int32_t rate);
+	void StartRateCount();
+
+#pragma endregion
 };
 

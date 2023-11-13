@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Vector3D.h"
 
 struct Sphere {
@@ -7,7 +7,7 @@ struct Sphere {
 };
 
 struct Plane {
-	Vector3D normal = { 0.0f,1.0f,0.0f };
+	Vector3D normal_ = { 0.0f,1.0f,0.0f };
 	float distance = 0.0f;
 };
 

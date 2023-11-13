@@ -12,6 +12,7 @@
 #include "CollisionManager.h"
 #include "CollisionAttribute.h"
 #include "MeshCollider.h"
+#include "PlaneCollider.h"
 
 #include "InputManager.h"
 #include "CameraManager.h"
@@ -32,36 +33,31 @@ void GameScene::LoadResources()
 	models->LoadModel("ground");
 	models->LoadModel("objCube");
 	models->LoadModel("chr_sword");
+	models->LoadModel("bullet");
+	models->LoadModel("eye");
 	models->LoadModel("human", true);
 	models->LoadModel();
 #pragma endregion
-	//	天球
-	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
 	//	地面
 	ground_.reset(Object3D::Create(models->GetModel("ground")));
-	MeshCollider* collider_ = new MeshCollider;
-	collider_->ConstructTriangles(ground_->GetModel());
-	collider_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
-	ground_->SetCollider(collider_);
+	PlaneCollider* coll_ = new PlaneCollider({ 0.0f,1.0f,0.0f });
+	coll_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
+	ground_->SetCollider(coll_);
+	//	天球
+	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
+	//collider_ = new MeshCollider;
+	//collider_->ConstructTriangles(skydome_->GetModel());
+	//collider_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
+	//skydome_->SetCollider(collider_);
 	//	player
 	player_ = std::make_unique<Player>();
 	player_->Initialize(models->GetModel(""));
 	//	enemy
-	enemy_ = std::make_unique<Enemy>();
-	enemy_->Initialize(models->GetModel());
+	enemy_ = std::make_unique<Boss>();
+	enemy_->Initialize(models->GetModel("eye"));
 	//	Cube
 	cube_.reset(Object3D::Create(models->GetModel()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
-#pragma region Texture
-	reimuG = TextureManager::GetInstance()->AsyncLoadTextureGraph("reimu.png");
-	grassG = TextureManager::GetInstance()->AsyncLoadTextureGraph("grass.png");
-#pragma endregion
-
-#pragma region Sprite
-	sprite_ = std::make_unique<Sprite>();
-	sprite_->SetSize(Vector2D(200.0f, 200.0f));
-	sprite_->Initialize(reimuG);
-#pragma endregion
 
 #pragma region Sound
 	XAudioManager::GetInstance()->LoadSoundWave("gameBGM.wav");
@@ -76,7 +72,9 @@ void GameScene::Initialize()
 
 	level.LoadJSON("gamescene");
 
-	player_->SetPosition(level.GetPlayerSpownPoint().pos);
+	Vector3D pos = level.GetPlayerSpownPoint().pos;
+	pos.y = 1.0f;
+	player_->SetPosition(pos);
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
 
 	std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
@@ -110,7 +108,6 @@ void GameScene::MatUpdate()
 	cube_->MatUpdate();
 	player_->MatUpdate();
 	enemy_->MatUpdate();
-	//player_->PlayAnimation();
 
 	level.MatUpdate();
 }
@@ -122,7 +119,6 @@ void GameScene::Update()
 
 	if (select) {
 		InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
-		player_->SetIsAlive(false);
 		CameraManager* cameraMan = CameraManager::GetInstance();
 		std::unique_ptr<GameOverCamera> camera = std::make_unique<GameOverCamera>();
 		camera->Initialize(cameraMan->GetMainCamera()->GetEye()
@@ -131,15 +127,15 @@ void GameScene::Update()
 		cameraMan->SetMainCamera(std::move(camera));
 	}
 
-	//ParticleManager::GetInstance()->AddMoveParticle({ MyMath::GetRand(-1.0f,1.0f),0.0f,MyMath::GetRand(-1.0f,1.0f) }, { 0.0f,1.0f,0.0f }, 60);
-
 	pause_.Update();
 
-	sprite_->Update();
-	ParticleManager::GetInstance()->Update();
+	if (pause_.GetIsActive() == false)
+	{
+		ParticleManager::GetInstance()->Update();
 
-	player_->Update();
-	enemy_->Update();
+		player_->Update();
+		enemy_->Update();
+	}
 
 	//DebugTextManager::GetInstance()->Print("test", { 0,Window::sWIN_HEIGHT/2.0f }, 5);
 #pragma endregion
@@ -169,7 +165,6 @@ void GameScene::ImguiUpdate()
 
 void GameScene::DrawShadow()
 {
-	//cube_->DrawShadow();
 }
 
 void GameScene::Draw()
@@ -179,13 +174,15 @@ void GameScene::Draw()
 	skydome_->Draw(drawShadow);
 	//	地面
 	ground_->Draw(drawShadow);
-	//cube_->Draw(drawShadow);
 	player_->Draw(drawShadow);
-	//enemy_->Draw(drawShadow);
+	player_->DrawBullets();
+	enemy_->Draw(drawShadow);
 
 	//level.Draw();
 
-	//sprite_->Draw();
+	enemy_->DrawUI();
+	player_->DrawUI();
+
 	pause_.Draw();
 
 	//DebugTextManager::GetInstance()->Draw();

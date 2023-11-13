@@ -6,7 +6,7 @@
 #include "ICamera.h"
 #include "Texture.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "Boss.h"
 
 #include "JSONLoader.h"
 #include "PauseScreen.h"
@@ -27,19 +27,8 @@ private:
 	std::unique_ptr<Object3D> ground_;
 	std::unique_ptr<Object3D> cube_;
 	std::unique_ptr<Player> player_;
-	std::unique_ptr<Enemy> enemy_;
+	std::unique_ptr<Boss> enemy_;
 
-#pragma endregion
-
-#pragma region Sprite
-
-	std::unique_ptr<Sprite> sprite_;
-
-#pragma endregion
-	
-#pragma region Texture
-	Texture* reimuG;
-	Texture* grassG;
 #pragma endregion
 
 private:	//	関数

@@ -18,5 +18,6 @@ public:
 		this->collider = collider;
 		this->inter = inter;
 	}
+	BaseCollider* GetCollider() { return collider; }
 };
 

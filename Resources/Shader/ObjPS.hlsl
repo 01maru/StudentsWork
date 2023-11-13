@@ -30,7 +30,7 @@ PSOutput main(VSOutput input)
 	if (distanceFog.active) {
 		float4 fogColor = float4(distanceFog.fogColor, 1.0f);		//フォグカラー
 		const float linerDepth = 1.0 / (distanceFog.fogFar - distanceFog.fogNear);
-		float linerPos = length(cameraPos - input.worldpos.xyz) * linerDepth;
+		float linerPos = length(float3(0.0,0.0,0.0) - input.worldpos.xyz) * linerDepth;
 		float fogFactor = saturate((distanceFog.fogEnd - linerPos) / (distanceFog.fogEnd - distanceFog.fogStart));
 
 		output.target0 = lerp(fogColor, shadercolor * texcolor, fogFactor);

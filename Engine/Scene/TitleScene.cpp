@@ -34,9 +34,9 @@ void TitleScene::LoadResources()
 	//	ステージ読み込み
 	level_ = std::make_unique<JSONLoader>();
 	level_->LoadJSON("Title");
-	//level_->LoadJSON("test");
 	//	天球
 	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
+	skydome_->SetColor({0,0,0});
 	//	地面
 	ground_.reset(Object3D::Create(models->GetModel("ground")));
 
@@ -54,9 +54,8 @@ void TitleScene::LoadResources()
 
 void TitleScene::Initialize()
 {
-	SceneManager::GetInstance()->ChangeScreenAlpha(0.0f);
 	//	Fog
-	LightManager::GetInstance()->SetFogActive(true);
+	//LightManager::GetInstance()->SetFogActive(true);
 	LightManager::GetInstance()->SetFogStart(0.55f);
 	LightManager::GetInstance()->SetFogEnd(2.5f);
 	LightManager::GetInstance()->SetFogFar(40.0f);
@@ -72,6 +71,8 @@ void TitleScene::Initialize()
 	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
 	//	LightCamera
 	CameraManager::GetInstance()->GetLightCamera()->SetEye(Vector3D(78.0f, 50.0f, -30.0f));
+
+	SceneManager::GetInstance()->ChangeScreenAlpha(0.0f);
 }
 
 void TitleScene::Finalize()
