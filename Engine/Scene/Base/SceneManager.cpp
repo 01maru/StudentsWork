@@ -335,14 +335,14 @@ void SceneManager::Draw()
 
 	dx->PostEffectDraw(mainScene.get());
 
-	Vector4D luminnceClearColor_(0.0f, 0.0f, 0.0f, 1.0f);
-	dx->PrevPostEffect(luminnce.get(), luminnceClearColor_);
+	//Vector4D luminnceClearColor_(0.0f, 0.0f, 0.0f, 1.0f);
+	//dx->PrevPostEffect(luminnce.get(), luminnceClearColor_);
 
-	mainScene->DrawLuminnce();
+	//mainScene->DrawLuminnce();
 
-	dx->PostEffectDraw(luminnce.get());
+	//dx->PostEffectDraw(luminnce.get());
 
-	luminnceBulr->Draw();
+	//luminnceBulr->Draw();
 
 	dx->PrevPostEffect(glayscale.get());
 

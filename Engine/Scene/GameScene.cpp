@@ -12,6 +12,7 @@
 #include "CollisionManager.h"
 #include "CollisionAttribute.h"
 #include "MeshCollider.h"
+#include "PlaneCollider.h"
 
 #include "InputManager.h"
 #include "CameraManager.h"
@@ -32,17 +33,25 @@ void GameScene::LoadResources()
 	models->LoadModel("ground");
 	models->LoadModel("objCube");
 	models->LoadModel("chr_sword");
+	models->LoadModel("bullet");
 	models->LoadModel("human", true);
 	models->LoadModel();
 #pragma endregion
-	//	天球
-	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
 	//	地面
 	ground_.reset(Object3D::Create(models->GetModel("ground")));
-	MeshCollider* collider_ = new MeshCollider;
-	collider_->ConstructTriangles(ground_->GetModel());
-	collider_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
-	ground_->SetCollider(collider_);
+	//MeshCollider* collider_ = new MeshCollider;
+	//collider_->ConstructTriangles(ground_->GetModel());
+	//collider_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
+	//ground_->SetCollider(collider_);
+	PlaneCollider* coll_ = new PlaneCollider({ 0.0f,1.0f,0.0f });
+	coll_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
+	ground_->SetCollider(coll_);
+	//	天球
+	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
+	//collider_ = new MeshCollider;
+	//collider_->ConstructTriangles(skydome_->GetModel());
+	//collider_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
+	//skydome_->SetCollider(collider_);
 	//	player
 	player_ = std::make_unique<Player>();
 	player_->Initialize(models->GetModel(""));
@@ -76,7 +85,9 @@ void GameScene::Initialize()
 
 	level.LoadJSON("gamescene");
 
-	player_->SetPosition(level.GetPlayerSpownPoint().pos);
+	Vector3D pos = level.GetPlayerSpownPoint().pos;
+	pos.y = 1.0f;
+	player_->SetPosition(pos);
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
 
 	std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();

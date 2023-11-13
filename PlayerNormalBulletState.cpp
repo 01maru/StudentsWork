@@ -28,7 +28,7 @@ void PlayerNormalBulletState::Update()
 		bullet->SetLifeTime(600);
 		bullet->SetSpd(1.0f);
 		bullet->SetMoveVec(sPlayer_->GetFrontVec());
-		bullet->SetModel(ModelManager::GetInstance()->GetModel(""));
+		bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
 		bullet->SetPosition(sPlayer_->GetPosition());
 		sPlayer_->AddBullet(bullet);
 	}

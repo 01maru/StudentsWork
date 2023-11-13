@@ -8,6 +8,7 @@
 
 #include "Bullet.h"
 #include <list>
+#include "Sprite.h"
 
 class Player :public Object3D
 {
@@ -24,6 +25,8 @@ private:
 
 	std::list<std::unique_ptr<Bullet>> bullets_;
 	FrameCounter rate_;
+
+	Sprite crossHair_;
 	
 	//	平面上のスピード
 	float spd_;
@@ -66,7 +69,7 @@ public:
 	void Update();
 	void ImGuiUpdate();
 	void CollisionUpdate();
-	void OnCollision(const CollisionInfo& info) override;
+	void OnCollision(CollisionInfo& info) override;
 
 	void DrawBullets();
 	void DrawUI();

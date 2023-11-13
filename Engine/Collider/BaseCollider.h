@@ -20,13 +20,14 @@ public:
 	virtual ~BaseCollider() = default;
 
 	virtual void Update() = 0;
-	inline void OnCollision(const CollisionInfo& info) { object_->OnCollision(info); }
+	inline void OnCollision(CollisionInfo& info) { object_->OnCollision(info); }
 	void Finalize() { deleteFlag_ = true; }
 
 	//	Getter
 	inline Object3D* GetObject3D() { return object_; }
 	inline CollisionShapeType GetShapeType() { return shapeType_; }
 	bool GetDeleteFlag() { return deleteFlag_; }
+	uint16_t GetAttribute() { return attribute; }
 
 	//	Setter
 	inline void SetObject3D(Object3D* object) { object_ = object; }

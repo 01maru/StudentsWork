@@ -37,8 +37,8 @@ void Player::Initialize(IModel* model)
 {
 	Object3D::Initialize();
 	SetModel(model);
-	float radius = 0.6f;
-	SetCollider(new SphereCollider(Vector3D(0.0f, radius, 0.0f), radius));
+	float radius = 0.5f;
+	SetCollider(new SphereCollider(Vector3D(0.0f, 0.0f, 0.0f), radius));
 	collider_->SetAttribute(COLLISION_ATTR_ALLIES);
 
 	StatusInitialize();
@@ -48,6 +48,10 @@ void Player::Initialize(IModel* model)
 	UIObject* hpObj = ui.GetUIObject("HP");
 	UISprite* hpSprite = hpObj->GetComponent<UISprite>();
 	hp_.SetSprite(hpSprite->GetSprites()["hp"]);
+
+	UIObject* crossHairObj = ui.GetUIObject("crossHair");
+	UISprite* crossHairSprite = crossHairObj->GetComponent<UISprite>();
+	crossHair_ = crossHairSprite->GetSprites()["crossHair"];
 }
 
 void Player::IsMovingUpdate()
@@ -126,6 +130,13 @@ void Player::Update()
 	//	ジャンプの判定
 	JumpUpdate();
 
+	moveState_->Update();
+
+	//	本移動
+	mat_.trans_ += moveVec_ * spd_ + Vector3D(0.0f, moveY_, 0.0f);
+
+	attackState_->Update();
+
 	rate_.Update();
 	bullets_.remove_if([](std::unique_ptr<Bullet>& bullet) {
 		return bullet->GetIsActive() == false;
@@ -135,12 +146,7 @@ void Player::Update()
 		itr->get()->Update();
 	}
 
-	moveState_->Update();
-
-	//	本移動
-	mat_.trans_ += moveVec_ * spd_ + Vector3D(0.0f, moveY_, 0.0f);
-
-	attackState_->Update();
+	crossHair_.Update();
 
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	camera->SetTarget({ mat_.trans_.x,mat_.trans_.y + 1.0f,mat_.trans_.z });
@@ -296,9 +302,12 @@ void Player::CollisionUpdate()
 	}
 }
 
-void Player::OnCollision(const CollisionInfo& info)
+void Player::OnCollision(CollisionInfo& info)
 {
 	(void)info;
+	//if (info.GetCollider()->GetShapeType() == CollisionShapeType::) {
+
+	//}
 	MatUpdate();
 }
 
@@ -312,6 +321,7 @@ void Player::DrawBullets()
 
 void Player::DrawUI()
 {
+	crossHair_.Draw();
 	hp_.Draw();
 }
 

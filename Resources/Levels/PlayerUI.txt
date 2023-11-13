@@ -1,3 +1,6 @@
 S hp hpBar.png 60 660 325 40 0 0 1 40 0 0.5 0
 EndData HP
 
+S crossHair crossHair.png 640 360 100 100 0 0 64 64 0.5 0.5 0
+EndData crossHair
+

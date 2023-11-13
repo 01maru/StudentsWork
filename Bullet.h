@@ -12,11 +12,13 @@ private:
 	Vector3D moveVec_;
 	float spd_;
 	FrameCounter lifeTime_;
+	float radius_ = 0.2f;
 
 public:
 	void SetMoveVec(const Vector3D& moveVec);
 	void SetSpd(float spd);
 	void SetLifeTime(int32_t time);
 	bool GetIsActive();
+	void OnCollision(CollisionInfo& info) override;
 };
 

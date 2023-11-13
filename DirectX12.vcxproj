@@ -116,6 +116,7 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIPosition.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIRotation.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UISprite.cpp" />
+    <ClCompile Include="PlaneCollider.cpp" />
     <ClCompile Include="PlayerAttackState.cpp" />
     <ClCompile Include="PlayerAvoidState.cpp" />
     <ClCompile Include="PlayerIdleState.cpp" />
@@ -243,6 +244,7 @@
     <ClInclude Include="Engine\2D\Sprite\UI\UIPosition.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIRotation.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UISprite.h" />
+    <ClInclude Include="PlaneCollider.h" />
     <ClInclude Include="PlayerAttackState.h" />
     <ClInclude Include="PlayerAvoidState.h" />
     <ClInclude Include="PlayerIdleState.h" />

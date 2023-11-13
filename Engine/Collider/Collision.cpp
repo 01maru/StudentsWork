@@ -118,12 +118,12 @@ bool Collision::CheckSphere2Sphere(const Sphere& sphereA, const Sphere& sphereB,
 bool Collision::CheckSphere2Plane(const Sphere& sphere, const Plane& plane, Vector3D* inter)
 {
     Vector3D distV = sphere.center_;
-    float dist = distV.dot(plane.normal) - plane.distance;
+    float dist = distV.dot(plane.normal_) - plane.distance;
 
     if (fabsf(dist) > sphere.radius_) return false;
 
     if (inter) {
-        *inter = -dist * plane.normal;
+        *inter = -dist * plane.normal_;
         *inter += sphere.center_;
     }
 
@@ -151,7 +151,7 @@ bool Collision::CheckSphere2Triangle(const Sphere& sphere, const Triangle& trian
 bool Collision::CheckRay2Plane(const Ray& ray, const Plane& plane, float* distance, Vector3D* inter)
 {
     const float epsilon = 1.0e-5f;
-    Vector3D vec = plane.normal;
+    Vector3D vec = plane.normal_;
     float d1 = vec.dot(ray.dir);
     if (d1 > -epsilon) return false;
 
@@ -193,7 +193,7 @@ bool Collision::CheckRay2Triangle(const Ray& ray, const Triangle& triangle, floa
 {
 	Plane plane;
 	Vector3D interPlane;
-	plane.normal = triangle.normal;
+	plane.normal_ = triangle.normal;
 	plane.distance = triangle.normal.dot(triangle.p0);
 
 	if (!CheckRay2Plane(ray, plane, distance, &interPlane)) return false;
