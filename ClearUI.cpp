@@ -10,7 +10,7 @@ void ClearUI::Initialize()
 void ClearUI::Update()
 {
 	if (isActive_ == false) return;
-	bool select = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_BACKSPACE, InputJoypad::A_Button);
+	bool select = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
 
 	if (select)
 	{
@@ -21,7 +21,7 @@ void ClearUI::Update()
 		//}
 
 		//if (data_.GetSelectName() == "Quit") {
-			//SceneManager::GetInstance()->SetNextScene("TITLESCENE");
+			SceneManager::GetInstance()->SetNextScene("TITLESCENE");
 		//}
 	}
 
@@ -36,6 +36,8 @@ void ClearUI::Draw()
 
 void ClearUI::Start()
 {
-	isActive_ = true;
-	data_.Initialize();
+	if (isActive_ == false) {
+		isActive_ = true;
+		data_.Initialize();
+	}
 }

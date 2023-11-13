@@ -12,6 +12,7 @@
 #include "PauseScreen.h"
 
 #include "FrameCounter.h"
+#include "ClearUI.h"
 
 class GameScene :public IScene
 {
@@ -20,6 +21,8 @@ private:
 	JSONLoader level;
 
 	PauseScreen pause_;
+
+	ClearUI clear_;
 
 #pragma region Obj3D
 

@@ -59,6 +59,8 @@ void GameScene::LoadResources()
 	cube_.reset(Object3D::Create(models->GetModel()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
 
+	clear_.Initialize();
+
 #pragma region Sound
 	XAudioManager::GetInstance()->LoadSoundWave("gameBGM.wav");
 #pragma endregion
@@ -115,16 +117,19 @@ void GameScene::MatUpdate()
 void GameScene::Update()
 {
 #pragma region 更新処理
-	bool select = InputManager::GetInstance()->GetKeyAndButton(DIK_RETURN, InputJoypad::START_Button);
+	//bool select = InputManager::GetInstance()->GetKeyAndButton(DIK_RETURN, InputJoypad::START_Button);
 
-	if (select) {
-		InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
-		CameraManager* cameraMan = CameraManager::GetInstance();
-		std::unique_ptr<GameOverCamera> camera = std::make_unique<GameOverCamera>();
-		camera->Initialize(cameraMan->GetMainCamera()->GetEye()
-			, cameraMan->GetMainCamera()->GetTarget()
-			, cameraMan->GetMainCamera()->GetUp());
-		cameraMan->SetMainCamera(std::move(camera));
+	//if (select) {
+	//	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
+	//	CameraManager* cameraMan = CameraManager::GetInstance();
+	//	std::unique_ptr<GameOverCamera> camera = std::make_unique<GameOverCamera>();
+	//	camera->Initialize(cameraMan->GetMainCamera()->GetEye()
+	//		, cameraMan->GetMainCamera()->GetTarget()
+	//		, cameraMan->GetMainCamera()->GetUp());
+	//	cameraMan->SetMainCamera(std::move(camera));
+	//}
+	if (enemy_->GetIsHide() == true) {
+		clear_.Start();
 	}
 
 	pause_.Update();
@@ -140,6 +145,8 @@ void GameScene::Update()
 	//DebugTextManager::GetInstance()->Print("test", { 0,Window::sWIN_HEIGHT/2.0f }, 5);
 #pragma endregion
 	MatUpdate();
+
+	clear_.Update();
 
 	player_->CollisionUpdate();
 
@@ -182,6 +189,8 @@ void GameScene::Draw()
 
 	enemy_->DrawUI();
 	player_->DrawUI();
+
+	clear_.Draw();
 
 	pause_.Draw();
 
