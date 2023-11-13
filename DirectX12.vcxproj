@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClearUI.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterComponent.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterPosComp.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterScaleAnimation.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="TitleUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClearUI.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterComponent.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterPosComp.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterScaleAnimation.h" />
