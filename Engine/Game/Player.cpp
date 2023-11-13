@@ -149,7 +149,10 @@ void Player::Update()
 	crossHair_.Update();
 
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
-	camera->SetTarget({ mat_.trans_.x,mat_.trans_.y + 1.0f,mat_.trans_.z });
+	Vector3D target = mat_.trans_;
+	target += camera->GetFrontVec() * 3.0f;
+	target.y += 1.0f;
+	camera->SetTarget(target);
 	camera->MatUpdate();
 
 	ColliderUpdate();
