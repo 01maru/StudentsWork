@@ -232,6 +232,18 @@
     <Filter Include="ヘッダー ファイル\Game\Player\AttackState">
       <UniqueIdentifier>{28915d08-df12-4821-a57b-6a9761b4b8f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Enemy">
+      <UniqueIdentifier>{45b95463-fb26-497f-ab20-53267f0a2eaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Enemy">
+      <UniqueIdentifier>{e53a36a1-e4e9-4c34-b07e-492bb3b16d2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Enemy\State">
+      <UniqueIdentifier>{6c08f7ec-d875-4f92-9460-fcda75b23015}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Enemy\State">
+      <UniqueIdentifier>{c2597db6-511b-4c69-a060-f1c1257fff80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -578,6 +590,18 @@
     </ClCompile>
     <ClCompile Include="PlaneCollider.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyState.cpp">
+      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossIdleState.cpp">
+      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDeathState.cpp">
+      <Filter>ソース ファイル\Game\Enemy\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -958,6 +982,18 @@
     </ClInclude>
     <ClInclude Include="PlaneCollider.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BossDeathState.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="BossIdleState.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyState.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

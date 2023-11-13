@@ -2,6 +2,7 @@
 #include "CollisionAttribute.h"
 #include "BaseCollider.h"
 #include "SphereCollider.h"
+#include "Boss.h"
 
 void Bullet::Initialize()
 {
@@ -45,13 +46,17 @@ bool Bullet::GetIsActive()
 void Bullet::OnCollision(CollisionInfo& info)
 {
 	(void)info;
+	Boss* boss = nullptr;
 	switch (info.GetCollider()->GetAttribute())
 	{
 	case CollAttribute::COLLISION_ATTR_LANDSHAPE:
-		lifeTime_.SetIsActive(false);
+		//lifeTime_.SetIsActive(false);
+		//	ヒット演出
 		break;
 	case CollAttribute::COLLISION_ATTR_ENEMYS:
-		//lifeTime_.SetIsActive(false);
+		boss = dynamic_cast<Boss*>(info.GetCollider()->GetObject3D());
+		boss->GetDamage(damage_);
+		lifeTime_.SetIsActive(false);
 		break;
 	default:
 		break;

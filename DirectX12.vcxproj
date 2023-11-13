@@ -12,9 +12,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AvoidCoolTimer.cpp" />
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossDeathState.cpp" />
+    <ClCompile Include="BossIdleState.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CharacterHP.cpp" />
     <ClCompile Include="CoolTime.cpp" />
+    <ClCompile Include="EnemyState.cpp" />
     <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIButton.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIButtonManager.cpp" />
@@ -129,9 +133,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AvoidCoolTimer.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossDeathState.h" />
+    <ClInclude Include="BossIdleState.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CharacterHP.h" />
     <ClInclude Include="CoolTime.h" />
+    <ClInclude Include="EnemyState.h" />
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h" />
     <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIButton.h" />

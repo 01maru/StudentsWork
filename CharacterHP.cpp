@@ -38,6 +38,11 @@ void CharacterHP::HPBarUpdate()
 	bar_.Update();
 }
 
+void CharacterHP::DecHp(int32_t damage)
+{
+	hp_ = MyMath::mMax(0, hp_ - damage);
+}
+
 int32_t CharacterHP::GetHP()
 {
 	return hp_;

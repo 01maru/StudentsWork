@@ -20,7 +20,7 @@ protected:
 	void IsAliveUpdate();
 	void HPBarUpdate();
 public:
-
+	void DecHp(int32_t damage);
 	int32_t GetHP();
 	int32_t GetMaxHP();
 	bool GetIsAlive();
