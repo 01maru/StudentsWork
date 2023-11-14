@@ -1,10 +1,6 @@
 #include "GameScene.h"
 #include "GameCamera.h"
 #include "XAudioManager.h"
-#include "TextureManager.h"
-#include "ObjModel.h"
-#include "FbxModel.h"
-#include "PipelineManager.h"
 #include "ParticleManager.h"
 #include "DebugTextManager.h"
 #include "SceneManager.h"
@@ -17,11 +13,8 @@
 #include "InputManager.h"
 #include "CameraManager.h"
 #include "LightManager.h"
-#include "BoxModel.h"
 #include "ImGuiManager.h"
 #include "ModelManager.h"
-
-#include "Easing.h"
 
 #include "GameOverCamera.h"
 

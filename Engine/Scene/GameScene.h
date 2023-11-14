@@ -1,17 +1,12 @@
 #pragma once
 #include "IScene.h"
 #include "Object3D.h"
-#include "Sprite.h"
 
-#include "ICamera.h"
-#include "Texture.h"
 #include "Player.h"
 #include "Boss.h"
 
 #include "JSONLoader.h"
 #include "PauseScreen.h"
-
-#include "FrameCounter.h"
 #include "ClearUI.h"
 
 class GameScene :public IScene
