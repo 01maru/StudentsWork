@@ -15,11 +15,6 @@ public:
 	* 初期化関数
 	*/
 	void Initialize();
-	///**
-	//* @fn Finalize()
-	//* 終了処理関数
-	//*/
-	//void Finalize() {};
 	/**
 	* @fn LoadResources()
 	* リソース読み込み処理関数
@@ -50,8 +45,23 @@ private:
 	SelectCursor cursor_;
 
 private:
+	/**
+	* @fn TitleInputUpdate(bool)
+	* タイトル画面での入力更新用関数
+	* @param selectButton 選択中かどうか
+	*/
 	void TitleInputUpdate(bool selectButton);
+	/**
+	* @fn TitleUpdate(bool)
+	* タイトル画面の更新用関数
+	* @param selectButton 選択中かどうか
+	*/
 	void TitleUpdate(bool selectButton);
+	/**
+	* @fn OptionUpdate(bool)
+	* オプション画面の更新用関数
+	* @param selectButton 選択中かどうか
+	*/
 	void OptionUpdate(bool selectButton);
 public:
 	/**

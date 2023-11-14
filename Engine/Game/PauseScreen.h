@@ -47,14 +47,36 @@ private:
 	SelectCursor cursor_;
 
 private:
+	/**
+	* @fn IsActiveUpdate()
+	* ポーズ画面が実行中か切り替えるための更新処理関数
+	*/
 	void IsActiveUpdate();
+	/**
+	* @fn PauseInputUpdate(bool)
+	* ポーズ画面での入力更新用関数
+	* @param selectButton 選択中かどうか
+	*/
 	void PauseInputUpdate(bool selectButton);
+	/**
+	* @fn PauseUpdate(bool)
+	* ポーズ画面の更新用関数
+	* @param selectButton 選択中かどうか
+	*/
 	void PauseUpdate(bool selectButton);
+	/**
+	* @fn OptionUpdate(bool)
+	* オプション画面の更新用関数
+	* @param selectButton 選択中かどうか
+	*/
 	void OptionUpdate(bool selectButton);
-
-public:
+	/**
+	* @fn MouseCursorInit()
+	* マウスカーソル固定の設定用関数
+	*/
 	void MouseCursorInit();
 
+public:
 #pragma region Getter
 
 	/**

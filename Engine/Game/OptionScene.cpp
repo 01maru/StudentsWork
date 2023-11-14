@@ -1,7 +1,7 @@
 #include "OptionScene.h"
 #include "InputManager.h"
 #include "ImGuiManager.h"
-#include "XAudioManager.h"
+#include "SelectCursor.h"
 
 void OptionScene::Initialize()
 {

@@ -43,6 +43,10 @@ private:
 	int32_t easePawNum_ = 2;
 
 private:
+	/**
+	* @fn AnimationUpdate()
+	* 拡縮アニメーション用更新処理関数
+	*/
 	void AnimationUpdate();
 
 public:
