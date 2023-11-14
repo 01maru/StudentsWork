@@ -59,13 +59,15 @@ void SelectCursor::Draw()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void SelectCursor::SetCursorPosition(const Vector2D& pos)
+void SelectCursor::SetCursorPosition(const Vector2D& pos, bool playMoveSound)
 {
 	//	カーソルの位置変更されたか
 	if (cursor_.GetPosition() == pos) return;
 
 	//	カーソル移動音再生
-	XAudioManager::GetInstance()->PlaySoundWave("cursorMove.wav", XAudioManager::SE);
+	if (playMoveSound == true) {
+		XAudioManager::GetInstance()->PlaySoundWave("cursorMove.wav", XAudioManager::SE);
+	}
 
 	//	位置変更
 	cursor_.SetPosition(pos);

@@ -1,7 +1,7 @@
 #include "PauseScreen.h"
 #include "InputManager.h"
 #include "SceneManager.h"
-
+#include "XAudioManager.h"
 #include "ImGuiManager.h"
 
 void PauseScreen::Initialize()
@@ -10,27 +10,43 @@ void PauseScreen::Initialize()
 	
 	LoadResources();
 
+	//	配置データ
 	data_.Initialize();
+
+	//	カーソル
+	cursor_.Initialize();
+	cursor_.SetCursorPosition(data_.GetSelectPosition(), false);
+
+	option_.Initialize();
+	option_.SetSelectCursor(&cursor_);
 }
 
 void PauseScreen::LoadResources()
 {
+#pragma region Sound
+
+	XAudioManager* xAudioMan = XAudioManager::GetInstance();
+	xAudioMan->LoadSoundWave("decision.wav");
+
+#pragma endregion
+
 	data_.LoadData("Pause");
-	option_.Initialize("Option");
+	option_.LoadResources("Option");
+	cursor_.LoadResources();
 }
 
 void PauseScreen::IsActiveUpdate()
 {
-	InputManager* input = InputManager::GetInstance();
+	if (option_.GetIsActive() == true) return;
 
-	if (input->GetTriggerKeyAndButton(DIK_ESCAPE, InputJoypad::START_Button)) {
+	InputManager* input = InputManager::GetInstance();
+	bool isSelect = input->GetTriggerKeyAndButton(DIK_ESCAPE, InputJoypad::START_Button);
+
+	//	キー入力されたら
+	if (isSelect) {
 		isActive_ = !isActive_;
 
-		//	ポーズ画面になったら
-		if (isActive_ == true) {
-			//	カーソル表示
-			InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
-		}
+		MouseCursorInit();
 	}
 }
 
@@ -40,16 +56,27 @@ void PauseScreen::PauseInputUpdate(bool selectButton)
 	if (option_.GetIsActive() == true) return;
 
 	if (selectButton) {
+		//	決定音再生
+		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
+
 		std::string buttonName = data_.GetSelectName();
 
+		//	ゲームに戻る
 		if (buttonName == "Resume") {
 			isActive_ = false;
-		}
 
+			MouseCursorInit();
+		}
+		//	オプション画面を開く
 		else if (buttonName == "Option") {
 			option_.SetIsActive(true);
+			option_.ResetSelectButton();
+			option_.SetCursorBackPos(data_.GetSelectPosition());
+			cursor_.SetCursorPosition(option_.GetSelectPosition(), false);
+			return;
+			return;
 		}
-
+		//	タイトルに戻る
 		else if (buttonName == "Quit") {
 			SceneManager::GetInstance()->SetNextScene("TITLESCENE");
 		}
@@ -58,13 +85,14 @@ void PauseScreen::PauseInputUpdate(bool selectButton)
 	data_.InputUpdate();
 
 	//	カーソル移動
-
+	cursor_.SetCursorPosition(data_.GetSelectPosition());
 }
 
 void PauseScreen::PauseUpdate(bool selectButton)
 {
 	PauseInputUpdate(selectButton);
 
+	cursor_.SetIsActive(data_.GetIsEndAnimation());
 	data_.Update();
 }
 
@@ -72,10 +100,15 @@ void PauseScreen::OptionUpdate(bool selectButton)
 {
 	option_.InputUpdate(selectButton);
 	option_.Update();
+}
 
-	//	オプション中だったら
-	if (option_.GetIsActive() == false) return;
-	//	カーソル移動
+void PauseScreen::MouseCursorInit()
+{
+	//	ポーズ画面になったら
+	bool lockCursor = isActive_ == false;
+
+	//	カーソル表示
+	InputManager::GetInstance()->GetMouse()->SetLockCursor(lockCursor);
 }
 
 void PauseScreen::Update()
@@ -89,6 +122,8 @@ void PauseScreen::Update()
 
 	PauseUpdate(isSelect);
 	OptionUpdate(isSelect);
+
+	cursor_.Update();
 }
 
 void PauseScreen::ImGuiUpdate()
@@ -108,6 +143,8 @@ void PauseScreen::Draw()
     data_.Draw();
 
 	option_.Draw();
+
+	cursor_.Draw();
 }
 
 //-----------------------------------------------------------------------------

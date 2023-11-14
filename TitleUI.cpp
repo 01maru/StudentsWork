@@ -9,6 +9,10 @@ void TitleUI::Initialize()
 	LoadResources();
 
 	cursor_.Initialize();
+	cursor_.SetCursorPosition(data_.GetSelectPosition(), false);
+
+	option_.Initialize();
+	option_.SetSelectCursor(&cursor_);
 }
 
 void TitleUI::LoadResources()
@@ -25,7 +29,7 @@ void TitleUI::LoadResources()
 	//	カーソル
 	cursor_.LoadResources();
 	//	オプション
-	option_.Initialize("Option");
+	option_.LoadResources("Option");
 }
 
 void TitleUI::TitleInputUpdate(bool selectButton)
@@ -50,6 +54,9 @@ void TitleUI::TitleInputUpdate(bool selectButton)
 		else if (buttonName == "Option") {
 			option_.SetIsActive(true);
 			option_.ResetSelectButton();
+			option_.SetCursorBackPos(data_.GetSelectPosition());
+			cursor_.SetCursorPosition(option_.GetSelectPosition(), false);
+			return;
 		}
 
 		else if (buttonName == "Quit") {

@@ -2,6 +2,7 @@
 #include "SliderSprite.h"
 #include "UIData.h"
 #include "XAudioManager.h"
+#include "SelectCursor.h"
 
 /**
 * @file OptionScene.h
@@ -12,11 +13,16 @@ class OptionScene
 {
 public:
 	/**
-	* @fn Initialize(const std::string&)
+	* @fn Initialize()
 	* 初期化関数
+	*/
+	void Initialize();
+	/**
+	* @fn LoadResources(const std::string&)
+	* リソース読み込み用関数
 	* @param filename レベルデータのファイル名
 	*/
-	void Initialize(const std::string& filename);
+	void LoadResources(const std::string& filename);
 	void InputUpdate(bool selectButton);
 	/**
 	* @fn Update()
@@ -41,7 +47,10 @@ private:
 	
 	UIData data_;
 
-	//	音量
+	SelectCursor* cursor_ = nullptr;
+
+	Vector2D backPos_;
+
 	//	光度
 private:
 	/**
@@ -66,6 +75,8 @@ public:
 
 #pragma region Setter
 
+	void SetCursorBackPos(const Vector2D& pos);
+	void SetSelectCursor(SelectCursor* cursor);
 	void SetIsActive(bool active);
 
 #pragma endregion

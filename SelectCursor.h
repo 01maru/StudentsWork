@@ -49,11 +49,12 @@ public:
 #pragma region Setter
 
 	/**
-	* @fn SetCursorPosition(const Vector2D&)
+	* @fn SetCursorPosition(const Vector2D&, bool)
 	* カーソルの表示位置変更用関数
 	* @param pos 選択位置の中心座標
+	* @param playMoveSound 移動音再生するか
 	*/
-	void SetCursorPosition(const Vector2D& pos);
+	void SetCursorPosition(const Vector2D& pos, bool playMoveSound = true);
 	/**
 	* @fn SetMinSize(const Vector2D&)
 	* カーソル拡縮アニメーションの最小サイズ変更用関数

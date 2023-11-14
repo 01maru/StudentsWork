@@ -1,15 +1,27 @@
 #include "OptionScene.h"
 #include "InputManager.h"
 #include "ImGuiManager.h"
+#include "XAudioManager.h"
 
-void OptionScene::Initialize(const std::string& filename)
+void OptionScene::Initialize()
 {
-	data_.LoadData(filename);
 	data_.Initialize();
 
 	//	円の位置初期化
 	SliderSprite* slider = data_.GetUIObject("Sens")->GetComponent<SliderSprite>();
 	slider->SetValue(InputManager::GetInstance()->GetSensitivity());
+}
+
+void OptionScene::LoadResources(const std::string& filename)
+{
+	data_.LoadData(filename);
+
+#pragma region Sound
+
+	XAudioManager* xAudioMan = XAudioManager::GetInstance();
+	xAudioMan->LoadSoundWave("decision.wav");
+
+#pragma endregion
 }
 
 void OptionScene::SensUpdate(int16_t inputValue)
@@ -81,6 +93,10 @@ void OptionScene::InputUpdate(bool selectButton)
 	else if (data_.GetSelectName() == "Quit") {
 		if (selectButton == true) {
 			isActive_ = false;
+			//	決定音再生
+			XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
+			
+			cursor_->SetCursorPosition(backPos_, false);
 		}
 	}
 }
@@ -88,6 +104,14 @@ void OptionScene::InputUpdate(bool selectButton)
 void OptionScene::Update()
 {
 	data_.Update();
+
+	//	オプション中だったら
+	if (isActive_ == false) return;
+
+	//	カーソル移動
+	cursor_->SetCursorPosition(data_.GetSelectPosition());
+	cursor_->SetMinSize(GetSelectScale());
+	cursor_->SetMaxSize(GetSelectScale() + Vector2D(16, 8));
 }
 
 void OptionScene::ImGuiUpdate()
@@ -137,6 +161,16 @@ Vector2D OptionScene::GetSelectScale()
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
+
+void OptionScene::SetCursorBackPos(const Vector2D& pos)
+{
+	backPos_ = pos;
+}
+
+void OptionScene::SetSelectCursor(SelectCursor* cursor)
+{
+	cursor_ = cursor;
+}
 
 void OptionScene::SetIsActive(bool active)
 {
