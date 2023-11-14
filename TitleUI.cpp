@@ -1,38 +1,40 @@
 #include "TitleUI.h"
-
 #include "InputManager.h"
 #include "XAudioManager.h"
 #include "SceneManager.h"
 #include "ImGuiManager.h"
-#include "TextureManager.h"
-
 
 void TitleUI::Initialize()
 {
 	LoadResources();
-	option_.Initialize("Option");
 
 	cursor_.Initialize();
 }
 
-void TitleUI::Finalize()
-{
-}
-
 void TitleUI::LoadResources()
 {
+#pragma region Sound
+
 	XAudioManager* xAudioMan = XAudioManager::GetInstance();
 	xAudioMan->LoadSoundWave("decision.wav");
-	cursor_.LoadResources();
 
-	TextureManager::GetInstance()->AsyncLoadTextureGraph("select.png");
-	data_.LoadData("TitleScene");
+#pragma endregion
+
+	//	配置データ
+	data_.LoadData("Title");
+	//	カーソル
+	cursor_.LoadResources();
+	//	オプション
+	option_.Initialize("Option");
 }
 
 void TitleUI::TitleInputUpdate(bool selectButton)
 {
-	//	オプションシーンだったら
+	//	オプションシーンだったら終了
 	if (option_.GetIsActive() == true) return;
+
+	//	演出が終わっていなかったら処理しない
+	if (data_.GetIsEndAnimation() == false) return;
 
 	//	ボタンを選択したら
 	if (selectButton)
@@ -65,6 +67,7 @@ void TitleUI::TitleUpdate(bool selectButton)
 {
 	TitleInputUpdate(selectButton);
 
+	cursor_.SetIsActive(data_.GetIsEndAnimation());
 	data_.Update();
 }
 
@@ -100,8 +103,10 @@ void TitleUI::Update()
 void TitleUI::ImGuiUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
-	std::string name = data_.GetSelectName();
-	imgui->Text("mord : %s", name.c_str());
+
+	//	選択中のモード
+	imgui->Text("mord : %s", data_.GetSelectName().c_str());
+
 	option_.ImGuiUpdate();
 }
 

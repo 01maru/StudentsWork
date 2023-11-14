@@ -68,6 +68,8 @@ public:
 
 	UIObject* GetUIObject(const std::string& name);
 
+	bool GetIsEndAnimation();
+
 #pragma endregion
 
 	void SetSelectButton(const std::string& name);

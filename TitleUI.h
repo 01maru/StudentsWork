@@ -2,20 +2,24 @@
 #include "OptionScene.h"
 #include "SelectCursor.h"
 
+/**
+* @file TitleUI.h
+* @brief TitleのUIを管理するファイル
+*/
+
 class TitleUI
 {
 public:
 	/**
-	* @fn Initialize(const std::string&)
+	* @fn Initialize()
 	* 初期化関数
-	* @param filename レベルデータのファイル名
 	*/
 	void Initialize();
-	/**
-	* @fn Finalize()
-	* 終了処理関数
-	*/
-	void Finalize();
+	///**
+	//* @fn Finalize()
+	//* 終了処理関数
+	//*/
+	//void Finalize() {};
 	/**
 	* @fn LoadResources()
 	* リソース読み込み処理関数
@@ -50,6 +54,10 @@ private:
 	void TitleUpdate(bool selectButton);
 	void OptionUpdate(bool selectButton);
 public:
+	/**
+	* @fn Start()
+	* 出現演出開始用関数
+	*/
 	void Start();
 };
 

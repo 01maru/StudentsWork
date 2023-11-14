@@ -1,4 +1,4 @@
-Timer 120
+Timer 40
 
 S BackSprite1 backUI.png 150 420 280 64 0 0 280 64 0.5 0.5 1
 S Start start.png 150 420 181 38 0 0 181 38 0.5 0.5 1

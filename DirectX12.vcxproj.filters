@@ -639,12 +639,6 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerNormalBulletState.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="PlaneCollider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>ソース ファイル\Game\Enemy</Filter>
     </ClCompile>
@@ -657,8 +651,14 @@
     <ClCompile Include="BossDeathState.cpp">
       <Filter>ソース ファイル\Game\Enemy\State</Filter>
     </ClCompile>
+    <ClCompile Include="PlaneCollider.cpp">
+      <Filter>ソース ファイル\lib\Engine\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerNormalBulletState.cpp">
+      <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
+    </ClCompile>
     <ClCompile Include="ClearUI.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1070,12 +1070,6 @@
     <ClInclude Include="Bullet.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerNormalBulletState.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="PlaneCollider.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>ヘッダー ファイル\Game\Enemy</Filter>
     </ClInclude>
@@ -1089,7 +1083,13 @@
       <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
     <ClInclude Include="ClearUI.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneCollider.h">
+      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNormalBulletState.h">
+      <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

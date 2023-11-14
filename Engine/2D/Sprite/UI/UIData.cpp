@@ -291,6 +291,15 @@ UIObject* UIData::GetUIObject(const std::string& name)
 	return obj_[name].get();
 }
 
+bool UIData::GetIsEndAnimation()
+{
+	//	アニメーションがそもそもなかったら
+	if (count_ == nullptr) return true;
+
+	bool isEnd = count_->GetIsActive() == false;
+	return isEnd;
+}
+
 void UIData::SetSelectButton(const std::string& name)
 {
 	buttonMan_->SetSelectButton(obj_[name]->GetComponent<UIButton>());
