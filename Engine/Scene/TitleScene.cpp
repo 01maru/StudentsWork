@@ -1,7 +1,6 @@
 #include "TitleScene.h"
 #include "InputManager.h"
 #include "SceneManager.h"
-#include "TextureManager.h"
 #include "XAudioManager.h"
 #include "Window.h"
 
@@ -9,7 +8,6 @@
 #include "CameraManager.h"
 #include "TitleCamera.h"
 #include "ModelManager.h"
-#include "Easing.h"
 #include "LightManager.h"
 #include "ParticleManager.h"
 

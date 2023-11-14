@@ -471,9 +471,6 @@
     <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp">
       <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Enemy.cpp">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\ModelManager.cpp">
       <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
     </ClCompile>
@@ -488,9 +485,6 @@
     </ClCompile>
     <ClCompile Include="Engine\ConvertAiStruct.cpp">
       <Filter>ソース ファイル\lib\Converter</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Weapon.cpp">
-      <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
@@ -546,13 +540,13 @@
     <ClCompile Include="Engine\Game\GameOverCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\PauseScreen.cpp">
+    <ClCompile Include="Engine\Game\UI\PauseScreen.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\OptionScene.cpp">
+    <ClCompile Include="Engine\Game\UI\OptionScene.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\GameOverUI.cpp">
+    <ClCompile Include="Engine\Game\UI\GameOverUI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterComponent.cpp">
@@ -597,67 +591,67 @@
     <ClCompile Include="Engine\2D\Particle\ParticleResource.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
     </ClCompile>
-    <ClCompile Include="SelectCursor.cpp">
+    <ClCompile Include="Engine\Game\UI\SelectCursor.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="FireParticleEmitter.cpp">
+    <ClCompile Include="Engine\Game\Particle\FireParticleEmitter.cpp">
       <Filter>ソース ファイル\Game\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="TitleUI.cpp">
+    <ClCompile Include="Engine\Game\UI\TitleUI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Player.cpp">
+    <ClCompile Include="Engine\Game\Player\Player.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerAvoidState.cpp">
+    <ClCompile Include="Engine\Game\Player\PlayerAvoidState.cpp">
       <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerIdleState.cpp">
+    <ClCompile Include="Engine\Game\Player\PlayerIdleState.cpp">
       <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerMoveState.cpp">
+    <ClCompile Include="Engine\Game\Player\PlayerMoveState.cpp">
       <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerWalkState.cpp">
+    <ClCompile Include="Engine\Game\Player\PlayerWalkState.cpp">
       <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
     </ClCompile>
-    <ClCompile Include="AvoidCoolTimer.cpp">
+    <ClCompile Include="Engine\Game\Player\AvoidCoolTimer.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="CoolTime.cpp">
+    <ClCompile Include="Engine\Game\Player\CoolTime.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterHP.cpp">
+    <ClCompile Include="Engine\Game\Player\CharacterHP.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerAttackState.cpp">
+    <ClCompile Include="Engine\Game\Player\PlayerAttackState.cpp">
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerNoAttackState.cpp">
+    <ClCompile Include="Engine\Game\Player\PlayerNoAttackState.cpp">
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
+    <ClCompile Include="Engine\Game\Player\Bullet.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Boss.cpp">
+    <ClCompile Include="Engine\Game\Boss\Boss.cpp">
       <Filter>ソース ファイル\Game\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyState.cpp">
+    <ClCompile Include="Engine\Game\Player\EnemyState.cpp">
       <Filter>ソース ファイル\Game\Enemy\State</Filter>
     </ClCompile>
-    <ClCompile Include="BossIdleState.cpp">
+    <ClCompile Include="Engine\Game\Boss\BossIdleState.cpp">
       <Filter>ソース ファイル\Game\Enemy\State</Filter>
     </ClCompile>
-    <ClCompile Include="BossDeathState.cpp">
+    <ClCompile Include="Engine\Game\Boss\BossDeathState.cpp">
       <Filter>ソース ファイル\Game\Enemy\State</Filter>
     </ClCompile>
-    <ClCompile Include="PlaneCollider.cpp">
+    <ClCompile Include="Engine\Collider\PlaneCollider.cpp">
       <Filter>ソース ファイル\lib\Engine\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerNormalBulletState.cpp">
+    <ClCompile Include="Engine\Game\Player\PlayerNormalBulletState.cpp">
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
-    <ClCompile Include="ClearUI.cpp">
+    <ClCompile Include="Engine\Game\UI\ClearUI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -896,9 +890,6 @@
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Enemy.h">
-      <Filter>ヘッダー ファイル\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\ModelManager.h">
       <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
     </ClInclude>
@@ -919,9 +910,6 @@
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIData.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Weapon.h">
-      <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Camera\TitleCamera.h">
       <Filter>ヘッダー ファイル\Game\Camera</Filter>
@@ -977,19 +965,19 @@
     <ClInclude Include="Engine\Game\GameOverCamera.h">
       <Filter>ヘッダー ファイル\Game\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\PauseScreen.h">
+    <ClInclude Include="Engine\Game\UI\PauseScreen.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\OptionScene.h">
+    <ClInclude Include="Engine\Game\UI\OptionScene.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\GameOverUI.h">
+    <ClInclude Include="Engine\Game\UI\GameOverUI.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="TitleUI.h">
+    <ClInclude Include="Engine\Game\UI\TitleUI.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="SelectCursor.h">
+    <ClInclude Include="Engine\Game\UI\SelectCursor.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterComponent.h">
@@ -1034,61 +1022,61 @@
     <ClInclude Include="Engine\2D\Particle\ParticleComponent.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
     </ClInclude>
-    <ClInclude Include="FireParticleEmitter.h">
+    <ClInclude Include="Engine\Game\Particle\FireParticleEmitter.h">
       <Filter>ヘッダー ファイル\Game\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Player.h">
+    <ClInclude Include="Engine\Game\Player\Player.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="CoolTime.h">
+    <ClInclude Include="Engine\Game\Player\CoolTime.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="CharacterHP.h">
+    <ClInclude Include="Engine\Game\Player\CharacterHP.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="AvoidCoolTimer.h">
+    <ClInclude Include="Engine\Game\Player\AvoidCoolTimer.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerWalkState.h">
+    <ClInclude Include="Engine\Game\Player\PlayerWalkState.h">
       <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerMoveState.h">
+    <ClInclude Include="Engine\Game\Player\PlayerMoveState.h">
       <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerIdleState.h">
+    <ClInclude Include="Engine\Game\Player\PlayerIdleState.h">
       <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerAvoidState.h">
+    <ClInclude Include="Engine\Game\Player\PlayerAvoidState.h">
       <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerAttackState.h">
+    <ClInclude Include="Engine\Game\Player\PlayerAttackState.h">
       <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerNoAttackState.h">
+    <ClInclude Include="Engine\Game\Player\PlayerNoAttackState.h">
       <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
+    <ClInclude Include="Engine\Game\Player\Bullet.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Boss.h">
+    <ClInclude Include="Engine\Game\Boss\Boss.h">
       <Filter>ヘッダー ファイル\Game\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="BossDeathState.h">
+    <ClInclude Include="Engine\Game\Boss\BossDeathState.h">
       <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
-    <ClInclude Include="BossIdleState.h">
+    <ClInclude Include="Engine\Game\Boss\BossIdleState.h">
       <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyState.h">
+    <ClInclude Include="Engine\Game\Boss\EnemyState.h">
       <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
-    <ClInclude Include="ClearUI.h">
+    <ClInclude Include="Engine\Game\UI\ClearUI.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="PlaneCollider.h">
+    <ClInclude Include="Engine\Collider\PlaneCollider.h">
       <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerNormalBulletState.h">
+    <ClInclude Include="Engine\Game\Player\PlayerNormalBulletState.h">
       <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
     </ClInclude>
   </ItemGroup>

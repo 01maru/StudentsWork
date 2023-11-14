@@ -1,7 +1,5 @@
 #pragma once
 #include "IScene.h"
-#include "Sprite.h"
-#include "FrameCounter.h"
 #include "TitleUI.h"
 
 #include "JSONLoader.h"
