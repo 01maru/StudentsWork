@@ -1,12 +1,17 @@
 #include "EmitterPosComp.h"
 #include "ParticleEmitter.h"
 #include "SpriteParticle.h"
+#include "ObjectParticle.h"
 
 void EmitterPosComp::Initialize(Particle* particle)
 {
 	if (parent_->GetIsObj())
 	{
+		ObjectParticle* obj = particle->GetComponent<ObjectParticle>();
 
+		Vector3D pos = obj->GetPosition();
+		pos += add_->GetValue();
+		obj->SetPosition(pos);
 	}
 	else
 	{

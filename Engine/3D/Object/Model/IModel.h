@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Material.h"
 #include "Mesh.h"
 #include <map>
@@ -12,8 +12,6 @@ struct BoneInfo
 class IModel
 {
 protected:
-	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
-
 	//	boneの最大数
 	static const int sMAX_BONE_INDICES = 4;
 

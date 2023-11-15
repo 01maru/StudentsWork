@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <string>
 #include "Vector3D.h"
 #include "Texture.h"
@@ -10,9 +10,6 @@ namespace CBuff {
 
 class Material
 {
-private:
-	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
-
 public:
 	std::string name_;
 	Vector3D ambient_ = { 0.3f, 0.3f, 0.3f };

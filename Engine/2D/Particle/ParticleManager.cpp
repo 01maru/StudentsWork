@@ -29,9 +29,17 @@ void ParticleManager::Update()
 	particles_.remove_if([](std::unique_ptr<Particle>& x) {
 		return x.get()->GetIsEnd();
 		});
+	objParticles_.remove_if([](std::unique_ptr<Particle>& x) {
+		return x.get()->GetIsEnd();
+		});
 #pragma endregion
 
 	for (auto& particle : particles_)
+	{
+		particle->Update();
+	}
+
+	for (auto& particle : objParticles_)
 	{
 		particle->Update();
 	}
@@ -46,6 +54,10 @@ void ParticleManager::Update()
 void ParticleManager::MatUpdate()
 {
 	for (auto& particle : particles_) {
+		//	パーティクルの行列更新
+		particle->MatUpdate();
+	}
+	for (auto& particle : objParticles_) {
 		//	パーティクルの行列更新
 		particle->MatUpdate();
 	}
@@ -84,6 +96,12 @@ void ParticleManager::Draw()
 			prev = itr->get()->GetBlendMord();
 		}
 
+		//	パーティクル描画
+		itr->get()->Draw();
+	}
+
+	for (auto itr = objParticles_.begin(); itr != objParticles_.end(); itr++)
+	{
 		//	パーティクル描画
 		itr->get()->Draw();
 	}

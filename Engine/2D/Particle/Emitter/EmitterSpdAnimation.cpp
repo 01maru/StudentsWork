@@ -1,15 +1,11 @@
 #include "EmitterSpdAnimation.h"
 #include "ParticleSpdAnimation.h"
 #include "ParticleEmitter.h"
+#include "ObjectParticle.h"
 
 void EmitterSpdAnimation::Initialize(Particle* particle)
 {
-	if (parent_->GetIsObj())
-	{
-	}
-	else
-	{
-		ParticleSpdAnimation* spd = particle->AddComponent<ParticleSpdAnimation>();
-		spd->SetSpd(spd_);
-	}
+	ParticleSpdAnimation* spd = particle->AddComponent<ParticleSpdAnimation>();
+	spd->SetIsObj(parent_->GetIsObj());
+	spd->SetSpd(spd_);
 }

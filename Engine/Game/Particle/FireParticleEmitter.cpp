@@ -10,8 +10,8 @@ std::unique_ptr<ParticleEmitter>& FireParticleEmitter::GetEmitter()
 	emitter_ = std::make_unique<ParticleEmitter>();
 	EmitterScaleAnimation* scale = emitter_->AddComponent<EmitterScaleAnimation>();
 	std::unique_ptr<ParticleRandValue> v = std::make_unique<ParticleRandValue>();
-	v->SetMinValue(Vector3D{ 1,0,0 });
-	v->SetMaxValue(Vector3D{ 5,0,0 });
+	v->SetMinValue(Vector3D{ 1,1,1 });
+	v->SetMaxValue(Vector3D{ 5,5,5 });
 	std::unique_ptr<ParticleValue> v1 = std::move(v);
 	scale->SetValue(v1);
 	std::unique_ptr<ParticleRandValue> addV = std::make_unique<ParticleRandValue>();
@@ -25,7 +25,7 @@ std::unique_ptr<ParticleEmitter>& FireParticleEmitter::GetEmitter()
 	emitter_->AddComponent<EmitterSpdAnimation>();
 
 	ParticleResource* resource = emitter_->AddComponent<ParticleResource>();
-	resource->SetResourceName("particle.png");
+	resource->SetResourceName("");
 
 	return emitter_;
 }

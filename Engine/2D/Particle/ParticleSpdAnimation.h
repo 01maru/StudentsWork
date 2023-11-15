@@ -13,6 +13,7 @@ public:
 
 private:
 	Vector3D spd_;
+	bool isObj_ = false;
 
 public:
 #pragma region Getter
@@ -22,6 +23,7 @@ public:
 #pragma region Setter
 
 	void SetSpd(const Vector3D& spd);
+	void SetIsObj(bool isObj);
 
 #pragma endregion
 };

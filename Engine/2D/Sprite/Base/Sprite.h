@@ -22,8 +22,6 @@ class GPipeline;
 class Sprite :public VertIdxBuff
 {
 protected:
-	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
-
 	static Matrix sMAT_2DTRANSFORM;
 
 	uint16_t tag_ = 0b0000000000000000;

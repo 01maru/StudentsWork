@@ -32,7 +32,7 @@ public:
 
 private:
 	//	オブジェクトパーティクルかどうか
-	bool isObj_ = false;
+	bool isObj_ = true;
 	//	実行中か
 	bool isActive_ = true;
 	//	Emitterの座標

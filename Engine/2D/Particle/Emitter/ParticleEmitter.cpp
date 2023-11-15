@@ -25,7 +25,8 @@ void ParticleEmitter::AddParticle()
 	particle->SetBlendMord(blendMord_);
 
 	if (isObj_) {
-
+		ObjectParticle* object = particle->AddComponent<ObjectParticle>();
+		object->SetPosition(pos_);
 	}
 	else {
 		SpriteParticle* sprite = particle->AddComponent<SpriteParticle>();

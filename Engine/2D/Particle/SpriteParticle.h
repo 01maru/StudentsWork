@@ -41,8 +41,6 @@ public:
 	void Draw() override;
 
 private:
-	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
-
 #pragma region CBuff
 
 	//	座標
