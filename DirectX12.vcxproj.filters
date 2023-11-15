@@ -1109,6 +1109,9 @@
     <ClInclude Include="Object3DShadow.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="RootParameterIdx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shader\ObjHeader.hlsli">

@@ -164,7 +164,7 @@ void PipelineManager::InitializeModel()
 
 	shadowRecieverPipeline_ = std::make_unique<GPipeline>();
 	shadowRecieverPipeline_->Initialize(shadowRecieverShader, inputLayout
-		, 5, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL, true, DXGI_FORMAT_R11G11B10_FLOAT, 2);
+		, 6, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL, true, DXGI_FORMAT_R11G11B10_FLOAT, 2);
 	shadowRecieverPipeline_->SetBlendMord(Blend::NONE_BLEND);
 
 	Shader silhouetteShader(L"Resources/Shader/ObjVS.hlsl", L"Resources/Shader/SilhouettePS.hlsl");

@@ -14,6 +14,8 @@
 
 #include "LightCamera.h"
 
+#include "RootParameterIdx.h"
+
 void Object3D::SetCollider(BaseCollider* collider)
 {
 	collider->SetObject3D(this);
@@ -126,65 +128,53 @@ void Object3D::MatUpdate()
 	animation_->MatUpdate();
 }
 
-void Object3D::Draw(bool drawShadow)
+void Object3D::DrawShadow()
 {
-	DrawShadow(drawShadow);
-	
-	DrawShadowReciever(drawShadow);
-
-	DrawShadowUnReciever(drawShadow);
-}
-
-void Object3D::Draw()
-{
-}
-
-void Object3D::DrawShadow(bool drawShadow)
-{
-	if (!drawShadow) return;
 	//	影を生成しないなら
 	if (!shadowing_) return;
 
 	shadow_->Draw();
 }
 
-void Object3D::DrawShadowReciever(bool drawShadow)
+void Object3D::DrawModel(int32_t& rootParaIdx)
 {
-	if (drawShadow) return;
+	transform_.SetGraphicsRootCBuffView(rootParaIdx++);
+	LightManager::GetInstance()->SetGraphicsRootCBuffView(rootParaIdx++);
+	animation_->SetGraphicsRootCBuffView(rootParaIdx++);
+	colorMaterial_.SetGraphicsRootCBuffView(rootParaIdx++);
+
+	model_->Draw(rootParaIdx++);
+}
+
+void Object3D::DrawShadowReciever(int32_t& nextIdx)
+{
 	//	影の影響を受けないなら
 	if (!shadowReciev_) return;
 
-	GPipeline* pipeline_= PipelineManager::GetInstance()->GetPipeline("ShadowReciever");
-	pipeline_->SetGraphicsRootSignature();
-	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	Texture* shadowmap = SceneManager::GetInstance()->GetShadowMap();
-	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(shadowmap->GetHandle()));
-	
-	transform_.SetGraphicsRootCBuffView(3);
-	LightCamera* camera = dynamic_cast<LightCamera*>(CameraManager::GetInstance()->GetLightCamera());
-	camera->SetGraphicsRootCBuffView(4);
-	animation_->SetGraphicsRootCBuffView(5);
-	LightManager::GetInstance()->SetGraphicsRootCBuffView(6);
+	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(shadowmap->GetHandle()));
 
-	model_->Draw(2);
+	LightCamera* camera = dynamic_cast<LightCamera*>(CameraManager::GetInstance()->GetLightCamera());
+	camera->SetGraphicsRootCBuffView(nextIdx++);
 }
 
-void Object3D::DrawShadowUnReciever(bool drawShadow)
+void Object3D::Draw()
 {
-	if (drawShadow) return;
-	//	影の影響を受けるなら
-	if (shadowReciev_) return;
+	int32_t nextIdx = One;
 
-	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("Model", Blend::ALPHA_BLEND);
+	GPipeline* pipeline = nullptr;
+	if (shadowReciev_ == true) {
+		pipeline = PipelineManager::GetInstance()->GetPipeline("ShadowReciever");
+	}
+	else {
+		pipeline = PipelineManager::GetInstance()->GetPipeline("Model", Blend::ALPHA_BLEND);
+	}
 	pipeline->SetGraphicsRootSignature();
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	transform_.SetGraphicsRootCBuffView(2);
-	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
-	animation_->SetGraphicsRootCBuffView(4);
-	colorMaterial_.SetGraphicsRootCBuffView(5);
+	DrawShadowReciever(nextIdx);
 
-	model_->Draw(1);
+	DrawModel(nextIdx);
 }
 
 //-----------------------------------------------------------------------------

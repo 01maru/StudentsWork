@@ -125,16 +125,16 @@ void TitleScene::ImguiUpdate()
 void TitleScene::DrawShadow() 
 {
 	level_->Draw(true);
-	ground_->Draw(true);
-	skydome_->Draw(true);
+	ground_->DrawShadow();
+	skydome_->DrawShadow();
 }
 
 void TitleScene::Draw()
 {
 	//	ステージ描画
 	level_->Draw(false);
-	ground_->Draw(false);
-	skydome_->Draw(false);
+	ground_->Draw();
+	skydome_->Draw();
 
 	ParticleManager::GetInstance()->Draw();
 

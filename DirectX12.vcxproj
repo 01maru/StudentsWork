@@ -294,6 +294,7 @@
     <ClInclude Include="Object3DDissolve.h" />
     <ClInclude Include="Object3DShadow.h" />
     <ClInclude Include="Object3DShilhouette.h" />
+    <ClInclude Include="RootParameterIdx.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

@@ -118,7 +118,7 @@ void CameraManager::DrawTarget()
 {
 	if (!drawTarget_) return;
 
-	target_->Draw(false);
+	target_->Draw();
 }
 
 ICamera* CameraManager::GetCamera()

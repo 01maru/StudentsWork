@@ -177,6 +177,11 @@ void JSONLoader::Draw(bool drawShadow)
 {
 	for (size_t i = 0; i < objects_.size(); i++)
 	{
-		objects_[i]->Draw(drawShadow);
+		if (drawShadow == true) {
+			objects_[i]->DrawShadow();
+		}
+		else {
+			objects_[i]->Draw();
+		}
 	}
 }

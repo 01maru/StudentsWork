@@ -1,6 +1,11 @@
-static const int DIRLIGHT_NUM = 1;
+cbuffer ConstBufferDataTransform:register(b0)
+{
+	matrix matview;
+	matrix matworld;
+	float3 cameraPos;
+};
 
-static const int MAX_BONES = 32;
+static const int DIRLIGHT_NUM = 1;
 
 struct DirLight
 {
@@ -19,37 +24,32 @@ struct DistanceFog
 	float fogFar;
 };
 
-cbuffer ConstBufferDataMaterial:register(b0)
-{
-	float3 m_ambient : packoffset(c0);
-	float3 m_diffuse : packoffset(c1);
-	float3 m_specular : packoffset(c2);
-	float m_alpha : packoffset(c2.w);
-};
-
-cbuffer ConstBufferDataTransform:register(b1)
-{
-	matrix matview;
-	matrix matworld;
-	float3 cameraPos;
-};
-
-cbuffer ConstBufferLightData:register(b2)
+cbuffer ConstBufferLightData:register(b1)
 {
 	float3 ambientColor;
 	DirLight dirLights[DIRLIGHT_NUM];
 	DistanceFog distanceFog;
 };
 
-cbuffer skinning:register(b3)
+static const int MAX_BONES = 32;
+
+cbuffer skinning:register(b2)
 {
 	matrix matSkinning[MAX_BONES];
 }
 
-cbuffer CBuffColorMaterial:register(b4)
+cbuffer CBuffColorMaterial:register(b3)
 {
 	float4 materialColor;
 }
+
+cbuffer ConstBufferDataMaterial:register(b4)
+{
+	float3 m_ambient : packoffset(c0);
+	float3 m_diffuse : packoffset(c1);
+	float3 m_specular : packoffset(c2);
+	float m_alpha : packoffset(c2.w);
+};
 
 struct VSOutput
 {

@@ -6,6 +6,8 @@
 #include "Object3DAnimation.h"
 #include "Object3DShadow.h"
 
+#pragma region 前置宣言
+
 namespace CBuff {
 	struct CBuffObj3DTransform;
 	struct CBuffColorMaterial;
@@ -16,6 +18,8 @@ class ICamera;
 class IModel;
 class GPipeline;
 
+#pragma endregion
+
 class Object3D
 {
 public:
@@ -24,8 +28,7 @@ public:
 	virtual void Initialize();
 	virtual void ColliderUpdate();
 	void MatUpdate();
-	virtual void Draw(bool drawShadow);
-
+	void DrawShadow();
 	virtual void Draw();
 
 private:
@@ -62,19 +65,17 @@ protected:
 	std::unique_ptr<Object3DShadow> shadow_;
 
 private:
-	void DrawShadow(bool drawShadow);
-	void DrawShadowReciever(bool drawShadow);
-	void DrawShadowUnReciever(bool drawShadow);
+	void DrawModel(int32_t& rootParaIdx);
+	void DrawShadowReciever(int32_t& nextIdx);
 
 public:
 	static std::unique_ptr<Object3D> Create(IModel* model_ = nullptr);
 
 	virtual void OnCollision(CollisionInfo& info) { (void)info; }
 
-	BaseCollider* GetCollider() { return collider_; }
-	
 #pragma region Getter
 
+	BaseCollider* GetCollider() { return collider_; }
 	const Vector4D& GetColor() { return color_; }
 	const Vector3D& GetPosition() { return mat_.trans_; }
 	const Vector3D& GetScale() { return mat_.scale_; }

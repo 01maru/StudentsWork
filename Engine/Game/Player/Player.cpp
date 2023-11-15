@@ -318,7 +318,7 @@ void Player::DrawBullets()
 {
 	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
 	{
-		itr->get()->Draw(false);
+		itr->get()->Draw();
 	}
 }
 

@@ -67,7 +67,7 @@ void ModelManager::DrawPreview()
 {
     if (!preview_) return;
 
-    previewObj_->Draw(false);
+    previewObj_->Draw();
 }
 
 void ModelManager::LoadModel(const std::string& filename, bool fbx)

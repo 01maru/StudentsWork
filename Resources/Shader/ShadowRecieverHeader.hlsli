@@ -1,6 +1,19 @@
-static const int DIRLIGHT_NUM = 1;
+// ライトビュープロジェクション行列の定数バッファーを定義
+cbuffer ShadowCb : register(b0)
+{
+    matrix mLVP;
+    float3 lightPos;    // ライトの座標
+};
 
-static const int MAX_BONES = 32;
+// モデル用の定数バッファー
+cbuffer ModelCb : register(b1)
+{
+    matrix mViewProj;
+    matrix mWorld;
+	float3 cameraPos;
+};
+
+static const int DIRLIGHT_NUM = 1;
 
 struct DirLight
 {
@@ -19,7 +32,26 @@ struct DistanceFog
 	float fogFar;
 };
 
-cbuffer ConstBufferDataMaterial:register(b0)
+cbuffer ConstBufferLightData : register(b2)
+{
+	float3 ambientColor;
+	DirLight dirLights[DIRLIGHT_NUM];
+	DistanceFog distanceFog;
+};
+
+static const int MAX_BONES = 32;
+
+cbuffer skinning:register(b3)
+{
+	matrix matSkinning[MAX_BONES];
+}
+
+cbuffer CBuffColorMaterial:register(b4)
+{
+	float4 materialColor;
+}
+
+cbuffer ConstBufferDataMaterial:register(b5)
 {
 	float3 m_ambient : packoffset(c0);
 	float3 m_diffuse : packoffset(c1);
@@ -27,32 +59,6 @@ cbuffer ConstBufferDataMaterial:register(b0)
 	float m_alpha : packoffset(c2.w);
 };
 
-// モデル用の定数バッファー
-cbuffer ModelCb : register(b1)
-{
-    matrix mViewProj;
-    matrix mWorld;
-	float3 cameraPos;
-};
-
-// ライトビュープロジェクション行列の定数バッファーを定義
-cbuffer ShadowCb : register(b2)
-{
-    matrix mLVP;
-    float3 lightPos;    // ライトの座標
-};
-
-cbuffer skinning:register(b3)
-{
-	matrix matSkinning[MAX_BONES];
-}
-
-cbuffer ConstBufferLightData : register(b4)
-{
-	float3 ambientColor;
-	DirLight dirLights[DIRLIGHT_NUM];
-	DistanceFog distanceFog;
-};
 
 struct VSOutput
 {

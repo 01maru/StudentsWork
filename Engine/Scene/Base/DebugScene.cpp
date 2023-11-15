@@ -113,11 +113,10 @@ void DebugScene::DrawShadow()
 
 void DebugScene::Draw()
 {
-	bool drawShadow = false;
-	ground_->Draw(drawShadow);
-	skydome_->Draw(drawShadow);
+	ground_->Draw();
+	skydome_->Draw();
 
-	ship_->Draw(false);
+	ship_->Draw();
 
 	sprite_.Draw();
 }

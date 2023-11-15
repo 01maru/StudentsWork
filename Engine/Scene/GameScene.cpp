@@ -169,14 +169,13 @@ void GameScene::DrawShadow()
 
 void GameScene::Draw()
 {
-	bool drawShadow = false;
 	//	天球
-	skydome_->Draw(drawShadow);
+	skydome_->Draw();
 	//	地面
-	ground_->Draw(drawShadow);
-	player_->Draw(drawShadow);
+	ground_->Draw();
+	player_->Draw();
 	player_->DrawBullets();
-	enemy_->Draw(drawShadow);
+	enemy_->Draw();
 
 	//level.Draw();
 
