@@ -34,7 +34,6 @@ void TitleScene::LoadResources()
 	level_->LoadJSON("Title");
 	//	天球
 	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
-	skydome_->SetColor({0,0,0});
 	//	地面
 	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
 
@@ -54,9 +53,9 @@ void TitleScene::Initialize()
 {
 	//	Fog
 	//LightManager::GetInstance()->SetFogActive(true);
-	LightManager::GetInstance()->SetFogStart(0.55f);
-	LightManager::GetInstance()->SetFogEnd(2.5f);
-	LightManager::GetInstance()->SetFogFar(40.0f);
+	//LightManager::GetInstance()->SetFogStart(0.55f);
+	//LightManager::GetInstance()->SetFogEnd(2.5f);
+	//LightManager::GetInstance()->SetFogFar(40.0f);
 
 	//	カーソル固定解除
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);

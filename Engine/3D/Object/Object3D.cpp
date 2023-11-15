@@ -180,6 +180,11 @@ void Object3D::SetCollider(BaseCollider* collider)
 	collider_->Update();
 }
 
+void Object3D::SetAlphaColor(float alpha)
+{
+	color_.w = alpha;
+}
+
 void Object3D::SetAttribute(unsigned short attribute)
 {
 	collider_->SetAttribute(attribute);

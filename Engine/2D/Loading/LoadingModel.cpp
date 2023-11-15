@@ -31,7 +31,7 @@ void LoadingModel::Update()
 
             float alphaColor = Easing::EaseOut(1.0f, 0.0f, 1.0f - (float)easeCount_ / sEASE_MAX_COUNT, 4);
 
-            loadObj_->SetColor({ 1.0f,1.0f,1.0f,alphaColor });
+            loadObj_->SetAlphaColor({ alphaColor });
         }
     }
     else {
@@ -42,7 +42,7 @@ void LoadingModel::Update()
 
             float alphaColor = Easing::EaseOut(0.0f, 1.0f, (float)easeCount_ / sEASE_MAX_COUNT, 4);
 
-            loadObj_->SetColor({ 1.0f,1.0f,1.0f,alphaColor });
+            loadObj_->SetAlphaColor({ alphaColor });
         }
 
         //  透過値1.0になったらfalseに

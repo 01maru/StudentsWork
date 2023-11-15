@@ -5,6 +5,7 @@
 #include "PipelineManager.h"
 #include "Window.h"
 #include <cassert>
+#include "RootParameterIdx.h"
 
 Matrix Sprite::sMAT_2DTRANSFORM = Create2DTransformMatrix();
 
@@ -25,7 +26,7 @@ void Sprite::Initialize(Texture* texture)
 #pragma region VertBuff
 
 	vertices_.clear();
-	vertices_.resize(4);
+	vertices_.resize(VertexSize);
 
 	SetVerticesPos();
 	SetVerticesUV();
@@ -98,11 +99,13 @@ void Sprite::Draw(GPipeline* pipeline)
 	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	IASetVertIdxBuff();
-	//	テクスチャ
-	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(handle_->GetHandle()));
 
-	cbColorMaterial_.SetGraphicsRootCBuffView(1);
-	cbTransform_.SetGraphicsRootCBuffView(2);
+	int32_t nextIdx = Zero;
+	//	テクスチャ
+	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(handle_->GetHandle()));
+
+	cbColorMaterial_.SetGraphicsRootCBuffView(nextIdx++);
+	cbTransform_.SetGraphicsRootCBuffView(nextIdx++);
 
 	MyDirectX::GetInstance()->GetCmdList()->DrawInstanced(4, 1, 0, 0);
 }

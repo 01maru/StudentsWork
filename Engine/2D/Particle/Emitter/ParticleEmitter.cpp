@@ -9,12 +9,13 @@ void ParticleEmitter::Update()
 	//	アクティブじゃなかったら
 	if (isActive_ == false) return;
 
-	if (timer_++ >= rate_) {
-		timer_ = 0;
+	if (timer_.GetIsActive() == false) {
 
+		timer_.StartCount();
 		//	パーティクル生成
 		AddParticle();
 	}
+	timer_.Update();
 }
 
 void ParticleEmitter::AddParticle()
@@ -58,7 +59,7 @@ void ParticleEmitter::SetIsObj(bool isObj)
 
 void ParticleEmitter::SetRate(int32_t v)
 {
-	rate_ = v;
+	timer_.SetMaxFrameCount(v);
 }
 
 void ParticleEmitter::SetPosition(const Vector3D& pos)

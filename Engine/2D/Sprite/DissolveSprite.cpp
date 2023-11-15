@@ -5,6 +5,7 @@
 #include "PipelineManager.h"
 #include "TextureManager.h"
 #include "DirectX.h"
+#include "RootParameterIdx.h"
 
 void DissolveSprite::Initialize(Texture* texture)
 {
@@ -45,15 +46,17 @@ void DissolveSprite::Draw(GPipeline* pipeline)
 	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	IASetVertIdxBuff();
+
+	int32_t nextIdx = Zero;
 	//	テクスチャ
-	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(handle_->GetHandle()));
+	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(handle_->GetHandle()));
 
 	Texture* dissolve = TextureManager::GetInstance()->GetTextureGraph("noise.png");
-	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
+	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
 
-	cbColorMaterial_.SetGraphicsRootCBuffView(2);
-	cbTransform_.SetGraphicsRootCBuffView(3);
-	cbDissolve_.SetGraphicsRootCBuffView(4);
+	cbColorMaterial_.SetGraphicsRootCBuffView(nextIdx++);
+	cbTransform_.SetGraphicsRootCBuffView(nextIdx++);
+	cbDissolve_.SetGraphicsRootCBuffView(nextIdx++);
 
 	MyDirectX::GetInstance()->GetCmdList()->DrawInstanced(4, 1, 0, 0);
 }

@@ -94,6 +94,7 @@ public:
 	void SetAttribute(unsigned short attribute);
 	void SetColor(const Vector4D& color) { color_ = color; }
 	void SetColor(const Vector3D& color) { color_ = Vector4D(color, color_.w); }
+	void SetAlphaColor(float alpha);
 	void SetPosition(const Vector3D& pos) { mat_.trans_ = pos; }
 	void SetScale(const Vector3D& scale) { mat_.scale_ = scale; }
 	void SetRotation(const Vector3D& rot) { mat_.angle_ = rot; }

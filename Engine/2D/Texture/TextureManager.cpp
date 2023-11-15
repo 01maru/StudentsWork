@@ -70,7 +70,7 @@ void TextureManager::ImGuiTexUpdate()
 
 	imguiMan->BeginChild();
 
-	int32_t i = 0;
+	int32_t id = 0;
 	for (auto itr = textures_.begin(); itr != textures_.end(); ++itr)
 	{
 		if (searchWord_.length() != 0) {
@@ -78,10 +78,10 @@ void TextureManager::ImGuiTexUpdate()
 			if (itr->second->GetTextureName().find(searchWord_) == -1) continue;
 		}
 
-		imguiMan->PushID(i++);
+		imguiMan->PushID(id++);
 		imguiMan->Text("Name : %s", itr->first.c_str());
 		imguiMan->Text("Handle : %d", itr->second->GetHandle());
-		if (imguiMan->SetRadioButton("PreviewTex", previewIdx_, i)) previewTexName_ = itr->first;
+		if (imguiMan->SetRadioButton("PreviewTex", previewIdx_, id)) previewTexName_ = itr->first;
 
 		imguiMan->Spacing();
 		imguiMan->Separator();

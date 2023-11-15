@@ -4,6 +4,7 @@
 #include "EmitterComponent.h"
 #include <list>
 #include <memory>
+#include "FrameCounter.h"
 
 /**
 * @file ParticleEmitter.h
@@ -37,10 +38,8 @@ private:
 	bool isActive_ = true;
 	//	Emitterの座標
 	Vector3D pos_;
-	//	実行時間
-	int32_t timer_ = 0;
-	//	パーティクルの発生レート
-	int32_t rate_ = 70;
+	//	生成レート
+	FrameCounter timer_;
 	//	ブレンド設定
 	Blend::BlendMord blendMord_ = Blend::ALPHA_BLEND;
 

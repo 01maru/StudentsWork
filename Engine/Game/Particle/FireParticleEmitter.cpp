@@ -36,6 +36,7 @@ std::unique_ptr<ParticleEmitter>& FireParticleEmitter::GetEmitter()
 	emitter_ = std::make_unique<ParticleEmitter>();
 	emitter_->SetIsObj(true);
 	emitter_->SetBlendMord(Blend::ADD_BLEND);
+	emitter_->SetRate(60);
 
 	SetScaleComponent();
 

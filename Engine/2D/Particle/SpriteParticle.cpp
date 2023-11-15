@@ -7,6 +7,7 @@
 #include "Particle.h"
 
 #include "CameraManager.h"
+#include "RootParameterIdx.h"
 
 void SpriteParticle::Initialize()
 {
@@ -58,12 +59,15 @@ void SpriteParticle::Draw()
 
 	//	頂点バッファ設定
 	IASetVertIdxBuff();
+
+	int32_t nextIdx = Zero;
+	
 	//	テクスチャ設定
-	cmdList->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(texHandle_));
+	cmdList->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(texHandle_));
 
 	//	定数バッファ設定
-	colorMaterial_.SetGraphicsRootCBuffView(1);
-	transform_.SetGraphicsRootCBuffView(2);
+	colorMaterial_.SetGraphicsRootCBuffView(nextIdx++);
+	transform_.SetGraphicsRootCBuffView(nextIdx++);
 
 	//	描画
 	cmdList->DrawInstanced(1, 1, 0, 0);

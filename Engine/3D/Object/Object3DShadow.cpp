@@ -6,6 +6,7 @@
 #include "CameraManager.h"
 #include "LightCamera.h"
 #include "PipelineManager.h"
+#include "RootParameterIdx.h"
 
 void Object3DShadow::Initialize()
 {
@@ -39,11 +40,13 @@ void Object3DShadow::Draw()
 	pipeline_->SetGraphicsRootSignature();
 	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	shadowTransform_.SetGraphicsRootCBuffView(2);
-	LightCamera* camera = dynamic_cast<LightCamera*>(CameraManager::GetInstance()->GetLightCamera());
-	camera->SetGraphicsRootCBuffView(3);
+	int32_t nextIdx = One;
 
-	parent_->GetModel()->Draw(1);
+	shadowTransform_.SetGraphicsRootCBuffView(nextIdx++);
+	LightCamera* camera = dynamic_cast<LightCamera*>(CameraManager::GetInstance()->GetLightCamera());
+	camera->SetGraphicsRootCBuffView(nextIdx++);
+
+	parent_->GetModel()->Draw(nextIdx++);
 }
 
 //-----------------------------------------------------------------------------

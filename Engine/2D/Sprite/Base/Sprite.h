@@ -57,6 +57,7 @@ protected:
 		LT,
 		RB,
 		RT,
+		VertexSize,
 	};
 #pragma endregion
 
