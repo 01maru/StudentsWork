@@ -4,12 +4,15 @@
 
 #include "ObjModel.h"
 #include "ObjCamera2D.h"
+#include "Object3DShilhouette.h"
 
 void LoadingModel::Initialize()
 {
     loadModel_ = std::make_unique<ObjModel>("plane");
 
-	loadObj_.reset(Object3D::Create(loadModel_.get()));
+    loadObj_ = std::make_unique<Object3DShilhouette>();
+    loadObj_->Initialize();
+    loadObj_->SetModel(loadModel_.get());
 	loadObj_->SetColor({ 1.0f,1.0f,1.0f });
 	loadObj_->SetScale({ 30.0f,30.0f,30.0f });
 	loadObj_->SetPosition({ Window::sWIN_WIDTH / 2.0f - 130.0f,-Window::sWIN_HEIGHT / 2.0f + 80.0f,0.0f });
@@ -60,6 +63,6 @@ void LoadingModel::Update()
 void LoadingModel::Draw()
 {
     if (easeCount_ > 0) {
-        loadObj_->DrawSilhouette();
+        loadObj_->Draw();
     }
 }

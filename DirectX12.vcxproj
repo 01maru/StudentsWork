@@ -141,6 +141,8 @@
     <ClCompile Include="Engine\Game\Player\PlayerWalkState.cpp" />
     <ClCompile Include="Engine\Game\UI\SelectCursor.cpp" />
     <ClCompile Include="Engine\Game\UI\TitleUI.cpp" />
+    <ClCompile Include="Object3DDissolve.cpp" />
+    <ClCompile Include="Object3DShilhouette.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Game\UI\ClearUI.h" />
@@ -284,6 +286,8 @@
     <ClInclude Include="Engine\Game\Player\PlayerWalkState.h" />
     <ClInclude Include="Engine\Game\UI\SelectCursor.h" />
     <ClInclude Include="Engine\Game\UI\TitleUI.h" />
+    <ClInclude Include="Object3DDissolve.h" />
+    <ClInclude Include="Object3DShilhouette.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

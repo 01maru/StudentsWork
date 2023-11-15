@@ -87,11 +87,6 @@ void Object3D::Initialize()
 	result = colorMaterial_.GetResource()->Map(0, nullptr, (void**)&cColorMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
-	dissolve_.Initialize(sizeof(CBuff::CBuffDissolveData));
-	//	定数バッファのマッピング
-	result = dissolve_.GetResource()->Map(0, nullptr, (void**)&cDissolveMap_);	//	マッピング
-	assert(SUCCEEDED(result));
-
 #pragma endregion
 
 	mat_.Initialize();
@@ -159,11 +154,6 @@ void Object3D::MatUpdate(int32_t animationIdx)
 
 	cColorMap_->color = color_;
 
-	dissolveValue_ += 0.001f;
-	if (dissolveValue_ > 1.0f) dissolveValue_ = 0.0f;
-	cDissolveMap_->value = dissolveValue_;
-	cDissolveMap_->color = { 2.0f,0.0f,0.0f,1.0f };
-
 	//	Animation
 	std::vector<Matrix> Transforms;
 	//animationTimer_++;
@@ -176,20 +166,6 @@ void Object3D::MatUpdate(int32_t animationIdx)
 	}
 }
 
-void Object3D::DrawSilhouette()
-{
-	GPipeline* pipeline_ = PipelineManager::GetInstance()->GetPipeline("ModelSilhouette");
-	pipeline_->SetGraphicsRootSignature();
-	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	transform_.SetGraphicsRootCBuffView(2);
-	skinData_.SetGraphicsRootCBuffView(4);
-	colorMaterial_.SetGraphicsRootCBuffView(5);
-	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
-
-	model_->Draw(1);
-}
-
 void Object3D::Draw(bool drawShadow)
 {
 	DrawShadow(drawShadow);
@@ -197,6 +173,10 @@ void Object3D::Draw(bool drawShadow)
 	DrawShadowReciever(drawShadow);
 
 	DrawShadowUnReciever(drawShadow);
+}
+
+void Object3D::Draw()
+{
 }
 
 void Object3D::DrawShadow(bool drawShadow)
@@ -253,22 +233,10 @@ void Object3D::DrawShadowUnReciever(bool drawShadow)
 	model_->Draw(1);
 }
 
-void Object3D::DrawDissolve(bool drawShadow)
-{
-	if (drawShadow) return;
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
 
-	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("dissolve");
-	pipeline->SetGraphicsRootSignature();
-	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	Texture* dissolve = TextureManager::GetInstance()->GetTextureGraph("DissolveMap.png");
-	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
-
-	transform_.SetGraphicsRootCBuffView(3);
-	LightManager::GetInstance()->SetGraphicsRootCBuffView(4);
-	skinData_.SetGraphicsRootCBuffView(5);
-	colorMaterial_.SetGraphicsRootCBuffView(6);
-	dissolve_.SetGraphicsRootCBuffView(7);
-
-	model_->Draw(2);
-}
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------

@@ -1,5 +1,4 @@
 #pragma once
-#define NOMINMAX
 #include "MyMath.h"
 #include "CollisionInfo.h"
 
@@ -10,19 +9,20 @@ namespace CBuff {
 	struct CBuffObj3DTransform;
 	struct CBuffSkinData;
 	struct CBuffColorMaterial;
-	struct CBuffDissolveData;
 }
 
 class BaseCollider;
 class ICamera;
 class IModel;
+class GPipeline;
 
 class Object3D
 {
 private:
-	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
 	ICamera* camera_ = nullptr;
+
+	GPipeline* pPipeline_ = nullptr;
 
 	//	影生成するか
 	bool shadowing_ = false;
@@ -31,34 +31,31 @@ private:
 
 #pragma region CBuff
 	
-	ConstBuff transform_;
 	CBuff::CBuffObj3DTransform* cTransformMap_ = nullptr;
 
 	ConstBuff shadowTransform_;
 	CBuff::CBuffObj3DTransform* cShadowTransMap_ = nullptr;
 
-	ConstBuff lightMaterial_;
 	CBuff::CBuffLightMaterial* cLightMap_ = nullptr;
 
-	ConstBuff skinData_;
 	CBuff::CBuffSkinData* cSkinMap_ = nullptr;
 
-	ConstBuff colorMaterial_;
 	CBuff::CBuffColorMaterial* cColorMap_ = nullptr;
 	
-	ConstBuff dissolve_;
-	CBuff::CBuffDissolveData* cDissolveMap_ = nullptr;
-
 #pragma endregion
 
 	Object3D* parent_ = nullptr;
-	IModel* model_ = nullptr;
 	float animationTimer_ = 0.0f;
-	float dissolveValue_ = 1.0f;
 protected:
 	MyMath::ObjMatrix mat_;
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 	BaseCollider* collider_ = nullptr;
+	ConstBuff transform_;
+	ConstBuff lightMaterial_;
+	ConstBuff skinData_;
+	ConstBuff colorMaterial_;
+
+	IModel* model_ = nullptr;
 	
 private:
 	void DrawShadow(bool drawShadow);
@@ -75,8 +72,8 @@ public:
 	virtual void ColliderUpdate();
 	void MatUpdate(int32_t animationIdx = -1);
 	virtual void Draw(bool drawShadow);
-	void DrawSilhouette();
-	void DrawDissolve(bool drawShadow);
+
+	virtual void Draw();
 
 	virtual void OnCollision(CollisionInfo& info) { (void)info; }
 
@@ -84,7 +81,9 @@ public:
 	float GetAnimationTimer() const { return animationTimer_; }
 
 	BaseCollider* GetCollider() { return collider_; }
-	//	Getter
+	
+#pragma region Getter
+
 	const Vector4D& GetColor() { return color_; }
 	const Vector3D& GetPosition() { return mat_.trans_; }
 	const Vector3D& GetScale() { return mat_.scale_; }
@@ -92,7 +91,10 @@ public:
 	inline IModel* GetModel() { return model_; }
 	const Matrix& GetMatWorld() { return mat_.matWorld_; }
 
-	//	Setter
+#pragma endregion
+
+#pragma region Setter
+
 	void SetModel(IModel* model);
 	void SetCollider(BaseCollider* collider);
 	void SetAttribute(unsigned short attribute);
@@ -102,5 +104,7 @@ public:
 	void SetScale(const Vector3D& scale) { mat_.scale_ = scale; }
 	void SetRotation(const Vector3D& rot) { mat_.angle_ = rot; }
 	void SetCamera(ICamera* camera) { camera_ = camera; }
+
+#pragma endregion
 };
 

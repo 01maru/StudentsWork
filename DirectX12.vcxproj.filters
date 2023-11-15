@@ -654,6 +654,12 @@
     <ClCompile Include="Engine\Game\UI\ClearUI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Object3DShilhouette.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Object3DDissolve.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -1078,6 +1084,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Player\PlayerNormalBulletState.h">
       <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="Object3DShilhouette.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Object3DDissolve.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
