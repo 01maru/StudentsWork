@@ -51,6 +51,11 @@ Vector3D& ParticleEmitter::GetPosition()
 	return pos_;
 }
 
+void ParticleEmitter::SetIsObj(bool isObj)
+{
+	isObj_ = isObj;
+}
+
 void ParticleEmitter::SetRate(int32_t v)
 {
 	rate_ = v;

@@ -32,7 +32,7 @@ public:
 
 private:
 	//	オブジェクトパーティクルかどうか
-	bool isObj_ = true;
+	bool isObj_ = false;
 	//	実行中か
 	bool isActive_ = true;
 	//	Emitterの座標
@@ -83,6 +83,8 @@ public:
 #pragma endregion
 
 #pragma region Setter
+
+	void SetIsObj(bool isObj);
 
 	void SetRate(int32_t v);
 
