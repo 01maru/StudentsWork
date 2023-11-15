@@ -46,8 +46,6 @@ private:
 	ConstBuff shadowTransform_;
 	CBuff::CBuffObj3DTransform* cShadowTransMap_ = nullptr;
 
-	CBuff::CBuffLightMaterial* cLightMap_ = nullptr;
-
 	CBuff::CBuffColorMaterial* cColorMap_ = nullptr;
 	
 #pragma endregion
@@ -58,7 +56,6 @@ protected:
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 	BaseCollider* collider_ = nullptr;
 	ConstBuff transform_;
-	ConstBuff lightMaterial_;
 	ConstBuff colorMaterial_;
 
 	IModel* model_ = nullptr;

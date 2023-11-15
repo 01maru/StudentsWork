@@ -110,6 +110,7 @@
     <ClCompile Include="Engine\Game\GameOverCamera.cpp" />
     <ClCompile Include="Engine\Game\UI\GameOverUI.cpp" />
     <ClCompile Include="Engine\Game\Particle\FireParticleEmitter.cpp" />
+    <ClCompile Include="LightCamera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="Engine\Game\Player\PlayerWalkState.h" />
     <ClInclude Include="Engine\Game\UI\SelectCursor.h" />
     <ClInclude Include="Engine\Game\UI\TitleUI.h" />
+    <ClInclude Include="LightCamera.h" />
     <ClInclude Include="Object3DAnimation.h" />
     <ClInclude Include="Object3DDissolve.h" />
     <ClInclude Include="Object3DShilhouette.h" />

@@ -12,6 +12,8 @@
 
 #include "ConstBuffStruct.h"
 
+#include "LightCamera.h"
+
 void Object3D::SetCollider(BaseCollider* collider)
 {
 	collider->SetObject3D(this);
@@ -65,11 +67,6 @@ void Object3D::Initialize()
 	shadowTransform_.Initialize(sizeof(CBuff::CBuffObj3DTransform));
 	//	定数バッファのマッピング
 	result = shadowTransform_.GetResource()->Map(0, nullptr, (void**)&cShadowTransMap_);	//	マッピング
-	assert(SUCCEEDED(result));
-
-	lightMaterial_.Initialize(sizeof(CBuff::CBuffLightMaterial));
-	//	定数バッファのマッピング
-	result = lightMaterial_.GetResource()->Map(0, nullptr, (void**)&cLightMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
 	colorMaterial_.Initialize(sizeof(CBuff::CBuffColorMaterial));
@@ -135,9 +132,6 @@ void Object3D::MatUpdate()
 		cShadowTransMap_->matWorld = mat_.matWorld_;
 	}
 
-	cLightMap_->mLVP = matView_;
-	cLightMap_->cameraPos = CameraManager::GetInstance()->GetLightCamera()->GetEye();
-
 	cColorMap_->color = color_;
 
 	animation_->MatUpdate();
@@ -167,7 +161,8 @@ void Object3D::DrawShadow(bool drawShadow)
 	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	shadowTransform_.SetGraphicsRootCBuffView(2);
-	lightMaterial_.SetGraphicsRootCBuffView(3);
+	LightCamera* camera = dynamic_cast<LightCamera*>(CameraManager::GetInstance()->GetLightCamera());
+	camera->SetGraphicsRootCBuffView(3);
 
 	model_->Draw(1);
 }
@@ -185,7 +180,8 @@ void Object3D::DrawShadowReciever(bool drawShadow)
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(shadowmap->GetHandle()));
 	
 	transform_.SetGraphicsRootCBuffView(3);
-	lightMaterial_.SetGraphicsRootCBuffView(4);
+	LightCamera* camera = dynamic_cast<LightCamera*>(CameraManager::GetInstance()->GetLightCamera());
+	camera->SetGraphicsRootCBuffView(4);
 	animation_->SetGraphicsRootCBuffView(5);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(6);
 
