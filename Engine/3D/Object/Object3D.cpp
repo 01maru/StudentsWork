@@ -16,20 +16,6 @@
 
 #include "RootParameterIdx.h"
 
-void Object3D::SetCollider(BaseCollider* collider)
-{
-	collider->SetObject3D(this);
-	std::unique_ptr<BaseCollider> coll(collider);
-	this->collider_ = coll.get();
-	CollisionManager::GetInstance()->AddCollider(std::move(coll));
-	collider_->Update();
-}
-
-void Object3D::SetAttribute(unsigned short attribute)
-{
-	collider_->SetAttribute(attribute);
-}
-
 Object3D::~Object3D()
 {
 	if (collider_) {
@@ -37,22 +23,6 @@ Object3D::~Object3D()
 		CollisionManager::GetInstance()->RemoveCollider();
 		collider_ = nullptr;
 	}
-}
-
-std::unique_ptr<Object3D> Object3D::Create(IModel* model_)
-{
-	// 3Dオブジェクトのインスタンスを生成
-	std::unique_ptr<Object3D> obj = std::make_unique<Object3D>();
-	if (obj == nullptr) return obj;
-
-	// 初期化
-	obj->Initialize();
-
-	if (model_ != nullptr) {
-		obj->SetModel(model_);
-	}
-
-	return obj;
 }
 
 void Object3D::Initialize()
@@ -181,9 +151,39 @@ void Object3D::Draw()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
+std::unique_ptr<Object3D> Object3D::Create(IModel* model_)
+{
+	// 3Dオブジェクトのインスタンスを生成
+	std::unique_ptr<Object3D> obj = std::make_unique<Object3D>();
+	if (obj == nullptr) return obj;
+
+	// 初期化
+	obj->Initialize();
+
+	if (model_ != nullptr) {
+		obj->SetModel(model_);
+	}
+
+	return obj;
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
+
+void Object3D::SetCollider(BaseCollider* collider)
+{
+	collider->SetObject3D(this);
+	std::unique_ptr<BaseCollider> coll(collider);
+	this->collider_ = coll.get();
+	CollisionManager::GetInstance()->AddCollider(std::move(coll));
+	collider_->Update();
+}
+
+void Object3D::SetAttribute(unsigned short attribute)
+{
+	collider_->SetAttribute(attribute);
+}
 
 void Object3D::SetModel(IModel* model)
 {

@@ -47,7 +47,14 @@ private:
 	CBuff::CBuffObj3DTransform* cTransformMap_ = nullptr;
 
 	CBuff::CBuffColorMaterial* cColorMap_ = nullptr;
-	
+
+	ConstBuff transform_;
+	ConstBuff colorMaterial_;
+
+	std::unique_ptr<Object3DAnimation> animation_;
+
+	std::unique_ptr<Object3DShadow> shadow_;
+
 #pragma endregion
 
 	Object3D* parent_ = nullptr;
@@ -55,14 +62,8 @@ protected:
 	MyMath::ObjMatrix mat_;
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 	BaseCollider* collider_ = nullptr;
-	ConstBuff transform_;
-	ConstBuff colorMaterial_;
 
 	IModel* model_ = nullptr;
-
-	std::unique_ptr<Object3DAnimation> animation_;
-
-	std::unique_ptr<Object3DShadow> shadow_;
 
 protected:
 	void DrawModel(int32_t& rootParaIdx);
@@ -70,11 +71,11 @@ private:
 	void DrawShadowReciever(int32_t& nextIdx);
 
 public:
-	static std::unique_ptr<Object3D> Create(IModel* model_ = nullptr);
-
 	virtual void OnCollision(CollisionInfo& info) { (void)info; }
 
 #pragma region Getter
+
+	static std::unique_ptr<Object3D> Create(IModel* model_ = nullptr);
 
 	BaseCollider* GetCollider() { return collider_; }
 	const Vector4D& GetColor() { return color_; }

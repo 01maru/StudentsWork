@@ -6,6 +6,7 @@
 #include "LightManager.h"
 #include "IModel.h"
 #include <cassert>
+#include "RootParameterIdx.h"
 
 void Object3DDissolve::Initialize()
 {
@@ -35,14 +36,12 @@ void Object3DDissolve::Draw()
 	pipeline->SetGraphicsRootSignature();
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+	int32_t nextIdx = One;
+
 	Texture* dissolve = TextureManager::GetInstance()->GetTextureGraph("DissolveMap.png");
-	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(1, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
+	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));
 
-	transform_.SetGraphicsRootCBuffView(3);
-	LightManager::GetInstance()->SetGraphicsRootCBuffView(4);
-	animation_->SetGraphicsRootCBuffView(5);
-	colorMaterial_.SetGraphicsRootCBuffView(6);
-	dissolve_.SetGraphicsRootCBuffView(7);
+	dissolve_.SetGraphicsRootCBuffView(nextIdx++);
 
-	model_->Draw(2);
+	DrawModel(nextIdx);
 }

@@ -189,7 +189,7 @@ void PipelineManager::InitializeModel()
 		modelpipeline_->SetBlendMord(i);
 	}
 
-	Shader dissolveShader(L"Resources/Shader/ObjVS.hlsl", L"Resources/Shader/DissolvePS.hlsl");
+	Shader dissolveShader(L"Resources/Shader/DissolveVS.hlsl", L"Resources/Shader/DissolvePS.hlsl");
 
 	pipelines_.emplace("dissolve", std::make_unique<GPipeline>());
 	GPipeline* dissolvePipe = pipelines_["dissolve"].get();

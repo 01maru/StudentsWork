@@ -262,6 +262,9 @@
     <Filter Include="ヘッダー ファイル\Game\Enemy\State">
       <UniqueIdentifier>{c2597db6-511b-4c69-a060-f1c1257fff80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="リソース ファイル\ObjShader\Dissolve">
+      <UniqueIdentifier>{fa7f6121-9611-4749-bc36-0062d5844bb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -1138,11 +1141,11 @@
     <None Include="Resources\Shader\GlayScaleHeader.hlsli">
       <Filter>リソース ファイル\ScreenShader</Filter>
     </None>
-    <None Include="Resources\Shader\DissolveHeader.hlsli">
-      <Filter>リソース ファイル\ObjShader</Filter>
-    </None>
     <None Include="Resources\Shader\DissolveSpriteHeader.hlsli">
       <Filter>リソース ファイル\SpriteShader</Filter>
+    </None>
+    <None Include="Resources\Shader\DissolveHeader.hlsli">
+      <Filter>リソース ファイル\ObjShader\Dissolve</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1209,11 +1212,14 @@
     <FxCompile Include="Resources\Shader\DepthOfFieldPS.hlsl">
       <Filter>リソース ファイル\ScreenShader</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\DissolvePS.hlsl">
-      <Filter>リソース ファイル\ObjShader</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shader\DissolveSpritePS.hlsl">
       <Filter>リソース ファイル\SpriteShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\DissolveVS.hlsl">
+      <Filter>リソース ファイル\ObjShader\Dissolve</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\DissolvePS.hlsl">
+      <Filter>リソース ファイル\ObjShader\Dissolve</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
