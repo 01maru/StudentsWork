@@ -36,7 +36,9 @@ void TitleScene::LoadResources()
 	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
 	skydome_->SetColor({0,0,0});
 	//	地面
-	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
+	ground_ = std::make_unique<Object3DDissolve>();
+	ground_->Initialize();
+	ground_->SetModel(models->GetModel("ground"));
 
 #pragma endregion
 	

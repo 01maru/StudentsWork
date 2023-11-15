@@ -64,8 +64,9 @@ protected:
 
 	std::unique_ptr<Object3DShadow> shadow_;
 
-private:
+protected:
 	void DrawModel(int32_t& rootParaIdx);
+private:
 	void DrawShadowReciever(int32_t& nextIdx);
 
 public:

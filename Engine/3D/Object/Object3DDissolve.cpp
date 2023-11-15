@@ -10,7 +10,7 @@
 void Object3DDissolve::Initialize()
 {
 	HRESULT result;
-
+	TextureManager::GetInstance()->LoadTextureGraph("DissolveMap.png");
 	dissolve_.Initialize(sizeof(CBuff::CBuffDissolveData));
 	//	定数バッファのマッピング
 	result = dissolve_.GetResource()->Map(0, nullptr, (void**)&cDissolveMap_);	//	マッピング

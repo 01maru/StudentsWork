@@ -3,12 +3,13 @@
 #include "TitleUI.h"
 
 #include "JSONLoader.h"
+#include "Object3DDissolve.h"
 
 class TitleScene :public IScene
 {
 private:
 	std::unique_ptr<JSONLoader> level_;
-	std::unique_ptr<Object3D> ground_;
+	std::unique_ptr<Object3DDissolve> ground_;
 	std::unique_ptr<Object3D> skydome_;
 
 #pragma region Sprite

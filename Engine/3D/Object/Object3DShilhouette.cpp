@@ -2,6 +2,7 @@
 #include "PipelineManager.h"
 #include "LightManager.h"
 #include "IModel.h"
+#include "RootParameterIdx.h"
 
 void Object3DShilhouette::Draw()
 {
@@ -9,10 +10,7 @@ void Object3DShilhouette::Draw()
 	pipeline_->SetGraphicsRootSignature();
 	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	transform_.SetGraphicsRootCBuffView(2);
-	animation_->SetGraphicsRootCBuffView(4);
-	colorMaterial_.SetGraphicsRootCBuffView(5);
-	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
+	int32_t nextIdx = One;
 
-	model_->Draw(1);
+	DrawModel(nextIdx);
 }
