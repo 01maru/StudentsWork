@@ -7,12 +7,15 @@
 
 void ParticleResource::Initialize(Particle* particle)
 {
+	//	オブジェクトだったら
 	if (parent_->GetIsObj())
 	{
 		ObjectParticle* obj = particle->GetComponent<ObjectParticle>();
 		IModel* model = ModelManager::GetInstance()->GetModel(name_);
 		obj->SetModel(model);
 	}
+
+	//	スプライトだったら
 	else
 	{
 		SpriteParticle* sprite = particle->GetComponent<SpriteParticle>();
@@ -20,6 +23,10 @@ void ParticleResource::Initialize(Particle* particle)
 		sprite->SetTextureHandle(tex->GetHandle());
 	}
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
 
 void ParticleResource::SetResourceName(const std::string& name)
 {

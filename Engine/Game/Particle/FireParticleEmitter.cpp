@@ -18,7 +18,6 @@ std::unique_ptr<ParticleEmitter>& FireParticleEmitter::GetEmitter()
 	addV->SetMinValue(Vector3D{ -5,0,-5 });
 	addV->SetMaxValue(Vector3D{ 5,0,5 });
 	std::unique_ptr<ParticleValue> v2 = std::move(addV);
-	//emitter_->SetPosition({-0.0f,5.0f,0.0f });
 	EmitterPosComp* pos = emitter_->AddComponent<EmitterPosComp>();
 	pos->SetAddValue(v2);
 	emitter_->SetBlendMord(Blend::ADD_BLEND);

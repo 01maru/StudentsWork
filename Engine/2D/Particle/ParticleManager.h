@@ -51,12 +51,19 @@ private:
 	//	エミッターリスト
 	std::forward_list <std::unique_ptr<ParticleEmitter>> emitters_;
 	//	ぺらポリゴンのパーティクルリスト
-	std::forward_list<std::unique_ptr<Particle>> particles_;
+	std::forward_list<std::unique_ptr<Particle>> spriteParticles_;
 	//	ぺらポリゴンの描画に使用するパイプライン配列
 	std::vector<GPipeline*> pipelines_;
 
 	//	モデルを使ったパーティクルのリスト
 	std::forward_list<std::unique_ptr<Particle>> objParticles_;
+
+private:
+	/**
+	* @fn DeleteParticle()
+	* パーティクルをリストから削除するための関数
+	*/
+	void DeleteParticle();
 
 public:
 #pragma region ADD

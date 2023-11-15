@@ -2,6 +2,11 @@
 #include "ParticleComponent.h"
 #include "Object3D.h"
 
+/**
+* @file ObjectParticle.h
+* @brief 3Dオブジェクトを使ったパーティクルを表示するために必要なコンポーネントのクラスファイル
+*/
+
 class ObjectParticle :public ParticleComponent, public Object3D
 {
 public:
@@ -20,9 +25,5 @@ public:
 	* 描画処理関数
 	*/
 	void Draw() override;
-
-private:
-
-public:
 };
 

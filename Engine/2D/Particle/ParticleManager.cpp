@@ -10,6 +10,10 @@ ParticleManager* ParticleManager::GetInstance()
 	return &instance;
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void ParticleManager::Initialize()
 {
 	//	パーティクルに使用する画像読み込み
@@ -23,22 +27,31 @@ void ParticleManager::Initialize()
 	pipelines_.push_back(PipelineManager::GetInstance()->GetPipeline("Particle", Blend::ALPHA_BLEND));
 }
 
-void ParticleManager::Update()
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
+void ParticleManager::DeleteParticle()
 {
-#pragma region Delete
-	particles_.remove_if([](std::unique_ptr<Particle>& x) {
+	spriteParticles_.remove_if([](std::unique_ptr<Particle>& x) {
 		return x.get()->GetIsEnd();
 		});
+
 	objParticles_.remove_if([](std::unique_ptr<Particle>& x) {
 		return x.get()->GetIsEnd();
 		});
-#pragma endregion
+}
 
-	for (auto& particle : particles_)
+void ParticleManager::Update()
+{
+	DeleteParticle();
+
+	//	スプライトパーティクル更新
+	for (auto& particle : spriteParticles_)
 	{
 		particle->Update();
 	}
-
+	//	オブジェクトパーティクル更新
 	for (auto& particle : objParticles_)
 	{
 		particle->Update();
@@ -53,7 +66,7 @@ void ParticleManager::Update()
 
 void ParticleManager::MatUpdate()
 {
-	for (auto& particle : particles_) {
+	for (auto& particle : spriteParticles_) {
 		//	パーティクルの行列更新
 		particle->MatUpdate();
 	}
@@ -81,14 +94,18 @@ void ParticleManager::ImGuiUpdate()
 	imgui->EndWindow();
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
+
 void ParticleManager::Draw()
 {
 	Blend::BlendMord prev = Blend::NONE_BLEND;
 
-	for (auto itr = particles_.begin(); itr != particles_.end(); itr++)
+	for (auto itr = spriteParticles_.begin(); itr != spriteParticles_.end(); itr++)
 	{
 		//	リストの最初 or 前のブレンドモード設定から変更があったら
-		if (itr == particles_.begin() || prev != itr->get()->GetBlendMord()) {
+		if (itr == spriteParticles_.begin() || prev != itr->get()->GetBlendMord()) {
 			GPipeline* pipeline = pipelines_[itr->get()->GetBlendMord()];
 			pipeline->SetGraphicsRootSignature();
 			pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
@@ -107,6 +124,10 @@ void ParticleManager::Draw()
 	}
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Add
+//-----------------------------------------------------------------------------
+
 void ParticleManager::AddParticle(std::unique_ptr<Particle>& particle, bool isObj)
 {
 	if (isObj) {
@@ -116,7 +137,7 @@ void ParticleManager::AddParticle(std::unique_ptr<Particle>& particle, bool isOb
 	}
 
 	else {
-		particles_.push_front(std::move(particle));
+		spriteParticles_.push_front(std::move(particle));
 
 		return;
 	}

@@ -5,11 +5,9 @@
 #include <list>
 #include <memory>
 
-//	Paritcleに変更
-
 /**
-* @file IParticle.h
-* @brief パーティクル用の継承(インターフェイス)クラスファイル
+* @file Particle.h
+* @brief パーティクル用のコンポーネントをまとめて管理するためのクラスファイル
 */
 
 class Particle
