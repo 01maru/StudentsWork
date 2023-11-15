@@ -12,11 +12,6 @@
 
 #include "ConstBuffStruct.h"
 
-void Object3D::SetModel(IModel* model)
-{
-	model_ = model;
-}
-
 void Object3D::SetCollider(BaseCollider* collider)
 {
 	collider->SetObject3D(this);
@@ -77,11 +72,6 @@ void Object3D::Initialize()
 	result = lightMaterial_.GetResource()->Map(0, nullptr, (void**)&cLightMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
-	skinData_.Initialize(sizeof(CBuff::CBuffSkinData));
-	//	定数バッファのマッピング
-	result = skinData_.GetResource()->Map(0, nullptr, (void**)&cSkinMap_);	//	マッピング
-	assert(SUCCEEDED(result));
-
 	colorMaterial_.Initialize(sizeof(CBuff::CBuffColorMaterial));
 	//	定数バッファのマッピング
 	result = colorMaterial_.GetResource()->Map(0, nullptr, (void**)&cColorMap_);	//	マッピング
@@ -91,11 +81,8 @@ void Object3D::Initialize()
 
 	mat_.Initialize();
 
-	//	ボーンの初期化
-	for (size_t i = 0; i < CBuff::MAX_BONES; i++)
-	{
-		cSkinMap_->bones[i] = Matrix();
-	}
+	animation_ = std::make_unique<Object3DAnimation>();
+	animation_->Initialize();
 }
 
 void Object3D::ColliderUpdate()
@@ -105,9 +92,8 @@ void Object3D::ColliderUpdate()
 	}
 }
 
-void Object3D::MatUpdate(int32_t animationIdx)
+void Object3D::MatUpdate()
 {
-
 #pragma region WorldMatrix
 	mat_.Update();
 #pragma endregion
@@ -154,16 +140,7 @@ void Object3D::MatUpdate(int32_t animationIdx)
 
 	cColorMap_->color = color_;
 
-	//	Animation
-	std::vector<Matrix> Transforms;
-	//animationTimer_++;
-	model_->BoneTransform(animationTimer_, Transforms, animationIdx);
-
-	if (Transforms.empty()) return;
-	for (size_t i = 0; i < model_->GetNumBones(); i++)
-	{
-		cSkinMap_->bones[i] = Transforms[i];
-	}
+	animation_->MatUpdate();
 }
 
 void Object3D::Draw(bool drawShadow)
@@ -209,7 +186,7 @@ void Object3D::DrawShadowReciever(bool drawShadow)
 	
 	transform_.SetGraphicsRootCBuffView(3);
 	lightMaterial_.SetGraphicsRootCBuffView(4);
-	skinData_.SetGraphicsRootCBuffView(5);
+	animation_->SetGraphicsRootCBuffView(5);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(6);
 
 	model_->Draw(2);
@@ -227,7 +204,7 @@ void Object3D::DrawShadowUnReciever(bool drawShadow)
 
 	transform_.SetGraphicsRootCBuffView(2);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(3);
-	skinData_.SetGraphicsRootCBuffView(4);
+	animation_->SetGraphicsRootCBuffView(4);
 	colorMaterial_.SetGraphicsRootCBuffView(5);
 
 	model_->Draw(1);
@@ -240,3 +217,9 @@ void Object3D::DrawShadowUnReciever(bool drawShadow)
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
+
+void Object3D::SetModel(IModel* model)
+{
+	model_ = model;
+	animation_->SetModel(model);
+}

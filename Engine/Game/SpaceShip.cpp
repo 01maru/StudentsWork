@@ -144,7 +144,7 @@ void SpaceShip::Update()
 	CameraMoveUpdate();
 	CameraFrontUpdate();
 
-	Object3D::MatUpdate(0);
+	Object3D::MatUpdate();
 }
 
 void SpaceShip::Start()

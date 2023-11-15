@@ -40,7 +40,7 @@ void Object3DDissolve::Draw()
 
 	transform_.SetGraphicsRootCBuffView(3);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(4);
-	skinData_.SetGraphicsRootCBuffView(5);
+	animation_->SetGraphicsRootCBuffView(5);
 	colorMaterial_.SetGraphicsRootCBuffView(6);
 	dissolve_.SetGraphicsRootCBuffView(7);
 

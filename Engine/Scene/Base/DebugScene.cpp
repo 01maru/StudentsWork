@@ -57,7 +57,7 @@ void DebugScene::MatUpdate()
 {
 	ground_->MatUpdate();
 	
-	skydome_->MatUpdate(index);
+	skydome_->MatUpdate();
 	ship_->MatUpdate();
 	sprite_.Update();
 }

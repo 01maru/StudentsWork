@@ -3,11 +3,11 @@
 #include "CollisionInfo.h"
 
 #include "ConstBuff.h"
+#include "Object3DAnimation.h"
 
 namespace CBuff {
 	struct CBuffLightMaterial;
 	struct CBuffObj3DTransform;
-	struct CBuffSkinData;
 	struct CBuffColorMaterial;
 }
 
@@ -18,6 +18,16 @@ class GPipeline;
 
 class Object3D
 {
+public:
+	virtual ~Object3D();
+
+	virtual void Initialize();
+	virtual void ColliderUpdate();
+	void MatUpdate();
+	virtual void Draw(bool drawShadow);
+
+	virtual void Draw();
+
 private:
 
 	ICamera* camera_ = nullptr;
@@ -38,47 +48,32 @@ private:
 
 	CBuff::CBuffLightMaterial* cLightMap_ = nullptr;
 
-	CBuff::CBuffSkinData* cSkinMap_ = nullptr;
-
 	CBuff::CBuffColorMaterial* cColorMap_ = nullptr;
 	
 #pragma endregion
 
 	Object3D* parent_ = nullptr;
-	float animationTimer_ = 0.0f;
 protected:
 	MyMath::ObjMatrix mat_;
 	Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 	BaseCollider* collider_ = nullptr;
 	ConstBuff transform_;
 	ConstBuff lightMaterial_;
-	ConstBuff skinData_;
 	ConstBuff colorMaterial_;
 
 	IModel* model_ = nullptr;
-	
+
+	std::unique_ptr<Object3DAnimation> animation_;
+
 private:
 	void DrawShadow(bool drawShadow);
 	void DrawShadowReciever(bool drawShadow);
 	void DrawShadowUnReciever(bool drawShadow);
 
 public:
-	Object3D() = default;
-	virtual ~Object3D();
-
 	static Object3D* Create(IModel* model_ = nullptr);
 
-	virtual void Initialize();
-	virtual void ColliderUpdate();
-	void MatUpdate(int32_t animationIdx = -1);
-	virtual void Draw(bool drawShadow);
-
-	virtual void Draw();
-
 	virtual void OnCollision(CollisionInfo& info) { (void)info; }
-
-	void SetAnimatonTimer(float timer) { animationTimer_ = timer; }
-	float GetAnimationTimer() const { return animationTimer_; }
 
 	BaseCollider* GetCollider() { return collider_; }
 	
