@@ -4,9 +4,9 @@
 
 #include "ConstBuff.h"
 #include "Object3DAnimation.h"
+#include "Object3DShadow.h"
 
 namespace CBuff {
-	struct CBuffLightMaterial;
 	struct CBuffObj3DTransform;
 	struct CBuffColorMaterial;
 }
@@ -43,9 +43,6 @@ private:
 	
 	CBuff::CBuffObj3DTransform* cTransformMap_ = nullptr;
 
-	ConstBuff shadowTransform_;
-	CBuff::CBuffObj3DTransform* cShadowTransMap_ = nullptr;
-
 	CBuff::CBuffColorMaterial* cColorMap_ = nullptr;
 	
 #pragma endregion
@@ -61,6 +58,8 @@ protected:
 	IModel* model_ = nullptr;
 
 	std::unique_ptr<Object3DAnimation> animation_;
+
+	std::unique_ptr<Object3DShadow> shadow_;
 
 private:
 	void DrawShadow(bool drawShadow);

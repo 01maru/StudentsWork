@@ -144,6 +144,7 @@
     <ClCompile Include="Engine\Game\UI\TitleUI.cpp" />
     <ClCompile Include="Object3DAnimation.cpp" />
     <ClCompile Include="Object3DDissolve.cpp" />
+    <ClCompile Include="Object3DShadow.cpp" />
     <ClCompile Include="Object3DShilhouette.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +292,7 @@
     <ClInclude Include="LightCamera.h" />
     <ClInclude Include="Object3DAnimation.h" />
     <ClInclude Include="Object3DDissolve.h" />
+    <ClInclude Include="Object3DShadow.h" />
     <ClInclude Include="Object3DShilhouette.h" />
   </ItemGroup>
   <ItemGroup>

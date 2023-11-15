@@ -64,11 +64,6 @@ void Object3D::Initialize()
 	result = transform_.GetResource()->Map(0, nullptr, (void**)&cTransformMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
-	shadowTransform_.Initialize(sizeof(CBuff::CBuffObj3DTransform));
-	//	定数バッファのマッピング
-	result = shadowTransform_.GetResource()->Map(0, nullptr, (void**)&cShadowTransMap_);	//	マッピング
-	assert(SUCCEEDED(result));
-
 	colorMaterial_.Initialize(sizeof(CBuff::CBuffColorMaterial));
 	//	定数バッファのマッピング
 	result = colorMaterial_.GetResource()->Map(0, nullptr, (void**)&cColorMap_);	//	マッピング
@@ -77,6 +72,10 @@ void Object3D::Initialize()
 #pragma endregion
 
 	mat_.Initialize();
+
+	shadow_ = std::make_unique<Object3DShadow>();
+	shadow_->Initialize();
+	shadow_->SetParent(this);
 
 	animation_ = std::make_unique<Object3DAnimation>();
 	animation_->Initialize();
@@ -120,17 +119,7 @@ void Object3D::MatUpdate()
 	}
 	cTransformMap_->cameraPos = cameraPos;
 
-	const Matrix& matView_ = CameraManager::GetInstance()->GetLightCamera()->GetViewProj();
-
-	
-	cShadowTransMap_->matViewProj = matView_;
-	if (model_ != nullptr) {
-		cShadowTransMap_->matWorld = model_->GetModelTransform();
-		cShadowTransMap_->matWorld *= mat_.matWorld_;
-	}
-	else {
-		cShadowTransMap_->matWorld = mat_.matWorld_;
-	}
+	shadow_->MatUpdate();
 
 	cColorMap_->color = color_;
 
@@ -156,15 +145,7 @@ void Object3D::DrawShadow(bool drawShadow)
 	//	影を生成しないなら
 	if (!shadowing_) return;
 
-	GPipeline* pipeline_ = PipelineManager::GetInstance()->GetPipeline("Shadow");
-	pipeline_->SetGraphicsRootSignature();
-	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	shadowTransform_.SetGraphicsRootCBuffView(2);
-	LightCamera* camera = dynamic_cast<LightCamera*>(CameraManager::GetInstance()->GetLightCamera());
-	camera->SetGraphicsRootCBuffView(3);
-
-	model_->Draw(1);
+	shadow_->Draw();
 }
 
 void Object3D::DrawShadowReciever(bool drawShadow)
