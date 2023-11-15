@@ -144,7 +144,7 @@ void JSONLoader::LoadJSON(const std::string& jsonname)
 		if (it != models_.end()) { model = it->second.get(); }
 
 		std::unique_ptr<Object3D> newObject;
-		newObject.reset(Object3D::Create(model));
+		newObject = std::move(Object3D::Create(model));
 		
 		newObject->SetPosition(objectData.translation);
 		newObject->SetRotation(objectData.rotation);

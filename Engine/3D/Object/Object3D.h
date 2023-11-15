@@ -67,7 +67,7 @@ private:
 	void DrawShadowUnReciever(bool drawShadow);
 
 public:
-	static Object3D* Create(IModel* model_ = nullptr);
+	static std::unique_ptr<Object3D> Create(IModel* model_ = nullptr);
 
 	virtual void OnCollision(CollisionInfo& info) { (void)info; }
 

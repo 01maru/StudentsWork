@@ -28,9 +28,9 @@ void DebugScene::LoadResources()
 #pragma endregion
 
 	//	地面
-	ground_.reset(Object3D::Create(models->GetModel("ground")));
+	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
 
-	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
+	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
 }
 
 void DebugScene::Initialize()

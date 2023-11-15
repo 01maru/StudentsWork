@@ -32,12 +32,12 @@ void GameScene::LoadResources()
 	models->LoadModel();
 #pragma endregion
 	//	地面
-	ground_.reset(Object3D::Create(models->GetModel("ground")));
+	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
 	PlaneCollider* coll_ = new PlaneCollider({ 0.0f,1.0f,0.0f });
 	coll_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
 	ground_->SetCollider(coll_);
 	//	天球
-	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
+	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
 	//collider_ = new MeshCollider;
 	//collider_->ConstructTriangles(skydome_->GetModel());
 	//collider_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
@@ -49,7 +49,7 @@ void GameScene::LoadResources()
 	enemy_ = std::make_unique<Boss>();
 	enemy_->Initialize(models->GetModel("eye"));
 	//	Cube
-	cube_.reset(Object3D::Create(models->GetModel()));
+	cube_ = std::move(Object3D::Create(models->GetModel()));
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
 
 	clear_.Initialize();

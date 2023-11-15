@@ -33,10 +33,10 @@ void TitleScene::LoadResources()
 	level_ = std::make_unique<JSONLoader>();
 	level_->LoadJSON("Title");
 	//	天球
-	skydome_.reset(Object3D::Create(models->GetModel("skydome")));
+	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
 	skydome_->SetColor({0,0,0});
 	//	地面
-	ground_.reset(Object3D::Create(models->GetModel("ground")));
+	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
 
 #pragma endregion
 	

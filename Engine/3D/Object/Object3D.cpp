@@ -37,16 +37,16 @@ Object3D::~Object3D()
 	}
 }
 
-Object3D* Object3D::Create(IModel* model_)
+std::unique_ptr<Object3D> Object3D::Create(IModel* model_)
 {
 	// 3Dオブジェクトのインスタンスを生成
-	Object3D* obj = new Object3D();
-	if (obj == nullptr) return nullptr;
+	std::unique_ptr<Object3D> obj = std::make_unique<Object3D>();
+	if (obj == nullptr) return obj;
 
 	// 初期化
 	obj->Initialize();
 
-	if (model_) {
+	if (model_ != nullptr) {
 		obj->SetModel(model_);
 	}
 

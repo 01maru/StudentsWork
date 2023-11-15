@@ -1,4 +1,4 @@
-﻿#include "ModelManager.h"
+#include "ModelManager.h"
 #include "ObjModel.h"
 #include "FbxModel.h"
 #include "BoxModel.h"
@@ -14,7 +14,7 @@ ModelManager* ModelManager::GetInstance()
 void ModelManager::Initialize()
 {
     LoadModel("");
-    previewObj_.reset(Object3D::Create(GetModel("")));
+    previewObj_ = std::move(Object3D::Create(GetModel("")));
 }
 
 void ModelManager::ImGuiUpdate()
@@ -55,7 +55,7 @@ void ModelManager::ImGuiUpdate()
     imgui->EndWindow();
 
     if (previdx != previewIdx_) {
-        previewObj_.reset(Object3D::Create(GetModel(modelname)));
+        previewObj_ = std::move(Object3D::Create(GetModel(modelname)));
     }
 
     if (!preview_) return;

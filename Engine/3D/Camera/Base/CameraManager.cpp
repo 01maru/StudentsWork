@@ -1,4 +1,4 @@
-﻿#include "CameraManager.h"
+#include "CameraManager.h"
 #include "ImGuiController.h"
 #include "ImGuiManager.h"
 
@@ -21,7 +21,7 @@ void CameraManager::Initialize()
 	debugCamera_ = std::make_unique<MyDebugCamera>();
 	debugCamera_->Initialize(Vector3D(0.0f, 0.0f, -10.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector3D(0.0f, 1.0f, 0.0f));
 	modelBox_ = std::make_unique<BoxModel>("");
-	target_.reset(Object3D::Create(modelBox_.get()));
+	target_ = std::move(Object3D::Create(modelBox_.get()));
 	target_->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
 	target_->SetColor(Vector4D(1.0f, 1.0f, 1.0f, 0.2f));
 #endif // _DEBUG
