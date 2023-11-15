@@ -110,7 +110,7 @@
     <ClCompile Include="Engine\Game\GameOverCamera.cpp" />
     <ClCompile Include="Engine\Game\UI\GameOverUI.cpp" />
     <ClCompile Include="Engine\Game\Particle\FireParticleEmitter.cpp" />
-    <ClCompile Include="LightCamera.cpp" />
+    <ClCompile Include="Engine\3D\Camera\Base\LightCamera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -142,10 +142,10 @@
     <ClCompile Include="Engine\Game\Player\PlayerWalkState.cpp" />
     <ClCompile Include="Engine\Game\UI\SelectCursor.cpp" />
     <ClCompile Include="Engine\Game\UI\TitleUI.cpp" />
-    <ClCompile Include="Object3DAnimation.cpp" />
-    <ClCompile Include="Object3DDissolve.cpp" />
-    <ClCompile Include="Object3DShadow.cpp" />
-    <ClCompile Include="Object3DShilhouette.cpp" />
+    <ClCompile Include="Engine\3D\Object\Object3DAnimation.cpp" />
+    <ClCompile Include="Engine\3D\Object\Object3DDissolve.cpp" />
+    <ClCompile Include="Engine\3D\Object\Object3DShadow.cpp" />
+    <ClCompile Include="Engine\3D\Object\Object3DShilhouette.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Game\UI\ClearUI.h" />
@@ -289,12 +289,12 @@
     <ClInclude Include="Engine\Game\Player\PlayerWalkState.h" />
     <ClInclude Include="Engine\Game\UI\SelectCursor.h" />
     <ClInclude Include="Engine\Game\UI\TitleUI.h" />
-    <ClInclude Include="LightCamera.h" />
-    <ClInclude Include="Object3DAnimation.h" />
-    <ClInclude Include="Object3DDissolve.h" />
-    <ClInclude Include="Object3DShadow.h" />
-    <ClInclude Include="Object3DShilhouette.h" />
-    <ClInclude Include="RootParameterIdx.h" />
+    <ClInclude Include="Engine\3D\Camera\Base\LightCamera.h" />
+    <ClInclude Include="Engine\3D\Object\Object3DAnimation.h" />
+    <ClInclude Include="Engine\3D\Object\Object3DDissolve.h" />
+    <ClInclude Include="Engine\3D\Object\Object3DShadow.h" />
+    <ClInclude Include="Engine\3D\Object\Object3DShilhouette.h" />
+    <ClInclude Include="Engine\Base\RootParameterIdx.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
