@@ -29,9 +29,10 @@ void CameraManager::Initialize()
 
 void CameraManager::Update()
 {
-	if(isDebug_)					debugCamera_->Update();
-	if (mainCamera_ != nullptr)		mainCamera_->Update();
-	if (lightCamera_ != nullptr)	lightCamera_->Update();
+	if(isDebug_)						debugCamera_->Update();
+	if (mainCamera_ != nullptr)			mainCamera_->Update();
+	if (lightCamera_ != nullptr)		lightCamera_->Update();
+	if (orthoProjCamera_ != nullptr)	orthoProjCamera_->Update();
 
 
 	if (!drawTarget_) return;
@@ -142,4 +143,9 @@ ICamera* CameraManager::GetMainCamera()
 ICamera* CameraManager::GetDebugCamera()
 {
 	return debugCamera_.get();
+}
+
+ICamera* CameraManager::GetOrthoProjCamera()
+{
+	return orthoProjCamera_.get();
 }

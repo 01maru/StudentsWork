@@ -72,9 +72,9 @@ void GameScene::Initialize()
 	player_->SetPosition(pos);
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
 
-	std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
+	std::unique_ptr<ICamera> camera = std::make_unique<GameCamera>();
 	camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
-	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
+	CameraManager::GetInstance()->SetMainCamera(camera);
 
 	//XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 
@@ -153,10 +153,6 @@ void GameScene::ImguiUpdate()
 	player_->ImGuiUpdate();
 
 	imguiMan->BeginWindow("GameScene", true);
-
-	float value = SceneManager::GetInstance()->GetDissolveValue();
-	imguiMan->SetSliderFloat("dissolve", value, 0.01f, 0.0f, 1.0f);
-	SceneManager::GetInstance()->SetDissolveValue(value);
 
 	pause_.ImGuiUpdate();
 

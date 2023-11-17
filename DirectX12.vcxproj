@@ -111,6 +111,7 @@
     <ClCompile Include="Engine\Game\UI\GameOverUI.cpp" />
     <ClCompile Include="Engine\Game\Particle\FireParticleEmitter.cpp" />
     <ClCompile Include="Engine\3D\Camera\Base\LightCamera.cpp" />
+    <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="Engine\3D\Object\Object3DShadow.h" />
     <ClInclude Include="Engine\3D\Object\Object3DShilhouette.h" />
     <ClInclude Include="Engine\Base\RootParameterIdx.h" />
+    <ClInclude Include="LoadingScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

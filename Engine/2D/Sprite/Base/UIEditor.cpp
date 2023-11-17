@@ -212,7 +212,7 @@ void UIEditor::ImGuiSpriteInfo(std::unordered_map<std::string, std::unique_ptr<U
 			imguiMan->Text("Texture");
 			std::string texName = sprite->GetTexture()->GetTextureName();
 			imguiMan->InputText("TexName ", texName);
-			if (imguiMan->SetButton("Paste")) sprite->SetHandle(TextureManager::GetInstance()->PasteTexture());
+			if (imguiMan->SetButton("Paste")) sprite->SetTexture(TextureManager::GetInstance()->PasteTexture());
 
 			vec = sprite->GetTextureLeftTop();
 			imguiMan->SetSliderFloat2("TexLeftTop", vec);

@@ -122,14 +122,16 @@ public:
 	void SetPosition(const Vector2D& position);
 	void SetRotation(float rotation);
 	
+	void SetAlphaColor(float alpha);
 	void SetColor(const Vector4D& color);
+	void SetColor(const Vector3D& color);
 	
 	void SetSize(const Vector2D& size);
 	void SetAnchorPoint(const Vector2D& anchor);
 
 	void SetTextureLeftTop(const Vector2D& leftTop);
 	void SetTextureSize(const Vector2D& size);
-	void SetHandle(Texture* handle);
+	void SetTexture(Texture* handle);
 
 	void SetTags(const uint16_t tag) { tag_ = tag; }
 

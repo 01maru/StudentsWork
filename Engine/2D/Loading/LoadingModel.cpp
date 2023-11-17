@@ -1,68 +1,39 @@
 #include "LoadingModel.h"
-#include "Window.h"
+#include "CameraManager.h"
 #include "Easing.h"
 
-#include "ObjModel.h"
-#include "ObjCamera2D.h"
-#include "Object3DShilhouette.h"
+using namespace Easing;
 
 void LoadingModel::Initialize()
 {
-    loadModel_ = std::make_unique<ObjModel>("plane");
+    Object3DShilhouette::Initialize();
 
-    loadObj_ = std::make_unique<Object3DShilhouette>();
-    loadObj_->Initialize();
-    loadObj_->SetModel(loadModel_.get());
-	loadObj_->SetColor({ 1.0f,1.0f,1.0f });
-	loadObj_->SetScale({ 30.0f,30.0f,30.0f });
-	loadObj_->SetPosition({ Window::sWIN_WIDTH / 2.0f - 130.0f,-Window::sWIN_HEIGHT / 2.0f + 80.0f,0.0f });
-
-    camera_ = std::make_unique<ObjCamera2D>();
-
-    loadObj_->SetCamera(camera_.get());
+    Object3DShilhouette::SetCamera(CameraManager::GetInstance()->GetOrthoProjCamera());
 }
 
 void LoadingModel::Update()
 {
-    if (!loading_ && !fadeIn_) {
-        //  ローディング中じゃなくfadeIn済みだったら
-        if (easeCount_ > 0) {
-            easeCount_--;
+    ILoadingObj::Update();
 
-            float alphaColor = Easing::EaseOut(1.0f, 0.0f, 1.0f - (float)easeCount_ / sEASE_MAX_COUNT, 4);
+    if (drawObj_ == false) return;
 
-            loadObj_->SetAlphaColor({ alphaColor });
-        }
-    }
-    else {
-        bool isEasing = easeCount_ < sEASE_MAX_COUNT;
+    float alphaColor;
+    float minAlpha = 0.0f;
+    float maxAlpha = 1.0f;
+    alphaColor = EaseOut(minAlpha, maxAlpha, counter_.GetCountPerMaxCount(), easePaw_);
 
-        if (isEasing) {
-            easeCount_++;
-
-            float alphaColor = Easing::EaseOut(0.0f, 1.0f, (float)easeCount_ / sEASE_MAX_COUNT, 4);
-
-            loadObj_->SetAlphaColor({ alphaColor });
-        }
-
-        //  透過値1.0になったらfalseに
-        if (!isEasing)  fadeIn_ = false;
-
-        camera_->MatUpdate();
-    }
+    Object3DShilhouette::SetAlphaColor({ alphaColor });
 
     //  モデル表示中は回転させる
-    if (easeCount_ > 0) {
-        Vector3D rot = loadObj_->GetRotation();
-        rot.y -= 0.05f;        
-        loadObj_->SetRotation(rot);
-        loadObj_->MatUpdate();
-    }
+    Vector3D rot = Object3DShilhouette::GetRotation();
+    rot.y -= rotSpd_;
+    Object3DShilhouette::SetRotation(rot);
+    Object3DShilhouette::MatUpdate();
 }
 
 void LoadingModel::Draw()
 {
-    if (easeCount_ > 0) {
-        loadObj_->Draw();
-    }
+    if (drawObj_ == false) return;
+
+    Object3DShilhouette::Draw();
 }

@@ -223,12 +223,30 @@ void Sprite::SetSize(const Vector2D& size)
 	}
 }
 
+void Sprite::SetAlphaColor(float alpha)
+{
+	if (color_.w != alpha)
+	{
+		dirtyFlagColor_ = true;
+		color_.w = alpha;
+	}
+}
+
 void Sprite::SetColor(const Vector4D& color)
 {
 	if (color_ != color)
 	{
 		dirtyFlagColor_ = true;
 		color_ = color;
+	}
+}
+
+void Sprite::SetColor(const Vector3D& color)
+{
+	if (color_.GetVec3D() != color)
+	{
+		dirtyFlagColor_ = true;
+		color_.SetVec3D(color);
 	}
 }
 
@@ -250,7 +268,7 @@ void Sprite::SetTextureSize(const Vector2D& size)
 	}
 }
 
-void Sprite::SetHandle(Texture* handle)
+void Sprite::SetTexture(Texture* handle)
 {
 	handle_ = handle;
 	AdjustTextureSize();

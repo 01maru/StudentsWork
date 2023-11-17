@@ -63,9 +63,9 @@ void TitleScene::Initialize()
 	LoadResources();
 
 	//	Camera
-	std::unique_ptr<TitleCamera> camera = std::make_unique<TitleCamera>();
+	std::unique_ptr<ICamera> camera = std::make_unique<TitleCamera>();
 	camera->Initialize(Vector3D(0.5f, 12.0f, -22.0f), Vector3D(1.0f,3.0f,0.5f), Vector3D(0, 1, 0));
-	CameraManager::GetInstance()->SetMainCamera(std::move(camera));
+	CameraManager::GetInstance()->SetMainCamera(camera);
 	//	LightCamera
 	CameraManager::GetInstance()->GetLightCamera()->SetEye(Vector3D(78.0f, 50.0f, -30.0f));
 
@@ -109,10 +109,6 @@ void TitleScene::ImguiUpdate()
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
 	imguiMan->BeginWindow("TitleScene");
-
-	float value = SceneManager::GetInstance()->GetDissolveValue();
-	imguiMan->SetSliderFloat("dissolve", value, 0.01f, 0.0f, 1.0f);
-	SceneManager::GetInstance()->SetDissolveValue(value);
 
 	imguiMan->CheckBox("DrawUI", drawUI_);
 

@@ -43,6 +43,8 @@ public:
 	*/
 	Vector4D& GetNormalize();
 
+	void SetVec3D(const Vector3D& vec3);
+	Vector3D GetVec3D();
 	Vector4D operator+() const;
 	Vector4D operator-() const;
 	Vector4D& operator-=(const Vector4D& v);

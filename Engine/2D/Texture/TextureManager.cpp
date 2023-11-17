@@ -138,7 +138,7 @@ void TextureManager::ImGuiUpdate()
 	imguiMan->EndWindow();
 
 	if (prevIdx != previewIdx_) {
-		previewSprite_->SetHandle(textures_[previewTexName_].get());
+		previewSprite_->SetTexture(textures_[previewTexName_].get());
 		previewSize_ = 1.0f;
 	}
 	PreviewUpdate();

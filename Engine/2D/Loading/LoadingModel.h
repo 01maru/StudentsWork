@@ -1,9 +1,6 @@
 #pragma once
-#include "ICamera.h"
-#include "Object3D.h"
+#include "Object3DShilhouette.h"
 #include "ILoadingObj.h"
-#include "IModel.h"
-
 #include <memory>
 
 /**
@@ -11,12 +8,8 @@
 * @brief ILoadingObjを継承したモデルのローディング表示用処理をまとめたファイル
 */
 
-class LoadingModel :public ILoadingObj
+class LoadingModel :public ILoadingObj, public Object3DShilhouette
 {
-private:
-	std::unique_ptr<ICamera> camera_;
-	std::unique_ptr<Object3D> loadObj_;
-	std::unique_ptr<IModel> loadModel_;
 public:
 	/**
 	* @fn Initialize()
@@ -33,5 +26,9 @@ public:
 	* 描画処理関数
 	*/
 	void Draw() override;
+
+private:
+	int32_t easePaw_ = 4;
+	float rotSpd_ = 0.05f;
 };
 

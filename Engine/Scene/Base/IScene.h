@@ -56,7 +56,7 @@ public:
 	* @fn DrawShadow()
 	* 影描画用関数
 	*/
-	virtual void DrawShadow() = 0;
+	virtual void DrawShadow() {};
 
 	/**
 	* @fn Draw()

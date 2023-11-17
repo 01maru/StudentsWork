@@ -8,14 +8,9 @@
 * @brief ILoadingObjを継承したスプライトのローディング表示用処理をまとめたファイル
 */
 
-class LoadingSprite :public ILoadingObj
+class LoadingSprite :public ILoadingObj, public Sprite
 {
-private:
-	Texture* loadTex_;
-	std::unique_ptr<Sprite> loadSprite_;
-	
 public:
-	LoadingSprite() {}
 	~LoadingSprite() override {}
 
 	/**
@@ -33,4 +28,7 @@ public:
 	* 描画処理関数
 	*/
 	void Draw() override;
+private:
+	int32_t easePaw_ = 4;
+	float rotSpd_ = 0.1f;
 };

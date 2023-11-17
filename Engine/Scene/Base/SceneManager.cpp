@@ -1,12 +1,9 @@
 #include "SceneManager.h"
-#include "Easing.h"
 #include "ImGuiManager.h"
 #include "DirectX.h"
 #include "ImGuiController.h"
 #include "InputManager.h"
 #include "XAudioManager.h"
-#include "LoadingSprite.h"
-#include "LoadingModel.h"
 #include "SceneFactory.h"
 #include "TextureManager.h"
 #include "UIEditor.h"
@@ -51,32 +48,23 @@ void SceneManager::FirstScreenInitialize()
 
 	//	非同期
 	sceneInitInfo_ = std::async(std::launch::async, [this] {return SceneInitialize(); });
-	sceneDrawable_ = false;
+	//	非同期ロードに変更
+	endLoading_ = false;
 }
 
 void SceneManager::Initialize()
 {
-	sceneChangeCounter_.Initialize(60, true, true);
-
 	sceneFactry_ = std::make_unique<SceneFactory>();
 	scene_ = sceneFactry_->CreateScene("TITLESCENE");
 
 	blackScreen_.Initialize();
 	blackScreen_.SetSize({ Window::sWIN_WIDTH,Window::sWIN_HEIGHT });
-	blackScreen_.SetColor({ 0.0f,0.0f,0.0f,alpha_ });
+	Vector3D blackColor;
+	blackScreen_.SetColor(blackColor);
 #pragma region Loading
 
 	endLoading_ = true;
-	loadObj_ = std::make_unique<LoadingModel>();
-	loadObj_->Initialize();
-	loadObj_->SetIsLoading(!endLoading_);
-
-	dissolveSprite_ = std::make_unique<DissolveSprite>();
-	dissolveSprite_->Initialize();
-	dissolveSprite_->SetSize(Vector2D(Window::sWIN_WIDTH, Window::sWIN_HEIGHT));
-	dissolveSprite_->SetColor(Vector4D(0.8f, 0.8f, 0.8f, 1.0f));
-
-	TextureManager::GetInstance()->LoadTextureGraph("noise.png");
+	loading_.Initialize();
 
 #pragma endregion
 
@@ -132,23 +120,6 @@ void SceneManager::Finalize()
 #endif // _DEBUG
 }
 
-void SceneManager::ScreenColorUpdate()
-{
-	sceneChangeCounter_.Update();
-
-	if (sceneChangeCounter_.GetIsActive()) {
-		//float color = Easing::lerp(1.0f, 0.0f, sceneChangeCounter_.GetCountPerMaxCount());
-		//screenColor_.x = color;
-		//screenColor_.y = color;
-		//screenColor_.z = color;
-
-		////	色設定
-		//mainScene->SetColor(screenColor_);
-	}
-	float value = Easing::EaseOut(0.0f, 1.0f, sceneChangeCounter_.GetCountPerMaxCount(), 2);
-	SetDissolveValue(value);
-}
-
 void SceneManager::SplashUpdate()
 {
 	//	スプラッシュスクリーンじゃなかったら
@@ -159,87 +130,70 @@ void SceneManager::SplashUpdate()
 	//	スプラッシュスクリーン終わり
 	if (splashScene_->EndScene()) {
 		//	ローディング表示
-		loadObj_->SetIsLoading(true);
+		loading_.SetIsLoading(true);
 
 		//	次のシーン読み込み終了
 		std::future_status loadStatus = sceneInitInfo_.wait_for(std::chrono::seconds(0));
-		if (loadStatus == std::future_status::ready /*&& InputManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_SPACE)*/) {
+		if (loadStatus == std::future_status::ready) {
 
 			isSplashScreen_ = false;
 			scene_->FirstFrameUpdate();
-			loadObj_->SetIsLoading(false);
-			sceneDrawable_ = true;
-
+			loading_.SetIsLoading(false);
+			//	非同期ロードに終了
+			endLoading_ = true;
 			splashScene_->Finalize();
 			splashScene_.release();
-
-			sceneChangeCounter_.SetIsIncrement(false);
-			sceneChangeCounter_.StartCount();
-
-			//screenColor_ = { 0.0f,0.0f,0.0f,1.0f };
-			////	色設定
-			//mainScene->SetColor(screenColor_);
-			SetDissolveValue(1.0f);
 		}
-	}
-}
-
-void SceneManager::SceneFadeInUpdate()
-{
-	if (!endLoading_)		return;
-	if (!sceneInitialized_)	return;
-
-	////	フェードイン済み
-	//bool fadedIn = sceneChangeCounter_.GetFrameCount() == sceneChangeCounter_.GetMaxFrameCount();
-	//if (fadedIn) {
-	//	//	同期処理
-	//}
-	scene_->Update();
-}
-
-void SceneManager::SceneFadeOutUpdate()
-{
-	if (!endLoading_)		return;
-	if (sceneInitialized_)	return;
-
-	//	フェードアウト済み
-	bool fadedOut = sceneChangeCounter_.GetFrameCount() == sceneChangeCounter_.GetMaxFrameCount();
-	if (fadedOut) {
-		sceneDrawable_ = false;
-		//	フェードアウト済みロード画面へ
-		endLoading_ = false;
-		//	非同期
-		sceneInitInfo_ = std::async(std::launch::async, [this] {return SceneChange(); });
-	}
-}
-
-void SceneManager::SceneAsyncUpdate()
-{
-	//	ロード中じゃなかったら
-	if (endLoading_) return;
-
-	std::future_status loadStatus = sceneInitInfo_.wait_for(std::chrono::seconds(0));
-	if (loadStatus == std::future_status::ready) {
-		sceneDrawable_ = true;
-		//	ロード終わりフラグ
-		endLoading_ = true;
-		loadObj_->SetIsLoading(!endLoading_);
-		//	firstFrame(音再生タイミング)
-		scene_->FirstFrameUpdate();
-
-		//	フェードイン
-		sceneChangeCounter_.SetIsIncrement(false);
-		sceneChangeCounter_.StartCount();
 	}
 }
 
 void SceneManager::SceneUpdate()
 {
+	//	ロード終わっていなかったら更新しない
+	if (endLoading_ == false)	return;
+
+	scene_->Update();
+}
+
+void SceneManager::SceneAsyncInitialize()
+{
+	//	ロード終わっていなかったら初期化しない
+	if (endLoading_ == false)			return;
+
+	//	ロード画面描画し終わってなかったら初期化しない
+	if (loading_.GetIsDrawn() == false) return;
+
+	//	非同期
+	sceneInitInfo_ = std::async(std::launch::async, [this] {return SceneChange(); });
+	//	非同期ロードに変更
+	endLoading_ = false;
+}
+
+void SceneManager::SceneAsyncUpdate()
+{
+	//	ロード中じゃなかったら更新しない
+	if (endLoading_ == true) return;
+
+	std::future_status loadStatus = sceneInitInfo_.wait_for(std::chrono::seconds(0));
+	if (loadStatus == std::future_status::ready) {
+		//	ロード終わり
+		endLoading_ = true;
+		loading_.SetIsLoading(!endLoading_);
+		//	firstFrame(音再生タイミング)
+		scene_->FirstFrameUpdate();
+
+		//	フェードアウト
+		loading_.StartFadeAnimation(false);
+	}
+}
+
+void SceneManager::AllSceneUpdate()
+{
 	//	スプラッシュスクリーンだったら
 	if (isSplashScreen_) return;
 
-	SceneFadeInUpdate();
-	SceneFadeOutUpdate();
+	SceneUpdate();
+	SceneAsyncInitialize();
 	
 	SceneAsyncUpdate();
 }
@@ -266,8 +220,7 @@ void SceneManager::ImguiUpdate()
 		scene_->ImguiUpdate();
 	}
 
-	imguiMan->Text("sceneInitialized : %d", sceneInitialized_);
-	imguiMan->Text("sceneDrawable : %d", sceneDrawable_);
+	imguiMan->Text("endLoading : %d", endLoading_);
 
 	ImGuiManager::GetInstance()->End();
 
@@ -278,15 +231,13 @@ void SceneManager::Update()
 {
 	CameraManager::GetInstance()->Update();
 
-	ScreenColorUpdate();
-
 	SplashUpdate();
 
-	SceneUpdate();
+	AllSceneUpdate();
 
-	loadObj_->Update();
-	dissolveSprite_->Update();
-
+	//	ロード画面
+	loading_.Update();
+	//	黒スクリーン
 	blackScreen_.Update();
 
 	ImguiUpdate();
@@ -301,7 +252,7 @@ void SceneManager::Draw()
 
 	dx->PrevPostEffect(shadowEffect.get(), shadowClearColor_);
 
-	if (sceneDrawable_ && !isSplashScreen_) {
+	if (endLoading_ && !isSplashScreen_) {
 		scene_->DrawShadow();
 	}
 	
@@ -318,16 +269,15 @@ void SceneManager::Draw()
 	}
 	else {
 	}
-	if (sceneDrawable_) {
+	if (endLoading_) {
 		scene_->Draw();
 		ModelManager::GetInstance()->DrawPreview();
 		CameraManager::GetInstance()->DrawTarget();
 		UIEditor::GetInstance()->Draw();
 
 		TextureManager::GetInstance()->DrawPreview();
-		if (alpha_ != 0.0f) {
-			blackScreen_.Draw();
-		}
+		
+		blackScreen_.Draw();
 		GameOverUI::GetInstance()->Draw();
 	}
 
@@ -344,11 +294,8 @@ void SceneManager::Draw()
 
 	dx->PrevPostEffect(glayscale.get());
 
-	//if (!isSplashScreen_) {
-		PostEffect* main = mainScene.get();
-
-		main->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect"), false, luminnceBulr->GetTexture(0)->GetHandle());
-	//}
+	PostEffect* main = mainScene.get();
+	main->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect"), false, luminnceBulr->GetTexture(0)->GetHandle());
 
 	dx->PostEffectDraw(glayscale.get());
 
@@ -358,9 +305,7 @@ void SceneManager::Draw()
 
 	glayscale->DrawGlay();
 
-	dissolveSprite_->Draw();
-
-	loadObj_->Draw();
+	loading_.Draw();
 
 #ifdef _DEBUG
 	ImGuiManager::GetInstance()->Draw();
@@ -377,9 +322,7 @@ void SceneManager::Draw()
 
 void SceneManager::ChangeScreenAlpha(float alpha)
 {
-	if (alpha_ == alpha) return;
-	alpha_ = alpha;
-	blackScreen_.SetColor({ 0.0f,0.0f,0.0f,alpha_ });
+	blackScreen_.SetAlphaColor(alpha);
 }
 
 void SceneManager::SceneChange()
@@ -391,7 +334,6 @@ void SceneManager::SceneChange()
 
 		scene_.reset(nextScene_.get());
 		SceneInitialize();
-		sceneInitialized_ = true;
 		nextScene_.release();
 	}
 }
@@ -402,10 +344,9 @@ void SceneManager::SetNextScene(const std::string& sceneName)
 	
 	//	nextSceneがセットされたら
 	if (nextScene_ != nullptr) {
-		sceneInitialized_ = false;
-		loadObj_->SetIsLoading(true);
+		loading_.SetIsLoading(true);
 
-		sceneChangeCounter_.SetIsIncrement(true);
-		sceneChangeCounter_.StartCount();
+		//	フェードイン
+		loading_.StartFadeAnimation(true);
 	}
 }

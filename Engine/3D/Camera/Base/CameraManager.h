@@ -20,6 +20,8 @@ private:
 	std::unique_ptr<ICamera> mainCamera_;
 	std::unique_ptr<ICamera> debugCamera_;
 	std::unique_ptr<ICamera> lightCamera_;
+	//	正射投影カメラ
+	std::unique_ptr<ICamera> orthoProjCamera_;
 
 	std::unique_ptr<Object3D> target_;
 	std::unique_ptr<IModel> modelBox_;
@@ -85,6 +87,8 @@ public:
 	*/
 	ICamera* GetDebugCamera();
 
+	ICamera* GetOrthoProjCamera();
+
 #pragma endregion
 
 #pragma region Setter
@@ -94,13 +98,15 @@ public:
 	* メインカメラ設定用関数
 	* @param camera 設定するメインカメラ
 	*/
-	void SetMainCamera(std::unique_ptr<ICamera> camera) { mainCamera_ = std::move(camera); }
+	void SetMainCamera(std::unique_ptr<ICamera>& camera) { mainCamera_ = std::move(camera); }
 	/**
 	* @fn SetMainCamera(std::unique_ptr<ICamera>)
 	* ライトカメラ設定用関数
 	* @param camera 設定するライトカメラ
 	*/
-	void SetLightCamera(std::unique_ptr<ICamera> camera) { lightCamera_ = std::move(camera); }
+	void SetLightCamera(std::unique_ptr<ICamera>& camera) { lightCamera_ = std::move(camera); }
+
+	void SetOrthoProjCamera(std::unique_ptr<ICamera>& camera) { orthoProjCamera_ = std::move(camera); }
 
 #pragma endregion
 };

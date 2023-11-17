@@ -1,4 +1,4 @@
-﻿#include "Vector4D.h"
+#include "Vector4D.h"
 #include "Vector3D.h"
 #include "Matrix.h"
 #include <cmath>
@@ -29,6 +29,18 @@ void Vector4D::Normalize()
 	float len = GetLength();
 
 	if (len != 0)	*this /= len;
+}
+
+void Vector4D::SetVec3D(const Vector3D& vec3)
+{
+	x = vec3.x;
+	y = vec3.y;
+	z = vec3.z;
+}
+
+Vector3D Vector4D::GetVec3D()
+{
+	return Vector3D(x, y, z);
 }
 
 Vector4D Vector4D::operator+() const

@@ -18,6 +18,6 @@ void DirLight::SetShadow(bool shadowflag)
 	if (shadowing_) {
 		std::unique_ptr<ICamera> lightCamera = std::make_unique<LightCamera>();
 		lightCamera->Initialize(center_ + dir_ * 50.0f, center_, Vector3D{ 0.0f,1.0f,0.0f });
-		CameraManager::GetInstance()->SetLightCamera(std::move(lightCamera));
+		CameraManager::GetInstance()->SetLightCamera(lightCamera);
 	}
 }
