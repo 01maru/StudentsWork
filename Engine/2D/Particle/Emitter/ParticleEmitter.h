@@ -5,6 +5,7 @@
 #include <list>
 #include <memory>
 #include "FrameCounter.h"
+#include "EmitterType.h"
 
 /**
 * @file ParticleEmitter.h
@@ -22,8 +23,9 @@ public:
 
 public:
 	//	発生方向
-	enum EmitterType
+	enum EmitterTypeEnum
 	{
+		CornType,
 		OmniType,
 		Directional,
 		Surface,
@@ -32,6 +34,7 @@ public:
 	};
 
 private:
+	std::unique_ptr<EmitterType> shapeType_;
 	//	オブジェクトパーティクルかどうか
 	bool isObj_ = false;
 	//	実行中か
@@ -79,6 +82,8 @@ public:
 
 	Vector3D& GetPosition();
 
+	EmitterType* GetEmitterType() { return shapeType_.get(); }
+
 #pragma endregion
 
 #pragma region Setter
@@ -92,6 +97,8 @@ public:
 	void SetLifeTime(int32_t lifeTime);
 
 	void SetBlendMord(Blend::BlendMord blendMord);
+
+	void SetEmitterType(std::unique_ptr<EmitterType>& type);
 
 #pragma endregion
 };

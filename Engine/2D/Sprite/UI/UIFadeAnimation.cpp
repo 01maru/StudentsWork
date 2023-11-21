@@ -20,7 +20,7 @@ void UIFadeAnimation::Update()
 	{
 		float fade = EaseIn(start_, end_, timer_->GetCountPerMaxCount(), 5);
 
-		sprite.second.SetColor(Vector4D(1.0f, 1.0f, 1.0f, fade));
+		sprite.second.SetAlphaColor(fade);
 	}
 }
 

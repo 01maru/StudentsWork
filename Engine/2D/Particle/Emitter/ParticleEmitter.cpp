@@ -34,6 +34,8 @@ void ParticleEmitter::AddParticle()
 		sprite->SetPosition(pos_);
 	}
 
+	shapeType_->Update(particle.get());
+
 	for (auto& compo : components_)
 	{
 		compo->Initialize(particle.get());
@@ -75,4 +77,10 @@ void ParticleEmitter::SetLifeTime(int32_t lifeTime)
 void ParticleEmitter::SetBlendMord(Blend::BlendMord blendMord)
 {
 	blendMord_ = blendMord;
+}
+
+void ParticleEmitter::SetEmitterType(std::unique_ptr<EmitterType>& type)
+{
+	shapeType_ = std::move(type);
+	shapeType_->SetParent(this);
 }

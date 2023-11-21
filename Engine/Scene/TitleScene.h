@@ -10,6 +10,7 @@ private:
 	std::unique_ptr<JSONLoader> level_;
 	std::unique_ptr<Object3D> ground_;
 	std::unique_ptr<Object3D> skydome_;
+	std::unique_ptr<Object3D> bonfire_;
 
 #pragma region Sprite
 

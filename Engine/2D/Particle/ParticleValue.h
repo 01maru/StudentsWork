@@ -36,3 +36,25 @@ public:
 
 #pragma endregion
 };
+
+class ParticleSameRandValue :public ParticleValue
+{
+public:
+	void CalcValue() override;
+
+private:
+	float minValue_;
+	float maxValue_;
+
+public:
+#pragma region Getter
+
+#pragma endregion
+
+#pragma region Setter
+
+	void SetMinValue(float v);
+	void SetMaxValue(float v);
+
+#pragma endregion
+};

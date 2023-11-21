@@ -1,7 +1,8 @@
 #pragma once
 #include "EmitterComponent.h"
+#include "Vector3D.h"
 
-class EmitterSpdAnimation :public EmitterComponent
+class EmitterColor :public EmitterComponent
 {
 public:
 	/**
@@ -11,6 +12,9 @@ public:
 	void Initialize(Particle* particle) override;
 
 private:
-	float spd_ = 0.05f;
+	Vector3D color_;
+
+public:
+	void SetColor(const Vector3D& color);
 };
 

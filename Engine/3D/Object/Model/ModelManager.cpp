@@ -32,7 +32,7 @@ void ModelManager::ImGuiUpdate()
 
     int32_t previdx = previewIdx_;
 
-    int32_t i = 0;
+    int32_t id = 0;
     std::string modelname;
     for (auto& model : models_)
     {
@@ -41,9 +41,9 @@ void ModelManager::ImGuiUpdate()
             if (model.first.find(searchWord_) == -1) continue;
         }
 
-		imgui->PushID(i++);
+		imgui->PushID(id++);
 		imgui->Text("Name : %s", model.first.c_str());
-        if (imgui->SetRadioButton("PreviewTex", previewIdx_, i)) modelname = model.first;
+        if (imgui->SetRadioButton("PreviewTex", previewIdx_, id)) modelname = model.first;
 
 		imgui->Spacing();
 		imgui->Separator();

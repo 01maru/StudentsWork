@@ -58,7 +58,7 @@ void DissolveSprite::Draw(GPipeline* pipeline)
 	cbTransform_.SetGraphicsRootCBuffView(nextIdx++);
 	cbDissolve_.SetGraphicsRootCBuffView(nextIdx++);
 
-	MyDirectX::GetInstance()->GetCmdList()->DrawInstanced(4, 1, 0, 0);
+	MyDirectX::GetInstance()->GetCmdList()->DrawInstanced(VertexSize, 1, 0, 0);
 }
 
 void DissolveSprite::SetDissolveValue(float value)

@@ -33,7 +33,7 @@ PSOutput main(VSOutput input)
 		float linerPos = length(float3(0.0,0.0,0.0) - input.worldpos.xyz) * linerDepth;
 		float fogFactor = saturate((distanceFog.fogEnd - linerPos) / (distanceFog.fogEnd - distanceFog.fogStart));
 
-		output.target0 = lerp(fogColor, shadercolor * texcolor, fogFactor);
+		output.target0 = lerp(fogColor, shadercolor * texcolor, fogFactor) * materialColor;
 		output.target1 = float4(1 - output.target0.rgb, 1);
 		return output;
 	}

@@ -124,6 +124,11 @@ void SpriteParticle::SetColor(const Vector4D& color)
 	color_ = color;
 }
 
+void SpriteParticle::SetAlphaColor(float alpha)
+{
+	color_.w = alpha;
+}
+
 void SpriteParticle::SetScale(float scale)
 {
 	scale_ = scale;

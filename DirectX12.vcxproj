@@ -11,6 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EmitterColor.cpp" />
+    <ClCompile Include="EmitterConeType.cpp" />
+    <ClCompile Include="EmitterFadeAnimation.cpp" />
+    <ClCompile Include="EmitterRotation.cpp" />
+    <ClCompile Include="EmitterType.cpp" />
     <ClCompile Include="Engine\Game\UI\ClearUI.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterComponent.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterPosComp.cpp" />
@@ -147,8 +152,15 @@
     <ClCompile Include="Engine\3D\Object\Object3DDissolve.cpp" />
     <ClCompile Include="Engine\3D\Object\Object3DShadow.cpp" />
     <ClCompile Include="Engine\3D\Object\Object3DShilhouette.cpp" />
+    <ClCompile Include="ParticleFadeAnimation.cpp" />
+    <ClCompile Include="SmokeParticleEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EmitterColor.h" />
+    <ClInclude Include="EmitterConeType.h" />
+    <ClInclude Include="EmitterFadeAnimation.h" />
+    <ClInclude Include="EmitterRotation.h" />
+    <ClInclude Include="EmitterType.h" />
     <ClInclude Include="Engine\Game\UI\ClearUI.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterComponent.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterPosComp.h" />
@@ -297,6 +309,8 @@
     <ClInclude Include="Engine\3D\Object\Object3DShilhouette.h" />
     <ClInclude Include="Engine\Base\RootParameterIdx.h" />
     <ClInclude Include="LoadingScene.h" />
+    <ClInclude Include="ParticleFadeAnimation.h" />
+    <ClInclude Include="SmokeParticleEmitter.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

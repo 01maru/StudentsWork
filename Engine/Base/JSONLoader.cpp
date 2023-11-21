@@ -1,6 +1,6 @@
 #include "JSONLoader.h"
 #include <fstream>
-#include <assert.h>
+#include <cassert>
 #include "CameraManager.h"
 #include "GameCamera.h"
 

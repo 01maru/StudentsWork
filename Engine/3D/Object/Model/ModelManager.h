@@ -1,7 +1,7 @@
-﻿#pragma once
-#include <map>
+#pragma once
 #include "IModel.h"
 #include "Object3D.h"
+#include <map>
 
 class ModelManager
 {

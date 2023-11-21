@@ -29,3 +29,19 @@ void ParticleRandValue::SetMaxValue(const Vector3D& v)
 {
 	maxValue_ = v;
 }
+
+void ParticleSameRandValue::CalcValue()
+{
+	float v = GetRand(minValue_, maxValue_);
+	value_ = Vector3D(v, v, v);
+}
+
+void ParticleSameRandValue::SetMinValue(float v)
+{
+	minValue_ = v;
+}
+
+void ParticleSameRandValue::SetMaxValue(float v)
+{
+	maxValue_ = v;
+}

@@ -31,6 +31,7 @@ void GameScene::LoadResources()
 	models->LoadModel("human", true);
 	models->LoadModel();
 #pragma endregion
+	level.LoadJSON("game");
 	//	地面
 	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
 	PlaneCollider* coll_ = new PlaneCollider({ 0.0f,1.0f,0.0f });
@@ -64,8 +65,6 @@ void GameScene::Initialize()
 	pause_.Initialize();
 
 	LoadResources();
-
-	level.LoadJSON("gamescene");
 
 	Vector3D pos = level.GetPlayerSpownPoint().pos;
 	pos.y = 1.0f;
@@ -165,15 +164,15 @@ void GameScene::DrawShadow()
 
 void GameScene::Draw()
 {
-	//	天球
-	skydome_->Draw();
-	//	地面
-	ground_->Draw();
+	////	天球
+	//skydome_->Draw();
+	////	地面
+	//ground_->Draw();
 	player_->Draw();
 	player_->DrawBullets();
 	enemy_->Draw();
 
-	//level.Draw();
+	level.Draw(false);
 
 	enemy_->DrawUI();
 	player_->DrawUI();

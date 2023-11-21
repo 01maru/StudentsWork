@@ -7,5 +7,6 @@ void EmitterSpdAnimation::Initialize(Particle* particle)
 {
 	ParticleSpdAnimation* spd = particle->AddComponent<ParticleSpdAnimation>();
 	spd->SetIsObj(parent_->GetIsObj());
-	spd->SetSpd(spd_);
+	EmitterType* type = parent_->GetEmitterType();
+	spd->SetSpd(spd_ * type->GetDir());
 }

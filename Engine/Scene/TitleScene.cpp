@@ -12,6 +12,7 @@
 #include "ParticleManager.h"
 
 #include "FireParticleEmitter.h"
+#include "SmokeParticleEmitter.h"
 
 void TitleScene::LoadResources()
 {
@@ -28,6 +29,7 @@ void TitleScene::LoadResources()
 	models->LoadModel("lowTree");
 	models->LoadModel("ground");
 	models->LoadModel("skydome");
+	models->LoadModel("bonfire");
 
 	//	ステージ読み込み
 	level_ = std::make_unique<JSONLoader>();
@@ -36,9 +38,12 @@ void TitleScene::LoadResources()
 	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
 	//	地面
 	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
+	bonfire_ = std::move(Object3D::Create(models->GetModel("bonfire")));
 
 #pragma endregion
 	
+	SmokeParticleEmitter smokeEmitter;
+	ParticleManager::GetInstance()->AddEmitter(smokeEmitter.GetEmitter());
 	FireParticleEmitter emitter;
 	ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
 
@@ -52,10 +57,10 @@ void TitleScene::LoadResources()
 void TitleScene::Initialize()
 {
 	//	Fog
-	//LightManager::GetInstance()->SetFogActive(true);
-	//LightManager::GetInstance()->SetFogStart(0.55f);
-	//LightManager::GetInstance()->SetFogEnd(2.5f);
-	//LightManager::GetInstance()->SetFogFar(40.0f);
+	LightManager::GetInstance()->SetFogActive(true);
+	LightManager::GetInstance()->SetFogStart(2.2f);
+	LightManager::GetInstance()->SetFogEnd(6.0f);
+	LightManager::GetInstance()->SetFogFar(30.0f);
 
 	//	カーソル固定解除
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
@@ -100,6 +105,7 @@ void TitleScene::MatUpdate()
 	level_->MatUpdate();
 	ground_->MatUpdate();
 	skydome_->MatUpdate();
+	bonfire_->MatUpdate();
 
 	ParticleManager::GetInstance()->MatUpdate();
 }
@@ -119,9 +125,9 @@ void TitleScene::ImguiUpdate()
 
 void TitleScene::DrawShadow() 
 {
-	level_->Draw(true);
-	ground_->DrawShadow();
-	skydome_->DrawShadow();
+	//level_->Draw(true);
+	//ground_->DrawShadow();
+	//skydome_->DrawShadow();
 }
 
 void TitleScene::Draw()
@@ -129,6 +135,7 @@ void TitleScene::Draw()
 	//	ステージ描画
 	level_->Draw(false);
 	ground_->Draw();
+	bonfire_->Draw();
 	skydome_->Draw();
 
 	ParticleManager::GetInstance()->Draw();
