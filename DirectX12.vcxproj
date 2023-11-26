@@ -153,6 +153,7 @@
     <ClCompile Include="Engine\3D\Object\Object3DShadow.cpp" />
     <ClCompile Include="Engine\3D\Object\Object3DShilhouette.cpp" />
     <ClCompile Include="ParticleFadeAnimation.cpp" />
+    <ClCompile Include="PlayerSlowAttack.cpp" />
     <ClCompile Include="SmokeParticleEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +311,7 @@
     <ClInclude Include="Engine\Base\RootParameterIdx.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="ParticleFadeAnimation.h" />
+    <ClInclude Include="PlayerSlowAttack.h" />
     <ClInclude Include="SmokeParticleEmitter.h" />
   </ItemGroup>
   <ItemGroup>

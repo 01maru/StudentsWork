@@ -9,6 +9,7 @@ public:
 	void Update();
 
 private:
+	const int32_t LIFE_TIME = 600;
 	Vector3D moveVec_;
 	float spd_;
 	FrameCounter lifeTime_;

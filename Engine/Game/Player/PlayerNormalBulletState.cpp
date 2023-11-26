@@ -2,19 +2,18 @@
 #include "Player.h"
 
 #include "ModelManager.h"
-#include "InputManager.h"
-#include "PlayerNoAttackState.h"
 
 void PlayerNormalBulletState::Initialize()
 {
-	sPlayer_->SetBulletRate(20);
+	sPlayer_->SetBulletRate(sPlayer_->GetBulletRate());
 }
 
 void PlayerNormalBulletState::Update()
 {
-	InputManager* input = InputManager::GetInstance();
-	if (input->GetMouse()->GetClick(InputMouse::LeftClick) == false) {
-		std::unique_ptr<PlayerAttackState> next_ = std::make_unique<PlayerNoAttackState>();
+	std::unique_ptr<PlayerAttackState> next_ = SetNextState(NormalAttack);
+
+	if (next_ != nullptr)
+	{
 		sPlayer_->SetAttackState(next_);
 	}
 

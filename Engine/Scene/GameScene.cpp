@@ -71,6 +71,8 @@ void GameScene::Initialize()
 	player_->SetPosition(pos);
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
 
+	enemy_->SetPlayer(player_.get());
+
 	std::unique_ptr<ICamera> camera = std::make_unique<GameCamera>();
 	camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
 	CameraManager::GetInstance()->SetMainCamera(camera);

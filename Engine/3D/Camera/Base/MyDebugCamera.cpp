@@ -1,4 +1,4 @@
-﻿#include "MyDebugCamera.h"
+#include "MyDebugCamera.h"
 #include "InputManager.h"
 #include "MyMath.h"
 #include <cmath>
@@ -20,7 +20,7 @@ void MyDebugCamera::SetMoveMode(bool active)
 void MyDebugCamera::CalcDisEyeToTarget()
 {
 	//	キー入力
-	disEyeTarget_ -= mouse_->GetWheel() * (disEyeTarget_ * 0.001f);
+	disEyeTarget_ -= mouse_->GetWheel() * (disEyeTarget_ * frontMoveSpd_);
 	//	範囲設定
 	disEyeTarget_ = MyMath::mMax(disEyeTarget_, MIN_EYE_TO_TARGET);
 }
@@ -30,7 +30,7 @@ Vector3D MyDebugCamera::CalcTransMove(bool active)
 	Vector3D ans;
 
 	//	前後移動
-	ans += frontVec_ * (float)(keyboard_->GetKey(DIK_X) - keyboard_->GetKey(DIK_Z)) * 0.1f;
+	ans += frontVec_ * (float)(keyboard_->GetKey(DIK_X) - keyboard_->GetKey(DIK_Z)) * transSpd_;
 
 	if (!active)				return ans;
 	if (mode_ == RotationMove)	return ans;
@@ -51,7 +51,7 @@ void MyDebugCamera::CalcRotMove(bool active)
 	if (mode_ == TranslationMove)	return;
 
 	Vector2D moveCursor = mouse_->GetMoveCursor();
-	moveCursor /= 1000;
+	moveCursor /= mouseMoveRate_;
 
 	if (up_.y < 0) moveCursor.x = -moveCursor.x;
 

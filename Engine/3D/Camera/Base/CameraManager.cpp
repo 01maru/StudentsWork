@@ -3,7 +3,7 @@
 #include "ImGuiManager.h"
 
 #include "MyDebugCamera.h"
-#include "BoxModel.h"
+#include "ModelManager.h"
 
 CameraManager* CameraManager::GetInstance()
 {
@@ -20,29 +20,34 @@ void CameraManager::Initialize()
 #ifdef _DEBUG
 	debugCamera_ = std::make_unique<MyDebugCamera>();
 	debugCamera_->Initialize(Vector3D(0.0f, 0.0f, -10.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector3D(0.0f, 1.0f, 0.0f));
-	modelBox_ = std::make_unique<BoxModel>("");
-	target_ = std::move(Object3D::Create(modelBox_.get()));
-	target_->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-	target_->SetColor(Vector4D(1.0f, 1.0f, 1.0f, 0.2f));
+	targetObj_ = std::move(Object3D::Create(ModelManager::GetInstance()->GetModel()));
+	float scale = 0.5f;
+	targetObj_->SetScale(Vector3D(scale, scale, scale));
+	float alpha = 0.2f;
+	targetObj_->SetAlphaColor(alpha);
 #endif // _DEBUG
 }
 
-void CameraManager::Update()
+void CameraManager::TargetUpdate()
 {
-	if(isDebug_)						debugCamera_->Update();
-	if (mainCamera_ != nullptr)			mainCamera_->Update();
-	if (lightCamera_ != nullptr)		lightCamera_->Update();
-	if (orthoProjCamera_ != nullptr)	orthoProjCamera_->Update();
-
-
 	if (!drawTarget_) return;
 
 	ICamera* main = mainCamera_.get();
 	if (isDebug_) main = debugCamera_.get();
 	if (lightView_) main = lightCamera_.get();
 
-	target_->SetPosition(main->GetTarget());
-	target_->MatUpdate();
+	targetObj_->SetPosition(main->GetTarget());
+	targetObj_->MatUpdate();
+}
+
+void CameraManager::Update()
+{
+	if (isDebug_)						debugCamera_->Update();
+	if (mainCamera_ != nullptr)			mainCamera_->Update();
+	if (lightCamera_ != nullptr)		lightCamera_->Update();
+	if (orthoProjCamera_ != nullptr)	orthoProjCamera_->Update();
+
+	TargetUpdate();
 }
 
 void CameraManager::SetDebugCameraPosToMain()
@@ -119,7 +124,7 @@ void CameraManager::DrawTarget()
 {
 	if (!drawTarget_) return;
 
-	target_->Draw();
+	targetObj_->Draw();
 }
 
 ICamera* CameraManager::GetCamera()

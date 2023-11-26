@@ -3,7 +3,6 @@
 #include <memory>
 #include <string>
 #include "Object3D.h"
-#include "IModel.h"
 
 /**
 * @file CameraManager.h
@@ -23,8 +22,7 @@ private:
 	//	正射投影カメラ
 	std::unique_ptr<ICamera> orthoProjCamera_;
 
-	std::unique_ptr<Object3D> target_;
-	std::unique_ptr<IModel> modelBox_;
+	std::unique_ptr<Object3D> targetObj_;
 
 private:
 	CameraManager() {};
@@ -60,6 +58,10 @@ public:
 	*/
 	void DrawTarget();
 
+private:
+	void TargetUpdate();
+
+public: 
 #pragma region Getter
 
 	/**

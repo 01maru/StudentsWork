@@ -38,7 +38,8 @@ private:
 	Vector3D modelFront_;
 
 	//	cooltimer
-	AvoidCoolTimer avoid_;
+	AvoidCoolTimer avoidCT_;
+	CoolTime slowAtCT_;
 
 	//	Load&Save
 	float walkSpd_ = 0.15f;
@@ -47,6 +48,8 @@ private:
 	int32_t avoidDecTime_ = 70;
 	int32_t avoidAccTime_ = 50;
 	int32_t avoidCoolTime_ = 240;
+	int32_t slowATCoolTime_ = 240;
+	int32_t bulletRate_ = 20;
 
 	float fallAcc = -0.01f;
 	float fallVYMin = -0.5f;
@@ -75,6 +78,7 @@ public:
 	void DrawUI();
 
 	void AddBullet(std::unique_ptr<Bullet>& bullet);
+	void StartSlowAtCT();
 #pragma region Getter
 
 	bool GetOnGround();
@@ -90,6 +94,8 @@ public:
 	float GetAvoidMaxSpd();
 	Vector3D GetFrontVec();
 	bool GetRateCountIsActive();
+	bool GetSlowAtIsActive();
+	int32_t GetBulletRate();
 
 #pragma endregion
 

@@ -4,6 +4,7 @@
 #include "EnemyState.h"
 
 class IModel;
+class Player;
 
 class Boss :public Object3D
 {
@@ -15,6 +16,9 @@ private:
 	bool hide_ = false;
 
 	int32_t maxHP_ = 100;
+
+	Player* player_ = nullptr;
+	Vector3D frontVec_ = { 0.0f,0.0f,-1.0f };
 
 public:
 	void StatusInitialize();
@@ -29,5 +33,6 @@ public:
 
 	void SetCurrentState(std::unique_ptr<EnemyState>& next);
 	void SetIsHide(bool isHide);
+	void SetPlayer(Player* player);
 };
 

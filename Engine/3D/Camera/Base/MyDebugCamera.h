@@ -19,6 +19,9 @@ private:
 	InputKeyboard* keyboard_ = nullptr;
 
 	Vector2D rotValue_;
+	float transSpd_ = 0.1f;
+	float frontMoveSpd_ = 0.001f;
+	float mouseMoveRate_ = 1000.0f;
 
 	enum MoveMode {
 		TranslationMove,

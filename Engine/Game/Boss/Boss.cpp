@@ -5,6 +5,8 @@
 #include "BossIdleState.h"
 
 #include "TextureManager.h"
+#include "Player.h"
+#include "Quaternion.h"
 
 void Boss::StatusInitialize()
 {
@@ -43,6 +45,20 @@ void Boss::Update()
 	hp_.Update();
 
 	//	生きていたら
+
+	//Vector3D dir = player_->GetPosition() - mat_.trans_;
+	//dir.Normalize();
+	//frontVec_.Normalize();
+	//Quaternion q = DirectionToDirection(frontVec_, dir);
+	//frontVec_ = q.GetVector3().GetNormalize();
+
+	//Vector3D upVec(-1, 1, 0);
+	//upVec.Normalize();
+	//Vector3D leftVec = upVec.cross(frontVec_);
+	//upVec = frontVec_.cross(leftVec);
+	//mat_.angle_.x = MyMath::ConvertToRad(-asin(frontVec_.y));
+	//mat_.angle_.y = MyMath::ConvertToRad(atan2(frontVec_.x, frontVec_.z));
+	//mat_.angle_.z = MyMath::ConvertToRad(atan2(leftVec.y, upVec.y));
 
 	currentState_->Update();
 
@@ -87,4 +103,9 @@ void Boss::SetCurrentState(std::unique_ptr<EnemyState>& next)
 void Boss::SetIsHide(bool isHide)
 {
 	hide_ = isHide;
+}
+
+void Boss::SetPlayer(Player* player)
+{
+	player_ = player;
 }

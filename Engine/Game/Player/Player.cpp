@@ -28,8 +28,10 @@ void Player::StatusInitialize()
 	attackState_ = std::make_unique<PlayerNoAttackState>();
 	PlayerAttackState::SetPlayer(this);
 
-	avoid_.SetMaxTime(avoidCoolTime_);
-	avoid_.Initialize();
+	avoidCT_.SetMaxTime(avoidCoolTime_);
+	avoidCT_.Initialize();
+	slowAtCT_.SetMaxTime(slowATCoolTime_);
+	slowAtCT_.Initialize();
 	hp_.Initialize();
 }
 
@@ -91,7 +93,8 @@ void Player::CalcModelFront()
 
 void Player::CoolTimeUpdate()
 {
-	avoid_.Update();
+	avoidCT_.Update();
+	slowAtCT_.Update();
 }
 
 void Player::JumpUpdate()
@@ -207,12 +210,12 @@ void Player::ImGuiUpdate()
 	}
 	
 	if (imgui->CollapsingHeader("Avoid")) {
-		imgui->Text("AvoidIsActive : %s", avoid_.GetIsActive() ? "TRUE" : "FALSE");
-		imgui->Text("Avoid : %s", avoid_.GetIsAvoiding() ? "TRUE" : "FALSE");
+		imgui->Text("AvoidIsActive : %s", avoidCT_.GetIsActive() ? "TRUE" : "FALSE");
+		imgui->Text("Avoid : %s", avoidCT_.GetIsAvoiding() ? "TRUE" : "FALSE");
 		imgui->InputInt("AvoidAccTime", avoidAccTime_);
 		imgui->InputInt("AvoidDecTime", avoidDecTime_);
 		imgui->InputInt("AvoidCoolTime", avoidCoolTime_);
-		avoid_.ImGuiUpdate();
+		avoidCT_.ImGuiUpdate();
 	}
 
 	if(imgui->CollapsingHeader("Jump")) {
@@ -333,6 +336,11 @@ void Player::AddBullet(std::unique_ptr<Bullet>& bullet)
 	bullets_.push_back(std::move(bullet));
 }
 
+void Player::StartSlowAtCT()
+{
+	slowAtCT_.StartCount();
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
@@ -364,7 +372,7 @@ bool Player::GetIsRunning()
 
 bool Player::GetIsAvoid()
 {
-	return avoid_.GetIsAvoiding();
+	return avoidCT_.GetIsAvoiding();
 }
 
 bool Player::GetIsMoving()
@@ -403,6 +411,16 @@ bool Player::GetRateCountIsActive()
 	return rate_.GetIsActive();
 }
 
+bool Player::GetSlowAtIsActive()
+{
+	return slowAtCT_.GetIsActive();
+}
+
+int32_t Player::GetBulletRate()
+{
+	return bulletRate_;
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
@@ -426,7 +444,7 @@ void Player::SetSpd(float spd)
 
 void Player::SetIsAvoid(bool isAvoid)
 {
-	avoid_.SetIsAvoiding(isAvoid);
+	avoidCT_.SetIsAvoiding(isAvoid);
 }
 
 void Player::SetIsRunning(bool isRunning)
