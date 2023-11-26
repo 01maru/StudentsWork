@@ -13,8 +13,6 @@ void LoadingSprite::Update()
 {
     ILoadingObj::Update();
 
-    if (drawObj_ == false) return;
-
     float alphaColor;
     float minAlpha = 0.0f;
     float maxAlpha = 1.0f;
@@ -29,7 +27,5 @@ void LoadingSprite::Update()
 
 void LoadingSprite::Draw()
 {
-    if (drawObj_ == false) return;
-    
     Sprite::Draw(PipelineManager::GetInstance()->GetPipeline("LoadingSprite"));
 }

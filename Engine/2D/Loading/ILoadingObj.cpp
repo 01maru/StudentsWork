@@ -3,9 +3,11 @@
 void ILoadingObj::Update()
 {
     counter_.Update();
-
-    drawObj_ = counter_.GetFrameCount() > 0;
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
 
 void ILoadingObj::SetIsLoading(bool loading)
 {

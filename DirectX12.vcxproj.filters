@@ -67,9 +67,6 @@
     <Filter Include="ソース ファイル\lib\2D">
       <UniqueIdentifier>{9c7558e5-ac47-4336-bfbb-6cc9ef99b521}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\lib\2D\Loading">
-      <UniqueIdentifier>{8bbc42ab-4290-48d0-849d-0f2b5aad04e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\lib\2D\Texture">
       <UniqueIdentifier>{609b394e-0519-43ab-9c37-6fca928bdd26}</UniqueIdentifier>
     </Filter>
@@ -135,9 +132,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\lib\2D">
       <UniqueIdentifier>{e4ccf34a-ee68-41c1-af71-7bb2f469c11d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D\Loading">
-      <UniqueIdentifier>{a7a5d3cf-a515-4bba-8e5e-4a1ba4f37eb2}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\lib\2D\Texture">
       <UniqueIdentifier>{4387dd1c-02f5-4967-96dd-02d9ed6aed12}</UniqueIdentifier>
@@ -264,6 +258,12 @@
     </Filter>
     <Filter Include="リソース ファイル\ObjShader\Dissolve">
       <UniqueIdentifier>{fa7f6121-9611-4749-bc36-0062d5844bb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\lib\Loading">
+      <UniqueIdentifier>{8bbc42ab-4290-48d0-849d-0f2b5aad04e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\lib\Loading">
+      <UniqueIdentifier>{a7a5d3cf-a515-4bba-8e5e-4a1ba4f37eb2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -400,13 +400,13 @@
       <Filter>ソース ファイル\lib\Engine\Input</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Loading\ILoadingObj.cpp">
-      <Filter>ソース ファイル\lib\2D\Loading</Filter>
+      <Filter>ソース ファイル\lib\Loading</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Loading\LoadingModel.cpp">
-      <Filter>ソース ファイル\lib\2D\Loading</Filter>
+      <Filter>ソース ファイル\lib\Loading</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Loading\LoadingSprite.cpp">
-      <Filter>ソース ファイル\lib\2D\Loading</Filter>
+      <Filter>ソース ファイル\lib\Loading</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\Base\CameraManager.cpp">
       <Filter>ソース ファイル\lib\3D\Camera</Filter>
@@ -843,13 +843,13 @@
       <Filter>ヘッダー ファイル\lib\Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Loading\LoadingSprite.h">
-      <Filter>ヘッダー ファイル\lib\2D\Loading</Filter>
+      <Filter>ヘッダー ファイル\lib\Loading</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Loading\LoadingModel.h">
-      <Filter>ヘッダー ファイル\lib\2D\Loading</Filter>
+      <Filter>ヘッダー ファイル\lib\Loading</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Loading\ILoadingObj.h">
-      <Filter>ヘッダー ファイル\lib\2D\Loading</Filter>
+      <Filter>ヘッダー ファイル\lib\Loading</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Camera\Base\CameraManager.h">
       <Filter>ヘッダー ファイル\lib\3D\Camera</Filter>

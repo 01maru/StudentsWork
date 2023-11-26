@@ -1,7 +1,6 @@
 #pragma once
 #include "Object3DShilhouette.h"
 #include "ILoadingObj.h"
-#include <memory>
 
 /**
 * @file LoadingModel.h

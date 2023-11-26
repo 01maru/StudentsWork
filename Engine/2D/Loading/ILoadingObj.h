@@ -30,7 +30,6 @@ public:
 protected:
 	//	ロード中か
 	bool loading_ = false;
-	bool drawObj_ = false;
 	//	フェードインアウト用
 	FrameCounter counter_;
 

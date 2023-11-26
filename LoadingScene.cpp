@@ -6,11 +6,13 @@
 #include "TextureManager.h"
 #include "Easing.h"
 
+using namespace Easing;
+
 void LoadingScene::Initialize()
 {
 	LoadResources();
 
-	counter_.Initialize(60, true, true);
+	counter_.Initialize(MAX_COUNT, true, true);
 
 	std::unique_ptr<ICamera> camera = std::make_unique<ObjCamera2D>();
 	CameraManager::GetInstance()->SetOrthoProjCamera(camera);
@@ -18,16 +20,18 @@ void LoadingScene::Initialize()
 	loadObj_ = std::make_unique<LoadingModel>();
 	LoadingModel* object = dynamic_cast<LoadingModel*>(loadObj_.get());
 	loadObj_->Initialize();
-	loadObj_->SetFadeAnimeTime(30);
+	loadObj_->SetFadeAnimeTime(OBJ_MAX_COUNT);
 	object->SetModel(ModelManager::GetInstance()->GetModel("plane"));
-	object->SetColor({ 1.0f,1.0f,1.0f });
-	object->SetScale({ 30.0f,30.0f,30.0f });
-	object->SetPosition({ Window::sWIN_WIDTH / 2.0f - 130.0f,-Window::sWIN_HEIGHT / 2.0f + 80.0f,0.0f });
+	Vector3D grayColor(0.2f, 0.2f, 0.2f);
+	object->SetColor(grayColor);
+	Vector3D objSize(30.0f, 30.0f, 30.0f);
+	object->SetScale(objSize);
 
 	backSprite_ = std::make_unique<DissolveSprite>();
 	backSprite_->Initialize();
 	backSprite_->SetSize(Vector2D(Window::sWIN_WIDTH, Window::sWIN_HEIGHT));
-	backSprite_->SetColor(Vector4D(0.8f, 0.8f, 0.8f, 1.0f));
+	Vector3D whiteColor(0.8f, 0.8f, 0.8f);
+	backSprite_->SetColor(whiteColor);
 }
 
 void LoadingScene::LoadResources()
@@ -44,7 +48,9 @@ void LoadingScene::Update()
 
 	if (isDraw_ == false) return;
 
-	float value = Easing::EaseOut(0.0f, 1.0f, counter_.GetCountPerMaxCount(), 2);
+	float start = 0.0f;
+	float end = 1.0f;
+	float value = EaseOut(start, end, counter_.GetCountPerMaxCount(), backEasePow_);
 	backSprite_->SetDissolveValue(value);
 
 	backSprite_->Update();

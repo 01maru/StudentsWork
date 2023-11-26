@@ -15,8 +15,6 @@ void LoadingModel::Update()
 {
     ILoadingObj::Update();
 
-    if (drawObj_ == false) return;
-
     float alphaColor;
     float minAlpha = 0.0f;
     float maxAlpha = 1.0f;
@@ -33,7 +31,5 @@ void LoadingModel::Update()
 
 void LoadingModel::Draw()
 {
-    if (drawObj_ == false) return;
-
     Object3DShilhouette::Draw();
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include "ILoadingObj.h"
 #include "Sprite.h"
-#include <memory>
 
 /**
 * @file LoadingSprite.h
@@ -28,6 +27,7 @@ public:
 	* 描画処理関数
 	*/
 	void Draw() override;
+
 private:
 	int32_t easePaw_ = 4;
 	float rotSpd_ = 0.1f;
