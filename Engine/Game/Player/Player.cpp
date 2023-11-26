@@ -50,6 +50,7 @@ void Player::Initialize(IModel* model)
 	UIObject* hpObj = ui.GetUIObject("HP");
 	UISprite* hpSprite = hpObj->GetComponent<UISprite>();
 	hp_.SetSprite(hpSprite->GetSprites()["hp"]);
+	hp_.SetBarColor({ 0.0f,1.0f,0.0f });
 
 	UIObject* crossHairObj = ui.GetUIObject("crossHair");
 	UISprite* crossHairSprite = crossHairObj->GetComponent<UISprite>();
@@ -197,6 +198,10 @@ void Player::ImGuiUpdate()
 		int32_t maxHP = hp_.GetMaxHP();
 		imgui->InputInt("MaxHP", maxHP);
 		hp_.SetMaxHP(maxHP);
+
+		if (imgui->SetButton("GetDamage")) {
+			hp_.DecHp(10);
+		}
 	}
 
 	if (imgui->CollapsingHeader("Move")) {

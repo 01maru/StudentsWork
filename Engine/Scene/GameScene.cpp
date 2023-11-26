@@ -132,9 +132,9 @@ void GameScene::Update()
 	{
 		ParticleManager::GetInstance()->Update();
 
+	}
 		player_->Update();
 		enemy_->Update();
-	}
 
 	//DebugTextManager::GetInstance()->Print("test", { 0,Window::sWIN_HEIGHT/2.0f }, 5);
 #pragma endregion
