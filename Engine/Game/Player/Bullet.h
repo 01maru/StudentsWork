@@ -1,10 +1,12 @@
 #pragma once
 #include "Object3D.h"
 #include "FrameCounter.h"
+#include "ParticleEmitter.h"
 
 class Bullet :public Object3D
 {
 public:
+	~Bullet();
 	void Initialize();
 	void Update();
 
@@ -15,7 +17,7 @@ private:
 	FrameCounter lifeTime_;
 	float radius_ = 0.4f;
 	int32_t damage_ = 5;
-
+	ParticleEmitter* emitter_ = nullptr;
 public:
 	void SetMoveVec(const Vector3D& moveVec);
 	void SetSpd(float spd);

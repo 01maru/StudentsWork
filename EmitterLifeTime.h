@@ -1,7 +1,7 @@
 #pragma once
 #include "EmitterComponent.h"
 
-class EmitterSpdAnimation :public EmitterComponent
+class EmitterLifeTime :public EmitterComponent
 {
 public:
 	/**
@@ -9,10 +9,10 @@ public:
 	* 初期化関数
 	*/
 	void Initialize(Particle* particle) override;
-	
+
 private:
-	float spd_ = 0.05f;
+	int32_t lifetime = 60;
 public:
-	void SetSpd(float spd) { spd_ = spd; }
+	void SetLifeTime(int32_t time) { lifetime = time; }
 };
 

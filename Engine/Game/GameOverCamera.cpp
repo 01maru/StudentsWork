@@ -20,7 +20,6 @@ void GameOverCamera::Initialize(const Vector3D& frontVec, const Vector3D& center
 
 	MatUpdate();
 
-	CalcDirectionVec();
 }
 
 void GameOverCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
@@ -32,8 +31,6 @@ void GameOverCamera::Initialize(const Vector3D& eye, const Vector3D& target, con
 	up_ = up;
 
 	MatUpdate();
-
-	CalcDirectionVec();
 
 	float len = disEyeTarget_ / 5.0f;
 	controlPoint_ = eye + frontVec_ * len;
@@ -72,10 +69,6 @@ void GameOverCamera::Update()
 
 	float color = Easing::lerp(0.0f, 1.0f, fadeCounter_.GetCountPerMaxCount());
 	SceneManager::GetInstance()->ChangeScreenAlpha(color);
-
-	CalcDirectionVec();
-
-	CalcBillboard();
 
 	ShakeUpdate();
 

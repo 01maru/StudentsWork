@@ -8,7 +8,7 @@ class EmitterType
 {
 public:
 	~EmitterType() = default;
-	virtual void Update(Particle* /*particle*/) {};
+	virtual void Update(Particle* particle);
 
 protected:
 	ParticleEmitter* parent_;
@@ -17,7 +17,7 @@ protected:
 
 public:
 	void SetParent(ParticleEmitter* parent);
-	void SetPosition(const Vector3D& pos) { pos_ = pos; }
+	void SetDir(const Vector3D& dir) { dir_ = dir; }
 	Vector3D GetDir() { return dir_; }
 	Vector3D GetPosition() { return pos_; }
 };

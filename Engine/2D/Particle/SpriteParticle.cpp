@@ -38,7 +38,7 @@ void SpriteParticle::Initialize()
 
 void SpriteParticle::MatUpdate()
 {
-	ICamera* camera = CameraManager::GetInstance()->GetMainCamera();
+	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	cTransformMap_->matBillboard = Matrix();
 	if (isBillboardY_) {
 		cTransformMap_->matBillboard = camera->GetBillboardY();
@@ -122,6 +122,11 @@ void SpriteParticle::SetPosition(const Vector3D& pos)
 void SpriteParticle::SetColor(const Vector4D& color)
 {
 	color_ = color;
+}
+
+void SpriteParticle::SetColor(const Vector3D& color)
+{
+	color_.SetVec3D(color);
 }
 
 void SpriteParticle::SetAlphaColor(float alpha)

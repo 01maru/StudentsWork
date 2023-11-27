@@ -145,10 +145,6 @@ void Player::Update()
 	bullets_.remove_if([](std::unique_ptr<Bullet>& bullet) {
 		return bullet->GetIsActive() == false;
 		});
-	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
-	{
-		itr->get()->Update();
-	}
 
 	crossHair_.Update();
 
@@ -158,6 +154,11 @@ void Player::Update()
 	target.y += 1.0f;
 	camera->SetTarget(target);
 	camera->MatUpdate();
+
+	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
+	{
+		itr->get()->Update();
+	}
 
 	ColliderUpdate();
 }

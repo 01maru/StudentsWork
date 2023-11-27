@@ -13,17 +13,9 @@ void EmitterColor::Initialize(Particle* particle)
 	}
 	else
 	{
-		//SpriteParticle* sprite = particle->GetComponent<SpriteParticle>();
+		SpriteParticle* sprite = particle->GetComponent<SpriteParticle>();
 
-		//sprite->SetScale(value_->GetValue().x);
-
-		//if (add_ != nullptr) {
-		//	SpriteParticleScaleAnimation* anime = particle->AddComponent<SpriteParticleScaleAnimation>();
-		//	float scale = sprite->GetScale();
-		//	anime->SetStartScale(scale);
-		//	scale += add_->GetValue().x;
-		//	anime->SetEndScale(scale);
-		//}
+		sprite->SetColor(color_);
 	}
 }
 

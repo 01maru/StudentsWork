@@ -115,6 +115,7 @@ public:
 	* @param color color_の変更後の値
 	*/
 	void SetColor(const Vector4D& color);
+	void SetColor(const Vector3D& color);
 	void SetAlphaColor(float alpha);
 	/**
 	* @fn SetScale(float)

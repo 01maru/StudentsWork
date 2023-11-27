@@ -27,7 +27,7 @@ void DeadParticleEmitter::SetPosComponent()
 void DeadParticleEmitter::SetResouceComponent()
 {
 	ParticleResource* resource = emitter_->AddComponent<ParticleResource>();
-	resource->SetResourceName("particle2.png");
+	resource->SetResourceName("particle.png");
 }
 
 std::unique_ptr<ParticleEmitter>& DeadParticleEmitter::GetEmitter()

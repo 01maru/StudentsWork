@@ -82,7 +82,7 @@ public:
 	* @fn MatUpdate()
 	* ビュー行列更新関数
 	*/
-	void MatUpdate() { matView_ = MyMath::LookAtLH(eye_, target_, up_); }
+	void MatUpdate();
 
 	void SetShake(float min, float max);
 	void StopShake();

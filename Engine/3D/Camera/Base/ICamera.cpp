@@ -72,6 +72,11 @@ void ICamera::ImGuiUpdate()
 	imgui->TreePop();
 }
 
+void ICamera::MatUpdate()
+{
+	matView_ = MyMath::LookAtLH(eye_, target_, up_);
+}
+
 void ICamera::SetShake(float min, float max)
 {
 	isShaking_ = true;

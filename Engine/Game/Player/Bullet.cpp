@@ -4,6 +4,16 @@
 #include "SphereCollider.h"
 #include "Boss.h"
 
+#include "ParticleManager.h"
+#include "BulletAfterImgEmitter.h"
+
+Bullet::~Bullet()
+{
+	if (emitter_ != nullptr) {
+		emitter_->SetIsDead(true);
+	}
+}
+
 void Bullet::Initialize()
 {
 	Object3D::Initialize();
@@ -11,6 +21,9 @@ void Bullet::Initialize()
 	float scale = radius_ * 2.0f;
 	mat_.scale_ = Vector3D(scale, scale, scale);
 	SetCollider(new SphereCollider(Vector3D(), radius_));
+
+	BulletAfterImgEmitter afterImgEmitter;
+	emitter_ = ParticleManager::GetInstance()->AddEmitter(afterImgEmitter.GetEmitter());
 }
 
 void Bullet::Update()
@@ -19,6 +32,8 @@ void Bullet::Update()
 
 	mat_.trans_ += moveVec_ * spd_;
 
+	emitter_->SetPosition(mat_.trans_);
+
 	MatUpdate();
 	collider_->Update();
 }
@@ -26,6 +41,9 @@ void Bullet::Update()
 void Bullet::SetMoveVec(const Vector3D& moveVec)
 {
 	moveVec_ = moveVec;
+	if (emitter_ != nullptr) {
+		emitter_->GetEmitterType()->SetDir(moveVec);
+	}
 }
 
 void Bullet::SetSpd(float spd)

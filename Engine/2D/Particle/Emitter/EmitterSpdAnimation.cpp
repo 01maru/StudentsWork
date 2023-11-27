@@ -1,7 +1,6 @@
 #include "EmitterSpdAnimation.h"
 #include "ParticleSpdAnimation.h"
 #include "ParticleEmitter.h"
-#include "ObjectParticle.h"
 
 void EmitterSpdAnimation::Initialize(Particle* particle)
 {

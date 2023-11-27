@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BulletAfterImgEmitter.cpp" />
     <ClCompile Include="DeadParticleEmitter.cpp" />
     <ClCompile Include="EmitterColor.cpp" />
     <ClCompile Include="EmitterConeType.cpp" />
     <ClCompile Include="EmitterFadeAnimation.cpp" />
+    <ClCompile Include="EmitterLifeTime.cpp" />
     <ClCompile Include="EmitterRotation.cpp" />
     <ClCompile Include="EmitterSphereType.cpp" />
     <ClCompile Include="EmitterType.cpp" />
@@ -159,10 +161,12 @@
     <ClCompile Include="SmokeParticleEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BulletAfterImgEmitter.h" />
     <ClInclude Include="DeadParticleEmitter.h" />
     <ClInclude Include="EmitterColor.h" />
     <ClInclude Include="EmitterConeType.h" />
     <ClInclude Include="EmitterFadeAnimation.h" />
+    <ClInclude Include="EmitterLifeTime.h" />
     <ClInclude Include="EmitterRotation.h" />
     <ClInclude Include="EmitterSphereType.h" />
     <ClInclude Include="EmitterType.h" />
