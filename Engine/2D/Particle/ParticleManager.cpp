@@ -34,11 +34,15 @@ void ParticleManager::Initialize()
 void ParticleManager::DeleteParticle()
 {
 	spriteParticles_.remove_if([](std::unique_ptr<Particle>& x) {
-		return x.get()->GetIsEnd();
+		return x->GetIsEnd();
 		});
 
 	objParticles_.remove_if([](std::unique_ptr<Particle>& x) {
-		return x.get()->GetIsEnd();
+		return x->GetIsEnd();
+		});
+
+	emitters_.remove_if([](std::unique_ptr<ParticleEmitter>& x) {
+		return x->GetIsDead();
 		});
 }
 
@@ -143,7 +147,8 @@ void ParticleManager::AddParticle(std::unique_ptr<Particle>& particle, bool isOb
 	}
 }
 
-void ParticleManager::AddEmitter(std::unique_ptr<ParticleEmitter>& emitter)
+ParticleEmitter* ParticleManager::AddEmitter(std::unique_ptr<ParticleEmitter>& emitter)
 {
 	emitters_.push_front(std::move(emitter));
+	return emitters_.front().get();
 }

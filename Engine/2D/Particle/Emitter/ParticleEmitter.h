@@ -34,6 +34,7 @@ public:
 	};
 
 private:
+	bool isDead_ = false;
 	std::unique_ptr<EmitterType> shapeType_;
 	//	オブジェクトパーティクルかどうか
 	bool isObj_ = false;
@@ -84,6 +85,8 @@ public:
 
 	EmitterType* GetEmitterType() { return shapeType_.get(); }
 
+	bool GetIsDead() { return isDead_; }
+
 #pragma endregion
 
 #pragma region Setter
@@ -99,6 +102,8 @@ public:
 	void SetBlendMord(Blend::BlendMord blendMord);
 
 	void SetEmitterType(std::unique_ptr<EmitterType>& type);
+
+	void SetIsDead(bool isDead) { isDead_ = isDead; }
 
 #pragma endregion
 };

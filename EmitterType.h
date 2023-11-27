@@ -17,6 +17,7 @@ protected:
 
 public:
 	void SetParent(ParticleEmitter* parent);
+	void SetPosition(const Vector3D& pos) { pos_ = pos; }
 	Vector3D GetDir() { return dir_; }
 	Vector3D GetPosition() { return pos_; }
 };

@@ -49,7 +49,7 @@ public:
 
 private:
 	//	エミッターリスト
-	std::forward_list <std::unique_ptr<ParticleEmitter>> emitters_;
+	std::forward_list<std::unique_ptr<ParticleEmitter>> emitters_;
 	//	ぺらポリゴンのパーティクルリスト
 	std::forward_list<std::unique_ptr<Particle>> spriteParticles_;
 	//	ぺらポリゴンの描画に使用するパイプライン配列
@@ -81,7 +81,7 @@ public:
 	* エミッター追加用関数
 	* @param emitter 追加するエミッター
 	*/
-	void AddEmitter(std::unique_ptr<ParticleEmitter>& emitter);
+	ParticleEmitter* AddEmitter(std::unique_ptr<ParticleEmitter>& emitter);
 
 #pragma endregion
 };

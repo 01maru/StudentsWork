@@ -184,5 +184,5 @@ void GameScene::Draw()
 	pause_.Draw();
 
 	//DebugTextManager::GetInstance()->Draw();
-	//ParticleManager::GetInstance()->Draw();
+	ParticleManager::GetInstance()->Draw();
 }

@@ -2,6 +2,8 @@
 #include "EnemyState.h"
 #include "FrameCounter.h"
 
+class ParticleEmitter;
+
 class BossDeathState :public EnemyState
 {
 public:
@@ -10,5 +12,6 @@ public:
 	
 private:
 	FrameCounter counter_;
+	ParticleEmitter* emitter_ = nullptr;
 };
 

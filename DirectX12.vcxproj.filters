@@ -699,6 +699,9 @@
     <ClCompile Include="PlayerSlowAttack.cpp">
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
+    <ClCompile Include="DeadParticleEmitter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -1168,6 +1171,9 @@
     </ClInclude>
     <ClInclude Include="LoadingScene.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadParticleEmitter.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
