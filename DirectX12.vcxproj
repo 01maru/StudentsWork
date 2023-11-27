@@ -16,6 +16,7 @@
     <ClCompile Include="EmitterConeType.cpp" />
     <ClCompile Include="EmitterFadeAnimation.cpp" />
     <ClCompile Include="EmitterRotation.cpp" />
+    <ClCompile Include="EmitterSphereType.cpp" />
     <ClCompile Include="EmitterType.cpp" />
     <ClCompile Include="Engine\Game\UI\ClearUI.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterComponent.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="EmitterConeType.h" />
     <ClInclude Include="EmitterFadeAnimation.h" />
     <ClInclude Include="EmitterRotation.h" />
+    <ClInclude Include="EmitterSphereType.h" />
     <ClInclude Include="EmitterType.h" />
     <ClInclude Include="Engine\Game\UI\ClearUI.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterComponent.h" />

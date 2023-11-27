@@ -18,7 +18,7 @@ void BossDeathState::Update()
 {
 	counter_.Update();
 
-	float scale = Easing::EaseOut(1.0f, 0.0f, counter_.GetCountPerMaxCount(), 5);
+	float scale = Easing::EaseInBack(1.0f, 0.0f, counter_.GetCountPerMaxCount());
 	sBoss_->SetScale({ scale,scale,scale });
 
 	if (counter_.GetIsActive() == false) {

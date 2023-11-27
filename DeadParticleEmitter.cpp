@@ -3,7 +3,7 @@
 #include "EmitterFadeAnimation.h"
 #include "ParticleResource.h"
 #include "EmitterScaleAnimation.h"
-#include "EmitterConeType.h"
+#include "EmitterSphereType.h"
 
 void DeadParticleEmitter::SetScaleComponent()
 {
@@ -20,7 +20,7 @@ void DeadParticleEmitter::SetScaleComponent()
 
 void DeadParticleEmitter::SetPosComponent()
 {
-	std::unique_ptr<EmitterType> type = std::make_unique<EmitterConeType>();
+	std::unique_ptr<EmitterType> type = std::make_unique<EmitterSphereType>();
 	emitter_->SetEmitterType(type);
 }
 

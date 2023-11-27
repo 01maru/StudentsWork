@@ -1,5 +1,4 @@
 #pragma once
-#include "Vector3D.h"
 #include "EmitterType.h"
 
 class EmitterConeType :public EmitterType

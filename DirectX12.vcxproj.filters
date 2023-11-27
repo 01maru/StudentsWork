@@ -699,8 +699,11 @@
     <ClCompile Include="PlayerSlowAttack.cpp">
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
+    <ClCompile Include="EmitterSphereType.cpp">
+      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+    </ClCompile>
     <ClCompile Include="DeadParticleEmitter.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1172,8 +1175,11 @@
     <ClInclude Include="LoadingScene.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="EmitterSphereType.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+    </ClInclude>
     <ClInclude Include="DeadParticleEmitter.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
