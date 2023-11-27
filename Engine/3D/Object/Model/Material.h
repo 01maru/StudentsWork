@@ -12,9 +12,9 @@ class Material
 {
 public:
 	std::string name_;
-	Vector3D ambient_ = { 0.3f, 0.3f, 0.3f };
-	Vector3D diffuse_;
-	Vector3D specular_;
+	Vector3D ambient_ = { 1.0f,1.0f,1.0f };
+	Vector3D diffuse_ = { 0.8f,0.8f,0.8f };
+	Vector3D specular_ = { 0.5f,0.5f,0.5f };
 	float alpha_ = 1.0f;
 
 	std::string textureFilename_;

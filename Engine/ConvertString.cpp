@@ -1,4 +1,4 @@
-﻿#include "ConvertString.h"
+#include "ConvertString.h"
 #include <cassert>
 #include <dxgi1_6.h>
 
@@ -30,8 +30,7 @@ std::string Util::ConvertToString(const wchar_t* name)
 
 std::string Util::GetDirectoryPath(const std::string& origin)
 {
-	int ind = (int)origin.find_last_of('/');
-	ind++;
+	int ind = (int)origin.find_last_of('/') + 1;
 	return origin.substr(0, ind);
 }
 

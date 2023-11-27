@@ -1,12 +1,9 @@
-﻿#include "BoxModel.h"
+#include "BoxModel.h"
 
 void BoxModel::LoadModel(const std::string& /*modelname*/, bool /*smoothing*/)
 {
 	Material* material = nullptr;
 	material = Material::Create();
-	material->ambient_ = { 1.0f,1.0f,1.0f };
-	material->diffuse_ = { 0.8f,0.8f,0.8f };
-	material->specular_ = { 0.5f,0.5f,0.5f };
 
 	AddMaterial(material);
 
