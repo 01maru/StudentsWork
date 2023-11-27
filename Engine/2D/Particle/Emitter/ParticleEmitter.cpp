@@ -9,6 +9,13 @@ void ParticleEmitter::Update()
 	//	アクティブじゃなかったら
 	if (isActive_ == false) return;
 
+	if (deadTimer_ != nullptr) {
+		deadTimer_->Update();
+		if (deadTimer_->GetIsActive() == false) {
+			isDead_ = true;
+		}
+	}
+	
 	if (timer_.GetIsActive() == false) {
 
 		timer_.StartCount();
@@ -83,4 +90,10 @@ void ParticleEmitter::SetEmitterType(std::unique_ptr<EmitterType>& type)
 {
 	shapeType_ = std::move(type);
 	shapeType_->SetParent(this);
+}
+
+void ParticleEmitter::SetDeadTimer(std::unique_ptr<FrameCounter>& timer)
+{
+	deadTimer_ = std::move(timer);
+	deadTimer_->StartCount();
 }

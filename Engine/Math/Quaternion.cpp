@@ -97,8 +97,8 @@ void Quaternion::Normalize()
 Matrix Quaternion::GetRotMatrix()
 {
     Matrix mat;
-    //mat.m[0][0] = w * w + x * x - y * y - z * z;
-    mat.m[0][0] = 1 - (2 * y * y) - (2 * z * z);
+    mat.m[0][0] = w * w + x * x - y * y - z * z;
+    //mat.m[0][0] = 1 - (2 * y * y) - (2 * z * z);
     mat.m[0][1] = (2 * x * y) + (2 * w * z);
     mat.m[0][2] = (2 * x * z) - (2 * w * y);
 
@@ -108,8 +108,8 @@ Matrix Quaternion::GetRotMatrix()
 
     mat.m[2][0] = (2 * x * z) + (2 * w * y);
     mat.m[2][1] = (2 * y * z) - (2 * w * x);
-    mat.m[2][2] = 1 - (2 * x * x) - (2 * y * y);
-    //mat.m[2][2] = w * w - x * x - y * y + z * z;
+    //mat.m[2][2] = 1 - (2 * x * x) - (2 * y * y);
+    mat.m[2][2] = w * w - x * x - y * y + z * z;
 
     return mat;
 }
@@ -364,6 +364,13 @@ Quaternion DirectionToDirection(const Vector3D& u, const Vector3D& v)
     Vector3D vecU = u;
 
     float dot = vecU.dot(v);
+
+    //  uの逆ベクトルがvだったら(crossの値がゼロベクトルにならないように)
+    if (dot == -1) {
+        vecU.x = v.y;
+        vecU.y = v.z;
+        vecU.z = v.x;
+    }
     Vector3D cross = vecU.cross(v);
     cross.Normalize();
 

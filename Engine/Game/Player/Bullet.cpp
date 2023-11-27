@@ -6,6 +6,8 @@
 
 #include "ParticleManager.h"
 #include "BulletAfterImgEmitter.h"
+#include "BulletHitEmitter.h"
+#include "EmitterConeType.h"
 
 Bullet::~Bullet()
 {
@@ -65,6 +67,11 @@ void Bullet::OnCollision(CollisionInfo& info)
 {
 	(void)info;
 	Boss* boss = nullptr;
+	BulletHitEmitter emitter;
+	ParticleEmitter* hitEmitter;
+	EmitterConeType* cone;
+	std::unique_ptr<FrameCounter> deadTimer;
+
 	switch (info.GetCollider()->GetAttribute())
 	{
 	case CollAttribute::COLLISION_ATTR_LANDSHAPE:
@@ -75,6 +82,13 @@ void Bullet::OnCollision(CollisionInfo& info)
 		boss = dynamic_cast<Boss*>(info.GetCollider()->GetObject3D());
 		boss->GetDamage(damage_);
 		lifeTime_.SetIsActive(false);
+		hitEmitter = ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
+		cone = dynamic_cast<EmitterConeType*>(hitEmitter->GetEmitterType());
+		cone->SetConeDir(-moveVec_);
+		hitEmitter->SetPosition(mat_.trans_);
+		deadTimer = std::make_unique<FrameCounter>();
+		deadTimer->Initialize(30, true);
+		hitEmitter->SetDeadTimer(deadTimer);
 		break;
 	default:
 		break;

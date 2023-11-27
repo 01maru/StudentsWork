@@ -15,36 +15,35 @@ void EmitterConeType::Update(Particle* particle)
 	float angleXZ = GetRand(0.0f, PIx2);
 	float lenRate = GetRand(0.0f, 1.0f);
 	
-	Vector3D dirXZ = Vector3D(radius_* lenRate * cos(angleXZ), 0.0f, radius_ * lenRate * sinf(angleXZ));
-	pos_ = parent_->GetPosition() + dirXZ;
+	Vector3D dirXZ = Vector3D(cosf(angleXZ), 0.0f, sinf(angleXZ));
 
-	//float angle = 90.0f - lerp(0.0f, angle_, lenRate);
-	float angle = ConvertToRad(90.0f - angle_);
+	float angle = ConvertToRad(angle_ - 90.0f);
 
-	//Vector3D v = Vector3D(0, 1, 0).cross(dirXZ);
-	
 	dirXZ.Normalize();
-	Vector3D v = Vector3D(0, -1, 0).cross(dirXZ);
+	Vector3D up(0, 1, 0);
+	Vector3D v = up.cross(dirXZ);
 
 	Quaternion q = SetQuaternion(v, angle);
 	dir_ = RotateVector(dirXZ, q);
 	dir_.Normalize();
 
-	//dir_ = Vector3D(0, 1, 0);
+	coneDir_.Normalize();
+	Quaternion rotQ = DirectionToDirection(up, coneDir_);
+
+	dir_ = Vec3Transform(dir_, rotQ.GetRotMatrix());
+	dirXZ = Vec3Transform(dirXZ, rotQ.GetRotMatrix());
+	pos_ = parent_->GetPosition() + radius_ * lenRate * dirXZ;
 
 	if (parent_->GetIsObj())
 	{
 		ObjectParticle* obj = particle->GetComponent<ObjectParticle>();
 
-		//Vector3D pos = obj->GetPosition();
 		obj->SetPosition(pos_);
 	}
 	else
 	{
 		SpriteParticle* sprite = particle->GetComponent<SpriteParticle>();
 
-		//Vector3D pos = sprite->GetPosition();
-		//pos += add_->GetValue();
 		sprite->SetPosition(pos_);
 	}
 }

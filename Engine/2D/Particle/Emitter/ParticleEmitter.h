@@ -21,20 +21,9 @@ public:
 	*/
 	void Update();
 
-public:
-	//	発生方向
-	enum EmitterTypeEnum
-	{
-		CornType,
-		OmniType,
-		Directional,
-		Surface,
-		Curve,
-		Volume,
-	};
-
 private:
 	bool isDead_ = false;
+	std::unique_ptr<FrameCounter> deadTimer_;
 	std::unique_ptr<EmitterType> shapeType_;
 	//	オブジェクトパーティクルかどうか
 	bool isObj_ = false;
@@ -50,8 +39,6 @@ private:
 	int32_t lifeTime_ = 60;
 	//	発生させるパーティクルの情報
 	std::list<std::unique_ptr<EmitterComponent>> components_;
-
-	//　設定する項目(サイズ、回転、LifeTime、重力)
 
 private:
 	void AddParticle();
@@ -104,6 +91,8 @@ public:
 	void SetEmitterType(std::unique_ptr<EmitterType>& type);
 
 	void SetIsDead(bool isDead) { isDead_ = isDead; }
+
+	void SetDeadTimer(std::unique_ptr<FrameCounter>& timer);
 
 #pragma endregion
 };

@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BulletAfterImgEmitter.cpp" />
+    <ClCompile Include="BulletHitEmitter.cpp" />
     <ClCompile Include="DeadParticleEmitter.cpp" />
     <ClCompile Include="EmitterColor.cpp" />
     <ClCompile Include="EmitterConeType.cpp" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BulletAfterImgEmitter.h" />
+    <ClInclude Include="BulletHitEmitter.h" />
     <ClInclude Include="DeadParticleEmitter.h" />
     <ClInclude Include="EmitterColor.h" />
     <ClInclude Include="EmitterConeType.h" />

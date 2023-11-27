@@ -19,5 +19,6 @@ public:
 		this->inter = inter;
 	}
 	BaseCollider* GetCollider() { return collider; }
+	Vector3D& GetInter() { return inter; }
 };
 
