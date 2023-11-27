@@ -66,6 +66,8 @@ private:
 	void DeleteParticle();
 
 public:
+	void DeleteAllParticle();
+
 #pragma region ADD
 
 	/**

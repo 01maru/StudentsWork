@@ -163,6 +163,8 @@ void SceneManager::SceneAsyncInitialize()
 	//	ロード画面描画し終わってなかったら初期化しない
 	if (loading_.GetIsDrawn() == false) return;
 
+	ParticleManager::GetInstance()->DeleteAllParticle();
+
 	//	非同期
 	sceneInitInfo_ = std::async(std::launch::async, [this] {return SceneChange(); });
 	//	非同期ロードに変更

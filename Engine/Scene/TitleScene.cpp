@@ -43,9 +43,9 @@ void TitleScene::LoadResources()
 #pragma endregion
 	
 	SmokeParticleEmitter smokeEmitter;
-	smokeEmitter_ = ParticleManager::GetInstance()->AddEmitter(smokeEmitter.GetEmitter());
+	ParticleManager::GetInstance()->AddEmitter(smokeEmitter.GetEmitter());
 	FireParticleEmitter emitter;
-	fireEmitter_ = ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
+	ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
 
 #pragma region UI
 
@@ -81,8 +81,6 @@ void TitleScene::Finalize()
 {
 	XAudioManager::GetInstance()->StopAllSound();
 	XAudioManager::GetInstance()->DeleteAllSound();
-	fireEmitter_->SetIsDead(true);
-	smokeEmitter_->SetIsDead(true);
 }
 
 void TitleScene::FirstFrameUpdate()

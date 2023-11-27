@@ -4,8 +4,6 @@
 
 #include "JSONLoader.h"
 
-#include "ParticleEmitter.h"
-
 class TitleScene :public IScene
 {
 private:
@@ -13,9 +11,6 @@ private:
 	std::unique_ptr<Object3D> ground_;
 	std::unique_ptr<Object3D> skydome_;
 	std::unique_ptr<Object3D> bonfire_;
-
-	ParticleEmitter* fireEmitter_;
-	ParticleEmitter* smokeEmitter_;
 
 #pragma region Sprite
 
