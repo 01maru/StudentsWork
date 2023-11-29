@@ -672,47 +672,47 @@
     <ClCompile Include="Engine\3D\Camera\Base\LightCamera.cpp">
       <Filter>ソース ファイル\lib\3D\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="EmitterColor.cpp">
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterColor.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="EmitterConeType.cpp">
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterConeType.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="EmitterFadeAnimation.cpp">
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterFadeAnimation.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="EmitterRotation.cpp">
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterRotation.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="EmitterType.cpp">
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterType.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="LoadingScene.cpp">
+    <ClCompile Include="Engine\Scene\LoadingScene.cpp">
       <Filter>ソース ファイル\Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleFadeAnimation.cpp">
+    <ClCompile Include="Engine\2D\Particle\ParticleFadeAnimation.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
     </ClCompile>
-    <ClCompile Include="SmokeParticleEmitter.cpp">
+    <ClCompile Include="Engine\Game\Particle\SmokeParticleEmitter.cpp">
       <Filter>ソース ファイル\Game\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerSlowAttack.cpp">
+    <ClCompile Include="Engine\Game\Player\PlayerSlowAttack.cpp">
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
-    <ClCompile Include="EmitterSphereType.cpp">
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterSphereType.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="DeadParticleEmitter.cpp">
+    <ClCompile Include="Engine\Game\Particle\DeadParticleEmitter.cpp">
       <Filter>ソース ファイル\Game\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="BulletAfterImgEmitter.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Particle\BulletHitEmitter.cpp">
+      <Filter>ソース ファイル\Game\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="EmitterLifeTime.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Particle\BulletAfterImgEmitter.cpp">
+      <Filter>ソース ファイル\Game\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="BulletHitEmitter.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterLifeTime.cpp">
+      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1157,47 +1157,47 @@
     <ClInclude Include="Engine\Base\RootParameterIdx.h">
       <Filter>ヘッダー ファイル\lib\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="EmitterColor.h">
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterColor.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="EmitterConeType.h">
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterConeType.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="EmitterFadeAnimation.h">
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterFadeAnimation.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="EmitterRotation.h">
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterRotation.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="EmitterType.h">
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterType.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleFadeAnimation.h">
+    <ClInclude Include="Engine\2D\Particle\ParticleFadeAnimation.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
     </ClInclude>
-    <ClInclude Include="SmokeParticleEmitter.h">
+    <ClInclude Include="Engine\Game\Particle\SmokeParticleEmitter.h">
       <Filter>ヘッダー ファイル\Game\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerSlowAttack.h">
+    <ClInclude Include="Engine\Game\Player\PlayerSlowAttack.h">
       <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
     </ClInclude>
-    <ClInclude Include="LoadingScene.h">
+    <ClInclude Include="Engine\Scene\LoadingScene.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="EmitterSphereType.h">
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterSphereType.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="DeadParticleEmitter.h">
+    <ClInclude Include="Engine\Game\Particle\DeadParticleEmitter.h">
       <Filter>ヘッダー ファイル\Game\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="BulletAfterImgEmitter.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Particle\BulletHitEmitter.h">
+      <Filter>ヘッダー ファイル\Game\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="EmitterLifeTime.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Particle\BulletAfterImgEmitter.h">
+      <Filter>ヘッダー ファイル\Game\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="BulletHitEmitter.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterLifeTime.h">
+      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

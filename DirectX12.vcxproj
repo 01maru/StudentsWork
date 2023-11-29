@@ -11,16 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BulletAfterImgEmitter.cpp" />
-    <ClCompile Include="BulletHitEmitter.cpp" />
-    <ClCompile Include="DeadParticleEmitter.cpp" />
-    <ClCompile Include="EmitterColor.cpp" />
-    <ClCompile Include="EmitterConeType.cpp" />
-    <ClCompile Include="EmitterFadeAnimation.cpp" />
-    <ClCompile Include="EmitterLifeTime.cpp" />
-    <ClCompile Include="EmitterRotation.cpp" />
-    <ClCompile Include="EmitterSphereType.cpp" />
-    <ClCompile Include="EmitterType.cpp" />
+    <ClCompile Include="Engine\Game\Particle\BulletAfterImgEmitter.cpp" />
+    <ClCompile Include="Engine\Game\Particle\BulletHitEmitter.cpp" />
+    <ClCompile Include="Engine\Game\Particle\DeadParticleEmitter.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterColor.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterConeType.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterFadeAnimation.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterLifeTime.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterRotation.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterSphereType.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterType.cpp" />
     <ClCompile Include="Engine\Game\UI\ClearUI.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterComponent.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterPosComp.cpp" />
@@ -121,7 +121,7 @@
     <ClCompile Include="Engine\Game\UI\GameOverUI.cpp" />
     <ClCompile Include="Engine\Game\Particle\FireParticleEmitter.cpp" />
     <ClCompile Include="Engine\3D\Camera\Base\LightCamera.cpp" />
-    <ClCompile Include="LoadingScene.cpp" />
+    <ClCompile Include="Engine\Scene\LoadingScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -157,21 +157,21 @@
     <ClCompile Include="Engine\3D\Object\Object3DDissolve.cpp" />
     <ClCompile Include="Engine\3D\Object\Object3DShadow.cpp" />
     <ClCompile Include="Engine\3D\Object\Object3DShilhouette.cpp" />
-    <ClCompile Include="ParticleFadeAnimation.cpp" />
-    <ClCompile Include="PlayerSlowAttack.cpp" />
-    <ClCompile Include="SmokeParticleEmitter.cpp" />
+    <ClCompile Include="Engine\2D\Particle\ParticleFadeAnimation.cpp" />
+    <ClCompile Include="Engine\Game\Player\PlayerSlowAttack.cpp" />
+    <ClCompile Include="Engine\Game\Particle\SmokeParticleEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BulletAfterImgEmitter.h" />
-    <ClInclude Include="BulletHitEmitter.h" />
-    <ClInclude Include="DeadParticleEmitter.h" />
-    <ClInclude Include="EmitterColor.h" />
-    <ClInclude Include="EmitterConeType.h" />
-    <ClInclude Include="EmitterFadeAnimation.h" />
-    <ClInclude Include="EmitterLifeTime.h" />
-    <ClInclude Include="EmitterRotation.h" />
-    <ClInclude Include="EmitterSphereType.h" />
-    <ClInclude Include="EmitterType.h" />
+    <ClInclude Include="Engine\Game\Particle\BulletAfterImgEmitter.h" />
+    <ClInclude Include="Engine\Game\Particle\BulletHitEmitter.h" />
+    <ClInclude Include="Engine\Game\Particle\DeadParticleEmitter.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterColor.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterConeType.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterFadeAnimation.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterLifeTime.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterRotation.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterSphereType.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterType.h" />
     <ClInclude Include="Engine\Game\UI\ClearUI.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterComponent.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterPosComp.h" />
@@ -319,10 +319,10 @@
     <ClInclude Include="Engine\3D\Object\Object3DShadow.h" />
     <ClInclude Include="Engine\3D\Object\Object3DShilhouette.h" />
     <ClInclude Include="Engine\Base\RootParameterIdx.h" />
-    <ClInclude Include="LoadingScene.h" />
-    <ClInclude Include="ParticleFadeAnimation.h" />
-    <ClInclude Include="PlayerSlowAttack.h" />
-    <ClInclude Include="SmokeParticleEmitter.h" />
+    <ClInclude Include="Engine\Scene\LoadingScene.h" />
+    <ClInclude Include="Engine\2D\Particle\ParticleFadeAnimation.h" />
+    <ClInclude Include="Engine\Game\Player\PlayerSlowAttack.h" />
+    <ClInclude Include="Engine\Game\Particle\SmokeParticleEmitter.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
