@@ -1,6 +1,7 @@
 #include "Quaternion.h"
 #include "Matrix.h"
 #include "Vector3D.h"
+#include "MyMath.h"
 #include <math.h>
 
 Quaternion SetQuaternion(const Vector3D& v, float angle)
@@ -374,6 +375,7 @@ Quaternion DirectionToDirection(const Vector3D& u, const Vector3D& v)
     Vector3D cross = vecU.cross(v);
     cross.Normalize();
 
+    dot = MyMath::mClamp(-1.0f, 1.0f, dot);
     float theta = (float)acos(dot);
 
     return MakeAxisAngle(cross, theta);

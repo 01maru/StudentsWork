@@ -30,7 +30,7 @@ public:
 	int32_t GetMaxHP();
 	bool GetIsAlive();
 	void SetMaxHP(int32_t maxHP);
-	void SetSprite(Sprite& sprite);
+	void SetSprite(const Sprite& sprite);
 	void SetBarColor(const Vector3D& color);
 };
 

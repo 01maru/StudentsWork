@@ -108,6 +108,10 @@ public:
 	void SetIsRunning(bool isRunning);
 	void SetBulletRate(int32_t rate);
 	void StartRateCount();
+	void SetCrossHairSprite(const Sprite& sprite);
+	void SetHPBarSprite(const Sprite& sprite);
+	void SetAvoidCoolSprite(const Sprite& sprite, const Sprite& text);
+	void SetSlowAtCoolSprite(const Sprite& sprite, const Sprite& text);
 
 #pragma endregion
 };

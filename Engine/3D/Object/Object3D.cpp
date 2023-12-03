@@ -60,10 +60,10 @@ void Object3D::ColliderUpdate()
 	}
 }
 
-void Object3D::MatUpdate()
+void Object3D::MatUpdate(bool calcRot)
 {
 #pragma region WorldMatrix
-	mat_.Update();
+	mat_.Update(calcRot);
 #pragma endregion
 
 	// 親オブジェクトがあれば

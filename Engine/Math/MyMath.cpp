@@ -266,7 +266,7 @@ void MyMath::ObjMatrix::Initialize()
 	trans_ = Vector3D(0.0f, 0.0f, 0.0f);
 }
 
-void MyMath::ObjMatrix::Update()
+void MyMath::ObjMatrix::Update(bool calcRot)
 {
 	matWorld_.Identity();
 
@@ -275,7 +275,9 @@ void MyMath::ObjMatrix::Update()
 	matWorld_ *= matScale_;
 
 	//	回転
-	SetMatRotation();
+	if (calcRot) {
+		SetMatRotation();
+	}
 	matWorld_ *= matRot_;
 
 	//	平行移動

@@ -18,6 +18,8 @@
 
 #include "GameOverCamera.h"
 
+#include "UISprite.h"
+
 void GameScene::LoadResources()
 {
 #pragma region Model
@@ -54,6 +56,28 @@ void GameScene::LoadResources()
 	cube_->SetPosition({ 3.0f,0.0f,3.0f });
 
 	clear_.Initialize();
+
+	UIData ui;
+	ui.LoadData("GameUI");
+	UIObject* gameUIObj = ui.GetUIObject("HP");
+	UISprite* gameUISprite = gameUIObj->GetComponent<UISprite>();
+	player_->SetHPBarSprite(gameUISprite->GetSprites()["hp"]);
+
+	gameUIObj = ui.GetUIObject("crossHair");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	player_->SetCrossHairSprite(gameUISprite->GetSprites()["crossHair"]);
+
+	gameUIObj = ui.GetUIObject("SlowCool");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	player_->SetSlowAtCoolSprite(gameUISprite->GetSprites()["SlowAt"], gameUISprite->GetSprites()["Text"]);
+	
+	gameUIObj = ui.GetUIObject("DashCool");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	player_->SetAvoidCoolSprite(gameUISprite->GetSprites()["Dash"], gameUISprite->GetSprites()["Text"]);
+
+	gameUIObj = ui.GetUIObject("Enemy");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	enemy_->SetHPBarSprite(gameUISprite->GetSprites()["bossHP"]);
 
 #pragma region Sound
 	XAudioManager::GetInstance()->LoadSoundWave("gameBGM.wav");
@@ -103,7 +127,7 @@ void GameScene::MatUpdate()
 
 	cube_->MatUpdate();
 	player_->MatUpdate();
-	enemy_->MatUpdate();
+	enemy_->MatUpdate(false);
 
 	level.MatUpdate();
 }
@@ -154,6 +178,8 @@ void GameScene::ImguiUpdate()
 	player_->ImGuiUpdate();
 
 	imguiMan->BeginWindow("GameScene", true);
+
+	enemy_->ImGuiUpdate();
 
 	pause_.ImGuiUpdate();
 

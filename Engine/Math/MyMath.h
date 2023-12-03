@@ -115,7 +115,7 @@ namespace MyMath {
 		void SetMatRotation();
 		void SetMatTransform();
 		void Initialize();
-		void Update();
+		void Update(bool calcRot = true);
 	};
 
 	class SpriteMatrix

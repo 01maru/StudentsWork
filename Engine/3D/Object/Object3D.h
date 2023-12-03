@@ -27,7 +27,7 @@ public:
 
 	virtual void Initialize();
 	virtual void ColliderUpdate();
-	void MatUpdate();
+	void MatUpdate(bool calcRot = true);
 	void DrawShadow();
 	virtual void Draw();
 

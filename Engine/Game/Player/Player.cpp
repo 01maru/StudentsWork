@@ -40,21 +40,11 @@ void Player::Initialize(IModel* model)
 	Object3D::Initialize();
 	SetModel(model);
 	float radius = 0.5f;
-	SetCollider(new SphereCollider(Vector3D(0.0f, 0.0f, 0.0f), radius));
+	Vector3D offset;
+	SetCollider(new SphereCollider(offset, radius));
 	collider_->SetAttribute(COLLISION_ATTR_ALLIES);
 
 	StatusInitialize();
-
-	UIData ui;
-	ui.LoadData("PlayerUI");
-	UIObject* hpObj = ui.GetUIObject("HP");
-	UISprite* hpSprite = hpObj->GetComponent<UISprite>();
-	hp_.SetSprite(hpSprite->GetSprites()["hp"]);
-	hp_.SetBarColor({ 0.0f,1.0f,0.0f });
-
-	UIObject* crossHairObj = ui.GetUIObject("crossHair");
-	UISprite* crossHairSprite = crossHairObj->GetComponent<UISprite>();
-	crossHair_ = crossHairSprite->GetSprites()["crossHair"];
 }
 
 void Player::IsMovingUpdate()
@@ -335,6 +325,8 @@ void Player::DrawUI()
 {
 	crossHair_.Draw();
 	hp_.Draw();
+	avoidCT_.Draw();
+	slowAtCT_.Draw();
 }
 
 void Player::AddBullet(std::unique_ptr<Bullet>& bullet)
@@ -466,4 +458,29 @@ void Player::SetBulletRate(int32_t rate)
 void Player::StartRateCount()
 {
 	rate_.StartCount();
+}
+
+void Player::SetCrossHairSprite(const Sprite& sprite)
+{
+	crossHair_ = sprite;
+}
+
+void Player::SetHPBarSprite(const Sprite& sprite)
+{
+	hp_.SetSprite(sprite);
+
+	Vector3D green(0.0f, 1.0f, 0.0f);
+	hp_.SetBarColor(green);
+}
+
+void Player::SetAvoidCoolSprite(const Sprite& sprite, const Sprite& text)
+{
+	avoidCT_.SetSprite(sprite);
+	avoidCT_.SetTextSprite(text);
+}
+
+void Player::SetSlowAtCoolSprite(const Sprite& sprite, const Sprite& text)
+{
+	slowAtCT_.SetSprite(sprite);
+	slowAtCT_.SetTextSprite(text);
 }

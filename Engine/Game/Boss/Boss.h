@@ -3,6 +3,8 @@
 #include "CharacterHP.h"
 #include "EnemyState.h"
 
+#include "Quaternion.h"
+
 class IModel;
 class Player;
 
@@ -19,11 +21,12 @@ private:
 
 	Player* player_ = nullptr;
 	Vector3D frontVec_ = { 0.0f,0.0f,-1.0f };
-
+	Quaternion q;
 public:
 	void StatusInitialize();
 	void Initialize(IModel* model);
 	void Update();
+	void ImGuiUpdate();
 	void DrawUI();
 	void CollisionUpdate();
 
@@ -34,5 +37,6 @@ public:
 	void SetCurrentState(std::unique_ptr<EnemyState>& next);
 	void SetIsHide(bool isHide);
 	void SetPlayer(Player* player);
+	void SetHPBarSprite(const Sprite& sprite);
 };
 

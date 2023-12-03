@@ -86,7 +86,7 @@ void CharacterHP::SetMaxHP(int32_t maxHP)
 	maxHP_ = maxHP;
 }
 
-void CharacterHP::SetSprite(Sprite& sprite)
+void CharacterHP::SetSprite(const Sprite& sprite)
 {
 	bar_ = sprite;
 	len_ = bar_.GetSize().x;

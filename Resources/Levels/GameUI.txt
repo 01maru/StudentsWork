@@ -1,0 +1,21 @@
+S hp hpBar.png 60 660 325 40 0 0 1 40 0 0.5 0
+EndData HP
+
+S bossHP hpBar.png 240 70 800 40 0 0 1 40 0 0.5 0
+EndData Enemy
+
+S crossHair crossHair.png 640 360 100 100 0 0 64 64 0.5 0.5 0
+EndData crossHair
+
+S Dash white1x1.png 1220 600 64 64 0 0 1 1 0.5 0 0
+S Text white1x1.png 1220 664 64 32 0 0 1 1 0.5 0 0
+EndData DashCool
+
+S SlowAt white1x1.png 1140 600 64 64 0 0 1 1 0.5 0 0
+S Text white1x1.png 1140 664 64 32 0 0 1 1 0.5 0 0
+EndData SlowCool
+
+S NormalAt white1x1.png 1060 600 64 64 0 0 1 1 0.5 0 0
+S Text white1x1.png 1060 664 64 32 0 0 1 1 0.5 0 0
+EndData NormalCool
+
