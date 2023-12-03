@@ -143,6 +143,8 @@ void Player::Update()
 	target += camera->GetFrontVec() * 3.0f;
 	target.y += 1.0f;
 	camera->SetTarget(target);
+	//	eyeも動かす
+	camera->SetEye(target - camera->GetDisEyeTarget() * camera->GetFrontVec());
 	camera->MatUpdate();
 
 	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
