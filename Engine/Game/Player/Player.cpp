@@ -18,6 +18,8 @@
 #include "UIData.h"
 #include "UISprite.h"
 
+#include "GameOverCamera.h"
+
 using namespace CollAttribute;
 
 void Player::StatusInitialize()
@@ -112,7 +114,19 @@ void Player::Update()
 	hp_.Update();
 
 	//	死亡していたら
-	if (hp_.GetIsAlive() == false) return;
+	if (hp_.GetIsAlive() == false) {
+		if (gameOver_ == false) {
+			gameOver_ = true;
+			InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
+			CameraManager* cameraMan = CameraManager::GetInstance();
+			std::unique_ptr<ICamera> camera = std::make_unique<GameOverCamera>();
+			camera->Initialize(cameraMan->GetMainCamera()->GetEye()
+				, cameraMan->GetMainCamera()->GetTarget()
+				, cameraMan->GetMainCamera()->GetUp());
+			cameraMan->SetMainCamera(camera);
+		}
+		return;
+	}
 
 	IsMovingUpdate();
 
@@ -270,6 +284,8 @@ void Player::CollisionUpdate()
 	CollisionManager::GetInstance()->QuerySphere(*sphereCollider, &callback, COLLISION_ATTR_LANDSHAPE);
 	// 交差による排斥分動かす
 	mat_.trans_ += callback.move;
+	CollisionManager::GetInstance()->QuerySphere(*sphereCollider, &callback, COLLISION_ATTR_ENEMYS);
+	mat_.trans_ += callback.move;
 
 	MatUpdate();
 	collider_->Update();
@@ -312,7 +328,7 @@ void Player::OnCollision(CollisionInfo& info)
 	//if (info.GetCollider()->GetShapeType() == CollisionShapeType::) {
 
 	//}
-	MatUpdate();
+	//MatUpdate();
 }
 
 void Player::DrawBullets()
@@ -339,6 +355,11 @@ void Player::AddBullet(std::unique_ptr<Bullet>& bullet)
 void Player::StartSlowAtCT()
 {
 	slowAtCT_.StartCount();
+}
+
+void Player::GetDamage(int32_t damage)
+{
+	hp_.DecHp(damage);
 }
 
 //-----------------------------------------------------------------------------
@@ -419,6 +440,11 @@ bool Player::GetSlowAtIsActive()
 int32_t Player::GetBulletRate()
 {
 	return bulletRate_;
+}
+
+bool Player::GetIsAlive()
+{
+	return hp_.GetIsAlive();
 }
 
 //-----------------------------------------------------------------------------

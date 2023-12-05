@@ -16,6 +16,9 @@ void Boss::StatusInitialize()
 	currentState_ = std::make_unique<BossIdleState>();
 	EnemyState::SetBoss(this);
 
+	Vector3D pos(0.0f, 3.0f, 10.0f);
+	mat_.trans_ = pos;
+
 	hp_.Initialize();
 }
 
@@ -39,22 +42,17 @@ void Boss::Update()
 
 	//	生きていたら
 
-	Vector3D dir = player_->GetPosition() - mat_.trans_;
-	dir.Normalize();
-	frontVec_.Normalize();
-	q = DirectionToDirection(frontVec_, dir);
-	mat_.matRot_ *= q.GetRotMatrix();
-	frontVec_ = dir;
 
-	//Vector3D upVec(0, 1, 0);
-	//upVec.Normalize();
-	//Vector3D leftVec = upVec.cross(frontVec_);
-	//upVec = frontVec_.cross(leftVec);
-	//mat_.angle_.x = MyMath::ConvertToRad(-asin(frontVec_.y));
-	//mat_.angle_.y = MyMath::ConvertToRad(atan2(frontVec_.x, frontVec_.z));
-	//mat_.angle_.z = MyMath::ConvertToRad(atan2(leftVec.y, upVec.y));
+	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
+		return bullet->GetIsActive() == false;
+		});
 
 	currentState_->Update();
+
+	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
+	{
+		itr->get()->Update();
+	}
 
 	if (hp_.GetIsAlive() == true) {
 
@@ -69,9 +67,16 @@ void Boss::ImGuiUpdate()
 	imgui->BeginWindow("PlayerStatus", true);
 
 	imgui->Text("frontVec : (%.2f, %.2f, %.2f)", frontVec_.x, frontVec_.y, frontVec_.z);
-	imgui->Text("quaternion : (%.2f, %.2f, %.2f, %.2f)", q.x, q.y, q.z, q.w);
 
 	imgui->EndWindow();
+}
+
+void Boss::DrawBullets()
+{
+	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
+	{
+		itr->get()->Draw();
+	}
 }
 
 void Boss::DrawUI()
@@ -81,8 +86,48 @@ void Boss::DrawUI()
 
 void Boss::CollisionUpdate()
 {
-	MatUpdate(false);
+	MatUpdate();
 	collider_->Update();
+}
+
+float Boss::RotationUpdate()
+{
+	//Vector3D dir = player_->GetPosition() - mat_.trans_;
+	//dir.Normalize();
+	//frontVec_.Normalize();
+	//Quaternion q = DirectionToDirection(frontVec_, dir);
+	//mat_.matRot_ *= q.GetRotMatrix();
+	//frontVec_ = dir;
+
+	frontVec_ = mat_.trans_;
+	frontVec_ -= player_->GetPosition();
+	Vector2D vec2(frontVec_.x, frontVec_.z);
+	float dis = frontVec_.GetLength();
+	mat_.angle_.x = atan2(-frontVec_.y, vec2.GetLength());
+	frontVec_.Normalize();
+	mat_.angle_.y = atan2(frontVec_.x, frontVec_.z);
+
+	return dis;
+}
+
+void Boss::OnCollision(CollisionInfo& info)
+{
+	(void)info;
+	//if (info.GetCollider()->GetAttribute() == CollAttribute::COLLISION_ATTR_ALLIES) {
+	//	if (bodyAt_ == true) {
+	//		player_->GetDamage(10);
+	//		Vector3D pos = player_->GetPosition();
+	//		Vector3D inter = info.GetInter();
+	//		inter.y = 0.0f;
+	//		pos -= inter * 3;
+	//		player_->SetPosition(pos);
+	//	}
+	//}
+}
+
+void Boss::AddBullet(std::unique_ptr<EnemyBullet>& bullet)
+{
+	bullets_.push_back(std::move(bullet));
 }
 
 //-----------------------------------------------------------------------------
@@ -102,6 +147,11 @@ bool Boss::GetIsAlive()
 bool Boss::GetIsHide()
 {
 	return hide_;
+}
+
+bool Boss::GetBodyAttack()
+{
+	return bodyAt_;
 }
 
 //-----------------------------------------------------------------------------
@@ -130,4 +180,9 @@ void Boss::SetHPBarSprite(const Sprite& sprite)
 
 	Vector3D red(1.0f, 0.0f, 0.0f);
 	hp_.SetBarColor(red);
+}
+
+void Boss::SetBodyAttack(bool attackFlag)
+{
+	bodyAt_ = attackFlag;
 }

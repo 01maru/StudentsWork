@@ -2,8 +2,7 @@
 #include "Object3D.h"
 #include "CharacterHP.h"
 #include "EnemyState.h"
-
-#include "Quaternion.h"
+#include "EnemyBullet.h"
 
 class IModel;
 class Player;
@@ -14,29 +13,44 @@ private:
 	CharacterHP hp_;
 
 	std::unique_ptr<EnemyState> currentState_;
+	std::list<std::unique_ptr<EnemyBullet>> bullets_;
 
 	bool hide_ = false;
+	bool bodyAt_ = false;
 
 	int32_t maxHP_ = 100;
 
 	Player* player_ = nullptr;
 	Vector3D frontVec_ = { 0.0f,0.0f,-1.0f };
-	Quaternion q;
+	
 public:
 	void StatusInitialize();
 	void Initialize(IModel* model);
 	void Update();
 	void ImGuiUpdate();
+	void DrawBullets();
 	void DrawUI();
 	void CollisionUpdate();
+	float RotationUpdate();
+	void OnCollision(CollisionInfo& info) override;
+
+	void AddBullet(std::unique_ptr<EnemyBullet>& bullet);
 
 	void GetDamage(int32_t damage);
 	bool GetIsAlive();
 	bool GetIsHide();
+	bool GetBodyAttack();
+	Vector3D GetRot() { return mat_.angle_; }
+	Vector3D GetPosition() { return mat_.trans_; }
+	Vector3D GetFrontVec() { return frontVec_; }
+	Player* GetPlayer() { return player_; }
 
+	void SetRot(const Vector3D& rot) { mat_.angle_ = rot; }
+	void SetPosition(const Vector3D& pos) { mat_.trans_ = pos; }
 	void SetCurrentState(std::unique_ptr<EnemyState>& next);
 	void SetIsHide(bool isHide);
 	void SetPlayer(Player* player);
 	void SetHPBarSprite(const Sprite& sprite);
+	void SetBodyAttack(bool attackFlag);
 };
 

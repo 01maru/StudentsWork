@@ -13,6 +13,7 @@
 class Player :public Object3D
 {
 private:
+	bool gameOver_ = false;
 	CharacterHP hp_;
 
 	//	state
@@ -79,6 +80,9 @@ public:
 
 	void AddBullet(std::unique_ptr<Bullet>& bullet);
 	void StartSlowAtCT();
+
+	void GetDamage(int32_t damage);
+
 #pragma region Getter
 
 	bool GetOnGround();
@@ -96,6 +100,7 @@ public:
 	bool GetRateCountIsActive();
 	bool GetSlowAtIsActive();
 	int32_t GetBulletRate();
+	bool GetIsAlive();
 
 #pragma endregion
 

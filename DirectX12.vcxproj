@@ -11,6 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BossBeamState.cpp" />
+    <ClCompile Include="BossBulletState.cpp" />
+    <ClCompile Include="BossMeleeState.cpp" />
+    <ClCompile Include="BossWayBullets.cpp" />
+    <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="Engine\Game\Particle\BulletAfterImgEmitter.cpp" />
     <ClCompile Include="Engine\Game\Particle\BulletHitEmitter.cpp" />
     <ClCompile Include="Engine\Game\Particle\DeadParticleEmitter.cpp" />
@@ -162,6 +167,11 @@
     <ClCompile Include="Engine\Game\Particle\SmokeParticleEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BossBeamState.h" />
+    <ClInclude Include="BossBulletState.h" />
+    <ClInclude Include="BossMeleeState.h" />
+    <ClInclude Include="BossWayBullets.h" />
+    <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="Engine\Game\Particle\BulletAfterImgEmitter.h" />
     <ClInclude Include="Engine\Game\Particle\BulletHitEmitter.h" />
     <ClInclude Include="Engine\Game\Particle\DeadParticleEmitter.h" />

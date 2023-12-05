@@ -2,12 +2,13 @@
 #include "EnemyState.h"
 #include "FrameCounter.h"
 
-class BossIdleState :public EnemyState
+class BossWayBullets :public EnemyState
 {
 private:
-	FrameCounter timer_;
+	FrameCounter rate_;
+	int32_t bulletMaxNum_ = 5;
+
 public:
 	void Initialize() override;
 	void Update() override;
 };
-

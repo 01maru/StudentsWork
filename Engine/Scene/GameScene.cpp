@@ -16,8 +16,6 @@
 #include "ImGuiManager.h"
 #include "ModelManager.h"
 
-#include "GameOverCamera.h"
-
 #include "UISprite.h"
 
 void GameScene::LoadResources()
@@ -127,7 +125,7 @@ void GameScene::MatUpdate()
 
 	cube_->MatUpdate();
 	player_->MatUpdate();
-	enemy_->MatUpdate(false);
+	enemy_->MatUpdate();
 
 	level.MatUpdate();
 }
@@ -137,15 +135,6 @@ void GameScene::Update()
 #pragma region 更新処理
 	//bool select = InputManager::GetInstance()->GetKeyAndButton(DIK_RETURN, InputJoypad::START_Button);
 
-	//if (select) {
-	//	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
-	//	CameraManager* cameraMan = CameraManager::GetInstance();
-	//	std::unique_ptr<GameOverCamera> camera = std::make_unique<GameOverCamera>();
-	//	camera->Initialize(cameraMan->GetMainCamera()->GetEye()
-	//		, cameraMan->GetMainCamera()->GetTarget()
-	//		, cameraMan->GetMainCamera()->GetUp());
-	//	cameraMan->SetMainCamera(std::move(camera));
-	//}
 	if (enemy_->GetIsHide() == true) {
 		clear_.Start();
 	}
@@ -156,9 +145,9 @@ void GameScene::Update()
 	{
 		ParticleManager::GetInstance()->Update();
 
-	}
 		player_->Update();
 		enemy_->Update();
+	}
 
 	//DebugTextManager::GetInstance()->Print("test", { 0,Window::sWIN_HEIGHT/2.0f }, 5);
 #pragma endregion
@@ -199,6 +188,7 @@ void GameScene::Draw()
 	player_->Draw();
 	player_->DrawBullets();
 	enemy_->Draw();
+	enemy_->DrawBullets();
 
 	level.Draw(false);
 

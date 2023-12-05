@@ -69,8 +69,8 @@ void CoolTime::SetSprite(const Sprite& sprite)
 	gauge_.Initialize();
 	gauge_.SetPosition(sprite_.GetPosition());
 	gauge_.SetAnchorPoint(sprite_.GetAnchorPoint());
-	float alpha = 0.25f;
-	float gray = 0.1f;
+	float alpha = 0.3f;
+	float gray = 0.3f;
 	Vector4D color(gray, gray, gray, alpha);
 	gauge_.SetColor(color);
 }
