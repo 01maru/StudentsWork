@@ -714,20 +714,20 @@
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterLifeTime.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="BossBeamState.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Boss\BossBeamState.cpp">
+      <Filter>ソース ファイル\Game\Enemy\State</Filter>
     </ClCompile>
-    <ClCompile Include="BossBulletState.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp">
+      <Filter>ソース ファイル\Game\Enemy\State</Filter>
     </ClCompile>
-    <ClCompile Include="BossMeleeState.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Boss\BossMeleeState.cpp">
+      <Filter>ソース ファイル\Game\Enemy\State</Filter>
     </ClCompile>
-    <ClCompile Include="BossWayBullets.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Boss\BossWayBullets.cpp">
+      <Filter>ソース ファイル\Game\Enemy\State</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBullet.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Boss\EnemyBullet.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1214,20 +1214,20 @@
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterLifeTime.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="BossBeamState.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Boss\EnemyBullet.h">
+      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="BossBulletState.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Boss\BossWayBullets.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
-    <ClInclude Include="BossMeleeState.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Boss\BossMeleeState.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
-    <ClInclude Include="BossWayBullets.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Boss\BossBulletState.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBullet.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Boss\BossBeamState.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

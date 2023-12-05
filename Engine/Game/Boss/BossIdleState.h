@@ -5,9 +5,16 @@
 class BossIdleState :public EnemyState
 {
 private:
-	FrameCounter timer_;
+	enum BossAtState {
+		BulletState = 0,
+		WayBulletsState,
+		StateNum,
+	};
 public:
 	void Initialize() override;
 	void Update() override;
+private:
+	int32_t idleTime_ = 60;
+	FrameCounter timer_;
 };
 

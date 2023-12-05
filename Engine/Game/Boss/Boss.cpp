@@ -115,7 +115,7 @@ void Boss::OnCollision(CollisionInfo& info)
 	(void)info;
 	//if (info.GetCollider()->GetAttribute() == CollAttribute::COLLISION_ATTR_ALLIES) {
 	//	if (bodyAt_ == true) {
-	//		player_->GetDamage(10);
+	//		player_->DecHP(10);
 	//		Vector3D pos = player_->GetPosition();
 	//		Vector3D inter = info.GetInter();
 	//		inter.y = 0.0f;
@@ -130,14 +130,14 @@ void Boss::AddBullet(std::unique_ptr<EnemyBullet>& bullet)
 	bullets_.push_back(std::move(bullet));
 }
 
-//-----------------------------------------------------------------------------
-// [SECTION] Getter
-//-----------------------------------------------------------------------------
-
-void Boss::GetDamage(int32_t damage)
+void Boss::DecHP(int32_t damage)
 {
 	hp_.DecHp(damage);
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
 
 bool Boss::GetIsAlive()
 {

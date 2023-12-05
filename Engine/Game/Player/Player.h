@@ -81,7 +81,7 @@ public:
 	void AddBullet(std::unique_ptr<Bullet>& bullet);
 	void StartSlowAtCT();
 
-	void GetDamage(int32_t damage);
+	void DecHP(int32_t damage);
 
 #pragma region Getter
 

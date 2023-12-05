@@ -7,10 +7,9 @@
 #include "BossWayBullets.h"
 
 #include "InputManager.h"
-
 void BossIdleState::Initialize()
 {
-	timer_.Initialize(60, true);
+	timer_.Initialize(idleTime_, true);
 	timer_.StartCount();
 }
 
@@ -34,30 +33,31 @@ void BossIdleState::Update()
 			sBoss_->SetPosition(pos);
 		}
 
-		if (timer_.GetIsActive() == false) {
-			int rad = rand();
-			if (rad % 2 == 0) {
-				std::unique_ptr<EnemyState> next_ = std::make_unique<BossBulletState>();
-				sBoss_->SetCurrentState(next_);
-			}
-			else if (rad % 2 == 1) {
-				std::unique_ptr<EnemyState> next_ = std::make_unique<BossWayBullets>();
-				sBoss_->SetCurrentState(next_);
-			}
-		}
-
-		//InputManager* input = InputManager::GetInstance();
-		//if (input->GetKeyAndButton(DIK_1, InputJoypad::A_Button)) {
-		//	std::unique_ptr<EnemyState> next_ = std::make_unique<BossBulletState>();
-		//	sBoss_->SetCurrentState(next_);
+		//if (timer_.GetIsActive() == false) {
+		//	int rad = rand();
+		//	rad = rad % StateNum;
+		//	if (rad == BulletState) {
+		//		std::unique_ptr<EnemyState> next_ = std::make_unique<BossBulletState>();
+		//		sBoss_->SetCurrentState(next_);
+		//	}
+		//	else if (rad == WayBulletsState) {
+		//		std::unique_ptr<EnemyState> next_ = std::make_unique<BossWayBullets>();
+		//		sBoss_->SetCurrentState(next_);
+		//	}
 		//}
+
+		InputManager* input = InputManager::GetInstance();
+		if (input->GetKeyAndButton(DIK_1, InputJoypad::A_Button)) {
+			std::unique_ptr<EnemyState> next_ = std::make_unique<BossBulletState>();
+			sBoss_->SetCurrentState(next_);
+		}
 		//if (input->GetKeyAndButton(DIK_2, InputJoypad::A_Button)) {
 		//	std::unique_ptr<EnemyState> next_ = std::make_unique<BossMeleeState>();
 		//	sBoss_->SetCurrentState(next_);
 		//}
-		//if (input->GetKeyAndButton(DIK_3, InputJoypad::A_Button)) {
-		//	std::unique_ptr<EnemyState> next_ = std::make_unique<BossWayBullets>();
-		//	sBoss_->SetCurrentState(next_);
-		//}
+		if (input->GetKeyAndButton(DIK_2, InputJoypad::A_Button)) {
+			std::unique_ptr<EnemyState> next_ = std::make_unique<BossWayBullets>();
+			sBoss_->SetCurrentState(next_);
+		}
 	}
 }

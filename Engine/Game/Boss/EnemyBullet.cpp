@@ -12,8 +12,8 @@ void EnemyBullet::Initialize()
 {
 	Object3D::Initialize();
 	lifeTime_.StartCount();
-	float scale = radius_ * 2.0f;
-	mat_.scale_ = Vector3D(scale, scale, scale);
+	float diameter = radius_ * 2.0f;
+	mat_.scale_ = Vector3D(diameter, diameter, diameter);
 	SetCollider(new SphereCollider(Vector3D(), radius_));
 	SetAttribute(CollAttribute::COLLISION_ATTR_ENEMY_AT);
 }
@@ -62,7 +62,7 @@ void EnemyBullet::OnCollision(CollisionInfo& info)
 		break;
 	case CollAttribute::COLLISION_ATTR_ALLIES:
 		player = dynamic_cast<Player*>(info.GetCollider()->GetObject3D());
-		player->GetDamage(damage_);
+		player->DecHP(damage_);
 		lifeTime_.SetIsActive(false);
 		break;
 	default:

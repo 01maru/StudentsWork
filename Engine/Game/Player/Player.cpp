@@ -357,7 +357,7 @@ void Player::StartSlowAtCT()
 	slowAtCT_.StartCount();
 }
 
-void Player::GetDamage(int32_t damage)
+void Player::DecHP(int32_t damage)
 {
 	hp_.DecHp(damage);
 }

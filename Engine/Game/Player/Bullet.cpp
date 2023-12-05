@@ -80,7 +80,7 @@ void Bullet::OnCollision(CollisionInfo& info)
 		break;
 	case CollAttribute::COLLISION_ATTR_ENEMYS:
 		boss = dynamic_cast<Boss*>(info.GetCollider()->GetObject3D());
-		boss->GetDamage(damage_);
+		boss->DecHP(damage_);
 		lifeTime_.SetIsActive(false);
 		hitEmitter = ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
 		cone = dynamic_cast<EmitterConeType*>(hitEmitter->GetEmitterType());

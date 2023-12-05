@@ -6,8 +6,11 @@
 
 void BossWayBullets::Initialize()
 {
-	rate_.Initialize(60, true);
+	rate_.Initialize(delayTime_, true);
 	rate_.StartCount();
+
+	float angle = 10.0f;
+	wayAngle_ = MyMath::ConvertToRad(angle);
 }
 
 void BossWayBullets::Update()
@@ -18,25 +21,34 @@ void BossWayBullets::Update()
 
 	if (rate_.GetIsActive() == false) {
 
+		float startAngle;
+		int32_t half = 2;
+		int32_t bulletHalfNum = bulletMaxNum_ / half;
+		//	偶数だったら
+		bool isEvenNumver = bulletMaxNum_ % half == 0;
+		if (isEvenNumver == true) {
+			startAngle = wayAngle_ * bulletHalfNum - wayAngle_ / static_cast<float>(half);
+		}
+		else {
+			startAngle = wayAngle_ * bulletHalfNum;
+		}
+
 		for (size_t i = 0; i < bulletMaxNum_; i++)
 		{
  			Vector3D dirVec = -sBoss_->GetFrontVec();
-			float angle = MyMath::ConvertToRad(15.0f);
-			if (i > 2) {
-				angle *= (i-2);
-				angle = -angle;
-			}
-			else {
-				angle *= i;
-			}
-			Quaternion rot = SetQuaternion(Vector3D(0, 1, 0), angle);
+ 			float angle = wayAngle_ * i;
+
+			angle = startAngle - angle;
+
+			Vector3D up(0, 1, 0);
+			Quaternion rot = SetQuaternion(up, angle);
 			dirVec = RotateVector(dirVec, rot);
 
 			//	弾生成
 			std::unique_ptr<EnemyBullet> bullet = std::make_unique<EnemyBullet>();
 			bullet->Initialize();
-			bullet->SetLifeTime(600);
-			bullet->SetSpd(1);
+			bullet->SetLifeTime(bulletLifeTime_);
+			bullet->SetSpd(bulletSpd_);
 			bullet->SetMoveVec(dirVec);
 			bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
 			bullet->SetPosition(sBoss_->GetPosition());

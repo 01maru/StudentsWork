@@ -5,9 +5,12 @@
 #include "ParticleManager.h"
 #include "DeadParticleEmitter.h"
 
+using namespace Easing;
+
 void BossDeathState::Initialize()
 {
-	counter_.Initialize(150, true, true);
+	const int32_t animationTime = 150;
+	counter_.Initialize(animationTime, true, true);
 	counter_.StartCount();
 	DeadParticleEmitter emitter;
 	emitter_ = ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
@@ -18,7 +21,9 @@ void BossDeathState::Update()
 {
 	counter_.Update();
 
-	float scale = Easing::EaseInBack(1.0f, 0.0f, counter_.GetCountPerMaxCount());
+	float startScale = 1.0f;
+	float endScale = 0.0f;
+	float scale = EaseInBack(startScale, endScale, counter_.GetCountPerMaxCount());
 	sBoss_->SetScale({ scale,scale,scale });
 
 	if (counter_.GetIsActive() == false) {

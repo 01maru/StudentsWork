@@ -5,11 +5,10 @@
 
 void BossBulletState::Initialize()
 {
-	rate_.Initialize(60, true);
+	rate_.Initialize(rateTime_, true);
 	rate_.StartCount();
 
 	bulletNum_ = 0;
-	bulletMaxNum_ = 5;
 }
 
 void BossBulletState::Update()
@@ -23,8 +22,8 @@ void BossBulletState::Update()
 		//	弾生成
 		std::unique_ptr<EnemyBullet> bullet = std::make_unique<EnemyBullet>();
 		bullet->Initialize();
-		bullet->SetLifeTime(600);
-		bullet->SetSpd(1);
+		bullet->SetLifeTime(bulletLifeTime_);
+		bullet->SetSpd(bulletSpd_);
 		bullet->SetMoveVec(-sBoss_->GetFrontVec());
 		bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
 		bullet->SetPosition(sBoss_->GetPosition());
