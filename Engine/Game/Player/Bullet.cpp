@@ -20,8 +20,8 @@ void Bullet::Initialize()
 {
 	Object3D::Initialize();
 	lifeTime_.StartCount();
-	float scale = radius_ * 2.0f;
-	mat_.scale_ = Vector3D(scale, scale, scale);
+	float dismeter = radius_ * 2.0f;
+	mat_.scale_ = Vector3D(dismeter, dismeter, dismeter);
 	SetCollider(new SphereCollider(Vector3D(), radius_));
 
 	BulletAfterImgEmitter afterImgEmitter;
@@ -87,7 +87,7 @@ void Bullet::OnCollision(CollisionInfo& info)
 		cone->SetConeDir(-moveVec_);
 		hitEmitter->SetPosition(mat_.trans_);
 		deadTimer = std::make_unique<FrameCounter>();
-		deadTimer->Initialize(30, true);
+		deadTimer->Initialize(emitterLifeTime_, true);
 		hitEmitter->SetDeadTimer(deadTimer);
 		break;
 	default:

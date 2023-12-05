@@ -6,13 +6,11 @@ void CharacterHP::Initialize()
 	hp_ = maxHP_;
 	isAlive_ = true;
 
-	damageTimer_.Initialize(30, true);
+	damageTimer_.Initialize(animationTime_, true);
 }
 
 void CharacterHP::Update()
 {
-	IsAliveUpdate();
-
 	HPBarUpdate();
 }
 
@@ -48,7 +46,11 @@ void CharacterHP::HPBarUpdate()
 
 void CharacterHP::DecHp(int32_t damage)
 {
+	if (isAlive_ == false) return;
+
 	hp_ = MyMath::mMax(0, hp_ - damage);
+
+	IsAliveUpdate();
 
 	Vector2D size = bar_.GetSize();
 	size.x = Easing::lerp(0.0f, len_, hp_ / static_cast<float>(maxHP_));
@@ -94,15 +96,15 @@ void CharacterHP::SetSprite(const Sprite& sprite)
 	damage_.SetSize(bar_.GetSize());
 	damage_.SetPosition(bar_.GetPosition());
 	damage_.SetAnchorPoint(bar_.GetAnchorPoint());
-	damage_.SetColor(Vector4D(1.0f, 0.0f, 0.0f, 0.4f));
+	Vector4D redColor(1.0f, 0.0f, 0.0f, 0.4f);
+	damage_.SetColor(redColor);
 
 	back_.Initialize();
 	back_.SetSize(bar_.GetSize());
-	Vector2D pos = bar_.GetPosition();
-	pos.x += bar_.GetSize().x / 2.0f;
-	back_.SetAnchorPoint({ 0.5f,0.5f });
-	back_.SetPosition(pos);
-	back_.SetColor(Vector4D(0.1f, 0.1f, 0.1f, 0.5f));
+	back_.SetPosition(bar_.GetPosition());
+	back_.SetAnchorPoint(bar_.GetAnchorPoint());
+	Vector4D grayColor(0.1f, 0.1f, 0.1f, 0.5f);
+	back_.SetColor(grayColor);
 	back_.Update();
 }
 

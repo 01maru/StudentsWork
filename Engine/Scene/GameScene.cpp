@@ -34,24 +34,18 @@ void GameScene::LoadResources()
 	level.LoadJSON("game");
 	//	地面
 	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
-	PlaneCollider* coll_ = new PlaneCollider({ 0.0f,1.0f,0.0f });
+	Vector3D upDir(0.0f, 1.0f, 0.0f);
+	PlaneCollider* coll_ = new PlaneCollider(upDir);
 	coll_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
 	ground_->SetCollider(coll_);
 	//	天球
 	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
-	//collider_ = new MeshCollider;
-	//collider_->ConstructTriangles(skydome_->GetModel());
-	//collider_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
-	//skydome_->SetCollider(collider_);
 	//	player
 	player_ = std::make_unique<Player>();
 	player_->Initialize(models->GetModel(""));
 	//	enemy
 	enemy_ = std::make_unique<Boss>();
 	enemy_->Initialize(models->GetModel("eye"));
-	//	Cube
-	cube_ = std::move(Object3D::Create(models->GetModel()));
-	cube_->SetPosition({ 3.0f,0.0f,3.0f });
 
 	clear_.Initialize();
 
@@ -100,8 +94,6 @@ void GameScene::Initialize()
 	CameraManager::GetInstance()->SetMainCamera(camera);
 
 	//XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
-
-	CameraManager::GetInstance()->GetLightCamera()->SetEye(Vector3D(78.0f, 50.0f, -30.0f));
 }
 
 void GameScene::Finalize()
@@ -123,7 +115,6 @@ void GameScene::MatUpdate()
 	ground_->MatUpdate();
 	skydome_->MatUpdate();
 
-	cube_->MatUpdate();
 	player_->MatUpdate();
 	enemy_->MatUpdate();
 
@@ -133,8 +124,6 @@ void GameScene::MatUpdate()
 void GameScene::Update()
 {
 #pragma region 更新処理
-	//bool select = InputManager::GetInstance()->GetKeyAndButton(DIK_RETURN, InputJoypad::START_Button);
-
 	if (enemy_->GetIsHide() == true) {
 		clear_.Start();
 	}
@@ -148,8 +137,6 @@ void GameScene::Update()
 		player_->Update();
 		enemy_->Update();
 	}
-
-	//DebugTextManager::GetInstance()->Print("test", { 0,Window::sWIN_HEIGHT/2.0f }, 5);
 #pragma endregion
 	MatUpdate();
 
@@ -181,10 +168,6 @@ void GameScene::DrawShadow()
 
 void GameScene::Draw()
 {
-	////	天球
-	//skydome_->Draw();
-	////	地面
-	//ground_->Draw();
 	player_->Draw();
 	player_->DrawBullets();
 	enemy_->Draw();
@@ -199,6 +182,5 @@ void GameScene::Draw()
 
 	pause_.Draw();
 
-	//DebugTextManager::GetInstance()->Draw();
 	ParticleManager::GetInstance()->Draw();
 }

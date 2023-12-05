@@ -5,7 +5,10 @@ class DeadParticleEmitter
 {
 private:
 	std::unique_ptr<ParticleEmitter> emitter_;
-
+	int32_t rate_ = 1;
+	float addScaleMin_ = -0.2f;
+	float addScaleMax_ = -0.1f;
+	Vector3D startScale_ = { 0.2f, 0.2f, 0.2f };
 private:
 	void SetScaleComponent();
 	void SetPosComponent();

@@ -12,11 +12,11 @@ public:
 	void Initialize(Particle* particle) override;
 
 private:
-	float minValue_ = 0.0f;
-	float maxValue_ = 1.0f;
+	float endValue_ = 0.0f;
+	float startValue_ = 1.0f;
 
 public:
-	void SetMinValue(float v);
-	void SetMaxValue(float v);
+	void SetEndValue(float v);
+	void SetStartValue(float v);
 };
 

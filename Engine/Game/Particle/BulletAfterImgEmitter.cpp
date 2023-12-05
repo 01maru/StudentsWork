@@ -34,17 +34,18 @@ std::unique_ptr<ParticleEmitter>& BulletAfterImgEmitter::GetEmitter()
 {
 	emitter_ = std::make_unique<ParticleEmitter>();
 	emitter_->SetBlendMord(Blend::ALPHA_BLEND);
-	emitter_->SetRate(4);
+	emitter_->SetRate(rate_);
 
 	SetScaleComponent();
 	SetPosComponent();
 
 	EmitterColor* color = emitter_->AddComponent<EmitterColor>();
-	color->SetColor(Vector3D(0.8f, 0.3f, 0.1f));
+	Vector3D orangeColor(0.8f, 0.3f, 0.1f);
+	color->SetColor(orangeColor);
 	EmitterSpdAnimation* spd = emitter_->AddComponent<EmitterSpdAnimation>();
 	spd->SetSpd(spd_);
 	EmitterLifeTime* lifetime = emitter_->AddComponent<EmitterLifeTime>();
-	lifetime->SetLifeTime(10);
+	lifetime->SetLifeTime(lifeTime_);
 
 	SetResouceComponent();
 

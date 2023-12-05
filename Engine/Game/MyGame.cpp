@@ -14,9 +14,11 @@ void MyGame::Initialize()
 #pragma region SetLight
 	//	ライトの初期化
 	light->Initialize();
-	light->SetDirLightActive(0, true);
-	light->SetDirLightShadow(0, true);
-	light->SetDirLightDir(0, Vector3D(-0.75f, 0.5f, 0.35f));
+	int32_t lightIdx = 0;
+	Vector3D dir(-0.75f, 0.5f, 0.35f);
+	light->SetDirLightActive(lightIdx, true);
+	light->SetDirLightShadow(lightIdx, true);
+	light->SetDirLightDir(lightIdx, dir);
 #pragma endregion
 
 	GameOverUI::GetInstance()->Initialize();

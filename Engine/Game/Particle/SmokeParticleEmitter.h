@@ -6,6 +6,9 @@ class SmokeParticleEmitter
 private:
 	std::unique_ptr<ParticleEmitter> emitter_;
 
+	int32_t rate_ = 10;
+	float addScaleMin_ = 0.5f;
+	float addScaleMax_ = 0.8f;
 private:
 	void SetScaleComponent();
 	void SetPosComponent();

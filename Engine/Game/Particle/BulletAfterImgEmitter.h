@@ -6,6 +6,8 @@ class BulletAfterImgEmitter
 private:
 	std::unique_ptr<ParticleEmitter> emitter_;
 	float spd_ = 0.5f;
+	int32_t rate_ = 4;
+	int32_t lifeTime_ = 10;
 private:
 	void SetScaleComponent();
 	void SetPosComponent();

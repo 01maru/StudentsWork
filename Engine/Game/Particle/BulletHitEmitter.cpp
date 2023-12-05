@@ -13,8 +13,8 @@ void BulletHitEmitter::SetScaleComponent()
 
 	EmitterScaleAnimation* scale = emitter_->AddComponent<EmitterScaleAnimation>();
 	std::unique_ptr<ParticleSameRandValue> v = std::make_unique<ParticleSameRandValue>();
-	v->SetMinValue(0.1f);
-	v->SetMaxValue(0.3f);
+	v->SetMinValue(addScaleMin_);
+	v->SetMaxValue(addScaleMax_);
 	std::unique_ptr<ParticleValue> v1 = std::move(v);
 	scale->SetAddValue(v1);
 	v1 = std::make_unique<ParticleValue>();
@@ -38,18 +38,19 @@ std::unique_ptr<ParticleEmitter>& BulletHitEmitter::GetEmitter()
 {
 	emitter_ = std::make_unique<ParticleEmitter>();
 	emitter_->SetBlendMord(Blend::ALPHA_BLEND);
-	emitter_->SetRate(3);
+	emitter_->SetRate(rate_);
 
 	SetScaleComponent();
 	SetPosComponent();
 
 	EmitterColor* color = emitter_->AddComponent<EmitterColor>();
-	color->SetColor(Vector3D(1.0f, 0.1f, 0.1f));
+	Vector3D redColor(1.0f, 0.1f, 0.1f);
+	color->SetColor(redColor);
 
 	emitter_->AddComponent<EmitterFadeAnimation>();
 	emitter_->AddComponent<EmitterSpdAnimation>();
 	EmitterLifeTime* lifetime = emitter_->AddComponent<EmitterLifeTime>();
-	lifetime->SetLifeTime(20);
+	lifetime->SetLifeTime(lifeTime_);
 
 	SetResouceComponent();
 

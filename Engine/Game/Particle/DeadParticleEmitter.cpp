@@ -9,12 +9,12 @@ void DeadParticleEmitter::SetScaleComponent()
 {
 	EmitterScaleAnimation* scale = emitter_->AddComponent<EmitterScaleAnimation>();
 	std::unique_ptr<ParticleSameRandValue> v = std::make_unique<ParticleSameRandValue>();
-	v->SetMinValue(-0.2f);
-	v->SetMaxValue(-0.1f);
+	v->SetMinValue(addScaleMin_);
+	v->SetMaxValue(addScaleMax_);
 	std::unique_ptr<ParticleValue> v1 = std::move(v);
 	scale->SetAddValue(v1);
 	v1 = std::make_unique<ParticleValue>();
-	v1->SetValue(Vector3D(0.2f, 0.2f, 0.2f));
+	v1->SetValue(startScale_);
 	scale->SetValue(v1);
 }
 
@@ -34,7 +34,7 @@ std::unique_ptr<ParticleEmitter>& DeadParticleEmitter::GetEmitter()
 {
 	emitter_ = std::make_unique<ParticleEmitter>();
 	emitter_->SetBlendMord(Blend::ADD_BLEND);
-	emitter_->SetRate(1);
+	emitter_->SetRate(rate_);
 
 	SetScaleComponent();
 	SetPosComponent();

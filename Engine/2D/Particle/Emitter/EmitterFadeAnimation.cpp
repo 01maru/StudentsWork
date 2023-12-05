@@ -13,8 +13,8 @@ void EmitterFadeAnimation::Initialize(Particle* particle)
 
 		//if (add_ != nullptr) {
 		ParticleFadeAnimation* anime = particle->AddComponent<ParticleFadeAnimation>();
-		anime->SetStartAlpha(maxValue_);
-		anime->SetEndAlpha(minValue_);
+		anime->SetStartAlpha(startValue_);
+		anime->SetEndAlpha(endValue_);
 		//	Vector3D scale = obj->GetScale();
 		//	anime->SetStartScale(scale);
 		//	scale += add_->GetValue();
@@ -37,12 +37,12 @@ void EmitterFadeAnimation::Initialize(Particle* particle)
 	}
 }
 
-void EmitterFadeAnimation::SetMinValue(float v)
+void EmitterFadeAnimation::SetEndValue(float v)
 {
-	minValue_ = v;
+	endValue_ = v;
 }
 
-void EmitterFadeAnimation::SetMaxValue(float v)
+void EmitterFadeAnimation::SetStartValue(float v)
 {
-	maxValue_ = v;
+	startValue_ = v;
 }

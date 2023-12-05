@@ -15,7 +15,7 @@ void PlayerSlowAttack::Update()
 		//	弾生成
 		std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>();
 		bullet->Initialize();
-		bullet->SetLifeTime(600);
+		bullet->SetLifeTime(bulletLifeTime_);
 		bullet->SetSpd(spd_);
 		bullet->SetMoveVec(sPlayer_->GetFrontVec());
 		bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));

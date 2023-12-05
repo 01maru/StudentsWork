@@ -14,23 +14,17 @@ void FireParticleEmitter::SetScaleComponent()
 {
 	EmitterScaleAnimation* scale = emitter_->AddComponent<EmitterScaleAnimation>();
 	std::unique_ptr<ParticleSameRandValue> v = std::make_unique<ParticleSameRandValue>();
-	v->SetMinValue(-0.2f);
-	v->SetMaxValue(-0.1f);
+	v->SetMinValue(addScaleMin_);
+	v->SetMaxValue(addScaleMax_);
 	std::unique_ptr<ParticleValue> v1 = std::move(v);
 	scale->SetAddValue(v1);
 	v1 = std::make_unique<ParticleValue>();
-	v1->SetValue(Vector3D(0.2f, 0.2f, 0.2f));
+	v1->SetValue(startScale_);
 	scale->SetValue(v1);
 }
 
 void FireParticleEmitter::SetPosComponent()
 {
-	//std::unique_ptr<ParticleRandValue> addV = std::make_unique<ParticleRandValue>();
-	//addV->SetMinValue(Vector3D{ -0.1f,0.0f,-0.1f });
-	//addV->SetMaxValue(Vector3D{ 0.1f,0.0f,0.1f });
-	//std::unique_ptr<ParticleValue> v2 = std::move(addV);
-	//EmitterPosComp* pos = emitter_->AddComponent<EmitterPosComp>();
-	//pos->SetAddValue(v2);
 	std::unique_ptr<EmitterType> type = std::make_unique<EmitterConeType>();
 	emitter_->SetEmitterType(type);
 }
@@ -38,8 +32,10 @@ void FireParticleEmitter::SetPosComponent()
 void FireParticleEmitter::SetRotComponent()
 {
 	std::unique_ptr<ParticleSameRandValue> randV = std::make_unique<ParticleSameRandValue>();
-	randV->SetMinValue(0.0f);
-	randV->SetMaxValue(MyMath::PIx2);
+	float rotMin = 0.0f;
+	float rotMax = MyMath::PIx2;
+	randV->SetMinValue(rotMin);
+	randV->SetMaxValue(rotMax);
 	std::unique_ptr<ParticleValue> v = std::move(randV);
 	EmitterRotation* rot = emitter_->AddComponent<EmitterRotation>();
 	rot->SetValue(v);
@@ -56,17 +52,18 @@ std::unique_ptr<ParticleEmitter>& FireParticleEmitter::GetEmitter()
 	emitter_ = std::make_unique<ParticleEmitter>();
 	emitter_->SetIsObj(true);
 	emitter_->SetBlendMord(Blend::ADD_BLEND);
-	emitter_->SetRate(3);
+	emitter_->SetRate(rate_);
 
 	SetScaleComponent();
 	SetRotComponent();
 	SetPosComponent();
 
 	EmitterColor* color = emitter_->AddComponent<EmitterColor>();
-	color->SetColor(Vector3D(1.0f, 0.1f, 0.1f));
+	Vector3D redColor(1.0f, 0.1f, 0.1f);
+	color->SetColor(redColor);
 
 	EmitterFadeAnimation* fade = emitter_->AddComponent<EmitterFadeAnimation>();
-	fade->SetMinValue(0.2f);
+	fade->SetEndValue(endFade_);
 	emitter_->AddComponent<EmitterSpdAnimation>();
 
 	SetResouceComponent();

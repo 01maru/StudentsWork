@@ -23,7 +23,6 @@ private:
 
 	std::unique_ptr<Object3D> skydome_;
 	std::unique_ptr<Object3D> ground_;
-	std::unique_ptr<Object3D> cube_;
 	std::unique_ptr<Player> player_;
 	std::unique_ptr<Boss> enemy_;
 

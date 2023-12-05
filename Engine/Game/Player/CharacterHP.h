@@ -16,6 +16,7 @@ protected:
 	bool isAlive_ = false;
 	FrameCounter damageTimer_;
 	float damageLen_ = 0.0f;
+	int32_t animationTime_ = 30;
 
 	Sprite back_;
 	Sprite damage_;

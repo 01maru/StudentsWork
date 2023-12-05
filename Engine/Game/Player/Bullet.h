@@ -17,6 +17,7 @@ private:
 	FrameCounter lifeTime_;
 	float radius_ = 0.4f;
 	int32_t damage_ = 5;
+	int32_t emitterLifeTime_ = 30;
 	ParticleEmitter* emitter_ = nullptr;
 public:
 	void SetMoveVec(const Vector3D& moveVec);

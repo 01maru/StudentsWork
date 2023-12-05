@@ -152,8 +152,9 @@ Vector2D& OptionScene::GetSelectPosition()
 Vector2D OptionScene::GetSelectScale()
 {
 	Vector2D ans(818, 82);
+	Vector2D quitButtonSize(298, 82);
 	if (data_.GetSelectName() == "Quit") {
-		ans = { 298, 82 };
+		ans = quitButtonSize;
 	}
 	return ans;
 }

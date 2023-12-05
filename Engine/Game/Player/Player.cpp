@@ -141,7 +141,8 @@ void Player::Update()
 	moveState_->Update();
 
 	//	本移動
-	mat_.trans_ += moveVec_ * spd_ + Vector3D(0.0f, moveY_, 0.0f);
+	mat_.trans_ += moveVec_ * spd_;
+	mat_.trans_.y += moveY_;
 
 	attackState_->Update();
 
@@ -206,8 +207,9 @@ void Player::ImGuiUpdate()
 		imgui->InputInt("MaxHP", maxHP);
 		hp_.SetMaxHP(maxHP);
 
+		int32_t debugDamage = 10;
 		if (imgui->SetButton("GetDamage")) {
-			hp_.DecHp(10);
+			hp_.DecHp(debugDamage);
 		}
 	}
 
@@ -293,16 +295,17 @@ void Player::CollisionUpdate()
 	Ray ray;
 	ray.start = sphereCollider->center_;
 	ray.start.y += sphereCollider->GetRadius();
-	ray.dir = { 0,-1,0 };
+	Vector3D downVec(0, -1, 0);
+	ray.dir = downVec;
 	RayCast raycastHit;
 
+	float diameter = sphereCollider->GetRadius() * 2.0f;
 	if (onGround_) {
 		const float adsDis = 0.2f;
-
 		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &raycastHit,
-			sphereCollider->GetRadius() * 2.0f + adsDis)) {
+			diameter + adsDis)) {
 			onGround_ = true;
-			mat_.trans_.y -= (raycastHit.distance - sphereCollider->GetRadius() * 2.0f);
+			mat_.trans_.y -= (raycastHit.distance - diameter);
 			ColliderUpdate();
 			MatUpdate();
 		}
@@ -313,9 +316,9 @@ void Player::CollisionUpdate()
 	}
 	else if (moveY_ <= 0.0f) {
 		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &raycastHit,
-			sphereCollider->GetRadius() * 2.0f)) {
+			diameter)) {
 			onGround_ = true;
-			mat_.trans_.y -= (raycastHit.distance - sphereCollider->GetRadius() * 2.0f);
+			mat_.trans_.y -= (raycastHit.distance - diameter);
 			ColliderUpdate();
 			MatUpdate();
 		}
@@ -325,10 +328,6 @@ void Player::CollisionUpdate()
 void Player::OnCollision(CollisionInfo& info)
 {
 	(void)info;
-	//if (info.GetCollider()->GetShapeType() == CollisionShapeType::) {
-
-	//}
-	//MatUpdate();
 }
 
 void Player::DrawBullets()
