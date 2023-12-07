@@ -8,6 +8,8 @@
 
 #include "ImGuiManager.h"
 
+#include "IGameState.h"
+
 void Boss::StatusInitialize()
 {
 	hp_.SetMaxHP(maxHP_);
@@ -135,6 +137,11 @@ void Boss::DecHP(int32_t damage)
 	hp_.DecHp(damage);
 }
 
+void Boss::StartClearState()
+{
+	pClearState_->Start();
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
@@ -142,11 +149,6 @@ void Boss::DecHP(int32_t damage)
 bool Boss::GetIsAlive()
 {
 	return hp_.GetIsAlive();
-}
-
-bool Boss::GetIsHide()
-{
-	return hide_;
 }
 
 bool Boss::GetBodyAttack()
@@ -162,11 +164,6 @@ void Boss::SetCurrentState(std::unique_ptr<EnemyState>& next)
 {
 	currentState_ = std::move(next);
 	currentState_->Initialize();
-}
-
-void Boss::SetIsHide(bool isHide)
-{
-	hide_ = isHide;
 }
 
 void Boss::SetPlayer(Player* player)
@@ -185,4 +182,9 @@ void Boss::SetHPBarSprite(const Sprite& sprite)
 void Boss::SetBodyAttack(bool attackFlag)
 {
 	bodyAt_ = attackFlag;
+}
+
+void Boss::SetClearState(IGameState* clearState)
+{
+	pClearState_ = clearState;
 }

@@ -7,7 +7,8 @@
 
 #include "JSONLoader.h"
 #include "PauseScreen.h"
-#include "ClearUI.h"
+
+#include "IGameState.h"
 
 class GameScene :public IScene
 {
@@ -17,7 +18,8 @@ private:
 
 	PauseScreen pause_;
 
-	ClearUI clear_;
+	std::unique_ptr<IGameState> clear_;
+	std::unique_ptr<IGameState> gameOver_;
 
 #pragma region Obj3D
 
@@ -39,7 +41,8 @@ public:
 	void FirstFrameUpdate() override;
 	void Update() override;
 	void ImguiUpdate() override;
-	void DrawShadow() override;
+	void DrawUIBeforeBlackScreen() override;
+	void DrawUIAfterBlackScreen() override;
 	void Draw() override;
 };
 

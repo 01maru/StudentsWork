@@ -4,6 +4,7 @@
 #include "ObjCamera2D.h"
 #include "ModelManager.h"
 #include "TextureManager.h"
+#include "Window.h"
 #include "Easing.h"
 
 using namespace Easing;

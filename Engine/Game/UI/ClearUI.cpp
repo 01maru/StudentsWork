@@ -1,6 +1,5 @@
 #include "ClearUI.h"
 #include "SceneManager.h"
-#include "InputManager.h"
 
 void ClearUI::Initialize()
 {
@@ -10,19 +9,12 @@ void ClearUI::Initialize()
 void ClearUI::Update()
 {
 	if (isActive_ == false) return;
-	bool select = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
 
-	if (select)
+	if (data_.GetIsEndAnimation() == true)
 	{
 		isActive_ = false;
-		//XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 
-		//if (data_.GetSelectName() == "Continue") {
-		//}
-
-		//if (data_.GetSelectName() == "Quit") {
-			SceneManager::GetInstance()->SetNextScene("TITLESCENE");
-		//}
+		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
 	}
 
 	data_.Update();
@@ -32,12 +24,4 @@ void ClearUI::Draw()
 {
 	if (isActive_ == false) return;
 	data_.Draw();
-}
-
-void ClearUI::Start()
-{
-	if (isActive_ == false) {
-		isActive_ = true;
-		data_.Initialize();
-	}
 }

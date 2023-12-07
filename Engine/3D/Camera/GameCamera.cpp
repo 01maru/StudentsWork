@@ -8,28 +8,7 @@ void GameCamera::Initialize(const Vector3D& frontVec, const Vector3D& center, fl
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(true);
 	lockOn_ = false;
 
-	target_ = center;
-	disEyeTarget_ = dis;
-
-	Vector3D front = frontVec;
-	front.Normalize();
-	
-	eye_ = target_ - disEyeTarget_ * front;
-
-	MatUpdate();
-
-	CalcDirectionVec();
-}
-
-void GameCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
-{
-	eye_ = eye;
-	target_ = target;
-	up_ = up;
-
-	MatUpdate();
-
-	CalcDirectionVec();
+	ICamera::Initialize(frontVec, center, dis);
 }
 
 void GameCamera::LockOnUpdate()
@@ -61,6 +40,7 @@ void GameCamera::UnLockOnUpdate()
 
 	//	座標更新
 	Quaternion upMove = MakeAxisAngle(up_, moveVec.x);
+	rightVec_ = RotateVector(rightVec_, upMove);
 	Quaternion rightMove = MakeAxisAngle(rightVec_, moveVec.y);
 	Quaternion qMove = rightMove * upMove;
 	frontVec_ = RotateVector(frontVec_, qMove);
@@ -70,20 +50,16 @@ void GameCamera::UnLockOnUpdate()
 
 void GameCamera::Update()
 {
-	InputManager* input = InputManager::GetInstance();
+	//InputManager* input = InputManager::GetInstance();
 
 	//	LockOn
-	if (input->GetTriggerKeyAndButton(DIK_Q, InputJoypad::RStick_Button)) lockOn_ = !lockOn_;
+	//if (input->GetTriggerKeyAndButton(DIK_Q, InputJoypad::RStick_Button)) lockOn_ = !lockOn_;
 
 	LockOnUpdate();
 
 	UnLockOnUpdate();
 
-	CalcDirectionVec();
-
-	CalcBillboard();
-
-	MatUpdate();
+	ICamera::Update();
 }
 
 void GameCamera::ImGuiInfo()

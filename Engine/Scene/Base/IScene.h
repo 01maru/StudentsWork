@@ -52,6 +52,9 @@ public:
 	*/
 	virtual void ImguiUpdate() = 0;
 
+	virtual void DrawUIBeforeBlackScreen() {};
+	virtual void DrawUIAfterBlackScreen() {};
+
 	/**
 	* @fn DrawShadow()
 	* 影描画用関数

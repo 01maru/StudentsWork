@@ -18,6 +18,9 @@
 
 #include "UISprite.h"
 
+#include "ClearUI.h"
+#include "GameOverUI.h"
+
 void GameScene::LoadResources()
 {
 #pragma region Model
@@ -47,7 +50,10 @@ void GameScene::LoadResources()
 	enemy_ = std::make_unique<Boss>();
 	enemy_->Initialize(models->GetModel("eye"));
 
-	clear_.Initialize();
+	clear_ = std::make_unique<ClearUI>();
+	clear_->Initialize();
+	gameOver_ = std::make_unique<GameOverUI>();
+	gameOver_->Initialize();
 
 	UIData ui;
 	ui.LoadData("GameUI");
@@ -86,8 +92,10 @@ void GameScene::Initialize()
 	pos.y = 1.0f;
 	player_->SetPosition(pos);
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
+	player_->SetGameOverState(gameOver_.get());
 
 	enemy_->SetPlayer(player_.get());
+	enemy_->SetClearState(clear_.get());
 
 	std::unique_ptr<ICamera> camera = std::make_unique<GameCamera>();
 	camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
@@ -103,6 +111,8 @@ void GameScene::Finalize()
 
 	XAudioManager::GetInstance()->StopAllSound();
 	XAudioManager::GetInstance()->DeleteAllSound();
+
+	SceneManager::GetInstance()->ChangeScreenAlpha(0.0f);
 }
 
 void GameScene::FirstFrameUpdate()
@@ -124,10 +134,6 @@ void GameScene::MatUpdate()
 void GameScene::Update()
 {
 #pragma region 更新処理
-	if (enemy_->GetIsHide() == true) {
-		clear_.Start();
-	}
-
 	pause_.Update();
 
 	if (pause_.GetIsActive() == false)
@@ -140,7 +146,8 @@ void GameScene::Update()
 #pragma endregion
 	MatUpdate();
 
-	clear_.Update();
+	clear_->Update();
+	gameOver_->Update();
 
 	player_->CollisionUpdate();
 
@@ -162,8 +169,18 @@ void GameScene::ImguiUpdate()
 	imguiMan->EndWindow();
 }
 
-void GameScene::DrawShadow()
+void GameScene::DrawUIBeforeBlackScreen()
 {
+	enemy_->DrawUI();
+	player_->DrawUI();
+
+	clear_->Draw();
+}
+
+void GameScene::DrawUIAfterBlackScreen()
+{
+	gameOver_->Draw();
+	pause_.Draw();
 }
 
 void GameScene::Draw()
@@ -174,13 +191,6 @@ void GameScene::Draw()
 	enemy_->DrawBullets();
 
 	level.Draw(false);
-
-	enemy_->DrawUI();
-	player_->DrawUI();
-
-	clear_.Draw();
-
-	pause_.Draw();
 
 	ParticleManager::GetInstance()->Draw();
 }

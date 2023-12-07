@@ -110,7 +110,6 @@
     <ClCompile Include="Engine\Base\Pipeline\Shader.cpp" />
     <ClCompile Include="Engine\Base\Window\ViewPortScissorRect.cpp" />
     <ClCompile Include="Engine\Base\Window\Window.cpp" />
-    <ClCompile Include="Engine\3D\Camera\NormalCamera.cpp" />
     <ClCompile Include="Engine\Scene\TitleScene.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\FbxModel.cpp" />
     <ClCompile Include="Engine\Base\Input\InputManager.cpp" />
@@ -127,6 +126,7 @@
     <ClCompile Include="Engine\Game\Particle\FireParticleEmitter.cpp" />
     <ClCompile Include="Engine\3D\Camera\Base\LightCamera.cpp" />
     <ClCompile Include="Engine\Scene\LoadingScene.cpp" />
+    <ClCompile Include="Engine\Game\UI\IGameState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -277,7 +277,6 @@
     <ClInclude Include="Engine\Base\Buffer\VertexStruct.h" />
     <ClInclude Include="Engine\Base\Window\ViewPortScissorRect.h" />
     <ClInclude Include="Engine\Base\Window\Window.h" />
-    <ClInclude Include="Engine\3D\Camera\NormalCamera.h" />
     <ClInclude Include="Engine\Scene\TitleScene.h" />
     <ClInclude Include="Engine\3D\Light\DistanceFog.h" />
     <ClInclude Include="Engine\3D\Object\Model\FbxModel.h" />
@@ -333,6 +332,7 @@
     <ClInclude Include="Engine\2D\Particle\ParticleFadeAnimation.h" />
     <ClInclude Include="Engine\Game\Player\PlayerSlowAttack.h" />
     <ClInclude Include="Engine\Game\Particle\SmokeParticleEmitter.h" />
+    <ClInclude Include="Engine\Game\UI\IGameState.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

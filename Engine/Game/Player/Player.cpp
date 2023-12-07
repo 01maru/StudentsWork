@@ -20,6 +20,8 @@
 
 #include "GameOverCamera.h"
 
+#include "IGameState.h"
+
 using namespace CollAttribute;
 
 void Player::StatusInitialize()
@@ -117,13 +119,7 @@ void Player::Update()
 	if (hp_.GetIsAlive() == false) {
 		if (gameOver_ == false) {
 			gameOver_ = true;
-			InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
-			CameraManager* cameraMan = CameraManager::GetInstance();
-			std::unique_ptr<ICamera> camera = std::make_unique<GameOverCamera>();
-			camera->Initialize(cameraMan->GetMainCamera()->GetEye()
-				, cameraMan->GetMainCamera()->GetTarget()
-				, cameraMan->GetMainCamera()->GetUp());
-			cameraMan->SetMainCamera(camera);
+			pGameOverState_->Start();
 		}
 		return;
 	}
@@ -510,4 +506,9 @@ void Player::SetSlowAtCoolSprite(const Sprite& sprite, const Sprite& text)
 {
 	slowAtCT_.SetSprite(sprite);
 	slowAtCT_.SetTextSprite(text);
+}
+
+void Player::SetGameOverState(IGameState* gameOverState)
+{
+	pGameOverState_ = gameOverState;
 }

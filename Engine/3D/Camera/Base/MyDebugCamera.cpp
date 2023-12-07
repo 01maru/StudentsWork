@@ -1,11 +1,18 @@
 #include "MyDebugCamera.h"
 #include "InputManager.h"
 #include "MyMath.h"
-#include <cmath>
 
 #include "Quaternion.h"
 
 #include "ImGuiManager.h"
+
+void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
+{
+	mouse_ = InputManager::GetInstance()->GetMouse();
+	keyboard_ = InputManager::GetInstance()->GetKeyboard();
+
+	ICamera::Initialize(eye, target, up);
+}
 
 void MyDebugCamera::SetMoveMode(bool active)
 {
@@ -61,37 +68,13 @@ void MyDebugCamera::CalcRotMove(bool active)
 void MyDebugCamera::SetPosition(const Vector3D& moveTarget)
 {
 	Quaternion upMove = MakeAxisAngle(up_, rotValue_.x);
+	rightVec_ = RotateVector(rightVec_, upMove);
 	Quaternion rightMove = MakeAxisAngle(rightVec_, rotValue_.y);
 	Quaternion qMove = upMove * rightMove;
 	frontVec_ = RotateVector(frontVec_, qMove);
 
 	target_ += moveTarget;
-	up_ = RotateVector(up_, qMove);
 	eye_ = target_ - disEyeTarget_ * frontVec_;
-}
-
-void MyDebugCamera::Initialize(const Vector3D& /*frontVec*/, const Vector3D& /*center*/, float /*dis*/)
-{
-}
-
-void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
-{
-	mouse_ = InputManager::GetInstance()->GetMouse();
-	keyboard_ = InputManager::GetInstance()->GetKeyboard();
-
-	//SetProjectionMatrix(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, MyMath::ConvertToRad(90.0f));
-
-	eye_ = eye;
-	target_ = target;
-	up_ = up;
-
-	MatUpdate();
-
-	//	disEyeTraget初期化
-	disEyeTarget_ = Vector3D(target_ - eye_).GetLength();
-
-	//	方向ベクトル
-	CalcDirectionVec();
 }
 
 void MyDebugCamera::Update()
@@ -110,13 +93,7 @@ void MyDebugCamera::Update()
 	//	座標更新
 	SetPosition(moveTarget);
 
-	//	方向ベクトル
-	CalcDirectionVec();
-
-	//	ビルボード
-	CalcBillboard();
-
-	MatUpdate();
+	ICamera::Update();
 }
 
 void MyDebugCamera::ImGuiInfo()

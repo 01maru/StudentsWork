@@ -2,10 +2,6 @@
 #include "ConstBuffStruct.h"
 #include <cassert>
 
-void LightCamera::ImGuiInfo()
-{
-}
-
 void LightCamera::ConstBuffInitialzie()
 {
 	HRESULT result;
@@ -20,36 +16,23 @@ void LightCamera::ConstBuffInitialzie()
 #pragma endregion
 }
 
-void LightCamera::Initialize(const Vector3D& /*frontVec*/, const Vector3D& /*center*/, float /*dis*/)
+void LightCamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float dis)
 {
 	ConstBuffInitialzie();
 
+	ICamera::Initialize(frontVec, center, dis);
 }
 
 void LightCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
 {
 	ConstBuffInitialzie();
 
-	eye_ = eye;
-	target_ = target;
-	up_ = up;
-
-	MatUpdate();
-
-	CalcDirectionVec();
-
-	//up_ = -downVec_;
-
-	MatUpdate();
+	ICamera::Initialize(eye, target, up);
 }
 
 void LightCamera::Update()
 {
-	CalcDirectionVec();
-
-	CalcBillboard();
-
-	MatUpdate();
+	ICamera::Update();
 
 	cLightMap_->mLVP = GetViewProj();
 	cLightMap_->cameraPos = GetEye();

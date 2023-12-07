@@ -1,7 +1,48 @@
 #include "ICamera.h"
 #include "ImGuiManager.h"
+#include "Window.h"
 
 using namespace MyMath;
+
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
+void ICamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float dis)
+{
+	matProj_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT,
+		MyMath::ConvertToRad(50.0f), 0.1f, 1000.0f);
+
+	target_ = center;
+	disEyeTarget_ = dis;
+
+	Vector3D front = frontVec;
+	front.Normalize();
+
+	eye_ = target_ - disEyeTarget_ * front;
+
+	MatUpdate();
+
+	CalcDirectionVec();
+}
+
+void ICamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
+{
+	matProj_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT,
+		MyMath::ConvertToRad(50.0f), 0.1f, 1000.0f);
+
+	eye_ = eye;
+	target_ = target;
+	up_ = up;
+
+	MatUpdate();
+
+	CalcDirectionVec();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void ICamera::CalcBillboard()
 {
@@ -36,9 +77,9 @@ void ICamera::CalcBillboard()
 
 void ICamera::CalcDirectionVec()
 {
-	disEyeTarget_ = (target_ - eye_).GetLength();
-	//	前方方向ベクトル
 	frontVec_ = target_ - eye_;
+	disEyeTarget_ = frontVec_.GetLength();
+	//	前方方向ベクトル
 	frontVec_.Normalize();
 
 	//	右方向ベクトル
@@ -52,9 +93,32 @@ void ICamera::ShakeUpdate()
 {
 	if (isShaking_ == false) return;
 
-	target_ = oldTarget_ + move_.x * rightVec_ + move_.z * downVec_;
+	shookTarget_ = target_ + move_.x * rightVec_ + move_.z * downVec_;
 
-	eye_ = oldEye_ + move_.x * rightVec_ + move_.z * downVec_;
+	shookEye_ = eye_ + move_.x * rightVec_ + move_.z * downVec_;
+}
+
+void ICamera::MatUpdate()
+{
+	if (isShaking_ == true) {
+		matView_ = MyMath::LookAtLH(shookEye_, shookTarget_, up_);
+	}
+	else {
+		matView_ = MyMath::LookAtLH(eye_, target_, up_);
+	}
+}
+
+void ICamera::Update()
+{
+	//	方向ベクトル
+	CalcDirectionVec();
+
+	//	ビルボード
+	CalcBillboard();
+
+	ShakeUpdate();
+
+	MatUpdate();
 }
 
 void ICamera::ImGuiUpdate()
@@ -72,9 +136,63 @@ void ICamera::ImGuiUpdate()
 	imgui->TreePop();
 }
 
-void ICamera::MatUpdate()
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+float ICamera::GetDisEyeTarget()
 {
-	matView_ = MyMath::LookAtLH(eye_, target_, up_);
+	return disEyeTarget_;
+}
+
+const Vector3D& ICamera::GetEye()
+{
+	return eye_;
+}
+
+const Vector3D& ICamera::GetTarget()
+{
+	return target_;
+}
+
+const Vector3D& ICamera::GetUp()
+{
+	return up_;
+}
+
+const Vector3D& ICamera::GetFrontVec()
+{
+	return frontVec_;
+}
+
+const Vector3D& ICamera::GetRightVec()
+{
+	return rightVec_;
+}
+
+const Vector3D& ICamera::GetDownVec()
+{
+	return downVec_;
+}
+
+const Matrix& ICamera::GetView()
+{
+	return matView_;
+}
+
+const Matrix& ICamera::GetProjection()
+{
+	return matProj_;
+}
+
+const Matrix& ICamera::GetBillboard()
+{
+	return billboard_;
+}
+
+const Matrix& ICamera::GetBillboardY()
+{
+	return billboardY_;
 }
 
 void ICamera::SetShake(float min, float max)
@@ -87,11 +205,33 @@ void ICamera::SetShake(float min, float max)
 void ICamera::StopShake()
 {
 	isShaking_ = false;
-	target_ = oldTarget_;
-	eye_ = oldEye_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void ICamera::SetTarget(const Vector3D& t)
+{
+	target_ = t;
+}
+
+void ICamera::SetEye(const Vector3D& e)
+{
+	eye_ = e;
+}
+
+void ICamera::SetUp(const Vector3D& up)
+{
+	up_ = up;
 }
 
 void ICamera::SetProjectionMatrix(int32_t width, int32_t height, float fovY)
 {
-	matProjection_ = MyMath::PerspectiveFovLH(width, height, fovY, 0.1f, 1000.0f);
+	matProj_ = MyMath::PerspectiveFovLH(width, height, fovY, 0.1f, 1000.0f);
+}
+
+void ICamera::SetProjMatrix(const Matrix& matProj)
+{
+	matProj_ = matProj;
 }

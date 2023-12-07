@@ -130,21 +130,28 @@ void Object3D::DrawShadowReciever(int32_t& nextIdx)
 
 void Object3D::Draw()
 {
-	int32_t nextIdx = One;
+	if (SceneManager::GetInstance()->GetIsDrawShadow() == true) {
 
-	GPipeline* pipeline = nullptr;
-	if (shadowReciev_ == true) {
-		pipeline = PipelineManager::GetInstance()->GetPipeline("ShadowReciever");
+		DrawShadow();
+
 	}
 	else {
-		pipeline = PipelineManager::GetInstance()->GetPipeline("Model", Blend::ALPHA_BLEND);
+		int32_t nextIdx = One;
+
+		GPipeline* pipeline = nullptr;
+		if (shadowReciev_ == true) {
+			pipeline = PipelineManager::GetInstance()->GetPipeline("ShadowReciever");
+		}
+		else {
+			pipeline = PipelineManager::GetInstance()->GetPipeline("Model", Blend::ALPHA_BLEND);
+		}
+		pipeline->SetGraphicsRootSignature();
+		pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		DrawShadowReciever(nextIdx);
+
+		DrawModel(nextIdx);
 	}
-	pipeline->SetGraphicsRootSignature();
-	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	DrawShadowReciever(nextIdx);
-
-	DrawModel(nextIdx);
 }
 
 //-----------------------------------------------------------------------------

@@ -1,6 +1,5 @@
 #pragma once
 #include "MyMath.h"
-#include "Window.h"
 
 /**
 * @file ICamera.h
@@ -9,9 +8,43 @@
 
 class ICamera
 {
+public:
+	virtual ~ICamera() = default;
+	/**
+	* @fn Initialize(const Vector3D&, const Vector3D&, float)
+	* 初期化用関数
+	* @param frontVec 前方方向ベクトル
+	* @param center 注視点座標
+	* @param dis 注視点と視点座標の距離
+	*/
+	virtual void Initialize(const Vector3D& frontVec, const Vector3D& center, float dis);
+	/**
+	* @fn Initialize(const Vector3D&, const Vector3D&, const Vector3D&)
+	* 初期化用関数
+	* @param eye 視点座標
+	* @param target 注視点座標
+	* @param up 上方向ベクトル
+	*/
+	virtual void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up);
+	/**
+	* @fn Update()
+	* 更新処理関数
+	*/
+	virtual void Update();
+	/**
+	* @fn ImGuiUpdate()
+	* ImGui更新処理関数
+	*/
+	void ImGuiUpdate();
+	/**
+	* @fn MatUpdate()
+	* ビュー行列更新関数
+	*/
+	void MatUpdate();
+
 protected:
 	Matrix matView_;
-	Matrix matProjection_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, MyMath::ConvertToRad(50.0f), 0.1f, 1000.0f);
+	Matrix matProj_;
 
 	float disEyeTarget_ = 0.0f;
 	Vector3D eye_;						//	視点座標
@@ -24,8 +57,8 @@ protected:
 	//	shake
 	bool isShaking_ = false;
 	Vector3D move_;
-	Vector3D oldEye_;						//	視点座標
-	Vector3D oldTarget_;					//	注視点座標
+	Vector3D shookEye_;					//	shake後の視点座標
+	Vector3D shookTarget_;				//	shake後の注視点座標
 
 	Matrix billboard_;
 	Matrix billboardY_;
@@ -46,73 +79,39 @@ protected:
 	* @fn ImGuiInfo()
 	* ImGuiに表示する情報をまとめる関数
 	*/
-	virtual void ImGuiInfo() = 0;
+	virtual void ImGuiInfo() {};
 
 	void ShakeUpdate();
-
 public:
-	virtual ~ICamera() = default;
-	/**
-	* @fn Initialize(const Vector3D&, const Vector3D&, float)
-	* 初期化用関数
-	* @param frontVec 前方方向ベクトル
-	* @param center 注視点座標
-	* @param dis 注視点と視点座標の距離
-	*/
-	virtual void Initialize(const Vector3D& frontVec, const Vector3D& center, float dis) = 0;
-	/**
-	* @fn Initialize(const Vector3D&, const Vector3D&, const Vector3D&)
-	* 初期化用関数
-	* @param eye 視点座標
-	* @param target 注視点座標
-	* @param up 上方向ベクトル
-	*/
-	virtual void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up) = 0;
-	/**
-	* @fn Update()
-	* 更新処理関数
-	*/
-	virtual void Update() = 0;
-	/**
-	* @fn ImGuiUpdate()
-	* ImGui更新処理関数
-	*/
-	void ImGuiUpdate();
-	/**
-	* @fn MatUpdate()
-	* ビュー行列更新関数
-	*/
-	void MatUpdate();
 
 	void SetShake(float min, float max);
 	void StopShake();
 
 #pragma region Getter
-
-	float GetDisEyeTarget() { return disEyeTarget_; }
-	const Vector3D& GetEye() { return eye_; }
-	const Vector3D& GetTarget() { return target_; }
-	const Vector3D& GetUp() { return up_; }
-	const Vector3D& GetFrontVec() { return frontVec_; }
-	const Vector3D& GetRightVec() { return rightVec_; }
-	const Vector3D& GetDownVec() { return downVec_; }
-	const Matrix& GetView() { return matView_; }
-	const Matrix& GetProjection() { return matProjection_; }
-	Matrix GetViewProj() const { return matView_ * matProjection_; }
-	const Matrix& GetBillboard() { return billboard_; }
-	const Matrix& GetBillboardY() { return billboardY_; }
+	
+	float GetDisEyeTarget();
+	const Vector3D& GetEye();
+	const Vector3D& GetTarget();
+	const Vector3D& GetUp();
+	const Vector3D& GetFrontVec();
+	const Vector3D& GetRightVec();
+	const Vector3D& GetDownVec();
+	const Matrix& GetView();
+	const Matrix& GetProjection();
+	const Matrix& GetBillboard();
+	const Matrix& GetBillboardY();
+	Matrix GetViewProj() const { return matView_ * matProj_; }
 
 #pragma endregion
 
 #pragma region Setter
 
+	void SetTarget(const Vector3D& t);
+	void SetEye(const Vector3D& e);
+	void SetUp(const Vector3D& up);
 	//	fovYの単位はラジアン
-	void SetDisEyeTarget(float dis) { disEyeTarget_ = dis; }
 	void SetProjectionMatrix(int32_t width, int32_t height, float fovY);
-	void SetTarget(const Vector3D& t) { target_ = t; oldTarget_ = t; }
-	void SetEye(const Vector3D& e) { eye_ = e; }
-	void SetUp(const Vector3D& up) { up_ = up; }
-	void EyeMove(const Vector3D& moveE) { eye_ += moveE; }
+	void SetProjMatrix(const Matrix& matProj);
 
 #pragma endregion
 };

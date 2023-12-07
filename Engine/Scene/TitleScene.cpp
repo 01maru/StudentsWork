@@ -73,8 +73,6 @@ void TitleScene::Initialize()
 	CameraManager::GetInstance()->SetMainCamera(camera);
 	//	LightCamera
 	CameraManager::GetInstance()->GetLightCamera()->SetEye(Vector3D(78.0f, 50.0f, -30.0f));
-
-	SceneManager::GetInstance()->ChangeScreenAlpha(0.0f);
 }
 
 void TitleScene::Finalize()
@@ -121,13 +119,6 @@ void TitleScene::ImguiUpdate()
 	uiData_.ImGuiUpdate();
 
 	imguiMan->EndWindow();
-}
-
-void TitleScene::DrawShadow() 
-{
-	//level_->Draw(true);
-	//ground_->DrawShadow();
-	//skydome_->DrawShadow();
 }
 
 void TitleScene::Draw()

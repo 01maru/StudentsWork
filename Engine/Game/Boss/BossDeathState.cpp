@@ -26,8 +26,11 @@ void BossDeathState::Update()
 	float scale = EaseInBack(startScale, endScale, counter_.GetCountPerMaxCount());
 	sBoss_->SetScale({ scale,scale,scale });
 
-	if (counter_.GetIsActive() == false) {
-		sBoss_->SetIsHide(true);
+	if (counter_.GetIsActive() == false &&
+		bossHid_ == false) {
+		bossHid_ = true;
+
+		sBoss_->StartClearState();
 
 		if (emitter_ != nullptr) {
 			emitter_->SetIsDead(true);

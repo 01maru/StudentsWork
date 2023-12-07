@@ -1,28 +1,19 @@
 #pragma once
-#include "UIData.h"
+#include "IGameState.h"
+#include "FrameCounter.h"
 
+class GameOverCamera;
 
-class GameOverUI
+class GameOverUI :public IGameState
 {
-private:
-	GameOverUI() {};
-	~GameOverUI() {};
-
 public:
-	static GameOverUI* GetInstance();
-	GameOverUI(const GameOverUI& obj) = delete;
-	GameOverUI& operator=(const GameOverUI& obj) = delete;
+	void Initialize() override;
+	void Update() override;
+	void Draw() override;
 
-	void Initialize();
-	void Update();
-	void Draw();
+	void Start() override;
 
 private:
-	UIData data_;
-	bool isActive_ = false;
-
-public:
-	void Start();
-	//void LoadData();
+	FrameCounter fadeCounter_;
+	GameOverCamera* pCamera_ = nullptr;
 };
-

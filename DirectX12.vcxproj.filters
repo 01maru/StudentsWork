@@ -265,6 +265,12 @@
     <Filter Include="ヘッダー ファイル\lib\Loading">
       <UniqueIdentifier>{a7a5d3cf-a515-4bba-8e5e-4a1ba4f37eb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\UI\GameState">
+      <UniqueIdentifier>{58429215-3a42-42bf-9222-553f65093c6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\UI\GameState">
+      <UniqueIdentifier>{021c3ce2-cc4f-49ba-b3ec-517095151feb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -353,9 +359,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Scene\TitleScene.cpp">
       <Filter>ソース ファイル\Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\3D\Camera\NormalCamera.cpp">
-      <Filter>ソース ファイル\lib\3D\Camera</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
@@ -549,9 +552,6 @@
     <ClCompile Include="Engine\Game\UI\OptionScene.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\UI\GameOverUI.cpp">
-      <Filter>ソース ファイル\Game\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterComponent.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
@@ -654,9 +654,6 @@
     <ClCompile Include="Engine\Game\Player\PlayerNormalBulletState.cpp">
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\UI\ClearUI.cpp">
-      <Filter>ソース ファイル\Game\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\3D\Object\Object3DShilhouette.cpp">
       <Filter>ソース ファイル\lib\3D\Obj</Filter>
     </ClCompile>
@@ -728,6 +725,15 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\EnemyBullet.cpp">
       <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\UI\ClearUI.cpp">
+      <Filter>ソース ファイル\Game\UI\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\UI\GameOverUI.cpp">
+      <Filter>ソース ファイル\Game\UI\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\UI\IGameState.cpp">
+      <Filter>ソース ファイル\Game\UI\GameState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -826,9 +832,6 @@
     </ClInclude>
     <ClInclude Include="Engine\3D\Light\DistanceFog.h">
       <Filter>ヘッダー ファイル\lib\Engine\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\3D\Camera\NormalCamera.h">
-      <Filter>ヘッダー ファイル\lib\3D\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\GameScene.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
@@ -1046,9 +1049,6 @@
     <ClInclude Include="Engine\Game\UI\OptionScene.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\UI\GameOverUI.h">
-      <Filter>ヘッダー ファイル\Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\UI\TitleUI.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
@@ -1145,9 +1145,6 @@
     <ClInclude Include="Engine\Game\Boss\EnemyState.h">
       <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\UI\ClearUI.h">
-      <Filter>ヘッダー ファイル\Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Collider\PlaneCollider.h">
       <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
     </ClInclude>
@@ -1228,6 +1225,15 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\BossBeamState.h">
       <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\UI\ClearUI.h">
+      <Filter>ヘッダー ファイル\Game\UI\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\UI\GameOverUI.h">
+      <Filter>ヘッダー ファイル\Game\UI\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\UI\IGameState.h">
+      <Filter>ヘッダー ファイル\Game\UI\GameState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

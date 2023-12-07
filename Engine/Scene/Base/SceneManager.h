@@ -26,6 +26,7 @@ public:
 	void Draw();
 
 private:
+	bool drawShadow_ = false;
 	bool gameLoop_ = true;
 
 	std::unique_ptr<IScene> scene_;
@@ -77,6 +78,7 @@ private:	//	関数
 public:
 #pragma region Getter
 
+	bool GetIsDrawShadow() { return drawShadow_; }
 	bool GetGameLoop() { return gameLoop_; }
 	Texture* GetShadowMap() { return shadowEffect->GetTexture(0); }
 

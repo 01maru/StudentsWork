@@ -18,17 +18,9 @@ private:
 	CBuff::CBuffLightMaterial* cLightMap_ = nullptr;
 
 private:
-	/**
-	* @fn ImGuiInfo()
-	* ImGuiに表示する情報をまとめる関数
-	*/
-	void ImGuiInfo() override;
-
 	void ConstBuffInitialzie();
-public:
-	LightCamera() {};
-	~LightCamera() override {};
 
+public:
 	/**
 	* @fn Initialize(const Vector3D&, const Vector3D&, float)
 	* 初期化用関数

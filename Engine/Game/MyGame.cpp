@@ -3,7 +3,6 @@
 
 #include "LightManager.h"
 #include "Object3D.h"
-#include "GameOverUI.h"
 
 void MyGame::Initialize()
 {
@@ -20,17 +19,12 @@ void MyGame::Initialize()
 	light->SetDirLightShadow(lightIdx, true);
 	light->SetDirLightDir(lightIdx, dir);
 #pragma endregion
-
-	GameOverUI::GetInstance()->Initialize();
-
 	SceneManager::GetInstance()->Initialize();
 }
 
 void MyGame::Update()
 {
 	Framework::Update();
-
-	GameOverUI::GetInstance()->Update();
 
 	SceneManager::GetInstance()->Update();
 	LightManager::GetInstance()->Update();

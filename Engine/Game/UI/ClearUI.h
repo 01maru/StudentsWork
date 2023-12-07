@@ -1,19 +1,10 @@
 #pragma once
-#include "UIData.h"
+#include "IGameState.h"
 
-class ClearUI
+class ClearUI :public IGameState
 {
 public:
-	void Initialize();
-	void Update();
-	void Draw();
-
-private:
-	UIData data_;
-	bool isActive_ = false;
-
-public:
-	void Start();
-	bool GetIsActive() { return isActive_; }
+	void Initialize() override;
+	void Update() override;
+	void Draw() override;
 };
-

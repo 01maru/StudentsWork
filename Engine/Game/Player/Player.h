@@ -10,6 +10,8 @@
 #include <list>
 #include "Sprite.h"
 
+class IGameState;
+
 class Player :public Object3D
 {
 private:
@@ -58,6 +60,7 @@ private:
 
 	float avoidMaxSpd_ = 0.3f;
 
+	IGameState* pGameOverState_ = nullptr;
 private:
 	void StatusInitialize();
 	void IsMovingUpdate();
@@ -117,6 +120,8 @@ public:
 	void SetHPBarSprite(const Sprite& sprite);
 	void SetAvoidCoolSprite(const Sprite& sprite, const Sprite& text);
 	void SetSlowAtCoolSprite(const Sprite& sprite, const Sprite& text);
+
+	void SetGameOverState(IGameState* gameOverState);
 
 #pragma endregion
 };

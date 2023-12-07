@@ -13,5 +13,6 @@ public:
 private:
 	FrameCounter counter_;
 	ParticleEmitter* emitter_ = nullptr;
+	bool bossHid_ = false;
 };
 

@@ -30,7 +30,6 @@ public:
 	void FirstFrameUpdate() override;
 	void Update() override;
 	void ImguiUpdate() override;
-	void DrawShadow() override;
 	void Draw() override;
 };
 

@@ -61,6 +61,7 @@ void SceneManager::Initialize()
 	blackScreen_.SetSize({ Window::sWIN_WIDTH,Window::sWIN_HEIGHT });
 	Vector3D blackColor;
 	blackScreen_.SetColor(blackColor);
+	blackScreen_.SetAlphaColor(0.0f);
 #pragma region Loading
 
 	endLoading_ = true;
@@ -255,6 +256,7 @@ void SceneManager::Draw()
 	dx->PrevPostEffect(shadowEffect.get(), shadowClearColor_);
 
 	if (endLoading_ && !isSplashScreen_) {
+		drawShadow_ = true;
 		scene_->DrawShadow();
 	}
 	
@@ -272,15 +274,19 @@ void SceneManager::Draw()
 	else {
 	}
 	if (endLoading_) {
+		drawShadow_ = false;
 		scene_->Draw();
 		ModelManager::GetInstance()->DrawPreview();
 		CameraManager::GetInstance()->DrawTarget();
-		UIEditor::GetInstance()->Draw();
-
-		TextureManager::GetInstance()->DrawPreview();
 		
+		scene_->DrawUIBeforeBlackScreen();
+
 		blackScreen_.Draw();
-		GameOverUI::GetInstance()->Draw();
+
+		scene_->DrawUIAfterBlackScreen();
+
+		UIEditor::GetInstance()->Draw();
+		TextureManager::GetInstance()->DrawPreview();
 	}
 
 	dx->PostEffectDraw(mainScene.get());
