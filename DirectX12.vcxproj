@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bonfire.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossBeamState.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossMeleeState.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Engine\Game\Particle\SmokeParticleEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bonfire.h" />
     <ClInclude Include="Engine\Game\Boss\BossBeamState.h" />
     <ClInclude Include="Engine\Game\Boss\BossBulletState.h" />
     <ClInclude Include="Engine\Game\Boss\BossMeleeState.h" />

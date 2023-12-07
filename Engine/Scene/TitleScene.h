@@ -4,13 +4,15 @@
 
 #include "JSONLoader.h"
 
+#include "Bonfire.h"
+
 class TitleScene :public IScene
 {
 private:
 	std::unique_ptr<JSONLoader> level_;
 	std::unique_ptr<Object3D> ground_;
 	std::unique_ptr<Object3D> skydome_;
-	std::unique_ptr<Object3D> bonfire_;
+	std::unique_ptr<Bonfire> bonfire_;
 
 #pragma region Sprite
 

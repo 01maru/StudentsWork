@@ -11,9 +11,6 @@
 #include "LightManager.h"
 #include "ParticleManager.h"
 
-#include "FireParticleEmitter.h"
-#include "SmokeParticleEmitter.h"
-
 void TitleScene::LoadResources()
 {
 #pragma region Sound
@@ -38,14 +35,13 @@ void TitleScene::LoadResources()
 	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
 	//	地面
 	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
-	bonfire_ = std::move(Object3D::Create(models->GetModel("bonfire")));
+	//bonfire_ = std::move(Bonfire::Create(models->GetModel("bonfire")));
+	bonfire_ = std::make_unique<Bonfire>();
+	bonfire_->Initialize();
+	bonfire_->SetModel(models->GetModel("bonfire"));
+	bonfire_->Start();
 
 #pragma endregion
-	
-	SmokeParticleEmitter smokeEmitter;
-	ParticleManager::GetInstance()->AddEmitter(smokeEmitter.GetEmitter());
-	FireParticleEmitter emitter;
-	ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
 
 #pragma region UI
 
