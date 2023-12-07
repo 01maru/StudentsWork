@@ -60,18 +60,20 @@ void MyDebugCamera::CalcRotMove(bool active)
 	Vector2D moveCursor = mouse_->GetMoveCursor();
 	moveCursor /= mouseMoveRate_;
 
-	if (up_.y < 0) moveCursor.x = -moveCursor.x;
-
 	rotValue_ = moveCursor;
 }
 
 void MyDebugCamera::SetPosition(const Vector3D& moveTarget)
 {
-	Quaternion upMove = MakeAxisAngle(up_, rotValue_.x);
-	rightVec_ = RotateVector(rightVec_, upMove);
 	Quaternion rightMove = MakeAxisAngle(rightVec_, rotValue_.y);
+	Quaternion upMove = MakeAxisAngle(Vector3D(0, 1, 0), rotValue_.x);
 	Quaternion qMove = upMove * rightMove;
+	rightVec_ = RotateVector(rightVec_, qMove);
+	rightVec_.Normalize();
 	frontVec_ = RotateVector(frontVec_, qMove);
+	frontVec_.Normalize();
+	up_ = frontVec_.cross(rightVec_);
+	downVec_ = -up_;
 
 	target_ += moveTarget;
 	eye_ = target_ - disEyeTarget_ * frontVec_;
@@ -104,6 +106,13 @@ void MyDebugCamera::ImGuiInfo()
 	imgui->Text("     : 0->Trans 1->Rot");
 
 	imgui->Text("RotValue  : (%.2f, %.2f)", rotValue_.x, rotValue_.y);
+	float dot;
+	dot = rightVec_.dot(downVec_);
+	imgui->Text("front : %f", dot);
+	dot = frontVec_.dot(downVec_);
+	imgui->Text("right : %f", dot);
+	dot = rightVec_.dot(frontVec_);
+	imgui->Text("down : %f", dot);
 
 	imgui->Text("DisEyeTarget : %f", disEyeTarget_);
 }

@@ -27,6 +27,7 @@ void GameCamera::UnLockOnUpdate()
 
 	//	PadInfo
 	Vector2D padVec = pad->GetThumbR();
+	padVec.y = -padVec.y;
 	padVec.Normalize();
 
 	//	MouseInfo
@@ -39,11 +40,16 @@ void GameCamera::UnLockOnUpdate()
 	moveVec *= input->GetSensitivity() * 0.1f;
 
 	//	座標更新
-	Quaternion upMove = MakeAxisAngle(up_, moveVec.x);
-	rightVec_ = RotateVector(rightVec_, upMove);
 	Quaternion rightMove = MakeAxisAngle(rightVec_, moveVec.y);
+	Quaternion upMove = MakeAxisAngle(Vector3D(0, 1, 0), moveVec.x);
 	Quaternion qMove = rightMove * upMove;
+	rightVec_ = RotateVector(rightVec_, qMove);
+	rightVec_.Normalize();
 	frontVec_ = RotateVector(frontVec_, qMove);
+	frontVec_.Normalize();
+	up_ = frontVec_.cross(rightVec_);
+	up_.Normalize();
+
 	eye_ = target_ - disEyeTarget_ * frontVec_;
 	CalcDirectionVec();
 }
