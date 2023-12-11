@@ -45,9 +45,9 @@ Vector3D MyDebugCamera::CalcTransMove(bool active)
 	Vector2D moveCursor = mouse_->GetMoveCursor();
 	moveCursor.Normalize();
 	//	左右移動
-	ans -= rightVec_ * (float)(moveCursor.x);
+	ans -= rightVec_ * (float)(moveCursor.x) * transSpd_;
 	//	上下移動
-	ans -= downVec_ * (float)(moveCursor.y);
+	ans -= downVec_ * (float)(moveCursor.y) * transSpd_;
 
 	return ans;
 }

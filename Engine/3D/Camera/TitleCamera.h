@@ -1,7 +1,25 @@
 #pragma once
 #include "ICamera.h"
+#include "FrameCounter.h"
 
 class TitleCamera :public ICamera
 {
+private:
+	enum CameraMode
+	{
+		Menu,
+		Option,
+		SceneChange,
+	};
+
+public:
+	void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up) override;
+	void Update() override;
+
+private:
+	CameraMode mord_ = Menu;
+
+	Vector3D menuTarget_;
+	FrameCounter counter_;
 };
 

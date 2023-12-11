@@ -128,6 +128,7 @@
     <ClCompile Include="Engine\3D\Camera\Base\LightCamera.cpp" />
     <ClCompile Include="Engine\Scene\LoadingScene.cpp" />
     <ClCompile Include="Engine\Game\UI\IGameState.cpp" />
+    <ClCompile Include="LoadSpriteAnime.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -335,6 +336,7 @@
     <ClInclude Include="Engine\Game\Player\PlayerSlowAttack.h" />
     <ClInclude Include="Engine\Game\Particle\SmokeParticleEmitter.h" />
     <ClInclude Include="Engine\Game\UI\IGameState.h" />
+    <ClInclude Include="LoadSpriteAnime.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

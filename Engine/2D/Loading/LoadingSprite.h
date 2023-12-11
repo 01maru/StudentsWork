@@ -30,5 +30,16 @@ public:
 
 private:
 	int32_t easePaw_ = 4;
-	float rotSpd_ = 0.1f;
+	int32_t sizeEasePaw_ = 2;
+	FrameCounter timer_;
+
+	float minSize_ = 10.0f;
+	float maxSize_ = 30.0f;
+	Vector3D color_ = { 0.2f,0.2f,0.2f };
+
+public:
+	void Start();
+	void Reset();
+
+	void SetMaxSize(float size);
 };

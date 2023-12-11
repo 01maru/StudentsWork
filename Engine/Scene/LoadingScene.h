@@ -3,6 +3,7 @@
 #include "ILoadingObj.h"
 #include "DissolveSprite.h"
 #include "FrameCounter.h"
+#include "LoadSpriteAnime.h"
 #include <memory>
 
 class LoadingScene :public IScene
@@ -52,7 +53,8 @@ public:
 	void Draw() override;
 	
 private:
-	std::unique_ptr<ILoadingObj> loadObj_;
+	//std::unique_ptr<ILoadingObj> loadObj_;
+	std::unique_ptr<LoadSpriteAnime> loadSprite_;
 	//	ロード画面の背景
 	std::unique_ptr<DissolveSprite> backSprite_;
 	bool isDraw_ = false;

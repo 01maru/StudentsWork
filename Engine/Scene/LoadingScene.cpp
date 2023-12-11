@@ -6,6 +6,9 @@
 #include "TextureManager.h"
 #include "Window.h"
 #include "Easing.h"
+#include "LoadingSprite.h"
+
+#include "InputManager.h"
 
 using namespace Easing;
 
@@ -18,15 +21,20 @@ void LoadingScene::Initialize()
 	std::unique_ptr<ICamera> camera = std::make_unique<ObjCamera2D>();
 	CameraManager::GetInstance()->SetOrthoProjCamera(camera);
 
-	loadObj_ = std::make_unique<LoadingModel>();
-	LoadingModel* object = dynamic_cast<LoadingModel*>(loadObj_.get());
-	loadObj_->Initialize();
-	loadObj_->SetFadeAnimeTime(OBJ_MAX_COUNT);
-	object->SetModel(ModelManager::GetInstance()->GetModel("plane"));
-	Vector3D grayColor(0.2f, 0.2f, 0.2f);
-	object->SetColor(grayColor);
-	Vector3D objSize(30.0f, 30.0f, 30.0f);
-	object->SetScale(objSize);
+	//loadObj_ = std::make_unique<LoadingModel>();
+	//LoadingModel* object = dynamic_cast<LoadingModel*>(loadObj_.get());
+	//loadObj_->Initialize();
+	//loadObj_->SetFadeAnimeTime(OBJ_MAX_COUNT);
+	//object->SetModel(ModelManager::GetInstance()->GetModel("plane"));
+	//Vector3D grayColor(0.2f, 0.2f, 0.2f);
+	//object->SetColor(grayColor);
+	//Vector3D objSize(30.0f, 30.0f, 30.0f);
+	//object->SetScale(objSize);
+
+	Vector2D posGap(80, 80);
+
+	loadSprite_ = std::make_unique<LoadSpriteAnime>();
+	loadSprite_->Initialize(Vector2D(Window::sWIN_WIDTH, Window::sWIN_HEIGHT) - posGap, OBJ_MAX_COUNT);
 
 	backSprite_ = std::make_unique<DissolveSprite>();
 	backSprite_->Initialize();
@@ -55,7 +63,8 @@ void LoadingScene::Update()
 	backSprite_->SetDissolveValue(value);
 
 	backSprite_->Update();
-	loadObj_->Update();
+	//loadObj_->Update();
+	loadSprite_->Update();
 }
 
 void LoadingScene::Draw()
@@ -64,12 +73,15 @@ void LoadingScene::Draw()
 
 	backSprite_->Draw();
 
-	loadObj_->Draw();
+	//loadObj_->Draw();
+
+	loadSprite_->Draw();
 }
 
 void LoadingScene::SetIsLoading(bool loading)
 {
-	loadObj_->SetIsLoading(loading);
+	//loadObj_->SetIsLoading(loading);
+	loadSprite_->SetIsLoading(loading);
 }
 
 bool LoadingScene::GetIsDrawn()
