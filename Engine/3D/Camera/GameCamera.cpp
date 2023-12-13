@@ -56,6 +56,8 @@ void GameCamera::UnLockOnUpdate()
 
 void GameCamera::Update()
 {
+	if (isActive_ == false) return;
+
 	//InputManager* input = InputManager::GetInstance();
 
 	//	LockOn
@@ -66,6 +68,11 @@ void GameCamera::Update()
 	UnLockOnUpdate();
 
 	ICamera::Update();
+}
+
+void GameCamera::SetIsActive(bool isActive)
+{
+	isActive_ = isActive;
 }
 
 void GameCamera::ImGuiInfo()

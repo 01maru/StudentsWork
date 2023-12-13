@@ -1,6 +1,7 @@
 #pragma once
 #include "ICamera.h"
 #include "FrameCounter.h"
+#include "Quaternion.h"
 
 class TitleCamera :public ICamera
 {
@@ -19,7 +20,9 @@ public:
 private:
 	CameraMode mord_ = Menu;
 
+	
 	Vector3D menuTarget_;
+	Vector3D optionTarget_;
 	FrameCounter counter_;
 };
 

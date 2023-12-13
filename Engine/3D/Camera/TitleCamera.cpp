@@ -10,6 +10,7 @@ void TitleCamera::Initialize(const Vector3D& eye, const Vector3D& target, const 
 void TitleCamera::Update()
 {
 	counter_.Update();
+
 	
 	switch (mord_)
 	{

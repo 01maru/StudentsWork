@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "XAudioManager.h"
 #include "ImGuiManager.h"
+#include "CameraManager.h"
 
 void PauseScreen::Initialize()
 {
@@ -46,6 +47,7 @@ void PauseScreen::IsActiveUpdate()
 	if (isSelect) {
 		isActive_ = !isActive_;
 
+		gameCamera_->SetIsActive(!isActive_);
 		MouseCursorInit();
 	}
 }
@@ -163,4 +165,9 @@ bool PauseScreen::GetIsActive()
 void PauseScreen::SetIsActive(bool isActive)
 {
     isActive_ = isActive;
+}
+
+void PauseScreen::SetGameCamera(GameCamera* gamecamera)
+{
+	gameCamera_ = gamecamera;
 }

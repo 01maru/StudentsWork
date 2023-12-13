@@ -101,6 +101,7 @@ void GameScene::Initialize()
 	camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
 	CameraManager::GetInstance()->SetMainCamera(camera);
 
+	pause_.SetGameCamera(dynamic_cast<GameCamera*>(CameraManager::GetInstance()->GetMainCamera()));
 
 	std::unique_ptr<Cylinder> stageColl = std::make_unique<Cylinder>();
 	stageColl->radius_ = 60.0f;

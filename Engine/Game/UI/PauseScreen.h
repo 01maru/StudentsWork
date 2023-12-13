@@ -1,6 +1,7 @@
 #pragma once
 #include "OptionScene.h"
 #include "SelectCursor.h"
+#include "GameCamera.h"
 
 /**
 * @file PauseScreen.h
@@ -45,6 +46,8 @@ private:
 	OptionScene option_;
 	//	ポーズ画面用のカーソル
 	SelectCursor cursor_;
+
+	GameCamera* gameCamera_ = nullptr;
 
 private:
 	/**
@@ -96,6 +99,8 @@ public:
 	* @param isActive isActive変更後の値
 	*/
 	void SetIsActive(bool isActive);
+
+	void SetGameCamera(GameCamera* gamecamera);
 
 #pragma endregion
 };

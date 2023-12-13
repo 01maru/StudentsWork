@@ -5,6 +5,8 @@ class GameCamera :public ICamera
 {
 private:
 	bool lockOn_ = false;
+	bool isActive_ = false;
+
 private:
 	void LockOnUpdate();
 	void UnLockOnUpdate();
@@ -14,5 +16,7 @@ private:
 public:
 	void Initialize(const Vector3D& frontVec, const Vector3D& center, float dis) override;
 	void Update() override;
+
+	void SetIsActive(bool isActive);
 };
 
