@@ -164,6 +164,10 @@ void Player::Update()
 	}
 
 	ColliderUpdate();
+
+	MatUpdate();
+	Object3D::ColliderUpdate();
+	mat_.trans_ = CollisionManager::GetInstance()->CollisionStage(*dynamic_cast<SphereCollider*>(collider_));
 }
 
 void Player::ImGuiMenuUpdate()
@@ -304,7 +308,7 @@ void Player::CollisionUpdate()
 			diameter + adsDis)) {
 			onGround_ = true;
 			mat_.trans_.y -= (raycastHit.distance - diameter);
-			ColliderUpdate();
+			Object3D::ColliderUpdate();
 			MatUpdate();
 		}
 		else {
@@ -317,7 +321,7 @@ void Player::CollisionUpdate()
 			diameter)) {
 			onGround_ = true;
 			mat_.trans_.y -= (raycastHit.distance - diameter);
-			ColliderUpdate();
+			Object3D::ColliderUpdate();
 			MatUpdate();
 		}
 	}

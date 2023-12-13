@@ -2,6 +2,7 @@
 #include "Boss.h"
 #include "BossIdleState.h"
 #include "ModelManager.h"
+#include "BossDeathState.h"
 
 void BossBulletState::Initialize()
 {
@@ -13,6 +14,11 @@ void BossBulletState::Initialize()
 
 void BossBulletState::Update()
 {
+	if (sBoss_->GetIsAlive() == false) {
+		std::unique_ptr<EnemyState> next_ = std::make_unique<BossDeathState>();
+		sBoss_->SetCurrentState(next_);
+	}
+
 	sBoss_->RotationUpdate();
 
 	rate_.Update();

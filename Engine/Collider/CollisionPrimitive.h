@@ -1,8 +1,14 @@
 #pragma once
 #include "Vector3D.h"
+#include "Vector2D.h"
 
 struct Sphere {
 	Vector3D center_;
+	float radius_ = 1.0f;
+};
+
+struct Cylinder {
+	Vector2D center_;
 	float radius_ = 1.0f;
 };
 

@@ -3,6 +3,7 @@
 #include "BossIdleState.h"
 #include "ModelManager.h"
 #include "Quaternion.h"
+#include "BossDeathState.h"
 
 void BossWayBullets::Initialize()
 {
@@ -15,6 +16,11 @@ void BossWayBullets::Initialize()
 
 void BossWayBullets::Update()
 {
+	if (sBoss_->GetIsAlive() == false) {
+		std::unique_ptr<EnemyState> next_ = std::make_unique<BossDeathState>();
+		sBoss_->SetCurrentState(next_);
+	}
+
 	sBoss_->RotationUpdate();
 
 	rate_.Update();

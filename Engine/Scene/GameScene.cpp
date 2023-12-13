@@ -101,6 +101,11 @@ void GameScene::Initialize()
 	camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
 	CameraManager::GetInstance()->SetMainCamera(camera);
 
+
+	std::unique_ptr<Cylinder> stageColl = std::make_unique<Cylinder>();
+	stageColl->radius_ = 60.0f;
+	CollisionManager::GetInstance()->AddStageCollider(stageColl);
+
 	//XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 }
 

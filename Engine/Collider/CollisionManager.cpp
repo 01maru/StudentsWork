@@ -160,6 +160,23 @@ bool CollisionManager::Raycast(const Ray& ray, unsigned short attribute, RayCast
     return ans;
 }
 
+Vector3D CollisionManager::CollisionStage(const Sphere& sphere)
+{
+    Vector3D ans = sphere.center_;
+
+    if (stageCollider_ == nullptr) return ans;
+
+    Vector3D pos(sphere.center_.x, 0.0f, sphere.center_.z);
+    pos -= Vector3D(stageCollider_->center_.x, 0.0f, stageCollider_->center_.y);
+
+    if (pos.GetLength() <= (stageCollider_->radius_ - sphere.radius_)) return ans;
+
+    Vector3D dir = pos.GetNormalize();
+
+    ans = Vector3D(stageCollider_->center_.x, sphere.center_.y, stageCollider_->center_.y) + dir * (stageCollider_->radius_ - sphere.radius_);
+    return ans;
+}
+
 void CollisionManager::QuerySphere(const Sphere& sphere, QueryCallBack* callback, unsigned short attribute)
 {
     assert(callback);
