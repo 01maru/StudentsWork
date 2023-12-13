@@ -63,7 +63,7 @@ protected:
 	Matrix billboard_;
 	Matrix billboardY_;
 
-protected:
+public:
 	/**
 	* @fn CalcBillboard()
 	* ビルボード計算用関数(視点や注視点の値が変わったら方向ベクトルの更新してから計算する必要あり)
@@ -75,6 +75,7 @@ protected:
 	*/
 	void CalcDirectionVec();
 
+protected:
 	/**
 	* @fn ImGuiInfo()
 	* ImGuiに表示する情報をまとめる関数

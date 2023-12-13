@@ -8,7 +8,7 @@
 
 #include "Bullet.h"
 #include <list>
-#include "Sprite.h"
+#include "CrossHair.h"
 
 class IGameState;
 
@@ -29,7 +29,7 @@ private:
 	std::list<std::unique_ptr<Bullet>> bullets_;
 	FrameCounter rate_;
 
-	Sprite crossHair_;
+	CrossHair crossHair_;
 	
 	//	平面上のスピード
 	float spd_;
@@ -99,7 +99,7 @@ public:
 	int32_t GetAvoidDecTime();
 	float GetSpd();
 	float GetAvoidMaxSpd();
-	Vector3D GetFrontVec();
+	Vector3D GetBulletFront();
 	bool GetRateCountIsActive();
 	bool GetSlowAtIsActive();
 	int32_t GetBulletRate();

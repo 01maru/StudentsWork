@@ -140,15 +140,6 @@ void Player::Update()
 	mat_.trans_ += moveVec_ * spd_;
 	mat_.trans_.y += moveY_;
 
-	attackState_->Update();
-
-	rate_.Update();
-	bullets_.remove_if([](std::unique_ptr<Bullet>& bullet) {
-		return bullet->GetIsActive() == false;
-		});
-
-	crossHair_.Update();
-
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	Vector3D target = mat_.trans_;
 	target += camera->GetFrontVec() * 3.0f;
@@ -157,6 +148,15 @@ void Player::Update()
 	//	eyeも動かす
 	camera->SetEye(target - camera->GetDisEyeTarget() * camera->GetFrontVec());
 	camera->MatUpdate();
+
+	crossHair_.Update(mat_.trans_);
+
+	attackState_->Update();
+
+	rate_.Update();
+	bullets_.remove_if([](std::unique_ptr<Bullet>& bullet) {
+		return bullet->GetIsActive() == false;
+		});
 
 	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
 	{
@@ -190,6 +190,8 @@ void Player::ImGuiUpdate()
 	imgui->BeginWindow("PlayerStatus", true);
 
 	ImGuiMenuUpdate();
+
+	crossHair_.ImGuiUpdate();
 
 	imgui->Text("angle : %.2f", mat_.angle_.y);
 	imgui->Text("bullet : %d", bullets_.size());
@@ -416,10 +418,9 @@ float Player::GetAvoidMaxSpd()
 	return avoidMaxSpd_;
 }
 
-Vector3D Player::GetFrontVec()
+Vector3D Player::GetBulletFront()
 {
-
-	return CameraManager::GetInstance()->GetCamera()->GetFrontVec();
+	return crossHair_.GetDir();
 }
 
 bool Player::GetRateCountIsActive()
@@ -485,7 +486,7 @@ void Player::StartRateCount()
 
 void Player::SetCrossHairSprite(const Sprite& sprite)
 {
-	crossHair_ = sprite;
+	crossHair_.SetSprite(sprite);
 }
 
 void Player::SetHPBarSprite(const Sprite& sprite)

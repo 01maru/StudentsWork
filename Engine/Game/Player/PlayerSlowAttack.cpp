@@ -17,7 +17,7 @@ void PlayerSlowAttack::Update()
 		bullet->Initialize();
 		bullet->SetLifeTime(bulletLifeTime_);
 		bullet->SetSpd(spd_);
-		bullet->SetMoveVec(sPlayer_->GetFrontVec());
+		bullet->SetMoveVec(sPlayer_->GetBulletFront());
 		bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
 		bullet->SetPosition(sPlayer_->GetPosition());
 		sPlayer_->AddBullet(bullet);
