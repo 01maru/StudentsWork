@@ -19,10 +19,16 @@ public:
 
 private:
 	CameraMode mord_ = Menu;
-
 	
-	Vector3D menuTarget_;
-	Vector3D optionTarget_;
+	Quaternion startEye_;
+	Quaternion endEye_;
+	Quaternion startFront_;
+	Quaternion endFront_;
+
 	FrameCounter counter_;
+
+public:
+	void SetEndEye(const Vector3D& eye);
+	void SetEndFront(const Vector3D& front);
 };
 
