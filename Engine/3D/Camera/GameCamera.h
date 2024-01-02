@@ -5,7 +5,7 @@ class GameCamera :public ICamera
 {
 private:
 	bool lockOn_ = false;
-	bool isActive_ = false;
+	bool isActive_ = true;
 
 private:
 	void LockOnUpdate();

@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bonfire.cpp" />
-    <ClCompile Include="CrossHair.cpp" />
+    <ClCompile Include="Engine\Game\Bonfire.cpp" />
+    <ClCompile Include="Engine\Game\Player\CrossHair.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossBeamState.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossMeleeState.cpp" />
@@ -129,7 +129,7 @@
     <ClCompile Include="Engine\3D\Camera\Base\LightCamera.cpp" />
     <ClCompile Include="Engine\Scene\LoadingScene.cpp" />
     <ClCompile Include="Engine\Game\UI\IGameState.cpp" />
-    <ClCompile Include="LoadSpriteAnime.cpp" />
+    <ClCompile Include="Engine\2D\Sprite\LoadSpriteAnime.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -170,8 +170,8 @@
     <ClCompile Include="Engine\Game\Particle\SmokeParticleEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bonfire.h" />
-    <ClInclude Include="CrossHair.h" />
+    <ClInclude Include="Engine\Game\Bonfire.h" />
+    <ClInclude Include="Engine\Game\Player\CrossHair.h" />
     <ClInclude Include="Engine\Game\Boss\BossBeamState.h" />
     <ClInclude Include="Engine\Game\Boss\BossBulletState.h" />
     <ClInclude Include="Engine\Game\Boss\BossMeleeState.h" />
@@ -338,7 +338,7 @@
     <ClInclude Include="Engine\Game\Player\PlayerSlowAttack.h" />
     <ClInclude Include="Engine\Game\Particle\SmokeParticleEmitter.h" />
     <ClInclude Include="Engine\Game\UI\IGameState.h" />
-    <ClInclude Include="LoadSpriteAnime.h" />
+    <ClInclude Include="Engine\2D\Sprite\LoadSpriteAnime.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
