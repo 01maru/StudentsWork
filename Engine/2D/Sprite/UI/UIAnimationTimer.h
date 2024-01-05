@@ -46,6 +46,8 @@ public:
 	*/
 	void SetStartCount(int32_t startCount);
 
+	void Reset() override;
+
 #pragma endregion
 };
 

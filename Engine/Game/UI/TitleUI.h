@@ -38,7 +38,7 @@ public:
 
 private:
 	//	タイトルの配置データ
-	UIData data_;
+	UIData titleData_;
 	//	オプションの配置データ
 	OptionScene option_;
 	//	カーソルのスプライト
@@ -48,21 +48,22 @@ private:
 	/**
 	* @fn TitleInputUpdate(bool)
 	* タイトル画面での入力更新用関数
-	* @param selectButton 選択中かどうか
+	* @param dikSelectButton 選択中かどうか
 	*/
-	void TitleInputUpdate(bool selectButton);
+	void TitleInputUpdate(bool dikSelectButton);
 	/**
 	* @fn TitleUpdate(bool)
 	* タイトル画面の更新用関数
-	* @param selectButton 選択中かどうか
+	* @param dikSelectButton 選択中かどうか
 	*/
-	void TitleUpdate(bool selectButton);
+	void TitleUpdate(bool dikSelectButton);
 	/**
 	* @fn OptionUpdate(bool)
 	* オプション画面の更新用関数
-	* @param selectButton 選択中かどうか
+	* @param dikSelectButton 選択中かどうか
 	*/
-	void OptionUpdate(bool selectButton);
+	void OptionUpdate(bool dikSelectButton);
+
 public:
 	/**
 	* @fn Start()

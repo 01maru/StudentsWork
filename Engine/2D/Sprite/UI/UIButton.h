@@ -37,6 +37,12 @@ public:
 	*/
 	Vector2D& GetPosition();
 	/**
+	* @fn GetSize()
+	* サイズのGetter関数
+	* @return ボタンサイズ
+	*/
+	Vector2D& GetSize();
+	/**
 	* @fn GetButtonName()
 	* name_のGetter関数
 	* @return このボタンの名前

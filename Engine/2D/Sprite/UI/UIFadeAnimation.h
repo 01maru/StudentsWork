@@ -70,6 +70,8 @@ public:
 	*/
 	void SetEnd(float end);
 
+	void Reset() override;
+
 #pragma endregion
 };
 

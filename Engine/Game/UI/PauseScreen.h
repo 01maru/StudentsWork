@@ -1,12 +1,17 @@
 #pragma once
 #include "OptionScene.h"
 #include "SelectCursor.h"
-#include "GameCamera.h"
 
 /**
 * @file PauseScreen.h
 * @brief Pause画面の表示や設定を管理するファイル
 */
+
+#pragma region 前置宣言
+
+class GameCamera;
+
+#pragma endregion
 
 class PauseScreen
 {
@@ -41,12 +46,12 @@ private:
 	//	ポーズ中か
 	bool isActive_ = false;
 	//	ポーズ画面のUI情報
-	UIData data_;
+	UIData pauseData_;
 	//	オプションデータ
 	OptionScene option_;
 	//	ポーズ画面用のカーソル
 	SelectCursor cursor_;
-
+	//	カメラポインター
 	GameCamera* gameCamera_ = nullptr;
 
 private:
@@ -58,21 +63,21 @@ private:
 	/**
 	* @fn PauseInputUpdate(bool)
 	* ポーズ画面での入力更新用関数
-	* @param selectButton 選択中かどうか
+	* @param dikSelectButton 選択中かどうか
 	*/
-	void PauseInputUpdate(bool selectButton);
+	void PauseInputUpdate(bool dikSelectButton);
 	/**
 	* @fn PauseUpdate(bool)
 	* ポーズ画面の更新用関数
-	* @param selectButton 選択中かどうか
+	* @param dikSelectButton 選択中かどうか
 	*/
-	void PauseUpdate(bool selectButton);
+	void PauseUpdate(bool dikSelectButton);
 	/**
 	* @fn OptionUpdate(bool)
 	* オプション画面の更新用関数
-	* @param selectButton 選択中かどうか
+	* @param dikSelectButton 選択中かどうか
 	*/
-	void OptionUpdate(bool selectButton);
+	void OptionUpdate(bool dikSelectButton);
 	/**
 	* @fn MouseCursorInit()
 	* マウスカーソル固定の設定用関数
@@ -99,7 +104,11 @@ public:
 	* @param isActive isActive変更後の値
 	*/
 	void SetIsActive(bool isActive);
-
+	/**
+	* @fn SetGameCamera(GameCamera*)
+	* 使用中のゲームカメラ設定用(カーソルロックやカメラの動きを止める用)
+	* @param gamecamera ゲームカメラのポインター
+	*/
 	void SetGameCamera(GameCamera* gamecamera);
 
 #pragma endregion

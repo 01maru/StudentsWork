@@ -12,11 +12,59 @@
 #include "UIRotation.h"
 #include "SliderSprite.h"
 
+void UIData::Finalize()
+{
+	count_.release();
+	obj_.clear();
+	tagName_.clear();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
+void UIData::InputUpdate()
+{
+	buttonMan_->Update();
+}
+
+void UIData::Update()
+{
+	//	オブジェクト更新処理
+	for (auto& sprite : obj_) {
+		sprite.second->Update();
+		sprite.second->MatUpdate();
+	}
+
+	//	カウンターがあったら更新処理
+	if (count_ != nullptr) {
+		count_->Update();
+	}
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
+
+void UIData::Draw()
+{
+	//	オブジェクト描画処理
+	for (auto& sprite : obj_) {
+		//if (sprite.second.GetTags() & titleData_->tagName_[activeTagName_]) {
+		sprite.second->Draw();
+		//}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Load
+//-----------------------------------------------------------------------------
+
 void UIData::LoadData(const std::string& filename)
 {
-	std::string filePath = "Resources/Levels/" + filename + ".txt";
+	const std::string filePath = "Resources/Levels/" + filename + ".txt";
 
-	//ファイル開く(開けなかったら新規作成)
+	//ファイル開く(開けなかったら新規作成 : Editor用)
 	std::ifstream file;
 	file.open(filePath.c_str());
 
@@ -112,6 +160,7 @@ void UIData::LoadData(const std::string& filename)
 			uiTimer->Initialize();
 
 			object->SetCount(count_.get());
+			object->SetStartAnimation(&startAnimation_);
 			uint32_t time;
 
 			line_stream >> time;
@@ -176,6 +225,10 @@ void UIData::LoadData(const std::string& filename)
 
 			UIPosition* uiPos = object->AddComponent<UIPosition>();
 			uiPos->SetPosition(pos);
+
+			line_stream >> pos.x;
+			line_stream >> pos.y;
+			uiPos->SetSize(pos);
 		}
 
 		if (key == "Slider") {
@@ -223,53 +276,6 @@ void UIData::LoadData(const std::string& filename)
 	file.close();
 }
 
-void UIData::Initialize()
-{
-	if (count_ != nullptr) {
-		count_->StartCount();
-	}
-}
-
-void UIData::Finalize()
-{
-	count_.release();
-	obj_.clear();
-	tagName_.clear();
-}
-
-void UIData::InputUpdate()
-{
-	buttonMan_->Update();
-}
-
-void UIData::Update()
-{
-	for (auto& sprite : obj_) {
-		sprite.second->Update();
-		sprite.second->MatUpdate();
-	}
-
-	//	アニメーション
-		//	アニメーションタイマーがあるか検索
-			//	あったら比較してカウントアクティブにする
-	if (count_ != nullptr) {
-		count_->Update();
-	}
-
-	//buttonMan_.MatUpdate();
-}
-
-void UIData::Draw()
-{
-	for (auto& sprite : obj_) {
-		//if (sprite.second.GetTags() & data_->tagName_[activeTagName_]) {
-		sprite.second->Draw();
-		//}
-	}
-
-	//buttonMan_.Draw();
-}
-
 //-----------------------------------------------------------------------------
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
@@ -282,6 +288,11 @@ const std::string& UIData::GetSelectName()
 Vector2D& UIData::GetSelectPosition()
 {
 	return buttonMan_->GetSelectPos();
+}
+
+Vector2D& UIData::GetSelectSize()
+{
+	return buttonMan_->GetSelectSize();
 }
 
 UIObject* UIData::GetUIObject(const std::string& name)
@@ -298,6 +309,28 @@ bool UIData::GetIsEndAnimation()
 
 	bool isEnd = count_->GetIsActive() == false;
 	return isEnd;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void UIData::Reset()
+{
+	for (auto& sprite : obj_) {
+		sprite.second->ResetAnimation();
+	}
+}
+
+void UIData::ResetAnimation(bool startingAnimation)
+{
+	if (count_ != nullptr) {
+		count_->StartCount();
+	}
+
+	startAnimation_ = startingAnimation;
+	
+	Reset();
 }
 
 void UIData::SetSelectButton(const std::string& name)

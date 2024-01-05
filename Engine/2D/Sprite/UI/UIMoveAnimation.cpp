@@ -51,3 +51,11 @@ void UIMoveAnimation::SetEndPos(const Vector2D& pos)
 {
 	endPos = pos;
 }
+
+void UIMoveAnimation::Reset()
+{
+	for (auto& sprite : sprite_->GetSprites())
+	{
+		sprite.second.SetPosition(startPos);
+	}
+}

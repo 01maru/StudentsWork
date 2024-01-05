@@ -34,6 +34,11 @@ FrameCounter* UIObject::GetCount()
 	return count_;
 }
 
+bool UIObject::GetIsStartAnimation()
+{
+	return *startAnimation_;
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
@@ -41,4 +46,17 @@ FrameCounter* UIObject::GetCount()
 void UIObject::SetCount(FrameCounter* pCount)
 {
 	count_ = pCount;
+}
+
+void UIObject::SetStartAnimation(bool* pStartAnimation)
+{
+	startAnimation_ = pStartAnimation;
+}
+
+void UIObject::ResetAnimation()
+{
+	for (auto& comp : components_)
+	{
+		comp->Reset();
+	}
 }

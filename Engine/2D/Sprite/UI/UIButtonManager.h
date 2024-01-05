@@ -43,6 +43,12 @@ public:
 	* @return 選択中の座標
 	*/
 	Vector2D& GetSelectPos();
+	/**
+	* @fn GetSelectSize()
+	* 選択中のボタンサイズのGetter関数(カーソルアニメーション用)
+	* @return 選択中のボタンサイズ
+	*/
+	Vector2D& GetSelectSize();
 
 #pragma endregion
 

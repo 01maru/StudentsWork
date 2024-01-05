@@ -14,15 +14,14 @@ class UIData
 {
 public:
 	/**
-	* @fn Initialize()
-	* 初期化関数
-	*/
-	void Initialize();
-	/**
 	* @fn Finalize()
-	* 終了処理関数
+	* 終了処理関数(Editor用)
 	*/
 	void Finalize();
+	/**
+	* @fn InputUpdate()
+	* 入力更新処理関数
+	*/
 	void InputUpdate();
 	/**
 	* @fn Update()
@@ -36,11 +35,16 @@ public:
 	void Draw();
 
 protected:
+	//	開始時アニメーションか終了時アニメーションか
+	bool startAnimation_ = true;
 	//	全体のFrameCounter
 	std::unique_ptr<FrameCounter> count_;
+	//	選択中のボタン管理用変数
 	std::unique_ptr<UIButtonManager> buttonMan_;
+	//	表示するUIObjectのマップ変数
 	std::unordered_map<std::string, std::unique_ptr<UIObject>> obj_;
 
+	//	現在使用してないタグ
 	std::map<std::string, uint16_t, std::less<>> tagName_;
 
 public:
@@ -65,6 +69,12 @@ public:
 	* @return 選択中の座標
 	*/
 	Vector2D& GetSelectPosition();
+	/**
+	* @fn GetSelectSize()
+	* 選択中のボタンサイズのGetter関数(カーソルアニメーション用)
+	* @return 選択中のサイズ
+	*/
+	Vector2D& GetSelectSize();
 
 	UIObject* GetUIObject(const std::string& name);
 
@@ -72,6 +82,14 @@ public:
 
 #pragma endregion
 
+	void Reset();
+
+	void ResetAnimation(bool startingAnimation);
+
+#pragma region Setter
+
 	void SetSelectButton(const std::string& name);
+
+#pragma endregion
 };
 

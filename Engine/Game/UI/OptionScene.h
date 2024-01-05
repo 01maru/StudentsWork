@@ -1,7 +1,5 @@
 #pragma once
-#include "SliderSprite.h"
 #include "UIData.h"
-#include "XAudioManager.h"
 
 /**
 * @file OptionScene.h
@@ -31,9 +29,10 @@ public:
 	/**
 	* @fn InputUpdate(bool)
 	* 入力更新処理関数
-	* @param selectButton 入力されているか
+	* @param dikSelectButton 入力されているか
+	* @return オプションが閉じるタイミングだけTRUEを返す
 	*/
-	void InputUpdate(bool selectButton);
+	bool InputUpdate(bool dikSelectButton);
 	/**
 	* @fn Update()
 	* 更新処理関数
@@ -49,34 +48,32 @@ public:
 	* 描画処理関数
 	*/
 	void Draw();
-	/**
-	* @fn ResetSelectButton()
-	* 選択中のボタンリセットする用関数
-	*/
-	void ResetSelectButton();
 
 private:
 	//	実行中か
 	bool isActive_ = false;
 	//	UIの配置データ
 	UIData data_;
-	//	カーソル
+	//	カーソルポインタ
 	SelectCursor* cursor_ = nullptr;
 	//	実行する前のカーソルの位置
-	Vector2D backPos_;
+	Vector2D befCursorPos_;
 
 	//	光度
 private:
 	/**
-	* @fn SensUpdate()
+	* @fn SensUpdate(int16_t)
 	* 視点感度更新処理用関数
+	* @param inputValue 数値変更用のキー入力値
 	*/
 	void SensUpdate(int16_t inputValue);
 	/**
-	* @fn VolumeUpdate()
+	* @fn VolumeUpdate(const std::string&, int16_t)
 	* ボリューム更新処理用関数
+	* @param objectName 変更するボリュームタイプの名前
+	* @param inputValue 数値変更用のキー入力値
 	*/
-	void VolumeUpdate(const std::string& objectName, XAudioManager::SoundType type, int16_t inputValue);
+	void VolumeUpdate(const std::string& objectName, int16_t inputValue);
 
 public:
 #pragma region Getter
@@ -92,8 +89,7 @@ public:
 	* 選択中のオブジェクトの中心座標取得用関数
 	* @return 選択中のオブジェクトの中心座標
 	*/
-	Vector2D& GetSelectPosition();
-	Vector2D GetSelectScale();
+	Vector2D GetSelectPosition();
 
 #pragma endregion
 
@@ -117,6 +113,18 @@ public:
 	* @param cursor カーソルのポインター
 	*/
 	void SetSelectCursor(SelectCursor* cursor);
+
+	/**
+	* @fn ResetSelectButton()
+	* 選択中のボタンリセットする用関数
+	*/
+	void ResetSelectButton();
+	/**
+	* @fn ResetAnimation(bool)
+	* アニメーションをリセットするための関数する用関数
+	* @param startingAnimation 開始時か終了時どちらのアニメーションか設定
+	*/
+	void ResetAnimation(bool startingAnimation);
 
 #pragma endregion
 };

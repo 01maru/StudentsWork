@@ -4,14 +4,23 @@
 #include "SceneManager.h"
 #include "ImGuiManager.h"
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void TitleUI::Initialize()
 {
+	//	リソース読み込み
 	LoadResources();
 
+	//	カーソルの初期化
 	cursor_.Initialize();
-	cursor_.SetCursorPosition(data_.GetSelectPosition(), false);
+	//	初期位置設定(音再生しない)
+	cursor_.SetCursorPosition(titleData_.GetSelectPosition(), false);
 
+	//	オプションの初期化
 	option_.Initialize();
+	//	カーソル設定
 	option_.SetSelectCursor(&cursor_);
 }
 
@@ -25,85 +34,134 @@ void TitleUI::LoadResources()
 #pragma endregion
 
 	//	配置データ
-	data_.LoadData("Title");
+	titleData_.LoadData("Title");
 	//	カーソル
 	cursor_.LoadResources();
 	//	オプション
 	option_.LoadResources("Option");
 }
 
-void TitleUI::TitleInputUpdate(bool selectButton)
+//-----------------------------------------------------------------------------
+// [SECTION] TitleUpdate
+//-----------------------------------------------------------------------------
+
+void TitleUI::TitleInputUpdate(bool dikSelectButton)
 {
-	//	オプションシーンだったら終了
-	if (option_.GetIsActive() == true) return;
+	//	オプションシーンだったら処理しない
+	if (option_.GetIsActive() == TRUE)				return;
 
 	//	演出が終わっていなかったら処理しない
-	if (data_.GetIsEndAnimation() == false) return;
+	if (titleData_.GetIsEndAnimation() == FALSE)	return;
 
 	//	ボタンを選択したら
-	if (selectButton)
+	if (dikSelectButton == TRUE)
 	{
 		//	決定音再生
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 
-		std::string buttonName = data_.GetSelectName();
-		if (buttonName == "Start") {
+		const std::string selectButtonName = titleData_.GetSelectName();
+
+		//	Start選択中だったら
+		if (selectButtonName == "Start")
+		{
+			//	タイトル消える
+			titleData_.ResetAnimation(false);
+			//	カメラ動かす
+
+			//	ゲームシーンへ
 			SceneManager::GetInstance()->SetNextScene("GAMESCENE");
 		}
 
-		else if (buttonName == "Option") {
+		//	Option選択中だったら
+		else if (selectButtonName == "Option") {
+			//	オプション画面へ
 			option_.SetIsActive(true);
+			//	選択中のボタンを初期化する
 			option_.ResetSelectButton();
-			option_.SetCursorBackPos(data_.GetSelectPosition());
+			//	変更前のカーソルの位置保存
+			option_.SetCursorBackPos(titleData_.GetSelectPosition());
+			//	カーソルの位置変更(音再生しない)
 			cursor_.SetCursorPosition(option_.GetSelectPosition(), false);
-			return;
+
+			//	タイトル消える
+			titleData_.ResetAnimation(false);
+			//	オプション出現
+			option_.ResetAnimation(true);
+
+			//	カメラ動かす
+
 		}
 
-		else if (buttonName == "Quit") {
+		//	Quit選択中だったら
+		else if (selectButtonName == "Quit") {
+			//	ゲーム終了
 			SceneManager::GetInstance()->GameLoopEnd();
 		}
 	}
 
-	data_.InputUpdate();
+	//	タイトルの選択ボタン切り替え
+	titleData_.InputUpdate();
 
 	//	カーソル移動
-	cursor_.SetCursorPosition(data_.GetSelectPosition());
+	cursor_.SetCursorPosition(titleData_.GetSelectPosition());
+	//	カーソルのアニメーションサイズ設定
+	cursor_.SetButtonSize(titleData_.GetSelectSize());
 }
 
-void TitleUI::TitleUpdate(bool selectButton)
+void TitleUI::TitleUpdate(bool dikSelectButton)
 {
-	TitleInputUpdate(selectButton);
+	//	タイトル入力処理
+	TitleInputUpdate(dikSelectButton);
 
-	cursor_.SetIsActive(data_.GetIsEndAnimation());
-	data_.Update();
+	//	オプション中じゃなかったら
+	if (option_.GetIsActive() == FALSE)
+	{
+		//	タイトルアニメーション中じゃないときにカーソル表示
+		cursor_.SetIsActive(titleData_.GetIsEndAnimation());
+	}
+
+	//	タイトル更新処理
+	titleData_.Update();
 }
 
-void TitleUI::OptionUpdate(bool selectButton)
+//-----------------------------------------------------------------------------
+// [SECTION] OptionUpdate
+//-----------------------------------------------------------------------------
+
+void TitleUI::OptionUpdate(bool dikSelectButton)
 {
-	option_.InputUpdate(selectButton);
+	//	オプション入力処理(オプションが終了したタイミングだったら)
+	if (option_.InputUpdate(dikSelectButton) == TRUE)
+	{
+		//	タイトル出現
+		titleData_.ResetAnimation(true);
+
+		//	タイトルアニメーション中じゃないときにカーソル表示
+		cursor_.SetIsActive(titleData_.GetIsEndAnimation());
+
+		//	カメラ戻す
+
+	}
+
+	//	オプションデータの更新処理
 	option_.Update();
-
-	//	オプション中だったら
-	if (option_.GetIsActive() == false) return;
-	//	カーソル移動
-	cursor_.SetCursorPosition(option_.GetSelectPosition());
-	cursor_.SetMinSize(option_.GetSelectScale());
-	cursor_.SetMaxSize(option_.GetSelectScale() + Vector2D(16, 8));
 }
 
-void TitleUI::Start()
-{
-	data_.Initialize();
-}
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void TitleUI::Update()
 {
-	bool isSelect = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
+	bool dikButton = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
 
-	TitleUpdate(isSelect);
+	//	タイトル更新
+	TitleUpdate(dikButton);
 
-	OptionUpdate(isSelect);
+	//	オプション更新
+	OptionUpdate(dikButton);
 
+	//	カーソル更新
 	cursor_.Update();
 }
 
@@ -112,16 +170,33 @@ void TitleUI::ImGuiUpdate()
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
 	//	選択中のモード
-	imgui->Text("mord : %s", data_.GetSelectName().c_str());
+	imgui->Text("mord : %s", titleData_.GetSelectName().c_str());
 
+	//	オプションImGui
 	option_.ImGuiUpdate();
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
+
 void TitleUI::Draw()
 {
-	data_.Draw();
+	//	タイトル描画
+	titleData_.Draw();
 
+	//	オプション描画
 	option_.Draw();
-
+	
+	//	カーソル描画
 	cursor_.Draw();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void TitleUI::Start()
+{
+	titleData_.ResetAnimation(true);
 }

@@ -2,7 +2,7 @@ Timer 40
 
 S BackSprite1 backUI.png 150 420 280 64 0 0 280 64 0.5 0.5 1
 S Start start.png 150 420 181 38 0 0 181 38 0.5 0.5 1
-Button Start 200 420
+Button Start 200 420 298 82
 AnimeTimer 30 0
 MoveAnime 150 420 200 420
 FadeAnime 1.0 0.0
@@ -10,7 +10,7 @@ EndData BackSprite1
 
 S BackSprite2 backUI.png 150 500 280 64 0 0 280 64 0.5 0.5 1
 S Option option.png 150 500 211 40 0 0 211 40 0.5 0.5 1
-Button Option 200 500
+Button Option 200 500 298 82
 AnimeTimer 30 5
 MoveAnime 150 500 200 500
 FadeAnime 1.0 0.0
@@ -18,7 +18,7 @@ EndData BackSprite2
 
 S BackSprite3 backUI.png 150 580 280 64 0 0 280 64 0.5 0.5 1
 S Quit quit.png 150 580 130 39 0 0 130 39 0.5 0.5 1
-Button Quit 200 580
+Button Quit 200 580 298 82
 AnimeTimer 30 10
 MoveAnime 150 580 200 580
 FadeAnime 1.0 0.0

@@ -58,6 +58,7 @@ public:
 		Master,
 		BGM,
 		SE,
+		None,
 	};
 private:
 	//	Imgui用

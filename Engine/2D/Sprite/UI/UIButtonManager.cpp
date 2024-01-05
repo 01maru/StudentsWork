@@ -29,6 +29,11 @@ Vector2D& UIButtonManager::GetSelectPos()
 	return selectButton_->GetPosition();
 }
 
+Vector2D& UIButtonManager::GetSelectSize()
+{
+	return selectButton_->GetSize();
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------

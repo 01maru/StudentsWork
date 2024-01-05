@@ -31,3 +31,10 @@ void UIAnimationTimer::SetStartCount(int32_t startCount)
 {
 	startCount_ = startCount;
 }
+
+void UIAnimationTimer::Reset()
+{
+	FrameCounter::SetIsIncrement(parent_->GetIsStartAnimation());
+	
+	FrameCounter::ResetCount();
+}

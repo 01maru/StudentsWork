@@ -9,6 +9,11 @@ Vector2D& UIPosition::GetPosition()
 	return pos_;
 }
 
+Vector2D& UIPosition::GetSize()
+{
+	return size_;
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
@@ -16,4 +21,9 @@ Vector2D& UIPosition::GetPosition()
 void UIPosition::SetPosition(const Vector2D& pos)
 {
 	pos_ = pos;
+}
+
+void UIPosition::SetSize(const Vector2D& size)
+{
+	size_ = size;
 }

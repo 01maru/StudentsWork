@@ -51,3 +51,11 @@ void UIFadeAnimation::SetEnd(float end)
 {
 	end_ = end;
 }
+
+void UIFadeAnimation::Reset()
+{
+	for (auto& sprite : sprite_->GetSprites())
+	{
+		sprite.second.SetAlphaColor(start_);
+	}
+}

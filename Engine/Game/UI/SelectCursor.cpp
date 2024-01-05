@@ -65,7 +65,8 @@ void SelectCursor::SetCursorPosition(const Vector2D& pos, bool playMoveSound)
 	if (cursor_.GetPosition() == pos) return;
 
 	//	カーソル移動音再生
-	if (playMoveSound == true) {
+	if (playMoveSound == TRUE)
+	{
 		XAudioManager::GetInstance()->PlaySoundWave("cursorMove.wav", XAudioManager::SE);
 	}
 
@@ -73,23 +74,11 @@ void SelectCursor::SetCursorPosition(const Vector2D& pos, bool playMoveSound)
 	cursor_.SetPosition(pos);
 }
 
-void SelectCursor::SetMinSize(const Vector2D& size)
+void SelectCursor::SetButtonSize(const Vector2D& size)
 {
 	minSize_ = size;
+	maxSize_ = size + gapSize_;
 }
-
-void SelectCursor::SetMaxSize(const Vector2D& size)
-{
-	maxSize_ = size;
-}
-
-//void SelectCursor::SetSize(const Vector2D& size)
-//{
-//	selectObjSize_ = size;
-//
-//	minSize_ = selectObjSize_ * 1.1f;
-//	maxSize_ = selectObjSize_ * 1.3f;
-//}
 
 void SelectCursor::SetIsActive(bool isActive)
 {

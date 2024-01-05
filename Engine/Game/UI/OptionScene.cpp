@@ -1,19 +1,33 @@
 #include "OptionScene.h"
+#include "SelectCursor.h"
+#include "SliderSprite.h"
+#include "XAudioManager.h"
 #include "InputManager.h"
 #include "ImGuiManager.h"
-#include "SelectCursor.h"
 
 void OptionScene::Initialize()
 {
-	data_.Initialize();
-
 	//	円の位置初期化
+	//	感度のスライダー値初期化
 	SliderSprite* slider = data_.GetUIObject("Sens")->GetComponent<SliderSprite>();
 	slider->SetValue(InputManager::GetInstance()->GetSensitivity());
+
+	//	音のスライダー値初期化
+	XAudioManager* xAudio = XAudioManager::GetInstance();
+	//	マスターボリューム
+	slider = data_.GetUIObject("Master")->GetComponent<SliderSprite>();
+	slider->SetValue(xAudio->GetMasterVolume());
+	//	マスターボリューム
+	slider = data_.GetUIObject("BGM")->GetComponent<SliderSprite>();
+	slider->SetValue(xAudio->GetBGMVolume());
+	//	マスターボリューム
+	slider = data_.GetUIObject("SE")->GetComponent<SliderSprite>();
+	slider->SetValue(xAudio->GetSEVolume());
 }
 
 void OptionScene::LoadResources(const std::string& filename)
 {
+	//	配置データ読み込み
 	data_.LoadData(filename);
 
 #pragma region Sound
@@ -24,115 +38,141 @@ void OptionScene::LoadResources(const std::string& filename)
 #pragma endregion
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
 void OptionScene::SensUpdate(int16_t inputValue)
 {
 	InputManager* input = InputManager::GetInstance();
 
+	//	感度オブジェクト取得
 	UIObject* obj = data_.GetUIObject("Sens");
 	
+	//	現在の感度値取得
 	float sens = input->GetSensitivity();
 	
-	//	値変更&反映
+	//	値変更
 	SliderSprite* slider = obj->GetComponent<SliderSprite>();
 	slider->ValueUpdate(sens, inputValue);
+	//	値反映
 	input->SetSensitivity(sens);
 }
 
-void OptionScene::VolumeUpdate(const std::string& objectName, XAudioManager::SoundType type, int16_t inputValue)
+void OptionScene::VolumeUpdate(const std::string& objectName, int16_t inputValue)
 {
-	UIObject* obj = data_.GetUIObject(objectName);
+	//	指定のオブジェクトスライダー取得
+	SliderSprite* slider = data_.GetUIObject(objectName)->GetComponent<SliderSprite>();
 
 	XAudioManager* xAudio = XAudioManager::GetInstance();
 	float volume;
-	switch (type)
-	{
-	case XAudioManager::Master:
+	XAudioManager::SoundType type = XAudioManager::None;
+	
+	//	マスターボリュームだったら
+	if (objectName == "Master") {
 		volume = xAudio->GetMasterVolume();
-		break;
-	case XAudioManager::BGM:
-		volume = xAudio->GetBGMVolume();
-		break;
-	case XAudioManager::SE:
-		volume = xAudio->GetSEVolume();
-		break;
+		type = XAudioManager::Master;
 	}
 
-	//	値変更&反映
-	SliderSprite* slider = obj->GetComponent<SliderSprite>();
-	slider->ValueUpdate(volume, inputValue);
+	//	BGMボリュームだったら
+	else if (objectName == "BGM") {
+		volume = xAudio->GetBGMVolume();
+		type = XAudioManager::BGM;
+	}
 
+	//	SEボリュームだったら
+	else if (objectName == "SE") {
+		volume = xAudio->GetSEVolume();
+		type = XAudioManager::SE;
+	}
+
+	//	値変更
+	slider->ValueUpdate(volume, inputValue);
+	//	値反映
 	xAudio->VolumeUpdate(type, volume);
 }
 
-void OptionScene::InputUpdate(bool selectButton)
+bool OptionScene::InputUpdate(bool dikSelectButton)
 {
-	if (!isActive_) return;
+	//	非アクティブだったら更新終了
+	if (isActive_ == FALSE) return false;
 
 	InputManager* input = InputManager::GetInstance();
+	//	スライダー用左右入力値取得
 	int16_t inputValue = input->GetKeyAndButton(DIK_D, InputJoypad::DPAD_Right) -
 		input->GetKeyAndButton(DIK_A, InputJoypad::DPAD_Left);
 
+	//	選択中ボタンの更新
 	data_.InputUpdate();
 
+	//	選択位置が感度だったら
 	if (data_.GetSelectName() == "Sens") {
 		SensUpdate(inputValue);
 	}
 
-	else if (data_.GetSelectName() == "Master") {
-		VolumeUpdate("Master", XAudioManager::Master, inputValue);
-	}
-
-	else if (data_.GetSelectName() == "BGM") {
-		VolumeUpdate("BGM", XAudioManager::BGM, inputValue);
-	}
-
-	else if (data_.GetSelectName() == "SE") {
-		VolumeUpdate("SE", XAudioManager::SE, inputValue);
-	}
-
+	//	閉じるだったら
 	else if (data_.GetSelectName() == "Quit") {
-		if (selectButton == true) {
+
+		//	選択中だったら
+		if (dikSelectButton == TRUE) {
+			//	非アクティブに
 			isActive_ = false;
 			//	決定音再生
 			XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
-			
-			cursor_->SetCursorPosition(backPos_, false);
+			//	カーソルをオプション前の位置へ(音再生しない)
+			cursor_->SetCursorPosition(befCursorPos_, false);
+			//	オプション閉じる
+			data_.ResetAnimation(false);
+
+			return true;
 		}
 	}
+
+	//	その他(音量調節)だったら
+	else {
+		VolumeUpdate(data_.GetSelectName(), inputValue);
+	}
+
+	return false;
 }
 
 void OptionScene::Update()
 {
+	//	配置データの更新
 	data_.Update();
 
-	//	オプション中だったら
-	if (isActive_ == false) return;
+	//	オプション中だったら更新終了
+	if (isActive_ == FALSE) return;
 
 	//	カーソル移動
 	cursor_->SetCursorPosition(data_.GetSelectPosition());
-	cursor_->SetMinSize(GetSelectScale());
-	cursor_->SetMaxSize(GetSelectScale() + Vector2D(16, 8));
+	cursor_->SetButtonSize(data_.GetSelectSize());
+
+	//	アニメーション中じゃないときにカーソル表示
+	cursor_->SetIsActive(data_.GetIsEndAnimation());
 }
 
 void OptionScene::ImGuiUpdate()
 {
-	if (!isActive_) return;
+	//	オプション中だったら更新終了
+	if (isActive_ == FALSE) return;
 
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
+	//	選択中のボタンの名前
 	imgui->Text("SelectButton : %s", data_.GetSelectName().c_str());
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
+
 void OptionScene::Draw()
 {
-	if (!isActive_) return;
+	//	アクティブ状態じゃなくアニメーション中じゃなかったら描画しない
+	if (isActive_ == FALSE && data_.GetIsEndAnimation() == TRUE) return;
 
 	data_.Draw();
-}
-
-void OptionScene::ResetSelectButton()
-{
-	data_.SetSelectButton("Master");
 }
 
 //-----------------------------------------------------------------------------
@@ -144,28 +184,23 @@ bool OptionScene::GetIsActive()
 	return isActive_;
 }
 
-Vector2D& OptionScene::GetSelectPosition()
+Vector2D OptionScene::GetSelectPosition()
 {
 	return data_.GetSelectPosition();
-}
-
-Vector2D OptionScene::GetSelectScale()
-{
-	Vector2D ans(818, 82);
-	Vector2D quitButtonSize(298, 82);
-	if (data_.GetSelectName() == "Quit") {
-		ans = quitButtonSize;
-	}
-	return ans;
 }
 
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
+void OptionScene::SetIsActive(bool active)
+{
+	isActive_ = active;
+}
+
 void OptionScene::SetCursorBackPos(const Vector2D& pos)
 {
-	backPos_ = pos;
+	befCursorPos_ = pos;
 }
 
 void OptionScene::SetSelectCursor(SelectCursor* cursor)
@@ -173,7 +208,16 @@ void OptionScene::SetSelectCursor(SelectCursor* cursor)
 	cursor_ = cursor;
 }
 
-void OptionScene::SetIsActive(bool active)
+//-----------------------------------------------------------------------------
+// [SECTION] Reset
+//-----------------------------------------------------------------------------
+
+void OptionScene::ResetSelectButton()
 {
-	isActive_ = active;
+	data_.SetSelectButton("Master");
+}
+
+void OptionScene::ResetAnimation(bool startingAnimation)
+{
+	data_.ResetAnimation(startingAnimation);
 }

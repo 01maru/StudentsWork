@@ -12,6 +12,11 @@ Vector2D& UIButton::GetPosition()
 	return parent_->GetComponent<UIPosition>()->GetPosition();
 }
 
+Vector2D& UIButton::GetSize()
+{
+	return parent_->GetComponent<UIPosition>()->GetSize();
+}
+
 const std::string& UIButton::GetButtonName()
 {
 	return name_;

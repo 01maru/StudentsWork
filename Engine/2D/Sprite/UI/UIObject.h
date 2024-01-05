@@ -39,6 +39,7 @@ private:
 	std::list<std::unique_ptr<UIComponent>> components_;
 	//	全体のcounterのポインター(実体はunique_ptrなのでdeleteいらない)
 	FrameCounter* count_ = nullptr;
+	bool* startAnimation_ = nullptr;
 
 public:
 
@@ -70,6 +71,8 @@ public:
 	*/
 	FrameCounter* GetCount();
 
+	bool GetIsStartAnimation();
+
 #pragma endregion
 
 #pragma region Setter
@@ -80,6 +83,9 @@ public:
 	* @param pCount 全体のcounterのポインター
 	*/
 	void SetCount(FrameCounter* pCount);
+	void SetStartAnimation(bool* pStartAnimation);
+
+	void ResetAnimation();
 
 #pragma endregion
 };

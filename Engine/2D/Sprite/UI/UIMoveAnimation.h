@@ -71,6 +71,8 @@ public:
 	*/
 	void SetEndPos(const Vector2D& pos);
 
+	void Reset() override;
+
 #pragma endregion
 };
 

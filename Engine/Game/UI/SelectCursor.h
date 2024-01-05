@@ -35,10 +35,10 @@ private:
 	bool isActive_ = true;
 	Sprite cursor_;
 	FrameCounter counter_;
-	Vector2D minSize_ = { 298, 82 };
-	Vector2D maxSize_ = { 298, 82 };
+	Vector2D minSize_;
+	Vector2D maxSize_;
 	//	選択中のモノのサイズ
-	Vector2D selectObjSize_;
+	Vector2D gapSize_ = Vector2D(10.0f, 10.0f);
 
 	int32_t easePawNum_ = 2;
 
@@ -60,23 +60,11 @@ public:
 	*/
 	void SetCursorPosition(const Vector2D& pos, bool playMoveSound = true);
 	/**
-	* @fn SetMinSize(const Vector2D&)
-	* カーソル拡縮アニメーションの最小サイズ変更用関数
-	* @param size カーソルの最小サイズ
+	* @fn SetSize(const Vector2D&)
+	* 選択中のモノのサイズ変更用関数
+	* @param size 選択中のモノのサイズ
 	*/
-	void SetMinSize(const Vector2D& size);
-	/**
-	* @fn SetMaxSize(const Vector2D&)
-	* カーソル拡縮アニメーションの最大サイズ変更用関数
-	* @param size カーソルの最大サイズ
-	*/
-	void SetMaxSize(const Vector2D& size);
-	///**
-	//* @fn SetSize(const Vector2D&)
-	//* 選択中のモノのサイズ変更用関数
-	//* @param size 選択中のモノのサイズ
-	//*/
-	//void SetSize(const Vector2D& size);
+	void SetButtonSize(const Vector2D& size);
 	/**
 	* @fn SetIsActive(bool)
 	* isActive_変更用関数

@@ -49,6 +49,8 @@ public:
 	*/
 	void SetParent(UIObject* parent);
 
+	virtual void Reset() {};
+
 #pragma endregion
 };
 

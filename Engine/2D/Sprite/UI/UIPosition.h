@@ -12,6 +12,7 @@ class UIPosition :public UIComponent
 private:
 	//	中心座標
 	Vector2D pos_;
+	Vector2D size_;
 
 public:
 #pragma region Getter
@@ -22,6 +23,12 @@ public:
 	* @return 座標
 	*/
 	Vector2D& GetPosition();
+	/**
+	* @fn GetSize()
+	* サイズのGetter関数
+	* @return サイズ
+	*/
+	Vector2D& GetSize();
 
 #pragma endregion
 
@@ -33,6 +40,12 @@ public:
 	* @param pos 座標の変更値
 	*/
 	void SetPosition(const Vector2D& pos);
+	/**
+	* @fn SetSize(const Vector2D&)
+	* サイズの値を変更するための関数
+	* @param size サイズの変更値
+	*/
+	void SetSize(const Vector2D& size);
 
 #pragma endregion
 };
