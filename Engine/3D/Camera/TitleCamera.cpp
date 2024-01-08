@@ -14,11 +14,11 @@ void TitleCamera::Update()
 {
 	counter_.Update();
 
-	eye_ = CameraSlerp(startEye_, endEye_, counter_.GetCountPerMaxCount()).GetVector3();
-	frontVec_ = CameraSlerp(startFront_, endFront_, counter_.GetCountPerMaxCount()).GetVector3();
-	frontVec_.Normalize();
+	//eye_ = CameraSlerp(startEye_, endEye_, counter_.GetCountPerMaxCount()).GetVector3();
+	//frontVec_ = CameraSlerp(startFront_, endFront_, counter_.GetCountPerMaxCount()).GetVector3();
+	//frontVec_.Normalize();
 
-	target_ = eye_ + frontVec_ * disEyeTarget_;
+	//target_ = eye_ + frontVec_ * disEyeTarget_;
 
 	ICamera::Update();
 }

@@ -16,6 +16,7 @@ struct DirLight
 
 struct DistanceFog
 {
+	float3 fogCenterPos;
 	float3 fogColor;
 	uint active;
 	float fogStart;

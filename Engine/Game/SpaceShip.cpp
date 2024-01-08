@@ -2,7 +2,6 @@
 #include "Easing.h"
 #include "CameraManager.h"
 
-
 using namespace Easing;
 
 void SpaceShip::Initialize(IModel* model)
@@ -138,6 +137,7 @@ void SpaceShip::Update()
 	if (isEnd_ == false) {
 		ICamera* camera = CameraManager::GetInstance()->GetMainCamera();
 		camera->SetTarget(mat_.trans_ + Vector3D(0.0f, 2.0f, 0.0f));
+		camera->Update();
 	}
 	ShakeUpdate();
 

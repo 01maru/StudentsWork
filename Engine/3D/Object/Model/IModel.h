@@ -38,7 +38,8 @@ public:
 
 	virtual void BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx) = 0;
 	void AddMaterial(Material* material) { materials_.emplace(material->name_, material); }
-
+	bool SerchMaterial(const std::string& materialName) { return materials_.find(materialName) != materials_.end(); }
+	Material* GetMaterial(const std::string& materialName) { return materials_[materialName].get(); }
 	//　Getter
 	const std::vector<Mesh>& GetMeshes() { return meshes_; }
 	const Matrix& GetModelTransform() { return globalInverseTransform_; }

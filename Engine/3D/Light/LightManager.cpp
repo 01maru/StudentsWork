@@ -1,8 +1,7 @@
 #include "LightManager.h"
-#include <cassert>
-
 #include "ImGuiController.h"
 #include "ImGuiManager.h"
+#include <cassert>
 
 using namespace CBuff;
 
@@ -11,6 +10,17 @@ LightManager* LightManager::GetInstance()
 	static LightManager instance;
 	return &instance;
 }
+
+void LightManager::Initialize()
+{
+	constBuff_.Initialize((sizeof(CBuffLightData) + 0xFF) & ~0xFF);
+
+	TransferConstBuffer();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void LightManager::TransferConstBuffer()
 {
@@ -35,6 +45,7 @@ void LightManager::TransferConstBuffer()
 
 		if (distanceFog_.GetIsActive()) {
 			constMap->distanceFog.active = 1;
+			constMap->distanceFog.centerPos = distanceFog_.GetCenterPos();
 			constMap->distanceFog.color = distanceFog_.GetColor();
 			constMap->distanceFog.start = distanceFog_.GetStart();
 			constMap->distanceFog.end = distanceFog_.GetEnd();
@@ -47,13 +58,6 @@ void LightManager::TransferConstBuffer()
 
 		constBuff_.GetResource()->Unmap(0, nullptr);
 	}
-}
-
-void LightManager::Initialize()
-{
-	constBuff_.Initialize((sizeof(CBuffLightData) + 0xFF) & ~0xFF);
-
-	TransferConstBuffer();
 }
 
 void LightManager::Update()
@@ -154,11 +158,38 @@ void LightManager::ImGuiUpdate()
 		imguiMan->ColorPicker3("Color", vec);
 		SetFogColor(vec);
 
+		vec = distanceFog_.GetCenterPos();
+		imguiMan->SetSliderFloat3("CenterPos", vec);
+		SetCenterPos(vec);
+
 		imguiMan->PopID();
 	}
 
 	imguiMan->EndWindow();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+Vector3D LightManager::GetMtlAmbient()
+{
+	return ambient_;
+}
+
+Vector3D LightManager::GetMtlDiffuse()
+{
+	return diffuse_;
+}
+
+Vector3D LightManager::GetMtlSpecular()
+{
+	return specular_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
 
 void LightManager::SetGraphicsRootCBuffView(int32_t lootparaIdx)
 {
@@ -247,5 +278,13 @@ void LightManager::SetFogColor(const Vector3D& color)
 	if (distanceFog_.GetColor() == color) return;
 
 	distanceFog_.SetColor(color);
+	dirty_ = true;
+}
+
+void LightManager::SetCenterPos(const Vector3D& center)
+{
+	if (distanceFog_.GetCenterPos() == center) return;
+
+	distanceFog_.SetCenterPos(center);
 	dirty_ = true;
 }

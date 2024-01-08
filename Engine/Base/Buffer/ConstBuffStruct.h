@@ -89,6 +89,8 @@ namespace CBuff
 
 	struct CBuffDisFogData
 	{
+		Vector3D centerPos;
+		float pad1;
 		Vector3D color;
 		bool active;
 		float start;
@@ -116,7 +118,7 @@ namespace CBuff
 	{
 		Vector3D dir;
 		float pad1;
-		Vector3D casterPos;
+		Vector3D centerPos;
 		float distanceCasterLight;
 		Vector3D atten;
 		float pad2;

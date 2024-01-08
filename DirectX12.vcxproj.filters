@@ -271,6 +271,24 @@
     <Filter Include="ヘッダー ファイル\Game\UI\GameState">
       <UniqueIdentifier>{021c3ce2-cc4f-49ba-b3ec-517095151feb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\SpaceShip">
+      <UniqueIdentifier>{bfd596a9-72b4-4c9f-8ace-1612a528236e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\EscapePod">
+      <UniqueIdentifier>{74ada9ae-e02d-4d8e-8511-b2ab0e482893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\EscapePod">
+      <UniqueIdentifier>{878c96cd-4b97-4c3d-b1f2-aac1139dc9ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\SpaceShip">
+      <UniqueIdentifier>{53469f30-c7be-45d8-a10b-74b4cb8decea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\EscapePod\State">
+      <UniqueIdentifier>{df78ba25-884c-488c-81e5-98314d9ec4d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\EscapePod\State">
+      <UniqueIdentifier>{526c62b3-0ee4-4465-b17a-3e3f4e46de9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -540,9 +558,6 @@
     <ClCompile Include="Engine\2D\Sprite\UI\SliderSprite.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\SpaceShip.cpp">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\GameOverCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
     </ClCompile>
@@ -743,6 +758,30 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\Player\CrossHair.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\EscapePod\EscapePod.cpp">
+      <Filter>ソース ファイル\Game\EscapePod</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\EscapePod\EscPodState.cpp">
+      <Filter>ソース ファイル\Game\EscapePod\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\EscapePod\PodBefCollGroundState.cpp">
+      <Filter>ソース ファイル\Game\EscapePod\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\EscapePod\PodOpenDoorState.cpp">
+      <Filter>ソース ファイル\Game\EscapePod\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\EscapePod\PodCollGroundState.cpp">
+      <Filter>ソース ファイル\Game\EscapePod\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\EscapePod\PodCameraMoveState.cpp">
+      <Filter>ソース ファイル\Game\EscapePod\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\EscapePod\PodBefOpenDoorState.cpp">
+      <Filter>ソース ファイル\Game\EscapePod\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\SpaceShip.cpp">
+      <Filter>ソース ファイル\Game\SpaceShip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1046,9 +1085,6 @@
     <ClInclude Include="Engine\2D\Sprite\UI\SliderSprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\SpaceShip.h">
-      <Filter>ヘッダー ファイル\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\GameOverCamera.h">
       <Filter>ヘッダー ファイル\Game\Camera</Filter>
     </ClInclude>
@@ -1252,6 +1288,30 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Player\CrossHair.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\EscapePod\EscapePod.h">
+      <Filter>ヘッダー ファイル\Game\EscapePod</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\EscapePod\EscPodState.h">
+      <Filter>ヘッダー ファイル\Game\EscapePod\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\EscapePod\PodOpenDoorState.h">
+      <Filter>ヘッダー ファイル\Game\EscapePod\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\EscapePod\PodCollGroundState.h">
+      <Filter>ヘッダー ファイル\Game\EscapePod\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\EscapePod\PodCameraMoveState.h">
+      <Filter>ヘッダー ファイル\Game\EscapePod\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\EscapePod\PodBefOpenDoorState.h">
+      <Filter>ヘッダー ファイル\Game\EscapePod\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\EscapePod\PodBefCollGroundState.h">
+      <Filter>ヘッダー ファイル\Game\EscapePod\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\SpaceShip.h">
+      <Filter>ヘッダー ファイル\Game\SpaceShip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

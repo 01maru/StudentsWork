@@ -27,8 +27,6 @@ void GameScene::LoadResources()
 	ModelManager* models = ModelManager::GetInstance();
 	models->LoadModel("skydome");
 	models->LoadModel("ground");
-	models->LoadModel("objCube");
-	models->LoadModel("chr_sword");
 	models->LoadModel("bullet");
 	models->LoadModel("eye");
 	models->LoadModel("human", true);

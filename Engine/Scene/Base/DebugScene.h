@@ -4,8 +4,8 @@
 #include <memory>
 
 #include "SpaceShip.h"
+#include "EscapePod.h"
 
-#include "Sprite.h"
 #include "FrameCounter.h"
 
 /**
@@ -21,10 +21,7 @@ private:
 	int32_t index = -1;
 	int32_t timer = 0;
 
-	std::unique_ptr<SpaceShip> ship_;
-
-	Sprite sprite_;
-	FrameCounter counter_;
+	std::unique_ptr<EscapePod> ship_;
 
 private:	//	関数
 	/**

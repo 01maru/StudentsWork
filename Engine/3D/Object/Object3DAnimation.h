@@ -23,6 +23,7 @@ private:
 	IModel* model_ = nullptr;
 
 public:
+	void SetAnimationIdx(int32_t idx) { animationIdx = idx; }
 	void SetAnimatonTimer(float timer) { animationTimer_ = timer; }
 	float GetAnimationTimer() const { return animationTimer_; }
 	void SetModel(IModel* model);

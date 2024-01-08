@@ -13,22 +13,9 @@
 class LightManager
 {
 private:
-	ConstBuff constBuff_;
-
-	bool dirty_ = false;
-	Vector3D ambientColor_ = { 1,1,1 };
-	DirLight dirLights_[CBuff::DIRLIGHT_NUM];
-	DistanceFog distanceFog_;
-
-	Vector3D ambient_ = { 0.8f, 0.8f, 0.8f };
-	Vector3D diffuse_ = { 0.7f, 0.7f, 0.7f };
-	Vector3D specular_= { 0.3f, 0.3f, 0.3f };
-
-private:
 	LightManager() {};
 	~LightManager() {};
 
-	void TransferConstBuffer();
 public:
 	static LightManager* GetInstance();
 	//	コピーコンストラクタ無効
@@ -57,12 +44,29 @@ public:
 	* @param lootparaIdx ルートパラメータの添え字
 	*/
 	void SetGraphicsRootCBuffView(int32_t lootparaIdx);
+	
+private:
+	ConstBuff constBuff_;
+
+	bool dirty_ = false;
+	Vector3D ambientColor_ = { 1,1,1 };
+	DirLight dirLights_[CBuff::DIRLIGHT_NUM];
+	DistanceFog distanceFog_;
+
+	Vector3D ambient_ = { 0.8f, 0.8f, 0.8f };
+	Vector3D diffuse_ = { 0.7f, 0.7f, 0.7f };
+	Vector3D specular_= { 0.3f, 0.3f, 0.3f };
+
+private:
+	void TransferConstBuffer();
+
+public:
 
 #pragma region Getter
 
-	Vector3D GetMtlAmbient()const { return ambient_; }
-	Vector3D GetMtlDiffuse()const { return diffuse_; }
-	Vector3D GetMtlSpecular()const { return specular_; }
+	Vector3D GetMtlAmbient();
+	Vector3D GetMtlDiffuse();
+	Vector3D GetMtlSpecular();
 
 #pragma endregion
 
@@ -79,6 +83,7 @@ public:
 	void SetFogNear(float fogNear);
 	void SetFogFar(float fogFar);
 	void SetFogColor(const Vector3D& color);
+	void SetCenterPos(const Vector3D& center);
 
 #pragma endregion
 };

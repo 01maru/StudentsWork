@@ -84,6 +84,7 @@ public:
 	const Vector3D& GetRotation() { return mat_.angle_; }
 	inline IModel* GetModel() { return model_; }
 	const Matrix& GetMatWorld() { return mat_.matWorld_; }
+	Object3DAnimation* GetAnimation() { return animation_.get(); }
 
 #pragma endregion
 

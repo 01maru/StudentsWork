@@ -12,7 +12,7 @@ using namespace std;
 
 FbxModel::FbxModel(const char* filename, bool smoothing)
 {
-	Initialize(filename, smoothing);
+	IModel::Initialize(filename, smoothing);
 }
 
 void FbxModel::LoadModel(const std::string& modelname, bool smoothing)
@@ -49,7 +49,7 @@ void FbxModel::LoadModel(const std::string& modelname, bool smoothing)
 		LoadBone(i, pMesh);
 
 		//	material取得
-		aiMaterial* pMaterial = modelScene->mMaterials[i];
+		aiMaterial* pMaterial = modelScene->mMaterials[0];
 
 		LoadMaterial(mesh, pMaterial->GetName().C_Str());
 
@@ -139,6 +139,11 @@ void FbxModel::LoadAnimation(const aiScene* modelScene)
 
 void FbxModel::LoadMaterial(Mesh* dst, const std::string& name)
 {
+	if (SerchMaterial(name) == TRUE) {
+		dst->SetMaterial(GetMaterial(name));
+		return;
+	}
+
 	Material* material = Material::Create();
 
 	material->name_ = name;
@@ -174,8 +179,8 @@ void FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 		vertex_.pos = Vector3D(position->x, position->y, position->z);
 		vertex_.normal = Vector3D(normal->x, normal->y, normal->z);
 		vertex_.uv = Vector2D(uv->x, uv->y);
-		vertex_.boneIndex[0] = 31;				//	bone最大許容数-1
-		vertex_.boneWeight[0] = 1.0f;			//	ボーンなし用
+		//vertex_.boneIndex[0] = 31;				//	bone最大許容数-1
+		//vertex_.boneWeight[0] = 1.0f;			//	ボーンなし用
 
 		dst.AddVertex(vertex_);
 	}

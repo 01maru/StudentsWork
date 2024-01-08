@@ -16,6 +16,8 @@ private:
 	float fogFar_ = 30.0f;
 	float fogNear_ = 0.1f;
 
+	Vector3D centerPos_;
+
 public:
 #pragma region Getter
 
@@ -31,6 +33,12 @@ public:
 	* @return color_の値
 	*/
 	const Vector3D& GetColor() { return color_; }
+	/**
+	* @fn GetCenterPos()
+	* centerPos_のGetter関数
+	* @return centerPos_の値
+	*/
+	const Vector3D& GetCenterPos() { return centerPos_; }
 	/**
 	* @fn GetStart()
 	* start_のGetter関数
@@ -72,6 +80,12 @@ public:
 	* @param color color_の変更後の値
 	*/
 	void SetColor(const Vector3D& color) { color_ = color; }
+	/**
+	* @fn SetCenterPos(const Vector3D&)
+	* centerPos_の値を変更するための関数
+	* @param centerPos centerPos_の変更後の値
+	*/
+	void SetCenterPos(const Vector3D& centerPos) { centerPos_ = centerPos; }
 	/**
 	* @fn SetStart(float)
 	* start_の値を変更するための関数

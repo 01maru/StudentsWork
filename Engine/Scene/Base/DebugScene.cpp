@@ -19,12 +19,12 @@ void DebugScene::LoadResources()
 	ModelManager* models = ModelManager::GetInstance();
 	models->LoadModel("");
 	models->LoadModel("ground");
-	models->LoadModel("objCube", true);
-	models->LoadModel("human", true);
-	models->LoadModel("spaceShip");
+	//models->LoadModel("objCube", true);
+	models->LoadModel("mixhuman", true);
+	models->LoadModel("escapePod",true);
 
-	ship_ = std::make_unique<SpaceShip>();
-	ship_->Initialize(models->GetModel("spaceShip"));
+	ship_ = std::make_unique<EscapePod>();
+	ship_->Initialize(models->GetModel("escapePod"));
 #pragma endregion
 
 	//	地面
@@ -35,18 +35,11 @@ void DebugScene::LoadResources()
 
 void DebugScene::Initialize()
 {
-	LightManager::GetInstance()->SetFogStart(0.7f);
-	LightManager::GetInstance()->SetFogEnd(3.0);
+	//LightManager::GetInstance()->SetFogStart(0.7f);
+	//LightManager::GetInstance()->SetFogEnd(3.0);
 
 	LoadResources();
 	CameraManager::GetInstance()->GetMainCamera()->Initialize(Vector3D(0.0f,-0.5f,1.0f), Vector3D(0.0f, 1.0f, 0.0f), 18.0f);
-
-	ship_->Start();
-
-	sprite_.Initialize(TextureManager::GetInstance()->GetTextureGraph("space.png"));
-	sprite_.SetPosition({ 750,400 });
-
-	counter_.Initialize(30, true);
 }
 
 void DebugScene::Finalize()
@@ -59,27 +52,14 @@ void DebugScene::MatUpdate()
 	
 	skydome_->MatUpdate();
 	ship_->MatUpdate();
-	sprite_.Update();
 }
 
 void DebugScene::Update()
 {
 #pragma region 更新処理
 
-	counter_.Update();
-
-	if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button))
-	{
-		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
-		//ship_->OpenDoor();
-	}
-	float fade = Easing::EaseIn(0.0f, 1.0f, counter_.GetCountPerMaxCount(), 2);
-	sprite_.SetColor({ 1.0f,1.0f,1.0f,fade });
 	ship_->Update();
-	if (ship_->GetIsEnd()) {
-		counter_.StartCount();
-		ship_->SetIsEnd(false);
-	}
+
 #pragma endregion
 
 	MatUpdate();
@@ -94,15 +74,18 @@ void DebugScene::ImguiUpdate()
 	imguiMan->Text("AnimationIndex : %d", index);
 
 	imguiMan->InputInt("AnimationIdx", index);
+	ship_->GetAnimation()->SetAnimationIdx(index);
 	imguiMan->InputInt("AnimationTimer", timer);
+	ship_->GetAnimation()->SetAnimatonTimer(static_cast<float>(timer));
 
+	if(imguiMan->SetButton("TitleScene")){
+		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
+	}
 	if(imguiMan->SetButton("GameScene")){
 		SceneManager::GetInstance()->SetNextScene("GAMESCENE");
 	}
 
-	if (imguiMan->SetButton("ShipMove"))	ship_->Start();
-
-	if (imguiMan->SetButton("OpenDoor"))	ship_->OpenDoor();
+	if (imguiMan->SetButton("ResetPod"))	ship_->ResetAnimation();
 
 	imguiMan->EndWindow();
 }
@@ -118,5 +101,5 @@ void DebugScene::Draw()
 
 	ship_->Draw();
 
-	sprite_.Draw();
+	ship_->DrawUI();
 }

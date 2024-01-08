@@ -1,3 +1,0 @@
-S Back backUI.png 320 121 550 80 0 0 280 64 0.5 0.5 0
-EndData Back
-

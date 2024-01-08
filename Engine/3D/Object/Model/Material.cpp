@@ -54,3 +54,13 @@ void Material::SetGraphicsRootCBuffView(uint32_t rootparaIdx)
 {
 	material_.SetGraphicsRootCBuffView(rootparaIdx);
 }
+
+int32_t Material::GetTextureHandle()
+{
+	if (texture_ == nullptr)
+	{
+		texture_ = TextureManager::GetInstance()->GetTextureGraph(Util::GetFileName(filepath_));
+	}
+
+	return texture_->GetHandle();
+}
