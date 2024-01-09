@@ -19,7 +19,9 @@ void PlayerSlowAttack::Update()
 		bullet->SetSpd(spd_);
 		bullet->SetMoveVec(sPlayer_->GetBulletFront());
 		bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
-		bullet->SetPosition(sPlayer_->GetPosition());
+		Vector3D pos = sPlayer_->GetPosition();
+		pos.y = 0.3f;
+		bullet->SetPosition(pos);
 		sPlayer_->AddBullet(bullet);
 
 		if (++bulletNum_ >= bulletMaxNum_) {

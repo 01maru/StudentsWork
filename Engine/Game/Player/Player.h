@@ -56,11 +56,15 @@ private:
 
 	float fallAcc = -0.01f;
 	float fallVYMin = -0.5f;
-	float jumpFirstSpd_ = 0.2f;
+	float jumpFirstSpd_ = 0.05f;
 
 	float avoidMaxSpd_ = 0.3f;
 
 	IGameState* pGameOverState_ = nullptr;
+
+	int16_t animationIdx_ = 0;
+	int32_t animationTimer_ = 0;
+
 private:
 	void StatusInitialize();
 	void IsMovingUpdate();
@@ -109,6 +113,10 @@ public:
 
 #pragma region Setter
 
+	void SetAnimationIdx(int16_t idx) { 
+		GetAnimation()->SetAnimationIdx(idx);
+		animationIdx_ = idx; }
+	void SetAnimationTimer(int32_t timer) { animationTimer_ = timer; }
 	void SetMoveState(std::unique_ptr<PlayerMoveState>& moveState);
 	void SetAttackState(std::unique_ptr<PlayerAttackState>& attackState);
 	void SetSpd(float spd);

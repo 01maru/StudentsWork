@@ -29,7 +29,8 @@ void GameScene::LoadResources()
 	models->LoadModel("ground");
 	models->LoadModel("bullet");
 	models->LoadModel("eye");
-	models->LoadModel("human", true);
+	models->LoadModel("mixhuman", true);
+	models->LoadModel("mixhuman", true);
 	models->LoadModel();
 #pragma endregion
 	level.LoadJSON("game");
@@ -43,7 +44,7 @@ void GameScene::LoadResources()
 	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
 	//	player
 	player_ = std::make_unique<Player>();
-	player_->Initialize(models->GetModel(""));
+	player_->Initialize(models->GetModel("mixhuman"));
 	//	enemy
 	enemy_ = std::make_unique<Boss>();
 	enemy_->Initialize(models->GetModel("eye"));

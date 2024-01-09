@@ -28,9 +28,8 @@ void Player::StatusInitialize()
 {
 	//	初期ステート
 	moveState_ = std::make_unique<PlayerIdleState>();
-	PlayerMoveState::SetPlayer(this);
+	moveState_->Initialize();
 	attackState_ = std::make_unique<PlayerNoAttackState>();
-	PlayerAttackState::SetPlayer(this);
 
 	avoidCT_.SetMaxTime(avoidCoolTime_);
 	avoidCT_.Initialize();
@@ -43,10 +42,14 @@ void Player::Initialize(IModel* model)
 {
 	Object3D::Initialize();
 	SetModel(model);
-	float radius = 0.5f;
-	Vector3D offset;
+	mat_.scale_ = Vector3D(0.4f, 0.4f, 0.4f);
+	float radius = 0.2f;
+	Vector3D offset(0.0f, 0.2f, 0.0f);
 	SetCollider(new SphereCollider(offset, radius));
 	collider_->SetAttribute(COLLISION_ATTR_ALLIES);
+
+	PlayerMoveState::SetPlayer(this);
+	PlayerAttackState::SetPlayer(this);
 
 	StatusInitialize();
 }
@@ -101,6 +104,8 @@ void Player::JumpUpdate()
 			onGround_ = false;
 			//	playerの状態に応じて変更予定
 			moveY_ = jumpFirstSpd_;
+			//SetAnimationIdx(1);
+			//SetAnimationTimer(0);
 
 			//	playJumpwav
 		}
@@ -124,6 +129,8 @@ void Player::Update()
 		return;
 	}
 
+	GetAnimation()->SetAnimatonTimer(static_cast<float>(animationTimer_++));
+
 	IsMovingUpdate();
 
 	//	modelの正面(走らなくする判定もここで)
@@ -143,7 +150,7 @@ void Player::Update()
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	Vector3D target = mat_.trans_;
 	target += camera->GetFrontVec() * 3.0f;
-	target.y += 1.0f;
+	target.y += 2.0f;
 	camera->SetTarget(target);
 	//	eyeも動かす
 	camera->SetEye(target - camera->GetDisEyeTarget() * camera->GetFrontVec());
@@ -197,6 +204,8 @@ void Player::ImGuiUpdate()
 
 	crossHair_.ImGuiUpdate();
 
+	imgui->Text("animationIdx : %d", animationIdx_);
+	imgui->Text("animationTimer : %d", animationTimer_);
 	imgui->Text("angle : %.2f", mat_.angle_.y);
 	imgui->Text("bullet : %d", bullets_.size());
 	imgui->Text("bulletRate : %d", rate_.GetFrameCount());

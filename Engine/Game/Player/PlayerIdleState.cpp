@@ -5,6 +5,12 @@
 #include "InputManager.h"
 #include <memory>
 
+void PlayerIdleState::Initialize()
+{
+	sPlayer_->SetAnimationIdx(0);
+	sPlayer_->SetAnimationTimer(0);
+}
+
 void PlayerIdleState::Update()
 {
 	//	急に止まる原因(後で修正)

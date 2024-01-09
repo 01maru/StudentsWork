@@ -22,10 +22,22 @@ private:
 
 	IModel* model_ = nullptr;
 
+	bool isLoop_ = false;
+	bool isEnd_ = false;
+
 public:
+#pragma region Getter
+
+	float GetAnimationTimer() const { return animationTimer_; }
+
+#pragma endregion
+
+#pragma region Setter
+
 	void SetAnimationIdx(int32_t idx) { animationIdx = idx; }
 	void SetAnimatonTimer(float timer) { animationTimer_ = timer; }
-	float GetAnimationTimer() const { return animationTimer_; }
 	void SetModel(IModel* model);
+
+#pragma endregion
 };
 

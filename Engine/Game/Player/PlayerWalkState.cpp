@@ -4,6 +4,12 @@
 #include "Player.h"
 #include "InputManager.h"
 
+void PlayerWalkState::Initialize()
+{
+	sPlayer_->SetAnimationIdx(4);
+	sPlayer_->SetAnimationTimer(0);
+}
+
 void PlayerWalkState::Update()
 {
 	SpdUpdate();
