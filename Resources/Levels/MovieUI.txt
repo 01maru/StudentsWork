@@ -1,0 +1,11 @@
+Timer 60
+
+S top white1x1.png 0 0 100 100 0 0 1 1 0 0 0
+AnimeTimer 40 0
+Scaling 0 50 1280 50
+EndData Top
+
+S bot white1x1.png 1280 720 100 100 0 0 1 1 1 1 0
+AnimeTimer 40 0
+Scaling 0 50 1280 50
+EndData Bot

@@ -11,6 +11,7 @@
 #include "UISprite.h"
 #include "UIRotation.h"
 #include "SliderSprite.h"
+#include "UIScaling.h"
 
 void UIData::Finalize()
 {
@@ -181,6 +182,19 @@ void UIData::LoadData(const std::string& filename)
 			line_stream >> pos.x;
 			line_stream >> pos.y;
 			uiMove->SetEndPos(pos);
+		}
+		if (key == "Scaling") {
+			UIScaling* uiScaling = object->AddComponent<UIScaling>();
+			uiScaling->Initialize();
+
+			Vector2D size;
+			line_stream >> size.x;
+			line_stream >> size.y;
+			uiScaling->SetStartSize(size);
+
+			line_stream >> size.x;
+			line_stream >> size.y;
+			uiScaling->SetEndSize(size);
 		}
 		if (key == "FadeAnime") {
 			UIFadeAnimation* uiFade = object->AddComponent<UIFadeAnimation>();

@@ -175,6 +175,7 @@
     <ClCompile Include="Engine\Game\EscapePod\PodCameraMoveState.cpp" />
     <ClCompile Include="Engine\Game\EscapePod\PodCollGroundState.cpp" />
     <ClCompile Include="Engine\Game\EscapePod\PodOpenDoorState.cpp" />
+    <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Game\Bonfire.h" />
@@ -353,6 +354,7 @@
     <ClInclude Include="Engine\Game\EscapePod\PodCameraMoveState.h" />
     <ClInclude Include="Engine\Game\EscapePod\PodCollGroundState.h" />
     <ClInclude Include="Engine\Game\EscapePod\PodOpenDoorState.h" />
+    <ClInclude Include="Engine\2D\Sprite\UI\UIScaling.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

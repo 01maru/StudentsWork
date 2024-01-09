@@ -783,6 +783,9 @@
     <ClCompile Include="Engine\Game\SpaceShip.cpp">
       <Filter>ソース ファイル\Game\SpaceShip</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp">
+      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -1312,6 +1315,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\SpaceShip.h">
       <Filter>ヘッダー ファイル\Game\SpaceShip</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\UI\UIScaling.h">
+      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

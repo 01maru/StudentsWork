@@ -69,7 +69,7 @@ void TitleUI::TitleInputUpdate(bool dikSelectButton)
 			//	カメラ動かす
 
 			//	ゲームシーンへ
-			SceneManager::GetInstance()->SetNextScene("DEBUGSCENE");
+			SceneManager::GetInstance()->SetNextScene("GAMESCENE");
 		}
 
 		//	Option選択中だったら

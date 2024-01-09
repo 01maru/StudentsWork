@@ -1,4 +1,4 @@
-Timer 20
+Timer 300
 
 S Text clear.png 640 360 354 82 0 0 354 82 0.5 0.5 0
 AnimeTimer 30 0
