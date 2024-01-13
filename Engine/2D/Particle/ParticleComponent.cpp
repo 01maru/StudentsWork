@@ -5,7 +5,7 @@
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void ParticleComponent::SetParent(Particle* parent)
+void MNE::ParticleComponent::SetParent(MNE::Particle* parent)
 {
 	parent_ = parent;
 }

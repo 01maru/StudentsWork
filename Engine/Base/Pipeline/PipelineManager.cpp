@@ -1,13 +1,13 @@
 #include "PipelineManager.h"
 #include "Shader.h"
 
-PipelineManager* PipelineManager::GetInstance()
+MNE::PipelineManager* MNE::PipelineManager::GetInstance()
 {
 	static PipelineManager instance;
 	return &instance;
 }
 
-void PipelineManager::InitializeSprite()
+void MNE::PipelineManager::InitializeSprite()
 {
 #pragma region Sprite
 	//	Nonblend以外
@@ -46,7 +46,7 @@ void PipelineManager::InitializeSprite()
 #pragma endregion
 }
 
-void PipelineManager::InitializeParticle()
+void MNE::PipelineManager::InitializeParticle()
 {
 #pragma region Particle
 	particlePipeline_.reserve(4);
@@ -70,7 +70,7 @@ void PipelineManager::InitializeParticle()
 #pragma endregion
 }
 
-void PipelineManager::InitializePostEffect()
+void MNE::PipelineManager::InitializePostEffect()
 {
 #pragma region PostEffect
 
@@ -133,7 +133,7 @@ void PipelineManager::InitializePostEffect()
 #pragma endregion
 }
 
-void PipelineManager::InitializeModel()
+void MNE::PipelineManager::InitializeModel()
 {
 	size_t blendMordNum = 5;
 
@@ -200,7 +200,7 @@ void PipelineManager::InitializeModel()
 #pragma endregion
 }
 
-void PipelineManager::Initialize()
+void MNE::PipelineManager::Initialize()
 {
 	InitializeModel();
 
@@ -211,7 +211,7 @@ void PipelineManager::Initialize()
 	InitializeParticle();
 }
 
-GPipeline* PipelineManager::GetPipeline(const std::string& name, Blend::BlendMord blend)
+MNE::GPipeline* MNE::PipelineManager::GetPipeline(const std::string& name, Blend::BlendMord blend)
 {
 	if (name == "Model") {
 		return modelPipeline_[blend].get();

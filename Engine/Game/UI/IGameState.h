@@ -10,7 +10,7 @@ public:
 	virtual void Draw() = 0;
 
 protected:
-	UIData data_;
+	MNE::UIData data_;
 	bool isActive_ = false;
 
 public:

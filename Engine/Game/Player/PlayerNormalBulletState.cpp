@@ -3,6 +3,8 @@
 
 #include "ModelManager.h"
 
+using namespace MNE;
+
 void PlayerNormalBulletState::Initialize()
 {
 	sPlayer_->SetBulletRate(sPlayer_->GetBulletRate());

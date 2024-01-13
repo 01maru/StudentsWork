@@ -7,17 +7,18 @@
 #include "ConvertString.h"
 
 #include <DirectXTex.h>
+
 using namespace DirectX;
 
-Texture* TextureManager::sWhiteTexHandle = nullptr;
+MNE::Texture* MNE::TextureManager::sWhiteTexHandle = nullptr;
 
-TextureManager* TextureManager::GetInstance()
+MNE::TextureManager* MNE::TextureManager::GetInstance()
 {
 	static TextureManager instance;
 	return &instance;
 }
 
-void TextureManager::Initialize()
+void MNE::TextureManager::Initialize()
 {
 	ID3D12Device* device = MyDirectX::GetInstance()->GetDev();
 
@@ -64,7 +65,7 @@ void TextureManager::Initialize()
 	previewSprite_->Initialize();
 }
 
-void TextureManager::ImGuiTexUpdate()
+void MNE::TextureManager::ImGuiTexUpdate()
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
@@ -93,7 +94,7 @@ void TextureManager::ImGuiTexUpdate()
 	imguiMan->EndChild();
 }
 
-void TextureManager::ImGuiPreviewUpdate()
+void MNE::TextureManager::ImGuiPreviewUpdate()
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
@@ -111,7 +112,7 @@ void TextureManager::ImGuiPreviewUpdate()
 	previewSprite_->SetSize(texsize * previewSize_);
 }
 
-void TextureManager::ImGuiUpdate()
+void MNE::TextureManager::ImGuiUpdate()
 {
 	if (!ImGuiController::GetInstance()->GetActiveTextureManager()) return;
 
@@ -144,7 +145,7 @@ void TextureManager::ImGuiUpdate()
 	PreviewUpdate();
 }
 
-void TextureManager::PreviewUpdate()
+void MNE::TextureManager::PreviewUpdate()
 {
 	if (!drawPreview_) return;
 
@@ -155,7 +156,7 @@ void TextureManager::PreviewUpdate()
 	previewSprite_->Update();
 }
 
-void TextureManager::DrawPreview()
+void MNE::TextureManager::DrawPreview()
 {
 	if (!drawPreview_)	return;
 
@@ -163,7 +164,7 @@ void TextureManager::DrawPreview()
 	previewSprite_->Draw();
 }
 
-Texture* TextureManager::GetTextureGraph(const std::string& textureName)
+MNE::Texture* MNE::TextureManager::GetTextureGraph(const std::string& textureName)
 {
 	//	既に画像読み込まれているかの確認
 	if (textures_.count(textureName) != 0) {
@@ -173,7 +174,7 @@ Texture* TextureManager::GetTextureGraph(const std::string& textureName)
 	return nullptr;
 }
 
-Texture* TextureManager::LoadTextureGraph(const std::string& textureName, const std::string& path)
+MNE::Texture* MNE::TextureManager::LoadTextureGraph(const std::string& textureName, const std::string& path)
 {
 	HRESULT result;
 	TexMetadata metadata{};
@@ -343,7 +344,7 @@ Texture* TextureManager::LoadTextureGraph(const std::string& textureName, const 
 	return texture;
 }
 
-Texture* TextureManager::AsyncLoadTextureGraph(const std::string& textureName, const std::string& path)
+MNE::Texture* MNE::TextureManager::AsyncLoadTextureGraph(const std::string& textureName, const std::string& path)
 {
 	HRESULT result;
 	TexMetadata metadata{};
@@ -513,7 +514,7 @@ Texture* TextureManager::AsyncLoadTextureGraph(const std::string& textureName, c
 	return texture;
 }
 
-Texture* TextureManager::CreateNoneGraphTexture(const std::string& texName)
+MNE::Texture* MNE::TextureManager::CreateNoneGraphTexture(const std::string& texName)
 {
 	if (textures_.size() >= texExist_.size()) texExist_.emplace_back();
 	int32_t index = 0;		//	画像のindex
@@ -542,7 +543,7 @@ Texture* TextureManager::CreateNoneGraphTexture(const std::string& texName)
 	return texture;
 }
 
-void TextureManager::UploadTexture()
+void MNE::TextureManager::UploadTexture()
 {
 	if (textureUploadBuff_.empty()) return;
 
@@ -582,7 +583,7 @@ void TextureManager::UploadTexture()
 #pragma endregion ChangeScreen
 }
 
-void TextureManager::AsyncUploadTexture()
+void MNE::TextureManager::AsyncUploadTexture()
 {
 	if (asyncUploadBuff_.empty()) return;
 
@@ -622,7 +623,7 @@ void TextureManager::AsyncUploadTexture()
 #pragma endregion ChangeScreen
 }
 
-void TextureManager::DeleteTextureData(const std::string& textureName)
+void MNE::TextureManager::DeleteTextureData(const std::string& textureName)
 {
 	//	データがあったら
 	assert(textures_.count(textureName) != 0);
@@ -636,7 +637,7 @@ void TextureManager::DeleteTextureData(const std::string& textureName)
 	textures_.erase(textureName);
 }
 
-D3D12_GPU_DESCRIPTOR_HANDLE TextureManager::GetTextureHandle(int32_t handle)
+D3D12_GPU_DESCRIPTOR_HANDLE MNE::TextureManager::GetTextureHandle(int32_t handle)
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 	UINT incrementSize = dx->GetDev()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);

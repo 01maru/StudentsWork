@@ -8,17 +8,17 @@
 #include "PipelineManager.h"
 #include "RootParameterIdx.h"
 
-void Object3DShadow::Initialize()
+void MNE::Object3DShadow::Initialize()
 {
 	HRESULT result;
 
-	shadowTransform_.Initialize(sizeof(CBuff::CBuffObj3DTransform));
+	shadowTransform_.Initialize(sizeof(MNE::CBuff::CBuffObj3DTransform));
 	//	定数バッファのマッピング
 	result = shadowTransform_.GetResource()->Map(0, nullptr, (void**)&cShadowTransMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 }
 
-void Object3DShadow::MatUpdate()
+void MNE::Object3DShadow::MatUpdate()
 {
 	const Matrix& matView_ = CameraManager::GetInstance()->GetLightCamera()->GetViewProj();
 
@@ -34,7 +34,7 @@ void Object3DShadow::MatUpdate()
 	}
 }
 
-void Object3DShadow::Draw()
+void MNE::Object3DShadow::Draw()
 {
 	GPipeline* pipeline_ = PipelineManager::GetInstance()->GetPipeline("Shadow");
 	pipeline_->SetGraphicsRootSignature();
@@ -53,7 +53,7 @@ void Object3DShadow::Draw()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void Object3DShadow::SetParent(Object3D* parent)
+void MNE::Object3DShadow::SetParent(Object3D* parent)
 {
 	parent_ = parent;
 }

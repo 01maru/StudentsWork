@@ -1,44 +1,49 @@
-﻿#pragma once
+#pragma once
 #include "Quaternion.h"
 #include "Vector3D.h"
 #include "Matrix.h"
 #include <vector>
 #include <string>
 
-struct Key
+namespace MNE
 {
-	float time;
-	Vector3D value;
-};
 
-struct RotKey
-{
-	float time;
-	Quaternion value;
-};
+	struct Key
+	{
+		float time;
+		Vector3D value;
+	};
 
-struct KeyChannels
-{
-	//	対応するノードの名前
-	std::string nodeName;
+	struct RotKey
+	{
+		float time;
+		Quaternion value;
+	};
 
-	std::vector<Key> positionKeys;
-	std::vector<Key> scalingKeys;
-	std::vector<RotKey> rotationKeys;
-};
+	struct KeyChannels
+	{
+		//	対応するノードの名前
+		std::string nodeName;
 
-struct AnimationData
-{
-	//	frame/1sec
-	float ticksPerSecond;
-	//	アニメーション1Loopのframe数
-	float duration;
+		std::vector<Key> positionKeys;
+		std::vector<Key> scalingKeys;
+		std::vector<RotKey> rotationKeys;
+	};
 
-	std::vector<KeyChannels> channels;
-};
+	struct AnimationData
+	{
+		//	frame/1sec
+		float ticksPerSecond;
+		//	アニメーション1Loopのframe数
+		float duration;
 
-struct Node
-{
-	Matrix transformation;
-	std::vector<std::string> childrenName;
-};
+		std::vector<KeyChannels> channels;
+	};
+
+	struct Node
+	{
+		Matrix transformation;
+		std::vector<std::string> childrenName;
+	};
+
+}

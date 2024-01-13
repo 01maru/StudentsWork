@@ -6,6 +6,7 @@
 #include "PodBefOpenDoorState.h"
 
 using namespace Easing;
+using namespace MNE;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize

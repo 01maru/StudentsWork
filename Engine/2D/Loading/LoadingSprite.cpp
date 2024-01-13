@@ -4,14 +4,14 @@
 
 using namespace Easing;
 
-void LoadingSprite::Initialize()
+void MNE::LoadingSprite::Initialize()
 {
 	Sprite::Initialize();
 
     Sprite::SetColor(color_);
 }
 
-void LoadingSprite::Update()
+void MNE::LoadingSprite::Update()
 {
     ILoadingObj::Update();
 
@@ -30,25 +30,25 @@ void LoadingSprite::Update()
     Sprite::Update();
 }
 
-void LoadingSprite::Draw()
+void MNE::LoadingSprite::Draw()
 {
     Sprite::Draw(PipelineManager::GetInstance()->GetPipeline("LoadingSprite"));
 }
 
-void LoadingSprite::Start()
+void MNE::LoadingSprite::Start()
 {
     Reset();
     timer_.StartCount();
 }
 
-void LoadingSprite::Reset()
+void MNE::LoadingSprite::Reset()
 {
     timer_.Initialize(10, true, true, 2);
     Sprite::SetSize(Vector2D(maxSize_, maxSize_));
     Sprite::Update();
 }
 
-void LoadingSprite::SetMaxSize(float size)
+void MNE::LoadingSprite::SetMaxSize(float size)
 {
     maxSize_ = size;
 }

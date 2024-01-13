@@ -5,13 +5,13 @@
 #include "MyDebugCamera.h"
 #include "ModelManager.h"
 
-CameraManager* CameraManager::GetInstance()
+MNE::CameraManager* MNE::CameraManager::GetInstance()
 {
     static CameraManager instance;
     return &instance;
 }
 
-void CameraManager::Initialize()
+void MNE::CameraManager::Initialize()
 {
 #ifdef NDEBUG
 	isDebug_ = false;
@@ -28,7 +28,7 @@ void CameraManager::Initialize()
 #endif // _DEBUG
 }
 
-void CameraManager::TargetUpdate()
+void MNE::CameraManager::TargetUpdate()
 {
 	if (!drawTarget_) return;
 
@@ -40,7 +40,7 @@ void CameraManager::TargetUpdate()
 	targetObj_->MatUpdate();
 }
 
-void CameraManager::Update()
+void MNE::CameraManager::Update()
 {
 	if (isDebug_)						debugCamera_->Update();
 	if (mainCamera_ != nullptr)			mainCamera_->Update();
@@ -50,7 +50,7 @@ void CameraManager::Update()
 	TargetUpdate();
 }
 
-void CameraManager::SetDebugCameraPosToMain()
+void MNE::CameraManager::SetDebugCameraPosToMain()
 {
 	//	mainCameraがセットされていなかったら
 	if (mainCamera_ == nullptr) return;
@@ -58,7 +58,7 @@ void CameraManager::SetDebugCameraPosToMain()
 	debugCamera_->Initialize(mainCamera_->GetEye(), mainCamera_->GetTarget(), mainCamera_->GetUp());
 }
 
-void CameraManager::ImGuiCameraInfo(ICamera* camera, const std::string& name)
+void MNE::CameraManager::ImGuiCameraInfo(ICamera* camera, const std::string& name)
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
@@ -84,7 +84,7 @@ void CameraManager::ImGuiCameraInfo(ICamera* camera, const std::string& name)
 	imguiMan->PopID();
 }
 
-void CameraManager::ImGuiUpdate()
+void MNE::CameraManager::ImGuiUpdate()
 {
     if (!ImGuiController::GetInstance()->GetActiveCameraManager()) return;
 
@@ -120,14 +120,14 @@ void CameraManager::ImGuiUpdate()
 	imguiMan->EndWindow();
 }
 
-void CameraManager::DrawTarget()
+void MNE::CameraManager::DrawTarget()
 {
 	if (!drawTarget_) return;
 
 	targetObj_->Draw();
 }
 
-ICamera* CameraManager::GetCamera()
+MNE::ICamera* MNE::CameraManager::GetCamera()
 {
 	if (lightView_) return lightCamera_.get();
 	if (isDebug_) return debugCamera_.get();
@@ -135,22 +135,22 @@ ICamera* CameraManager::GetCamera()
 	return mainCamera_.get();
 }
 
-ICamera* CameraManager::GetLightCamera()
+MNE::ICamera* MNE::CameraManager::GetLightCamera()
 {
 	return lightCamera_.get();
 }
 
-ICamera* CameraManager::GetMainCamera()
+MNE::ICamera* MNE::CameraManager::GetMainCamera()
 {
 	return mainCamera_.get();
 }
 
-ICamera* CameraManager::GetDebugCamera()
+MNE::ICamera* MNE::CameraManager::GetDebugCamera()
 {
 	return debugCamera_.get();
 }
 
-ICamera* CameraManager::GetOrthoProjCamera()
+MNE::ICamera* MNE::CameraManager::GetOrthoProjCamera()
 {
 	return orthoProjCamera_.get();
 }

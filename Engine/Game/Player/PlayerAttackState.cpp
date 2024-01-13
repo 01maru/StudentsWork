@@ -5,6 +5,8 @@
 #include "PlayerSlowAttack.h"
 #include "PlayerNoAttackState.h"
 
+using namespace MNE;
+
 Player* PlayerAttackState::sPlayer_ = nullptr;
 
 std::unique_ptr<PlayerAttackState> PlayerAttackState::SetNextState(int32_t nowState)

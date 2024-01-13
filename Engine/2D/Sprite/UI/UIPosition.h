@@ -7,46 +7,50 @@
 * @brief UIObjectで座標を使うためのファイル
 */
 
-class UIPosition :public UIComponent
+namespace MNE
 {
-private:
-	//	中心座標
-	Vector2D pos_;
-	Vector2D size_;
 
-public:
-#pragma region Getter
+	class UIPosition :public UIComponent
+	{
+	private:
+		//	中心座標
+		Vector2D pos_;
+		Vector2D size_;
 
-	/**
-	* @fn GetPosition()
-	* 座標のGetter関数
-	* @return 座標
-	*/
-	Vector2D& GetPosition();
-	/**
-	* @fn GetSize()
-	* サイズのGetter関数
-	* @return サイズ
-	*/
-	Vector2D& GetSize();
+	public:
+	#pragma region Getter
 
-#pragma endregion
+		/**
+		* @fn GetPosition()
+		* 座標のGetter関数
+		* @return 座標
+		*/
+		Vector2D& GetPosition();
+		/**
+		* @fn GetSize()
+		* サイズのGetter関数
+		* @return サイズ
+		*/
+		Vector2D& GetSize();
 
-#pragma region Setter
+	#pragma endregion
 
-	/**
-	* @fn SetPosition(const Vector2D&)
-	* 座標の値を変更するための関数
-	* @param pos 座標の変更値
-	*/
-	void SetPosition(const Vector2D& pos);
-	/**
-	* @fn SetSize(const Vector2D&)
-	* サイズの値を変更するための関数
-	* @param size サイズの変更値
-	*/
-	void SetSize(const Vector2D& size);
+	#pragma region Setter
 
-#pragma endregion
-};
+		/**
+		* @fn SetPosition(const Vector2D&)
+		* 座標の値を変更するための関数
+		* @param pos 座標の変更値
+		*/
+		void SetPosition(const Vector2D& pos);
+		/**
+		* @fn SetSize(const Vector2D&)
+		* サイズの値を変更するための関数
+		* @param size サイズの変更値
+		*/
+		void SetSize(const Vector2D& size);
 
+	#pragma endregion
+	};
+
+}

@@ -8,11 +8,11 @@ class IModel;
 class Player;
 class IGameState;
 
-class Boss :public Object3D
+class Boss :public MNE::Object3D
 {
 public:
 	void StatusInitialize();
-	void Initialize(IModel* model);
+	void Initialize(MNE::IModel* model);
 	void Update();
 	void ImGuiUpdate();
 	void DrawBullets();
@@ -58,7 +58,7 @@ public:
 	void SetPosition(const Vector3D& pos) { mat_.trans_ = pos; }
 	void SetCurrentState(std::unique_ptr<EnemyState>& next);
 	void SetPlayer(Player* player);
-	void SetHPBarSprite(const Sprite& sprite);
+	void SetHPBarSprite(const MNE::Sprite& sprite);
 	void SetBodyAttack(bool attackFlag);
 	void SetClearState(IGameState* clearState);
 

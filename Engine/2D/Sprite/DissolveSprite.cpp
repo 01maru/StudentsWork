@@ -7,7 +7,7 @@
 #include "DirectX.h"
 #include "RootParameterIdx.h"
 
-void DissolveSprite::Initialize(Texture* texture)
+void MNE::DissolveSprite::Initialize(Texture* texture)
 {
 	Sprite::Initialize(texture);
 
@@ -21,7 +21,7 @@ void DissolveSprite::Initialize(Texture* texture)
 #pragma endregion
 }
 
-void DissolveSprite::Update()
+void MNE::DissolveSprite::Update()
 {
 	Sprite::Update();
 
@@ -34,7 +34,7 @@ void DissolveSprite::Update()
 	}
 }
 
-void DissolveSprite::Draw(GPipeline* pipeline)
+void MNE::DissolveSprite::Draw(GPipeline* pipeline)
 {
 	if (isInvisible_) return;
 
@@ -47,7 +47,7 @@ void DissolveSprite::Draw(GPipeline* pipeline)
 
 	IASetVertIdxBuff();
 
-	int32_t nextIdx = Zero;
+	int32_t nextIdx = MNE::Zero;
 	//	テクスチャ
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(handle_->GetHandle()));
 
@@ -61,7 +61,7 @@ void DissolveSprite::Draw(GPipeline* pipeline)
 	MyDirectX::GetInstance()->GetCmdList()->DrawInstanced(VertexSize, 1, 0, 0);
 }
 
-void DissolveSprite::SetDissolveValue(float value)
+void MNE::DissolveSprite::SetDissolveValue(float value)
 {
 	if (disolveValue_ != value)
 	{

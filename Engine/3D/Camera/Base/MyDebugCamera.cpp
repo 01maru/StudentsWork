@@ -6,7 +6,7 @@
 
 #include "ImGuiManager.h"
 
-void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
+void MNE::MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
 {
 	mouse_ = InputManager::GetInstance()->GetMouse();
 	keyboard_ = InputManager::GetInstance()->GetKeyboard();
@@ -14,7 +14,7 @@ void MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, cons
 	ICamera::Initialize(eye, target, up);
 }
 
-void MyDebugCamera::SetMoveMode(bool active)
+void MNE::MyDebugCamera::SetMoveMode(bool active)
 {
 	if (!active) return;
 
@@ -24,7 +24,7 @@ void MyDebugCamera::SetMoveMode(bool active)
 	else			mode_ = RotationMove;
 }
 
-void MyDebugCamera::CalcDisEyeToTarget()
+void MNE::MyDebugCamera::CalcDisEyeToTarget()
 {
 	//	キー入力
 	disEyeTarget_ -= mouse_->GetWheel() * (disEyeTarget_ * frontMoveSpd_);
@@ -32,7 +32,7 @@ void MyDebugCamera::CalcDisEyeToTarget()
 	disEyeTarget_ = MyMath::mMax(disEyeTarget_, MIN_EYE_TO_TARGET);
 }
 
-Vector3D MyDebugCamera::CalcTransMove(bool active)
+Vector3D MNE::MyDebugCamera::CalcTransMove(bool active)
 {
 	Vector3D ans;
 
@@ -52,7 +52,7 @@ Vector3D MyDebugCamera::CalcTransMove(bool active)
 	return ans;
 }
 
-void MyDebugCamera::CalcRotMove(bool active)
+void MNE::MyDebugCamera::CalcRotMove(bool active)
 {
 	if (!active)					return;
 	if (mode_ == TranslationMove)	return;
@@ -63,7 +63,7 @@ void MyDebugCamera::CalcRotMove(bool active)
 	rotValue_ = moveCursor;
 }
 
-void MyDebugCamera::SetPosition(const Vector3D& moveTarget)
+void MNE::MyDebugCamera::SetPosition(const Vector3D& moveTarget)
 {
 	Quaternion rightMove = MakeAxisAngle(rightVec_, rotValue_.y);
 	Quaternion upMove = MakeAxisAngle(Vector3D(0, 1, 0), rotValue_.x);
@@ -79,7 +79,7 @@ void MyDebugCamera::SetPosition(const Vector3D& moveTarget)
 	eye_ = target_ - disEyeTarget_ * frontVec_;
 }
 
-void MyDebugCamera::Update()
+void MNE::MyDebugCamera::Update()
 {
 	rotValue_ = Vector2D();
 	bool dikWheel = mouse_->GetClick(InputMouse::WheelClick);
@@ -98,7 +98,7 @@ void MyDebugCamera::Update()
 	ICamera::Update();
 }
 
-void MyDebugCamera::ImGuiInfo()
+void MNE::MyDebugCamera::ImGuiInfo()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 

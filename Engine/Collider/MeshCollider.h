@@ -1,10 +1,15 @@
-﻿#pragma once
+#pragma once
 #include "BaseCollider.h"
 #include "CollisionPrimitive.h"
 #include <vector>
 #include "Matrix.h"
 
-class IModel;
+namespace MNE
+{
+
+	class IModel;
+	
+}
 
 class MeshCollider :public BaseCollider
 {
@@ -14,7 +19,7 @@ private:
 
 public:
 	MeshCollider() { shapeType_ = COLLISIONSHAPE_MESH; }
-	void ConstructTriangles(IModel* model);
+	void ConstructTriangles(MNE::IModel* model);
 	void Update() override;
 
 	//	CheckCollision

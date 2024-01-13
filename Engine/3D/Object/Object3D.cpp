@@ -16,7 +16,7 @@
 
 #include "RootParameterIdx.h"
 
-Object3D::~Object3D()
+MNE::Object3D::~Object3D()
 {
 	if (collider_) {
 		collider_->Finalize();
@@ -25,18 +25,18 @@ Object3D::~Object3D()
 	}
 }
 
-void Object3D::Initialize()
+void MNE::Object3D::Initialize()
 {
 	HRESULT result;
 
 #pragma region ConstBuff
 
-	transform_.Initialize(sizeof(CBuff::CBuffObj3DTransform));
+	transform_.Initialize(sizeof(MNE::CBuff::CBuffObj3DTransform));
 	//	定数バッファのマッピング
 	result = transform_.GetResource()->Map(0, nullptr, (void**)&cTransformMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
-	colorMaterial_.Initialize(sizeof(CBuff::CBuffColorMaterial));
+	colorMaterial_.Initialize(sizeof(MNE::CBuff::CBuffColorMaterial));
 	//	定数バッファのマッピング
 	result = colorMaterial_.GetResource()->Map(0, nullptr, (void**)&cColorMap_);	//	マッピング
 	assert(SUCCEEDED(result));
@@ -53,14 +53,14 @@ void Object3D::Initialize()
 	animation_->Initialize();
 }
 
-void Object3D::ColliderUpdate()
+void MNE::Object3D::ColliderUpdate()
 {
 	if (collider_) {
 		collider_->Update();
 	}
 }
 
-void Object3D::MatUpdate(bool calcRot)
+void MNE::Object3D::MatUpdate(bool calcRot)
 {
 #pragma region WorldMatrix
 	mat_.Update(calcRot);
@@ -71,7 +71,7 @@ void Object3D::MatUpdate(bool calcRot)
 		mat_.matWorld_ *= parent_->mat_.matWorld_;
 	}
 
-	ICamera* cam = nullptr;
+	MNE::ICamera* cam = nullptr;
 	if (camera_ != nullptr) {
 		cam = camera_;
 	}
@@ -98,7 +98,7 @@ void Object3D::MatUpdate(bool calcRot)
 	animation_->MatUpdate();
 }
 
-void Object3D::DrawShadow()
+void MNE::Object3D::DrawShadow()
 {
 	//	影を生成しないなら
 	if (!shadowing_) return;
@@ -106,7 +106,7 @@ void Object3D::DrawShadow()
 	shadow_->Draw();
 }
 
-void Object3D::DrawModel(int32_t& rootParaIdx)
+void MNE::Object3D::DrawModel(int32_t& rootParaIdx)
 {
 	transform_.SetGraphicsRootCBuffView(rootParaIdx++);
 	LightManager::GetInstance()->SetGraphicsRootCBuffView(rootParaIdx++);
@@ -116,7 +116,7 @@ void Object3D::DrawModel(int32_t& rootParaIdx)
 	model_->Draw(rootParaIdx++);
 }
 
-void Object3D::DrawShadowReciever(int32_t& nextIdx)
+void MNE::Object3D::DrawShadowReciever(int32_t& nextIdx)
 {
 	//	影の影響を受けないなら
 	if (!shadowReciev_) return;
@@ -128,7 +128,7 @@ void Object3D::DrawShadowReciever(int32_t& nextIdx)
 	camera->SetGraphicsRootCBuffView(nextIdx++);
 }
 
-void Object3D::Draw()
+void MNE::Object3D::Draw()
 {
 	if (SceneManager::GetInstance()->GetIsDrawShadow() == true) {
 
@@ -158,7 +158,7 @@ void Object3D::Draw()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-std::unique_ptr<Object3D> Object3D::Create(IModel* model_)
+std::unique_ptr<MNE::Object3D> MNE::Object3D::Create(IModel* model_)
 {
 	// 3Dオブジェクトのインスタンスを生成
 	std::unique_ptr<Object3D> obj = std::make_unique<Object3D>();
@@ -178,7 +178,7 @@ std::unique_ptr<Object3D> Object3D::Create(IModel* model_)
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void Object3D::SetCollider(BaseCollider* collider)
+void MNE::Object3D::SetCollider(BaseCollider* collider)
 {
 	collider->SetObject3D(this);
 	std::unique_ptr<BaseCollider> coll(collider);
@@ -187,17 +187,17 @@ void Object3D::SetCollider(BaseCollider* collider)
 	collider_->Update();
 }
 
-void Object3D::SetAlphaColor(float alpha)
+void MNE::Object3D::SetAlphaColor(float alpha)
 {
 	color_.w = alpha;
 }
 
-void Object3D::SetAttribute(unsigned short attribute)
+void MNE::Object3D::SetAttribute(unsigned short attribute)
 {
 	collider_->SetAttribute(attribute);
 }
 
-void Object3D::SetModel(IModel* model)
+void MNE::Object3D::SetModel(IModel* model)
 {
 	model_ = model;
 	animation_->SetModel(model);

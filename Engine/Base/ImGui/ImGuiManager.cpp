@@ -5,13 +5,15 @@
 #include "Window.h"
 #include "DirectX.h"
 
-ImGuiManager* ImGuiManager::GetInstance()
+using namespace MNE;
+
+MNE::ImGuiManager* MNE::ImGuiManager::GetInstance()
 {
 	static ImGuiManager instance;
 	return &instance;
 }
 
-void ImGuiManager::Initialize()
+void MNE::ImGuiManager::Initialize()
 {
 	ImGui::CreateContext();
 	ImGui::StyleColorsDark();
@@ -33,26 +35,26 @@ void ImGuiManager::Initialize()
 	io.Fonts->AddFontDefault();
 }
 
-void ImGuiManager::Finalize()
+void MNE::ImGuiManager::Finalize()
 {
 	ImGui_ImplDX12_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 }
 
-void ImGuiManager::Begin()
+void MNE::ImGuiManager::Begin()
 {
 	ImGui_ImplDX12_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 }
 
-void ImGuiManager::End()
+void MNE::ImGuiManager::End()
 {
 	ImGui::Render();
 }
 
-void ImGuiManager::Draw()
+void MNE::ImGuiManager::Draw()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 
@@ -62,12 +64,12 @@ void ImGuiManager::Draw()
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), cmdList);
 }
 
-void ImGuiManager::BeginWindow(const std::string& windowName)
+void MNE::ImGuiManager::BeginWindow(const std::string& windowName)
 {
 	ImGui::Begin(windowName.c_str());
 }
 
-void ImGuiManager::BeginWindow(const std::string& windowName, bool menu)
+void MNE::ImGuiManager::BeginWindow(const std::string& windowName, bool menu)
 {
 	ImGuiWindowFlags flag = 0;
 
@@ -75,72 +77,72 @@ void ImGuiManager::BeginWindow(const std::string& windowName, bool menu)
 	ImGui::Begin(windowName.c_str(), 0, flag);
 }
 
-void ImGuiManager::EndWindow()
+void MNE::ImGuiManager::EndWindow()
 {
 	ImGui::End();
 }
 
-bool ImGuiManager::BeginMenuBar()
+bool MNE::ImGuiManager::BeginMenuBar()
 {
 	return ImGui::BeginMenuBar();
 }
 
-void ImGuiManager::EndMenuBar()
+void MNE::ImGuiManager::EndMenuBar()
 {
 	ImGui::EndMenuBar();
 }
 
-bool ImGuiManager::BeginMenu(const std::string& menuName)
+bool MNE::ImGuiManager::BeginMenu(const std::string& menuName)
 {
 	return ImGui::BeginMenu(menuName.c_str());
 }
 
-void ImGuiManager::EndMenu()
+void MNE::ImGuiManager::EndMenu()
 {
 	ImGui::EndMenu();
 }
 
-bool ImGuiManager::MenuItem(const std::string& name)
+bool MNE::ImGuiManager::MenuItem(const std::string& name)
 {
 	return ImGui::MenuItem(name.c_str());
 }
 
-bool ImGuiManager::TreeNode(const std::string& name)
+bool MNE::ImGuiManager::TreeNode(const std::string& name)
 {
 	return ImGui::TreeNode(name.c_str());
 }
 
-void ImGuiManager::TreePop()
+void MNE::ImGuiManager::TreePop()
 {
 	ImGui::TreePop();
 }
 
-void ImGuiManager::SameLine()
+void MNE::ImGuiManager::SameLine()
 {
 	ImGui::SameLine();
 }
 
-void ImGuiManager::Spacing()
+void MNE::ImGuiManager::Spacing()
 {
 	ImGui::Spacing();
 }
 
-void ImGuiManager::Separator()
+void MNE::ImGuiManager::Separator()
 {
 	ImGui::Separator();
 }
 
-bool ImGuiManager::SetButton(const std::string& buttonName, const Vector2D& size)
+bool MNE::ImGuiManager::SetButton(const std::string& buttonName, const Vector2D& size)
 {
 	return ImGui::Button(buttonName.c_str(), ImVec2(size.x, size.y));
 }
 
-bool ImGuiManager::SetRadioButton(const std::string& buttonName, int32_t& v, int32_t vButton)
+bool MNE::ImGuiManager::SetRadioButton(const std::string& buttonName, int32_t& v, int32_t vButton)
 {
 	return ImGui::RadioButton(buttonName.c_str(), &v, vButton);
 }
 
-void ImGuiManager::InputFloat3(const std::string& name, Vector3D& vec)
+void MNE::ImGuiManager::InputFloat3(const std::string& name, Vector3D& vec)
 {
 	float v[3] = { vec.x,vec.y,vec.z };
 	ImGui::InputFloat3(name.c_str(), v);
@@ -148,7 +150,7 @@ void ImGuiManager::InputFloat3(const std::string& name, Vector3D& vec)
 	vec = { v[0],v[1],v[2] };
 }
 
-void ImGuiManager::InputFloat2(const std::string& name, Vector2D& vec)
+void MNE::ImGuiManager::InputFloat2(const std::string& name, Vector2D& vec)
 {
 	float v[2] = { vec.x,vec.y };
 	ImGui::InputFloat2(name.c_str(), v);
@@ -156,23 +158,23 @@ void ImGuiManager::InputFloat2(const std::string& name, Vector2D& vec)
 	vec = { v[0],v[1] };
 }
 
-void ImGuiManager::InputFloat(const std::string& name, float& v)
+void MNE::ImGuiManager::InputFloat(const std::string& name, float& v)
 {
 	ImGui::InputFloat(name.c_str(), &v);
 }
 
-void ImGuiManager::InputInt(const std::string& name, int& v)
+void MNE::ImGuiManager::InputInt(const std::string& name, int& v)
 {
 	ImGui::InputInt(name.c_str(), &v);
 }
 
-void ImGuiManager::SetSliderFloat(const std::string& sliderName, float& value, float spd, float minValue, float maxValue)
+void MNE::ImGuiManager::SetSliderFloat(const std::string& sliderName, float& value, float spd, float minValue, float maxValue)
 {
 	//ImGui::SliderFloat(sliderName.c_str(), &value, minValue, maxValue);
 	ImGui::DragFloat(sliderName.c_str(), &value, spd, minValue, maxValue);
 }
 
-void ImGuiManager::SetSliderFloat2(const std::string& sliderName, Vector2D& value, float spd, float minValue, float maxValue)
+void MNE::ImGuiManager::SetSliderFloat2(const std::string& sliderName, Vector2D& value, float spd, float minValue, float maxValue)
 {
 	float v[2] = { value.x,value.y };
 	ImGui::DragFloat2(sliderName.c_str(), v, spd, minValue, maxValue);
@@ -180,7 +182,7 @@ void ImGuiManager::SetSliderFloat2(const std::string& sliderName, Vector2D& valu
 	value = { v[0],v[1] };
 }
 
-void ImGuiManager::SetSliderFloat3(const std::string& sliderName, Vector3D& value, float spd, float minValue, float maxValue)
+void MNE::ImGuiManager::SetSliderFloat3(const std::string& sliderName, Vector3D& value, float spd, float minValue, float maxValue)
 {
 	float v[3] = { value.x,value.y,value.z };
 	ImGui::DragFloat3(sliderName.c_str(), v, spd, minValue, maxValue);
@@ -188,17 +190,17 @@ void ImGuiManager::SetSliderFloat3(const std::string& sliderName, Vector3D& valu
 	value = { v[0],v[1],v[2] };
 }
 
-void ImGuiManager::SetSliderInt(const std::string& sliderName, int& value, float spd, size_t minValue, size_t maxValue)
+void MNE::ImGuiManager::SetSliderInt(const std::string& sliderName, int& value, float spd, size_t minValue, size_t maxValue)
 {
 	ImGui::DragInt(sliderName.c_str(), &value, spd, (int)minValue, (int)maxValue);
 }
 
-void ImGuiManager::CheckBox(const std::string& name, bool& flag)
+void MNE::ImGuiManager::CheckBox(const std::string& name, bool& flag)
 {
 	ImGui::Checkbox(name.c_str(), &flag);
 }
 
-void ImGuiManager::ColorPicker3(const std::string& name, Vector3D& color)
+void MNE::ImGuiManager::ColorPicker3(const std::string& name, Vector3D& color)
 {
 	float v[3] = { color.x,color.y,color.z };
 
@@ -206,12 +208,12 @@ void ImGuiManager::ColorPicker3(const std::string& name, Vector3D& color)
 	color = { v[0],v[1],v[2] };
 }
 
-void ImGuiManager::LabelText(const std::string& name, const std::string& text, float value)
+void MNE::ImGuiManager::LabelText(const std::string& name, const std::string& text, float value)
 {
 	ImGui::LabelText(name.c_str(), text.c_str(), value);
 }
 
-void ImGuiManager::Text(const char* fmt, ...)
+void MNE::ImGuiManager::Text(const char* fmt, ...)
 {
 	va_list args;
 	va_start(args, fmt);
@@ -219,47 +221,47 @@ void ImGuiManager::Text(const char* fmt, ...)
 	va_end(args);
 }
 
-bool ImGuiManager::InputText(const std::string& name, std::string& text)
+bool MNE::ImGuiManager::InputText(const std::string& name, std::string& text)
 {
 	return ImGui::InputText(name.c_str(), &text);
 }
 
-void ImGuiManager::PushID(int32_t id)
+void MNE::ImGuiManager::PushID(int32_t id)
 {
 	ImGui::PushID(id);
 }
 
-void ImGuiManager::PopID()
+void MNE::ImGuiManager::PopID()
 {
 	ImGui::PopID();
 }
 
-bool ImGuiManager::BeginChild(const Vector2D& size)
+bool MNE::ImGuiManager::BeginChild(const Vector2D& size)
 {
 	return ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(size.x, size.y), ImGuiWindowFlags_NoTitleBar);
 }
 
-bool ImGuiManager::BeginChild(int64_t childId, const Vector2D& size)
+bool MNE::ImGuiManager::BeginChild(int64_t childId, const Vector2D& size)
 {
 	return ImGui::BeginChild(ImGui::GetID((void*)childId), ImVec2(size.x, size.y), ImGuiWindowFlags_NoTitleBar);
 }
 
-void ImGuiManager::EndChild()
+void MNE::ImGuiManager::EndChild()
 {
 	ImGui::EndChild();
 }
 
-void ImGuiManager::BeginGroup()
+void MNE::ImGuiManager::BeginGroup()
 {
 	ImGui::BeginGroup();
 }
 
-void ImGuiManager::EndGroup()
+void MNE::ImGuiManager::EndGroup()
 {
 	ImGui::EndGroup();
 }
 
-bool ImGuiManager::CollapsingHeader(const std::string& name)
+bool MNE::ImGuiManager::CollapsingHeader(const std::string& name)
 {
 	return ImGui::CollapsingHeader(name.c_str());
 }

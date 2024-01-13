@@ -34,7 +34,7 @@ struct VolumeData
 
 #pragma endregion
 
-void XAudioManager::UnloadSoundData(SoundData* soundData)
+void MNE::XAudioManager::UnloadSoundData(SoundData* soundData)
 {
 	delete[] soundData->pBuffer;
 
@@ -43,20 +43,20 @@ void XAudioManager::UnloadSoundData(SoundData* soundData)
 	soundData->wfex = {};
 }
 
-XAudioManager* XAudioManager::GetInstance()
+MNE::XAudioManager* MNE::XAudioManager::GetInstance()
 {
 	static XAudioManager instance;
 	return &instance;
 }
 
-void XAudioManager::Initialize()
+void MNE::XAudioManager::Initialize()
 {
 	HRESULT result = XAudio2Create(&xAudio2_, 0, XAUDIO2_DEFAULT_PROCESSOR);
 
 	result = xAudio2_->CreateMasteringVoice(&masterVoice_);
 }
 
-void XAudioManager::Finalize()
+void MNE::XAudioManager::Finalize()
 {
 	StopAllSound();
 	masterVoice_->DestroyVoice();
@@ -65,7 +65,7 @@ void XAudioManager::Finalize()
 	DeleteAllSound();
 }
 
-float XAudioManager::LoadVolume(const std::string& filename)
+float MNE::XAudioManager::LoadVolume(const std::string& filename)
 {
 	float volume = 1.0f;
 
@@ -98,7 +98,7 @@ float XAudioManager::LoadVolume(const std::string& filename)
 	return volume;
 }
 
-void XAudioManager::LoadAllValumeData()
+void MNE::XAudioManager::LoadAllValumeData()
 {
 	for (auto itr = data_.begin(); itr != data_.end(); ++itr)
 	{
@@ -106,7 +106,7 @@ void XAudioManager::LoadAllValumeData()
 	}
 }
 
-void XAudioManager::SaveVolume()
+void MNE::XAudioManager::SaveVolume()
 {
 	std::string filePath = "Resources/Sound/VolumeData.txt";
 
@@ -174,7 +174,7 @@ void XAudioManager::SaveVolume()
 	outPutFile.close();
 }
 
-void XAudioManager::ImguiUpdate(bool endLoading)
+void MNE::XAudioManager::ImguiUpdate(bool endLoading)
 {
 	if (!ImGuiController::GetInstance()->GetActiveVolumeManager()) return;
 
@@ -230,7 +230,7 @@ void XAudioManager::ImguiUpdate(bool endLoading)
 	imguiMan->EndWindow();
 }
 
-void XAudioManager::LoadSoundWave(const std::string& filename)
+void MNE::XAudioManager::LoadSoundWave(const std::string& filename)
 {
 	//	既に読み込み済みだったら
 	if (data_.count(filename) == 1) return;
@@ -278,7 +278,7 @@ void XAudioManager::LoadSoundWave(const std::string& filename)
 	data_.emplace(filename, soundData);
 }
 
-void XAudioManager::PlayDebugSoundWave(const std::string& soundName, SoundType type, bool loop, bool isDebug)
+void MNE::XAudioManager::PlayDebugSoundWave(const std::string& soundName, SoundType type, bool loop, bool isDebug)
 {
 	HRESULT result;
 
@@ -332,12 +332,12 @@ void XAudioManager::PlayDebugSoundWave(const std::string& soundName, SoundType t
 	result = pSourceVoice.ptr->Start();
 }
 
-void XAudioManager::PlaySoundWave(const std::string& soundName, SoundType type, bool loop)
+void MNE::XAudioManager::PlaySoundWave(const std::string& soundName, SoundType type, bool loop)
 {
 	PlayDebugSoundWave(soundName, type, loop);
 }
 
-void XAudioManager::ChangeVolume(float volume, SoundType type)
+void MNE::XAudioManager::ChangeVolume(float volume, SoundType type)
 {
 	switch (type)
 	{
@@ -364,7 +364,7 @@ void XAudioManager::ChangeVolume(float volume, SoundType type)
 	}
 }
 
-void XAudioManager::VolumeUpdate(SoundType type, float volume)
+void MNE::XAudioManager::VolumeUpdate(SoundType type, float volume)
 {
 	ChangeVolume(volume, type);
 }
@@ -384,14 +384,14 @@ void XAudioManager::VolumeUpdate(SoundType type, float volume)
 //	}
 //}
 
-void XAudioManager::StopAllSound()
+void MNE::XAudioManager::StopAllSound()
 {
 	StopBGM();
 	StopSE();
 	StopDebugSound();
 }
 
-void XAudioManager::StopBGM()
+void MNE::XAudioManager::StopBGM()
 {
 	for (size_t i = 0; i < bgmPtr_.size(); i++)
 	{
@@ -401,7 +401,7 @@ void XAudioManager::StopBGM()
 	bgmPtr_.clear();
 }
 
-void XAudioManager::StopSE()
+void MNE::XAudioManager::StopSE()
 {
 	for (size_t i = 0; i < sePtr_.size(); i++)
 	{
@@ -411,7 +411,7 @@ void XAudioManager::StopSE()
 	sePtr_.clear();
 }
 
-void XAudioManager::StopSound(const std::string& soundName)
+void MNE::XAudioManager::StopSound(const std::string& soundName)
 {
 	for (size_t i = 0; i < debugSoundPtr_.size(); i++)
 	{
@@ -420,7 +420,7 @@ void XAudioManager::StopSound(const std::string& soundName)
 	}
 }
 
-void XAudioManager::StopDebugSound()
+void MNE::XAudioManager::StopDebugSound()
 {
 	for (size_t i = 0; i < debugSoundPtr_.size(); i++)
 	{
@@ -430,7 +430,7 @@ void XAudioManager::StopDebugSound()
 	debugSoundPtr_.clear();
 }
 
-void XAudioManager::DeleteAllSound()
+void MNE::XAudioManager::DeleteAllSound()
 {
 	for (auto& data : data_)
 	{
@@ -439,7 +439,7 @@ void XAudioManager::DeleteAllSound()
 	data_.clear();
 }
 
-void XAudioManager::DeleteSoundData(const std::string& soundName)
+void MNE::XAudioManager::DeleteSoundData(const std::string& soundName)
 {
 	//	音データがあったら
 	assert(data_.count(soundName) != 0);

@@ -4,6 +4,8 @@
 #include "SphereCollider.h"
 #include "Player.h"
 
+using namespace MNE;
+
 EnemyBullet::~EnemyBullet()
 {
 }

@@ -1,13 +1,13 @@
-﻿#include "InputJoypad.h"
+#include "InputJoypad.h"
 #include "Vector2D.h"
 #include "ImGuiManager.h"
 
-void InputJoypad::SetDeadZone(int16_t& sThumb, int32_t deadzone)
+void MNE::InputJoypad::SetDeadZone(int16_t& sThumb, int32_t deadzone)
 {
     if ((sThumb < deadzone) && sThumb > -deadzone) sThumb = 0;
 }
 
-void InputJoypad::Update()
+void MNE::InputJoypad::Update()
 {
     prevState_ = state_;
 
@@ -24,7 +24,7 @@ void InputJoypad::Update()
     SetDeadZone(state_.Gamepad.sThumbRY, XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
 }
 
-void InputJoypad::ImGuiUpdateVibration(ImGuiManager* imgui)
+void MNE::InputJoypad::ImGuiUpdateVibration(ImGuiManager* imgui)
 {
 	int vibL = (int)vibration_.wLeftMotorSpeed;
 	int vibR = (int)vibration_.wRightMotorSpeed;
@@ -37,7 +37,7 @@ void InputJoypad::ImGuiUpdateVibration(ImGuiManager* imgui)
 	if (activeVibration_) SetVibration(Vector2D(vibL, vibR));
 }
 
-void InputJoypad::ImGuiUpdateButton(ImGuiManager* imgui)
+void MNE::InputJoypad::ImGuiUpdateButton(ImGuiManager* imgui)
 {
 	if (!imgui->TreeNode("Button")) return;
 
@@ -84,7 +84,7 @@ void InputJoypad::ImGuiUpdateButton(ImGuiManager* imgui)
 	imgui->TreePop();
 }
 
-void InputJoypad::ImGuiUpdateDPAD(ImGuiManager* imgui)
+void MNE::InputJoypad::ImGuiUpdateDPAD(ImGuiManager* imgui)
 {
 	if (!imgui->TreeNode("DPAD")) return;
 
@@ -111,7 +111,7 @@ void InputJoypad::ImGuiUpdateDPAD(ImGuiManager* imgui)
 	imgui->TreePop();
 }
 
-void InputJoypad::ImGuiUpdateStick(ImGuiManager* imgui)
+void MNE::InputJoypad::ImGuiUpdateStick(ImGuiManager* imgui)
 {
 	if (!imgui->TreeNode("Stick")) return;
 
@@ -140,7 +140,7 @@ void InputJoypad::ImGuiUpdateStick(ImGuiManager* imgui)
 	imgui->TreePop();
 }
 
-void InputJoypad::ImGuiUpdateTrigger(ImGuiManager* imgui)
+void MNE::InputJoypad::ImGuiUpdateTrigger(ImGuiManager* imgui)
 {
 	if (!imgui->TreeNode("Trigger")) return;
 
@@ -155,7 +155,7 @@ void InputJoypad::ImGuiUpdateTrigger(ImGuiManager* imgui)
 	imgui->TreePop();
 }
 
-void InputJoypad::ImGuiUpdate()
+void MNE::InputJoypad::ImGuiUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
@@ -176,96 +176,96 @@ void InputJoypad::ImGuiUpdate()
 	imgui->TreePop();
 }
 
-bool InputJoypad::GetButton(JoyPadButton button)
+bool MNE::InputJoypad::GetButton(JoyPadButton button)
 {
 	if (!active_) return false;
 
     return (state_.Gamepad.wButtons & button);
 }
 
-bool InputJoypad::GetButtonTrigger(JoyPadButton button)
+bool MNE::InputJoypad::GetButtonTrigger(JoyPadButton button)
 {
 	if (!active_) return false;
 
     return (state_.Gamepad.wButtons & button) && !(prevState_.Gamepad.wButtons & button);
 }
 
-bool InputJoypad::GetButtonRelease(JoyPadButton button)
+bool MNE::InputJoypad::GetButtonRelease(JoyPadButton button)
 {
 	if (!active_) return false;
 
 	return !(state_.Gamepad.wButtons & button) && (prevState_.Gamepad.wButtons & button);
 }
 
-bool InputJoypad::GetLTrigger()
+bool MNE::InputJoypad::GetLTrigger()
 {
 	if (!active_) return false;
 
     return state_.Gamepad.bLeftTrigger > XINPUT_GAMEPAD_TRIGGER_THRESHOLD;
 }
 
-bool InputJoypad::GetRTrigger()
+bool MNE::InputJoypad::GetRTrigger()
 {
 	if (!active_) return false;
 
     return state_.Gamepad.bRightTrigger > XINPUT_GAMEPAD_TRIGGER_THRESHOLD;
 }
 
-size_t InputJoypad::GetLTriggerValue()
+size_t MNE::InputJoypad::GetLTriggerValue()
 {
 	if (!active_) return 0;
 
 	return state_.Gamepad.bLeftTrigger;
 }
 
-size_t InputJoypad::GetRTriggerValue()
+size_t MNE::InputJoypad::GetRTriggerValue()
 {
 	if (!active_) return 0;
 
 	return state_.Gamepad.bRightTrigger;
 }
 
-Vector2D InputJoypad::GetThumbR()
+Vector2D MNE::InputJoypad::GetThumbR()
 {
 	if (!active_) return Vector2D();
 
     return Vector2D(state_.Gamepad.sThumbRX, state_.Gamepad.sThumbRY);
 }
 
-bool InputJoypad::GetTriggerThumbRX()
+bool MNE::InputJoypad::GetTriggerThumbRX()
 {
 	if (!active_) return false;
 
 	return  state_.Gamepad.sThumbRX != 0 && prevState_.Gamepad.sThumbRX == 0;
 }
 
-bool InputJoypad::GetTriggerThumbRY()
+bool MNE::InputJoypad::GetTriggerThumbRY()
 {
 	if (!active_) return false;
 
 	return state_.Gamepad.sThumbRY != 0 && prevState_.Gamepad.sThumbRY == 0;
 }
 
-Vector2D InputJoypad::GetThumbL()
+Vector2D MNE::InputJoypad::GetThumbL()
 {
     return Vector2D(state_.Gamepad.sThumbLX, state_.Gamepad.sThumbLY);
 }
 
-bool InputJoypad::GetTriggerThumbLX()
+bool MNE::InputJoypad::GetTriggerThumbLX()
 {
 	if (!active_) return false;
 
 	return  state_.Gamepad.sThumbLX != 0 && prevState_.Gamepad.sThumbLX == 0;
 }
 
-bool InputJoypad::GetTriggerThumbLY()
+bool MNE::InputJoypad::GetTriggerThumbLY()
 {
 	if (!active_) return false;
 
 	return state_.Gamepad.sThumbLY != 0 && prevState_.Gamepad.sThumbLY == 0;
 }
 
-void InputJoypad::SetVibration(const Vector2D& motorSpd)
+void MNE::InputJoypad::SetVibration(const Vector2D& motorSpd)
 {
 	vibration_.wLeftMotorSpeed = (WORD)motorSpd.x;
 	vibration_.wRightMotorSpeed = (WORD)motorSpd.y;

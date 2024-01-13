@@ -5,6 +5,7 @@
 #include "PodCollGroundState.h"
 
 using namespace Easing;
+using namespace MNE;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize

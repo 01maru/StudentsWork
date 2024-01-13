@@ -1,6 +1,8 @@
 #include "ClearUI.h"
 #include "SceneManager.h"
 
+using namespace MNE;
+
 void ClearUI::Initialize()
 {
 	data_.LoadData("Clear");

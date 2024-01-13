@@ -1,28 +1,28 @@
-﻿#include "ObjModel.h"
+#include "ObjModel.h"
 #include <sstream>
 #include <fstream>
 #include <assert.h>
 
 using namespace std;
 
-ObjModel::ObjModel(const char* filename, bool smoothing)
+MNE::ObjModel::ObjModel(const char* filename, bool smoothing)
 {
 	Initialize(filename, smoothing);
 }
 
-ObjModel::~ObjModel()
+MNE::ObjModel::~ObjModel()
 {
 	meshes_.clear();
 
 	materials_.clear();
 }
 
-void ObjModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& /*transforms*/, int32_t /*animationIdx*/)
+void MNE::ObjModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& /*transforms*/, int32_t /*animationIdx*/)
 {
 	//	objなのでboneなし
 }
 
-void ObjModel::AddIndices(const std::vector<uint16_t>& indices, Mesh* mesh)
+void MNE::ObjModel::AddIndices(const std::vector<uint16_t>& indices, Mesh* mesh)
 {
 	if (indices.size() == 3)
 	{
@@ -40,7 +40,7 @@ void ObjModel::AddIndices(const std::vector<uint16_t>& indices, Mesh* mesh)
 	}
 }
 
-void ObjModel::LoadModel(const std::string& modelname, bool smoothing)
+void MNE::ObjModel::LoadModel(const std::string& modelname, bool smoothing)
 {
 	std::vector<unsigned short> vertexIndices, uvIndices, normalIndices;
 	std::vector<Vector3D> temp_poss;
@@ -161,7 +161,7 @@ void ObjModel::LoadModel(const std::string& modelname, bool smoothing)
 				index_stream >> indexNormal;
 
 				//	AddVertex
-				ModelVertex vertex{};
+				MNE::ModelVertex vertex{};
 				vertex.pos = temp_poss[indexPos - 1];
 				vertex.normal = temp_normals[indexNormal - 1];
 				vertex.uv = temp_uvs[indexUV - 1];
@@ -198,7 +198,7 @@ void ObjModel::LoadModel(const std::string& modelname, bool smoothing)
 	}
 }
 
-void ObjModel::LoadMaterial(const std::string& directoryPath, const std::string& filename)
+void MNE::ObjModel::LoadMaterial(const std::string& directoryPath, const std::string& filename)
 {
 	//	fileOpen
 	std::ifstream file;

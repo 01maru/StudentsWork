@@ -12,7 +12,7 @@
 #include "CameraManager.h"
 #include "SceneManager.h"
 
-void Framework::Run()
+void MNE::Framework::Run()
 {
 	//	初期化
 	Initialize();
@@ -30,7 +30,7 @@ void Framework::Run()
 	Finalize();
 }
 
-void Framework::Initialize()
+void MNE::Framework::Initialize()
 {
 	//	winApi初期化
 	Window::GetInstance()->Initialize();
@@ -54,7 +54,7 @@ void Framework::Initialize()
 	CameraManager::GetInstance()->Initialize();
 }
 
-void Framework::Update()
+void MNE::Framework::Update()
 {
 	gameroopFlag_ = !(Window::GetInstance()->MsgUpdate() || !SceneManager::GetInstance()->GetGameLoop());
 
@@ -64,7 +64,7 @@ void Framework::Update()
 	FPSController::GetInstance()->Update();
 }
 
-void Framework::Finalize()
+void MNE::Framework::Finalize()
 {
 	XAudioManager::GetInstance()->Finalize();
 	Window::GetInstance()->Finalize();

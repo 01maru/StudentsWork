@@ -1,6 +1,6 @@
 #include "EmitterComponent.h"
 
-void EmitterComponent::SetParent(ParticleEmitter* parent)
+void MNE::EmitterComponent::SetParent(ParticleEmitter* parent)
 {
 	parent_ = parent;
 }

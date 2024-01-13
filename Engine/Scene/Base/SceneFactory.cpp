@@ -1,4 +1,4 @@
-﻿#include "SceneFactory.h"
+#include "SceneFactory.h"
 
 #pragma region Sceneを追加するたびにそのSceneをinclude
 #include "TitleScene.h"
@@ -7,7 +7,7 @@
 #include "DebugScene.h"
 #pragma endregion
 
-std::unique_ptr<IScene> SceneFactory::CreateScene(const std::string& sceneName)
+std::unique_ptr<MNE::IScene> MNE::SceneFactory::CreateScene(const std::string& sceneName)
 {
     std::unique_ptr<IScene> newScene;
 

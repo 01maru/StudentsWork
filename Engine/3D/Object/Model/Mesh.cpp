@@ -4,19 +4,19 @@
 #include "Material.h"
 #include <cassert>
 
-void Mesh::Initialzie()
+void MNE::Mesh::Initialzie()
 {
 	uint32_t sizeVB = static_cast<uint32_t>(sizeof(vertices_[0]) * vertices_.size());
 
 	VertIdxBuff::Initialize(sizeVB, indices_);
 }
 
-void Mesh::SetGraphicsRootCBuffViewMtl(int32_t index)
+void MNE::Mesh::SetGraphicsRootCBuffViewMtl(int32_t index)
 {
 	mtl_->SetGraphicsRootCBuffView(static_cast<uint32_t>(index));
 }
 
-void Mesh::Draw()
+void MNE::Mesh::Draw()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 
@@ -27,7 +27,7 @@ void Mesh::Draw()
 	cmdList->DrawIndexedInstanced((UINT)indices_.size(), 1, 0, 0, 0);
 }
 
-void Mesh::CalcSmoothedNormals()
+void MNE::Mesh::CalcSmoothedNormals()
 {
 	for (auto itr = smoothData_.begin(); itr != smoothData_.end(); ++itr) {
 		std::vector<uint16_t>& v = itr->second;
@@ -45,7 +45,7 @@ void Mesh::CalcSmoothedNormals()
 	}
 }
 
-void Mesh::SetBone(size_t vertexID, uint16_t boneIndex, float weight)
+void MNE::Mesh::SetBone(size_t vertexID, uint16_t boneIndex, float weight)
 {
 	for (size_t i = 0; i < 4; i++) {
 		//	ボーンのweightが0だったら値代入
@@ -57,12 +57,12 @@ void Mesh::SetBone(size_t vertexID, uint16_t boneIndex, float weight)
 	}
 }
 
-void Mesh::SetTextureFilePath(const std::string& filePath)
+void MNE::Mesh::SetTextureFilePath(const std::string& filePath)
 {
 	mtl_->filepath_ = filePath;
 }
 
-void Mesh::SetVertices()
+void MNE::Mesh::SetVertices()
 {
 	//	GPUメモリの値書き換えよう
 	// GPU上のバッファに対応した仮想メモリ(メインメモリ上)を取得

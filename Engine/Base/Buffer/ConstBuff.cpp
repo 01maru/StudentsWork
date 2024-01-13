@@ -1,8 +1,8 @@
-﻿#include "ConstBuff.h"
+#include "ConstBuff.h"
 #include "DirectX.h"
 #include <cassert>
 
-void ConstBuff::Initialize(uint64_t resWidth)
+void MNE::ConstBuff::Initialize(uint64_t resWidth)
 {
 	HRESULT result;
 	D3D12_HEAP_PROPERTIES heapProp{};
@@ -32,8 +32,13 @@ void ConstBuff::Initialize(uint64_t resWidth)
 	assert(SUCCEEDED(result));
 }
 
-void ConstBuff::SetGraphicsRootCBuffView(uint32_t rootparaIdx)
+void MNE::ConstBuff::SetGraphicsRootCBuffView(uint32_t rootparaIdx)
 {
 	//	定数バッファビュー(CBV)の設定コマンド
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootConstantBufferView(rootparaIdx, material_->GetGPUVirtualAddress());
+}
+
+ID3D12Resource* MNE::ConstBuff::GetResource()
+{
+	return material_.Get();
 }

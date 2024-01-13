@@ -2,13 +2,15 @@
 #include "LightCamera.h"
 #include "CameraManager.h"
 
-void DirLight::SetLightDir(const Vector3D& dir)
+using namespace MNE;
+
+void MNE::DirLight::SetLightDir(const Vector3D& dir)
 {
 	dir_ = dir;
 	dir_.Normalize();
 }
 
-void DirLight::SetShadow(bool shadowflag)
+void MNE::DirLight::SetShadow(bool shadowflag)
 {
 	//	dirtyflagがoffだったら
 	if (shadowing_ == shadowflag) return;

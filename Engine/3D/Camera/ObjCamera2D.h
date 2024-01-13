@@ -6,9 +6,13 @@
 * @brief 平行投影カメラファイル
 */
 
-class ObjCamera2D :public ICamera
+namespace MNE
 {
-public:
-	ObjCamera2D();
-};
 
+	class ObjCamera2D :public ICamera
+	{
+	public:
+		ObjCamera2D();
+	};
+
+}

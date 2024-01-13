@@ -6,13 +6,13 @@
 
 using namespace Easing;
 
-void UIFadeAnimation::Initialize()
+void MNE::UIFadeAnimation::Initialize()
 {
 	sprite_ = parent_->GetComponent<UISprite>();
 	timer_ = parent_->GetComponent<UIAnimationTimer>();
 }
 
-void UIFadeAnimation::Update()
+void MNE::UIFadeAnimation::Update()
 {
 	if (sprite_ == nullptr) return;
 
@@ -28,12 +28,12 @@ void UIFadeAnimation::Update()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-float UIFadeAnimation::GetStart()
+float MNE::UIFadeAnimation::GetStart()
 {
 	return start_;
 }
 
-float UIFadeAnimation::GetEnd()
+float MNE::UIFadeAnimation::GetEnd()
 {
 	return end_;
 }
@@ -42,17 +42,17 @@ float UIFadeAnimation::GetEnd()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIFadeAnimation::SetStart(float start)
+void MNE::UIFadeAnimation::SetStart(float start)
 {
 	start_ = start;
 }
 
-void UIFadeAnimation::SetEnd(float end)
+void MNE::UIFadeAnimation::SetEnd(float end)
 {
 	end_ = end;
 }
 
-void UIFadeAnimation::Reset()
+void MNE::UIFadeAnimation::Reset()
 {
 	for (auto& sprite : sprite_->GetSprites())
 	{

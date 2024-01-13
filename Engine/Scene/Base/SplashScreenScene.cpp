@@ -4,7 +4,7 @@
 
 #include "PipelineManager.h"
 
-void SplashScreenScene::Initialize()
+void MNE::SplashScreenScene::Initialize()
 {
 	count_ = std::make_unique<FrameCounter>();
 	count_->Initialize(60 + 120, true);
@@ -21,15 +21,15 @@ void SplashScreenScene::Initialize()
 	engineSprite_->Initialize(TextureManager::GetInstance()->LoadTextureGraph("rogo.png"));
 }
 
-void SplashScreenScene::Finalize()
+void MNE::SplashScreenScene::Finalize()
 {
 }
 
-void SplashScreenScene::LoadResources()
+void MNE::SplashScreenScene::LoadResources()
 {
 }
 
-void SplashScreenScene::Update()
+void MNE::SplashScreenScene::Update()
 {
 	count_->Update();
 
@@ -39,11 +39,11 @@ void SplashScreenScene::Update()
 	engineSprite_->Update();
 }
 
-void SplashScreenScene::ImguiUpdate()
+void MNE::SplashScreenScene::ImguiUpdate()
 {
 }
 
-void SplashScreenScene::Draw()
+void MNE::SplashScreenScene::Draw()
 {
 	backSprite_->Draw();
 	engineSprite_->Draw();

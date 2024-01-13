@@ -1,6 +1,6 @@
 #include "BoxModel.h"
 
-void BoxModel::LoadModel(const std::string& /*modelname*/, bool /*smoothing*/)
+void MNE::BoxModel::LoadModel(const std::string& /*modelname*/, bool /*smoothing*/)
 {
 	Material* material = nullptr;
 	material = Material::Create();
@@ -15,7 +15,7 @@ void BoxModel::LoadModel(const std::string& /*modelname*/, bool /*smoothing*/)
 	mesh->SetMaterial(material);
 }
 
-void BoxModel::AddIndex(Mesh* mesh)
+void MNE::BoxModel::AddIndex(Mesh* mesh)
 {
 	mesh->AddIndex(0);
 	mesh->AddIndex(1);
@@ -66,9 +66,9 @@ void BoxModel::AddIndex(Mesh* mesh)
 	mesh->AddIndex(23);
 }
 
-void BoxModel::AddVertex(Mesh* mesh)
+void MNE::BoxModel::AddVertex(Mesh* mesh)
 {
-	ModelVertex vertex{};
+	MNE::ModelVertex vertex{};
 
 	float size = 0.5f;
 	
@@ -247,18 +247,18 @@ void BoxModel::AddVertex(Mesh* mesh)
 	mesh->AddVertex(vertex);
 }
 
-BoxModel::BoxModel(const char* filename, bool smoothing)
+MNE::BoxModel::BoxModel(const char* filename, bool smoothing)
 {
 	Initialize(filename, smoothing);
 }
 
-BoxModel::~BoxModel()
+MNE::BoxModel::~BoxModel()
 {
 	meshes_.clear();
 
 	materials_.clear();
 }
 
-void BoxModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& /*transforms*/, int32_t /*animationIdx*/)
+void MNE::BoxModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& /*transforms*/, int32_t /*animationIdx*/)
 {
 }

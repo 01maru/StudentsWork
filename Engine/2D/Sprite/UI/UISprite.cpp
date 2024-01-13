@@ -1,6 +1,6 @@
 #include "UISprite.h"
 
-void UISprite::MatUpdate()
+void MNE::UISprite::MatUpdate()
 {
 	for (auto sprite : sprites_)
 	{
@@ -8,7 +8,7 @@ void UISprite::MatUpdate()
 	}
 }
 
-void UISprite::Draw()
+void MNE::UISprite::Draw()
 {
 	for (auto sprite : sprites_)
 	{
@@ -20,12 +20,12 @@ void UISprite::Draw()
 // Add & Delete
 //-----------------------------------------------------------------------------
 
-void UISprite::AddSprite(const std::string& name, Sprite& sprite)
+void MNE::UISprite::AddSprite(const std::string& name, MNE::Sprite& sprite)
 {
 	sprites_.emplace(name, sprite);
 }
 
-void UISprite::DeleteSprite(const std::string& spriteName)
+void MNE::UISprite::DeleteSprite(const std::string& spriteName)
 {
 	if (sprites_.count(spriteName) == 0) return;
 
@@ -36,7 +36,7 @@ void UISprite::DeleteSprite(const std::string& spriteName)
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-std::unordered_map<std::string, Sprite>& UISprite::GetSprites()
+std::unordered_map<std::string, MNE::Sprite>& MNE::UISprite::GetSprites()
 {
 	return sprites_;
 }

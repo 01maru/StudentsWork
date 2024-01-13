@@ -11,6 +11,7 @@
 #include "InputManager.h"
 
 using namespace Easing;
+using namespace MNE;
 
 void LoadingScene::Initialize()
 {

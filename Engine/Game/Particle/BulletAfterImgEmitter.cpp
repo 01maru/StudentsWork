@@ -5,6 +5,8 @@
 #include "EmitterSpdAnimation.h"
 #include "EmitterLifeTime.h"
 
+using namespace MNE;
+
 void BulletAfterImgEmitter::SetScaleComponent()
 {
 	float scaleValue = 0.5f;
@@ -33,7 +35,7 @@ void BulletAfterImgEmitter::SetResouceComponent()
 std::unique_ptr<ParticleEmitter>& BulletAfterImgEmitter::GetEmitter()
 {
 	emitter_ = std::make_unique<ParticleEmitter>();
-	emitter_->SetBlendMord(Blend::ALPHA_BLEND);
+	emitter_->SetBlendMord(MNE::Blend::ALPHA_BLEND);
 	emitter_->SetRate(rate_);
 
 	SetScaleComponent();

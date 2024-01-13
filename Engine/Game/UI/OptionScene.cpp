@@ -5,6 +5,8 @@
 #include "InputManager.h"
 #include "ImGuiManager.h"
 
+using namespace MNE;
+
 void OptionScene::Initialize()
 {
 	//	円の位置初期化

@@ -1,11 +1,11 @@
-﻿#include "GaussBlur.h"
+#include "GaussBlur.h"
 #include "DirectX.h"
 #include "ConstBuffStruct.h"
 #include "PostEffect.h"
 #include "TextureManager.h"
 #include <cassert>
 
-void GaussBlur::Initialize(float weight, PostEffect* original, DXGI_FORMAT format)
+void MNE::GaussBlur::Initialize(float weight, MNE::PostEffect* original, DXGI_FORMAT format)
 {
 #pragma region ConstBuff
 
@@ -30,15 +30,15 @@ void GaussBlur::Initialize(float weight, PostEffect* original, DXGI_FORMAT forma
 
 	int32_t width = original_->GetWidth() / 2;
 	int32_t height = original_->GetHeight();
-	blurX_ = std::make_unique<PostEffect>();
+	blurX_ = std::make_unique<MNE::PostEffect>();
 	blurX_->Initialize(width, height, original_->GetName() + "/xblur", 1, format);
 
 	height /= 2;
-	blurY_ = std::make_unique<PostEffect>();
+	blurY_ = std::make_unique<MNE::PostEffect>();
 	blurY_->Initialize(width, height, original_->GetName() + "/yblur", 1, format);
 }
 
-void GaussBlur::Draw()
+void MNE::GaussBlur::Draw()
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 
@@ -64,13 +64,13 @@ void GaussBlur::Draw()
 	dx->PostEffectDraw(blurY_.get());
 }
 
-void GaussBlur::SetPipeline(GPipeline* blurXPipeline, GPipeline* blurYPipeline)
+void MNE::GaussBlur::SetPipeline(GPipeline* blurXPipeline, GPipeline* blurYPipeline)
 {
 	pipeline[0] = blurXPipeline;
 	pipeline[1] = blurYPipeline;
 }
 
-void GaussBlur::SetClearColor(const Vector4D& color)
+void MNE::GaussBlur::SetClearColor(const Vector4D& color)
 {
 	blurX_->SetColor(color);
 	blurY_->SetColor(color);

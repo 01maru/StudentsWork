@@ -5,23 +5,23 @@
 #include "ConstBuffStruct.h"
 #include <cassert>
 
-void Object3DAnimation::Initialize()
+void MNE::Object3DAnimation::Initialize()
 {
 	HRESULT result;
 
-	skinData_.Initialize(sizeof(CBuff::CBuffSkinData));
+	skinData_.Initialize(sizeof(MNE::CBuff::CBuffSkinData));
 	//	定数バッファのマッピング
 	result = skinData_.GetResource()->Map(0, nullptr, (void**)&cSkinMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
 	//	ボーンの初期化
-	for (size_t i = 0; i < CBuff::MAX_BONES; i++)
+	for (size_t i = 0; i < MNE::CBuff::MAX_BONES; i++)
 	{
 		cSkinMap_->bones[i] = Matrix();
 	}
 }
 
-void Object3DAnimation::MatUpdate()
+void MNE::Object3DAnimation::MatUpdate()
 {
 	std::vector<Matrix> Transforms;
 	model_->BoneTransform(animationTimer_, Transforms, animationIdx);
@@ -33,12 +33,12 @@ void Object3DAnimation::MatUpdate()
 	}
 }
 
-void Object3DAnimation::SetGraphicsRootCBuffView(int32_t rootparaIndex)
+void MNE::Object3DAnimation::SetGraphicsRootCBuffView(int32_t rootparaIndex)
 {
 	skinData_.SetGraphicsRootCBuffView(rootparaIndex);
 }
 
-void Object3DAnimation::SetModel(IModel* model)
+void MNE::Object3DAnimation::SetModel(IModel* model)
 {
 	model_ = model;
 }

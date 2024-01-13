@@ -6,7 +6,7 @@
 
 #include "ConstBuffStruct.h"
 
-void PostEffect::Initialize(int32_t width, int32_t height, const std::string& texName, int32_t textureNum, DXGI_FORMAT format)
+void MNE::PostEffect::Initialize(int32_t width, int32_t height, const std::string& texName, int32_t textureNum, DXGI_FORMAT format)
 {
 	width_ = width;
 	height_ = height;
@@ -122,7 +122,7 @@ void PostEffect::Initialize(int32_t width, int32_t height, const std::string& te
 #pragma endregion
 }
 
-void PostEffect::Draw(GPipeline* pipeline, bool shadow, int32_t handle1)
+void MNE::PostEffect::Draw(GPipeline* pipeline, bool shadow, int32_t handle1)
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 	pipeline->SetGraphicsRootSignature();
@@ -151,7 +151,7 @@ void PostEffect::Draw(GPipeline* pipeline, bool shadow, int32_t handle1)
 	PlanePolygon::DrawIndexedInstanced();
 }
 
-void PostEffect::DrawDoF()
+void MNE::PostEffect::DrawDoF()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("dof");
@@ -165,7 +165,7 @@ void PostEffect::DrawDoF()
 	PlanePolygon::DrawIndexedInstanced();
 }
 
-void PostEffect::DrawTask()
+void MNE::PostEffect::DrawTask()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("task");
@@ -178,7 +178,7 @@ void PostEffect::DrawTask()
 	PlanePolygon::DrawIndexedInstanced();
 }
 
-void PostEffect::DrawMultiTask()
+void MNE::PostEffect::DrawMultiTask()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("multiTask");
@@ -192,12 +192,12 @@ void PostEffect::DrawMultiTask()
 	PlanePolygon::DrawIndexedInstanced();
 }
 
-void PostEffect::SetColor(const Vector4D& color)
+void MNE::PostEffect::SetColor(const Vector4D& color)
 {
 	cMaterialMap_->color = color;
 }
 
-void PostEffect::Draw()
+void MNE::PostEffect::Draw()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 
@@ -208,12 +208,12 @@ void PostEffect::Draw()
 	PlanePolygon::DrawIndexedInstanced();
 }
 
-void PostEffect::RSSetVPandSR()
+void MNE::PostEffect::RSSetVPandSR()
 {
 	viewPortSciRect_.RSSetVPandSR();
 }
 
-void PostEffect::DrawLuminnce()
+void MNE::PostEffect::DrawLuminnce()
 {
 	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("Luminnce", Blend::NONE_BLEND);
 
@@ -228,7 +228,7 @@ void PostEffect::DrawLuminnce()
 	PlanePolygon::DrawIndexedInstanced();
 }
 
-void PostEffect::SetGPipelineAndIAVertIdxBuff(GPipeline* pipeline)
+void MNE::PostEffect::SetGPipelineAndIAVertIdxBuff(GPipeline* pipeline)
 {
 	pipeline->SetGraphicsRootSignature();
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

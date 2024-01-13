@@ -9,41 +9,46 @@
 * @brief 頂点とインデックスバッファをまとめたファイル
 */
 
-class VertIdxBuff
+namespace MNE
 {
-private:
-	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-protected:
-	//	vertex_
-	D3D12_VERTEX_BUFFER_VIEW vbView_{};
-	ComPtr<ID3D12Resource> vertBuff_;
+	class VertIdxBuff
+	{
+	private:
+		template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-	//	index
-	bool ibActive_ = false;
-	D3D12_INDEX_BUFFER_VIEW ibView_{};
-	ComPtr<ID3D12Resource> indexBuff_;
+	protected:
+		//	vertex_
+		D3D12_VERTEX_BUFFER_VIEW vbView_{};
+		ComPtr<ID3D12Resource> vertBuff_;
 
-	D3D12_RESOURCE_DESC resDesc_{};
+		//	index
+		bool ibActive_ = false;
+		D3D12_INDEX_BUFFER_VIEW ibView_{};
+		ComPtr<ID3D12Resource> indexBuff_;
 
-private:
-	void SetResDesc(UINT size);
+		D3D12_RESOURCE_DESC resDesc_{};
 
-protected:
-	void Initialize(uint32_t sizeVB, const std::vector<uint16_t>& indices);
-	void Initialize(uint32_t sizeVB);
-	void IASetVertIdxBuff();
+	private:
+		void SetResDesc(UINT size);
 
-public:
-	VertIdxBuff() {};
-	virtual ~VertIdxBuff() = default;
+	protected:
+		void Initialize(uint32_t sizeVB, const std::vector<uint16_t>& indices);
+		void Initialize(uint32_t sizeVB);
+		void IASetVertIdxBuff();
 
-	virtual void SetVertices() = 0;
-	void SetIndices(const std::vector<uint16_t>& indices);
+	public:
+		VertIdxBuff() {};
+		virtual ~VertIdxBuff() = default;
 
-#pragma region Getter
+		virtual void SetVertices() = 0;
+		void SetIndices(const std::vector<uint16_t>& indices);
 
-	const D3D12_RESOURCE_DESC& GetResDesc() { return resDesc_; }
+	#pragma region Getter
 
-#pragma endregion
-};
+		const D3D12_RESOURCE_DESC& GetResDesc() { return resDesc_; }
+
+	#pragma endregion
+	};
+
+}

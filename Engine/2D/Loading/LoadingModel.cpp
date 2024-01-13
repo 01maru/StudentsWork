@@ -4,14 +4,14 @@
 
 using namespace Easing;
 
-void LoadingModel::Initialize()
+void MNE::LoadingModel::Initialize()
 {
     Object3DShilhouette::Initialize();
 
     Object3DShilhouette::SetCamera(CameraManager::GetInstance()->GetOrthoProjCamera());
 }
 
-void LoadingModel::Update()
+void MNE::LoadingModel::Update()
 {
     ILoadingObj::Update();
 
@@ -29,7 +29,7 @@ void LoadingModel::Update()
     Object3DShilhouette::MatUpdate();
 }
 
-void LoadingModel::Draw()
+void MNE::LoadingModel::Draw()
 {
     Object3DShilhouette::Draw();
 }

@@ -2,6 +2,8 @@
 #include "InputManager.h"
 #include "ImGuiManager.h"
 
+using namespace MNE;
+
 void AvoidCoolTimer::Update()
 {
 	CoolTime::Update();

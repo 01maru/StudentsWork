@@ -38,7 +38,7 @@ public:
 
 private:
 	//	タイトルの配置データ
-	UIData titleData_;
+	MNE::UIData titleData_;
 	//	オプションの配置データ
 	OptionScene option_;
 	//	カーソルのスプライト

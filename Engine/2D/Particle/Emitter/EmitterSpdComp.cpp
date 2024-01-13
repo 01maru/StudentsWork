@@ -1,5 +1,5 @@
 #include "EmitterSpdComp.h"
 
-void EmitterSpdComp::Initialize(Particle* /*particle*/)
+void MNE::EmitterSpdComp::Initialize(MNE::Particle* /*particle*/)
 {
 }

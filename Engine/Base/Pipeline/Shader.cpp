@@ -1,13 +1,13 @@
-﻿#include "Shader.h"
+#include "Shader.h"
 #include <string>
 #include <cassert>
 
-Shader::Shader(const LPCWSTR& VSFileName, const LPCWSTR& PSFileName, const LPCSTR& pEntryPoint, const LPCWSTR& GSFileName, const LPCWSTR& DSFileName, const LPCWSTR& HSFileName)
+MNE::Shader::Shader(const LPCWSTR& VSFileName, const LPCWSTR& PSFileName, const LPCSTR& pEntryPoint, const LPCWSTR& GSFileName, const LPCWSTR& DSFileName, const LPCWSTR& HSFileName)
 {
 	Initialize(VSFileName, PSFileName, pEntryPoint, GSFileName, DSFileName, HSFileName);
 }
 
-void Shader::Initialize(const LPCWSTR& VSFileName, const LPCWSTR& PSFileName, const LPCSTR& pEntryPoint, const LPCWSTR& GSFileName, const LPCWSTR& DSFileName, const LPCWSTR& HSFileName)
+void MNE::Shader::Initialize(const LPCWSTR& VSFileName, const LPCWSTR& PSFileName, const LPCSTR& pEntryPoint, const LPCWSTR& GSFileName, const LPCWSTR& DSFileName, const LPCWSTR& HSFileName)
 {
 #pragma region VertexShader
 	//	頂点シェーダファイル読み込み＆コンパイル
@@ -91,7 +91,7 @@ void Shader::Initialize(const LPCWSTR& VSFileName, const LPCWSTR& PSFileName, co
 #pragma endregion
 }
 
-void Shader::Error(HRESULT result)
+void MNE::Shader::Error(HRESULT result)
 {
 	if (FAILED(result)) {
 		// errorBlobからエラー内容をstring型にコピー

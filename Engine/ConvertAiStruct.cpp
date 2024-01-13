@@ -1,9 +1,9 @@
-﻿#include "ConvertAiStruct.h"
+#include "ConvertAiStruct.h"
 #include <assimp/anim.h>
 #include <cassert>
 #include "AnimationStruct.h"
 
-void Util::TransformMatToAiMat(Matrix& mat, const aiMatrix4x4& aiMat)
+void MNE::Util::TransformMatToAiMat(Matrix& mat, const aiMatrix4x4& aiMat)
 {
 	mat.m[0][0] = aiMat.a1;
 	mat.m[1][0] = aiMat.a2;
@@ -26,7 +26,7 @@ void Util::TransformMatToAiMat(Matrix& mat, const aiMatrix4x4& aiMat)
 	mat.m[3][3] = aiMat.d4;
 }
 
-const KeyChannels* Util::FindNodeChannel(const AnimationData& animData, const std::string& name)
+const MNE::KeyChannels* MNE::Util::FindNodeChannel(const AnimationData& animData, const std::string& name)
 {
 	for (size_t i = 0; i < animData.channels.size(); i++) {
 		if (animData.channels[i].nodeName == name) {
@@ -37,7 +37,7 @@ const KeyChannels* Util::FindNodeChannel(const AnimationData& animData, const st
 	return nullptr;
 }
 
-size_t Util::FindRotation(float AnimationTime, const KeyChannels* pNodeAnim)
+size_t MNE::Util::FindRotation(float AnimationTime, const KeyChannels* pNodeAnim)
 {
 	size_t keysSize = pNodeAnim->rotationKeys.size();
 	assert(keysSize > 0);
@@ -52,7 +52,7 @@ size_t Util::FindRotation(float AnimationTime, const KeyChannels* pNodeAnim)
 	return 0;
 }
 
-size_t Util::FindScaling(float AnimationTime, const KeyChannels* pNodeAnim)
+size_t MNE::Util::FindScaling(float AnimationTime, const KeyChannels* pNodeAnim)
 {
 	size_t keysSize = pNodeAnim->scalingKeys.size();
 	assert(keysSize > 0);
@@ -67,7 +67,7 @@ size_t Util::FindScaling(float AnimationTime, const KeyChannels* pNodeAnim)
 	return 0;
 }
 
-size_t Util::FindPosition(float AnimationTime, const KeyChannels* pNodeAnim)
+size_t MNE::Util::FindPosition(float AnimationTime, const KeyChannels* pNodeAnim)
 {
 	size_t keysSize = pNodeAnim->positionKeys.size();
 	assert(keysSize > 0);
@@ -83,7 +83,7 @@ size_t Util::FindPosition(float AnimationTime, const KeyChannels* pNodeAnim)
 	return 0;
 }
 
-void Util::CalcInterpolatedRotation(Quaternion& Out, float AnimationTime, const KeyChannels* pNodeAnim)
+void MNE::Util::CalcInterpolatedRotation(Quaternion& Out, float AnimationTime, const KeyChannels* pNodeAnim)
 {
 	// 補間には最低でも２つの値が必要
 	if (pNodeAnim->rotationKeys.size() == 1) {
@@ -115,7 +115,7 @@ void Util::CalcInterpolatedRotation(Quaternion& Out, float AnimationTime, const 
 	Out.w = ans.w;
 }
 
-void Util::CalcInterpolatedScaling(Vector3D& Out, float AnimationTime, const KeyChannels* pNodeAnim)
+void MNE::Util::CalcInterpolatedScaling(Vector3D& Out, float AnimationTime, const KeyChannels* pNodeAnim)
 {
 	if (pNodeAnim->scalingKeys.size() == 1) {
 		Out = pNodeAnim->scalingKeys[0].value;
@@ -134,7 +134,7 @@ void Util::CalcInterpolatedScaling(Vector3D& Out, float AnimationTime, const Key
 	Out = Start + Factor * Delta;
 }
 
-void Util::CalcInterpolatedPosition(Vector3D& Out, float AnimationTime, const KeyChannels* pNodeAnim)
+void MNE::Util::CalcInterpolatedPosition(Vector3D& Out, float AnimationTime, const KeyChannels* pNodeAnim)
 {
 	if (pNodeAnim->positionKeys.size() == 1) {
 		Out = pNodeAnim->positionKeys[0].value;

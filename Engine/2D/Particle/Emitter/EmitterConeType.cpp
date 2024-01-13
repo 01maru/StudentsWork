@@ -10,7 +10,7 @@
 using namespace Easing;
 using namespace MyMath;
 
-void EmitterConeType::Update(Particle* particle)
+void MNE::EmitterConeType::Update(MNE::Particle* particle)
 {
 	float angleXZ = GetRand(0.0f, PIx2);
 	float lenRate = GetRand(0.0f, 1.0f);
@@ -36,13 +36,13 @@ void EmitterConeType::Update(Particle* particle)
 
 	if (parent_->GetIsObj())
 	{
-		ObjectParticle* obj = particle->GetComponent<ObjectParticle>();
+		MNE::ObjectParticle* obj = particle->GetComponent<MNE::ObjectParticle>();
 
 		obj->SetPosition(pos_);
 	}
 	else
 	{
-		SpriteParticle* sprite = particle->GetComponent<SpriteParticle>();
+		MNE::SpriteParticle* sprite = particle->GetComponent<MNE::SpriteParticle>();
 
 		sprite->SetPosition(pos_);
 	}

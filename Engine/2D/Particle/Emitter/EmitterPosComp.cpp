@@ -3,11 +3,11 @@
 #include "SpriteParticle.h"
 #include "ObjectParticle.h"
 
-void EmitterPosComp::Initialize(Particle* particle)
+void MNE::EmitterPosComp::Initialize(MNE::Particle* particle)
 {
 	if (parent_->GetIsObj())
 	{
-		ObjectParticle* obj = particle->GetComponent<ObjectParticle>();
+		MNE::ObjectParticle* obj = particle->GetComponent<MNE::ObjectParticle>();
 
 		Vector3D pos = obj->GetPosition();
 		pos += add_->GetValue();
@@ -15,7 +15,7 @@ void EmitterPosComp::Initialize(Particle* particle)
 	}
 	else
 	{
-		SpriteParticle* sprite = particle->GetComponent<SpriteParticle>();
+		MNE::SpriteParticle* sprite = particle->GetComponent<MNE::SpriteParticle>();
 
 		Vector3D pos = sprite->GetPosition();
 		pos += add_->GetValue();
@@ -23,7 +23,7 @@ void EmitterPosComp::Initialize(Particle* particle)
 	}
 }
 
-void EmitterPosComp::SetAddValue(std::unique_ptr<ParticleValue>& v)
+void MNE::EmitterPosComp::SetAddValue(std::unique_ptr<ParticleValue>& v)
 {
 	add_ = std::move(v);
 }

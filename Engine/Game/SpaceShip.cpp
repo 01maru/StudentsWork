@@ -3,8 +3,9 @@
 #include "CameraManager.h"
 
 using namespace Easing;
+using namespace MNE;
 
-void SpaceShip::Initialize(IModel* model)
+void SpaceShip::Initialize(MNE::IModel* model)
 {
 	Object3D::Initialize();
 	SetModel(model);

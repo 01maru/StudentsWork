@@ -4,7 +4,7 @@
 #include "LightManager.h"
 #include "Object3D.h"
 
-void MyGame::Initialize()
+void MNE::MyGame::Initialize()
 {
 	Framework::Initialize();
 
@@ -22,7 +22,7 @@ void MyGame::Initialize()
 	SceneManager::GetInstance()->Initialize();
 }
 
-void MyGame::Update()
+void MNE::MyGame::Update()
 {
 	Framework::Update();
 
@@ -30,12 +30,12 @@ void MyGame::Update()
 	LightManager::GetInstance()->Update();
 }
 
-void MyGame::Draw()
+void MNE::MyGame::Draw()
 {
 	SceneManager::GetInstance()->Draw();
 }
 
-void MyGame::Finalize()
+void MNE::MyGame::Finalize()
 {
 	SceneManager::GetInstance()->Finalize();
 	Framework::Finalize();

@@ -1,10 +1,12 @@
-﻿#include "GlayScale.h"
+#include "GlayScale.h"
 #include "DirectX.h"
 #include "ConstBuffStruct.h"
 #include "Window.h"
 #include <cassert>
 #include "PipelineManager.h"
 #include "TextureManager.h"
+
+using namespace MNE;
 
 void GlayScale::Initialize(PostEffect* original)
 {

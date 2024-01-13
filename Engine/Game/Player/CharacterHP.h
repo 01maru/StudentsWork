@@ -18,9 +18,9 @@ protected:
 	float damageLen_ = 0.0f;
 	int32_t animationTime_ = 30;
 
-	Sprite back_;
-	Sprite damage_;
-	Sprite bar_;
+	MNE::Sprite back_;
+	MNE::Sprite damage_;
+	MNE::Sprite bar_;
 	float len_;
 
 	void IsAliveUpdate();
@@ -31,7 +31,7 @@ public:
 	int32_t GetMaxHP();
 	bool GetIsAlive();
 	void SetMaxHP(int32_t maxHP);
-	void SetSprite(const Sprite& sprite);
+	void SetSprite(const MNE::Sprite& sprite);
 	void SetBarColor(const Vector3D& color);
 };
 

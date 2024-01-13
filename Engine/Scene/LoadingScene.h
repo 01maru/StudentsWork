@@ -6,7 +6,7 @@
 #include "LoadSpriteAnime.h"
 #include <memory>
 
-class LoadingScene :public IScene
+class LoadingScene :public MNE::IScene
 {
 public:
 	/**
@@ -56,7 +56,7 @@ private:
 	//std::unique_ptr<ILoadingObj> loadObj_;
 	std::unique_ptr<LoadSpriteAnime> loadSprite_;
 	//	ロード画面の背景
-	std::unique_ptr<DissolveSprite> backSprite_;
+	std::unique_ptr<MNE::DissolveSprite> backSprite_;
 	bool isDraw_ = false;
 	//	フェードインアウト用カウンター
 	FrameCounter counter_;

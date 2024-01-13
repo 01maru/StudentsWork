@@ -10,86 +10,90 @@
 * @brief UIEditor用のUIData構造体ファイル
 */
 
-class UIData
+namespace MNE
 {
-public:
-	/**
-	* @fn Finalize()
-	* 終了処理関数(Editor用)
-	*/
-	void Finalize();
-	/**
-	* @fn InputUpdate()
-	* 入力更新処理関数
-	*/
-	void InputUpdate();
-	/**
-	* @fn Update()
-	* 更新処理関数
-	*/
-	void Update();
-	/**
-	* @fn Draw()
-	* 描画処理関数
-	*/
-	void Draw();
 
-protected:
-	//	開始時アニメーションか終了時アニメーションか
-	bool startAnimation_ = true;
-	//	全体のFrameCounter
-	std::unique_ptr<FrameCounter> count_;
-	//	選択中のボタン管理用変数
-	std::unique_ptr<UIButtonManager> buttonMan_;
-	//	表示するUIObjectのマップ変数
-	std::unordered_map<std::string, std::unique_ptr<UIObject>> obj_;
+	class UIData
+	{
+	public:
+		/**
+		* @fn Finalize()
+		* 終了処理関数(Editor用)
+		*/
+		void Finalize();
+		/**
+		* @fn InputUpdate()
+		* 入力更新処理関数
+		*/
+		void InputUpdate();
+		/**
+		* @fn Update()
+		* 更新処理関数
+		*/
+		void Update();
+		/**
+		* @fn Draw()
+		* 描画処理関数
+		*/
+		void Draw();
 
-	//	現在使用してないタグ
-	std::map<std::string, uint16_t, std::less<>> tagName_;
+	protected:
+		//	開始時アニメーションか終了時アニメーションか
+		bool startAnimation_ = true;
+		//	全体のFrameCounter
+		std::unique_ptr<FrameCounter> count_;
+		//	選択中のボタン管理用変数
+		std::unique_ptr<UIButtonManager> buttonMan_;
+		//	表示するUIObjectのマップ変数
+		std::unordered_map<std::string, std::unique_ptr<UIObject>> obj_;
 
-public:
-	/**
-	* @fn LoadData(const std::string&)
-	* レベルデータ読み込み用関数
-	* @param filename レベルデータのファイル名
-	*/
-	void LoadData(const std::string& filename);
+		//	現在使用してないタグ
+		std::map<std::string, uint16_t, std::less<>> tagName_;
 
-#pragma region Getter
+	public:
+		/**
+		* @fn LoadData(const std::string&)
+		* レベルデータ読み込み用関数
+		* @param filename レベルデータのファイル名
+		*/
+		void LoadData(const std::string& filename);
 
-	/**
-	* @fn GetSelectName()
-	* 選択中のボタンの名前のGetter関数
-	* @return 選択中のボタンの名前
-	*/
-	const std::string& GetSelectName();
-	/**
-	* @fn GetSelectPosition()
-	* 選択中の座標のGetter関数(カーソル用)
-	* @return 選択中の座標
-	*/
-	Vector2D& GetSelectPosition();
-	/**
-	* @fn GetSelectSize()
-	* 選択中のボタンサイズのGetter関数(カーソルアニメーション用)
-	* @return 選択中のサイズ
-	*/
-	Vector2D& GetSelectSize();
+	#pragma region Getter
 
-	UIObject* GetUIObject(const std::string& name);
+		/**
+		* @fn GetSelectName()
+		* 選択中のボタンの名前のGetter関数
+		* @return 選択中のボタンの名前
+		*/
+		const std::string& GetSelectName();
+		/**
+		* @fn GetSelectPosition()
+		* 選択中の座標のGetter関数(カーソル用)
+		* @return 選択中の座標
+		*/
+		Vector2D& GetSelectPosition();
+		/**
+		* @fn GetSelectSize()
+		* 選択中のボタンサイズのGetter関数(カーソルアニメーション用)
+		* @return 選択中のサイズ
+		*/
+		Vector2D& GetSelectSize();
 
-	bool GetIsEndAnimation();
+		UIObject* GetUIObject(const std::string& name);
 
-#pragma endregion
+		bool GetIsEndAnimation();
 
-	void Reset();
+	#pragma endregion
 
-	void ResetAnimation(bool startingAnimation);
+		void Reset();
 
-#pragma region Setter
+		void ResetAnimation(bool startingAnimation);
 
-	void SetSelectButton(const std::string& name);
+	#pragma region Setter
 
-#pragma endregion
-};
+		void SetSelectButton(const std::string& name);
 
+	#pragma endregion
+	};
+
+}

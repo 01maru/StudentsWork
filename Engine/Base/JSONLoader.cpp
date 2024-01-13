@@ -10,6 +10,7 @@
 #include <map>
 
 using namespace std;
+using namespace MNE;
 
 void JSONLoader::LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::json>& itr, ObjectData* parent)
 {
@@ -138,13 +139,13 @@ void JSONLoader::LoadJSON(const std::string& jsonname)
 
 	for (auto& objectData : levelData_->objects)
 	{
-		IModel* model = nullptr;
+		MNE::IModel* model = nullptr;
 		decltype(models_)::iterator it = models_.find(objectData.fileName);
 
 		if (it != models_.end()) { model = it->second.get(); }
 
-		std::unique_ptr<Object3D> newObject;
-		newObject = std::move(Object3D::Create(model));
+		std::unique_ptr<MNE::Object3D> newObject;
+		newObject = std::move(MNE::Object3D::Create(model));
 		
 		newObject->SetPosition(objectData.translation);
 		newObject->SetRotation(objectData.rotation);
@@ -159,7 +160,7 @@ void JSONLoader::LoadModel()
 	for (auto& objectData : levelData_->objects) {
 		decltype(models_)::iterator it = models_.find(objectData.fileName);
 		if (it == models_.end()) {
-			std::unique_ptr<ObjModel> model = std::make_unique<ObjModel>(objectData.fileName.c_str());
+			std::unique_ptr<MNE::ObjModel> model = std::make_unique<MNE::ObjModel>(objectData.fileName.c_str());
 			models_[objectData.fileName] = std::move(model);
 		}
 	}

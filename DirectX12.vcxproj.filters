@@ -842,9 +842,6 @@
     <ClInclude Include="Engine\Scene\Base\AbstractSceneFactory.h">
       <Filter>ヘッダー ファイル\lib\Engine\Scene\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Scene\Base\SceneFactory.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Scene\Factory</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Base\DirectX.h">
       <Filter>ヘッダー ファイル\lib\Engine</Filter>
     </ClInclude>
@@ -1318,6 +1315,9 @@
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIScaling.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scene\Base\SceneFactory.h">
+      <Filter>ヘッダー ファイル\lib\Engine\Scene\Factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

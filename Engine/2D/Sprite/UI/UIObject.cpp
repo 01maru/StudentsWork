@@ -1,7 +1,7 @@
 #include "UIObject.h"
 #include "FrameCounter.h"
 
-void UIObject::Update()
+void MNE::UIObject::Update()
 {
 	for (auto itr = components_.begin(); itr != components_.end(); ++itr)
 	{
@@ -9,7 +9,7 @@ void UIObject::Update()
 	}
 }
 
-void UIObject::MatUpdate()
+void MNE::UIObject::MatUpdate()
 {
 	for (auto itr = components_.begin(); itr != components_.end(); ++itr)
 	{
@@ -17,7 +17,7 @@ void UIObject::MatUpdate()
 	}
 }
 
-void UIObject::Draw()
+void MNE::UIObject::Draw()
 {
 	for (auto itr = components_.begin(); itr != components_.end(); ++itr)
 	{
@@ -29,12 +29,12 @@ void UIObject::Draw()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-FrameCounter* UIObject::GetCount()
+FrameCounter* MNE::UIObject::GetCount()
 {
 	return count_;
 }
 
-bool UIObject::GetIsStartAnimation()
+bool MNE::UIObject::GetIsStartAnimation()
 {
 	return *startAnimation_;
 }
@@ -43,17 +43,17 @@ bool UIObject::GetIsStartAnimation()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIObject::SetCount(FrameCounter* pCount)
+void MNE::UIObject::SetCount(FrameCounter* pCount)
 {
 	count_ = pCount;
 }
 
-void UIObject::SetStartAnimation(bool* pStartAnimation)
+void MNE::UIObject::SetStartAnimation(bool* pStartAnimation)
 {
 	startAnimation_ = pStartAnimation;
 }
 
-void UIObject::ResetAnimation()
+void MNE::UIObject::ResetAnimation()
 {
 	for (auto& comp : components_)
 	{

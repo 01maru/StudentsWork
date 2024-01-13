@@ -5,7 +5,7 @@
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIComponent::SetParent(UIObject* parent)
+void MNE::UIComponent::SetParent(UIObject* parent)
 {
 	parent_ = parent;
 }

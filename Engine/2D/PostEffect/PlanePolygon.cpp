@@ -1,8 +1,8 @@
-﻿#include "PlanePolygon.h"
+#include "PlanePolygon.h"
 #include "DirectX.h"
 #include <cassert>
 
-void PlanePolygon::SetVertices()
+void MNE::PlanePolygon::SetVertices()
 {
 	// 頂点1つ分のデータサイズ
 	vbView_.StrideInBytes = sizeof(vertices_[0]);
@@ -20,7 +20,7 @@ void PlanePolygon::SetVertices()
 	vertBuff_->Unmap(0, nullptr);
 }
 
-void PlanePolygon::Initialize()
+void MNE::PlanePolygon::Initialize()
 {
 	vertices_.clear();
 	vertices_.push_back({ {-1.0f,-1.0f,0.0f},{0,1} });
@@ -39,7 +39,7 @@ void PlanePolygon::Initialize()
 	VertIdxBuff::Initialize(sizePV, indices_);
 }
 
-void PlanePolygon::DrawIndexedInstanced()
+void MNE::PlanePolygon::DrawIndexedInstanced()
 {
 	MyDirectX::GetInstance()->GetCmdList()->DrawIndexedInstanced((UINT)indices_.size(), 1, 0, 0, 0);
 }

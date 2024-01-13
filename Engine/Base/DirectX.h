@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #define NOMINMAX
 #include "ViewPortScissorRect.h"
 #include "DepthStencil.h"
@@ -11,77 +11,80 @@
 #include <vector>
 #include <wrl.h>
 
-class PostEffect;
-
-class MyDirectX
+namespace MNE
 {
-private:
-	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
+	class PostEffect;
 
-	ComPtr<ID3D12Device> device_;
+	class MyDirectX
+	{
+	private:
+		template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-	ComPtr<ID3D12CommandAllocator> cmdAllocator_;
-	ComPtr<ID3D12GraphicsCommandList> cmdList_;
+		ComPtr<ID3D12Device> device_;
 
-	ComPtr<ID3D12CommandQueue> cmdQueue_;
+		ComPtr<ID3D12CommandAllocator> cmdAllocator_;
+		ComPtr<ID3D12GraphicsCommandList> cmdList_;
 
-	ComPtr<IDXGISwapChain4> swapChain_;
+		ComPtr<ID3D12CommandQueue> cmdQueue_;
 
-	D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc_{};
-	ComPtr<ID3D12DescriptorHeap> rtvHeap_;
+		ComPtr<IDXGISwapChain4> swapChain_;
 
-	// バックバッファ
-	std::vector<ComPtr<ID3D12Resource>> backBuffers_;
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle_;
+		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc_{};
+		ComPtr<ID3D12DescriptorHeap> rtvHeap_;
 
-	ComPtr<ID3D12Fence> fence_;
-	UINT64 fenceVal_ = 0;
+		// バックバッファ
+		std::vector<ComPtr<ID3D12Resource>> backBuffers_;
+		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle_;
 
-	D3D12_RESOURCE_BARRIER barrierDesc_{};
+		ComPtr<ID3D12Fence> fence_;
+		UINT64 fenceVal_ = 0;
 
-	DepthStencil dsv_;
+		D3D12_RESOURCE_BARRIER barrierDesc_{};
 
-	//	一つだけ
-	ComPtr<ID3D12DescriptorHeap> srvHeap_;
-	
-	//	ビューポートシザー矩形
-	ViewPortScissorRect viewPortSciRect_;
+		DepthStencil dsv_;
 
-private:
-	void DebugLayer();
+		//	一つだけ
+		ComPtr<ID3D12DescriptorHeap> srvHeap_;
 
-	void ScreenClear(const Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
-	
-	void SetResourceBarrier(D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, ID3D12Resource* pResource = nullptr);
-	void CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter,
-		D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum = 1, const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
-	void CmdListCloseAndFlip();
-	
-	MyDirectX() {};
-	~MyDirectX() {};
-public:
-	static MyDirectX* GetInstance();
-	MyDirectX(const MyDirectX& obj) = delete;
-	MyDirectX& operator=(const MyDirectX& obj) = delete;
+		//	ビューポートシザー矩形
+		ViewPortScissorRect viewPortSciRect_;
 
-	void Initialize();
+	private:
+		void DebugLayer();
 
-	void PrevPostEffect(PostEffect* postEffect, const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
-	void PostEffectDraw(PostEffect* postEffect);
+		void ScreenClear(const Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
 
-	void PrevDraw(const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
-	void PostDraw();
+		void SetResourceBarrier(D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, ID3D12Resource* pResource = nullptr);
+		void CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter,
+			D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum = 1, const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
+		void CmdListCloseAndFlip();
 
-	void DrawEnd();
+		MyDirectX() {};
+		~MyDirectX() {};
+	public:
+		static MyDirectX* GetInstance();
+		MyDirectX(const MyDirectX& obj) = delete;
+		MyDirectX& operator=(const MyDirectX& obj) = delete;
 
-	//	Getter
-	const D3D12_CPU_DESCRIPTOR_HANDLE GetCPUSRVHeapForHeapStart() { return srvHeap_->GetCPUDescriptorHandleForHeapStart(); }
-	const D3D12_GPU_DESCRIPTOR_HANDLE GetGPUSRVHeapForHeapStart() { return srvHeap_->GetGPUDescriptorHandleForHeapStart(); }
+		void Initialize();
 
-	ID3D12DescriptorHeap* GetSRVHeap() { return srvHeap_.Get(); }
-	ID3D12Device* GetDev() { return device_.Get(); }
-	ID3D12GraphicsCommandList* GetCmdList() { return cmdList_.Get(); }
-	D3D12_RESOURCE_DESC GetBackBuffDesc() { return backBuffers_[0]->GetDesc(); }
-	D3D12_DESCRIPTOR_HEAP_DESC GetRTVHeapDesc() { return rtvHeap_->GetDesc(); }
-};
+		void PrevPostEffect(MNE::PostEffect* postEffect, const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
+		void PostEffectDraw(MNE::PostEffect* postEffect);
 
+		void PrevDraw(const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
+		void PostDraw();
+
+		void DrawEnd();
+
+		//	Getter
+		const D3D12_CPU_DESCRIPTOR_HANDLE GetCPUSRVHeapForHeapStart() { return srvHeap_->GetCPUDescriptorHandleForHeapStart(); }
+		const D3D12_GPU_DESCRIPTOR_HANDLE GetGPUSRVHeapForHeapStart() { return srvHeap_->GetGPUDescriptorHandleForHeapStart(); }
+
+		ID3D12DescriptorHeap* GetSRVHeap() { return srvHeap_.Get(); }
+		ID3D12Device* GetDev() { return device_.Get(); }
+		ID3D12GraphicsCommandList* GetCmdList() { return cmdList_.Get(); }
+		D3D12_RESOURCE_DESC GetBackBuffDesc() { return backBuffers_[0]->GetDesc(); }
+		D3D12_DESCRIPTOR_HEAP_DESC GetRTVHeapDesc() { return rtvHeap_->GetDesc(); }
+	};
+
+}

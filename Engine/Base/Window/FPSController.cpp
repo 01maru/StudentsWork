@@ -1,13 +1,13 @@
-﻿#include "FPSController.h"
+#include "FPSController.h"
 #include <thread>
 
-FPSController* FPSController::GetInstance()
+MNE::FPSController* MNE::FPSController::GetInstance()
 {
 	static FPSController instance;
 	return &instance;
 }
 
-void FPSController::Initialize()
+void MNE::FPSController::Initialize()
 {
 	reference_ = std::chrono::steady_clock::now();
 
@@ -15,7 +15,7 @@ void FPSController::Initialize()
 	fpsList_.resize(sFPSLIST_MAX_SIZE, 0.0f);
 }
 
-void FPSController::CalcFps()
+void MNE::FPSController::CalcFps()
 {
 	//	古い情報を削除&合計値から引く
 	totalFps_ -= fpsList_.front();
@@ -30,7 +30,7 @@ void FPSController::CalcFps()
 	fpsValue_ = totalFps_ / sFPSLIST_MAX_SIZE;
 }
 
-void FPSController::Update()
+void MNE::FPSController::Update()
 {
 	//	1/60sec
 	const std::chrono::microseconds kMinTime(uint64_t(1000000.0f / 60.0f));

@@ -9,33 +9,37 @@
 * @brief グレースケール用ポストエフェクトファイル
 */
 
-class GlayScale :public PostEffect
+namespace MNE
 {
-private:
-	PostEffect* original_ = nullptr;
 
-	GPipeline* pipeline_ = nullptr;
+	class GlayScale :public PostEffect
+	{
+	private:
+		MNE::PostEffect* original_ = nullptr;
 
-#pragma region ConstBuff
+		MNE::GPipeline* pipeline_ = nullptr;
 
-	CBuff::CBuffGlayScale* cGlayScaleMap_ = nullptr;
-	ConstBuff activeGlay_;
+	#pragma region ConstBuff
 
-#pragma endregion
+		MNE::CBuff::CBuffGlayScale* cGlayScaleMap_ = nullptr;
+		MNE::ConstBuff activeGlay_;
 
-public:
-	/**
-	* @fn Initialize(PostEffect*)
-	* 初期化用関数
-	* @param original ブラーをかける前の画像
-	*/
-	void Initialize(PostEffect* original);
-	/**
-	* @fn DrawGlay()
-	* 描画処理関数
-	*/
-	void DrawGlay();
+	#pragma endregion
 
-	void SetGlayScale(bool active);
-};
+	public:
+		/**
+		* @fn Initialize(PostEffect*)
+		* 初期化用関数
+		* @param original ブラーをかける前の画像
+		*/
+		void Initialize(MNE::PostEffect* original);
+		/**
+		* @fn DrawGlay()
+		* 描画処理関数
+		*/
+		void DrawGlay();
 
+		void SetGlayScale(bool active);
+	};
+
+}

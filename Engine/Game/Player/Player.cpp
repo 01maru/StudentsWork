@@ -23,6 +23,7 @@
 #include "IGameState.h"
 
 using namespace CollAttribute;
+using namespace MNE;
 
 void Player::StatusInitialize()
 {
@@ -38,7 +39,7 @@ void Player::StatusInitialize()
 	hp_.Initialize();
 }
 
-void Player::Initialize(IModel* model)
+void Player::Initialize(MNE::IModel* model)
 {
 	Object3D::Initialize();
 	SetModel(model);
@@ -497,12 +498,12 @@ void Player::StartRateCount()
 	rate_.StartCount();
 }
 
-void Player::SetCrossHairSprite(const Sprite& sprite)
+void Player::SetCrossHairSprite(const MNE::Sprite& sprite)
 {
 	crossHair_.SetSprite(sprite);
 }
 
-void Player::SetHPBarSprite(const Sprite& sprite)
+void Player::SetHPBarSprite(const MNE::Sprite& sprite)
 {
 	hp_.SetSprite(sprite);
 
@@ -510,13 +511,13 @@ void Player::SetHPBarSprite(const Sprite& sprite)
 	hp_.SetBarColor(green);
 }
 
-void Player::SetAvoidCoolSprite(const Sprite& sprite, const Sprite& text)
+void Player::SetAvoidCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
 {
 	avoidCT_.SetSprite(sprite);
 	avoidCT_.SetTextSprite(text);
 }
 
-void Player::SetSlowAtCoolSprite(const Sprite& sprite, const Sprite& text)
+void Player::SetSlowAtCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
 {
 	slowAtCT_.SetSprite(sprite);
 	slowAtCT_.SetTextSprite(text);

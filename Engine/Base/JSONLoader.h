@@ -43,9 +43,9 @@ class JSONLoader
 {
 private:
 	//	モデルデータコンテナ
-	std::map<std::string, std::unique_ptr<IModel>> models_;
+	std::map<std::string, std::unique_ptr<MNE::IModel>> models_;
 	//	オブジェクトデータ
-	std::vector<std::unique_ptr<Object3D>> objects_;
+	std::vector<std::unique_ptr<MNE::Object3D>> objects_;
 	std::unique_ptr<LevelData> levelData_;
 
 	CameraData cameraData_;

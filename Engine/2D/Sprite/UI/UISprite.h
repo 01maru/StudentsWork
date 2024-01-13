@@ -8,48 +8,52 @@
 * @brief UIObjectでspriteの描画を管理する機能をまとめたファイル
 */
 
-class UISprite :public UIComponent
+namespace MNE
 {
-public:
-	/**
-	* @fn MatUpdate()
-	* 座標更新処理関数
-	*/
-	void MatUpdate() override;
-	/**
-	* @fn Draw()
-	* 描画処理関数
-	*/
-	void Draw() override;
 
-private:
-	//	描画するスプライトのマップ
-	std::unordered_map<std::string, Sprite> sprites_;
+	class UISprite :public UIComponent
+	{
+	public:
+		/**
+		* @fn MatUpdate()
+		* 座標更新処理関数
+		*/
+		void MatUpdate() override;
+		/**
+		* @fn Draw()
+		* 描画処理関数
+		*/
+		void Draw() override;
 
-public:
-	/**
-	* @fn AddSprite(const std::string&, Sprite&)
-	* sprites_に新しいスプライトを追加するための関数
-	* @param name 新しいスプライトの名前
-	* @param sprite 新しいスプライトの情報
-	*/
-	void AddSprite(const std::string& name, Sprite& sprite);
-	/**
-	* @fn DeleteSprite(const std::string&)
-	* sprites_からスプライトを削除するための関数
-	* @param spriteName 削除するスプライトの名前
-	*/
-	void DeleteSprite(const std::string& spriteName);
+	private:
+		//	描画するスプライトのマップ
+		std::unordered_map<std::string, MNE::Sprite> sprites_;
 
-#pragma region Getter
+	public:
+		/**
+		* @fn AddSprite(const std::string&, Sprite&)
+		* sprites_に新しいスプライトを追加するための関数
+		* @param name 新しいスプライトの名前
+		* @param sprite 新しいスプライトの情報
+		*/
+		void AddSprite(const std::string& name, MNE::Sprite& sprite);
+		/**
+		* @fn DeleteSprite(const std::string&)
+		* sprites_からスプライトを削除するための関数
+		* @param spriteName 削除するスプライトの名前
+		*/
+		void DeleteSprite(const std::string& spriteName);
 
-	/**
-	* @fn GetSprites()
-	* 描画するスプライトのマップ型変数のGetter関数
-	* @return 描画するスプライトのマップ型変数
-	*/
-	std::unordered_map<std::string, Sprite>& GetSprites();
+	#pragma region Getter
 
-#pragma endregion
-};
+		/**
+		* @fn GetSprites()
+		* 描画するスプライトのマップ型変数のGetter関数
+		* @return 描画するスプライトのマップ型変数
+		*/
+		std::unordered_map<std::string, MNE::Sprite>& GetSprites();
 
+	#pragma endregion
+	};
+
+}

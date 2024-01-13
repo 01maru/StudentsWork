@@ -4,7 +4,7 @@
 class FireParticleEmitter
 {
 private:
-	std::unique_ptr<ParticleEmitter> emitter_;
+	std::unique_ptr<MNE::ParticleEmitter> emitter_;
 	int32_t rate_ = 3;
 	float addScaleMin_ = -0.2f;
 	float addScaleMax_ = -0.1f;
@@ -17,6 +17,6 @@ private:
 	void SetRotComponent();
 	void SetResouceComponent();
 public:
-	std::unique_ptr<ParticleEmitter>& GetEmitter();
+	std::unique_ptr<MNE::ParticleEmitter>& GetEmitter();
 };
 

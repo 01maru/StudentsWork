@@ -13,7 +13,7 @@
 #include "SliderSprite.h"
 #include "UIScaling.h"
 
-void UIData::Finalize()
+void MNE::UIData::Finalize()
 {
 	count_.release();
 	obj_.clear();
@@ -24,12 +24,12 @@ void UIData::Finalize()
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void UIData::InputUpdate()
+void MNE::UIData::InputUpdate()
 {
 	buttonMan_->Update();
 }
 
-void UIData::Update()
+void MNE::UIData::Update()
 {
 	//	オブジェクト更新処理
 	for (auto& sprite : obj_) {
@@ -47,7 +47,7 @@ void UIData::Update()
 // [SECTION] Draw
 //-----------------------------------------------------------------------------
 
-void UIData::Draw()
+void MNE::UIData::Draw()
 {
 	//	オブジェクト描画処理
 	for (auto& sprite : obj_) {
@@ -61,7 +61,7 @@ void UIData::Draw()
 // [SECTION] Load
 //-----------------------------------------------------------------------------
 
-void UIData::LoadData(const std::string& filename)
+void MNE::UIData::LoadData(const std::string& filename)
 {
 	const std::string filePath = "Resources/Levels/" + filename + ".txt";
 
@@ -294,29 +294,29 @@ void UIData::LoadData(const std::string& filename)
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-const std::string& UIData::GetSelectName()
+const std::string& MNE::UIData::GetSelectName()
 {
 	return buttonMan_->GetSelectObjName();
 }
 
-Vector2D& UIData::GetSelectPosition()
+Vector2D& MNE::UIData::GetSelectPosition()
 {
 	return buttonMan_->GetSelectPos();
 }
 
-Vector2D& UIData::GetSelectSize()
+Vector2D& MNE::UIData::GetSelectSize()
 {
 	return buttonMan_->GetSelectSize();
 }
 
-UIObject* UIData::GetUIObject(const std::string& name)
+MNE::UIObject* MNE::UIData::GetUIObject(const std::string& name)
 {
 	if (obj_.count(name) == 0) return nullptr;
 
 	return obj_[name].get();
 }
 
-bool UIData::GetIsEndAnimation()
+bool MNE::UIData::GetIsEndAnimation()
 {
 	//	アニメーションがそもそもなかったら
 	if (count_ == nullptr) return true;
@@ -329,14 +329,14 @@ bool UIData::GetIsEndAnimation()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIData::Reset()
+void MNE::UIData::Reset()
 {
 	for (auto& sprite : obj_) {
 		sprite.second->ResetAnimation();
 	}
 }
 
-void UIData::ResetAnimation(bool startingAnimation)
+void MNE::UIData::ResetAnimation(bool startingAnimation)
 {
 	if (count_ != nullptr) {
 		count_->StartCount();
@@ -347,7 +347,7 @@ void UIData::ResetAnimation(bool startingAnimation)
 	Reset();
 }
 
-void UIData::SetSelectButton(const std::string& name)
+void MNE::UIData::SetSelectButton(const std::string& name)
 {
 	buttonMan_->SetSelectButton(obj_[name]->GetComponent<UIButton>());
 }

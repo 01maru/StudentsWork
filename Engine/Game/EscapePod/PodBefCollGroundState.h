@@ -9,7 +9,12 @@
 
 #pragma region  前置宣言
 
-class ICamera;
+namespace MNE
+{
+
+	class ICamera;
+
+}
 
 #pragma endregion
 
@@ -35,6 +40,6 @@ private:
 	//	ポッドの開始位置
 	float startPosY_ = 100.0f;
 	//	動かすカメラのポインター
-	ICamera* camera = nullptr;
+	MNE::ICamera* camera = nullptr;
 };
 

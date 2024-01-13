@@ -4,6 +4,8 @@
 #include "PipelineManager.h"
 #include "Easing.h"
 
+using namespace MNE;
+
 void SplashSprite::Initialize(Texture* texture)
 {
 	count_ = std::make_unique<FrameCounter>();

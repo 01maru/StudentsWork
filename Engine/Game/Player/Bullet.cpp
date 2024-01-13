@@ -9,6 +9,8 @@
 #include "BulletHitEmitter.h"
 #include "EmitterConeType.h"
 
+using namespace MNE;
+
 Bullet::~Bullet()
 {
 	if (emitter_ != nullptr) {

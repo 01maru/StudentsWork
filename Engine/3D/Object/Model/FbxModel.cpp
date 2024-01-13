@@ -9,13 +9,14 @@
 #include "ImGuiManager.h"
 
 using namespace std;
+using namespace MNE;
 
-FbxModel::FbxModel(const char* filename, bool smoothing)
+MNE::FbxModel::FbxModel(const char* filename, bool smoothing)
 {
 	IModel::Initialize(filename, smoothing);
 }
 
-void FbxModel::LoadModel(const std::string& modelname, bool smoothing)
+void MNE::FbxModel::LoadModel(const std::string& modelname, bool smoothing)
 {
 	//	パスの設定
 	const string filename = modelname + ".fbx";
@@ -32,7 +33,7 @@ void FbxModel::LoadModel(const std::string& modelname, bool smoothing)
 	if (modelScene == nullptr) { return; }
 
 	//	GlobalInverseTransform設定
-	Util::TransformMatToAiMat(globalInverseTransform_, modelScene->mRootNode->mTransformation);
+	MNE::Util::TransformMatToAiMat(globalInverseTransform_, modelScene->mRootNode->mTransformation);
 
 	//	mesh情報設定
 	meshes_.reserve(modelScene->mNumMeshes);
@@ -60,12 +61,12 @@ void FbxModel::LoadModel(const std::string& modelname, bool smoothing)
 	LoadNodes(modelScene->mRootNode);
 }
 
-void FbxModel::LoadNodeHeirarchy(const aiNode* pNode)
+void MNE::FbxModel::LoadNodeHeirarchy(const aiNode* pNode)
 {
 	Node node;
 
 	//	NodeTransform
-	Util::TransformMatToAiMat(node.transformation, pNode->mTransformation);
+	MNE::Util::TransformMatToAiMat(node.transformation, pNode->mTransformation);
 
 	//	ChildrenName
 	for (size_t i = 0; i < pNode->mNumChildren; i++) {
@@ -80,14 +81,14 @@ void FbxModel::LoadNodeHeirarchy(const aiNode* pNode)
 	}
 }
 
-void FbxModel::LoadNodes(const aiNode* rootNode)
+void MNE::FbxModel::LoadNodes(const aiNode* rootNode)
 {
 	rootNodeName_ = rootNode->mName.C_Str();
 
 	LoadNodeHeirarchy(rootNode);
 }
 
-void FbxModel::LoadAnimation(const aiScene* modelScene)
+void MNE::FbxModel::LoadAnimation(const aiScene* modelScene)
 {
 	for (size_t i = 0; i < modelScene->mNumAnimations; i++)
 	{
@@ -137,7 +138,7 @@ void FbxModel::LoadAnimation(const aiScene* modelScene)
 	}
 }
 
-void FbxModel::LoadMaterial(Mesh* dst, const std::string& name)
+void MNE::FbxModel::LoadMaterial(Mesh* dst, const std::string& name)
 {
 	if (SerchMaterial(name) == TRUE) {
 		dst->SetMaterial(GetMaterial(name));
@@ -164,7 +165,7 @@ void FbxModel::LoadMaterial(Mesh* dst, const std::string& name)
 	dst->SetMaterial(material);
 }
 
-void FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
+void MNE::FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 {
 	aiVector3D zero3D(0.0f, 0.0f, 0.0f);
 
@@ -196,7 +197,7 @@ void FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 	}
 }
 
-void FbxModel::LoadBone(size_t meshIndex, const aiMesh* src)
+void MNE::FbxModel::LoadBone(size_t meshIndex, const aiMesh* src)
 {
 	//	bone情報設定
 	for (size_t i = 0; i < src->mNumBones; i++) {
@@ -209,7 +210,7 @@ void FbxModel::LoadBone(size_t meshIndex, const aiMesh* src)
 			BoneInfo bi;
 			boneInfo_.push_back(bi);
 			//	型変換
-			Util::TransformMatToAiMat(boneInfo_[BoneIndex].boneOffset, src->mBones[i]->mOffsetMatrix);
+			MNE::Util::TransformMatToAiMat(boneInfo_[BoneIndex].boneOffset, src->mBones[i]->mOffsetMatrix);
 			boneMapping_[BoneName] = BoneIndex;
 		}
 		else {
@@ -224,19 +225,19 @@ void FbxModel::LoadBone(size_t meshIndex, const aiMesh* src)
 	}
 }
 
-void FbxModel::SetTextureFilePath(const std::string& filename, Mesh& dst, const aiMaterial* src)
+void MNE::FbxModel::SetTextureFilePath(const std::string& filename, Mesh& dst, const aiMaterial* src)
 {
 	aiString path;
 	if (src->Get(AI_MATKEY_TEXTURE_DIFFUSE(0), path) == AI_SUCCESS)
 	{
-		auto dir = Util::GetDirectoryPath(filename);
+		auto dir = MNE::Util::GetDirectoryPath(filename);
 		auto file = std::string(path.C_Str());
 		dst.SetTextureFilePath(dir + file);
 		dst.GetMaterial()->name_ = file;
 	}
 }
 
-void FbxModel::ImGuiUpdate()
+void MNE::FbxModel::ImGuiUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
@@ -283,7 +284,7 @@ void FbxModel::ImGuiUpdate()
 	imgui->EndWindow();
 }
 
-void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx)
+void MNE::FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx)
 {
 	Matrix Identity;
 
@@ -302,32 +303,32 @@ void FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transform
 	}
 }
 
-void FbxModel::ReadNodeHeirarchy(const AnimationData& animData, float AnimationTime, const Matrix& ParentTransform, const std::string& nodeName)
+void MNE::FbxModel::ReadNodeHeirarchy(const AnimationData& animData, float AnimationTime, const Matrix& ParentTransform, const std::string& nodeName)
 {
 	//	nodeがあるか
 	if (nodes_.count(nodeName) == 0) assert(0);
 	Matrix NodeTransformation = nodes_[nodeName].transformation;
 
-	const KeyChannels* pNodeAnim = Util::FindNodeChannel(animData, nodeName);
+	const KeyChannels* pNodeAnim = MNE::Util::FindNodeChannel(animData, nodeName);
 
 	if (pNodeAnim) {
 		MyMath::ObjMatrix mat;
 
 		// スケーリングを補間し、スケーリング変換行列を生成する
 		Vector3D Scaling;
-		Util::CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
+		MNE::Util::CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
 		mat.scale_ = Vector3D(Scaling.x, Scaling.y, Scaling.z);
 		mat.SetMatScaling();
 
 		// 回転を補間し、回転変換行列を生成する
 		Quaternion RotationQ;
-		Util::CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
+		MNE::Util::CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
 		Quaternion rotQ(RotationQ.w, RotationQ.x, RotationQ.y, RotationQ.z);
 		mat.matRot_ = rotQ.GetRotMatrix();
 
 		// 移動を補間し、移動変換行列を生成する
 		Vector3D Translation;
-		Util::CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
+		MNE::Util::CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
 		mat.trans_ = Vector3D(Translation.x, Translation.y, Translation.z);
 		mat.SetMatTransform();
 

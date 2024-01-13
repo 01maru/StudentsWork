@@ -5,7 +5,12 @@
 
 #pragma region  前置宣言
 
-class ICamera;
+namespace MNE
+{
+	
+	class ICamera;
+
+}
 
 #pragma endregion
 
@@ -35,7 +40,7 @@ private:
 	Vector3D startTarget_;
 	float moveZ = 7.0f;
 	//	動かすカメラのポインター
-	ICamera* camera = nullptr;
+	MNE::ICamera* camera = nullptr;
 
 	int16_t openDoorFrame_ = 30;
 };

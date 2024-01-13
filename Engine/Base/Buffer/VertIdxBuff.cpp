@@ -2,7 +2,7 @@
 #include "DirectX.h"
 #include <cassert>
 
-void VertIdxBuff::SetResDesc(UINT size)
+void MNE::VertIdxBuff::SetResDesc(UINT size)
 {
 	resDesc_.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 	resDesc_.Width = size; // 頂点データ全体のサイズ
@@ -13,7 +13,7 @@ void VertIdxBuff::SetResDesc(UINT size)
 	resDesc_.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 }
 
-void VertIdxBuff::Initialize(uint32_t sizeVB, const std::vector<uint16_t>& indices)
+void MNE::VertIdxBuff::Initialize(uint32_t sizeVB, const std::vector<uint16_t>& indices)
 {
 	Initialize(sizeVB);
 
@@ -48,7 +48,7 @@ void VertIdxBuff::Initialize(uint32_t sizeVB, const std::vector<uint16_t>& indic
 #pragma endregion
 }
 
-void VertIdxBuff::Initialize(uint32_t sizeVB)
+void MNE::VertIdxBuff::Initialize(uint32_t sizeVB)
 {
 	ID3D12Device* dev = MyDirectX::GetInstance()->GetDev();
 	D3D12_HEAP_PROPERTIES heapProp{};
@@ -80,7 +80,7 @@ void VertIdxBuff::Initialize(uint32_t sizeVB)
 #pragma endregion
 }
 
-void VertIdxBuff::SetIndices(const std::vector<uint16_t>& indices)
+void MNE::VertIdxBuff::SetIndices(const std::vector<uint16_t>& indices)
 {
 	//	インデックスバッファマッピング
 	uint16_t* indexMap = nullptr;
@@ -94,7 +94,7 @@ void VertIdxBuff::SetIndices(const std::vector<uint16_t>& indices)
 	indexBuff_->Unmap(0, nullptr);
 }
 
-void VertIdxBuff::IASetVertIdxBuff()
+void MNE::VertIdxBuff::IASetVertIdxBuff()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 

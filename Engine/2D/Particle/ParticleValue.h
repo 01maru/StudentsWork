@@ -1,60 +1,65 @@
 #pragma once
 #include "Vector3D.h"
 
-class ParticleValue
+namespace MNE
 {
-public:
-	virtual void CalcValue() {};
 
-protected:
-	Vector3D value_;
+	class ParticleValue
+	{
+	public:
+		virtual void CalcValue() {};
 
-public:
-	Vector3D& GetValue();
+	protected:
+		Vector3D value_;
 
-	void SetValue(const Vector3D& v);
-};
+	public:
+		Vector3D& GetValue();
 
-class ParticleRandValue :public ParticleValue
-{
-public:
-	void CalcValue() override;
+		void SetValue(const Vector3D& v);
+	};
 
-private:
-	Vector3D minValue_;
-	Vector3D maxValue_;
+	class ParticleRandValue :public ParticleValue
+	{
+	public:
+		void CalcValue() override;
 
-public:
-#pragma region Getter
+	private:
+		Vector3D minValue_;
+		Vector3D maxValue_;
 
-#pragma endregion
+	public:
+	#pragma region Getter
 
-#pragma region Setter
+	#pragma endregion
 
-	void SetMinValue(const Vector3D& v);
-	void SetMaxValue(const Vector3D& v);
+	#pragma region Setter
 
-#pragma endregion
-};
+		void SetMinValue(const Vector3D& v);
+		void SetMaxValue(const Vector3D& v);
 
-class ParticleSameRandValue :public ParticleValue
-{
-public:
-	void CalcValue() override;
+	#pragma endregion
+	};
 
-private:
-	float minValue_;
-	float maxValue_;
+	class ParticleSameRandValue :public ParticleValue
+	{
+	public:
+		void CalcValue() override;
 
-public:
-#pragma region Getter
+	private:
+		float minValue_;
+		float maxValue_;
 
-#pragma endregion
+	public:
+	#pragma region Getter
 
-#pragma region Setter
+	#pragma endregion
 
-	void SetMinValue(float v);
-	void SetMaxValue(float v);
+	#pragma region Setter
 
-#pragma endregion
-};
+		void SetMinValue(float v);
+		void SetMaxValue(float v);
+
+	#pragma endregion
+	};
+
+}

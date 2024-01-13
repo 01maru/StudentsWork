@@ -4,7 +4,12 @@
 
 #pragma region  前置宣言
 
-class ICamera;
+namespace MNE
+{
+	
+	class ICamera;
+
+}
 
 #pragma endregion
 
@@ -26,7 +31,7 @@ private:
 	//	アニメーション用カウンター
 	FrameCounter counter_;
 	//	動かすカメラのポインター
-	ICamera* camera = nullptr;
+	MNE::ICamera* camera = nullptr;
 
 	int16_t shakeFrame_ = 20;
 };

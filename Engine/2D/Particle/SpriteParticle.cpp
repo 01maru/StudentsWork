@@ -9,18 +9,18 @@
 #include "CameraManager.h"
 #include "RootParameterIdx.h"
 
-void SpriteParticle::Initialize()
+void MNE::SpriteParticle::Initialize()
 {
 	HRESULT result;
 
 #pragma region  ConstBuffer
 
-	transform_.Initialize(sizeof(CBuff::CBufferParticleTransform));
+	transform_.Initialize(sizeof(MNE::CBuff::CBufferParticleTransform));
 	//	定数バッファのマッピング
 	result = transform_.GetResource()->Map(0, nullptr, (void**)&cTransformMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
-	colorMaterial_.Initialize(sizeof(CBuff::CBuffColorMaterial));
+	colorMaterial_.Initialize(sizeof(MNE::CBuff::CBuffColorMaterial));
 	//	定数バッファのマッピング
 	result = colorMaterial_.GetResource()->Map(0, nullptr, (void**)&cColorMap_);	//	マッピング
 	assert(SUCCEEDED(result));
@@ -36,7 +36,7 @@ void SpriteParticle::Initialize()
 #pragma endregion
 }
 
-void SpriteParticle::MatUpdate()
+void MNE::SpriteParticle::MatUpdate()
 {
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	cTransformMap_->matBillboard = Matrix();
@@ -53,14 +53,14 @@ void SpriteParticle::MatUpdate()
 	cColorMap_->color = color_;
 }
 
-void SpriteParticle::Draw()
+void MNE::SpriteParticle::Draw()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 
 	//	頂点バッファ設定
 	IASetVertIdxBuff();
 
-	int32_t nextIdx = Zero;
+	int32_t nextIdx = MNE::Zero;
 	
 	//	テクスチャ設定
 	cmdList->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(texHandle_));
@@ -77,27 +77,27 @@ void SpriteParticle::Draw()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-const Vector3D& SpriteParticle::GetPosition()
+const Vector3D& MNE::SpriteParticle::GetPosition()
 {
 	return vertex_;
 }
 
-const Vector4D& SpriteParticle::GetColor()
+const Vector4D& MNE::SpriteParticle::GetColor()
 {
 	return color_;
 }
 
-float SpriteParticle::GetScale()
+float MNE::SpriteParticle::GetScale()
 {
 	return scale_;
 }
 
-bool SpriteParticle::GetIsBillboard()
+bool MNE::SpriteParticle::GetIsBillboard()
 {
 	return isBillboard_;
 }
 
-bool SpriteParticle::GetIsBillboardY()
+bool MNE::SpriteParticle::GetIsBillboardY()
 {
 	return isBillboardY_;
 }
@@ -106,12 +106,12 @@ bool SpriteParticle::GetIsBillboardY()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void SpriteParticle::SetTextureHandle(int32_t handle)
+void MNE::SpriteParticle::SetTextureHandle(int32_t handle)
 {
 	texHandle_ = handle;
 }
 
-void SpriteParticle::SetPosition(const Vector3D& pos)
+void MNE::SpriteParticle::SetPosition(const Vector3D& pos)
 {
 	if (vertex_ == pos) return;
 
@@ -119,37 +119,37 @@ void SpriteParticle::SetPosition(const Vector3D& pos)
 	TransferVertex();
 }
 
-void SpriteParticle::SetColor(const Vector4D& color)
+void MNE::SpriteParticle::SetColor(const Vector4D& color)
 {
 	color_ = color;
 }
 
-void SpriteParticle::SetColor(const Vector3D& color)
+void MNE::SpriteParticle::SetColor(const Vector3D& color)
 {
 	color_.SetVec3D(color);
 }
 
-void SpriteParticle::SetAlphaColor(float alpha)
+void MNE::SpriteParticle::SetAlphaColor(float alpha)
 {
 	color_.w = alpha;
 }
 
-void SpriteParticle::SetScale(float scale)
+void MNE::SpriteParticle::SetScale(float scale)
 {
 	scale_ = scale;
 }
 
-void SpriteParticle::SetIsBillboard(bool isBillboard)
+void MNE::SpriteParticle::SetIsBillboard(bool isBillboard)
 {
 	isBillboard_ = isBillboard;
 }
 
-void SpriteParticle::SetIsBillboardY(bool isBillboardY)
+void MNE::SpriteParticle::SetIsBillboardY(bool isBillboardY)
 {
 	isBillboardY_ = isBillboardY;
 }
 
-void SpriteParticle::TransferVertex()
+void MNE::SpriteParticle::TransferVertex()
 {
 	//	GPU上のバッファに対応した仮想メモリ(メインメモリ上)を取得
 	Vector3D* vertMap = nullptr;
@@ -163,7 +163,7 @@ void SpriteParticle::TransferVertex()
 	vertBuff_->Unmap(0, nullptr);
 }
 
-void SpriteParticle::SetVertices()
+void MNE::SpriteParticle::SetVertices()
 {
 	//	頂点1つ分のデータサイズ
 	vbView_.StrideInBytes = sizeof(vertex_);

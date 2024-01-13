@@ -10,13 +10,13 @@ using namespace Easing;
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void UIScaling::Initialize()
+void MNE::UIScaling::Initialize()
 {
     pSprites_ = parent_->GetComponent<UISprite>();
     pTimer_ = parent_->GetComponent<UIAnimationTimer>();
 }
 
-void UIScaling::Update()
+void MNE::UIScaling::Update()
 {
     if (pSprites_ == nullptr) return;
 
@@ -31,12 +31,12 @@ void UIScaling::Update()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-Vector2D& UIScaling::GetStartSize()
+Vector2D& MNE::UIScaling::GetStartSize()
 {
     return startSize_;
 }
 
-Vector2D& UIScaling::GetEndSize()
+Vector2D& MNE::UIScaling::GetEndSize()
 {
     return endSize_;
 }
@@ -45,12 +45,12 @@ Vector2D& UIScaling::GetEndSize()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIScaling::SetStartSize(const Vector2D& size)
+void MNE::UIScaling::SetStartSize(const Vector2D& size)
 {
     startSize_ = size;
 }
 
-void UIScaling::SetEndSize(const Vector2D& size)
+void MNE::UIScaling::SetEndSize(const Vector2D& size)
 {
     endSize_ = size;
 }

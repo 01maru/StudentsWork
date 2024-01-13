@@ -3,7 +3,7 @@
 #include "FrameCounter.h"
 #include "Quaternion.h"
 
-class TitleCamera :public ICamera
+class TitleCamera :public MNE::ICamera
 {
 private:
 	enum CameraMode

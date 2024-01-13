@@ -8,11 +8,11 @@
 #include <cassert>
 #include "RootParameterIdx.h"
 
-void Object3DDissolve::Initialize()
+void MNE::Object3DDissolve::Initialize()
 {
 	HRESULT result;
 	TextureManager::GetInstance()->LoadTextureGraph("DissolveMap.png");
-	dissolve_.Initialize(sizeof(CBuff::CBuffDissolveData));
+	dissolve_.Initialize(sizeof(MNE::CBuff::CBuffDissolveData));
 	//	定数バッファのマッピング
 	result = dissolve_.GetResource()->Map(0, nullptr, (void**)&cDissolveMap_);	//	マッピング
 	assert(SUCCEEDED(result));
@@ -20,7 +20,7 @@ void Object3DDissolve::Initialize()
 	Object3D::Initialize();
 }
 
-void Object3DDissolve::MatUpdate()
+void MNE::Object3DDissolve::MatUpdate()
 {
 	Object3D::MatUpdate();
 
@@ -28,13 +28,13 @@ void Object3DDissolve::MatUpdate()
 	cDissolveMap_->color = dissolveColor_;
 }
 
-void Object3DDissolve::Draw()
+void MNE::Object3DDissolve::Draw()
 {
 	GPipeline* pipeline = PipelineManager::GetInstance()->GetPipeline("dissolve");
 	pipeline->SetGraphicsRootSignature();
 	pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	int32_t nextIdx = One;
+	int32_t nextIdx = MNE::One;
 
 	Texture* dissolve = TextureManager::GetInstance()->GetTextureGraph("DissolveMap.png");
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(dissolve->GetHandle()));

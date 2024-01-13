@@ -8,59 +8,62 @@
 * @brief 選択中のUIButtonを切り替えるためのファイル
 */
 
+namespace MNE
+{
 #pragma region 前置宣言
 
-class UIButton;
+	class UIButton;
 
 #pragma endregion
 
-class UIButtonManager
-{
-public:
-	/**
-	* @fn Update()
-	* 更新処理関数
-	*/
-	void Update();
+	class UIButtonManager
+	{
+	public:
+		/**
+		* @fn Update()
+		* 更新処理関数
+		*/
+		void Update();
 
-private:
-	//	選択中のButton
-	UIButton* selectButton_ = nullptr;
+	private:
+		//	選択中のButton
+		UIButton* selectButton_ = nullptr;
 
-public:
+	public:
 
-#pragma region Getter
+	#pragma region Getter
 
-	/**
-	* @fn GetSelectObjName()
-	* 選択中のボタンの名前のGetter関数
-	* @return 選択中のボタンの名前
-	*/
-	const std::string& GetSelectObjName();
-	/**
-	* @fn GetSelectPos()
-	* 選択中の座標のGetter関数(カーソル用)
-	* @return 選択中の座標
-	*/
-	Vector2D& GetSelectPos();
-	/**
-	* @fn GetSelectSize()
-	* 選択中のボタンサイズのGetter関数(カーソルアニメーション用)
-	* @return 選択中のボタンサイズ
-	*/
-	Vector2D& GetSelectSize();
+		/**
+		* @fn GetSelectObjName()
+		* 選択中のボタンの名前のGetter関数
+		* @return 選択中のボタンの名前
+		*/
+		const std::string& GetSelectObjName();
+		/**
+		* @fn GetSelectPos()
+		* 選択中の座標のGetter関数(カーソル用)
+		* @return 選択中の座標
+		*/
+		Vector2D& GetSelectPos();
+		/**
+		* @fn GetSelectSize()
+		* 選択中のボタンサイズのGetter関数(カーソルアニメーション用)
+		* @return 選択中のボタンサイズ
+		*/
+		Vector2D& GetSelectSize();
 
-#pragma endregion
+	#pragma endregion
 
-#pragma region Setter
+	#pragma region Setter
 
-	/**
-	* @fn SetSelectButton(UIButton*)
-	* 選択中のボタン設定用関数
-	* @param button 選択中のボタンポインター
-	*/
-	void SetSelectButton(UIButton* button);
+		/**
+		* @fn SetSelectButton(UIButton*)
+		* 選択中のボタン設定用関数
+		* @param button 選択中のボタンポインター
+		*/
+		void SetSelectButton(UIButton* button);
 
-#pragma endregion
-};
+	#pragma endregion
+	};
 
+}

@@ -1,4 +1,4 @@
-﻿#include "Matrix.h"
+#include "Matrix.h"
 #include "Window.h"
 #include <cmath>
 
@@ -132,8 +132,8 @@ Matrix Create2DTransformMatrix()
 {
     Matrix ans;
 
-    ans.m[0][0] = 2.0f / Window::sWIN_WIDTH;
-    ans.m[1][1] = -2.0f / Window::sWIN_HEIGHT;
+    ans.m[0][0] = 2.0f / MNE::Window::sWIN_WIDTH;
+    ans.m[1][1] = -2.0f / MNE::Window::sWIN_HEIGHT;
     ans.m[3][0] = -1.0f;
     ans.m[3][1] = 1.0f;
 

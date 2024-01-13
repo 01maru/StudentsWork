@@ -1,7 +1,7 @@
 #pragma once
 #include "ICamera.h"
 
-class GameCamera :public ICamera
+class GameCamera :public MNE::ICamera
 {
 private:
 	bool lockOn_ = false;

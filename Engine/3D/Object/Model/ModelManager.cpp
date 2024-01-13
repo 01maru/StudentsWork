@@ -5,19 +5,19 @@
 #include "ImGuiController.h"
 #include "ImGuiManager.h"
 
-ModelManager* ModelManager::GetInstance()
+MNE::ModelManager* MNE::ModelManager::GetInstance()
 {
     static ModelManager instance;
     return &instance;
 }
 
-void ModelManager::Initialize()
+void MNE::ModelManager::Initialize()
 {
     LoadModel("");
     previewObj_ = std::move(Object3D::Create(GetModel("")));
 }
 
-void ModelManager::ImGuiUpdate()
+void MNE::ModelManager::ImGuiUpdate()
 {
     if (!ImGuiController::GetInstance()->GetActiveModelManager()) return;
 
@@ -63,14 +63,14 @@ void ModelManager::ImGuiUpdate()
     previewObj_->MatUpdate();
 }
 
-void ModelManager::DrawPreview()
+void MNE::ModelManager::DrawPreview()
 {
     if (!preview_) return;
 
     previewObj_->Draw();
 }
 
-void ModelManager::LoadModel(const std::string& filename, bool fbx)
+void MNE::ModelManager::LoadModel(const std::string& filename, bool fbx)
 {
     //  既に読み込まれてたら
     if (models_.count(filename) != 0) return;
@@ -91,12 +91,12 @@ void ModelManager::LoadModel(const std::string& filename, bool fbx)
     models_.emplace(filename, std::move(model));
 }
 
-void ModelManager::DeleteModel(const std::string& filename)
+void MNE::ModelManager::DeleteModel(const std::string& filename)
 {
     models_.erase(filename);
 }
 
-IModel* ModelManager::GetModel(const std::string& modelname)
+MNE::IModel* MNE::ModelManager::GetModel(const std::string& modelname)
 {
     //  読み込まれていなかったら
     if (models_.count(modelname) == 0) return nullptr;

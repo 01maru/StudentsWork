@@ -4,7 +4,7 @@
 #include <cassert>
 #include <vector>
 
-void GPipeline::SetShader(Shader& shader)
+void MNE::GPipeline::SetShader(Shader& shader)
 {
 #pragma region VertexShader
 	pipelineDesc_.VS.pShaderBytecode = shader.GetVSBlob()->GetBufferPointer();
@@ -34,7 +34,7 @@ void GPipeline::SetShader(Shader& shader)
 #pragma endregion
 }
 
-void GPipeline::SetBlendDesc(D3D12_RENDER_TARGET_BLEND_DESC& blenddesc, size_t mord)
+void MNE::GPipeline::SetBlendDesc(D3D12_RENDER_TARGET_BLEND_DESC& blenddesc, size_t mord)
 {
 	//	ブレンドなしだったら
 	if (mord == Blend::NONE_BLEND) return;
@@ -70,7 +70,7 @@ void GPipeline::SetBlendDesc(D3D12_RENDER_TARGET_BLEND_DESC& blenddesc, size_t m
 	}
 }
 
-void GPipeline::SetRootParamCBV(D3D12_ROOT_PARAMETER& rootParam, D3D12_ROOT_PARAMETER_TYPE type, size_t shaderRegister, size_t registerSpace, D3D12_SHADER_VISIBILITY shaderVisibility)
+void MNE::GPipeline::SetRootParamCBV(D3D12_ROOT_PARAMETER& rootParam, D3D12_ROOT_PARAMETER_TYPE type, size_t shaderRegister, size_t registerSpace, D3D12_SHADER_VISIBILITY shaderVisibility)
 {
 	rootParam.ParameterType = type;								//	定数バッファビュー
 	rootParam.Descriptor.ShaderRegister = (UINT)shaderRegister;	//	定数バッファ番号
@@ -78,7 +78,7 @@ void GPipeline::SetRootParamCBV(D3D12_ROOT_PARAMETER& rootParam, D3D12_ROOT_PARA
 	rootParam.ShaderVisibility = shaderVisibility;				//	すべてのシェーダから見る
 }
 
-void GPipeline::SetRootParamDescript(D3D12_ROOT_PARAMETER& rootParam, D3D12_ROOT_PARAMETER_TYPE type, D3D12_DESCRIPTOR_RANGE* pDescriptorRange, size_t numDescriptorRanges, D3D12_SHADER_VISIBILITY shaderVisibility)
+void MNE::GPipeline::SetRootParamDescript(D3D12_ROOT_PARAMETER& rootParam, D3D12_ROOT_PARAMETER_TYPE type, D3D12_DESCRIPTOR_RANGE* pDescriptorRange, size_t numDescriptorRanges, D3D12_SHADER_VISIBILITY shaderVisibility)
 {
 	rootParam.ParameterType = type;
 	rootParam.DescriptorTable.pDescriptorRanges = pDescriptorRange;
@@ -86,7 +86,7 @@ void GPipeline::SetRootParamDescript(D3D12_ROOT_PARAMETER& rootParam, D3D12_ROOT
 	rootParam.ShaderVisibility = shaderVisibility;
 }
 
-void GPipeline::SetRootSignature(size_t rootParamNum, int32_t textureNum)
+void MNE::GPipeline::SetRootSignature(size_t rootParamNum, int32_t textureNum)
 {
 #pragma region	ルートパラメータ
 	//	ルートパラメータの設定
@@ -144,7 +144,7 @@ void GPipeline::SetRootSignature(size_t rootParamNum, int32_t textureNum)
 #pragma endregion
 }
 
-void GPipeline::Initialize(Shader& shader, const std::vector<D3D12_INPUT_ELEMENT_DESC>& inputLayout, int32_t constBuffNum, D3D12_PRIMITIVE_TOPOLOGY_TYPE topologyType, D3D12_FILL_MODE fillmord, D3D12_CULL_MODE cullmord, D3D12_DEPTH_WRITE_MASK depth_write_mask, bool isDeep, DXGI_FORMAT format, int32_t textureNum)
+void MNE::GPipeline::Initialize(Shader& shader, const std::vector<D3D12_INPUT_ELEMENT_DESC>& inputLayout, int32_t constBuffNum, D3D12_PRIMITIVE_TOPOLOGY_TYPE topologyType, D3D12_FILL_MODE fillmord, D3D12_CULL_MODE cullmord, D3D12_DEPTH_WRITE_MASK depth_write_mask, bool isDeep, DXGI_FORMAT format, int32_t textureNum)
 {
 	HRESULT result;
 	// シェーダーの設定
@@ -203,7 +203,7 @@ void GPipeline::Initialize(Shader& shader, const std::vector<D3D12_INPUT_ELEMENT
 	assert(SUCCEEDED(result));
 }
 
-void GPipeline::Init(Shader& shader, D3D12_INPUT_ELEMENT_DESC* inputLayout, UINT inputLayoutSize, int32_t constBuffNum, D3D12_PRIMITIVE_TOPOLOGY_TYPE topologyType, D3D12_FILL_MODE fillmord, D3D12_CULL_MODE cullmord, D3D12_DEPTH_WRITE_MASK depth_write_mask, bool isDeep, DXGI_FORMAT format, int32_t textureNum)
+void MNE::GPipeline::Init(Shader& shader, D3D12_INPUT_ELEMENT_DESC* inputLayout, UINT inputLayoutSize, int32_t constBuffNum, D3D12_PRIMITIVE_TOPOLOGY_TYPE topologyType, D3D12_FILL_MODE fillmord, D3D12_CULL_MODE cullmord, D3D12_DEPTH_WRITE_MASK depth_write_mask, bool isDeep, DXGI_FORMAT format, int32_t textureNum)
 {
 	HRESULT result;
 	// シェーダーの設定
@@ -262,7 +262,7 @@ void GPipeline::Init(Shader& shader, D3D12_INPUT_ELEMENT_DESC* inputLayout, UINT
 	assert(SUCCEEDED(result));
 }
 
-void GPipeline::SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY primitive)
+void MNE::GPipeline::SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY primitive)
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 	// パイプラインステートとルートシグネチャの設定コマンド
@@ -270,12 +270,12 @@ void GPipeline::SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY primitive)
 	dx->GetCmdList()->IASetPrimitiveTopology(primitive);
 }
 
-void GPipeline::SetGraphicsRootSignature()
+void MNE::GPipeline::SetGraphicsRootSignature()
 {
 	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootSignature(rootSignature_.Get());
 }
 
-void GPipeline::SetBlendMord(size_t mord)
+void MNE::GPipeline::SetBlendMord(size_t mord)
 {
 	D3D12_RENDER_TARGET_BLEND_DESC& blenddesc = pipelineDesc_.BlendState.RenderTarget[0];
 	blenddesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;

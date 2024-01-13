@@ -62,7 +62,7 @@ bool CoolTime::GetIsActive()
 	return isActive_;
 }
 
-void CoolTime::SetSprite(const Sprite& sprite)
+void CoolTime::SetSprite(const MNE::Sprite& sprite)
 {
 	sprite_ = sprite;
 
@@ -75,7 +75,7 @@ void CoolTime::SetSprite(const Sprite& sprite)
 	gauge_.SetColor(color);
 }
 
-void CoolTime::SetTextSprite(const Sprite& sprite)
+void CoolTime::SetTextSprite(const MNE::Sprite& sprite)
 {
 	text_ = sprite;
 }

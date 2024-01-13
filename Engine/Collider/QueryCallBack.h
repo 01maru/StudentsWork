@@ -4,7 +4,7 @@
 
 struct QueryHit
 {
-	Object3D* object = nullptr;
+	MNE::Object3D* object = nullptr;
 	BaseCollider* collider = nullptr;
 	Vector3D inter;
 	Vector3D reject;

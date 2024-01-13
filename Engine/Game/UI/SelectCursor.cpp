@@ -4,6 +4,7 @@
 #include "XAudioManager.h"
 
 using namespace Easing;
+using namespace MNE;
 
 void SelectCursor::Initialize()
 {

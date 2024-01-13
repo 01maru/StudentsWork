@@ -4,6 +4,7 @@
 #include "Easing.h"
 
 using namespace Easing;
+using namespace MNE;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize

@@ -1,6 +1,6 @@
-﻿#include "IModel.h"
+#include "IModel.h"
 
-void IModel::Initialize(const char* filename, bool smoothing)
+void MNE::IModel::Initialize(const char* filename, bool smoothing)
 {
 	LoadModel(filename, smoothing);
 
@@ -17,7 +17,7 @@ void IModel::Initialize(const char* filename, bool smoothing)
 	}
 }
 
-void IModel::Draw(int32_t cBuffMtlIdx)
+void MNE::IModel::Draw(int32_t cBuffMtlIdx)
 {
 	for (auto& mesh : meshes_) {
 		mesh.SetGraphicsRootCBuffViewMtl(cBuffMtlIdx);

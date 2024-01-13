@@ -7,38 +7,42 @@
 * @brief 継承するローディング表示用処理をまとめたファイル
 */
 
-class ILoadingObj
+namespace MNE
 {
-public:
-	virtual ~ILoadingObj() = default;
-	/**
-	* @fn Initialize()
-	* 初期化用関数
-	*/
-	virtual void Initialize() = 0;
-	/**
-	* @fn Update()
-	* 更新処理関数
-	*/
-	virtual void Update();
-	/**
-	* @fn Draw()
-	* 描画処理関数
-	*/
-	virtual void Draw() = 0;
 
-protected:
-	//	ロード中か
-	bool loading_ = false;
-	//	フェードインアウト用
-	FrameCounter counter_;
+	class ILoadingObj
+	{
+	public:
+		virtual ~ILoadingObj() = default;
+		/**
+		* @fn Initialize()
+		* 初期化用関数
+		*/
+		virtual void Initialize() = 0;
+		/**
+		* @fn Update()
+		* 更新処理関数
+		*/
+		virtual void Update();
+		/**
+		* @fn Draw()
+		* 描画処理関数
+		*/
+		virtual void Draw() = 0;
 
-public:
-#pragma region Setter
+	protected:
+		//	ロード中か
+		bool loading_ = false;
+		//	フェードインアウト用
+		FrameCounter counter_;
 
-	void SetIsLoading(bool loading);
-	void SetFadeAnimeTime(int32_t time);
+	public:
+	#pragma region Setter
 
-#pragma endregion
-};
+		void SetIsLoading(bool loading);
+		void SetFadeAnimeTime(int32_t time);
 
+	#pragma endregion
+	};
+
+}

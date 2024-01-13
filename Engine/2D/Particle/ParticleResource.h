@@ -7,29 +7,33 @@
 * @brief リソースを追加するためのパーティクルのコンポーネントクラスファイル
 */
 
-class ParticleResource :public EmitterComponent
+namespace MNE
 {
-public:
-	/**
-	* @fn Initialize()
-	* 初期化関数
-	*/
-	void Initialize(Particle* particle) override;
 
-private:
-	//	リソースの名前
-	std::string name_;
+	class ParticleResource :public EmitterComponent
+	{
+	public:
+		/**
+		* @fn Initialize()
+		* 初期化関数
+		*/
+		void Initialize(MNE::Particle* particle) override;
 
-public:
-#pragma region Setter
+	private:
+		//	リソースの名前
+		std::string name_;
 
-	/**
-	* @fn SetResourceName(const std::string&)
-	* パーティクルに設定するリソースの名前を変更するための関数
-	* @param name パーティクルに設定するリソースの変更名
-	*/
-	void SetResourceName(const std::string& name);
+	public:
+	#pragma region Setter
 
-#pragma endregion
-};
+		/**
+		* @fn SetResourceName(const std::string&)
+		* パーティクルに設定するリソースの名前を変更するための関数
+		* @param name パーティクルに設定するリソースの変更名
+		*/
+		void SetResourceName(const std::string& name);
 
+	#pragma endregion
+	};
+
+}

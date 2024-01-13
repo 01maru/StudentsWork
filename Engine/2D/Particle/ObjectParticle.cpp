@@ -1,16 +1,16 @@
 #include "ObjectParticle.h"
 
-void ObjectParticle::Initialize()
+void MNE::ObjectParticle::Initialize()
 {
 	Object3D::Initialize();
 }
 
-void ObjectParticle::MatUpdate()
+void MNE::ObjectParticle::MatUpdate()
 {
 	Object3D::MatUpdate();
 }
 
-void ObjectParticle::Draw()
+void MNE::ObjectParticle::Draw()
 {
 	Object3D::Draw();
 }

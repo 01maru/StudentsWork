@@ -4,34 +4,38 @@
 #include "Texture.h"
 #include "ConstBuff.h"
 
-namespace CBuff {
-	struct CBufferMaterialData;
-}
-
-class Material
+namespace MNE
 {
-public:
-	std::string name_;
-	Vector3D ambient_ = { 1.0f,1.0f,1.0f };
-	Vector3D diffuse_ = { 0.8f,0.8f,0.8f };
-	Vector3D specular_ = { 0.5f,0.5f,0.5f };
-	float alpha_ = 1.0f;
 
-	std::string textureFilename_;
-	std::string filepath_;
+	namespace CBuff {
+		struct CBufferMaterialData;
+	}
 
-	ConstBuff material_;
+	class Material
+	{
+	public:
+		std::string name_;
+		Vector3D ambient_ = { 1.0f,1.0f,1.0f };
+		Vector3D diffuse_ = { 0.8f,0.8f,0.8f };
+		Vector3D specular_ = { 0.5f,0.5f,0.5f };
+		float alpha_ = 1.0f;
 
-	Texture* texture_;
+		std::string textureFilename_;
+		std::string filepath_;
 
-public:
-	static Material* Create();
+		MNE::ConstBuff material_;
 
-	void Initialize();
-	void Update();
-	void LoadTexture();
-	void SetGraphicsRootCBuffView(uint32_t rootparaIdx);
+		MNE::Texture* texture_;
 
-	int32_t GetTextureHandle();
-};
+	public:
+		static Material* Create();
 
+		void Initialize();
+		void Update();
+		void LoadTexture();
+		void SetGraphicsRootCBuffView(uint32_t rootparaIdx);
+
+		int32_t GetTextureHandle();
+	};
+
+}

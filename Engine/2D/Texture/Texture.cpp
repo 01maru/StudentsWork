@@ -1,7 +1,7 @@
-﻿#include "Texture.h"
+#include "Texture.h"
 #include "TextureManager.h"
 
-void Texture::Initialize(const std::string& texName, int32_t handle, ID3D12Resource* texBuff_ptr)
+void MNE::Texture::Initialize(const std::string& texName, int32_t handle, ID3D12Resource* texBuff_ptr)
 {
 	name_ = texName;
 	handle_ = handle;

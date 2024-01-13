@@ -13,7 +13,7 @@ public:
 
 	void Reset();
 private:
-	std::vector<LoadingSprite> sprites_;
+	std::vector<MNE::LoadingSprite> sprites_;
 	FrameCounter counter_;
 	float spriteSize_ = 30.0f;
 	const int32_t MAX_SPRITE_NUM = 9;

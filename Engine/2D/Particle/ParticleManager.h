@@ -10,81 +10,86 @@
 * @brief すべてのパーティクルとエミッターをまとめて管理するファイル
 */
 
-class ParticleManager
+namespace MNE
 {
-private:
-	ParticleManager() {};
-	~ParticleManager() {};
 
-public:
-	static ParticleManager* GetInstance();
-	ParticleManager(const ParticleManager& obj) = delete;
-	ParticleManager& operator=(const ParticleManager& obj) = delete;
+	class ParticleManager
+	{
+	private:
+		ParticleManager() {};
+		~ParticleManager() {};
 
-	/**
-	* @fn Initialize()
-	* 初期化処理関数
-	*/
-	void Initialize();
-	/**
-	* @fn Update()
-	* 更新処理用関数
-	*/
-	void Update();
-	/**
-	* @fn MatUpdate()
-	* 行列更新用関数
-	*/
-	void MatUpdate();
-	/**
-	* @fn ImGuiUpdate()
-	* ImGui更新用関数
-	*/
-	void ImGuiUpdate();
-	/**
-	* @fn Draw()
-	* 描画処理用関数
-	*/
-	void Draw();
+	public:
+		static ParticleManager* GetInstance();
+		ParticleManager(const ParticleManager& obj) = delete;
+		ParticleManager& operator=(const ParticleManager& obj) = delete;
 
-private:
-	//	エミッターリスト
-	std::forward_list<std::unique_ptr<ParticleEmitter>> emitters_;
-	//	ぺらポリゴンのパーティクルリスト
-	std::forward_list<std::unique_ptr<Particle>> spriteParticles_;
-	//	ぺらポリゴンの描画に使用するパイプライン配列
-	std::vector<GPipeline*> pipelines_;
+		/**
+		* @fn Initialize()
+		* 初期化処理関数
+		*/
+		void Initialize();
+		/**
+		* @fn Update()
+		* 更新処理用関数
+		*/
+		void Update();
+		/**
+		* @fn MatUpdate()
+		* 行列更新用関数
+		*/
+		void MatUpdate();
+		/**
+		* @fn ImGuiUpdate()
+		* ImGui更新用関数
+		*/
+		void ImGuiUpdate();
+		/**
+		* @fn Draw()
+		* 描画処理用関数
+		*/
+		void Draw();
 
-	//	モデルを使ったパーティクルのリスト
-	std::forward_list<std::unique_ptr<Particle>> objParticles_;
+	private:
+		//	エミッターリスト
+		std::forward_list<std::unique_ptr<ParticleEmitter>> emitters_;
+		//	ぺらポリゴンのパーティクルリスト
+		std::forward_list<std::unique_ptr<Particle>> spriteParticles_;
+		//	ぺらポリゴンの描画に使用するパイプライン配列
+		std::vector<GPipeline*> pipelines_;
 
-private:
-	/**
-	* @fn DeleteParticle()
-	* パーティクルをリストから削除するための関数
-	*/
-	void DeleteParticle();
+		//	モデルを使ったパーティクルのリスト
+		std::forward_list<std::unique_ptr<Particle>> objParticles_;
 
-public:
-	void DeleteAllParticle();
+	private:
+		/**
+		* @fn DeleteParticle()
+		* パーティクルをリストから削除するための関数
+		*/
+		void DeleteParticle();
+
+	public:
+		void DeleteAllParticle();
 
 #pragma region ADD
 
-	/**
-	* @fn AddParticle(std::unique_ptr<Particle>&, bool)
-	* パーティクル追加用関数
-	* @param particle 追加するパーティクルの情報
-	* @param isObj 追加するパーティクルがオブジェクトかどうか
-	*/
-	void AddParticle(std::unique_ptr<Particle>& particle, bool isObj);
+		/**
+		* @fn AddParticle(std::unique_ptr<Particle>&, bool)
+		* パーティクル追加用関数
+		* @param particle 追加するパーティクルの情報
+		* @param isObj 追加するパーティクルがオブジェクトかどうか
+		*/
+		void AddParticle(std::unique_ptr<Particle>& particle, bool isObj);
 
-	/**
-	* @fn AddEmitter(std::unique_ptr<ParticleEmitter>&)
-	* エミッター追加用関数
-	* @param emitter 追加するエミッター
-	*/
-	ParticleEmitter* AddEmitter(std::unique_ptr<ParticleEmitter>& emitter);
+		/**
+		* @fn AddEmitter(std::unique_ptr<ParticleEmitter>&)
+		* エミッター追加用関数
+		* @param emitter 追加するエミッター
+		*/
+		ParticleEmitter* AddEmitter(std::unique_ptr<ParticleEmitter>& emitter);
 
 #pragma endregion
-};
+	};
+
+}
 

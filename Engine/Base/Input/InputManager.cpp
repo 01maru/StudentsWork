@@ -1,17 +1,17 @@
-﻿#include "InputManager.h"
+#include "InputManager.h"
 #include "Window.h"
 
 #include "ImGuiManager.h"
 #include "ImGuiController.h"
 #include <cassert>
 
-InputManager* InputManager::GetInstance()
+MNE::InputManager* MNE::InputManager::GetInstance()
 {
 	static InputManager instance;
 	return &instance;
 }
 
-void InputManager::Initialize()
+void MNE::InputManager::Initialize()
 {
 	//	DirectInput初期化
 	HRESULT result = DirectInput8Create(
@@ -27,7 +27,7 @@ void InputManager::Initialize()
 	keyboard_->Initialize(directInput_.Get());
 }
 
-void InputManager::Update()
+void MNE::InputManager::Update()
 {
 	mouse_->Update();
 
@@ -36,7 +36,7 @@ void InputManager::Update()
 	keyboard_->Update();
 }
 
-void InputManager::ImGuiUpdate()
+void MNE::InputManager::ImGuiUpdate()
 {
 	if (!ImGuiController::GetInstance()->GetActiveInputManager()) return;
 
@@ -53,12 +53,12 @@ void InputManager::ImGuiUpdate()
 	imgui->EndWindow();
 }
 
-bool InputManager::GetKeyAndButton(int key, InputJoypad::JoyPadButton button)
+bool MNE::InputManager::GetKeyAndButton(int key, InputJoypad::JoyPadButton button)
 {
 	return keyboard_->GetKey(key) || joypad_->GetButton(button);
 }
 
-bool InputManager::GetTriggerKeyAndButton(int key, InputJoypad::JoyPadButton button)
+bool MNE::InputManager::GetTriggerKeyAndButton(int key, InputJoypad::JoyPadButton button)
 {
 	return keyboard_->GetTrigger(key) || joypad_->GetButtonTrigger(button);
 }

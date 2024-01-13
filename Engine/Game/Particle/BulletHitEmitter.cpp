@@ -7,6 +7,8 @@
 #include "EmitterFadeAnimation.h"
 #include "EmitterLifeTime.h"
 
+using namespace MNE;
+
 void BulletHitEmitter::SetScaleComponent()
 {
 	float scaleValue = 0.1f;
@@ -34,10 +36,10 @@ void BulletHitEmitter::SetResouceComponent()
 	resource->SetResourceName("particle2.png");
 }
 
-std::unique_ptr<ParticleEmitter>& BulletHitEmitter::GetEmitter()
+std::unique_ptr<MNE::ParticleEmitter>& BulletHitEmitter::GetEmitter()
 {
 	emitter_ = std::make_unique<ParticleEmitter>();
-	emitter_->SetBlendMord(Blend::ALPHA_BLEND);
+	emitter_->SetBlendMord(MNE::Blend::ALPHA_BLEND);
 	emitter_->SetRate(rate_);
 
 	SetScaleComponent();

@@ -4,7 +4,7 @@
 #include "IModel.h"
 #include "RootParameterIdx.h"
 
-void Object3DShilhouette::Draw()
+void MNE::Object3DShilhouette::Draw()
 {
 	GPipeline* pipeline_ = PipelineManager::GetInstance()->GetPipeline("ModelSilhouette");
 	pipeline_->SetGraphicsRootSignature();

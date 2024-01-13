@@ -5,6 +5,8 @@
 #include "EmitterScaleAnimation.h"
 #include "EmitterSphereType.h"
 
+using namespace MNE;
+
 void DeadParticleEmitter::SetScaleComponent()
 {
 	EmitterScaleAnimation* scale = emitter_->AddComponent<EmitterScaleAnimation>();
@@ -30,10 +32,10 @@ void DeadParticleEmitter::SetResouceComponent()
 	resource->SetResourceName("particle.png");
 }
 
-std::unique_ptr<ParticleEmitter>& DeadParticleEmitter::GetEmitter()
+std::unique_ptr<MNE::ParticleEmitter>& DeadParticleEmitter::GetEmitter()
 {
 	emitter_ = std::make_unique<ParticleEmitter>();
-	emitter_->SetBlendMord(Blend::ADD_BLEND);
+	emitter_->SetBlendMord(MNE::Blend::ADD_BLEND);
 	emitter_->SetRate(rate_);
 
 	SetScaleComponent();

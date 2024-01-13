@@ -2,7 +2,7 @@
 #include <cassert>
 #include <dxgi1_6.h>
 
-std::wstring Util::ToWideString(const std::string& str)
+std::wstring MNE::Util::ToWideString(const std::string& str)
 {
 	auto num1 = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS, str.c_str(), -1, nullptr, 0);
 
@@ -15,7 +15,7 @@ std::wstring Util::ToWideString(const std::string& str)
 	return wstr;
 }
 
-std::string Util::ConvertToString(const wchar_t* name)
+std::string MNE::Util::ConvertToString(const wchar_t* name)
 {
 	std::wstring ws = name;
 
@@ -28,13 +28,13 @@ std::string Util::ConvertToString(const wchar_t* name)
 	return result;
 }
 
-std::string Util::GetDirectoryPath(const std::string& origin)
+std::string MNE::Util::GetDirectoryPath(const std::string& origin)
 {
 	int ind = (int)origin.find_last_of('/') + 1;
 	return origin.substr(0, ind);
 }
 
-std::string Util::GetFileName(const std::string& origin)
+std::string MNE::Util::GetFileName(const std::string& origin)
 {
 	if (origin.find("/") == std::string::npos) return origin;
 	int offset = (int)origin.find_last_of('/') + 1;

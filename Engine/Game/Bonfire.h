@@ -1,15 +1,20 @@
 #pragma once
 #include "Object3D.h"
 
-class ParticleEmitter;
+namespace MNE
+{
+	
+	class ParticleEmitter;
 
-class Bonfire :public Object3D
+}
+
+class Bonfire :public MNE::Object3D
 {
 public:
 	void Start();
 	void Stop();
 private:
-	ParticleEmitter* smoke_ = nullptr;
-	ParticleEmitter* fire_ = nullptr;
+	MNE::ParticleEmitter* smoke_ = nullptr;
+	MNE::ParticleEmitter* fire_ = nullptr;
 };
 

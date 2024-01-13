@@ -5,6 +5,8 @@
 #include "ImGuiManager.h"
 #include "Easing.h"
 
+using namespace MNE;
+
 void PlayerAvoidState::Initialize()
 {
 	timer_.Initialize(sPlayer_->GetAvoidAccTime(), true);

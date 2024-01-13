@@ -4,12 +4,13 @@
 #include "Easing.h"
 
 using namespace Easing;
+using namespace MNE;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
-void EscapePod::Initialize(IModel* model)
+void EscapePod::Initialize(MNE::IModel* model)
 {
 	//	Object3D初期化
 	Object3D::Initialize();

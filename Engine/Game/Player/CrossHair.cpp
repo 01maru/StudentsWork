@@ -6,6 +6,7 @@
 #include "ImGuiManager.h"
 
 using namespace CollAttribute;
+using namespace MNE;
 
 void CrossHair::Update(const Vector3D& startPos)
 {

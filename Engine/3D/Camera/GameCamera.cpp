@@ -3,6 +3,8 @@
 #include "InputManager.h"
 #include "Quaternion.h"
 
+using namespace MNE;
+
 void GameCamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float dis)
 {
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(true);

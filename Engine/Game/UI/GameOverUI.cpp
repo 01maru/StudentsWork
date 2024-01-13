@@ -7,6 +7,7 @@
 #include "Easing.h"
 
 using namespace Easing;
+using namespace MNE;
 
 void GameOverUI::Initialize()
 {

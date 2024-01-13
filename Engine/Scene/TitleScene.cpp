@@ -11,6 +11,8 @@
 #include "LightManager.h"
 #include "ParticleManager.h"
 
+using namespace MNE;
+
 void TitleScene::LoadResources()
 {
 #pragma region Sound
@@ -32,9 +34,9 @@ void TitleScene::LoadResources()
 	level_ = std::make_unique<JSONLoader>();
 	level_->LoadJSON("Title");
 	//	天球
-	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
+	skydome_ = std::move(MNE::Object3D::Create(models->GetModel("skydome")));
 	//	地面
-	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
+	ground_ = std::move(MNE::Object3D::Create(models->GetModel("ground")));
 	//bonfire_ = std::move(Bonfire::Create(models->GetModel("bonfire")));
 	bonfire_ = std::make_unique<Bonfire>();
 	bonfire_->Initialize();

@@ -1,8 +1,8 @@
-﻿#include "InputKeyboard.h"
+#include "InputKeyboard.h"
 #include "Window.h"
 #include <cassert>
 
-void InputKeyboard::Initialize(IDirectInput8* directInput)
+void MNE::InputKeyboard::Initialize(IDirectInput8* directInput)
 {
 	Window* win = Window::GetInstance();
 	HRESULT result;
@@ -19,7 +19,7 @@ void InputKeyboard::Initialize(IDirectInput8* directInput)
 	assert(SUCCEEDED(result));
 }
 
-void InputKeyboard::Update()
+void MNE::InputKeyboard::Update()
 {
 	//	前フレームの情報取得
 	for (size_t i = 0; i < sizeof(key_); i++)
@@ -33,17 +33,17 @@ void InputKeyboard::Update()
 	keyboard_->GetDeviceState(sizeof(key_), key_);
 }
 
-bool InputKeyboard::GetKey(int key)
+bool MNE::InputKeyboard::GetKey(int key)
 {
 	return key_[key];
 }
 
-bool InputKeyboard::GetTrigger(int key)
+bool MNE::InputKeyboard::GetTrigger(int key)
 {
 	return key_[key] && !prev_[key];
 }
 
-bool InputKeyboard::GetRelease(int key)
+bool MNE::InputKeyboard::GetRelease(int key)
 {
 	return prev_[key] && !key_[key];
 }

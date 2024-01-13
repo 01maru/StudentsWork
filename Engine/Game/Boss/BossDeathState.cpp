@@ -5,6 +5,7 @@
 #include "ParticleManager.h"
 #include "DeadParticleEmitter.h"
 
+using namespace MNE;
 using namespace Easing;
 
 void BossDeathState::Initialize()

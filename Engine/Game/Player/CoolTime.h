@@ -16,9 +16,9 @@ protected:
 	bool isActive_ = false;
 	FrameCounter coolTimer_;
 
-	Sprite sprite_;
-	Sprite text_;
-	Sprite gauge_;
+	MNE::Sprite sprite_;
+	MNE::Sprite text_;
+	MNE::Sprite gauge_;
 
 private:
 	void SpriteUpdate();
@@ -27,8 +27,8 @@ public:
 	bool GetIsActive();
 #pragma region Setter
 
-	void SetSprite(const Sprite& sprite);
-	void SetTextSprite(const Sprite& sprite);
+	void SetSprite(const MNE::Sprite& sprite);
+	void SetTextSprite(const MNE::Sprite& sprite);
 	void SetMaxTime(int32_t time);
 
 #pragma endregion

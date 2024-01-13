@@ -10,6 +10,8 @@
 
 #include "IGameState.h"
 
+using namespace MNE;
+
 void Boss::StatusInitialize()
 {
 	hp_.SetMaxHP(maxHP_);
@@ -24,7 +26,7 @@ void Boss::StatusInitialize()
 	hp_.Initialize();
 }
 
-void Boss::Initialize(IModel* model)
+void Boss::Initialize(MNE::IModel* model)
 {
 	Object3D::Initialize();
 	SetModel(model);
@@ -171,7 +173,7 @@ void Boss::SetPlayer(Player* player)
 	player_ = player;
 }
 
-void Boss::SetHPBarSprite(const Sprite& sprite)
+void Boss::SetHPBarSprite(const MNE::Sprite& sprite)
 {
 	hp_.SetSprite(sprite);
 

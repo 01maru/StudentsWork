@@ -8,31 +8,35 @@
 * @brief 定数バッファをまとめたファイル
 */
 
-class ConstBuff
+namespace MNE
 {
-private:
-	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-private:
-	ComPtr<ID3D12Resource> material_;
+	class ConstBuff
+	{
+	private:
+		template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-public:
-	/**
-	* @fn Initialize(uint64_t)
-	* 初期化用関数
-	*/
-	void Initialize(uint64_t resWidth);
-	/**
-	* @fn SetGraphicsRootCBuffView(uint32_t)
-	* コマンドリストのSetGraphicsRootCBuffViewを設定する関数
-	* @param lootparaIdx ルートパラメータの添え字
-	*/
-	void SetGraphicsRootCBuffView(uint32_t rootparaIdx);
+	private:
+		ComPtr<ID3D12Resource> material_;
 
-#pragma region Getter
+	public:
+		/**
+		* @fn Initialize(uint64_t)
+		* 初期化用関数
+		*/
+		void Initialize(uint64_t resWidth);
+		/**
+		* @fn SetGraphicsRootCBuffView(uint32_t)
+		* コマンドリストのSetGraphicsRootCBuffViewを設定する関数
+		* @param lootparaIdx ルートパラメータの添え字
+		*/
+		void SetGraphicsRootCBuffView(uint32_t rootparaIdx);
 
-	ID3D12Resource* GetResource() { return material_.Get(); }
+	#pragma region Getter
 
-#pragma endregion
-};
+		ID3D12Resource* GetResource();
 
+	#pragma endregion
+	};
+
+}

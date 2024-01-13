@@ -1,12 +1,12 @@
 #include "UIAnimationTimer.h"
 #include "UIObject.h"
 
-void UIAnimationTimer::Initialize()
+void MNE::UIAnimationTimer::Initialize()
 {
 	FrameCounter::Initialize(60, true);
 }
 
-void UIAnimationTimer::Update()
+void MNE::UIAnimationTimer::Update()
 {
 	if (parent_->GetCount()->GetFrameCount() == startCount_&& parent_->GetCount()->GetIsActive()) {
 		FrameCounter::StartCount();
@@ -18,7 +18,7 @@ void UIAnimationTimer::Update()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-int32_t UIAnimationTimer::GetStartCount()
+int32_t MNE::UIAnimationTimer::GetStartCount()
 {
 	return startCount_;
 }
@@ -27,12 +27,12 @@ int32_t UIAnimationTimer::GetStartCount()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIAnimationTimer::SetStartCount(int32_t startCount)
+void MNE::UIAnimationTimer::SetStartCount(int32_t startCount)
 {
 	startCount_ = startCount;
 }
 
-void UIAnimationTimer::Reset()
+void MNE::UIAnimationTimer::Reset()
 {
 	FrameCounter::SetIsIncrement(parent_->GetIsStartAnimation());
 	

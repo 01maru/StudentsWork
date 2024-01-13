@@ -6,6 +6,9 @@
  * @brief このゲーム独自の処理をまとめる用のファイル
  */
 
+namespace MNE
+{
+
 class MyGame :public Framework
 {
 private:
@@ -33,4 +36,6 @@ private:
 	*/
 	void Finalize() override;
 };
+
+}
 

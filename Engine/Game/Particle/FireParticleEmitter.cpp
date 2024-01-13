@@ -10,6 +10,8 @@
 #include "EmitterColor.h"
 #include "MyMath.h"
 
+using namespace MNE;
+
 void FireParticleEmitter::SetScaleComponent()
 {
 	EmitterScaleAnimation* scale = emitter_->AddComponent<EmitterScaleAnimation>();
@@ -51,7 +53,7 @@ std::unique_ptr<ParticleEmitter>& FireParticleEmitter::GetEmitter()
 {
 	emitter_ = std::make_unique<ParticleEmitter>();
 	emitter_->SetIsObj(true);
-	emitter_->SetBlendMord(Blend::ADD_BLEND);
+	emitter_->SetBlendMord(MNE::Blend::ADD_BLEND);
 	emitter_->SetRate(rate_);
 
 	SetScaleComponent();

@@ -12,13 +12,13 @@
 #include "UIAnimationTimer.h"
 #include "UIMoveAnimation.h"
 
-UIEditor* UIEditor::GetInstance()
+MNE::UIEditor* MNE::UIEditor::GetInstance()
 {
 	static UIEditor instance;
 	return &instance;
 }
 
-void UIEditor::LoadEditFileData()
+void MNE::UIEditor::LoadEditFileData()
 {
 	int ind = (int)filename_.find_last_of('\0');
 	if (ind > 0) filename_ = filename_.substr(0, ind);
@@ -28,7 +28,7 @@ void UIEditor::LoadEditFileData()
 	editUI_ = true;
 }
 
-void UIEditor::SaveFileData()
+void MNE::UIEditor::SaveFileData()
 {
 	//	編集中じゃなかったら
 	if (!editUI_) return;
@@ -111,13 +111,13 @@ void UIEditor::SaveFileData()
 	CloseEditer();
 }
 
-void UIEditor::CloseEditer()
+void MNE::UIEditor::CloseEditer()
 {
 	editUI_ = false;
 	UIData::Finalize();
 }
 
-void UIEditor::DeleteSpriteFromList(std::unordered_map<std::string, Sprite>& sprites)
+void MNE::UIEditor::DeleteSpriteFromList(std::unordered_map<std::string, Sprite>& sprites)
 {
 	if (eraseSpriteName_.size() == 0) return;
 
@@ -128,14 +128,14 @@ void UIEditor::DeleteSpriteFromList(std::unordered_map<std::string, Sprite>& spr
 	eraseSpriteName_.clear();
 }
 
-void UIEditor::AddSprite(std::unordered_map<std::string, Sprite>& sprites)
+void MNE::UIEditor::AddSprite(std::unordered_map<std::string, Sprite>& sprites)
 {
 	Sprite sprite;
 	sprite.Initialize(nullptr);
 	sprites.emplace(spritename_, sprite);
 }
 
-void UIEditor::ReNameSprite(std::unordered_map<std::string, Sprite>& sprites, std::pair<const std::string, Sprite> data)
+void MNE::UIEditor::ReNameSprite(std::unordered_map<std::string, Sprite>& sprites, std::pair<const std::string, Sprite> data)
 {
 	//	既にある名前だったら
 	if (sprites.count(spritename_) == 1) return;
@@ -149,7 +149,7 @@ void UIEditor::ReNameSprite(std::unordered_map<std::string, Sprite>& sprites, st
 	sprites.emplace(spritename_, sprite);
 }
 
-void UIEditor::ImGuiSpriteInfo(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& /*id*/)
+void MNE::UIEditor::ImGuiSpriteInfo(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& /*id*/)
 {
 	UISprite* pComponent = itr->second->GetComponent<UISprite>();
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
@@ -239,13 +239,13 @@ void UIEditor::ImGuiSpriteInfo(std::unordered_map<std::string, std::unique_ptr<U
 	}
 }
 
-void UIEditor::AddUIObject()
+void MNE::UIEditor::AddUIObject()
 {
 	std::unique_ptr<UIObject> object = std::make_unique<UIObject>();
 	obj_.emplace(objName_, std::move(object));
 }
 
-void UIEditor::EditUIAnimationTimer(UIAnimationTimer* pComponent)
+void MNE::UIEditor::EditUIAnimationTimer(UIAnimationTimer* pComponent)
 {
 	if (pComponent->GetIsActive()) return;
 
@@ -262,7 +262,7 @@ void UIEditor::EditUIAnimationTimer(UIAnimationTimer* pComponent)
 	if (count != prevCount) pComponent->SetMaxFrameCount(count);
 }
 
-void UIEditor::DrawUIAnimationTimerInfo(UIAnimationTimer* pComponent)
+void MNE::UIEditor::DrawUIAnimationTimerInfo(UIAnimationTimer* pComponent)
 {
 	if (pComponent->GetIsActive() == false) return;
 
@@ -273,7 +273,7 @@ void UIEditor::DrawUIAnimationTimerInfo(UIAnimationTimer* pComponent)
 	imgui->Text("Count : %d", pComponent->GetFrameCount());
 }
 
-bool UIEditor::ImGuiUpdateUIAnimationTimer(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr)
+bool MNE::UIEditor::ImGuiUpdateUIAnimationTimer(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr)
 {
 	UIAnimationTimer* pComponent = itr->second->GetComponent<UIAnimationTimer>();
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
@@ -304,7 +304,7 @@ bool UIEditor::ImGuiUpdateUIAnimationTimer(std::unordered_map<std::string, std::
 	return true;
 }
 
-void UIEditor::ImGuiUpdateMoveAnimation(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr)
+void MNE::UIEditor::ImGuiUpdateMoveAnimation(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr)
 {
 	UIMoveAnimation* pComponent = itr->second->GetComponent<UIMoveAnimation>();
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
@@ -332,7 +332,7 @@ void UIEditor::ImGuiUpdateMoveAnimation(std::unordered_map<std::string, std::uni
 	imgui->Separator();
 }
 
-void UIEditor::ImGuiObjAnimation(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& /*id*/)
+void MNE::UIEditor::ImGuiObjAnimation(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& /*id*/)
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
@@ -348,7 +348,7 @@ void UIEditor::ImGuiObjAnimation(std::unordered_map<std::string, std::unique_ptr
 	}
 }
 
-void UIEditor::EditUIObject(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& id)
+void MNE::UIEditor::EditUIObject(std::unordered_map<std::string, std::unique_ptr<UIObject>>::iterator& itr, int32_t& id)
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
@@ -368,7 +368,7 @@ void UIEditor::EditUIObject(std::unordered_map<std::string, std::unique_ptr<UIOb
 	imgui->Spacing();
 }
 
-void UIEditor::AddTag()
+void MNE::UIEditor::AddTag()
 {
 	if (tagName_.count(tagname_) == 1) {
 		tagName_[tagname_] = drawTag_;
@@ -378,12 +378,12 @@ void UIEditor::AddTag()
 	tagName_.emplace(tagname_, drawTag_);
 }
 
-void UIEditor::DeleteTag()
+void MNE::UIEditor::DeleteTag()
 {
 	tagName_.erase(tagname_);
 }
 
-void UIEditor::EditTag()
+void MNE::UIEditor::EditTag()
 {
 	if (!editUI_) return;
 
@@ -426,7 +426,7 @@ void UIEditor::EditTag()
 	//buttonMan_.SetNumber(drawTag_);
 }
 
-void UIEditor::ImGuiUpdate()
+void MNE::UIEditor::ImGuiUpdate()
 {
 	if (!ImGuiController::GetInstance()->GetActiveUIManager()) return;
 
@@ -491,19 +491,19 @@ void UIEditor::ImGuiUpdate()
 	UIData::Update();
 }
 
-void UIEditor::CreateAnimationCount()
+void MNE::UIEditor::CreateAnimationCount()
 {
 	count_ = std::make_unique<FrameCounter>();
 	count_->Initialize(60, true);
 }
 
-void UIEditor::DeleteAnimationCount()
+void MNE::UIEditor::DeleteAnimationCount()
 {
 	count_.release();
 	editAnimation_ = false;
 }
 
-void UIEditor::AnimationImGuiUpdate()
+void MNE::UIEditor::AnimationImGuiUpdate()
 {
 	if (editAnimation_ == false) return;
 
@@ -526,7 +526,7 @@ void UIEditor::AnimationImGuiUpdate()
 	imgui->EndWindow();
 }
 
-void UIEditor::Draw()
+void MNE::UIEditor::Draw()
 {
 	if (!editUI_) return;
 
@@ -537,12 +537,12 @@ void UIEditor::Draw()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-bool UIEditor::GetActiveGlayscale()
+bool MNE::UIEditor::GetActiveGlayscale()
 {
 	return activeGlayscale_;
 }
 
-bool UIEditor::GetEditUI()
+bool MNE::UIEditor::GetEditUI()
 {
 	return editUI_;
 }

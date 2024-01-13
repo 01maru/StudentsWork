@@ -2,7 +2,7 @@
 #include "Object3D.h"
 #include "FrameCounter.h"
 
-class EnemyBullet :public Object3D
+class EnemyBullet :public MNE::Object3D
 {
 public:
 	~EnemyBullet();

@@ -1,7 +1,7 @@
-﻿#include "ViewPortScissorRect.h"
+#include "ViewPortScissorRect.h"
 #include "DirectX.h"
 
-void ViewPortScissorRect::InitializeVP(int width, int height, int topLftX, int topLftY, float MinDepth, float MaxDepth, int viewportNum)
+void MNE::ViewPortScissorRect::InitializeVP(int width, int height, int topLftX, int topLftY, float MinDepth, float MaxDepth, int viewportNum)
 {
 	viewport_.resize(viewportNum);
 
@@ -16,7 +16,7 @@ void ViewPortScissorRect::InitializeVP(int width, int height, int topLftX, int t
 	}
 }
 
-void ViewPortScissorRect::InitializeSR(int left, int width, int top, int height, int rectNum)
+void MNE::ViewPortScissorRect::InitializeSR(int left, int width, int top, int height, int rectNum)
 {
 	scissorRect_.resize(rectNum);
 
@@ -29,7 +29,7 @@ void ViewPortScissorRect::InitializeSR(int left, int width, int top, int height,
 	}
 }
 
-void ViewPortScissorRect::RSSetVPandSR()
+void MNE::ViewPortScissorRect::RSSetVPandSR()
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 	// ビューポート設定コマンドを、コマンドリストに積む

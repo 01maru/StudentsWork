@@ -3,15 +3,15 @@
 #include "ImGuiManager.h"
 #include <cassert>
 
-using namespace CBuff;
+using namespace MNE::CBuff;
 
-LightManager* LightManager::GetInstance()
+MNE::LightManager* MNE::LightManager::GetInstance()
 {
 	static LightManager instance;
 	return &instance;
 }
 
-void LightManager::Initialize()
+void MNE::LightManager::Initialize()
 {
 	constBuff_.Initialize((sizeof(CBuffLightData) + 0xFF) & ~0xFF);
 
@@ -22,7 +22,7 @@ void LightManager::Initialize()
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void LightManager::TransferConstBuffer()
+void MNE::LightManager::TransferConstBuffer()
 {
 	HRESULT result;
 
@@ -60,7 +60,7 @@ void LightManager::TransferConstBuffer()
 	}
 }
 
-void LightManager::Update()
+void MNE::LightManager::Update()
 {
 	if (dirty_) {
 		TransferConstBuffer();
@@ -68,7 +68,7 @@ void LightManager::Update()
 	}
 }
 
-void LightManager::ImGuiUpdate()
+void MNE::LightManager::ImGuiUpdate()
 {
 	if (!ImGuiController::GetInstance()->GetActiveLightManager()) return;
 
@@ -172,17 +172,17 @@ void LightManager::ImGuiUpdate()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-Vector3D LightManager::GetMtlAmbient()
+Vector3D MNE::LightManager::GetMtlAmbient()
 {
 	return ambient_;
 }
 
-Vector3D LightManager::GetMtlDiffuse()
+Vector3D MNE::LightManager::GetMtlDiffuse()
 {
 	return diffuse_;
 }
 
-Vector3D LightManager::GetMtlSpecular()
+Vector3D MNE::LightManager::GetMtlSpecular()
 {
 	return specular_;
 }
@@ -191,12 +191,12 @@ Vector3D LightManager::GetMtlSpecular()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void LightManager::SetGraphicsRootCBuffView(int32_t lootparaIdx)
+void MNE::LightManager::SetGraphicsRootCBuffView(int32_t lootparaIdx)
 {
 	constBuff_.SetGraphicsRootCBuffView(static_cast<uint32_t>(lootparaIdx));
 }
 
-void LightManager::SetDirLightActive(int32_t index, bool active)
+void MNE::LightManager::SetDirLightActive(int32_t index, bool active)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
 	if (dirLights_[index].GetIsActive() == active) return;
@@ -205,7 +205,7 @@ void LightManager::SetDirLightActive(int32_t index, bool active)
 	dirty_ = true;
 }
 
-void LightManager::SetDirLightDir(int32_t index, const Vector3D& lightdir_)
+void MNE::LightManager::SetDirLightDir(int32_t index, const Vector3D& lightdir_)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
 	if (dirLights_[index].GetLightDir() == lightdir_) return;
@@ -214,7 +214,7 @@ void LightManager::SetDirLightDir(int32_t index, const Vector3D& lightdir_)
 	dirty_ = true;
 }
 
-void LightManager::SetDirLightColor(int32_t index, const Vector3D& lightcolor_)
+void MNE::LightManager::SetDirLightColor(int32_t index, const Vector3D& lightcolor_)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
 	if (dirLights_[index].GetLightColor() == lightcolor_) return;
@@ -223,7 +223,7 @@ void LightManager::SetDirLightColor(int32_t index, const Vector3D& lightcolor_)
 	dirty_ = true;
 }
 
-void LightManager::SetDirLightShadow(int32_t index, bool shadowflag)
+void MNE::LightManager::SetDirLightShadow(int32_t index, bool shadowflag)
 {
 	assert(0 <= index && index < DIRLIGHT_NUM);
 	if (dirLights_[index].GetShadowing() == shadowflag) return;
@@ -233,7 +233,7 @@ void LightManager::SetDirLightShadow(int32_t index, bool shadowflag)
 	dirty_ = true;
 }
 
-void LightManager::SetFogActive(bool active)
+void MNE::LightManager::SetFogActive(bool active)
 {
 	if (distanceFog_.GetIsActive() == active) return;
 
@@ -241,7 +241,7 @@ void LightManager::SetFogActive(bool active)
 	dirty_ = true;
 }
 
-void LightManager::SetFogStart(float start)
+void MNE::LightManager::SetFogStart(float start)
 {
 	if (distanceFog_.GetStart() == start) return;
 
@@ -249,7 +249,7 @@ void LightManager::SetFogStart(float start)
 	dirty_ = true;
 }
 
-void LightManager::SetFogEnd(float end)
+void MNE::LightManager::SetFogEnd(float end)
 {
 	if (distanceFog_.GetEnd() == end) return;
 
@@ -257,7 +257,7 @@ void LightManager::SetFogEnd(float end)
 	dirty_ = true;
 }
 
-void LightManager::SetFogNear(float fogNear)
+void MNE::LightManager::SetFogNear(float fogNear)
 {
 	if (distanceFog_.GetNear() == fogNear) return;
 
@@ -265,7 +265,7 @@ void LightManager::SetFogNear(float fogNear)
 	dirty_ = true;
 }
 
-void LightManager::SetFogFar(float fogFar)
+void MNE::LightManager::SetFogFar(float fogFar)
 {
 	if (distanceFog_.GetFar() == fogFar) return;
 
@@ -273,7 +273,7 @@ void LightManager::SetFogFar(float fogFar)
 	dirty_ = true;
 }
 
-void LightManager::SetFogColor(const Vector3D& color)
+void MNE::LightManager::SetFogColor(const Vector3D& color)
 {
 	if (distanceFog_.GetColor() == color) return;
 
@@ -281,7 +281,7 @@ void LightManager::SetFogColor(const Vector3D& color)
 	dirty_ = true;
 }
 
-void LightManager::SetCenterPos(const Vector3D& center)
+void MNE::LightManager::SetCenterPos(const Vector3D& center)
 {
 	if (distanceFog_.GetCenterPos() == center) return;
 

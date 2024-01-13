@@ -1,28 +1,32 @@
 #pragma once
 #include "Object3D.h"
 
-namespace CBuff {
-	struct CBuffDissolveData;
-}
-
-class Object3DDissolve :public Object3D
+namespace MNE
 {
-public:
-	void Initialize();
-	void MatUpdate();
-	void Draw() override;
 
-private:
-#pragma region CBuff
+	namespace CBuff {
+		struct CBuffDissolveData;
+	}
 
-	ConstBuff dissolve_;
-	CBuff::CBuffDissolveData* cDissolveMap_ = nullptr;
+	class Object3DDissolve :public Object3D
+	{
+	public:
+		void Initialize();
+		void MatUpdate();
+		void Draw() override;
 
-#pragma endregion
+	private:
+	#pragma region CBuff
 
-	float dissolveValue_ = 1.0f;
-	Vector4D dissolveColor_;
+		MNE::ConstBuff dissolve_;
+		MNE::CBuff::CBuffDissolveData* cDissolveMap_ = nullptr;
 
-public:
-};
+	#pragma endregion
 
+		float dissolveValue_ = 1.0f;
+		Vector4D dissolveColor_;
+
+	public:
+	};
+
+}

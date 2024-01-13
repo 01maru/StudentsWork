@@ -3,25 +3,25 @@
 #include "ObjectParticle.h"
 #include "SpriteParticle.h"
 
-void EmitterType::Update(Particle* particle)
+void MNE::EmitterType::Update(MNE::Particle* particle)
 {
 	pos_ = parent_->GetPosition();
 
 	if (parent_->GetIsObj())
 	{
-		ObjectParticle* obj = particle->GetComponent<ObjectParticle>();
+		MNE::ObjectParticle* obj = particle->GetComponent<MNE::ObjectParticle>();
 
 		obj->SetPosition(pos_);
 	}
 	else
 	{
-		SpriteParticle* sprite = particle->GetComponent<SpriteParticle>();
+		MNE::SpriteParticle* sprite = particle->GetComponent<MNE::SpriteParticle>();
 
 		sprite->SetPosition(pos_);
 	}
 }
 
-void EmitterType::SetParent(ParticleEmitter* parent)
+void MNE::EmitterType::SetParent(MNE::ParticleEmitter* parent)
 {
 	parent_ = parent;
 }

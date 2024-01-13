@@ -7,27 +7,27 @@
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-Vector2D& UIButton::GetPosition()
+Vector2D& MNE::UIButton::GetPosition()
 {
 	return parent_->GetComponent<UIPosition>()->GetPosition();
 }
 
-Vector2D& UIButton::GetSize()
+Vector2D& MNE::UIButton::GetSize()
 {
 	return parent_->GetComponent<UIPosition>()->GetSize();
 }
 
-const std::string& UIButton::GetButtonName()
+const std::string& MNE::UIButton::GetButtonName()
 {
 	return name_;
 }
 
-UIButton* UIButton::GetNextButton()
+MNE::UIButton* MNE::UIButton::GetNextButton()
 {
 	return pNext_;
 }
 
-UIButton* UIButton::GetPrevButton()
+MNE::UIButton* MNE::UIButton::GetPrevButton()
 {
 	return pPrev_;
 }
@@ -36,17 +36,17 @@ UIButton* UIButton::GetPrevButton()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIButton::SetName(const std::string& name)
+void MNE::UIButton::SetName(const std::string& name)
 {
 	name_ = name;
 }
 
-void UIButton::SetNextButton(UIButton* pNext)
+void MNE::UIButton::SetNextButton(UIButton* pNext)
 {
 	pNext_ = pNext;
 }
 
-void UIButton::SetPrevButton(UIButton* pPrev)
+void MNE::UIButton::SetPrevButton(UIButton* pPrev)
 {
 	pPrev_ = pPrev;
 }

@@ -8,7 +8,7 @@ using namespace MyMath;
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
-void ICamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float dis)
+void MNE::ICamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float dis)
 {
 	matProj_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT,
 		MyMath::ConvertToRad(50.0f), 0.1f, 1000.0f);
@@ -26,7 +26,7 @@ void ICamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float
 	CalcDirectionVec();
 }
 
-void ICamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
+void MNE::ICamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
 {
 	matProj_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT,
 		MyMath::ConvertToRad(50.0f), 0.1f, 1000.0f);
@@ -44,7 +44,7 @@ void ICamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vect
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void ICamera::CalcBillboard()
+void MNE::ICamera::CalcBillboard()
 {
 	//	行列初期化
 	billboard_.Identity();
@@ -75,7 +75,7 @@ void ICamera::CalcBillboard()
 #pragma endregion
 }
 
-void ICamera::CalcDirectionVec()
+void MNE::ICamera::CalcDirectionVec()
 {
 	frontVec_ = target_ - eye_;
 	disEyeTarget_ = frontVec_.GetLength();
@@ -89,7 +89,7 @@ void ICamera::CalcDirectionVec()
 	downVec_ = rightVec_.cross(frontVec_).GetNormalize();
 }
 
-void ICamera::ShakeUpdate()
+void MNE::ICamera::ShakeUpdate()
 {
 	if (isShaking_ == false) return;
 
@@ -98,7 +98,7 @@ void ICamera::ShakeUpdate()
 	shookEye_ = eye_ + move_.x * rightVec_ + move_.z * downVec_;
 }
 
-void ICamera::MatUpdate()
+void MNE::ICamera::MatUpdate()
 {
 	if (isShaking_ == true) {
 		matView_ = MyMath::LookAtLH(shookEye_, shookTarget_, up_);
@@ -108,7 +108,7 @@ void ICamera::MatUpdate()
 	}
 }
 
-void ICamera::Update()
+void MNE::ICamera::Update()
 {
 	//	方向ベクトル
 	CalcDirectionVec();
@@ -121,7 +121,7 @@ void ICamera::Update()
 	MatUpdate();
 }
 
-void ICamera::ImGuiUpdate()
+void MNE::ICamera::ImGuiUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
@@ -140,69 +140,69 @@ void ICamera::ImGuiUpdate()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-float ICamera::GetDisEyeTarget()
+float MNE::ICamera::GetDisEyeTarget()
 {
 	return disEyeTarget_;
 }
 
-const Vector3D& ICamera::GetEye()
+const Vector3D& MNE::ICamera::GetEye()
 {
 	return eye_;
 }
 
-const Vector3D& ICamera::GetTarget()
+const Vector3D& MNE::ICamera::GetTarget()
 {
 	return target_;
 }
 
-const Vector3D& ICamera::GetUp()
+const Vector3D& MNE::ICamera::GetUp()
 {
 	return up_;
 }
 
-const Vector3D& ICamera::GetFrontVec()
+const Vector3D& MNE::ICamera::GetFrontVec()
 {
 	return frontVec_;
 }
 
-const Vector3D& ICamera::GetRightVec()
+const Vector3D& MNE::ICamera::GetRightVec()
 {
 	return rightVec_;
 }
 
-const Vector3D& ICamera::GetDownVec()
+const Vector3D& MNE::ICamera::GetDownVec()
 {
 	return downVec_;
 }
 
-const Matrix& ICamera::GetView()
+const Matrix& MNE::ICamera::GetView()
 {
 	return matView_;
 }
 
-const Matrix& ICamera::GetProjection()
+const Matrix& MNE::ICamera::GetProjection()
 {
 	return matProj_;
 }
 
-const Matrix& ICamera::GetBillboard()
+const Matrix& MNE::ICamera::GetBillboard()
 {
 	return billboard_;
 }
 
-const Matrix& ICamera::GetBillboardY()
+const Matrix& MNE::ICamera::GetBillboardY()
 {
 	return billboardY_;
 }
 
-void ICamera::SetShake(float min, float max)
+void MNE::ICamera::SetShake(float min, float max)
 {
 	isShaking_ = true;
 	move_.x = GetRand(min, max);
 	move_.z = GetRand(min, max);
 }
 
-void ICamera::StopShake()
+void MNE::ICamera::StopShake()
 {
 	isShaking_ = false;
 }
@@ -211,27 +211,27 @@ void ICamera::StopShake()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void ICamera::SetTarget(const Vector3D& t)
+void MNE::ICamera::SetTarget(const Vector3D& t)
 {
 	target_ = t;
 }
 
-void ICamera::SetEye(const Vector3D& e)
+void MNE::ICamera::SetEye(const Vector3D& e)
 {
 	eye_ = e;
 }
 
-void ICamera::SetUp(const Vector3D& up)
+void MNE::ICamera::SetUp(const Vector3D& up)
 {
 	up_ = up;
 }
 
-void ICamera::SetProjectionMatrix(int32_t width, int32_t height, float fovY)
+void MNE::ICamera::SetProjectionMatrix(int32_t width, int32_t height, float fovY)
 {
 	matProj_ = MyMath::PerspectiveFovLH(width, height, fovY, 0.1f, 1000.0f);
 }
 
-void ICamera::SetProjMatrix(const Matrix& matProj)
+void MNE::ICamera::SetProjMatrix(const Matrix& matProj)
 {
 	matProj_ = matProj;
 }

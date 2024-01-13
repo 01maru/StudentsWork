@@ -4,7 +4,7 @@
 #include "ImGuiManager.h"
 #include "PipelineManager.h"
 
-ParticleManager* ParticleManager::GetInstance()
+MNE::ParticleManager* MNE::ParticleManager::GetInstance()
 {
 	static ParticleManager instance;
 	return &instance;
@@ -14,7 +14,7 @@ ParticleManager* ParticleManager::GetInstance()
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
-void ParticleManager::Initialize()
+void MNE::ParticleManager::Initialize()
 {
 	//	パーティクルに使用する画像読み込み
 	TextureManager::GetInstance()->LoadTextureGraph("particle.png");
@@ -31,7 +31,7 @@ void ParticleManager::Initialize()
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void ParticleManager::DeleteParticle()
+void MNE::ParticleManager::DeleteParticle()
 {
 	spriteParticles_.remove_if([](std::unique_ptr<Particle>& x) {
 		return x->GetIsEnd();
@@ -46,7 +46,7 @@ void ParticleManager::DeleteParticle()
 		});
 }
 
-void ParticleManager::Update()
+void MNE::ParticleManager::Update()
 {
 	DeleteParticle();
 
@@ -68,7 +68,7 @@ void ParticleManager::Update()
 	}
 }
 
-void ParticleManager::MatUpdate()
+void MNE::ParticleManager::MatUpdate()
 {
 	for (auto& particle : spriteParticles_) {
 		//	パーティクルの行列更新
@@ -80,7 +80,7 @@ void ParticleManager::MatUpdate()
 	}
 }
 
-void ParticleManager::ImGuiUpdate()
+void MNE::ParticleManager::ImGuiUpdate()
 {
 	if (!ImGuiController::GetInstance()->GetActiveParticleManager()) return;
 
@@ -102,7 +102,7 @@ void ParticleManager::ImGuiUpdate()
 // [SECTION] Draw
 //-----------------------------------------------------------------------------
 
-void ParticleManager::Draw()
+void MNE::ParticleManager::Draw()
 {
 	Blend::BlendMord prev = Blend::NONE_BLEND;
 
@@ -132,7 +132,7 @@ void ParticleManager::Draw()
 // [SECTION] Delete
 //-----------------------------------------------------------------------------
 
-void ParticleManager::DeleteAllParticle()
+void MNE::ParticleManager::DeleteAllParticle()
 {
 	spriteParticles_.clear();
 
@@ -145,7 +145,7 @@ void ParticleManager::DeleteAllParticle()
 // [SECTION] Add
 //-----------------------------------------------------------------------------
 
-void ParticleManager::AddParticle(std::unique_ptr<Particle>& particle, bool isObj)
+void MNE::ParticleManager::AddParticle(std::unique_ptr<Particle>& particle, bool isObj)
 {
 	if (isObj) {
 		objParticles_.push_front(std::move(particle));
@@ -160,7 +160,7 @@ void ParticleManager::AddParticle(std::unique_ptr<Particle>& particle, bool isOb
 	}
 }
 
-ParticleEmitter* ParticleManager::AddEmitter(std::unique_ptr<ParticleEmitter>& emitter)
+MNE::ParticleEmitter* MNE::ParticleManager::AddEmitter(std::unique_ptr<ParticleEmitter>& emitter)
 {
 	emitters_.push_front(std::move(emitter));
 	return emitters_.front().get();

@@ -1,15 +1,15 @@
-﻿#include "ImGuiController.h"
+#include "ImGuiController.h"
 #include "ImGuiManager.h"
 
 #include "FPSController.h"
 
-ImGuiController* ImGuiController::GetInstance()
+MNE::ImGuiController* MNE::ImGuiController::GetInstance()
 {
     static ImGuiController instance;
     return &instance;
 }
 
-void ImGuiController::Update()
+void MNE::ImGuiController::Update()
 {
 	ImGuiManager* man = ImGuiManager::GetInstance();
 	man->BeginWindow("Controller");

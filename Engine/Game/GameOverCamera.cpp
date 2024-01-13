@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 
 using namespace Easing;
+using namespace MNE;
 
 void GameOverCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
 {

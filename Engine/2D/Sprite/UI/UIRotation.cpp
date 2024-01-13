@@ -2,7 +2,7 @@
 #include "UIObject.h"
 #include "UISprite.h"
 
-void UIRotation::Update()
+void MNE::UIRotation::Update()
 {
     if (pSprites_ == nullptr) {
         pSprites_ = parent_->GetComponent<UISprite>();
@@ -22,7 +22,7 @@ void UIRotation::Update()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-float UIRotation::GetRotSpd()
+float MNE::UIRotation::GetRotSpd()
 {
     return spd_;
 }
@@ -31,7 +31,7 @@ float UIRotation::GetRotSpd()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIRotation::SetRotSpd(float spd)
+void MNE::UIRotation::SetRotSpd(float spd)
 {
     spd_ = spd;
 }

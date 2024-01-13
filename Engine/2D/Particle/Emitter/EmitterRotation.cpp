@@ -3,11 +3,11 @@
 #include "ObjectParticle.h"
 #include "ParticleEmitter.h"
 
-void EmitterRotation::Initialize(Particle* particle)
+void MNE::EmitterRotation::Initialize(MNE::Particle* particle)
 {
 	if (parent_->GetIsObj())
 	{
-		ObjectParticle* obj = particle->GetComponent<ObjectParticle>();
+		MNE::ObjectParticle* obj = particle->GetComponent<MNE::ObjectParticle>();
 
 		obj->SetRotation(value_->GetValue());
 
@@ -35,12 +35,12 @@ void EmitterRotation::Initialize(Particle* particle)
 	}
 }
 
-void EmitterRotation::SetValue(std::unique_ptr<ParticleValue>& v)
+void MNE::EmitterRotation::SetValue(std::unique_ptr<ParticleValue>& v)
 {
 	value_ = std::move(v);
 }
 
-void EmitterRotation::SetAddValue(std::unique_ptr<ParticleValue>& v)
+void MNE::EmitterRotation::SetAddValue(std::unique_ptr<ParticleValue>& v)
 {
 	add_ = std::move(v);
 }

@@ -6,13 +6,13 @@
 
 using namespace Easing;
 
-void UIMoveAnimation::Initialize()
+void MNE::UIMoveAnimation::Initialize()
 {
 	sprite_ = parent_->GetComponent<UISprite>();
 	timer_ = parent_->GetComponent<UIAnimationTimer>();
 }
 
-void UIMoveAnimation::Update()
+void MNE::UIMoveAnimation::Update()
 {
 	if (sprite_ == nullptr) return;
 
@@ -28,12 +28,12 @@ void UIMoveAnimation::Update()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-Vector2D& UIMoveAnimation::GetStartPos()
+Vector2D& MNE::UIMoveAnimation::GetStartPos()
 {
 	return startPos;
 }
 
-Vector2D& UIMoveAnimation::GetEndPos()
+Vector2D& MNE::UIMoveAnimation::GetEndPos()
 {
 	return endPos;
 }
@@ -42,17 +42,17 @@ Vector2D& UIMoveAnimation::GetEndPos()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIMoveAnimation::SetStartPos(const Vector2D& pos)
+void MNE::UIMoveAnimation::SetStartPos(const Vector2D& pos)
 {
 	startPos = pos;
 }
 
-void UIMoveAnimation::SetEndPos(const Vector2D& pos)
+void MNE::UIMoveAnimation::SetEndPos(const Vector2D& pos)
 {
 	endPos = pos;
 }
 
-void UIMoveAnimation::Reset()
+void MNE::UIMoveAnimation::Reset()
 {
 	for (auto& sprite : sprite_->GetSprites())
 	{

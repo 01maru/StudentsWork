@@ -21,6 +21,8 @@
 #include "ClearUI.h"
 #include "GameOverUI.h"
 
+using namespace MNE;
+
 void GameScene::LoadResources()
 {
 #pragma region Model
@@ -35,13 +37,13 @@ void GameScene::LoadResources()
 #pragma endregion
 	level.LoadJSON("game");
 	//	地面
-	ground_ = std::move(Object3D::Create(models->GetModel("ground")));
+	ground_ = std::move(MNE::Object3D::Create(models->GetModel("ground")));
 	Vector3D upDir(0.0f, 1.0f, 0.0f);
 	PlaneCollider* coll_ = new PlaneCollider(upDir);
 	coll_->SetAttribute(CollAttribute::COLLISION_ATTR_LANDSHAPE);
 	ground_->SetCollider(coll_);
 	//	天球
-	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
+	skydome_ = std::move(MNE::Object3D::Create(models->GetModel("skydome")));
 	//	player
 	player_ = std::make_unique<Player>();
 	player_->Initialize(models->GetModel("mixhuman"));

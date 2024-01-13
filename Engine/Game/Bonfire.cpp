@@ -3,6 +3,8 @@
 #include "FireParticleEmitter.h"
 #include "SmokeParticleEmitter.h"
 
+using namespace MNE;
+
 void Bonfire::Start()
 {
 	if (smoke_ == nullptr) {

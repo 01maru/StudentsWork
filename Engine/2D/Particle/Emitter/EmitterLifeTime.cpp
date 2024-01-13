@@ -1,6 +1,6 @@
 #include "EmitterLifeTime.h"
 
-void EmitterLifeTime::Initialize(Particle* particle)
+void MNE::EmitterLifeTime::Initialize(MNE::Particle* particle)
 {
 	particle->SetLifeTime(lifetime);
 }

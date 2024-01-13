@@ -3,7 +3,7 @@
 #include "UISprite.h"
 #include "UIObject.h"
 
-void SliderSprite::Initialize()
+void MNE::SliderSprite::Initialize()
 {
 	sprites_ = parent_->GetComponent<UISprite>();
 
@@ -13,7 +13,7 @@ void SliderSprite::Initialize()
 	}
 }
 
-void SliderSprite::Update()
+void MNE::SliderSprite::Update()
 {
 	Vector2D circlePos = startPos_;
 
@@ -26,7 +26,7 @@ void SliderSprite::Update()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-float SliderSprite::GetValue()
+float MNE::SliderSprite::GetValue()
 {
 	return value_;
 }
@@ -35,32 +35,32 @@ float SliderSprite::GetValue()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void SliderSprite::ValueUpdate(float& v, int32_t inputValue)
+void MNE::SliderSprite::ValueUpdate(float& v, int32_t inputValue)
 {
 	v += inputValue * spd_;
 	v = MyMath::mClamp(minValue_, maxValue_, v);
 	value_ = v;
 }
 
-void SliderSprite::SetValue(float v)
+void MNE::SliderSprite::SetValue(float v)
 {
 	value_ = v;
 }
 
-void SliderSprite::SetRailLength(float len)
+void MNE::SliderSprite::SetRailLength(float len)
 {
 	sprites_->GetSprites()["Rail"].SetSize({ len,5.0f });
 	railLen_ = len;
 }
 
-void SliderSprite::SetRailStartPos(const Vector2D& pos)
+void MNE::SliderSprite::SetRailStartPos(const Vector2D& pos)
 {
 	sprites_->GetSprites()["Circle"].SetPosition(pos);
 	sprites_->GetSprites()["Rail"].SetPosition(pos);
 	startPos_ = pos;
 }
 
-void SliderSprite::SetRailTexture(const std::string& texName)
+void MNE::SliderSprite::SetRailTexture(const std::string& texName)
 {
 	railTex_ = TextureManager::GetInstance()->LoadTextureGraph(texName);
 
@@ -70,7 +70,7 @@ void SliderSprite::SetRailTexture(const std::string& texName)
 	sprites_->AddSprite("Rail", railSprite);
 }
 
-void SliderSprite::SetCircleTexture(const std::string& texName)
+void MNE::SliderSprite::SetCircleTexture(const std::string& texName)
 {
 	circleTex_ = TextureManager::GetInstance()->LoadTextureGraph(texName);
 	Sprite circleSprite;

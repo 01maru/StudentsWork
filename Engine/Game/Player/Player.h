@@ -12,7 +12,7 @@
 
 class IGameState;
 
-class Player :public Object3D
+class Player :public MNE::Object3D
 {
 private:
 	bool gameOver_ = false;
@@ -76,7 +76,7 @@ private:
 
 	void SavePlayerStatus();
 public:
-	void Initialize(IModel* model_);
+	void Initialize(MNE::IModel* model_);
 	void Update();
 	void ImGuiUpdate();
 	void CollisionUpdate();
@@ -124,10 +124,10 @@ public:
 	void SetIsRunning(bool isRunning);
 	void SetBulletRate(int32_t rate);
 	void StartRateCount();
-	void SetCrossHairSprite(const Sprite& sprite);
-	void SetHPBarSprite(const Sprite& sprite);
-	void SetAvoidCoolSprite(const Sprite& sprite, const Sprite& text);
-	void SetSlowAtCoolSprite(const Sprite& sprite, const Sprite& text);
+	void SetCrossHairSprite(const MNE::Sprite& sprite);
+	void SetHPBarSprite(const MNE::Sprite& sprite);
+	void SetAvoidCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text);
+	void SetSlowAtCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text);
 
 	void SetGameOverState(IGameState* gameOverState);
 

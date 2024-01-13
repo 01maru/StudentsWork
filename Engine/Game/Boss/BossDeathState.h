@@ -2,7 +2,12 @@
 #include "EnemyState.h"
 #include "FrameCounter.h"
 
-class ParticleEmitter;
+namespace MNE
+{
+
+	class ParticleEmitter;
+	
+}
 
 class BossDeathState :public EnemyState
 {
@@ -12,7 +17,7 @@ public:
 	
 private:
 	FrameCounter counter_;
-	ParticleEmitter* emitter_ = nullptr;
+	MNE::ParticleEmitter* emitter_ = nullptr;
 	bool bossHid_ = false;
 };
 

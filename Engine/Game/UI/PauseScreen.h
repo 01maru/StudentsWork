@@ -46,7 +46,7 @@ private:
 	//	ポーズ中か
 	bool isActive_ = false;
 	//	ポーズ画面のUI情報
-	UIData pauseData_;
+	MNE::UIData pauseData_;
 	//	オプションデータ
 	OptionScene option_;
 	//	ポーズ画面用のカーソル

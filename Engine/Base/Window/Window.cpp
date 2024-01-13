@@ -3,7 +3,7 @@
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 
-LRESULT Window::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT MNE::Window::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam)) return true;
 	// メッセージに応じてゲーム固有の処理を行う
@@ -18,13 +18,13 @@ LRESULT Window::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
-Window* Window::GetInstance()
+MNE::Window* MNE::Window::GetInstance()
 {
 	static Window instance;
 	return &instance;
 }
 
-void Window::Initialize()
+void MNE::Window::Initialize()
 {
 	w_.cbSize = sizeof(WNDCLASSEX);
 	w_.lpfnWndProc = (WNDPROC)WindowProc;		// ウィンドウプロシージャを設定
@@ -57,13 +57,13 @@ void Window::Initialize()
 	timeBeginPeriod(1);
 }
 
-void Window::Finalize()
+void MNE::Window::Finalize()
 {
 	// ウィンドウクラスを登録解除
 	UnregisterClass(w_.lpszClassName, w_.hInstance);
 }
 
-bool Window::MsgUpdate()
+bool MNE::Window::MsgUpdate()
 {
 	if (PeekMessage(&msg_, nullptr, 0, 0, PM_REMOVE))
 	{
@@ -74,7 +74,7 @@ bool Window::MsgUpdate()
 	return EndLoop();
 }
 
-bool Window::EndLoop()
+bool MNE::Window::EndLoop()
 {
 	if (msg_.message == WM_QUIT) return true;
 	return false;

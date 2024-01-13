@@ -1,9 +1,11 @@
-﻿#include "MeshCollider.h"
+#include "MeshCollider.h"
 #include "Collision.h"
 #include "IModel.h"
 #include "Object3D.h"
 
-void MeshCollider::ConstructTriangles(IModel* model)
+using namespace MNE;
+
+void MeshCollider::ConstructTriangles(MNE::IModel* model)
 {
 	triangles_.clear();
 	std::vector<Mesh> meshes = model->GetMeshes();
@@ -12,7 +14,7 @@ void MeshCollider::ConstructTriangles(IModel* model)
 
 	for (; itr != meshes.cend(); ++itr) {
 		Mesh mesh = *itr;
-		const std::vector<ModelVertex>& vertices = mesh.GetVertices();
+		const std::vector<MNE::ModelVertex>& vertices = mesh.GetVertices();
 		const std::vector<unsigned short>& indices = mesh.GetIndices();
 
 		size_t triangleNum = indices.size() / 3;

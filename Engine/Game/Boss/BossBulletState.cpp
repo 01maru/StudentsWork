@@ -4,6 +4,8 @@
 #include "ModelManager.h"
 #include "BossDeathState.h"
 
+using namespace MNE;
+
 void BossBulletState::Initialize()
 {
 	rate_.Initialize(rateTime_, true);

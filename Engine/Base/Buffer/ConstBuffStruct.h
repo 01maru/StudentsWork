@@ -9,131 +9,136 @@
 * @brief 定数バッファの構造体をまとめたファイル
 */
 
-namespace CBuff
+namespace MNE
 {
-	const int MAX_BONES = 32;
 
-	struct CBuffSpriteTransform {
-		Matrix mat;
-	};
-
-	struct CBufferParticleTransform {
-		Matrix mat;
-		Matrix matBillboard;
-		Vector3D cameraPos;
-		float scale;
-	};
-
-	struct CBuffColorMaterial {
-		Vector4D color;	//	RGBA
-	};
-
-	struct CBuffDissolveData {
-		Vector4D color;
-		float value;
-	};
-
-	struct CBuffGlayScale {
-		bool active;
-	};
-
-	struct CBuffObj3DTransform {
-		Matrix matViewProj;
-		Matrix matWorld;
-		Vector3D cameraPos;
-	};
-
-	struct CBuffLightMaterial {
-		Matrix mLVP;
-		Vector3D cameraPos;
-	};
-
-	struct CBuffSkinData
+	namespace CBuff
 	{
-		Matrix bones[MAX_BONES];
-	};
+		const int MAX_BONES = 32;
 
-	struct CBufferBlurWeight {
-		Vector4D weight[2];
-	};
+		struct CBuffSpriteTransform {
+			Matrix mat;
+		};
 
-	struct CBufferMaterialData {
-		Vector3D ambient;
-		float pad1;
-		Vector3D diffuse;
-		float pad2;
-		Vector3D specular;
-		float alpha;
-	};
+		struct CBufferParticleTransform {
+			Matrix mat;
+			Matrix matBillboard;
+			Vector3D cameraPos;
+			float scale;
+		};
 
-#pragma region Light
-	const size_t DIRLIGHT_NUM = 1;
+		struct CBuffColorMaterial {
+			Vector4D color;	//	RGBA
+		};
 
-	struct CBuffPointLight
-	{
-		Vector3D pos;
-		float pad1;
-		Vector3D color;
-		float pad2;
-		Vector3D lightatten;
-		bool active;
-	};
+		struct CBuffDissolveData {
+			Vector4D color;
+			float value;
+		};
 
-	struct CBuffDirLightData
-	{
-		Vector3D lightv;
-		float pad1;
-		Vector3D lightcolor;
-		bool active;
-	};
+		struct CBuffGlayScale {
+			bool active;
+		};
 
-	struct CBuffDisFogData
-	{
-		Vector3D centerPos;
-		float pad1;
-		Vector3D color;
-		bool active;
-		float start;
-		float end;
-		float fogNear;
-		float fogFar;
-	};
+		struct CBuffObj3DTransform {
+			Matrix matViewProj;
+			Matrix matWorld;
+			Vector3D cameraPos;
+		};
 
-	struct CBuffSpotLightData
-	{
-		Vector3D lightv;
-		float pad1;
-		Vector3D lightpos;
-		float pad2;
-		Vector3D lightcolor;
-		float pad3;
-		Vector3D lightatten;
-		float pad4;
-		Vector2D lightfactoranglecos;
-		bool active;
-		float pad5;
-	};
+		struct CBuffLightMaterial {
+			Matrix mLVP;
+			Vector3D cameraPos;
+		};
 
-	struct CBuffCircleShadowData
-	{
-		Vector3D dir;
-		float pad1;
-		Vector3D centerPos;
-		float distanceCasterLight;
-		Vector3D atten;
-		float pad2;
-		Vector2D factorAngleCos;
-		bool active;
-		float pad3;
-	};
+		struct CBuffSkinData
+		{
+			Matrix bones[MAX_BONES];
+		};
 
-	struct CBuffLightData
-	{
-		Vector3D ambientColor;
-		float pad1;
-		CBuff::CBuffDirLightData dirLights[DIRLIGHT_NUM];
-		CBuff::CBuffDisFogData distanceFog;
-	};
+		struct CBufferBlurWeight {
+			Vector4D weight[2];
+		};
 
-#pragma endregion
+		struct CBufferMaterialData {
+			Vector3D ambient;
+			float pad1;
+			Vector3D diffuse;
+			float pad2;
+			Vector3D specular;
+			float alpha;
+		};
+
+	#pragma region Light
+		const size_t DIRLIGHT_NUM = 1;
+
+		struct CBuffPointLight
+		{
+			Vector3D pos;
+			float pad1;
+			Vector3D color;
+			float pad2;
+			Vector3D lightatten;
+			bool active;
+		};
+
+		struct CBuffDirLightData
+		{
+			Vector3D lightv;
+			float pad1;
+			Vector3D lightcolor;
+			bool active;
+		};
+
+		struct CBuffDisFogData
+		{
+			Vector3D centerPos;
+			float pad1;
+			Vector3D color;
+			bool active;
+			float start;
+			float end;
+			float fogNear;
+			float fogFar;
+		};
+
+		struct CBuffSpotLightData
+		{
+			Vector3D lightv;
+			float pad1;
+			Vector3D lightpos;
+			float pad2;
+			Vector3D lightcolor;
+			float pad3;
+			Vector3D lightatten;
+			float pad4;
+			Vector2D lightfactoranglecos;
+			bool active;
+			float pad5;
+		};
+
+		struct CBuffCircleShadowData
+		{
+			Vector3D dir;
+			float pad1;
+			Vector3D centerPos;
+			float distanceCasterLight;
+			Vector3D atten;
+			float pad2;
+			Vector2D factorAngleCos;
+			bool active;
+			float pad3;
+		};
+
+		struct CBuffLightData
+		{
+			Vector3D ambientColor;
+			float pad1;
+			CBuff::CBuffDirLightData dirLights[DIRLIGHT_NUM];
+			CBuff::CBuffDisFogData distanceFog;
+		};
+
+	#pragma endregion
+	}
+
 }

@@ -9,7 +9,7 @@
 * @brief 脱出ポッド周りの演出を管理するファイル
 */
 
-class EscapePod :public Object3D
+class EscapePod :public MNE::Object3D
 {
 public:
 	/**
@@ -17,7 +17,7 @@ public:
 	* 初期化関数
 	* @param model 表示するモデルの設定
 	*/
-	void Initialize(IModel* model);
+	void Initialize(MNE::IModel* model);
 	/**
 	* @fn LoadResources()
 	* リソース読み込み処理関数
@@ -38,7 +38,7 @@ private:
 	//	現在のState
 	std::unique_ptr<EscPodState> currentState_;
 	//	UIのスプライト
-	Sprite ui_;
+	MNE::Sprite ui_;
 	FrameCounter fadeCounter_;
 	bool drawUI_ = false;
 

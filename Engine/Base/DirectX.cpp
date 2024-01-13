@@ -3,6 +3,7 @@
 #include "PostEffect.h"
 #include <cassert>
 
+
 // 対応レベルの配列
 D3D_FEATURE_LEVEL levels[] = {
 	D3D_FEATURE_LEVEL_12_1,
@@ -11,13 +12,13 @@ D3D_FEATURE_LEVEL levels[] = {
 	D3D_FEATURE_LEVEL_11_0,
 };
 
-MyDirectX* MyDirectX::GetInstance()
+MNE::MyDirectX* MNE::MyDirectX::GetInstance()
 {
 	static MyDirectX instance;
 	return &instance;
 }
 
-void MyDirectX::DebugLayer()
+void MNE::MyDirectX::DebugLayer()
 {
 	//	オン
 	ComPtr<ID3D12Debug1> debugController;
@@ -27,7 +28,7 @@ void MyDirectX::DebugLayer()
 	}
 }
 
-void MyDirectX::Initialize()
+void MNE::MyDirectX::Initialize()
 {
 #ifdef _DEBUG
 	DebugLayer();
@@ -215,7 +216,7 @@ void MyDirectX::Initialize()
 	viewPortSciRect_.InitializeSR(0, Window::sRESOLUTION_WID, 0, Window::sRESOLUTION_HEIGHT);
 }
 
-void MyDirectX::SetResourceBarrier(D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, ID3D12Resource* pResource)
+void MNE::MyDirectX::SetResourceBarrier(D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, ID3D12Resource* pResource)
 {
 	if (pResource != nullptr) {
 		barrierDesc_.Transition.pResource = pResource;
@@ -225,13 +226,13 @@ void MyDirectX::SetResourceBarrier(D3D12_RESOURCE_STATES StateBefore, D3D12_RESO
 	cmdList_->ResourceBarrier(1, &barrierDesc_);
 }
 
-void MyDirectX::ScreenClear(const Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle)
+void MNE::MyDirectX::ScreenClear(const Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle)
 {
 	FLOAT color[] = { clearColor.x,clearColor.y, clearColor.z,clearColor.w };
 	cmdList_->ClearRenderTargetView(rtvHandle, color, 0, nullptr);
 }
 
-void MyDirectX::CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum, const Vector4D& clearColor)
+void MNE::MyDirectX::CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum, const Vector4D& clearColor)
 {
 	// 1.リソースバリアで書き込み可能に変更
 #pragma region ReleaseBarrier
@@ -249,7 +250,7 @@ void MyDirectX::CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_STATES
 #pragma endregion
 }
 
-void MyDirectX::PrevPostEffect(PostEffect* postEffect, const Vector4D& clearColor)
+void MNE::MyDirectX::PrevPostEffect(MNE::PostEffect* postEffect, const Vector4D& clearColor)
 {
 	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = postEffect->GetRTVHeap()->GetCPUDescriptorHandleForHeapStart();
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle_ = postEffect->GetDSVHeap()->GetCPUDescriptorHandleForHeapStart();
@@ -285,7 +286,7 @@ void MyDirectX::PrevPostEffect(PostEffect* postEffect, const Vector4D& clearColo
 	cmdList_->SetDescriptorHeaps(1, srvHeap_.GetAddressOf());
 }
 
-void MyDirectX::PostEffectDraw(PostEffect* postEffect)
+void MNE::MyDirectX::PostEffectDraw(MNE::PostEffect* postEffect)
 {
 	for (size_t i = 0; i < postEffect->GetTextureNum(); i++)
 	{
@@ -294,7 +295,7 @@ void MyDirectX::PostEffectDraw(PostEffect* postEffect)
 	}
 }
 
-void MyDirectX::PrevDraw(const Vector4D& clearColor)
+void MNE::MyDirectX::PrevDraw(const Vector4D& clearColor)
 {
 	// 1.リソースバリアで書き込み可能に変更
 #pragma region ReleaseBarrier
@@ -316,7 +317,7 @@ void MyDirectX::PrevDraw(const Vector4D& clearColor)
 	viewPortSciRect_.RSSetVPandSR();
 }
 
-void MyDirectX::PostDraw()
+void MNE::MyDirectX::PostDraw()
 {
 	// 5.リソースバリアを戻す
 #pragma region ReleaseBarrier
@@ -324,7 +325,7 @@ void MyDirectX::PostDraw()
 #pragma endregion ReleaseBarrier
 }
 
-void MyDirectX::CmdListCloseAndFlip()
+void MNE::MyDirectX::CmdListCloseAndFlip()
 {
 	// 命令のクローズ
 #pragma region CmdClose
@@ -339,7 +340,7 @@ void MyDirectX::CmdListCloseAndFlip()
 #pragma endregion CmdClose
 }
 
-void MyDirectX::DrawEnd()
+void MNE::MyDirectX::DrawEnd()
 {
 	CmdListCloseAndFlip();
 

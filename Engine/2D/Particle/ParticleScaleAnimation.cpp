@@ -6,38 +6,38 @@
 
 using namespace Easing;
 
-void SpriteParticleScaleAnimation::Update()
+void MNE::SpriteParticleScaleAnimation::Update()
 {
-	SpriteParticle* sprite = parent_->GetComponent<SpriteParticle>();
+	MNE::SpriteParticle* sprite = parent_->GetComponent<MNE::SpriteParticle>();
 
 	float scale = lerp(start_, end_, parent_->GetTimerPerTime());
 	sprite->SetScale(scale);
 }
 
-void SpriteParticleScaleAnimation::SetStartScale(float scale)
+void MNE::SpriteParticleScaleAnimation::SetStartScale(float scale)
 {
 	start_ = scale;
 }
 
-void SpriteParticleScaleAnimation::SetEndScale(float scale)
+void MNE::SpriteParticleScaleAnimation::SetEndScale(float scale)
 {
 	end_ = scale;
 }
 
-void ObjectParticleScaleAnimation::Update()
+void MNE::ObjectParticleScaleAnimation::Update()
 {
-	ObjectParticle* obj = parent_->GetComponent<ObjectParticle>();
+	MNE::ObjectParticle* obj = parent_->GetComponent<MNE::ObjectParticle>();
 
 	Vector3D scale = lerp(start_, end_, parent_->GetTimerPerTime());
 	obj->SetScale(scale);
 }
 
-void ObjectParticleScaleAnimation::SetStartScale(const Vector3D& scale)
+void MNE::ObjectParticleScaleAnimation::SetStartScale(const Vector3D& scale)
 {
 	start_ = scale;
 }
 
-void ObjectParticleScaleAnimation::SetEndScale(const Vector3D& scale)
+void MNE::ObjectParticleScaleAnimation::SetEndScale(const Vector3D& scale)
 {
 	end_ = scale;
 }

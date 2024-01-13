@@ -1,6 +1,8 @@
 #include "LoadSpriteAnime.h"
 #include "TextureManager.h"
 
+using namespace MNE;
+
 void LoadSpriteAnime::Initialize(const Vector2D& centerPos, int32_t fadeTime)
 {
 	counter_.SetIsEndless(true);

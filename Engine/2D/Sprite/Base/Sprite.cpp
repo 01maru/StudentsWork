@@ -7,9 +7,9 @@
 #include <cassert>
 #include "RootParameterIdx.h"
 
-Matrix Sprite::sMAT_2DTRANSFORM = Create2DTransformMatrix();
+Matrix MNE::Sprite::sMAT_2DTRANSFORM = Create2DTransformMatrix();
 
-void Sprite::Initialize(Texture* texture)
+void MNE::Sprite::Initialize(Texture* texture)
 {
 	HRESULT result;
 
@@ -52,7 +52,7 @@ void Sprite::Initialize(Texture* texture)
 #pragma endregion
 }
 
-void Sprite::Update()
+void MNE::Sprite::Update()
 {
 	if (dirtyFlagPos_) SetVerticesPos();
 	if (dirtyFlagUV_) SetVerticesUV();
@@ -74,7 +74,7 @@ void Sprite::Update()
 	MatUpdate();
 }
 
-void Sprite::MatUpdate()
+void MNE::Sprite::MatUpdate()
 {
 	mat_.Update();
 
@@ -87,7 +87,7 @@ void Sprite::MatUpdate()
 	}
 }
 
-void Sprite::Draw(GPipeline* pipeline)
+void MNE::Sprite::Draw(GPipeline* pipeline)
 {
 	if (isInvisible_) return;
 
@@ -110,7 +110,7 @@ void Sprite::Draw(GPipeline* pipeline)
 	MyDirectX::GetInstance()->GetCmdList()->DrawInstanced(4, 1, 0, 0);
 }
 
-void Sprite::SetVerticesUV()
+void MNE::Sprite::SetVerticesUV()
 {
 	ID3D12Resource* texBuff = handle_->GetResourceBuff();
 
@@ -129,7 +129,7 @@ void Sprite::SetVerticesUV()
 	}
 }
 
-void Sprite::SetVerticesPos()
+void MNE::Sprite::SetVerticesPos()
 {
 	float left = (0.0f - anchorPoint_.x) * size_.x;
 	float right = (1.0f - anchorPoint_.x) * size_.x;
@@ -151,7 +151,7 @@ void Sprite::SetVerticesPos()
 	vertices_[RT].pos = { right,top,0.0f };
 }
 
-void Sprite::TransferVertex()
+void MNE::Sprite::TransferVertex()
 {
 	//	GPUメモリの値書き換えよう
 	// GPU上のバッファに対応した仮想メモリ(メインメモリ上)を取得
@@ -166,14 +166,14 @@ void Sprite::TransferVertex()
 	vertBuff_->Unmap(0, nullptr);
 }
 
-void Sprite::SetVertices()
+void MNE::Sprite::SetVertices()
 {
 	TransferVertex();
 	// 頂点1つ分のデータサイズ
 	vbView_.StrideInBytes = sizeof(vertices_[0]);
 }
 
-void Sprite::AdjustTextureSize()
+void MNE::Sprite::AdjustTextureSize()
 {
 	ID3D12Resource* texBuff = handle_->GetResourceBuff();
 	assert(texBuff);
@@ -185,7 +185,7 @@ void Sprite::AdjustTextureSize()
 	dirtyFlagUV_ = true;
 }
 
-void Sprite::SetPosition(const Vector2D& position)
+void MNE::Sprite::SetPosition(const Vector2D& position)
 {
 	Vector2D trans = mat_.GetTrans();
 
@@ -196,7 +196,7 @@ void Sprite::SetPosition(const Vector2D& position)
 	}
 }
 
-void Sprite::SetRotation(float rotation)
+void MNE::Sprite::SetRotation(float rotation)
 {
 	if (mat_.GetAngle() != rotation)
 	{
@@ -205,7 +205,7 @@ void Sprite::SetRotation(float rotation)
 	}
 }
 
-void Sprite::SetAnchorPoint(const Vector2D& anchor)
+void MNE::Sprite::SetAnchorPoint(const Vector2D& anchor)
 {
 	if (anchorPoint_ != anchor)
 	{
@@ -214,7 +214,7 @@ void Sprite::SetAnchorPoint(const Vector2D& anchor)
 	}
 }
 
-void Sprite::SetSize(const Vector2D& size)
+void MNE::Sprite::SetSize(const Vector2D& size)
 {
 	if (size_ != size)
 	{
@@ -223,7 +223,7 @@ void Sprite::SetSize(const Vector2D& size)
 	}
 }
 
-void Sprite::SetAlphaColor(float alpha)
+void MNE::Sprite::SetAlphaColor(float alpha)
 {
 	if (color_.w != alpha)
 	{
@@ -232,7 +232,7 @@ void Sprite::SetAlphaColor(float alpha)
 	}
 }
 
-void Sprite::SetColor(const Vector4D& color)
+void MNE::Sprite::SetColor(const Vector4D& color)
 {
 	if (color_ != color)
 	{
@@ -241,7 +241,7 @@ void Sprite::SetColor(const Vector4D& color)
 	}
 }
 
-void Sprite::SetColor(const Vector3D& color)
+void MNE::Sprite::SetColor(const Vector3D& color)
 {
 	if (color_.GetVec3D() != color)
 	{
@@ -250,7 +250,7 @@ void Sprite::SetColor(const Vector3D& color)
 	}
 }
 
-void Sprite::SetTextureLeftTop(const Vector2D& leftTop)
+void MNE::Sprite::SetTextureLeftTop(const Vector2D& leftTop)
 {
 	if (textureLeftTop_ != leftTop)
 	{
@@ -259,7 +259,7 @@ void Sprite::SetTextureLeftTop(const Vector2D& leftTop)
 	}
 }
 
-void Sprite::SetTextureSize(const Vector2D& size)
+void MNE::Sprite::SetTextureSize(const Vector2D& size)
 {
 	if (textureSize_ != size) 
 	{
@@ -268,7 +268,7 @@ void Sprite::SetTextureSize(const Vector2D& size)
 	}
 }
 
-void Sprite::SetTexture(Texture* handle)
+void MNE::Sprite::SetTexture(Texture* handle)
 {
 	handle_ = handle;
 	AdjustTextureSize();

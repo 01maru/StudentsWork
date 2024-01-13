@@ -1,5 +1,7 @@
-﻿#include "DebugTextManager.h"
+#include "DebugTextManager.h"
 #include "TextureManager.h"
+
+using namespace MNE;
 
 Texture* DebugTextManager::sFontTex;
 size_t DebugTextManager::sMaxSpritesNum = 256;

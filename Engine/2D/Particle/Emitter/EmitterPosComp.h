@@ -2,19 +2,23 @@
 #include "EmitterComponent.h"
 #include "ParticleValue.h"
 
-class EmitterPosComp :public EmitterComponent
+namespace MNE
 {
-public:
-	/**
-	* @fn Initialize()
-	* 初期化関数
-	*/
-	void Initialize(Particle* particle) override;
 
-private:
-	std::unique_ptr<ParticleValue> add_;
+	class EmitterPosComp :public EmitterComponent
+	{
+	public:
+		/**
+		* @fn Initialize()
+		* 初期化関数
+		*/
+		void Initialize(MNE::Particle* particle) override;
 
-public:
-	void SetAddValue(std::unique_ptr<ParticleValue>& v);
-};
+	private:
+		std::unique_ptr<ParticleValue> add_;
 
+	public:
+		void SetAddValue(std::unique_ptr<ParticleValue>& v);
+	};
+
+}

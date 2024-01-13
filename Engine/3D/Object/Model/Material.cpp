@@ -4,7 +4,7 @@
 #include <cassert>
 #include "ConvertString.h"
 
-Material* Material::Create()
+MNE::Material* MNE::Material::Create()
 {
 	Material* instance = new Material;
 	instance->Initialize();
@@ -12,12 +12,12 @@ Material* Material::Create()
 	return instance;
 }
 
-void Material::Initialize()
+void MNE::Material::Initialize()
 {
 	material_.Initialize((sizeof(CBuff::CBufferMaterialData) + 0xFF) & ~0xFF);
 }
 
-void Material::Update()
+void MNE::Material::Update()
 {
 	// 定数バッファへデータ転送
 	CBuff::CBufferMaterialData* constMap = nullptr;
@@ -42,7 +42,7 @@ void Material::Update()
 //	return ret;
 //}
 
-void Material::LoadTexture()
+void MNE::Material::LoadTexture()
 {
 	std::string fileName = Util::GetFileName(filepath_);
 	std::string dirPath = Util::GetDirectoryPath(filepath_);
@@ -50,12 +50,12 @@ void Material::LoadTexture()
 	texture_ = TextureManager::GetInstance()->AsyncLoadTextureGraph(fileName, dirPath);
 }
 
-void Material::SetGraphicsRootCBuffView(uint32_t rootparaIdx)
+void MNE::Material::SetGraphicsRootCBuffView(uint32_t rootparaIdx)
 {
 	material_.SetGraphicsRootCBuffView(rootparaIdx);
 }
 
-int32_t Material::GetTextureHandle()
+int32_t MNE::Material::GetTextureHandle()
 {
 	if (texture_ == nullptr)
 	{

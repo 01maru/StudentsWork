@@ -9,12 +9,12 @@ public:
 	void Draw();
 
 private:
-	Sprite sprite_;
+	MNE::Sprite sprite_;
 	Vector3D dir_;
 	const float MAX_DISTANCE = 30.0f;
 
 public:
-	void SetSprite(const Sprite& sprite) { sprite_ = sprite; }
+	void SetSprite(const MNE::Sprite& sprite) { sprite_ = sprite; }
 	Vector3D GetDir() { return dir_; }
 };
 

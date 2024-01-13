@@ -4,7 +4,7 @@
 #include "SpriteParticle.h"
 #include "ObjectParticle.h"
 
-void ParticleEmitter::Update()
+void MNE::ParticleEmitter::Update()
 {
 	//	アクティブじゃなかったら
 	if (isActive_ == false) return;
@@ -25,7 +25,7 @@ void ParticleEmitter::Update()
 	timer_.Update();
 }
 
-void ParticleEmitter::AddParticle()
+void MNE::ParticleEmitter::AddParticle()
 {
 	std::unique_ptr<Particle> particle = std::make_unique<Particle>();
 	particle->StartTimer();
@@ -51,48 +51,48 @@ void ParticleEmitter::AddParticle()
 	ParticleManager::GetInstance()->AddParticle(particle, isObj_);
 }
 
-bool ParticleEmitter::GetIsObj()
+bool MNE::ParticleEmitter::GetIsObj()
 {
 	return isObj_;
 }
 
-Vector3D& ParticleEmitter::GetPosition()
+Vector3D& MNE::ParticleEmitter::GetPosition()
 {
 	return pos_;
 }
 
-void ParticleEmitter::SetIsObj(bool isObj)
+void MNE::ParticleEmitter::SetIsObj(bool isObj)
 {
 	isObj_ = isObj;
 }
 
-void ParticleEmitter::SetRate(int32_t v)
+void MNE::ParticleEmitter::SetRate(int32_t v)
 {
 	timer_.SetMaxFrameCount(v);
 }
 
-void ParticleEmitter::SetPosition(const Vector3D& pos)
+void MNE::ParticleEmitter::SetPosition(const Vector3D& pos)
 {
 	pos_ = pos;
 }
 
-void ParticleEmitter::SetLifeTime(int32_t lifeTime)
+void MNE::ParticleEmitter::SetLifeTime(int32_t lifeTime)
 {
 	lifeTime_ = lifeTime;
 }
 
-void ParticleEmitter::SetBlendMord(Blend::BlendMord blendMord)
+void MNE::ParticleEmitter::SetBlendMord(Blend::BlendMord blendMord)
 {
 	blendMord_ = blendMord;
 }
 
-void ParticleEmitter::SetEmitterType(std::unique_ptr<EmitterType>& type)
+void MNE::ParticleEmitter::SetEmitterType(std::unique_ptr<EmitterType>& type)
 {
 	shapeType_ = std::move(type);
 	shapeType_->SetParent(this);
 }
 
-void ParticleEmitter::SetDeadTimer(std::unique_ptr<FrameCounter>& timer)
+void MNE::ParticleEmitter::SetDeadTimer(std::unique_ptr<FrameCounter>& timer)
 {
 	deadTimer_ = std::move(timer);
 	deadTimer_->StartCount();

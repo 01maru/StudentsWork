@@ -4,12 +4,12 @@
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-Vector2D& UIPosition::GetPosition()
+Vector2D& MNE::UIPosition::GetPosition()
 {
 	return pos_;
 }
 
-Vector2D& UIPosition::GetSize()
+Vector2D& MNE::UIPosition::GetSize()
 {
 	return size_;
 }
@@ -18,12 +18,12 @@ Vector2D& UIPosition::GetSize()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIPosition::SetPosition(const Vector2D& pos)
+void MNE::UIPosition::SetPosition(const Vector2D& pos)
 {
 	pos_ = pos;
 }
 
-void UIPosition::SetSize(const Vector2D& size)
+void MNE::UIPosition::SetSize(const Vector2D& size)
 {
 	size_ = size;
 }

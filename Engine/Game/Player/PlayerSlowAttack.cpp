@@ -3,6 +3,8 @@
 #include "ModelManager.h"
 #include "PlayerNoAttackState.h"
 
+using namespace MNE;
+
 void PlayerSlowAttack::Initialize()
 {
 	sPlayer_->SetBulletRate(rate_);

@@ -5,7 +5,7 @@
 #include "ObjectParticle.h"
 #include "ModelManager.h"
 
-void ParticleResource::Initialize(Particle* particle)
+void MNE::ParticleResource::Initialize(MNE::Particle* particle)
 {
 	//	オブジェクトだったら
 	if (parent_->GetIsObj())
@@ -28,7 +28,7 @@ void ParticleResource::Initialize(Particle* particle)
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void ParticleResource::SetResourceName(const std::string& name)
+void MNE::ParticleResource::SetResourceName(const std::string& name)
 {
 	name_ = name;
 }

@@ -53,7 +53,7 @@ private:
 	//	実行中か
 	bool isActive_ = false;
 	//	UIの配置データ
-	UIData data_;
+	MNE::UIData data_;
 	//	カーソルポインタ
 	SelectCursor* cursor_ = nullptr;
 	//	実行する前のカーソルの位置

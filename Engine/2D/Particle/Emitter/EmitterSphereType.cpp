@@ -10,7 +10,7 @@
 using namespace Easing;
 using namespace MyMath;
 
-void EmitterSphereType::Update(Particle* particle)
+void MNE::EmitterSphereType::Update(MNE::Particle* particle)
 {
 	float angleXZ = GetRand(0.0f, PIx2);
 	float lenRate = GetRand(radiusThickness_, 1.0f);
@@ -30,24 +30,24 @@ void EmitterSphereType::Update(Particle* particle)
 
 	if (parent_->GetIsObj())
 	{
-		ObjectParticle* obj = particle->GetComponent<ObjectParticle>();
+		MNE::ObjectParticle* obj = particle->GetComponent<MNE::ObjectParticle>();
 
 		obj->SetPosition(pos_);
 	}
 	else
 	{
-		SpriteParticle* sprite = particle->GetComponent<SpriteParticle>();
+		MNE::SpriteParticle* sprite = particle->GetComponent<MNE::SpriteParticle>();
 
 		sprite->SetPosition(pos_);
 	}
 }
 
-void EmitterSphereType::SetRadius(float radius)
+void MNE::EmitterSphereType::SetRadius(float radius)
 {
 	radius_ = radius;
 }
 
-void EmitterSphereType::SetRadiusThickness(float thickness)
+void MNE::EmitterSphereType::SetRadiusThickness(float thickness)
 {
 	radiusThickness_ = mClamp(0.0f, 1.0f, thickness);
 }

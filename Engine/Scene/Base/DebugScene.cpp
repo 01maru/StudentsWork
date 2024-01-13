@@ -11,7 +11,7 @@
 #include "TextureManager.h"
 #include "Easing.h"
 
-void DebugScene::LoadResources()
+void MNE::DebugScene::LoadResources()
 {
 	TextureManager::GetInstance()->LoadTextureGraph("space.png");
 
@@ -33,7 +33,7 @@ void DebugScene::LoadResources()
 	skydome_ = std::move(Object3D::Create(models->GetModel("skydome")));
 }
 
-void DebugScene::Initialize()
+void MNE::DebugScene::Initialize()
 {
 	//LightManager::GetInstance()->SetFogStart(0.7f);
 	//LightManager::GetInstance()->SetFogEnd(3.0);
@@ -42,11 +42,11 @@ void DebugScene::Initialize()
 	CameraManager::GetInstance()->GetMainCamera()->Initialize(Vector3D(0.0f,-0.5f,1.0f), Vector3D(0.0f, 1.0f, 0.0f), 18.0f);
 }
 
-void DebugScene::Finalize()
+void MNE::DebugScene::Finalize()
 {
 }
 
-void DebugScene::MatUpdate()
+void MNE::DebugScene::MatUpdate()
 {
 	ground_->MatUpdate();
 	
@@ -54,7 +54,7 @@ void DebugScene::MatUpdate()
 	ship_->MatUpdate();
 }
 
-void DebugScene::Update()
+void MNE::DebugScene::Update()
 {
 #pragma region 更新処理
 
@@ -65,7 +65,7 @@ void DebugScene::Update()
 	MatUpdate();
 }
 
-void DebugScene::ImguiUpdate()
+void MNE::DebugScene::ImguiUpdate()
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
@@ -90,11 +90,11 @@ void DebugScene::ImguiUpdate()
 	imguiMan->EndWindow();
 }
 
-void DebugScene::DrawShadow()
+void MNE::DebugScene::DrawShadow()
 {
 }
 
-void DebugScene::Draw()
+void MNE::DebugScene::Draw()
 {
 	ground_->Draw();
 	skydome_->Draw();

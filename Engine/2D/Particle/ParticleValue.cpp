@@ -3,45 +3,45 @@
 
 using namespace MyMath;
 
-Vector3D& ParticleValue::GetValue()
+Vector3D& MNE::ParticleValue::GetValue()
 {
 	CalcValue();
 
 	return value_;
 }
 
-void ParticleValue::SetValue(const Vector3D& v)
+void MNE::ParticleValue::SetValue(const Vector3D& v)
 {
 	value_ = v;
 }
 
-void ParticleRandValue::CalcValue()
+void MNE::ParticleRandValue::CalcValue()
 {
 	value_ = GetRand(minValue_, maxValue_);
 }
 
-void ParticleRandValue::SetMinValue(const Vector3D& v)
+void MNE::ParticleRandValue::SetMinValue(const Vector3D& v)
 {
 	minValue_ = v;
 }
 
-void ParticleRandValue::SetMaxValue(const Vector3D& v)
+void MNE::ParticleRandValue::SetMaxValue(const Vector3D& v)
 {
 	maxValue_ = v;
 }
 
-void ParticleSameRandValue::CalcValue()
+void MNE::ParticleSameRandValue::CalcValue()
 {
 	float v = GetRand(minValue_, maxValue_);
 	value_ = Vector3D(v, v, v);
 }
 
-void ParticleSameRandValue::SetMinValue(float v)
+void MNE::ParticleSameRandValue::SetMinValue(float v)
 {
 	minValue_ = v;
 }
 
-void ParticleSameRandValue::SetMaxValue(float v)
+void MNE::ParticleSameRandValue::SetMaxValue(float v)
 {
 	maxValue_ = v;
 }

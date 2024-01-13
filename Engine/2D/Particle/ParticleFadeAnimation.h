@@ -1,29 +1,33 @@
 #pragma once
 #include "ParticleComponent.h"
 
-class ParticleFadeAnimation :public ParticleComponent
+namespace MNE
 {
-public:
-	/**
-	* @fn Update()
-	* 更新処理関数
-	*/
-	void Update() override;
 
-private:
-	float start_ = 1.0f;
-	float end_ = 5.0f;
+	class ParticleFadeAnimation :public MNE::ParticleComponent
+	{
+	public:
+		/**
+		* @fn Update()
+		* 更新処理関数
+		*/
+		void Update() override;
 
-public:
-#pragma region Getter
+	private:
+		float start_ = 1.0f;
+		float end_ = 5.0f;
 
-#pragma endregion
+	public:
+	#pragma region Getter
 
-#pragma region Setter
+	#pragma endregion
 
-	void SetStartAlpha(float alpha);
-	void SetEndAlpha(float alpha);
+	#pragma region Setter
 
-#pragma endregion
-};
+		void SetStartAlpha(float alpha);
+		void SetEndAlpha(float alpha);
 
+	#pragma endregion
+	};
+
+}

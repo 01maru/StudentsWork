@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-void Particle::Update()
+void MNE::Particle::Update()
 {
 	if (lifeTimer_.GetFrameCount() == lifeTimer_.GetMaxFrameCount()) {
 		isEnd_ = true;
@@ -14,7 +14,7 @@ void Particle::Update()
 	}
 }
 
-void Particle::MatUpdate()
+void MNE::Particle::MatUpdate()
 {
 	for (auto itr = components_.begin(); itr != components_.end(); ++itr)
 	{
@@ -22,7 +22,7 @@ void Particle::MatUpdate()
 	}
 }
 
-void Particle::Draw()
+void MNE::Particle::Draw()
 {
 	for (auto itr = components_.begin(); itr != components_.end(); ++itr)
 	{
@@ -34,17 +34,17 @@ void Particle::Draw()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-Blend::BlendMord Particle::GetBlendMord()
+MNE::Blend::BlendMord MNE::Particle::GetBlendMord()
 {
 	return blendMord_;
 }
 
-bool Particle::GetIsEnd()
+bool MNE::Particle::GetIsEnd()
 {
 	return isEnd_;
 }
 
-float Particle::GetTimerPerTime()
+float MNE::Particle::GetTimerPerTime()
 {
 	return lifeTimer_.GetCountPerMaxCount();
 }
@@ -53,17 +53,17 @@ float Particle::GetTimerPerTime()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void Particle::SetBlendMord(Blend::BlendMord blendMord)
+void MNE::Particle::SetBlendMord(MNE::Blend::BlendMord blendMord)
 {
 	blendMord_ = blendMord;
 }
 
-void Particle::SetLifeTime(int32_t time)
+void MNE::Particle::SetLifeTime(int32_t time)
 {
 	lifeTimer_.SetMaxFrameCount(time);
 }
 
-void Particle::StartTimer()
+void MNE::Particle::StartTimer()
 {
 	lifeTimer_.StartCount();
 }

@@ -18,6 +18,8 @@
 
 #include "GameOverUI.h"
 
+using namespace MNE;
+
 SceneManager* SceneManager::GetInstance()
 {
 	static SceneManager instance;

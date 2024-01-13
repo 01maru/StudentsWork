@@ -6,44 +6,49 @@
 * @brief 頂点バッファの構造体をまとめたファイル
 */
 
-struct ParticleVertex
+namespace MNE
 {
-	Vector3D pos;
-	float scale;
-};
 
-struct Vertex
-{
-	Vector3D pos;
-	Vector3D normal;
-	Vector2D uv;
-};
+	struct ParticleVertex
+	{
+		Vector3D pos;
+		float scale;
+	};
 
-struct ModelVertex
-{
-	Vector3D pos;
-	Vector3D normal;
-	Vector2D uv;
-	unsigned int boneIndex[4];
-	float boneWeight[4];
-};
+	struct Vertex
+	{
+		Vector3D pos;
+		Vector3D normal;
+		Vector2D uv;
+	};
 
-struct VertexObj
-{
-	Vector3D pos;
-	Vector3D normal;
-	Vector2D uv;
-	Vector4D color;
-};
+	struct ModelVertex
+	{
+		Vector3D pos;
+		Vector3D normal;
+		Vector2D uv;
+		unsigned int boneIndex[4];
+		float boneWeight[4];
+	};
 
-struct ScreenVertex
-{
-	Vector3D pos;
-	Vector2D uv;
-};
+	struct VertexObj
+	{
+		Vector3D pos;
+		Vector3D normal;
+		Vector2D uv;
+		Vector4D color;
+	};
 
-struct SpriteVertex
-{
-	Vector2D pos;
-	Vector2D uv;
-};
+	struct ScreenVertex
+	{
+		Vector3D pos;
+		Vector2D uv;
+	};
+
+	struct SpriteVertex
+	{
+		Vector2D pos;
+		Vector2D uv;
+	};
+
+}

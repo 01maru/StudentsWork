@@ -33,7 +33,7 @@ public:
 
 private:
 	bool isActive_ = true;
-	Sprite cursor_;
+	MNE::Sprite cursor_;
 	FrameCounter counter_;
 	Vector2D minSize_;
 	Vector2D maxSize_;

@@ -10,7 +10,7 @@
 
 #include "IGameState.h"
 
-class GameScene :public IScene
+class GameScene :public MNE::IScene
 {
 private:
 
@@ -23,8 +23,8 @@ private:
 
 #pragma region Obj3D
 
-	std::unique_ptr<Object3D> skydome_;
-	std::unique_ptr<Object3D> ground_;
+	std::unique_ptr<MNE::Object3D> skydome_;
+	std::unique_ptr<MNE::Object3D> ground_;
 	std::unique_ptr<Player> player_;
 	std::unique_ptr<Boss> enemy_;
 

@@ -3,10 +3,10 @@
 #include "SpriteParticle.h"
 #include "ObjectParticle.h"
 
-void ParticleSpdAnimation::Update()
+void MNE::ParticleSpdAnimation::Update()
 {
 	if (isObj_ == true) {
-		ObjectParticle* obj = parent_->GetComponent<ObjectParticle>();
+		MNE::ObjectParticle* obj = parent_->GetComponent<MNE::ObjectParticle>();
 
 		Vector3D pos = obj->GetPosition();
 		pos += spd_;
@@ -14,7 +14,7 @@ void ParticleSpdAnimation::Update()
 	}
 
 	else {
-		SpriteParticle* sprite = parent_->GetComponent<SpriteParticle>();
+		MNE::SpriteParticle* sprite = parent_->GetComponent<MNE::SpriteParticle>();
 
 		Vector3D pos = sprite->GetPosition();
 		pos += spd_;
@@ -22,12 +22,12 @@ void ParticleSpdAnimation::Update()
 	}
 }
 
-void ParticleSpdAnimation::SetSpd(const Vector3D& spd)
+void MNE::ParticleSpdAnimation::SetSpd(const Vector3D& spd)
 {
 	spd_ = spd;
 }
 
-void ParticleSpdAnimation::SetIsObj(bool isObj)
+void MNE::ParticleSpdAnimation::SetIsObj(bool isObj)
 {
 	isObj_ = isObj;
 }

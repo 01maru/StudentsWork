@@ -4,11 +4,11 @@
 #include "ParticleScaleAnimation.h"
 #include "ParticleEmitter.h"
 
-void EmitterScaleAnimation::Initialize(Particle* particle)
+void MNE::EmitterScaleAnimation::Initialize(MNE::Particle* particle)
 {
 	if (parent_->GetIsObj())
 	{
-		ObjectParticle* obj = particle->GetComponent<ObjectParticle>();
+		MNE::ObjectParticle* obj = particle->GetComponent<MNE::ObjectParticle>();
 
 		obj->SetScale(value_->GetValue());
 
@@ -22,7 +22,7 @@ void EmitterScaleAnimation::Initialize(Particle* particle)
 	}
 	else
 	{
-		SpriteParticle* sprite = particle->GetComponent<SpriteParticle>();
+		MNE::SpriteParticle* sprite = particle->GetComponent<MNE::SpriteParticle>();
 
 		sprite->SetScale(value_->GetValue().x);
 
@@ -36,12 +36,12 @@ void EmitterScaleAnimation::Initialize(Particle* particle)
 	}
 }
 
-void EmitterScaleAnimation::SetValue(std::unique_ptr<ParticleValue>& v)
+void MNE::EmitterScaleAnimation::SetValue(std::unique_ptr<ParticleValue>& v)
 {
 	value_ = std::move(v);
 }
 
-void EmitterScaleAnimation::SetAddValue(std::unique_ptr<ParticleValue>& v)
+void MNE::EmitterScaleAnimation::SetAddValue(std::unique_ptr<ParticleValue>& v)
 {
 	add_ = std::move(v);
 }

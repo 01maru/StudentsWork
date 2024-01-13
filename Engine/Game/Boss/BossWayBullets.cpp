@@ -5,6 +5,8 @@
 #include "Quaternion.h"
 #include "BossDeathState.h"
 
+using namespace MNE;
+
 void BossWayBullets::Initialize()
 {
 	rate_.Initialize(delayTime_, true);

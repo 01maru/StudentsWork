@@ -4,7 +4,7 @@
 #include "ParticleEmitter.h"
 #include "ParticleFadeAnimation.h"
 
-void EmitterFadeAnimation::Initialize(Particle* particle)
+void MNE::EmitterFadeAnimation::Initialize(MNE::Particle* particle)
 {
 	if (parent_->GetIsObj())
 	{
@@ -12,7 +12,7 @@ void EmitterFadeAnimation::Initialize(Particle* particle)
 
 
 		//if (add_ != nullptr) {
-		ParticleFadeAnimation* anime = particle->AddComponent<ParticleFadeAnimation>();
+		MNE::ParticleFadeAnimation* anime = particle->AddComponent<MNE::ParticleFadeAnimation>();
 		anime->SetStartAlpha(startValue_);
 		anime->SetEndAlpha(endValue_);
 		//	Vector3D scale = obj->GetScale();
@@ -37,12 +37,12 @@ void EmitterFadeAnimation::Initialize(Particle* particle)
 	}
 }
 
-void EmitterFadeAnimation::SetEndValue(float v)
+void MNE::EmitterFadeAnimation::SetEndValue(float v)
 {
 	endValue_ = v;
 }
 
-void EmitterFadeAnimation::SetStartValue(float v)
+void MNE::EmitterFadeAnimation::SetStartValue(float v)
 {
 	startValue_ = v;
 }

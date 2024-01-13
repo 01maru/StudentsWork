@@ -2,7 +2,7 @@
 #include "Object3D.h"
 #include "FrameCounter.h"
 
-class SpaceShip :public Object3D
+class SpaceShip :public MNE::Object3D
 {
 private:
 	bool isEnd_ = true;
@@ -34,7 +34,7 @@ private:
 	void CameraMoveUpdate();
 	void CameraFrontUpdate();
 public:
-	void Initialize(IModel* model);
+	void Initialize(MNE::IModel* model);
 	void Update();
 	void Start();
 	void OpenDoor();

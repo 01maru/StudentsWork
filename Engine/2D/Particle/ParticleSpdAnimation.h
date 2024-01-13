@@ -2,29 +2,33 @@
 #include "ParticleComponent.h"
 #include "Vector3D.h"
 
-class ParticleSpdAnimation :public ParticleComponent
+namespace MNE
 {
-public:
-	/**
-	* @fn Update()
-	* 更新処理関数
-	*/
-	void Update() override;
 
-private:
-	Vector3D spd_;
-	bool isObj_ = false;
+	class ParticleSpdAnimation :public MNE::ParticleComponent
+	{
+	public:
+		/**
+		* @fn Update()
+		* 更新処理関数
+		*/
+		void Update() override;
 
-public:
-#pragma region Getter
+	private:
+		Vector3D spd_;
+		bool isObj_ = false;
 
-#pragma endregion
+	public:
+	#pragma region Getter
 
-#pragma region Setter
+	#pragma endregion
 
-	void SetSpd(const Vector3D& spd);
-	void SetIsObj(bool isObj);
+	#pragma region Setter
 
-#pragma endregion
-};
+		void SetSpd(const Vector3D& spd);
+		void SetIsObj(bool isObj);
 
+	#pragma endregion
+	};
+
+}

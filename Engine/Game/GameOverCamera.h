@@ -2,7 +2,7 @@
 #include "ICamera.h"
 #include "FrameCounter.h"
 
-class GameOverCamera :public ICamera
+class GameOverCamera :public MNE::ICamera
 {
 private:
 	Vector3D eyeStart_;

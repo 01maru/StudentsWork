@@ -2,9 +2,9 @@
 #include "ParticleSpdAnimation.h"
 #include "ParticleEmitter.h"
 
-void EmitterSpdAnimation::Initialize(Particle* particle)
+void MNE::EmitterSpdAnimation::Initialize(MNE::Particle* particle)
 {
-	ParticleSpdAnimation* spd = particle->AddComponent<ParticleSpdAnimation>();
+	MNE::ParticleSpdAnimation* spd = particle->AddComponent<MNE::ParticleSpdAnimation>();
 	spd->SetIsObj(parent_->GetIsObj());
 	EmitterType* type = parent_->GetEmitterType();
 	spd->SetSpd(spd_ * type->GetDir());

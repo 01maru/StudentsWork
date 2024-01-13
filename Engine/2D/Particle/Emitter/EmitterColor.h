@@ -2,19 +2,23 @@
 #include "EmitterComponent.h"
 #include "Vector3D.h"
 
-class EmitterColor :public EmitterComponent
+namespace MNE
 {
-public:
-	/**
-	* @fn Initialize()
-	* 初期化関数
-	*/
-	void Initialize(Particle* particle) override;
 
-private:
-	Vector3D color_;
+	class EmitterColor :public EmitterComponent
+	{
+	public:
+		/**
+		* @fn Initialize()
+		* 初期化関数
+		*/
+		void Initialize(MNE::Particle* particle) override;
 
-public:
-	void SetColor(const Vector3D& color);
-};
+	private:
+		Vector3D color_;
 
+	public:
+		void SetColor(const Vector3D& color);
+	};
+
+}

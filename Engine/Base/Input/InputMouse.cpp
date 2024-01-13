@@ -1,10 +1,10 @@
-﻿#include "InputMouse.h"
+#include "InputMouse.h"
 #include "Window.h"
 #include <cassert>
 
 #include "ImGuiManager.h"
 
-void InputMouse::Initialize(IDirectInput8* directInput)
+void MNE::InputMouse::Initialize(IDirectInput8* directInput)
 {
 	Window* win = Window::GetInstance();
 	HRESULT result;
@@ -23,7 +23,7 @@ void InputMouse::Initialize(IDirectInput8* directInput)
 	assert(SUCCEEDED(result));
 }
 
-void InputMouse::LockCursor()
+void MNE::InputMouse::LockCursor()
 {
 	if (!isLockCursor_) return;
 
@@ -58,7 +58,7 @@ void InputMouse::LockCursor()
 	prevCursor_ = Vector2D((int32_t)center.x, (int32_t)center.y);
 }
 
-void InputMouse::UnLockCursor()
+void MNE::InputMouse::UnLockCursor()
 {
 	if (isLockCursor_) return;
 
@@ -77,7 +77,7 @@ void InputMouse::UnLockCursor()
 	cursor_.y = (float)cursor.y;
 }
 
-void InputMouse::SetInputInfo()
+void MNE::InputMouse::SetInputInfo()
 {
 	//	マウス全体の情報
 	mouse_->Acquire();
@@ -90,7 +90,7 @@ void InputMouse::SetInputInfo()
 	cursorMoveLen_ = cursor_ - prevCursor_;
 }
 
-void InputMouse::Update()
+void MNE::InputMouse::Update()
 {
 	//	前フレームの情報
 	prevClick_ = click_;
@@ -101,7 +101,7 @@ void InputMouse::Update()
 	ShowCursor(showCursor_);
 }
 
-void InputMouse::ImGuiUpdateCursor(ImGuiManager* imgui)
+void MNE::InputMouse::ImGuiUpdateCursor(MNE::ImGuiManager* imgui)
 {
 	if (!imgui->TreeNode("Cursor")) return;
 
@@ -117,7 +117,7 @@ void InputMouse::ImGuiUpdateCursor(ImGuiManager* imgui)
 	imgui->TreePop();
 }
 
-void InputMouse::ImGuiUpdateClick(ImGuiManager* imgui)
+void MNE::InputMouse::ImGuiUpdateClick(MNE::ImGuiManager* imgui)
 {
 	if (!imgui->TreeNode("Click")) return;
 
@@ -146,13 +146,13 @@ void InputMouse::ImGuiUpdateClick(ImGuiManager* imgui)
 	imgui->TreePop();
 }
 
-InputMouse::~InputMouse()
+MNE::InputMouse::~InputMouse()
 {
 	//	範囲指定しない
 	ClipCursor(NULL);
 }
 
-void InputMouse::ImGuiUpdate()
+void MNE::InputMouse::ImGuiUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
@@ -165,17 +165,17 @@ void InputMouse::ImGuiUpdate()
 	imgui->TreePop();
 }
 
-bool InputMouse::GetClick(MouseButton type)
+bool MNE::InputMouse::GetClick(MouseButton type)
 {
 	return (click_.rgbButtons[type] & (0x80));
 }
 
-bool InputMouse::GetClickTrigger(MouseButton type)
+bool MNE::InputMouse::GetClickTrigger(MouseButton type)
 {
 	return (click_.rgbButtons[type] & (0x80)) && !(prevClick_.rgbButtons[type] & (0x80));
 }
 
-bool InputMouse::GetClickRelease(MouseButton type)
+bool MNE::InputMouse::GetClickRelease(MouseButton type)
 {
 	return !(click_.rgbButtons[type] & (0x80)) && (prevClick_.rgbButtons[type] & (0x80));
 }

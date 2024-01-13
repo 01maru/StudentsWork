@@ -2,7 +2,7 @@
 #include "UIButton.h"
 #include "InputManager.h"
 
-void UIButtonManager::Update()
+void MNE::UIButtonManager::Update()
 {
 	InputManager* inputMan = InputManager::GetInstance();
 	
@@ -19,17 +19,17 @@ void UIButtonManager::Update()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-const std::string& UIButtonManager::GetSelectObjName()
+const std::string& MNE::UIButtonManager::GetSelectObjName()
 {
 	return selectButton_->GetButtonName();
 }
 
-Vector2D& UIButtonManager::GetSelectPos()
+Vector2D& MNE::UIButtonManager::GetSelectPos()
 {
 	return selectButton_->GetPosition();
 }
 
-Vector2D& UIButtonManager::GetSelectSize()
+Vector2D& MNE::UIButtonManager::GetSelectSize()
 {
 	return selectButton_->GetSize();
 }
@@ -38,7 +38,7 @@ Vector2D& UIButtonManager::GetSelectSize()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void UIButtonManager::SetSelectButton(UIButton* button)
+void MNE::UIButtonManager::SetSelectButton(UIButton* button)
 {
 	selectButton_ = button;
 }

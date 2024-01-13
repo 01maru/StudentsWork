@@ -1,5 +1,7 @@
-﻿#include "DepthStencil.h"
+#include "DepthStencil.h"
 #include "DirectX.h"
+
+using namespace MNE;
 
 void DepthStencil::Initialize(int32_t width, int32_t height, DXGI_FORMAT format)
 {
