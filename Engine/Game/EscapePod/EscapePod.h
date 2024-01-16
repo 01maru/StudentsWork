@@ -41,13 +41,19 @@ private:
 	MNE::Sprite ui_;
 	FrameCounter fadeCounter_;
 	bool drawUI_ = false;
-
+	bool openDoor_ = false;
+	bool drawPlayer_ = false;
 public:
 
+	bool GetOpenDoor() { return openDoor_; }
+	bool GetDrawPlayer() { return drawPlayer_; }
 	void StartUICounter();
 
 #pragma region Setter
 
+	void SetDrawPlayer(bool drawplayer) { drawPlayer_ = drawplayer; }
+	void SetOpenDoor(bool openDoor) { openDoor_ = openDoor; }
+	void SetDrawUI(bool drawUI) { drawUI_ = drawUI; }
 	/**
 	* @fn ResetAnimation()
 	* アニメーションを初めからに戻す関数(debug用)

@@ -32,7 +32,7 @@ void GameScene::LoadResources()
 	models->LoadModel("bullet");
 	models->LoadModel("eye");
 	models->LoadModel("mixhuman", true);
-	models->LoadModel("mixhuman", true);
+	models->LoadModel("escapePod", true);
 	models->LoadModel();
 #pragma endregion
 	level.LoadJSON("game");
@@ -78,6 +78,11 @@ void GameScene::LoadResources()
 	gameUISprite = gameUIObj->GetComponent<UISprite>();
 	enemy_->SetHPBarSprite(gameUISprite->GetSprites()["bossHP"]);
 
+	//	脱出ポッド
+	pod_.LoadResources();
+	pod_.Initialize(models->GetModel("escapePod"));
+	pod_.SetPosition({ 0.0f,0.0f,-50.0f });
+	pod_.SetScale({ 0.5f,0.5f,0.5f });
 #pragma region Sound
 	XAudioManager::GetInstance()->LoadSoundWave("gameBGM.wav");
 #pragma endregion
@@ -87,20 +92,23 @@ void GameScene::Initialize()
 {
 	pause_.Initialize();
 
+	//CameraManager::GetInstance()->GetMainCamera()->Initialize(Vector3D(0.0f, 6.5f, -65.0f), Vector3D(0.0f, 1.0f, 50.0f), Vector3D(0, 1, 0));
+	std::unique_ptr<ICamera> camera = std::make_unique<GameCamera>();
+	//camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
+	camera->Initialize(Vector3D(0.0f, 6.5f, -65.0f), Vector3D(0.0f, 1.0f, 50.0f), Vector3D(0, 1, 0));
+	CameraManager::GetInstance()->SetMainCamera(camera);
+
 	LoadResources();
 
-	Vector3D pos = level.GetPlayerSpownPoint().pos;
-	pos.y = 1.0f;
-	player_->SetPosition(pos);
+	//Vector3D pos = level.GetPlayerSpownPoint().pos;
+	//pos.y = 1.0f;
+	//player_->SetPosition(pos);
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
+	player_->SetPosition({ 0.0f,0.0f,-52.0f });
 	player_->SetGameOverState(gameOver_.get());
 
 	enemy_->SetPlayer(player_.get());
 	enemy_->SetClearState(clear_.get());
-
-	std::unique_ptr<ICamera> camera = std::make_unique<GameCamera>();
-	camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
-	CameraManager::GetInstance()->SetMainCamera(camera);
 
 	pause_.SetGameCamera(dynamic_cast<GameCamera*>(CameraManager::GetInstance()->GetMainCamera()));
 
@@ -135,6 +143,7 @@ void GameScene::MatUpdate()
 	player_->MatUpdate();
 	enemy_->MatUpdate();
 
+	pod_.MatUpdate();
 	level.MatUpdate();
 }
 
@@ -147,8 +156,13 @@ void GameScene::Update()
 	{
 		ParticleManager::GetInstance()->Update();
 
-		player_->Update();
-		enemy_->Update();
+		pod_.Update();
+
+		if (pod_.GetOpenDoor() == TRUE)
+		{
+			player_->Update();
+			enemy_->Update();
+		}
 	}
 #pragma endregion
 	MatUpdate();
@@ -156,9 +170,16 @@ void GameScene::Update()
 	clear_->Update();
 	gameOver_->Update();
 
-	player_->CollisionUpdate();
 
-	CollisionManager::GetInstance()->CheckAllCollisions();
+	if (pause_.GetIsActive() == false)
+	{
+		if (pod_.GetOpenDoor() == TRUE)
+		{
+			player_->CollisionUpdate();
+		}
+
+		CollisionManager::GetInstance()->CheckAllCollisions();
+	}
 }
 
 void GameScene::ImguiUpdate()
@@ -169,6 +190,12 @@ void GameScene::ImguiUpdate()
 
 	imguiMan->BeginWindow("GameScene", true);
 
+	if (imguiMan->SetButton("BossActive")) {
+		enemy_->SetIsActive(true);
+	}
+
+	if (imguiMan->SetButton("ResetPod"))	pod_.ResetAnimation();
+
 	enemy_->ImGuiUpdate();
 
 	pause_.ImGuiUpdate();
@@ -178,10 +205,14 @@ void GameScene::ImguiUpdate()
 
 void GameScene::DrawUIBeforeBlackScreen()
 {
-	enemy_->DrawUI();
-	player_->DrawUI();
+	if (pod_.GetDrawPlayer() == TRUE) {
+		enemy_->DrawUI();
+		player_->DrawUI();
+	}
 
 	clear_->Draw();
+
+	pod_.DrawUI();
 }
 
 void GameScene::DrawUIAfterBlackScreen()
@@ -192,12 +223,17 @@ void GameScene::DrawUIAfterBlackScreen()
 
 void GameScene::Draw()
 {
-	player_->Draw();
-	player_->DrawBullets();
+	if (pod_.GetDrawPlayer() == TRUE) {
+
+		player_->Draw();
+		player_->DrawBullets();
+	}
 	enemy_->Draw();
 	enemy_->DrawBullets();
 
 	level.Draw(false);
+
+	pod_.Draw();
 
 	ParticleManager::GetInstance()->Draw();
 }

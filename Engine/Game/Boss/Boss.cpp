@@ -41,6 +41,8 @@ void Boss::Initialize(MNE::IModel* model)
 
 void Boss::Update()
 {
+	if (isActive_ == FALSE) return;
+
 	//	死亡判定
 	hp_.Update();
 

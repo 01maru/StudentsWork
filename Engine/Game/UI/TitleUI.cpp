@@ -3,6 +3,7 @@
 #include "XAudioManager.h"
 #include "SceneManager.h"
 #include "ImGuiManager.h"
+#include "TitleCamera.h"
 
 using namespace MNE;
 
@@ -69,6 +70,7 @@ void TitleUI::TitleInputUpdate(bool dikSelectButton)
 			//	タイトル消える
 			titleData_.ResetAnimation(false);
 			//	カメラ動かす
+			pCamera_->SetNextMode(TitleCamera::SceneChange);
 
 			//	ゲームシーンへ
 			SceneManager::GetInstance()->SetNextScene("GAMESCENE");
@@ -91,7 +93,7 @@ void TitleUI::TitleInputUpdate(bool dikSelectButton)
 			option_.ResetAnimation(true);
 
 			//	カメラ動かす
-
+			pCamera_->SetNextMode(TitleCamera::Option);
 		}
 
 		//	Quit選択中だったら
@@ -142,7 +144,7 @@ void TitleUI::OptionUpdate(bool dikSelectButton)
 		cursor_.SetIsActive(titleData_.GetIsEndAnimation());
 
 		//	カメラ戻す
-
+		pCamera_->SetNextMode(TitleCamera::Menu);
 	}
 
 	//	オプションデータの更新処理
@@ -201,4 +203,9 @@ void TitleUI::Draw()
 void TitleUI::Start()
 {
 	titleData_.ResetAnimation(true);
+}
+
+void TitleUI::SetTitleCamera(TitleCamera* pCamera)
+{
+	pCamera_ = pCamera;
 }

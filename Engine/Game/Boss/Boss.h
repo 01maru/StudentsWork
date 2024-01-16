@@ -22,6 +22,8 @@ public:
 	void OnCollision(CollisionInfo& info) override;
 
 private:
+	bool isActive_ = true;
+
 	CharacterHP hp_;
 
 	std::unique_ptr<EnemyState> currentState_;
@@ -54,6 +56,7 @@ public:
 
 #pragma region Setter
 
+	void SetIsActive(bool isActive) { isActive_ = isActive; }
 	void SetRot(const Vector3D& rot) { mat_.angle_ = rot; }
 	void SetPosition(const Vector3D& pos) { mat_.trans_ = pos; }
 	void SetCurrentState(std::unique_ptr<EnemyState>& next);

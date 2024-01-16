@@ -39,7 +39,7 @@ Quaternion Quaternion::SetQuaternion(const Vector3D& v)
 
 Vector3D Quaternion::GetVector3()
 {
-    return Vector3D(x, y, z);;
+    return Vector3D(x, y, z);
 }
 
 void Quaternion::SetVec(const Vector3D& vec)
@@ -47,6 +47,7 @@ void Quaternion::SetVec(const Vector3D& vec)
     x = vec.x;
     y = vec.y;
     z = vec.z;
+    w = 0.0f;
 }
 
 Quaternion Quaternion::CalcProduct(const Quaternion& q, const Quaternion& r)

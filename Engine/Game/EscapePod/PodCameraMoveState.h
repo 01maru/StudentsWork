@@ -37,12 +37,12 @@ private:
 	//	アニメーション用カウンター
 	FrameCounter counter_;
 	Vector3D startEye_;
-	Vector3D endEye_ = Vector3D(0.0f, 4.0f, -14.0f);
+	Vector3D endEye_ = Vector3D(0.0f, 1.0f, -64.0f);
 	Vector3D startTarget_;
 	float endTargetY_ = 1.7f;
 	//	動かすカメラのポインター
 	MNE::ICamera* camera = nullptr;
 
-	int16_t cameraMoveFrame_ = 30;
+	int16_t cameraMoveFrame_ = 60;
 };
 

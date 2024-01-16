@@ -118,6 +118,8 @@ void Player::JumpUpdate()
 
 void Player::Update()
 {
+	if (isActive_ == FALSE) return;
+
 	//	死亡判定
 	hp_.Update();
 

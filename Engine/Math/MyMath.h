@@ -44,6 +44,8 @@ namespace MyMath {
 	*/
 	float mClamp(float minValue, float maxValue, float value);
 
+	Vector3D BezierCurve(const Vector3D& start, const Vector3D& controlPoint, const Vector3D& end, float t);
+
 #pragma region 円周率
 	const float PI = 3.14159265358979f;
 	const float PIx2 = 6.2831853071f;

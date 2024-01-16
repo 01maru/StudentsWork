@@ -27,7 +27,8 @@ void PodOpenDoorState::Initialize()
 void PodOpenDoorState::Update()
 {
 	counter_.Update();
-
+	int32_t animeT = MyMath::mMin(counter_.GetFrameCount() * 3, 88);
+	sPod_->GetAnimation()->SetAnimatonTimer(static_cast<float>(animeT));
 	float len = EaseOutBack(0.0f, moveZ, counter_.GetCountPerMaxCount());
 	Vector3D eye = startEye_;
 	eye.z += len;
@@ -37,6 +38,9 @@ void PodOpenDoorState::Update()
 	camera->SetTarget(target);
 
 	if (counter_.GetFrameCount() == openDoorFrame_) {
+		sPod_->SetDrawPlayer(true);
+		sPod_->SetOpenDoor(true);
+		camera->Initialize(Vector3D(0, 0, 1), { 0.0f,0.0f,-52.0f }, 10.0f);
 		std::unique_ptr<EscPodState> next_ = std::make_unique<EscPodState>();
 		sPod_->SetNextState(next_);
 	}

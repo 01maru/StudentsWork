@@ -48,6 +48,7 @@ void PodCollGroundState::Update()
 		//	ボタンが押されたらドアを開ける
 		if (dikButton == TRUE)
 		{
+			sPod_->SetDrawUI(false);
 			//	次のStateへ
 			std::unique_ptr<EscPodState> next_ = std::make_unique<PodBefOpenDoorState>();
 			sPod_->SetNextState(next_);

@@ -21,7 +21,7 @@ void EscapePod::Initialize(MNE::IModel* model)
 	//	親ポッドの設定
 	EscPodState::SetPod(this);
 	ResetAnimation();
-
+	GetAnimation()->SetAnimationIdx(0);
 
 	ui_.Initialize(TextureManager::GetInstance()->GetTextureGraph("space.png"));
 	ui_.SetPosition({ 750,400 });

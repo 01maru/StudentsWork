@@ -7,6 +7,12 @@
 * @brief TitleのUIを管理するファイル
 */
 
+#pragma region 前置宣言
+
+class TitleCamera;
+
+#pragma endregion
+
 class TitleUI
 {
 public:
@@ -43,6 +49,8 @@ private:
 	OptionScene option_;
 	//	カーソルのスプライト
 	SelectCursor cursor_;
+	//	カメラのポインター
+	TitleCamera* pCamera_ = nullptr;
 
 private:
 	/**
@@ -65,10 +73,20 @@ private:
 	void OptionUpdate(bool dikSelectButton);
 
 public:
+#pragma region Setter
+
 	/**
 	* @fn Start()
 	* 出現演出開始用関数
 	*/
 	void Start();
+	/**
+	* @fn SetTitleCamera(TitleCamera*)
+	* メインカメラセット関数(カメラ動かす用)
+	* @param pCamera カメラのポインター
+	*/
+	void SetTitleCamera(TitleCamera* pCamera);
+
+#pragma endregion
 };
 

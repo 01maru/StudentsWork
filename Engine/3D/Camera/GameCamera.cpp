@@ -5,10 +5,19 @@
 
 using namespace MNE;
 
+void GameCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
+{
+	InputManager::GetInstance()->GetMouse()->SetLockCursor(true);
+	lockOn_ = false;
+
+	ICamera::Initialize(eye, target, up);
+}
+
 void GameCamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float dis)
 {
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(true);
 	lockOn_ = false;
+	isActive_ = true;
 
 	ICamera::Initialize(frontVec, center, dis);
 }
@@ -58,16 +67,17 @@ void GameCamera::UnLockOnUpdate()
 
 void GameCamera::Update()
 {
-	if (isActive_ == false) return;
+	if (isActive_ == TRUE)
+	{
+		//InputManager* input = InputManager::GetInstance();
 
-	//InputManager* input = InputManager::GetInstance();
+		//	LockOn
+		//if (input->GetTriggerKeyAndButton(DIK_Q, InputJoypad::RStick_Button)) lockOn_ = !lockOn_;
 
-	//	LockOn
-	//if (input->GetTriggerKeyAndButton(DIK_Q, InputJoypad::RStick_Button)) lockOn_ = !lockOn_;
+		LockOnUpdate();
 
-	LockOnUpdate();
-
-	UnLockOnUpdate();
+		UnLockOnUpdate();
+	}
 
 	ICamera::Update();
 }

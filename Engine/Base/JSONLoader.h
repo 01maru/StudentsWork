@@ -25,6 +25,7 @@ struct ObjectData
 struct CameraData
 {
 	Vector3D eye;
+	int32_t targetID;
 	Vector3D target;
 };
 
@@ -48,7 +49,7 @@ private:
 	std::vector<std::unique_ptr<MNE::Object3D>> objects_;
 	std::unique_ptr<LevelData> levelData_;
 
-	CameraData cameraData_;
+	std::map<std::string, CameraData> cameraData_;
 	PlayerData playerData_;
 
 	void LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::json>& itr, ObjectData* parent);
@@ -82,6 +83,7 @@ public:
 	* @return プレイヤーの位置と回転を返す
 	*/
 	const PlayerData& GetPlayerSpownPoint() { return playerData_; }
+	CameraData GetCameraData(const std::string& tagName) { return cameraData_[tagName]; }
 
 #pragma endregion
 };

@@ -23,27 +23,44 @@ void JSONLoader::LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nl
 	//	CAMERAだったら
 	if (type.compare("CAMERA") == 0) {
 
+		string tag = itr.value()["Tag"];
+		if (cameraData_.count(tag) == 0)
+		{
+			cameraData_.emplace(tag, CameraData());
+		}
+
+		cameraData_[tag].targetID = itr.value()["targetID"];
+
 		//	トランスフォームのパラメータ読み込み
 		nlohmann::json& transform = itr.value()["transform"];
+
 		//	平行移動
-		cameraData_.eye.x = (float)transform["translation"][1];
-		cameraData_.eye.y = (float)transform["translation"][2];
-		cameraData_.eye.z = -(float)transform["translation"][0];
+		cameraData_[tag].eye.x = (float)transform["translation"][1];
+		cameraData_[tag].eye.y = (float)transform["translation"][2];
+		cameraData_[tag].eye.z = -(float)transform["translation"][0];
 	}
 	if (type.compare("EMPTY") == 0) {
 
 		if (itr.value().contains("name")) {
-			if (itr.value()["name"] == "Target") {
+			std::string name = itr.value()["name"];
+			if (name.find("Target") != std::string::npos) {
+				int32_t id = itr.value()["ID"];
+				string tagName = "";
+				for (auto data : cameraData_)
+				{
+					if (data.second.targetID == id)
+					{
+						tagName = data.first;
+					}
+				}
 				//	トランスフォームのパラメータ読み込み
 				nlohmann::json& transform = itr.value()["transform"];
 				//	平行移動
-				cameraData_.target.x = (float)transform["translation"][1];
-				cameraData_.target.y = (float)transform["translation"][2];
-				cameraData_.target.z = -(float)transform["translation"][0];
+				cameraData_[tagName].target.x = (float)transform["translation"][1];
+				cameraData_[tagName].target.y = (float)transform["translation"][2];
+				cameraData_[tagName].target.z = -(float)transform["translation"][0];
 			}
-		}
-		if (itr.value().contains("name")) {
-			if (itr.value()["name"] == "PlayerSpawn") {
+			else if (itr.value()["name"] == "PlayerSpawn") {
 				//	トランスフォームのパラメータ読み込み
 				nlohmann::json& transform = itr.value()["transform"];
 				//	平行移動

@@ -10,6 +10,8 @@
 
 #include "IGameState.h"
 
+#include "EscapePod.h"
+
 class GameScene :public MNE::IScene
 {
 private:
@@ -27,6 +29,7 @@ private:
 	std::unique_ptr<MNE::Object3D> ground_;
 	std::unique_ptr<Player> player_;
 	std::unique_ptr<Boss> enemy_;
+	EscapePod pod_;
 
 #pragma endregion
 

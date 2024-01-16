@@ -33,21 +33,29 @@ void TitleScene::LoadResources()
 	//	ステージ読み込み
 	level_ = std::make_unique<JSONLoader>();
 	level_->LoadJSON("Title");
-	//	天球
-	skydome_ = std::move(MNE::Object3D::Create(models->GetModel("skydome")));
-	//	地面
-	ground_ = std::move(MNE::Object3D::Create(models->GetModel("ground")));
-	//bonfire_ = std::move(Bonfire::Create(models->GetModel("bonfire")));
+	//	リスポーン位置設定
 	bonfire_ = std::make_unique<Bonfire>();
 	bonfire_->Initialize();
 	bonfire_->SetModel(models->GetModel("bonfire"));
 	bonfire_->Start();
+	//	 カメラ位置設定
+	std::unique_ptr<ICamera> camera = std::make_unique<TitleCamera>();
+	TitleCamera* titleCamera = dynamic_cast<TitleCamera*>(camera.get());
+	CameraData cameraData = level_->GetCameraData("Title");
+	titleCamera->Initialize(cameraData.eye, cameraData.target, Vector3D(0, 1, 0));
+	cameraData = level_->GetCameraData("Option");
+	titleCamera->SetCameraPos(cameraData.eye, cameraData.target, TitleCamera::Option);
+	cameraData = level_->GetCameraData("ChangeScene");
+	titleCamera->SetCameraPos(cameraData.eye, cameraData.target, TitleCamera::SceneChange);
+	titleCamera->SetAnimationTime(30);
+	CameraManager::GetInstance()->SetMainCamera(camera);
 
 #pragma endregion
 
 #pragma region UI
 
 	uiData_.Initialize();
+	uiData_.SetTitleCamera(titleCamera);
 
 #pragma endregion
 }
@@ -65,10 +73,6 @@ void TitleScene::Initialize()
 
 	LoadResources();
 
-	//	Camera
-	std::unique_ptr<ICamera> camera = std::make_unique<TitleCamera>();
-	camera->Initialize(Vector3D(0.1f, 10.0f, -20.0f), Vector3D(0.0f,3.0f,0.5f), Vector3D(0, 1, 0));
-	CameraManager::GetInstance()->SetMainCamera(camera);
 	//	LightCamera
 	CameraManager::GetInstance()->GetLightCamera()->SetEye(Vector3D(78.0f, 50.0f, -30.0f));
 }
@@ -99,8 +103,6 @@ void TitleScene::MatUpdate()
 {
 	//	モデル
 	level_->MatUpdate();
-	ground_->MatUpdate();
-	skydome_->MatUpdate();
 	bonfire_->MatUpdate();
 
 	ParticleManager::GetInstance()->MatUpdate();
@@ -111,6 +113,13 @@ void TitleScene::ImguiUpdate()
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
 
 	imguiMan->BeginWindow("TitleScene");
+	TitleCamera* titleCamera = dynamic_cast<TitleCamera*>(CameraManager::GetInstance()->GetMainCamera());
+
+	if (imguiMan->SetButton("MoveMenu")) titleCamera->SetNextMode(TitleCamera::Menu);
+
+	if (imguiMan->SetButton("MoveOption")) titleCamera->SetNextMode(TitleCamera::Option);
+
+	if (imguiMan->SetButton("MoveChangeScene")) titleCamera->SetNextMode(TitleCamera::SceneChange);
 
 	imguiMan->CheckBox("DrawUI", drawUI_);
 
@@ -123,9 +132,7 @@ void TitleScene::Draw()
 {
 	//	ステージ描画
 	level_->Draw(false);
-	ground_->Draw();
 	bonfire_->Draw();
-	skydome_->Draw();
 
 	ParticleManager::GetInstance()->Draw();
 

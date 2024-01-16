@@ -1,4 +1,5 @@
 #include "MyMath.h"
+#include "Easing.h"
 #include <cassert>
 #include <random>
 
@@ -34,6 +35,13 @@ float MyMath::mClamp(float minValue, float maxValue, float value)
 	value = mMax(value, minValue);
 	value = mMin(value, maxValue);
 	return value;
+}
+
+Vector3D MyMath::BezierCurve(const Vector3D& start, const Vector3D& controlPoint, const Vector3D& end, float t)
+{
+	Vector3D a = Easing::lerp(start, controlPoint, t);
+	Vector3D b = Easing::lerp(controlPoint, end, t);
+	return Easing::lerp(a, b, t);
 }
 
 void MyMath::CalcGaussianWeightsTable(std::vector<float>& weights, float sigma)

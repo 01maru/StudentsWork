@@ -1,17 +1,13 @@
 #pragma once
 #include "IScene.h"
 #include "TitleUI.h"
-
 #include "JSONLoader.h"
-
 #include "Bonfire.h"
 
 class TitleScene :public MNE::IScene
 {
 private:
 	std::unique_ptr<JSONLoader> level_;
-	std::unique_ptr<MNE::Object3D> ground_;
-	std::unique_ptr<MNE::Object3D> skydome_;
 	std::unique_ptr<Bonfire> bonfire_;
 
 #pragma region Sprite

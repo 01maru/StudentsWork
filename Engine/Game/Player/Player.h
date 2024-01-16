@@ -15,6 +15,7 @@ class IGameState;
 class Player :public MNE::Object3D
 {
 private:
+	bool isActive_ = true;
 	bool gameOver_ = false;
 	CharacterHP hp_;
 
@@ -36,7 +37,7 @@ private:
 	//	平面上の移動方向
 	Vector3D moveVec_;
 	//	１フレームでの上下の移動量(上が+)
-	float moveY_;
+	float moveY_ = -0.5f;
 
 	Vector3D modelFront_;
 
@@ -113,6 +114,7 @@ public:
 
 #pragma region Setter
 
+	void SetIsActive(bool isActive) { isActive_ = isActive; }
 	void SetAnimationIdx(int16_t idx) { 
 		GetAnimation()->SetAnimationIdx(idx);
 		animationIdx_ = idx; }
