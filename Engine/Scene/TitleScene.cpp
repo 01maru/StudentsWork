@@ -12,6 +12,10 @@
 
 using namespace MNE;
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void TitleScene::LoadResources()
 {
 #pragma region Sound
@@ -43,6 +47,9 @@ void TitleScene::LoadResources()
 	titleCamera->SetAnimationTime(30);
 	CameraManager::GetInstance()->SetMainCamera(camera);
 
+	//	LightCamera
+	CameraManager::GetInstance()->GetLightCamera()->SetEye(Vector3D(78.0f, 50.0f, -30.0f));
+
 	levelData.SetObjects(objs_);
 
 	//	リスポーン位置設定
@@ -73,16 +80,21 @@ void TitleScene::Initialize()
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
 
 	LoadResources();
-
-	//	LightCamera
-	CameraManager::GetInstance()->GetLightCamera()->SetEye(Vector3D(78.0f, 50.0f, -30.0f));
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Finalize
+//-----------------------------------------------------------------------------
 
 void TitleScene::Finalize()
 {
 	XAudioManager::GetInstance()->StopAllSound();
 	XAudioManager::GetInstance()->DeleteAllSound();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void TitleScene::FirstFrameUpdate()
 {
@@ -132,6 +144,21 @@ void TitleScene::ImguiUpdate()
 	imguiMan->EndWindow();
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
+
+void TitleScene::DrawUIBeforeBlackScreen()
+{
+}
+
+void TitleScene::DrawUIAfterBlackScreen()
+{
+	if (!drawUI_) return;
+
+	uiData_.Draw();
+}
+
 void TitleScene::Draw()
 {
 	//	ステージ描画
@@ -142,7 +169,4 @@ void TitleScene::Draw()
 	bonfire_->Draw();
 
 	ParticleManager::GetInstance()->Draw();
-
-	if (!drawUI_) return;
-	uiData_.Draw();
 }

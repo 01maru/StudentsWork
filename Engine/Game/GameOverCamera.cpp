@@ -2,14 +2,14 @@
 #include "Easing.h"
 #include "ImGuiManager.h"
 
-#include "SceneManager.h"
-
 using namespace Easing;
 using namespace MNE;
 
 void GameOverCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
 {
-	counter_.Initialize(40, true);
+	counter_.Initialize(moveTime_, true);
+	counter_.StartCount();
+
 	eyeStart_ = eye;
 
 	ICamera::Initialize(eye, target, up);
@@ -21,8 +21,6 @@ void GameOverCamera::Initialize(const Vector3D& eye, const Vector3D& target, con
 	front.y = 0;
 	eyeEnd_ = eye + front * (disEyeTarget_ - 5);
 	eyeEnd_.y = target.y;
-
-	counter_.StartCount();
 }
 
 void GameOverCamera::ImGuiInfo()
@@ -42,7 +40,7 @@ void GameOverCamera::Update()
 	ICamera::Update();
 }
 
-bool GameOverCamera::StartFade()
+bool GameOverCamera::GetEndMove()
 {
-	return counter_.GetFrameCount() == counter_.GetMaxFrameCount();
+	return counter_.GetIsActive() == FALSE;
 }

@@ -1,10 +1,15 @@
-Timer 170
+Timer 150
+
+S Back back.png 0 0 1280 720 1 1 1 1 0 0 0
+AnimeTimer 60 0
+FadeAnime 1.0 0.0
+EndData BlackBack
 
 S Back LoadBack.png 640 260 300 300 1 1 1000 1000 0.5 0.5 0
 AnimeTimer 60 0
 FadeAnime 1.0 0.0
 RotAnime -0.005
-EndData GameOver
+EndData BackCircle
 
 S gameOver gameOver.png 640 260 653 134 1 1 653 134 0.5 0.5 0
 AnimeTimer 60 0
@@ -13,14 +18,14 @@ EndData GameOver
 
 S Back backUI.png 640 350 280 64 0 0 280 64 0.5 0.5 1
 S Continue quit.png 640 350 130 39 0 0 130 39 0.5 0.5 0
-Button Continue 640 350
+Button Continue 640 350 298 82
 AnimeTimer 30 120
 FadeAnime 1.0 0.0
 EndData Continue
 
 S Back backUI.png 640 450 280 64 0 0 280 64 0.5 0.5 1
 S Quit quit.png 640 450 130 39 0 0 130 39 0.5 0.5 0
-Button Quit 640 450
+Button Quit 640 450 298 82
 AnimeTimer 30 120
 FadeAnime 1.0 0.0
 EndData Quit
