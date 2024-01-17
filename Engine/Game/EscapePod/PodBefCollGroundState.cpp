@@ -17,6 +17,12 @@ void PodBefCollGroundState::Initialize()
 	counter_.StartCount();
 
 	camera = CameraManager::GetInstance()->GetMainCamera();
+
+	//	脱出ポッドの座標とターゲットの距離
+	targetToPod_ = camera->GetTarget() - sPod_->GetPosition();
+	endPosY_ = sPod_->GetPosition().y;
+
+	sPod_->GetPtrLetterBox()->ResetAnimation(true);
 }
 
 //-----------------------------------------------------------------------------
@@ -28,12 +34,12 @@ void PodBefCollGroundState::Update()
 	counter_.Update();
 
 	Vector3D pos = sPod_->GetPosition();
-	pos.y = EaseIn(startPosY_, -0.3f, counter_.GetCountPerMaxCount(), 5);
+	pos.y = EaseIn(startPosY_, endPosY_, counter_.GetCountPerMaxCount(), Quint);
 	sPod_->SetPosition(pos);
 
-	camera->SetTarget(pos + Vector3D(0.0f, 2.0f, 0.0f));
+	camera->SetTarget(pos + targetToPod_);
 
-	float shakeValue = EaseIn(0.0f, 0.5f, counter_.GetCountPerMaxCount(), 2);
+	float shakeValue = EaseIn(0.0f, maxShakeV_, counter_.GetCountPerMaxCount(), Double);
 	camera->SetShake(-shakeValue, shakeValue);
 
 	if (counter_.GetFrameCount() == moveMaxFrame_) {

@@ -3,6 +3,7 @@
 #include "EscPodState.h"
 #include "Sprite.h"
 #include "FrameCounter.h"
+#include "UIData.h"
 
 /**
 * @file EscapePod.h
@@ -17,7 +18,7 @@ public:
 	* 初期化関数
 	* @param model 表示するモデルの設定
 	*/
-	void Initialize(MNE::IModel* model);
+	void Initialize(MNE::IModel* model, const Vector3D& pos);
 	/**
 	* @fn LoadResources()
 	* リソース読み込み処理関数
@@ -43,14 +44,17 @@ private:
 	bool drawUI_ = false;
 	bool openDoor_ = false;
 	bool drawPlayer_ = false;
+	MNE::UIData* pLetterBox_ = nullptr;
 public:
 
+	MNE::UIData* GetPtrLetterBox() { return pLetterBox_; }
 	bool GetOpenDoor() { return openDoor_; }
 	bool GetDrawPlayer() { return drawPlayer_; }
 	void StartUICounter();
 
 #pragma region Setter
 
+	void SetLetterBox(MNE::UIData* data) { pLetterBox_ = data; }
 	void SetDrawPlayer(bool drawplayer) { drawPlayer_ = drawplayer; }
 	void SetOpenDoor(bool openDoor) { openDoor_ = openDoor; }
 	void SetDrawUI(bool drawUI) { drawUI_ = drawUI; }

@@ -2,7 +2,7 @@
 #include "EscapePod.h"
 #include "CameraManager.h"
 #include "Easing.h"
-#include "PodCameraMoveState.h"
+#include "PodOpenDoorState.h"
 
 using namespace Easing;
 using namespace MNE;
@@ -14,8 +14,10 @@ using namespace MNE;
 void PodBefOpenDoorState::Initialize()
 {
 	camera = CameraManager::GetInstance()->GetMainCamera();
-	
-	counter_.Initialize(shakeFrame_, true);
+	startEye_ = camera->GetEye();
+	startTarget_ = camera->GetTarget();
+
+	counter_.Initialize(cameraMoveFrame_, true);
 	counter_.StartCount();
 }
 
@@ -27,12 +29,33 @@ void PodBefOpenDoorState::Update()
 {
 	counter_.Update();
 
-	float shakeValue = EaseOut(0.1f, 0.0f, counter_.GetCountPerMaxCount(), 2);
+	ShakeUpdate();
+
+	CameraMoveUpdate();
+}
+
+void PodBefOpenDoorState::ShakeUpdate()
+{
+	if (counter_.GetFrameCount() > shakeFrame_) return;
+
+	float t = counter_.GetFrameCount() / static_cast<float>(shakeFrame_);
+	float shakeValue = EaseOut(maxShakeV_, 0.0f, t, Double);
 	camera->SetShake(-shakeValue, shakeValue);
 
 	if (counter_.GetFrameCount() == shakeFrame_) {
 		camera->StopShake();
-		std::unique_ptr<EscPodState> next_ = std::make_unique<PodCameraMoveState>();
+	}
+}
+
+void PodBefOpenDoorState::CameraMoveUpdate()
+{
+	camera->SetEye(EaseOut(startEye_, endEye_, counter_.GetCountPerMaxCount(), Triple));
+	Vector3D target = startTarget_;
+	target.y = lerp(startTarget_.y, endTargetY_, counter_.GetCountPerMaxCount());
+	camera->SetTarget(target);
+
+	if (counter_.GetFrameCount() == cameraMoveFrame_) {
+		std::unique_ptr<EscPodState> next_ = std::make_unique<PodOpenDoorState>();
 		sPod_->SetNextState(next_);
 	}
 }

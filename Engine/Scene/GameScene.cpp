@@ -86,11 +86,15 @@ void GameScene::LoadResources()
 	gameUISprite = gameUIObj->GetComponent<UISprite>();
 	enemy_->SetHPBarSprite(gameUISprite->GetSprites()["bossHP"]);
 
+	//	ムービー用黒帯
+	letterBox_.LoadData("LetterBox");
+
 	//	脱出ポッド
 	pod_.LoadResources();
-	pod_.Initialize(models->GetModel("escapePod"));
-	pod_.SetPosition({ 0.0f,0.0f,-50.0f });
-	pod_.SetScale({ 0.5f,0.5f,0.5f });
+	pod_.SetLetterBox(&letterBox_);
+	pod_.Initialize(models->GetModel("escapePod"), { 0.0f,-0.3f,-50.0f });
+	pod_.SetScale({ 0.4f,0.4f,0.4f });
+
 #pragma region Sound
 	XAudioManager::GetInstance()->LoadSoundWave("gameBGM.wav");
 #pragma endregion
@@ -103,7 +107,7 @@ void GameScene::Initialize()
 	//CameraManager::GetInstance()->GetMainCamera()->Initialize(Vector3D(0.0f, 6.5f, -65.0f), Vector3D(0.0f, 1.0f, 50.0f), Vector3D(0, 1, 0));
 	std::unique_ptr<ICamera> camera = std::make_unique<GameCamera>();
 	//camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
-	camera->Initialize(Vector3D(0.0f, 6.5f, -65.0f), Vector3D(0.0f, 1.0f, 50.0f), Vector3D(0, 1, 0));
+	camera->Initialize(Vector3D(0.0f, 6.5f, -70.0f), Vector3D(0.0f, 1.5f, -50.0f), Vector3D(0, 1, 0));
 	CameraManager::GetInstance()->SetMainCamera(camera);
 
 	LoadResources();
@@ -177,6 +181,7 @@ void GameScene::Update()
 #pragma endregion
 	MatUpdate();
 
+	letterBox_.Update();
 	clear_->Update();
 	gameOver_->Update();
 
@@ -221,6 +226,8 @@ void GameScene::DrawUIBeforeBlackScreen()
 	}
 
 	clear_->Draw();
+
+	letterBox_.Draw();
 
 	pod_.DrawUI();
 }

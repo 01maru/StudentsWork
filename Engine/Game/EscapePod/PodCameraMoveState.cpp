@@ -19,6 +19,8 @@ void PodCameraMoveState::Initialize()
 
 	counter_.Initialize(cameraMoveFrame_, true);
 	counter_.StartCount();
+
+	sPod_->GetPtrLetterBox()->ResetAnimation(false);
 }
 
 //-----------------------------------------------------------------------------
@@ -29,13 +31,12 @@ void PodCameraMoveState::Update()
 {
 	counter_.Update();
 
-	camera->SetEye(lerp(startEye_, endEye_, counter_.GetCountPerMaxCount()));
-	Vector3D target = startTarget_;
-	target.y = lerp(startTarget_.y, endTargetY_, counter_.GetCountPerMaxCount());
-	camera->SetTarget(target);
+	camera->SetEye(EaseIn(startEye_, endEye_, counter_.GetCountPerMaxCount(), Single));
+	camera->SetTarget(EaseIn(startTarget_, endTarget_, counter_.GetCountPerMaxCount(), Single));
 
 	if (counter_.GetFrameCount() == cameraMoveFrame_) {
-		std::unique_ptr<EscPodState> next_ = std::make_unique<PodOpenDoorState>();
+		std::unique_ptr<EscPodState> next_ = std::make_unique<EscPodState>();
 		sPod_->SetNextState(next_);
+		sPod_->SetOpenDoor(true);
 	}
 }

@@ -10,6 +10,7 @@
 #include "IGameState.h"
 
 #include "EscapePod.h"
+#include "UIData.h"
 
 class GameScene :public MNE::IScene
 {
@@ -17,6 +18,9 @@ private:
 	std::vector<std::unique_ptr<MNE::Object3D>> objs_;
 
 	PauseScreen pause_;
+
+	//	ムービー中の黒帯
+	MNE::UIData letterBox_;
 
 	std::unique_ptr<IGameState> clear_;
 	std::unique_ptr<IGameState> gameOver_;

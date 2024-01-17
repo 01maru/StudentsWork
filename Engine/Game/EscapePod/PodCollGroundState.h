@@ -39,5 +39,7 @@ private:
 	MNE::ICamera* camera = nullptr;
 	//	地面の揺れる時間(フレーム数)
 	int16_t collGroundShakeFrame_ = 20;
+
+	float maxShakeV_ = 0.75f;
 };
 

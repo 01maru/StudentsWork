@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+* @file EscPodState.h
+* @brief 脱出ポッドの状態ステートパターンファイル
+*/
+
 #pragma region 前置宣言
 
 class EscapePod;

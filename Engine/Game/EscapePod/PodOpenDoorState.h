@@ -38,10 +38,10 @@ private:
 	FrameCounter counter_;
 	Vector3D startEye_;
 	Vector3D startTarget_;
-	float moveZ = 7.0f;
+	Vector3D move_;
 	//	動かすカメラのポインター
 	MNE::ICamera* camera = nullptr;
 
-	int16_t openDoorFrame_ = 30;
+	int16_t openDoorFrame_ = 10;
 };
 

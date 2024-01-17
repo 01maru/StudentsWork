@@ -24,7 +24,7 @@ void MNE::DebugScene::LoadResources()
 	models->LoadModel("escapePod",true);
 
 	ship_ = std::make_unique<EscapePod>();
-	ship_->Initialize(models->GetModel("escapePod"));
+	ship_->Initialize(models->GetModel("escapePod"), {});
 #pragma endregion
 
 	//	地面

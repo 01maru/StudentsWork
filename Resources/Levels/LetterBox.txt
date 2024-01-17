@@ -1,0 +1,11 @@
+Timer 30
+
+S top back.png 0 0 100 100 0 0 1 1 0 0 0
+AnimeTimer 40 0
+Scaling 0 50 1280 50
+EndData Top
+
+S bot back.png 1280 720 100 100 0 0 1 1 1 1 0
+AnimeTimer 40 0
+Scaling 0 50 1280 50
+EndData Bot

@@ -12,6 +12,15 @@ class Vector4D;
 
 namespace Easing {
 
+	enum PawValue
+	{
+		Single = 1,
+		Double,
+		Triple,
+		Quad,
+		Quint,
+	};
+
 #pragma region lerp
 
 	/**

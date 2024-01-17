@@ -10,12 +10,14 @@ using namespace MNE;
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
-void EscapePod::Initialize(MNE::IModel* model)
+void EscapePod::Initialize(MNE::IModel* model, const Vector3D& pos)
 {
 	//	Object3D初期化
 	Object3D::Initialize();
 	//	モデル設定
 	Object3D::SetModel(model);
+
+	mat_.trans_ = pos;
 	
 	//	State初期化
 	//	親ポッドの設定

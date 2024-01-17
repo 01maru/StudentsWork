@@ -1,6 +1,7 @@
 #pragma once
 #include "EscPodState.h"
 #include "FrameCounter.h"
+#include "Vector3D.h"
 
 /**
 * @file PodBefCollGroundState.h
@@ -39,6 +40,10 @@ private:
 	int16_t moveMaxFrame_ = 100;
 	//	ポッドの開始位置
 	float startPosY_ = 100.0f;
+	Vector3D targetToPod_;
+
+	float maxShakeV_ = 0.2f;
+	float endPosY_;
 	//	動かすカメラのポインター
 	MNE::ICamera* camera = nullptr;
 };
