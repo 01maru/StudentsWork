@@ -1,8 +1,6 @@
 #include "TitleScene.h"
 #include "InputManager.h"
-#include "SceneManager.h"
 #include "XAudioManager.h"
-#include "Window.h"
 
 #include "ImGuiManager.h"
 #include "CameraManager.h"
@@ -10,6 +8,7 @@
 #include "ModelManager.h"
 #include "LightManager.h"
 #include "ParticleManager.h"
+#include "JSONLoader.h"
 
 using namespace MNE;
 
@@ -23,32 +22,34 @@ void TitleScene::LoadResources()
 
 #pragma region Model
 	ModelManager* models = ModelManager::GetInstance();
-	models->LoadModel("grass");
-	models->LoadModel("midTree");
-	models->LoadModel("lowTree");
-	models->LoadModel("ground");
-	models->LoadModel("skydome");
 	models->LoadModel("bonfire");
 
+#pragma endregion
+
+#pragma region LevelDatum
+
 	//	ステージ読み込み
-	level_ = std::make_unique<JSONLoader>();
-	level_->LoadJSON("Title");
+	JSONLoader level;
+	JSONData levelData = level.LoadJSON("Title");
+	//	 カメラ位置設定
+	std::unique_ptr<ICamera> camera = std::make_unique<TitleCamera>();
+	TitleCamera* titleCamera = dynamic_cast<TitleCamera*>(camera.get());
+	CameraData cameraData = levelData.GetCameraData("Title");
+	titleCamera->Initialize(cameraData.eye, cameraData.target, Vector3D(0, 1, 0));
+	cameraData = levelData.GetCameraData("Option");
+	titleCamera->SetCameraPos(cameraData.eye, cameraData.target, TitleCamera::Option);
+	cameraData = levelData.GetCameraData("ChangeScene");
+	titleCamera->SetCameraPos(cameraData.eye, cameraData.target, TitleCamera::SceneChange);
+	titleCamera->SetAnimationTime(30);
+	CameraManager::GetInstance()->SetMainCamera(camera);
+
+	levelData.SetObjects(objs_);
+
 	//	リスポーン位置設定
 	bonfire_ = std::make_unique<Bonfire>();
 	bonfire_->Initialize();
 	bonfire_->SetModel(models->GetModel("bonfire"));
 	bonfire_->Start();
-	//	 カメラ位置設定
-	std::unique_ptr<ICamera> camera = std::make_unique<TitleCamera>();
-	TitleCamera* titleCamera = dynamic_cast<TitleCamera*>(camera.get());
-	CameraData cameraData = level_->GetCameraData("Title");
-	titleCamera->Initialize(cameraData.eye, cameraData.target, Vector3D(0, 1, 0));
-	cameraData = level_->GetCameraData("Option");
-	titleCamera->SetCameraPos(cameraData.eye, cameraData.target, TitleCamera::Option);
-	cameraData = level_->GetCameraData("ChangeScene");
-	titleCamera->SetCameraPos(cameraData.eye, cameraData.target, TitleCamera::SceneChange);
-	titleCamera->SetAnimationTime(30);
-	CameraManager::GetInstance()->SetMainCamera(camera);
 
 #pragma endregion
 
@@ -102,7 +103,10 @@ void TitleScene::Update()
 void TitleScene::MatUpdate()
 {
 	//	モデル
-	level_->MatUpdate();
+	for (auto& obj : objs_)
+	{
+		obj->MatUpdate();
+	}
 	bonfire_->MatUpdate();
 
 	ParticleManager::GetInstance()->MatUpdate();
@@ -131,7 +135,10 @@ void TitleScene::ImguiUpdate()
 void TitleScene::Draw()
 {
 	//	ステージ描画
-	level_->Draw(false);
+	for (auto& obj : objs_)
+	{
+		obj->Draw();
+	}
 	bonfire_->Draw();
 
 	ParticleManager::GetInstance()->Draw();

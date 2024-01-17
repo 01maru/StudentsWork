@@ -20,6 +20,7 @@
 
 #include "ClearUI.h"
 #include "GameOverUI.h"
+#include "JSONLoader.h"
 
 using namespace MNE;
 
@@ -27,15 +28,22 @@ void GameScene::LoadResources()
 {
 #pragma region Model
 	ModelManager* models = ModelManager::GetInstance();
-	models->LoadModel("skydome");
-	models->LoadModel("ground");
 	models->LoadModel("bullet");
 	models->LoadModel("eye");
 	models->LoadModel("mixhuman", true);
 	models->LoadModel("escapePod", true);
 	models->LoadModel();
 #pragma endregion
-	level.LoadJSON("game");
+
+#pragma region LevelData
+
+	JSONLoader level;
+	JSONData levelData = level.LoadJSON("game");
+
+	levelData.SetObjects(objs_);
+
+#pragma endregion
+
 	//	地面
 	ground_ = std::move(MNE::Object3D::Create(models->GetModel("ground")));
 	Vector3D upDir(0.0f, 1.0f, 0.0f);
@@ -115,8 +123,6 @@ void GameScene::Initialize()
 	std::unique_ptr<Cylinder> stageColl = std::make_unique<Cylinder>();
 	stageColl->radius_ = 60.0f;
 	CollisionManager::GetInstance()->AddStageCollider(stageColl);
-
-	//XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 }
 
 void GameScene::Finalize()
@@ -132,6 +138,7 @@ void GameScene::Finalize()
 
 void GameScene::FirstFrameUpdate()
 {
+	//XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 }
 
 void GameScene::MatUpdate()
@@ -144,7 +151,10 @@ void GameScene::MatUpdate()
 	enemy_->MatUpdate();
 
 	pod_.MatUpdate();
-	level.MatUpdate();
+	for (auto& obj : objs_)
+	{
+		obj->MatUpdate();
+	}
 }
 
 void GameScene::Update()
@@ -230,8 +240,10 @@ void GameScene::Draw()
 	}
 	enemy_->Draw();
 	enemy_->DrawBullets();
-
-	level.Draw(false);
+	for (auto& obj : objs_)
+	{
+		obj->Draw();
+	}
 
 	pod_.Draw();
 

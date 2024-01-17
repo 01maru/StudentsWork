@@ -1,18 +1,70 @@
 #include "JSONLoader.h"
 #include <fstream>
 #include <cassert>
-#include "CameraManager.h"
-#include "GameCamera.h"
-
-#include "ObjModel.h"
 #include "MyMath.h"
-
-#include <map>
+#include "ModelManager.h"
 
 using namespace std;
 using namespace MNE;
 
-void JSONLoader::LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::json>& itr, ObjectData* parent)
+void MNE::JSONLoader::LoadCameraData(JSONData& data, nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::json>& itr)
+{
+	string tag = itr.value()["Tag"];
+	if (data.GetCameraDatum().count(tag) == 0)
+	{
+		data.GetCameraDatum().emplace(tag, CameraData());
+	}
+
+	data.GetCameraDatum()[tag].targetID = itr.value()["targetID"];
+
+	//	トランスフォームのパラメータ読み込み
+	nlohmann::json& transform = itr.value()["transform"];
+
+	//	平行移動
+	data.GetCameraDatum()[tag].eye.x = (float)transform["translation"][1];
+	data.GetCameraDatum()[tag].eye.y = (float)transform["translation"][2];
+	data.GetCameraDatum()[tag].eye.z = -(float)transform["translation"][0];
+}
+
+void MNE::JSONLoader::LoadEmpty(JSONData& data, nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::json>& itr)
+{
+	if (itr.value().contains("name")) {
+		std::string name = itr.value()["name"];
+		if (name.find("Target") != std::string::npos) {
+			int32_t id = itr.value()["ID"];
+			string tagName = "";
+			for (auto camera : data.GetCameraDatum())
+			{
+				if (camera.second.targetID == id)
+				{
+					tagName = camera.first;
+				}
+			}
+			//	トランスフォームのパラメータ読み込み
+			nlohmann::json& transform = itr.value()["transform"];
+			//	平行移動
+			data.GetCameraDatum()[tagName].target.x = (float)transform["translation"][1];
+			data.GetCameraDatum()[tagName].target.y = (float)transform["translation"][2];
+			data.GetCameraDatum()[tagName].target.z = -(float)transform["translation"][0];
+		}
+		else if (itr.value()["name"] == "PlayerSpawn") {
+			//	トランスフォームのパラメータ読み込み
+			nlohmann::json& transform = itr.value()["transform"];
+			data.GetSpawnData().emplace_back(SpawnPoint());
+			SpawnPoint* spawner = &data.GetSpawnData().back();
+			//	平行移動
+			spawner->pos.x = (float)transform["translation"][1];
+			spawner->pos.y = (float)transform["translation"][2];
+			spawner->pos.z = -(float)transform["translation"][0];
+			//	回転角
+			spawner->rotation.x = -(float)transform["rotation"][1];
+			spawner->rotation.y = -(float)transform["rotation"][2];
+			spawner->rotation.z = (float)transform["rotation"][0];
+		}
+	}
+}
+
+void JSONLoader::LoadObjectData(JSONData& data, nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::json>& itr, ObjectData* parent)
 {
 	//	種別取得
 	string type = itr.value()["type"].get<string>();
@@ -20,68 +72,17 @@ void JSONLoader::LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nl
 	ObjectData* objectData = nullptr;
 	//	種類ごとに処理
 
-	//	CAMERAだったら
-	if (type.compare("CAMERA") == 0) {
-
-		string tag = itr.value()["Tag"];
-		if (cameraData_.count(tag) == 0)
-		{
-			cameraData_.emplace(tag, CameraData());
-		}
-
-		cameraData_[tag].targetID = itr.value()["targetID"];
-
-		//	トランスフォームのパラメータ読み込み
-		nlohmann::json& transform = itr.value()["transform"];
-
-		//	平行移動
-		cameraData_[tag].eye.x = (float)transform["translation"][1];
-		cameraData_[tag].eye.y = (float)transform["translation"][2];
-		cameraData_[tag].eye.z = -(float)transform["translation"][0];
-	}
-	if (type.compare("EMPTY") == 0) {
-
-		if (itr.value().contains("name")) {
-			std::string name = itr.value()["name"];
-			if (name.find("Target") != std::string::npos) {
-				int32_t id = itr.value()["ID"];
-				string tagName = "";
-				for (auto data : cameraData_)
-				{
-					if (data.second.targetID == id)
-					{
-						tagName = data.first;
-					}
-				}
-				//	トランスフォームのパラメータ読み込み
-				nlohmann::json& transform = itr.value()["transform"];
-				//	平行移動
-				cameraData_[tagName].target.x = (float)transform["translation"][1];
-				cameraData_[tagName].target.y = (float)transform["translation"][2];
-				cameraData_[tagName].target.z = -(float)transform["translation"][0];
-			}
-			else if (itr.value()["name"] == "PlayerSpawn") {
-				//	トランスフォームのパラメータ読み込み
-				nlohmann::json& transform = itr.value()["transform"];
-				//	平行移動
-				playerData_.pos.x = (float)transform["translation"][1];
-				playerData_.pos.y = (float)transform["translation"][2];
-				playerData_.pos.z = -(float)transform["translation"][0];
-				//	回転角
-				playerData_.rotation.x = -(float)transform["rotation"][1];
-				playerData_.rotation.y = -(float)transform["rotation"][2];
-				playerData_.rotation.z = (float)transform["rotation"][0];
-			}
-		}
-	}
 	//	MESHだったら
 	if (type.compare("MESH") == 0) {
-		levelData_->objects.emplace_back(ObjectData{});
-		objectData = &levelData_->objects.back();
+		data.GetObjectData().emplace_back(ObjectData{});
+		objectData = &data.GetObjectData().back();
 
 		if (itr.value().contains("file_name")) {
 			//	ファイル名
 			objectData->fileName = itr.value()["file_name"];
+
+			//	fbxかの判定まだ
+			ModelManager::GetInstance()->LoadModel(objectData->fileName);
 		}
 
 		//	トランスフォームのパラメータ読み込み
@@ -106,12 +107,12 @@ void JSONLoader::LoadObjectData(nlohmann::json_abi_v3_11_2::detail::iter_impl<nl
 	if (itr.value().contains("children")) {
 		for (auto itr_cild = itr.value()["children"].begin(); itr_cild < itr.value()["children"].end(); ++itr_cild)
 		{
-			LoadObjectData(itr_cild, objectData);
+			LoadObjectData(data, itr_cild, objectData);
 		}
 	}
 }
 
-void JSONLoader::LoadJSON(const std::string& jsonname)
+JSONData MNE::JSONLoader::LoadJSON(const std::string& jsonname)
 {
 	std::ifstream file;
 	const string filename = jsonname + ".json";
@@ -137,69 +138,29 @@ void JSONLoader::LoadJSON(const std::string& jsonname)
 	//	正しいデータかチェック
 	assert(name.compare("scene") == 0);
 
-	//	格納用
-	levelData_ = std::make_unique<LevelData>();
+	//	格納する用
+	JSONData loadData;
 
-	// "objects"の全オブジェクト走査
+	//	データ読み込み
 	for (auto itr = deserialized["objects"].begin(); itr < deserialized["objects"].end(); ++itr)
 	{
 		assert(itr.value().contains("type"));
 
-		LoadObjectData(itr, nullptr);
-	}
+		//	種別取得
+		string type = itr.value()["type"].get<string>();
 
-	LoadModel();
-
-	//std::unique_ptr<GameCamera> camera = std::make_unique<GameCamera>();
-	//camera->Initialize(cameraData_.eye, cameraData_.target, Vector3D(0.0f, 1.0f, 0.0f));
-	//CameraManager::GetInstance()->SetMainCamera(std::move(camera));
-
-	for (auto& objectData : levelData_->objects)
-	{
-		MNE::IModel* model = nullptr;
-		decltype(models_)::iterator it = models_.find(objectData.fileName);
-
-		if (it != models_.end()) { model = it->second.get(); }
-
-		std::unique_ptr<MNE::Object3D> newObject;
-		newObject = std::move(MNE::Object3D::Create(model));
+		if (type.compare("CAMERA") == 0) {
+			LoadCameraData(loadData, itr);
+		}
 		
-		newObject->SetPosition(objectData.translation);
-		newObject->SetRotation(objectData.rotation);
-		newObject->SetScale(objectData.scaling);
-		
-		objects_.push_back(std::move(newObject));
-	}
-}
+		else if (type.compare("EMPTY") == 0) {
+			LoadEmpty(loadData, itr);
+		}
 
-void JSONLoader::LoadModel()
-{
-	for (auto& objectData : levelData_->objects) {
-		decltype(models_)::iterator it = models_.find(objectData.fileName);
-		if (it == models_.end()) {
-			std::unique_ptr<MNE::ObjModel> model = std::make_unique<MNE::ObjModel>(objectData.fileName.c_str());
-			models_[objectData.fileName] = std::move(model);
+		else if (type.compare("MESH") == 0) {
+			LoadObjectData(loadData ,itr, nullptr);
 		}
 	}
-}
 
-void JSONLoader::MatUpdate()
-{
-	for (size_t i = 0; i < objects_.size(); i++)
-	{
-		objects_[i]->MatUpdate();
-	}
-}
-
-void JSONLoader::Draw(bool drawShadow)
-{
-	for (size_t i = 0; i < objects_.size(); i++)
-	{
-		if (drawShadow == true) {
-			objects_[i]->DrawShadow();
-		}
-		else {
-			objects_[i]->Draw();
-		}
-	}
+	return loadData;
 }

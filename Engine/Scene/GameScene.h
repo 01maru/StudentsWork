@@ -5,7 +5,6 @@
 #include "Player.h"
 #include "Boss.h"
 
-#include "JSONLoader.h"
 #include "PauseScreen.h"
 
 #include "IGameState.h"
@@ -15,8 +14,7 @@
 class GameScene :public MNE::IScene
 {
 private:
-
-	JSONLoader level;
+	std::vector<std::unique_ptr<MNE::Object3D>> objs_;
 
 	PauseScreen pause_;
 

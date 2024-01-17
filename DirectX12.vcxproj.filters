@@ -786,6 +786,9 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
+    <ClCompile Include="JSONData.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -1318,6 +1321,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Scene\Base\SceneFactory.h">
       <Filter>ヘッダー ファイル\lib\Engine\Scene\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="JSONData.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
