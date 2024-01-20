@@ -42,6 +42,8 @@ void LoadingScene::Initialize()
 	backSprite_->SetSize(Vector2D(Window::sWIN_WIDTH, Window::sWIN_HEIGHT));
 	Vector3D whiteColor(0.8f, 0.8f, 0.8f);
 	backSprite_->SetColor(whiteColor);
+
+	texSize_ = TextureManager::GetInstance()->GetTextureGraph("noise.png")->GetTextureSize();
 }
 
 void LoadingScene::LoadResources()
@@ -83,6 +85,8 @@ void LoadingScene::SetIsLoading(bool loading)
 {
 	//loadObj_->SetIsLoading(loading);
 	loadSprite_->SetIsLoading(loading);
+
+	backSprite_->SetTextureLeftTop(MyMath::GetRand(Vector2D(), texSize_));
 }
 
 bool LoadingScene::GetIsDrawn()
