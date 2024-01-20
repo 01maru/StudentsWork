@@ -12,6 +12,8 @@
 #include "EscapePod.h"
 #include "UIData.h"
 
+#include "ActiveSkillEffect.h"
+
 class GameScene :public MNE::IScene
 {
 private:
@@ -32,6 +34,8 @@ private:
 	std::unique_ptr<Player> player_;
 	std::unique_ptr<Boss> enemy_;
 	EscapePod pod_;
+
+	ActiveSkillEffect effect;
 
 #pragma endregion
 

@@ -789,6 +789,9 @@
     <ClCompile Include="JSONData.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="ActiveSkillEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -1323,6 +1326,9 @@
       <Filter>ヘッダー ファイル\lib\Engine\Scene\Factory</Filter>
     </ClInclude>
     <ClInclude Include="JSONData.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ActiveSkillEffect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

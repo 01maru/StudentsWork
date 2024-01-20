@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActiveSkillEffect.cpp" />
     <ClCompile Include="Engine\Game\Bonfire.cpp" />
     <ClCompile Include="Engine\Game\Player\CrossHair.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossBeamState.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActiveSkillEffect.h" />
     <ClInclude Include="Engine\Game\Bonfire.h" />
     <ClInclude Include="Engine\Game\Player\CrossHair.h" />
     <ClInclude Include="Engine\Game\Boss\BossBeamState.h" />

@@ -24,6 +24,10 @@ void MNE::ObjModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& 
 
 void MNE::ObjModel::AddIndices(const std::vector<uint16_t>& indices, Mesh* mesh)
 {
+	//for (auto i : indices)
+	//{
+	//	mesh->AddIndex(i);
+	//}
 	if (indices.size() == 3)
 	{
 		mesh->AddIndex(indices[0]);
@@ -42,8 +46,8 @@ void MNE::ObjModel::AddIndices(const std::vector<uint16_t>& indices, Mesh* mesh)
 
 void MNE::ObjModel::LoadModel(const std::string& modelname, bool smoothing)
 {
-	std::vector<unsigned short> vertexIndices, uvIndices, normalIndices;
-	std::vector<Vector3D> temp_poss;
+	std::vector<uint16_t> vertexIndices, uvIndices, normalIndices;
+	std::vector<Vector3D> poss;
 	std::vector<Vector2D> temp_uvs;
 	std::vector<Vector3D> temp_normals;
 
@@ -60,11 +64,14 @@ void MNE::ObjModel::LoadModel(const std::string& modelname, bool smoothing)
 	Mesh* mesh = &meshes_.back();
 	int indexCount = 0;
 
+	//	一行ずつ読み込む
 	string line;
 	while (getline(file_, line)) {
 		istringstream line_stream(line);
 
+		//	行の先頭文字格納変数
 		string key;
+		//	半角スペース区切りで行の先頭文字列取得
 		getline(line_stream, key, ' ');
 
 		//	material
@@ -112,40 +119,42 @@ void MNE::ObjModel::LoadModel(const std::string& modelname, bool smoothing)
 			//mesh->SetName(groupName);
 		}
 
-		//	Vertex
+		//	Vertex(頂点情報)なら
 		if (key == "v") {
 			Vector3D pos;
 			line_stream >> pos.x;
 			line_stream >> pos.y;
 			line_stream >> pos.z;
 			pos.z = -pos.z;
-
-			temp_poss.emplace_back(pos);
+			//	頂点追加
+			poss.emplace_back(pos);
 		}
 
-		//	UV
+		//	UV(テクスチャ座標)なら
 		if (key == "vt") {
 			Vector2D uv;
 			line_stream >> uv.x;
 			line_stream >> uv.y;
+			//	V方向反転
 			uv.y = 1.0f - uv.y;
-
+			//	テクスチャ座標データ追加
 			temp_uvs.emplace_back(uv);
 		}
 
-		//	Normal
+		//	Normal(法線ベクトル)なら
 		if (key == "vn") {
 			Vector3D normal;
 			line_stream >> normal.x;
 			line_stream >> normal.y;
 			line_stream >> normal.z;
-
+			normal.z = -normal.z;
+			//	法線データ追加
 			temp_normals.emplace_back(normal);
 		}
 
-		//	face
+		//	face(ポリゴン)なら
 		if (key == "f") {
-			int indexNum = 0;
+			int32_t indexNum = 0;
 			std::vector<uint16_t> indices;
 
 			string index_string;
@@ -153,16 +162,18 @@ void MNE::ObjModel::LoadModel(const std::string& modelname, bool smoothing)
 			{
 				//	頂点ごとのIndex情報取得
 				std::istringstream index_stream(index_string);
-				unsigned short indexPos, indexNormal, indexUV;
+				uint16_t indexPos, indexNormal, indexUV;
 				index_stream >> indexPos;
+				//	スラッシュを飛ばす
 				index_stream.seekg(1, ios_base::cur);
 				index_stream >> indexUV;
+				//	スラッシュを飛ばす
 				index_stream.seekg(1, ios_base::cur);
 				index_stream >> indexNormal;
 
-				//	AddVertex
+				//	頂点データ追加
 				MNE::ModelVertex vertex{};
-				vertex.pos = temp_poss[indexPos - 1];
+				vertex.pos = poss[indexPos - 1];
 				vertex.normal = temp_normals[indexNormal - 1];
 				vertex.uv = temp_uvs[indexUV - 1];
 				vertex.boneWeight[0] = 1.0f;			//	fbxVertex用

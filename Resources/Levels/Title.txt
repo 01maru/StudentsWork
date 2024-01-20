@@ -30,6 +30,11 @@ MoveAnime 640 250 640 225
 FadeAnime 1.0 0.0
 EndData title
 
+S input TitleInputUI.png 880 610 210 32 0 0 840 128 0 0 65535
+AnimeTimer 30 0
+FadeAnime 1.0 0.0
+EndData input
+
 T Title 1
 
 ButtonArray Start Option Quit

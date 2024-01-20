@@ -95,6 +95,9 @@ void GameScene::LoadResources()
 	pod_.Initialize(models->GetModel("escapePod"), { 0.0f,-0.3f,-50.0f });
 	pod_.SetScale({ 0.4f,0.4f,0.4f });
 
+	effect.LoadResources();
+	effect.Initialize();
+
 #pragma region Sound
 	XAudioManager::GetInstance()->LoadSoundWave("gameBGM.wav");
 #pragma endregion
@@ -178,6 +181,7 @@ void GameScene::Update()
 			enemy_->Update();
 		}
 	}
+	effect.Update();
 #pragma endregion
 	MatUpdate();
 
@@ -209,6 +213,10 @@ void GameScene::ImguiUpdate()
 		enemy_->SetIsActive(true);
 	}
 
+	if (imguiMan->SetButton("EffectStart")) {
+		effect.Start();
+	}
+
 	if (imguiMan->SetButton("ResetPod"))	pod_.ResetAnimation();
 
 	enemy_->ImGuiUpdate();
@@ -224,6 +232,7 @@ void GameScene::DrawUIBeforeBlackScreen()
 		enemy_->DrawUI();
 		player_->DrawUI();
 	}
+	effect.Draw();
 
 	clear_->Draw();
 

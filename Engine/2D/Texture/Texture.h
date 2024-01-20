@@ -1,4 +1,5 @@
 #pragma once
+#include "Vector2D.h"
 #include <d3d12.h>
 #include <string>
 #include <wrl.h>
@@ -54,6 +55,8 @@ namespace MNE
 		* @return texBuff_.ReleaseAndGetAddressOf()の値
 		*/
 		ID3D12Resource** GetResourceBuffAddress() { return texBuff_.ReleaseAndGetAddressOf(); }
+
+		Vector2D GetTextureSize();
 
 	#pragma endregion
 	};

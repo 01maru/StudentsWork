@@ -112,6 +112,15 @@ float MyMath::GetRand(float min, float max)
 	return distr(eng);
 }
 
+Vector2D MyMath::GetRand(const Vector2D& minV, const Vector2D& maxV)
+{
+	Vector2D ans;
+	ans.x = GetRand(minV.x, maxV.x);
+	ans.y = GetRand(minV.y, maxV.y);
+
+	return ans;
+}
+
 Vector3D MyMath::GetRand(const Vector3D& minV, const Vector3D& maxV)
 {
 	Vector3D ans;
