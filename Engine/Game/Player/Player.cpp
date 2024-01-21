@@ -132,7 +132,7 @@ void Player::Update()
 		return;
 	}
 
-	GetAnimation()->SetAnimatonTimer(static_cast<float>(animationTimer_++));
+	//GetAnimation()->SetAnimatonTimer(static_cast<float>(animationTimer_++));
 
 	IsMovingUpdate();
 

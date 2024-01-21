@@ -258,7 +258,3 @@ MNE::BoxModel::~BoxModel()
 
 	materials_.clear();
 }
-
-void MNE::BoxModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& /*transforms*/, int32_t /*animationIdx*/)
-{
-}

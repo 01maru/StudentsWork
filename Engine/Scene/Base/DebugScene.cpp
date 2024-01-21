@@ -73,10 +73,10 @@ void MNE::DebugScene::ImguiUpdate()
 
 	imguiMan->Text("AnimationIndex : %d", index);
 
-	imguiMan->InputInt("AnimationIdx", index);
-	ship_->GetAnimation()->SetAnimationIdx(index);
-	imguiMan->InputInt("AnimationTimer", timer);
-	ship_->GetAnimation()->SetAnimatonTimer(static_cast<float>(timer));
+	//imguiMan->InputInt("AnimationIdx", index);
+	//ship_->GetAnimation()->SetAnimationIdx(index);
+	//imguiMan->InputInt("AnimationTimer", timer);
+	//ship_->GetAnimation()->SetAnimatonTimer(static_cast<float>(timer));
 
 	if(imguiMan->SetButton("TitleScene")){
 		SceneManager::GetInstance()->SetNextScene("TITLESCENE");

@@ -41,3 +41,13 @@ std::string MNE::Util::GetFileName(const std::string& origin)
 	int ind = (int)origin.length() - offset;
 	return origin.substr(offset, ind);
 }
+
+std::string MNE::Util::GetString(const std::string& origin, const std::string& findFirstName)
+{
+	if (origin.find(findFirstName) == std::string::npos) return origin;
+
+	int32_t offset = static_cast<uint32_t>(origin.find_first_of(findFirstName)) + 1;
+	//int32_t ind = static_cast<uint32_t>(origin.length()) - offset;
+
+	return origin.substr(offset);
+}

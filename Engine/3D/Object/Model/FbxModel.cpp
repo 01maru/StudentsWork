@@ -95,7 +95,7 @@ void MNE::FbxModel::LoadAnimation(const aiScene* modelScene)
 		AnimationData data;
 
 		aiAnimation* animation = modelScene->mAnimations[i];
-
+		
 		data.ticksPerSecond = (float)animation->mTicksPerSecond;
 		data.duration = (float)animation->mDuration;
 
@@ -133,8 +133,8 @@ void MNE::FbxModel::LoadAnimation(const aiScene* modelScene)
 
 			data.channels.emplace_back(channel);
 		}
-
-		animations_.emplace_back(data);
+		
+		animations_.emplace(Util::GetString(animation->mName.C_Str(), "|"), data);
 	}
 }
 
@@ -284,17 +284,22 @@ void MNE::FbxModel::ImGuiUpdate()
 	imgui->EndWindow();
 }
 
-void MNE::FbxModel::BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx)
+void MNE::FbxModel::BoneTransform(float timer, std::vector<Matrix>& transforms, const std::string& animeName, bool isLoop)
 {
 	Matrix Identity;
 
-	if (animations_.size() <= animationIdx || animationIdx < 0) return;
+	if (animations_.count(animeName) == 0) return;
 
+	AnimationData data = animations_[animeName];
 	//double TicksPerSecond = animations_[index].ticksPerSecond != 0 ? animations_[index].ticksPerSecond : 25.0f;
 	//float TimeInTicks = TimeInSeconds * (float)TicksPerSecond;	//	frame数
-	float AnimationTime = (float)fmod(TimeInSeconds, animations_[animationIdx].duration);	//	現在のフレーム数/1Loopのフレーム数　のあまり
+	if (isLoop == FALSE)
+	{
+		timer = MyMath::mMin(timer, data.duration - 1.0f);
+	}
+	float AnimationTime = (float)fmod(timer, data.duration);	//	現在のフレーム数/1Loopのフレーム数　のあまり
 
-	ReadNodeHeirarchy(animations_[animationIdx], AnimationTime, Identity, rootNodeName_);
+	ReadNodeHeirarchy(data, AnimationTime, Identity, rootNodeName_);
 
 	transforms.resize(numBones_);
 

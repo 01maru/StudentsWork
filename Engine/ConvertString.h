@@ -41,6 +41,8 @@ namespace MNE
 		* @return ファイル名
 		*/
 		std::string GetFileName(const std::string& origin);
+
+		std::string GetString(const std::string& origin, const std::string& findFirstName);
 	}
 
 }

@@ -17,6 +17,8 @@ void PodBefOpenDoorState::Initialize()
 	startEye_ = camera->GetEye();
 	startTarget_ = camera->GetTarget();
 
+	sPod_->GetAnimation()->SetAnimeName("PrevOpen");
+
 	counter_.Initialize(cameraMoveFrame_, true);
 	counter_.StartCount();
 }
@@ -41,6 +43,8 @@ void PodBefOpenDoorState::ShakeUpdate()
 	float t = counter_.GetFrameCount() / static_cast<float>(shakeFrame_);
 	float shakeValue = EaseOut(maxShakeV_, 0.0f, t, Double);
 	camera->SetShake(-shakeValue, shakeValue);
+
+	sPod_->GetAnimation()->SetAnimeTimer(static_cast<float>(counter_.GetFrameCount()));
 
 	if (counter_.GetFrameCount() == shakeFrame_) {
 		camera->StopShake();

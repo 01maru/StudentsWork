@@ -17,11 +17,6 @@ MNE::ObjModel::~ObjModel()
 	materials_.clear();
 }
 
-void MNE::ObjModel::BoneTransform(float /*TimeInSeconds*/, std::vector<Matrix>& /*transforms*/, int32_t /*animationIdx*/)
-{
-	//	objなのでboneなし
-}
-
 void MNE::ObjModel::AddIndices(const std::vector<uint16_t>& indices, Mesh* mesh)
 {
 	//for (auto i : indices)

@@ -17,7 +17,7 @@ namespace MNE
 	class FbxModel :public IModel
 	{
 	private:
-		std::vector<AnimationData> animations_;
+		std::map<std::string, AnimationData> animations_;
 		//	nodedata
 		std::map<std::string, Node, std::less<>> nodes_;
 		std::string rootNodeName_;
@@ -42,7 +42,7 @@ namespace MNE
 
 		void ImGuiUpdate() override;
 
-		void BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx) override;
+		void BoneTransform(float timer, std::vector<Matrix>& transforms, const std::string& animeName, bool isLoop) override;
 	};
 
 }

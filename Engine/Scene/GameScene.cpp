@@ -93,7 +93,7 @@ void GameScene::LoadResources()
 	pod_.LoadResources();
 	pod_.SetLetterBox(&letterBox_);
 	pod_.Initialize(models->GetModel("escapePod"), { 0.0f,-0.3f,-50.0f });
-	pod_.SetScale({ 0.4f,0.4f,0.4f });
+	//pod_.SetScale({ 0.4f,0.4f,0.4f });
 
 	effect.LoadResources();
 	effect.Initialize();

@@ -6,8 +6,8 @@
 
 void PlayerWalkState::Initialize()
 {
-	sPlayer_->SetAnimationIdx(4);
-	sPlayer_->SetAnimationTimer(0);
+	//sPlayer_->SetAnimationIdx(4);
+	//sPlayer_->SetAnimationTimer(0);
 }
 
 void PlayerWalkState::Update()

@@ -39,7 +39,8 @@ namespace MNE
 		virtual void ImGuiUpdate() = 0;
 		void Draw(int32_t cBuffMtlIdx);
 
-		virtual void BoneTransform(float TimeInSeconds, std::vector<Matrix>& transforms, int32_t animationIdx) = 0;
+		virtual void BoneTransform(float timer, std::vector<Matrix>& transforms, const std::string& animeName, bool isLoop) = 0;
+		
 		void AddMaterial(Material* material) { materials_.emplace(material->name_, material); }
 		bool SerchMaterial(const std::string& materialName) { return materials_.find(materialName) != materials_.end(); }
 		Material* GetMaterial(const std::string& materialName) { return materials_[materialName].get(); }

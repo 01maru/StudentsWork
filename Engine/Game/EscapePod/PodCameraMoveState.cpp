@@ -21,6 +21,10 @@ void PodCameraMoveState::Initialize()
 	counter_.StartCount();
 
 	sPod_->GetPtrLetterBox()->ResetAnimation(false);
+
+	sPod_->GetAnimation()->SetAnimeName("AfterOpen");
+	sPod_->GetAnimation()->SetAutoPlay(true);
+	sPod_->GetAnimation()->SetAnimeTimer(0.0f);
 }
 
 //-----------------------------------------------------------------------------

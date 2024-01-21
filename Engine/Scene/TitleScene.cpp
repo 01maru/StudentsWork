@@ -25,6 +25,7 @@ void TitleScene::LoadResources()
 #pragma endregion
 
 #pragma region Model
+
 	ModelManager* models = ModelManager::GetInstance();
 	models->LoadModel("bonfire");
 

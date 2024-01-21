@@ -21,6 +21,8 @@ void PodOpenDoorState::Initialize()
 	counter_.StartCount();
 	move_ = startTarget_ - startEye_;
 	move_.y = 0.0f;
+
+	sPod_->GetAnimation()->SetAnimeName("Open");
 }
 
 //-----------------------------------------------------------------------------
@@ -33,6 +35,8 @@ void PodOpenDoorState::Update()
 
 	//int32_t animeT = MyMath::mMin(counter_.GetFrameCount() * 3, 88);
 	//sPod_->GetAnimation()->SetAnimatonTimer(static_cast<float>(animeT));
+
+	sPod_->GetAnimation()->SetAnimeTimer(static_cast<float>(counter_.GetFrameCount()));
 
 	Vector3D move = EaseIn(Vector3D(), move_, counter_.GetCountPerMaxCount(), Double);
 

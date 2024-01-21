@@ -23,7 +23,8 @@ void EscapePod::Initialize(MNE::IModel* model, const Vector3D& pos)
 	//	親ポッドの設定
 	EscPodState::SetPod(this);
 	ResetAnimation();
-	GetAnimation()->SetAnimationIdx(0);
+	GetAnimation()->SetAnimeName("PrevOpen");
+	GetAnimation()->SetIsLoop(false);
 
 	ui_.Initialize(TextureManager::GetInstance()->GetTextureGraph("space.png"));
 	ui_.SetPosition({ 750,400 });

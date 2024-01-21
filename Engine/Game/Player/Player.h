@@ -115,9 +115,8 @@ public:
 #pragma region Setter
 
 	void SetIsActive(bool isActive) { isActive_ = isActive; }
-	void SetAnimationIdx(int16_t idx) { 
-		GetAnimation()->SetAnimationIdx(idx);
-		animationIdx_ = idx; }
+	void SetAnimationIdx(const std::string& name) { 
+		GetAnimation()->SetAnimeName(name); }
 	void SetAnimationTimer(int32_t timer) { animationTimer_ = timer; }
 	void SetMoveState(std::unique_ptr<PlayerMoveState>& moveState);
 	void SetAttackState(std::unique_ptr<PlayerAttackState>& attackState);
