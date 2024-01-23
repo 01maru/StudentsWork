@@ -109,8 +109,10 @@ void PauseScreen::PauseInputUpdate(bool dikSelectButton)
 	//	オプション中だったら更新しない
 	if (option_.GetIsActive() == TRUE) return;
 
+	pauseData_.CollisonCursorUpdate();
+
 	//	選択ボタン入力中だったら
-	if (dikSelectButton == TRUE) {
+	if ((dikSelectButton || pauseData_.GetSelect()) == TRUE) {
 		//	決定音再生
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 

@@ -81,6 +81,7 @@ namespace MyMath {
 
 	bool CollisionCircleLay(const Vector3D& startL, const Vector3D& endL, const Vector3D& pos, float rad);
 
+	bool CollisionSquareToPoint(const Vector2D& leftTop, const Vector2D& rightBottom, const Vector2D& point);
 	/**
 	* @fn CreatePolygonNormal(const Vector3D&, const Vector3D&, const Vector3D&)
 	* 頂点ABCで作られたポリゴンから法線を計算する用関数

@@ -59,7 +59,6 @@ private:
 	//	実行する前のカーソルの位置
 	Vector2D befCursorPos_;
 
-	//	光度
 private:
 	/**
 	* @fn SensUpdate(int16_t)

@@ -12,6 +12,7 @@
 #include "UIRotation.h"
 #include "SliderSprite.h"
 #include "UIScaling.h"
+#include "InputManager.h"
 
 void MNE::UIData::Finalize()
 {
@@ -24,9 +25,28 @@ void MNE::UIData::Finalize()
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
+void MNE::UIData::CollisonCursorUpdate()
+{
+	if (InputManager::GetInstance()->GetUsePad() == FALSE)
+	{
+		selecting_ = false;
+		for (auto& coll : buttonColliders_)
+		{
+			if (MyMath::CollisionSquareToPoint(coll.leftTop_, coll.rightBottom_, InputManager::GetInstance()->GetMouse()->GetCursor()) == TRUE)
+			{
+				buttonMan_->SetSelectButton(coll.parent_);
+				selecting_ = true;
+			}
+		}
+	}
+}
+
 void MNE::UIData::InputUpdate(int16_t inputValue)
 {
-	buttonMan_->Update(inputValue);
+	if (InputManager::GetInstance()->GetUsePad() == TRUE)
+	{
+		buttonMan_->Update(inputValue);
+	}
 }
 
 void MNE::UIData::Update()
@@ -71,6 +91,7 @@ void MNE::UIData::LoadData(const std::string& filename)
 
 	std::unique_ptr<UIObject> object;
 	std::map<std::string, UIButton*, std::less<>> buttons;
+	buttonColliders_.clear();
 
 	// データの上から1行ずつ読み込む
 	std::string line;
@@ -241,9 +262,20 @@ void MNE::UIData::LoadData(const std::string& filename)
 			UIPosition* uiPos = object->AddComponent<UIPosition>();
 			uiPos->SetPosition(pos);
 
-			line_stream >> pos.x;
-			line_stream >> pos.y;
-			uiPos->SetSize(pos);
+			Vector2D size;
+			line_stream >> size.x;
+			line_stream >> size.y;
+			uiPos->SetSize(size);
+
+			line_stream >> size.x;
+			line_stream >> size.y;
+			size /= 2.0f;
+			ButtonSquare coll;
+			coll.parent_ = button;
+			coll.leftTop_ = pos - size;
+			coll.rightBottom_ = pos + size;
+
+			buttonColliders_.push_back(coll);
 		}
 
 		if (key == "Slider") {
@@ -335,6 +367,11 @@ void MNE::UIData::Reset()
 	for (auto& sprite : obj_) {
 		sprite.second->ResetAnimation();
 	}
+}
+
+bool MNE::UIData::GetSelect()
+{
+	return InputManager::GetInstance()->GetMouse()->GetClickTrigger(InputMouse::LeftClick) && selecting_;
 }
 
 void MNE::UIData::ResetAnimation(bool startingAnimation)

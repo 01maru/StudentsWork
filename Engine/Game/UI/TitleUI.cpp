@@ -80,8 +80,10 @@ void TitleUI::TitleInputUpdate(bool dikSelectButton)
 	//	演出が終わっていなかったら処理しない
 	if (titleData_.GetIsEndAnimation() == FALSE)	return;
 
+	titleData_.CollisonCursorUpdate();
+
 	//	ボタンを選択したら
-	if (dikSelectButton == TRUE)
+	if ((dikSelectButton || titleData_.GetSelect()) == TRUE)
 	{
 		//	決定音再生
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
@@ -185,8 +187,7 @@ void TitleUI::OptionUpdate(bool dikSelectButton)
 
 void TitleUI::Update()
 {
-	bool dikButton = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button) ||
-		InputManager::GetInstance()->GetMouse()->GetClickTrigger(InputMouse::LeftClick);
+	bool dikButton = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button);
 
 	InputValueUpdate();
 

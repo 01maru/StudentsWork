@@ -45,6 +45,9 @@ public:
 	Vector2D& operator/=(float s);
 	Vector2D& operator*=(float s);
 
+	bool operator<(const Vector2D& v);
+	bool operator>(const Vector2D& v);
+
 	bool operator!=(const Vector2D& vec);
 	bool operator==(const Vector2D& vec);
 };
@@ -55,3 +58,6 @@ Vector2D operator*(const Vector2D& v, float s);
 Vector2D operator*(float s, const Vector2D& v);
 Vector2D operator/(const Vector2D& v, float s);
 Vector2D operator/(float s, const Vector2D& v);
+
+bool operator<(const Vector2D& v1, const Vector2D& v2);
+bool operator>(const Vector2D& v1, const Vector2D& v2);

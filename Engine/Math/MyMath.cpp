@@ -164,6 +164,12 @@ bool MyMath::CollisionCircleLay(const Vector3D& startL, const Vector3D& endL, co
 	return false;
 }
 
+bool MyMath::CollisionSquareToPoint(const Vector2D& leftTop, const Vector2D& rightBottom, const Vector2D& point)
+{
+	if (leftTop < point && rightBottom > point) return true;
+	return false;
+}
+
 Vector3D MyMath::CreatePolygonNormal(const Vector3D& a, const Vector3D& b, const Vector3D& c)
 {
 	Vector3D AB(b - a);

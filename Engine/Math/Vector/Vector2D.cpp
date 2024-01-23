@@ -57,6 +57,16 @@ Vector2D& Vector2D::operator*=(float s)
 	return *this;
 }
 
+bool Vector2D::operator<(const Vector2D& v)
+{
+	return x < v.x && y < v.y;
+}
+
+bool Vector2D::operator>(const Vector2D& v)
+{
+	return x > v.x && y > v.y;
+}
+
 bool Vector2D::operator!=(const Vector2D& vec)
 {
 	return (this->x != vec.x) || (this->y != vec.y);
@@ -99,4 +109,16 @@ Vector2D operator/(const Vector2D& v, float s)
 Vector2D operator/(float s, const Vector2D& v)
 {
 	return v / s;
+}
+
+bool operator<(const Vector2D& v1, const Vector2D& v2)
+{
+	Vector2D temp(v1);
+	return temp < v2;
+}
+
+bool operator>(const Vector2D& v1, const Vector2D& v2)
+{
+	Vector2D temp(v1);
+	return temp > v2;
 }

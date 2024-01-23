@@ -113,6 +113,8 @@ bool OptionScene::InputUpdate(bool dikSelectButton, int16_t inputV)
 
 	InputManager* input = InputManager::GetInstance();
 
+	data_.CollisonCursorUpdate();
+
 	if (input->GetPad()->GetButtonTrigger(InputJoypad::B_Button))
 	{
 		CloseOption();
@@ -136,7 +138,7 @@ bool OptionScene::InputUpdate(bool dikSelectButton, int16_t inputV)
 	else if (data_.GetSelectName() == "Quit") {
 
 		//	選択中だったら
-		if (dikSelectButton == TRUE) {
+		if (dikSelectButton || data_.GetSelect() == TRUE) {
 			CloseOption();
 
 			return true;

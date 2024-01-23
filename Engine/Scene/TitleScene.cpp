@@ -139,6 +139,8 @@ void TitleScene::ImguiUpdate()
 
 	if (imguiMan->SetButton("MoveChangeScene")) titleCamera->SetNextMode(TitleCamera::SceneChange);
 
+	imguiMan->Text("isAlive : %s", MyMath::CollisionSquareToPoint(Vector2D(75, 388), Vector2D(325, 452), InputManager::GetInstance()->GetMouse()->GetCursor()) ? "TRUE" : "FALSE");
+
 	imguiMan->CheckBox("DrawUI", drawUI_);
 
 	uiData_.ImGuiUpdate();

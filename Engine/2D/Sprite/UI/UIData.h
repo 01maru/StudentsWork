@@ -13,6 +13,13 @@
 namespace MNE
 {
 
+	struct ButtonSquare
+	{
+		UIButton* parent_ = nullptr;
+		Vector2D leftTop_;
+		Vector2D rightBottom_;
+	};
+
 	class UIData
 	{
 	public:
@@ -21,6 +28,7 @@ namespace MNE
 		* 終了処理関数(Editor用)
 		*/
 		void Finalize();
+		void CollisonCursorUpdate();
 		/**
 		* @fn InputUpdate()
 		* 入力更新処理関数
@@ -50,9 +58,13 @@ namespace MNE
 		//	現在使用してないタグ
 		std::map<std::string, uint16_t, std::less<>> tagName_;
 
+		std::vector<ButtonSquare> buttonColliders_;
+
 		std::string activeTag_ = "";
 
 		const uint16_t ACTIVE_ALL_TAG = 0b1111111111111111;
+
+		bool selecting_ = false;
 
 	public:
 		/**
@@ -87,6 +99,7 @@ namespace MNE
 
 		bool GetIsEndAnimation();
 
+		bool GetSelect();
 	#pragma endregion
 
 		void Reset();
