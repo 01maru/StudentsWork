@@ -58,6 +58,7 @@ private:
 	SelectCursor* cursor_ = nullptr;
 	//	実行する前のカーソルの位置
 	Vector2D befCursorPos_;
+	int16_t inputValue_ = 0;
 
 private:
 	/**

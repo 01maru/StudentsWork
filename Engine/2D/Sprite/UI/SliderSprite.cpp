@@ -60,22 +60,24 @@ void MNE::SliderSprite::SetRailStartPos(const Vector2D& pos)
 	startPos_ = pos;
 }
 
-void MNE::SliderSprite::SetRailTexture(const std::string& texName)
+void MNE::SliderSprite::SetRailTexture(const std::string& texName, int16_t tag)
 {
 	railTex_ = TextureManager::GetInstance()->LoadTextureGraph(texName);
 
 	Sprite railSprite;
 	railSprite.Initialize(railTex_);
 	railSprite.SetAnchorPoint(Vector2D{ 0.0f,0.5f });
+	railSprite.SetTags(tag);
 	sprites_->AddSprite("Rail", railSprite);
 }
 
-void MNE::SliderSprite::SetCircleTexture(const std::string& texName)
+void MNE::SliderSprite::SetCircleTexture(const std::string& texName, int16_t tag)
 {
 	circleTex_ = TextureManager::GetInstance()->LoadTextureGraph(texName);
 	Sprite circleSprite;
 	circleSprite.Initialize(circleTex_);
 	circleSprite.SetAnchorPoint(Vector2D{ 0.5f,0.5f });
 	circleSprite.SetSize(Vector2D{ 10,10 });
+	circleSprite.SetTags(tag);
 	sprites_->AddSprite("Circle", circleSprite);
 }

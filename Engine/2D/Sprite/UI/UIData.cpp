@@ -281,12 +281,15 @@ void MNE::UIData::LoadData(const std::string& filename)
 		if (key == "Slider") {
 			SliderSprite* slider = object->AddComponent<SliderSprite>();
 
+			int16_t tag;
+			line_stream >> tag;
+
 			std::string name;
 			line_stream >> name;
-			slider->SetCircleTexture(name);
+			slider->SetCircleTexture(name, tag);
 
 			line_stream >> name;
-			slider->SetRailTexture(name);
+			slider->SetRailTexture(name, tag);
 
 			Vector2D pos;
 			line_stream >> pos.x;

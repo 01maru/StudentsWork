@@ -123,15 +123,13 @@ bool OptionScene::InputUpdate(bool dikSelectButton, int16_t inputV)
 	}
 
 	//	スライダー用左右入力値取得
-	int16_t inputValue = input->GetKeyAndButton(DIK_D, InputJoypad::DPAD_Right) -
-		input->GetKeyAndButton(DIK_A, InputJoypad::DPAD_Left);
-
-	//	選択中ボタンの更新
-	data_.InputUpdate(inputV);
+	InputJoypad* pad = InputManager::GetInstance()->GetPad();
+	inputValue_ = 0;
+	inputValue_ = static_cast<int16_t>(MyMath::mClamp(-1.0f, 1.0f, pad->GetThumbL().x));
 
 	//	選択位置が感度だったら
 	if (data_.GetSelectName() == "Sens") {
-		SensUpdate(inputValue);
+		SensUpdate(inputValue_);
 	}
 
 	//	閉じるだったら
@@ -147,7 +145,12 @@ bool OptionScene::InputUpdate(bool dikSelectButton, int16_t inputV)
 
 	//	その他(音量調節)だったら
 	else {
-		VolumeUpdate(data_.GetSelectName(), inputValue);
+		VolumeUpdate(data_.GetSelectName(), inputValue_);
+	}
+
+	//	選択中ボタンの更新
+	if (inputValue_ == 0) {
+		data_.InputUpdate(inputV);
 	}
 
 	return false;

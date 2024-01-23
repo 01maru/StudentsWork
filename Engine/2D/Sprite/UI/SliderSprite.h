@@ -72,13 +72,13 @@ namespace MNE
 		* railの画像取得用関数(読み込まれていなかったら読み込みもする)
 		* @param texName railの画像名(.png or .jpg)
 		*/
-		void SetRailTexture(const std::string& texName);
+		void SetRailTexture(const std::string& texName, int16_t tag);
 		/**
 		* @fn SetCircleTexture(const std::string&)
 		* circleの画像取得用関数(読み込まれていなかったら読み込みもする)
 		* @param texName circleの画像名(.png or .jpg)
 		*/
-		void SetCircleTexture(const std::string& texName);
+		void SetCircleTexture(const std::string& texName, int16_t tag);
 
 	#pragma endregion
 	};

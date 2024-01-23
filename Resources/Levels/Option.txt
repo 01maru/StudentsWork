@@ -18,7 +18,7 @@ EndData Volume
 S Back setBack.png 350 240 550 72 0 0 1100 144 0.5 0.5 1
 S Text master.png 94 218 140 48 0 0 280 96 0 0 1
 Button Master 350 240 568 90
-Slider white1x1.png white1x1.png 500 240 300
+Slider 1 white1x1.png white1x1.png 320 240 280
 AnimeTimer 30 0
 FadeAnime 1.0 0.0
 EndData Master
@@ -26,7 +26,7 @@ EndData Master
 S Back setBack.png 350 320 550 72 0 0 1100 144 0.5 0.5 1
 S Text bgm.png 94 297 80 48 0 0 160 96 0 0 1
 Button BGM 350 320 568 90
-Slider white1x1.png white1x1.png 500 320 300
+Slider 1 white1x1.png white1x1.png 320 320 280
 AnimeTimer 30 0
 FadeAnime 1.0 0.0
 EndData BGM
@@ -34,7 +34,7 @@ EndData BGM
 S Back setBack.png 350 400 550 72 0 0 1100 144 0.5 0.5 1
 S Text se.png 94 378 48 48 0 0 96 96 0 0 1
 Button SE 350 400 568 90
-Slider white1x1.png white1x1.png 500 400 300
+Slider 1 white1x1.png white1x1.png 320 400 280
 AnimeTimer 30 0
 FadeAnime 1.0 0.0
 EndData SE
@@ -47,7 +47,7 @@ EndData Control
 S Back setBack.png 350 560 550 72 0 0 1100 144 0.5 0.5 1
 S Text sensitivity.png 94 538 210 48 0 0 420 96 0 0 1
 Button Sens 350 560 568 90
-Slider white1x1.png white1x1.png 500 560 300
+Slider 1 white1x1.png white1x1.png 320 560 280
 AnimeTimer 30 0
 FadeAnime 1.0 0.0
 EndData Sens
