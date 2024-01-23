@@ -89,6 +89,7 @@ void TitleScene::Initialize()
 
 void TitleScene::Finalize()
 {
+	uiData_.Finalize();
 	XAudioManager::GetInstance()->StopAllSound();
 	XAudioManager::GetInstance()->DeleteAllSound();
 }

@@ -21,6 +21,7 @@ namespace MNE
 
 		int8_t key_[256] = {};
 		int8_t prev_[256] = {};
+		bool isActive_ = false;
 
 	public:		//	関数
 		/**
@@ -36,6 +37,7 @@ namespace MNE
 
 	#pragma region Getter
 
+		bool GetIsActive();
 		/**
 		* @fn GetKey(int)
 		* キーが押されているか判定用関数

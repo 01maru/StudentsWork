@@ -53,3 +53,5 @@ Vector2D operator-(const Vector2D& v1, const Vector2D& v2);
 Vector2D operator+(const Vector2D& v1, const Vector2D& v2);
 Vector2D operator*(const Vector2D& v, float s);
 Vector2D operator*(float s, const Vector2D& v);
+Vector2D operator/(const Vector2D& v, float s);
+Vector2D operator/(float s, const Vector2D& v);

@@ -54,6 +54,8 @@ private:
 	//	カメラポインター
 	GameCamera* gameCamera_ = nullptr;
 
+	int16_t inputValue_ = 0;
+
 private:
 	/**
 	* @fn IsActiveUpdate()
@@ -83,6 +85,8 @@ private:
 	* マウスカーソル固定の設定用関数
 	*/
 	void MouseCursorInit();
+
+	void InputValueUpdate();
 
 public:
 #pragma region Getter

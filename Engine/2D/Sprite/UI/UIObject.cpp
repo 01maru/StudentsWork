@@ -39,6 +39,11 @@ bool MNE::UIObject::GetIsStartAnimation()
 	return *startAnimation_;
 }
 
+MNE::UIData* MNE::UIObject::GetParentData()
+{
+	return parentData_;
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
@@ -46,6 +51,11 @@ bool MNE::UIObject::GetIsStartAnimation()
 void MNE::UIObject::SetCount(FrameCounter* pCount)
 {
 	count_ = pCount;
+}
+
+void MNE::UIObject::SetParentData(UIData* pData)
+{
+	parentData_ = pData;
 }
 
 void MNE::UIObject::SetStartAnimation(bool* pStartAnimation)

@@ -125,7 +125,8 @@ void GameScene::Initialize()
 	enemy_->SetPlayer(player_.get());
 	enemy_->SetClearState(clear_.get());
 
-	pause_.SetGameCamera(dynamic_cast<GameCamera*>(CameraManager::GetInstance()->GetMainCamera()));
+	camera_ = dynamic_cast<GameCamera*>(CameraManager::GetInstance()->GetMainCamera());
+	pause_.SetGameCamera(camera_);
 
 	std::unique_ptr<Cylinder> stageColl = std::make_unique<Cylinder>();
 	stageColl->radius_ = 60.0f;
@@ -168,7 +169,7 @@ void GameScene::Update()
 {
 #pragma region 更新処理
 	pause_.Update();
-
+	camera_->SetIsActive(pod_.GetOpenDoor());
 	if (pause_.GetIsActive() == false)
 	{
 		ParticleManager::GetInstance()->Update();

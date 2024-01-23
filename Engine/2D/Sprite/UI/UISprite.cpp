@@ -1,4 +1,5 @@
 #include "UISprite.h"
+#include "UIData.h"
 
 void MNE::UISprite::MatUpdate()
 {
@@ -12,7 +13,9 @@ void MNE::UISprite::Draw()
 {
 	for (auto sprite : sprites_)
 	{
-		sprite.second.Draw();
+		if (sprite.second.GetTags() & parent_->GetParentData()->GetTag()) {
+			sprite.second.Draw();
+		}
 	}
 }
 

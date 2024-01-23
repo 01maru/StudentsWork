@@ -94,18 +94,38 @@ void OptionScene::VolumeUpdate(const std::string& objectName, int16_t inputValue
 	xAudio->VolumeUpdate(type, volume);
 }
 
-bool OptionScene::InputUpdate(bool dikSelectButton)
+void OptionScene::CloseOption()
+{
+	//	非アクティブに
+	isActive_ = false;
+	//	決定音再生
+	XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
+	//	カーソルをオプション前の位置へ(音再生しない)
+	cursor_->SetCursorPosition(befCursorPos_, false);
+	//	オプション閉じる
+	data_.ResetAnimation(false);
+}
+
+bool OptionScene::InputUpdate(bool dikSelectButton, int16_t inputV)
 {
 	//	非アクティブだったら更新終了
 	if (isActive_ == FALSE) return false;
 
 	InputManager* input = InputManager::GetInstance();
+
+	if (input->GetPad()->GetButtonTrigger(InputJoypad::B_Button))
+	{
+		CloseOption();
+
+		return true;
+	}
+
 	//	スライダー用左右入力値取得
 	int16_t inputValue = input->GetKeyAndButton(DIK_D, InputJoypad::DPAD_Right) -
 		input->GetKeyAndButton(DIK_A, InputJoypad::DPAD_Left);
 
 	//	選択中ボタンの更新
-	data_.InputUpdate();
+	data_.InputUpdate(inputV);
 
 	//	選択位置が感度だったら
 	if (data_.GetSelectName() == "Sens") {
@@ -117,14 +137,7 @@ bool OptionScene::InputUpdate(bool dikSelectButton)
 
 		//	選択中だったら
 		if (dikSelectButton == TRUE) {
-			//	非アクティブに
-			isActive_ = false;
-			//	決定音再生
-			XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
-			//	カーソルをオプション前の位置へ(音再生しない)
-			cursor_->SetCursorPosition(befCursorPos_, false);
-			//	オプション閉じる
-			data_.ResetAnimation(false);
+			CloseOption();
 
 			return true;
 		}

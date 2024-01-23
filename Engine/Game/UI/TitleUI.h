@@ -21,6 +21,8 @@ public:
 	* 初期化関数
 	*/
 	void Initialize();
+
+	void Finalize();
 	/**
 	* @fn LoadResources()
 	* リソース読み込み処理関数
@@ -52,6 +54,8 @@ private:
 	//	カメラのポインター
 	TitleCamera* pCamera_ = nullptr;
 
+	int16_t inputValue_ = 0;
+
 private:
 	/**
 	* @fn TitleInputUpdate(bool)
@@ -71,6 +75,8 @@ private:
 	* @param dikSelectButton 選択中かどうか
 	*/
 	void OptionUpdate(bool dikSelectButton);
+
+	void InputValueUpdate();
 
 public:
 #pragma region Setter

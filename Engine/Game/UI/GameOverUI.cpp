@@ -51,8 +51,10 @@ void GameOverUI::InputUpdate()
 		}
 	}
 
+	MNE::InputManager* inputMan = InputManager::GetInstance();
+	int16_t inputValue = inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up) - inputMan->GetTriggerKeyAndButton(DIK_S, InputJoypad::DPAD_Down);
 	//	選択中のボタン切り替え
-	data_.InputUpdate();
+	data_.InputUpdate(inputValue);
 	//	カーソル移動
 	cursor_.SetCursorPosition(data_.GetSelectPosition());
 	//	カーソルのアニメーションサイズ設定

@@ -37,6 +37,7 @@ namespace MNE
     private:
         //  padが有効か
         bool active_ = false;
+        bool inputted_ = false;
         //  Info
         XINPUT_STATE state_{};
         XINPUT_STATE prevState_{};
@@ -66,6 +67,7 @@ namespace MNE
     #pragma region Getter
 
         bool GetIsActive() { return active_; }
+        bool GetInputted() { return inputted_; }
 
         bool GetButton(JoyPadButton button);
         bool GetButtonTrigger(JoyPadButton button);

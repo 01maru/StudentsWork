@@ -20,7 +20,7 @@ private:
 	std::vector<std::unique_ptr<MNE::Object3D>> objs_;
 
 	PauseScreen pause_;
-
+	GameCamera* camera_ = nullptr;
 	//	ムービー中の黒帯
 	MNE::UIData letterBox_;
 

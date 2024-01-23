@@ -11,8 +11,6 @@
 
 namespace MNE
 {
-	class ImGuiManager;
-
 	class InputMouse
 	{
 	public:
@@ -21,35 +19,17 @@ namespace MNE
 			RightClick,
 			WheelClick,
 			SideClick,
+			ButtonNum,
 		};
-	private:
-		template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-		ComPtr<IDirectInputDevice8> mouse_;
-
-		DIMOUSESTATE click_ = {};
-		DIMOUSESTATE prevClick_ = {};
-
-		Vector2D cursor_;
-		Vector2D prevCursor_;
-		Vector2D cursorMoveLen_;
-		bool isLockCursor_ = false;
-		bool showCursor_ = true;
-
-	private:	//	関数
-		//	入力の情報設定
-		void SetInputInfo();
-		void LockCursor();
-		void UnLockCursor();
-
-		void ImGuiUpdateCursor(MNE::ImGuiManager* imgui);
-		void ImGuiUpdateClick(MNE::ImGuiManager* imgui);
 	public:
+		//	デストラクタ
 		~InputMouse();
 
 		/**
-		* @fn Initialize()
+		* @fn Initialize(IDirectInput8*)
 		* 初期化用関数
+		* @param directInput デバイス生成用ダイレクトインプットポインタ
 		*/
 		void Initialize(IDirectInput8* directInput);
 		/**
@@ -63,8 +43,67 @@ namespace MNE
 		*/
 		void ImGuiUpdate();
 
-	#pragma region Getter
+	private:	//	変数
+		template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
+		ComPtr<IDirectInputDevice8> mouse_;
+
+		//	入力状況格納変数
+		DIMOUSESTATE click_ = {};
+		//	1フレーム前の入力状況格納変数
+		DIMOUSESTATE prevClick_ = {};
+
+		//	クライアント領域のカーソル座標(カーソルの左上)
+		Vector2D cursor_;
+		//	カーソルを中央に固定するかどうか
+		bool isLockCursor_ = false;
+		//	カーソルの表示フラグ
+		bool showCursor_ = true;
+		//	入力されているか
+		bool isActive_ = false;
+
+	private:	//	関数
+		/**
+		* @fn InputInfoUpdate()
+		* 入力の情報更新処理関数
+		*/
+		void InputInfoUpdate();
+		/**
+		* @fn LockCursorUpdate()
+		* カーソル固定時の更新処理関数
+		*/
+		void LockCursorUpdate();
+		/**
+		* @fn UnLockCursorUpdate()
+		* カーソル非固定時の更新処理関数
+		*/
+		void UnLockCursorUpdate();
+		/**
+		* @fn MouseIsActiveUpdate()
+		* マウスに関するいずれかの入力がされているかのフラグ更新処理関数
+		*/
+		void MouseIsActiveUpdate();
+
+		/**
+		* @fn ImGuiUpdateCursor()
+		* カーソルに関するImGui更新処理関数
+		*/
+		void ImGuiUpdateCursor();
+		/**
+		* @fn ImGuiUpdateClick()
+		* クリックに関するImGui更新処理関数
+		*/
+		void ImGuiUpdateClick();
+
+	public:
+#pragma region Getter
+
+		/**
+		* @fn GetIsActive()
+		* マウスに関するいずれかの入力がされているかのフラグ取得用関数
+		* @return マウスに関するいずれかの入力がされているか
+		*/
+		bool GetIsActive();
 		/**
 		* @fn GetClick(MouseButton)
 		* MouseButtonが押されているか判定用関数
@@ -91,44 +130,43 @@ namespace MNE
 		* cursor_の値を返す関数
 		* @return cursor_の値
 		*/
-		const Vector2D& GetCursor() { return cursor_; }
-		/**
-		* @fn GetPrevCursor()
-		* prevCursor_の値を返す関数
-		* @return prevCursor_の値
-		*/
-		const Vector2D& GetPrevCursor() { return prevCursor_; }
+		const Vector2D& GetCursor();
 		/**
 		* @fn GetPrevCursor()
 		* 1フレームでのカーソルの移動量を返す関数
 		* @return 1フレームでのカーソルの移動量
 		*/
-		const Vector2D& GetMoveCursor() { return cursorMoveLen_; }
+		Vector2D GetCursorMoveVec();
 		/**
 		* @fn GetPrevCursor()
 		* 1フレームでのホイール回転量を返す関数
 		* @return 1フレームでのホイール回転量
 		*/
-		int32_t GetWheel() { return click_.lZ; }
+		int32_t GetWheel();
 
-	#pragma endregion
+#pragma endregion
 
-	#pragma region Setter
+#pragma region Setter
 
+		/**
+		* @fn SetCursorWinCenter()
+		* カーソルをウィンドウ中央に移動するための関数
+		*/
+		void SetCursorWinCenter();
 		/**
 		* @fn SetShowCursor(bool)
 		* showCursor_の値を変更するための関数
 		* @param showCursor showCursor_の変更後の値
 		*/
-		void SetShowCursor(bool showCursor) { showCursor_ = showCursor; }
+		void SetShowCursor(bool showCursor);
 		/**
 		* @fn SetLockCursor(bool)
 		* isLockCursor_の値を変更するための関数
-		* @param isLockCursor isLockCursor_の変更後の値
+		* @param lockCursor isLockCursor_の変更後の値
 		*/
-		void SetLockCursor(bool lockCursor) { isLockCursor_ = lockCursor; }
+		void SetLockCursor(bool lockCursor);
 
-	#pragma endregion
+#pragma endregion
 	};
 
 }

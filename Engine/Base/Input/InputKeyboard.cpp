@@ -31,6 +31,21 @@ void MNE::InputKeyboard::Update()
 	keyboard_->Acquire();
 	//	全キーの入力情報取得
 	keyboard_->GetDeviceState(sizeof(key_), key_);
+
+	isActive_ = false;
+	for (size_t i = 0; i < sizeof(key_); i++)
+	{
+		if (key_[i] != 0)
+		{
+			isActive_ = true;
+			return;
+		}
+	}
+}
+
+bool MNE::InputKeyboard::GetIsActive()
+{
+	return isActive_;
 }
 
 bool MNE::InputKeyboard::GetKey(int key)

@@ -60,6 +60,18 @@ void PauseScreen::MouseCursorInit()
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(lockCursor);
 }
 
+void PauseScreen::InputValueUpdate()
+{
+	InputJoypad* pad = InputManager::GetInstance()->GetPad();
+
+	inputValue_ = 0;
+
+	if (pad->GetTriggerThumbLY() == TRUE)
+	{
+		inputValue_ = static_cast<int16_t>(MyMath::mClamp(-1.0f, 1.0f, -pad->GetThumbL().y));
+	}
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Update
 //-----------------------------------------------------------------------------
@@ -86,6 +98,9 @@ void PauseScreen::IsActiveUpdate()
 
 		//	選択中のボタンを初期化する
 		pauseData_.SetSelectButton("Resume");
+
+		InputManager::GetInstance()->SetNextTag("cantBack", true, isActive_);
+		InputManager::GetInstance()->SetDrawExplane(isActive_);
 	}
 }
 
@@ -110,6 +125,9 @@ void PauseScreen::PauseInputUpdate(bool dikSelectButton)
 
 			//	ポーズ画面消す
 			pauseData_.ResetAnimation(false);
+
+			InputManager::GetInstance()->SetNextTag("cantBack", true, isActive_);
+			InputManager::GetInstance()->SetDrawExplane(isActive_);
 		}
 
 		//	オプション画面を開く
@@ -126,6 +144,8 @@ void PauseScreen::PauseInputUpdate(bool dikSelectButton)
 			option_.ResetAnimation(true);
 			//	ポーズ画面消す
 			pauseData_.ResetAnimation(false);
+
+			InputManager::GetInstance()->SetNextTag("canBack", true, false);
 		}
 
 		//	タイトルに戻る
@@ -135,7 +155,7 @@ void PauseScreen::PauseInputUpdate(bool dikSelectButton)
 	}
 
 	//	ポーズの選択ボタン切り替え
-	pauseData_.InputUpdate();
+	pauseData_.InputUpdate(inputValue_);
 
 	//	カーソル移動
 	cursor_.SetCursorPosition(pauseData_.GetSelectPosition());
@@ -162,13 +182,15 @@ void PauseScreen::PauseUpdate(bool dikSelectButton)
 void PauseScreen::OptionUpdate(bool dikSelectButton)
 {
 	//	オプション入力処理(オプションが終了したタイミングだったら)
-	if (option_.InputUpdate(dikSelectButton) == TRUE)
+	if (option_.InputUpdate(dikSelectButton, inputValue_) == TRUE)
 	{
 		//	ポーズ出現
 		pauseData_.ResetAnimation(true);
 
 		//	ポーズアニメーション中じゃないときにカーソル表示
 		cursor_.SetIsActive(pauseData_.GetIsEndAnimation());
+
+		InputManager::GetInstance()->SetNextTag("cantBack", true, false);
 	}
 
 	//	オプションデータの更新処理
@@ -183,7 +205,11 @@ void PauseScreen::Update()
 	//	ポーズ中じゃなく、アニメーション中じゃなかったら更新しない
 	if (isActive_ == FALSE && pauseData_.GetIsEndAnimation() == TRUE) return;
 
-	bool dikButton = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
+	//bool dikButton = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
+	bool dikButton = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button) ||
+		InputManager::GetInstance()->GetMouse()->GetClickTrigger(InputMouse::LeftClick);
+
+	InputValueUpdate();
 
 	//	ポーズの更新処理
 	PauseUpdate(dikButton);

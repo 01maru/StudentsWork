@@ -133,6 +133,7 @@
     <ClCompile Include="Engine\2D\Sprite\LoadSpriteAnime.cpp" />
     <ClCompile Include="Engine\Game\EscapePod\EscapePod.cpp" />
     <ClCompile Include="Engine\Game\EscapePod\EscPodState.cpp" />
+    <ClCompile Include="ExplanatoryText.cpp" />
     <ClCompile Include="JSONData.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
@@ -358,6 +359,7 @@
     <ClInclude Include="Engine\Game\EscapePod\PodCollGroundState.h" />
     <ClInclude Include="Engine\Game\EscapePod\PodOpenDoorState.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIScaling.h" />
+    <ClInclude Include="ExplanatoryText.h" />
     <ClInclude Include="JSONData.h" />
   </ItemGroup>
   <ItemGroup>

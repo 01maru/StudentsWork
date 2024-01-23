@@ -25,6 +25,18 @@ void TitleUI::Initialize()
 	option_.Initialize();
 	//	カーソル設定
 	option_.SetSelectCursor(&cursor_);
+
+	InputManager* input = InputManager::GetInstance();
+
+	//	初期表示設定
+	input->SetNextTag("cantBack", input->GetUsePad(), input->GetUsePad());
+	//	入力説明表示
+	input->SetDrawExplane(true);
+}
+
+void TitleUI::Finalize()
+{
+	InputManager::GetInstance()->SetDrawExplane(false);
 }
 
 void TitleUI::LoadResources()
@@ -47,6 +59,18 @@ void TitleUI::LoadResources()
 //-----------------------------------------------------------------------------
 // [SECTION] TitleUpdate
 //-----------------------------------------------------------------------------
+
+void TitleUI::InputValueUpdate()
+{
+	InputJoypad* pad = InputManager::GetInstance()->GetPad();
+
+	inputValue_ = 0;
+
+	if (pad->GetTriggerThumbLY() == TRUE)
+	{
+		inputValue_ = static_cast<int16_t>(MyMath::mClamp(-1.0f, 1.0f, -pad->GetThumbL().y));
+	}
+}
 
 void TitleUI::TitleInputUpdate(bool dikSelectButton)
 {
@@ -77,7 +101,7 @@ void TitleUI::TitleInputUpdate(bool dikSelectButton)
 		}
 
 		//	Option選択中だったら
-		else if (selectButtonName == "Option") {
+		else if (selectButtonName == "Settings") {
 			//	オプション画面へ
 			option_.SetIsActive(true);
 			//	選択中のボタンを初期化する
@@ -94,6 +118,8 @@ void TitleUI::TitleInputUpdate(bool dikSelectButton)
 
 			//	カメラ動かす
 			pCamera_->SetNextMode(TitleCamera::Option);
+
+			InputManager::GetInstance()->SetNextTag("canBack", true, false);
 		}
 
 		//	Quit選択中だったら
@@ -104,7 +130,7 @@ void TitleUI::TitleInputUpdate(bool dikSelectButton)
 	}
 
 	//	タイトルの選択ボタン切り替え
-	titleData_.InputUpdate();
+	titleData_.InputUpdate(inputValue_);
 
 	//	カーソル移動
 	cursor_.SetCursorPosition(titleData_.GetSelectPosition());
@@ -135,7 +161,7 @@ void TitleUI::TitleUpdate(bool dikSelectButton)
 void TitleUI::OptionUpdate(bool dikSelectButton)
 {
 	//	オプション入力処理(オプションが終了したタイミングだったら)
-	if (option_.InputUpdate(dikSelectButton) == TRUE)
+	if (option_.InputUpdate(dikSelectButton,inputValue_) == TRUE)
 	{
 		//	タイトル出現
 		titleData_.ResetAnimation(true);
@@ -145,6 +171,8 @@ void TitleUI::OptionUpdate(bool dikSelectButton)
 
 		//	カメラ戻す
 		pCamera_->SetNextMode(TitleCamera::Menu);
+
+		InputManager::GetInstance()->SetNextTag("cantBack", true, false);
 	}
 
 	//	オプションデータの更新処理
@@ -157,7 +185,10 @@ void TitleUI::OptionUpdate(bool dikSelectButton)
 
 void TitleUI::Update()
 {
-	bool dikButton = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
+	bool dikButton = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button) ||
+		InputManager::GetInstance()->GetMouse()->GetClickTrigger(InputMouse::LeftClick);
+
+	InputValueUpdate();
 
 	//	タイトル更新
 	TitleUpdate(dikButton);

@@ -1,8 +1,17 @@
 #include "InputMouse.h"
 #include "Window.h"
+#include "ImGuiManager.h"
 #include <cassert>
 
-#include "ImGuiManager.h"
+MNE::InputMouse::~InputMouse()
+{
+	//	範囲指定しない
+	ClipCursor(NULL);
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
 
 void MNE::InputMouse::Initialize(IDirectInput8* directInput)
 {
@@ -23,44 +32,35 @@ void MNE::InputMouse::Initialize(IDirectInput8* directInput)
 	assert(SUCCEEDED(result));
 }
 
-void MNE::InputMouse::LockCursor()
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
+void MNE::InputMouse::InputInfoUpdate()
 {
-	if (!isLockCursor_) return;
+	//	前フレームの情報
+	prevClick_ = click_;
 
-	RECT rec;
-	//	ウィンドウの大きさ取得
-	GetWindowRect(Window::GetInstance()->GetHwnd(), &rec);
-	//	カーソルの情報
-	POINT cursor;
-	//	ScreenLeftTop(0, 0)
-	GetCursorPos(&cursor); 
-
-	//	範囲指定しない
-	ClipCursor(NULL);
-
-	//	UpdateCursor
-	cursor_.x = (float)cursor.x;
-	cursor_.y = (float)cursor.y;
-
-	Vector2D center((rec.right + rec.left) / 2.0f, (rec.bottom + rec.top) / 2.0f);
-	float width = Window::sWIN_WIDTH / 2.0f;
-	float height = Window::sWIN_HEIGHT / 2.0f;
-	rec.left = (LONG)(center.x - width);
-	rec.right = (LONG)(center.x + width);
-	rec.top = (LONG)(center.y - height);
-	rec.bottom = (LONG)(center.y + height);
-	
-	SetCursorPos((int32_t)center.x, (int32_t)center.y);
-	//	範囲指定
-	ClipCursor(&rec);
-
-	//	UpdateCursor
-	prevCursor_ = Vector2D((int32_t)center.x, (int32_t)center.y);
+	//	マウス全体の情報
+	mouse_->Acquire();
+	//	ポーリング
+	mouse_->Poll();
+	mouse_->GetDeviceState(sizeof(DIMOUSESTATE), &click_);
 }
 
-void MNE::InputMouse::UnLockCursor()
+void MNE::InputMouse::LockCursorUpdate()
 {
-	if (isLockCursor_) return;
+	//	カーソル固定中じゃなかったら処理しない
+	if (isLockCursor_ == FALSE) return;
+
+	//	中央に固定
+	SetCursorWinCenter();
+}
+
+void MNE::InputMouse::UnLockCursorUpdate()
+{
+	//	カーソル固定中だったら処理しない
+	if (isLockCursor_ == TRUE) return;
 
 	//	カーソルの情報
 	POINT cursor;
@@ -69,45 +69,63 @@ void MNE::InputMouse::UnLockCursor()
 	//	WindowLeftTop(0, 0)
 	ScreenToClient(Window::GetInstance()->GetHwnd(), &cursor);
 
-	//	範囲指定しない
-	ClipCursor(NULL);
-
 	//	UpdateCursor
 	cursor_.x = (float)cursor.x;
 	cursor_.y = (float)cursor.y;
 }
 
-void MNE::InputMouse::SetInputInfo()
+void MNE::InputMouse::MouseIsActiveUpdate()
 {
-	//	マウス全体の情報
-	mouse_->Acquire();
-	mouse_->Poll();
-	mouse_->GetDeviceState(sizeof(DIMOUSESTATE), &click_);
+	Vector3D inputV(static_cast<float>(click_.lX), static_cast<float>(click_.lY), static_cast<float>(click_.lZ));
 
-	LockCursor();
-	UnLockCursor();
+	//	マウスの移動とホイールの入力があるか確認
+	isActive_ = (inputV != Vector3D());
 
-	cursorMoveLen_ = cursor_ - prevCursor_;
+	//	既に入力があったら以下処理しない
+	if (isActive_ == TRUE) return;
+
+	//	ボタンの入力確認
+	for (int32_t i = 0; i < ButtonNum; i++)
+	{
+		bool dikButton = click_.rgbButtons[i] & (0x80);
+
+		//	入力があったら以降のボタンは確認しない
+		if (dikButton == TRUE)
+		{
+			isActive_ = true;
+			return;
+		}
+	}
 }
 
 void MNE::InputMouse::Update()
 {
-	//	前フレームの情報
-	prevClick_ = click_;
-	prevCursor_ = cursor_;
+	//	入力状況更新
+	InputInfoUpdate();
 
-	SetInputInfo();
+	//	カーソル固定時更新処理
+	LockCursorUpdate();
+	//	カーソル非固定時更新処理
+	UnLockCursorUpdate();
 
-	ShowCursor(showCursor_);
+	//	マウスの入力が行われたか確認
+	MouseIsActiveUpdate();
 }
 
-void MNE::InputMouse::ImGuiUpdateCursor(MNE::ImGuiManager* imgui)
+//-----------------------------------------------------------------------------
+// [SECTION] ImGuiUpdate
+//-----------------------------------------------------------------------------
+
+void MNE::InputMouse::ImGuiUpdateCursor()
 {
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
 	if (!imgui->TreeNode("Cursor")) return;
 
+	imgui->Text("IsActive : %s", isActive_ ? "True" : "False");
+
 	imgui->Text("CursorPos  : (%.2f, %.2f)", cursor_.x, cursor_.y);
-	imgui->Text("PrevCursorPos  : (%.2f, %.2f)", prevCursor_.x, prevCursor_.y);
-	imgui->Text("CursorMove : (%.2f, %.2f)", cursorMoveLen_.x, cursorMoveLen_.y);
+	imgui->Text("CursorMove : (%.2f, %.2f)", static_cast<float>(click_.lX), static_cast<float>(click_.lY));
 
 	imgui->Text("ShowCursor : %s", showCursor_ ? "True" : "False");
 
@@ -117,8 +135,10 @@ void MNE::InputMouse::ImGuiUpdateCursor(MNE::ImGuiManager* imgui)
 	imgui->TreePop();
 }
 
-void MNE::InputMouse::ImGuiUpdateClick(MNE::ImGuiManager* imgui)
+void MNE::InputMouse::ImGuiUpdateClick()
 {
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
 	if (!imgui->TreeNode("Click")) return;
 
 	imgui->Text("LeftClick  : %s\nTrigger : %s\nRelease : %s\n"
@@ -146,23 +166,26 @@ void MNE::InputMouse::ImGuiUpdateClick(MNE::ImGuiManager* imgui)
 	imgui->TreePop();
 }
 
-MNE::InputMouse::~InputMouse()
-{
-	//	範囲指定しない
-	ClipCursor(NULL);
-}
-
 void MNE::InputMouse::ImGuiUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
 	if (!imgui->TreeNode("Mouse")) return;
 
-	ImGuiUpdateCursor(imgui);
+	ImGuiUpdateCursor();
 
-	ImGuiUpdateClick(imgui);
+	ImGuiUpdateClick();
 
 	imgui->TreePop();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+bool MNE::InputMouse::GetIsActive()
+{
+	return isActive_;
 }
 
 bool MNE::InputMouse::GetClick(MouseButton type)
@@ -178,4 +201,82 @@ bool MNE::InputMouse::GetClickTrigger(MouseButton type)
 bool MNE::InputMouse::GetClickRelease(MouseButton type)
 {
 	return !(click_.rgbButtons[type] & (0x80)) && (prevClick_.rgbButtons[type] & (0x80));
+}
+
+const Vector2D& MNE::InputMouse::GetCursor()
+{
+	return cursor_;
+}
+
+Vector2D MNE::InputMouse::GetCursorMoveVec()
+{
+	return Vector2D(static_cast<float>(click_.lX), static_cast<float>(click_.lY));
+}
+
+int32_t MNE::InputMouse::GetWheel()
+{
+	return click_.lZ;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void MNE::InputMouse::SetCursorWinCenter()
+{
+	//	カーソルの情報
+	POINT cursor;
+
+	//	ウィンドウの中心座標
+	Vector2D winCenter;
+	winCenter.x = Window::sWIN_WIDTH / 2.0f;
+	winCenter.y = Window::sWIN_HEIGHT / 2.0f;
+	cursor.x = static_cast<LONG>(winCenter.x);
+	cursor.y = static_cast<LONG>(winCenter.y);
+
+	//	クライアント座標->スクリーン座標に変換
+	ClientToScreen(Window::GetInstance()->GetHwnd(), &cursor);
+
+	//	カーソル位置設定
+	SetCursorPos((int32_t)cursor.x, (int32_t)cursor.y);
+	cursor_ = winCenter;
+}
+
+void MNE::InputMouse::SetShowCursor(bool showCursor)
+{
+	//	変更なしだったら処理しない
+	if (showCursor_ == showCursor) return;
+
+	//	カーソル表示or非表示
+	ShowCursor(showCursor_);
+}
+
+void MNE::InputMouse::SetLockCursor(bool lockCursor)
+{
+	if (isLockCursor_ == lockCursor) return;
+
+	isLockCursor_ = lockCursor;
+
+	if (isLockCursor_ == TRUE)
+	{
+		RECT rec;
+		//	ウィンドウの大きさ取得
+		GetWindowRect(Window::GetInstance()->GetHwnd(), &rec);
+
+		Vector2D center((rec.right + rec.left) / 2.0f, (rec.bottom + rec.top) / 2.0f);
+		float width = Window::sWIN_WIDTH / 2.0f;
+		float height = Window::sWIN_HEIGHT / 2.0f;
+		rec.left = (LONG)(center.x - width);
+		rec.right = (LONG)(center.x + width);
+		rec.top = (LONG)(center.y - height);
+		rec.bottom = (LONG)(center.y + height);
+
+		//	範囲指定
+		ClipCursor(&rec);
+	}
+	else
+	{
+		//	範囲指定しない
+		ClipCursor(NULL);
+	}
 }

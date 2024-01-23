@@ -1,24 +1,24 @@
 Timer 10
 
-S Back backUI.png 640 280 280 64 0 0 280 64 0.5 0.5 0
-S Text resume.png 640 280 216.5 43 0 0 433 86 0.5 0.5 0
-Button Resume 640 280 298 82
+S Back backUI.png 640 280 250 64 0 0 500 128 0.5 0.5 1
+S Text resume.png 640 280 160 48 0 0 320 96 0.5 0.5 1
+Button Resume 640 280 268 82
 AnimeTimer 10 0
 FadeAnime 1.0 0.0
 MoveAnime 640 320 640 280
 EndData Resume
 
-S Back backUI.png 640 360 280 64 0 0 280 64 0.5 0.5 0
-S Text option.png 640 360 211 40 0 0 211 40 0.5 0.5 1
-Button Option 640 360 298 82
+S Back backUI.png 640 360 250 64 0 0 500 128 0.5 0.5 1
+S Text settings.png 640 360 160 48 0 0 320 96 0.5 0.5 1
+Button Option 640 360 268 82
 AnimeTimer 10 0
 FadeAnime 1.0 0.0
 MoveAnime 640 400 640 360
 EndData Option
 
-S Back backUI.png 640 440 280 64 0 0 280 64 0.5 0.5 0
-S Text quit.png 640 440 130 39 0 0 130 39 0.5 0.5 0
-Button Quit 640 440 298 82
+S Back backUI.png 640 440 250 64 0 0 500 128 0.5 0.5 1
+S Text quitGame.png 640 440 200 48 0 0 400 96 0.5 0.5 1
+Button Quit 640 440 268 82
 AnimeTimer 10 0
 FadeAnime 1.0 0.0
 MoveAnime 640 480 640 440

@@ -42,7 +42,7 @@ void GameCamera::UnLockOnUpdate()
 	padVec.Normalize();
 
 	//	MouseInfo
-	Vector2D mouseVec = mouse->GetMoveCursor();
+	Vector2D mouseVec = mouse->GetCursorMoveVec();
 	mouseVec.Normalize();
 
 	//	Mouse&Pad

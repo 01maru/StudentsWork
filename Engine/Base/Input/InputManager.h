@@ -2,6 +2,7 @@
 #include "InputMouse.h"
 #include "InputJoypad.h"
 #include "InputKeyboard.h"
+#include "ExplanatoryText.h"
 #include <memory>
 
 /**
@@ -15,19 +16,9 @@ namespace MNE
 	class InputManager
 	{
 	private:
-		template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
-
-		ComPtr<IDirectInput8> directInput_ = nullptr;
-
-		std::unique_ptr<InputMouse> mouse_;
-		std::unique_ptr<InputJoypad> joypad_;
-		std::unique_ptr<InputKeyboard> keyboard_;
-
-		float sensitivity_ = 0.2f;
-
-	private:
 		InputManager() {};
 		~InputManager() {};
+
 	public:
 		static InputManager* GetInstance();
 		//	コピーコンストラクタ無効
@@ -51,21 +42,45 @@ namespace MNE
 		*/
 		void ImGuiUpdate();
 
+		void Draw();
+
+	private:
+		template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
+
+		ComPtr<IDirectInput8> directInput_ = nullptr;
+
+		std::unique_ptr<InputMouse> mouse_;
+		std::unique_ptr<InputJoypad> joypad_;
+		std::unique_ptr<InputKeyboard> keyboard_;
+		
+		bool usePad_ = false;
+
+		ExplanatoryText explane_;
+
+		float sensitivity_ = 0.2f;
+
+	private:
+		void UsePadUpdate();
+
+	public:
 	#pragma region Getter
 
-		InputMouse* GetMouse() { return mouse_.get(); }
-		InputJoypad* GetPad() { return joypad_.get(); }
-		InputKeyboard* GetKeyboard() { return keyboard_.get(); }
+		bool GetUsePad() { return usePad_; }
+		InputMouse* GetMouse();
+		InputJoypad* GetPad();
+		InputKeyboard* GetKeyboard();
 
 		bool GetKeyAndButton(int key, InputJoypad::JoyPadButton button);
 		bool GetTriggerKeyAndButton(int key, InputJoypad::JoyPadButton button);
-		float GetSensitivity() { return sensitivity_; }
+		float GetSensitivity();
 
 	#pragma endregion
 
 	#pragma region Setter
 
-		void SetSensitivity(float sens) { sensitivity_ = sens; }
+		void SetDrawExplane(bool draw);
+		void SetNextTag(const std::string& nextTag, bool playAnimation, bool startingAnimation);
+		void SetSensitivity(float sens);
 
 	#pragma endregion
 	};

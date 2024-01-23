@@ -23,7 +23,7 @@ namespace MNE
 		* @fn Update()
 		* 更新処理関数
 		*/
-		void Update();
+		void Update(int16_t inputValue);
 
 	private:
 		//	選択中のButton

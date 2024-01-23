@@ -1,4 +1,4 @@
-﻿#include "Vector2D.h"
+#include "Vector2D.h"
 #include <cmath>
 
 Vector2D Vector2D::operator+() const
@@ -88,4 +88,15 @@ Vector2D operator*(const Vector2D& v, float s)
 Vector2D operator*(float s, const Vector2D& v)
 {
 	return v * s;
+}
+
+Vector2D operator/(const Vector2D& v, float s)
+{
+	Vector2D temp(v);
+	return temp /= s;
+}
+
+Vector2D operator/(float s, const Vector2D& v)
+{
+	return v / s;
 }

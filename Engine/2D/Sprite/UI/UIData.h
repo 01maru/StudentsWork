@@ -25,7 +25,7 @@ namespace MNE
 		* @fn InputUpdate()
 		* 入力更新処理関数
 		*/
-		void InputUpdate();
+		void InputUpdate(int16_t inputValue);
 		/**
 		* @fn Update()
 		* 更新処理関数
@@ -49,6 +49,10 @@ namespace MNE
 
 		//	現在使用してないタグ
 		std::map<std::string, uint16_t, std::less<>> tagName_;
+
+		std::string activeTag_ = "";
+
+		const uint16_t ACTIVE_ALL_TAG = 0b1111111111111111;
 
 	public:
 		/**
@@ -88,6 +92,13 @@ namespace MNE
 		void Reset();
 
 		void ResetAnimation(bool startingAnimation);
+
+		uint16_t GetTag() { 
+			if (tagName_.count(activeTag_) == 0)
+			{
+				return ACTIVE_ALL_TAG;
+			}
+			return tagName_[activeTag_]; }
 
 	#pragma region Setter
 

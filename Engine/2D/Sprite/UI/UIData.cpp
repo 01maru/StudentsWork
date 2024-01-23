@@ -24,9 +24,9 @@ void MNE::UIData::Finalize()
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void MNE::UIData::InputUpdate()
+void MNE::UIData::InputUpdate(int16_t inputValue)
 {
-	buttonMan_->Update();
+	buttonMan_->Update(inputValue);
 }
 
 void MNE::UIData::Update()
@@ -216,6 +216,7 @@ void MNE::UIData::LoadData(const std::string& filename)
 		if (key == "EndData") {
 			std::string spritename;
 			line_stream >> spritename;
+			object->SetParentData(this);
 			obj_.emplace(spritename, std::move(object));
 		}
 

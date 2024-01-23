@@ -7,8 +7,8 @@
 
 void PlayerIdleState::Initialize()
 {
-	//sPlayer_->SetAnimationIdx(0);
-	//sPlayer_->SetAnimationTimer(0);
+	sPlayer_->SetAnimationIdx("Idol");
+	sPlayer_->SetAnimationTimer(0);
 }
 
 void PlayerIdleState::Update()

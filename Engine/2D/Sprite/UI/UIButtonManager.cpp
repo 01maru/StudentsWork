@@ -2,17 +2,30 @@
 #include "UIButton.h"
 #include "InputManager.h"
 
-void MNE::UIButtonManager::Update()
+void MNE::UIButtonManager::Update(int16_t inputValue)
 {
-	InputManager* inputMan = InputManager::GetInstance();
-	
-	if (inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up)) {
-		selectButton_ = selectButton_->GetPrevButton();
+	int16_t inputV = inputValue;
+
+	while (inputV != 0)
+	{
+		if (inputV > 0)
+		{
+			selectButton_ = selectButton_->GetNextButton();
+			inputV--;
+		}
+		else
+		{
+			selectButton_ = selectButton_->GetPrevButton();
+			inputV++;
+		}
 	}
-	
-	if (inputMan->GetTriggerKeyAndButton(DIK_S, InputJoypad::DPAD_Down)) {
-		selectButton_ = selectButton_->GetNextButton();
-	}
+	//if (inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up)) {
+	//	selectButton_ = selectButton_->GetPrevButton();
+	//}
+	//
+	//if (inputMan->GetTriggerKeyAndButton(DIK_S, InputJoypad::DPAD_Down)) {
+	//	selectButton_ = selectButton_->GetNextButton();
+	//}
 }
 
 //-----------------------------------------------------------------------------

@@ -40,11 +40,15 @@ private:
 	std::unique_ptr<EscPodState> currentState_;
 	//	UIのスプライト
 	MNE::Sprite ui_;
+	MNE::Sprite button_;
 	FrameCounter fadeCounter_;
 	bool drawUI_ = false;
 	bool openDoor_ = false;
 	bool drawPlayer_ = false;
 	MNE::UIData* pLetterBox_ = nullptr;
+	MNE::Texture* padTex_ = nullptr;
+	MNE::Texture* keyTex_ = nullptr;
+
 public:
 
 	MNE::UIData* GetPtrLetterBox() { return pLetterBox_; }

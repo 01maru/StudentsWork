@@ -43,7 +43,7 @@ void PodCollGroundState::Update()
 		//	ドアを開けるUIの表示
 		sPod_->StartUICounter();
 
-		bool dikButton = InputManager::GetInstance()->GetKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
+		bool dikButton = InputManager::GetInstance()->GetKeyAndButton(DIK_E, InputJoypad::X_Button);
 		
 		//	ボタンが押されたらドアを開ける
 		if (dikButton == TRUE)

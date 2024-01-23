@@ -22,8 +22,8 @@ void PlayerAvoidState::Initialize()
 	if (sPlayer_->GetOnGround() == true) {
 		//	横移動強く
 		maxSpd_ = sPlayer_->GetAvoidMaxSpd();
-		//sPlayer_->SetAnimationIdx(3);
-		//sPlayer_->SetAnimationTimer(0);
+		sPlayer_->SetAnimationIdx("Rolling");
+		sPlayer_->SetAnimationTimer(0);
 	}
 
 	else {

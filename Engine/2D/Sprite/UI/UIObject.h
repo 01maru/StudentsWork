@@ -16,6 +16,7 @@ class FrameCounter;
 
 namespace MNE
 {
+	class UIData;
 
 	class UIObject
 	{
@@ -42,6 +43,7 @@ namespace MNE
 		//	全体のcounterのポインター(実体はunique_ptrなのでdeleteいらない)
 		FrameCounter* count_ = nullptr;
 		bool* startAnimation_ = nullptr;
+		UIData* parentData_ = nullptr;
 
 	public:
 
@@ -74,6 +76,7 @@ namespace MNE
 		FrameCounter* GetCount();
 
 		bool GetIsStartAnimation();
+		UIData* GetParentData();
 
 	#pragma endregion
 
@@ -85,6 +88,7 @@ namespace MNE
 		* @param pCount 全体のcounterのポインター
 		*/
 		void SetCount(FrameCounter* pCount);
+		void SetParentData(UIData* pData);
 		void SetStartAnimation(bool* pStartAnimation);
 
 		void ResetAnimation();

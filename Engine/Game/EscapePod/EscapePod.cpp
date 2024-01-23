@@ -2,6 +2,7 @@
 #include "PodBefCollGroundState.h"
 #include "TextureManager.h"
 #include "Easing.h"
+#include "InputManager.h"
 
 using namespace Easing;
 using namespace MNE;
@@ -26,15 +27,23 @@ void EscapePod::Initialize(MNE::IModel* model, const Vector3D& pos)
 	GetAnimation()->SetAnimeName("PrevOpen");
 	GetAnimation()->SetIsLoop(false);
 
-	ui_.Initialize(TextureManager::GetInstance()->GetTextureGraph("space.png"));
+	ui_.Initialize(TextureManager::GetInstance()->GetTextureGraph("exitPod.png"));
 	ui_.SetPosition({ 750,400 });
+	ui_.SetAnchorPoint({ 0.0f,0.5f });
+	ui_.SetSize({ 155, 24 });
+	button_.Initialize(padTex_);
+	button_.SetPosition({ 730,400 });
+	button_.SetAnchorPoint({ 0.5f,0.5f });
+	button_.SetSize(padTex_->GetTextureSize() / 4.0f);
 
 	fadeCounter_.Initialize(30, true);
 }
 
 void EscapePod::LoadResources()
 {
-	TextureManager::GetInstance()->LoadTextureGraph("space.png");
+	TextureManager::GetInstance()->LoadTextureGraph("exitPod.png");
+	keyTex_ = TextureManager::GetInstance()->LoadTextureGraph("EKey.png");
+	padTex_ = TextureManager::GetInstance()->LoadTextureGraph("XButton.png");
 }
 
 //-----------------------------------------------------------------------------
@@ -56,6 +65,17 @@ void EscapePod::Update()
 		float fade = EaseIn(0.0f, 1.0f, fadeCounter_.GetCountPerMaxCount(), 2);
 		ui_.SetAlphaColor(fade);
 		ui_.Update();
+		button_.SetAlphaColor(fade);
+		button_.Update();
+
+		if (InputManager::GetInstance()->GetUsePad() == TRUE)
+		{
+			button_.SetTexture(padTex_);
+		}
+		else
+		{
+			button_.SetTexture(keyTex_);
+		}
 	}
 }
 
@@ -68,6 +88,7 @@ void EscapePod::DrawUI()
 	if (drawUI_ == FALSE) return;
 
 	ui_.Draw();
+	button_.Draw();
 }
 
 //-----------------------------------------------------------------------------

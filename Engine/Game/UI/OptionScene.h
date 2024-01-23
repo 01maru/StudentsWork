@@ -32,7 +32,7 @@ public:
 	* @param dikSelectButton 入力されているか
 	* @return オプションが閉じるタイミングだけTRUEを返す
 	*/
-	bool InputUpdate(bool dikSelectButton);
+	bool InputUpdate(bool dikSelectButton, int16_t inputV);
 	/**
 	* @fn Update()
 	* 更新処理関数
@@ -74,6 +74,8 @@ private:
 	* @param inputValue 数値変更用のキー入力値
 	*/
 	void VolumeUpdate(const std::string& objectName, int16_t inputValue);
+
+	void CloseOption();
 
 public:
 #pragma region Getter

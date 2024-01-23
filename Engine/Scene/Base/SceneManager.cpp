@@ -286,6 +286,7 @@ void SceneManager::Draw()
 		blackScreen_.Draw();
 
 		scene_->DrawUIAfterBlackScreen();
+		InputManager::GetInstance()->Draw();
 
 		UIEditor::GetInstance()->Draw();
 		TextureManager::GetInstance()->DrawPreview();

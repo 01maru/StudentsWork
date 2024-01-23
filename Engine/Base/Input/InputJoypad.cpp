@@ -4,7 +4,12 @@
 
 void MNE::InputJoypad::SetDeadZone(int16_t& sThumb, int32_t deadzone)
 {
-    if ((sThumb < deadzone) && sThumb > -deadzone) sThumb = 0;
+	if ((sThumb < deadzone) && sThumb > -deadzone) {
+		sThumb = 0;
+	}
+	else {
+		inputted_ = true;
+	}
 }
 
 void MNE::InputJoypad::Update()
@@ -16,6 +21,10 @@ void MNE::InputJoypad::Update()
 
 	//	無効だったらその後の処理飛ばす
 	if (!active_) return;
+	
+	inputted_ = ((state_.Gamepad.wButtons | 0) != 0 ||
+		state_.Gamepad.bLeftTrigger > XINPUT_GAMEPAD_TRIGGER_THRESHOLD ||
+		state_.Gamepad.bRightTrigger > XINPUT_GAMEPAD_TRIGGER_THRESHOLD);
 
     //  DeadZone設定
     SetDeadZone(state_.Gamepad.sThumbLX, XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE);
@@ -160,6 +169,8 @@ void MNE::InputJoypad::ImGuiUpdate()
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
 	if (!imgui->TreeNode("JoyPad")) return;
+
+	imgui->Text("Inputted  : %s", inputted_ ? "True" : "False");
 
 	imgui->Text("Active  : %s", active_ ? "True" : "False");
 

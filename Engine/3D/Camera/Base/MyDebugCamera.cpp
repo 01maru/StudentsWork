@@ -42,7 +42,7 @@ Vector3D MNE::MyDebugCamera::CalcTransMove(bool active)
 	if (!active)				return ans;
 	if (mode_ == RotationMove)	return ans;
 
-	Vector2D moveCursor = mouse_->GetMoveCursor();
+	Vector2D moveCursor = mouse_->GetCursorMoveVec();
 	moveCursor.Normalize();
 	//	左右移動
 	ans -= rightVec_ * (float)(moveCursor.x) * transSpd_;
@@ -57,7 +57,7 @@ void MNE::MyDebugCamera::CalcRotMove(bool active)
 	if (!active)					return;
 	if (mode_ == TranslationMove)	return;
 
-	Vector2D moveCursor = mouse_->GetMoveCursor();
+	Vector2D moveCursor = mouse_->GetCursorMoveVec();
 	moveCursor /= mouseMoveRate_;
 
 	rotValue_ = moveCursor;

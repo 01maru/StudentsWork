@@ -1,0 +1,30 @@
+Timer 30
+
+S input TitleInputUI.png 1000 610 210 32 0 0 840 128 0 0 1
+AnimeTimer 30 0
+MoveAnime 1000 665 1000 640
+FadeAnime 1.0 0.0
+EndData input
+
+S inputWback TitleInputUI.png 880 610 210 32 0 0 840 128 0 0 2
+AnimeTimer 30 0
+MoveAnime 880 665 880 640
+FadeAnime 1.0 0.0
+EndData inputWback
+
+S backButton setInputUI.png 1100 640 82 32 0 0 336 128 0 0 2
+AnimeTimer 30 0
+MoveAnime 1100 665 1100 640
+FadeAnime 1.0 0.0
+EndData BackButton
+
+S exitText exitPod.png 750 400 155 24 0 0 620 96 0 0 12
+AnimeTimer 30 0
+FadeAnime 1.0 0.0
+EndData exitText
+
+T none 0
+T cantBack 1
+T canBack 2
+T padInGame 12
+T keyInGame 24
