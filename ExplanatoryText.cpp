@@ -43,12 +43,15 @@ void ExplanatoryText::Update(bool prevUsePad)
 		ResetAnimation(true);
 		nextTag_ = "";
 	}
+	
+	UIData::Update();
+}
 
+void ExplanatoryText::MatUpdate()
+{
 	cursor_.SetPosition(InputManager::GetInstance()->GetMouse()->GetCursor());
 
 	cursor_.Update();
-	
-	UIData::Update();
 }
 
 void ExplanatoryText::Draw()

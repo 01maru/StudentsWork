@@ -37,6 +37,14 @@ float MyMath::mClamp(float minValue, float maxValue, float value)
 	return value;
 }
 
+Vector2D MyMath::mClamp(const Vector2D& minValue, const Vector2D& maxValue, const Vector2D& value)
+{
+	Vector2D ans;
+	ans = mMax(value, minValue);
+	ans = mMin(value, maxValue);
+	return ans;
+}
+
 Vector3D MyMath::BezierCurve(const Vector3D& start, const Vector3D& controlPoint, const Vector3D& end, float t)
 {
 	Vector3D a = Easing::lerp(start, controlPoint, t);

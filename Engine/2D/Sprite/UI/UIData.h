@@ -12,6 +12,7 @@
 
 namespace MNE
 {
+	class SliderSprite;
 
 	struct ButtonSquare
 	{
@@ -59,6 +60,8 @@ namespace MNE
 		std::map<std::string, uint16_t, std::less<>> tagName_;
 
 		std::vector<ButtonSquare> buttonColliders_;
+
+		std::vector<SliderSprite*> sliderColliders_;
 
 		std::string activeTag_ = "";
 

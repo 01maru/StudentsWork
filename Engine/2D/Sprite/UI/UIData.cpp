@@ -27,6 +27,11 @@ void MNE::UIData::Finalize()
 
 void MNE::UIData::CollisonCursorUpdate()
 {
+	for (auto& slider : sliderColliders_)
+	{
+		slider->ColliderUpdate();
+	}
+
 	if (InputManager::GetInstance()->GetUsePad() == FALSE)
 	{
 		selecting_ = false;
@@ -299,6 +304,8 @@ void MNE::UIData::LoadData(const std::string& filename)
 			float len;
 			line_stream >> len;
 			slider->SetRailLength(len);
+
+			sliderColliders_.push_back(slider);
 		}
 
 		if (key == "ButtonArray") {

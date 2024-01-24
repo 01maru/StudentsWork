@@ -36,6 +36,8 @@ namespace MNE
 		* 更新処理関数
 		*/
 		void Update();
+
+		void MatUpdate();
 		/**
 		* @fn Update()
 		* ImGui更新処理関数

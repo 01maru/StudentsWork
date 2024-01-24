@@ -32,6 +32,8 @@ namespace MNE
 		*/
 		void Update() override;
 
+		void ColliderUpdate();
+
 	private:
 		//	線の最左端
 		Vector2D startPos_;
@@ -43,7 +45,11 @@ namespace MNE
 		float value_ = 0.0f;
 		float spd_ = 0.01f;
 
+		Vector2D size_ = Vector2D(10, 10);
+
 		UISprite* sprites_ = nullptr;
+
+		bool select_ = false;
 
 	#pragma region Texture
 

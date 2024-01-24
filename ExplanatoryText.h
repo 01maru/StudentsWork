@@ -13,6 +13,7 @@ public:
 	void Initialize();
 	void LoadResources(const std::string& uiFileName, const std::string& cursorSpriteName);
 	void Update(bool prevUsePad);
+	void MatUpdate();
 	void Draw();
 
 private:

@@ -280,3 +280,19 @@ void MNE::InputMouse::SetLockCursor(bool lockCursor)
 		ClipCursor(NULL);
 	}
 }
+
+void MNE::InputMouse::SetCursorPosition(const Vector2D& pos)
+{
+	//	カーソルの情報
+	POINT cursor;
+
+	cursor.x = static_cast<LONG>(pos.x);
+	cursor.y = static_cast<LONG>(pos.y);
+
+	//	クライアント座標->スクリーン座標に変換
+	ClientToScreen(Window::GetInstance()->GetHwnd(), &cursor);
+
+	//	カーソル位置設定
+	SetCursorPos((int32_t)cursor.x, (int32_t)cursor.y);
+	cursor_ = pos;
+}

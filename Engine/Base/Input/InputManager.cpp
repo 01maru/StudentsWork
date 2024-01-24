@@ -76,6 +76,11 @@ void MNE::InputManager::Update()
 	explane_.Update(prevUsePad);
 }
 
+void MNE::InputManager::MatUpdate()
+{
+	explane_.MatUpdate();
+}
+
 void MNE::InputManager::ImGuiUpdate()
 {
 	if (!ImGuiController::GetInstance()->GetActiveInputManager()) return;

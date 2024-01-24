@@ -43,6 +43,7 @@ namespace MyMath {
 	* @return Clamp処理後のvalueの値
 	*/
 	float mClamp(float minValue, float maxValue, float value);
+	Vector2D mClamp(const Vector2D& minValue, const Vector2D& maxValue, const Vector2D& value);
 
 	Vector3D BezierCurve(const Vector3D& start, const Vector3D& controlPoint, const Vector3D& end, float t);
 

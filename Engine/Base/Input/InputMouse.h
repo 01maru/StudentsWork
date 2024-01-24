@@ -166,6 +166,8 @@ namespace MNE
 		*/
 		void SetLockCursor(bool lockCursor);
 
+		void SetCursorPosition(const Vector2D& pos);
+
 #pragma endregion
 	};
 

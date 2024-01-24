@@ -245,6 +245,8 @@ void SceneManager::Update()
 	//	黒スクリーン
 	blackScreen_.Update();
 
+	InputManager::GetInstance()->MatUpdate();
+
 	ImguiUpdate();
 }
 

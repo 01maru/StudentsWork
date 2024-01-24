@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "UISprite.h"
 #include "UIObject.h"
+#include "InputManager.h"
 
 void MNE::SliderSprite::Initialize()
 {
@@ -22,6 +23,50 @@ void MNE::SliderSprite::Update()
 	sprites_->GetSprites()["Circle"].SetPosition(circlePos);
 }
 
+void MNE::SliderSprite::ColliderUpdate()
+{
+	Vector2D halfSize = size_ / 2.0f;
+	Vector2D posLT = sprites_->GetSprites()["Circle"].GetPosition() - halfSize;
+	Vector2D posRB = sprites_->GetSprites()["Circle"].GetPosition() + halfSize;
+	Vector2D cursorPos = InputManager::GetInstance()->GetMouse()->GetCursor();
+	if (MyMath::CollisionSquareToPoint(posLT, posRB, cursorPos) == TRUE)
+	{
+		if (select_ == FALSE)
+		{
+			if (InputManager::GetInstance()->GetMouse()->GetClickTrigger(InputMouse::LeftClick))
+			{
+				select_ = TRUE;
+			}
+		}
+	}
+	if (select_ == TRUE)
+	{
+		if (InputManager::GetInstance()->GetMouse()->GetClickRelease(InputMouse::LeftClick) ||
+			InputManager::GetInstance()->GetUsePad() == TRUE)
+		{
+			select_ = FALSE;
+		}
+		else
+		{
+			if (InputManager::GetInstance()->GetMouse()->GetClick(InputMouse::LeftClick))
+			{
+				Vector2D railLeft = sprites_->GetSprites()["Rail"].GetPosition();
+				Vector2D railRight = sprites_->GetSprites()["Rail"].GetPosition();
+				railRight.x += railLen_;
+				
+				cursorPos.x = MyMath::mClamp(railLeft.x, railRight.x, cursorPos.x);
+				cursorPos.y = startPos_.y;
+
+				sprites_->GetSprites()["Circle"].SetPosition(cursorPos);
+
+				value_ = (cursorPos.x - startPos_.x) / railLen_;
+
+				InputManager::GetInstance()->GetMouse()->SetCursorPosition(cursorPos);
+			}
+		}
+	}
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
@@ -37,6 +82,10 @@ float MNE::SliderSprite::GetValue()
 
 void MNE::SliderSprite::ValueUpdate(float& v, int32_t inputValue)
 {
+	if (select_ == TRUE)
+	{
+		v = value_;
+	}
 	v += inputValue * spd_;
 	v = MyMath::mClamp(minValue_, maxValue_, v);
 	value_ = v;
@@ -77,7 +126,7 @@ void MNE::SliderSprite::SetCircleTexture(const std::string& texName, int16_t tag
 	Sprite circleSprite;
 	circleSprite.Initialize(circleTex_);
 	circleSprite.SetAnchorPoint(Vector2D{ 0.5f,0.5f });
-	circleSprite.SetSize(Vector2D{ 10,10 });
+	circleSprite.SetSize(size_);
 	circleSprite.SetTags(tag);
 	sprites_->AddSprite("Circle", circleSprite);
 }
