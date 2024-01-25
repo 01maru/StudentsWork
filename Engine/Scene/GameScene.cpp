@@ -30,7 +30,7 @@ void GameScene::LoadResources()
 	ModelManager* models = ModelManager::GetInstance();
 	models->LoadModel("bullet");
 	models->LoadModel("eye");
-	models->LoadModel("mixhuman", true);
+	models->LoadModel("player", true);
 	models->LoadModel("escapePod", true);
 	models->LoadModel();
 #pragma endregion
@@ -54,7 +54,7 @@ void GameScene::LoadResources()
 	skydome_ = std::move(MNE::Object3D::Create(models->GetModel("skydome")));
 	//	player
 	player_ = std::make_unique<Player>();
-	player_->Initialize(models->GetModel("mixhuman"));
+	player_->Initialize(models->GetModel("player"));
 	//	enemy
 	enemy_ = std::make_unique<Boss>();
 	enemy_->Initialize(models->GetModel("eye"));
@@ -169,7 +169,7 @@ void GameScene::Update()
 {
 #pragma region 更新処理
 	pause_.Update();
-	camera_->SetIsActive(pod_.GetOpenDoor());
+	camera_->SetIsActive(pod_.GetOpenDoor() && pause_.GetIsActive() == FALSE);
 	if (pause_.GetIsActive() == false)
 	{
 		ParticleManager::GetInstance()->Update();

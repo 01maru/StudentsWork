@@ -43,7 +43,7 @@ void Player::Initialize(MNE::IModel* model)
 {
 	Object3D::Initialize();
 	SetModel(model);
-	mat_.scale_ = Vector3D(0.4f, 0.4f, 0.4f);
+	//mat_.scale_ = Vector3D(0.4f, 0.4f, 0.4f);
 	float radius = 0.2f;
 	Vector3D offset(0.0f, 0.2f, 0.0f);
 	SetCollider(new SphereCollider(offset, radius));
