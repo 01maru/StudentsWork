@@ -207,9 +207,7 @@ void PauseScreen::Update()
 	//	ポーズ中じゃなく、アニメーション中じゃなかったら更新しない
 	if (isActive_ == FALSE && pauseData_.GetIsEndAnimation() == TRUE) return;
 
-	//bool dikButton = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
-	bool dikButton = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button) ||
-		InputManager::GetInstance()->GetMouse()->GetClickTrigger(InputMouse::LeftClick);
+	bool dikButton = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button);
 
 	InputValueUpdate();
 
