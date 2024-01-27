@@ -22,16 +22,6 @@ void LoadingScene::Initialize()
 	std::unique_ptr<ICamera> camera = std::make_unique<ObjCamera2D>();
 	CameraManager::GetInstance()->SetOrthoProjCamera(camera);
 
-	//loadObj_ = std::make_unique<LoadingModel>();
-	//LoadingModel* object = dynamic_cast<LoadingModel*>(loadObj_.get());
-	//loadObj_->Initialize();
-	//loadObj_->SetFadeAnimeTime(OBJ_MAX_COUNT);
-	//object->SetModel(ModelManager::GetInstance()->GetModel("plane"));
-	//Vector3D grayColor(0.2f, 0.2f, 0.2f);
-	//object->SetColor(grayColor);
-	//Vector3D objSize(30.0f, 30.0f, 30.0f);
-	//object->SetScale(objSize);
-
 	Vector2D posGap(80, 80);
 
 	loadSprite_ = std::make_unique<LoadSpriteAnime>();
@@ -48,8 +38,6 @@ void LoadingScene::Initialize()
 
 void LoadingScene::LoadResources()
 {
-	ModelManager::GetInstance()->LoadModel("plane");
-
 	TextureManager::GetInstance()->LoadTextureGraph("noise.png");
 }
 

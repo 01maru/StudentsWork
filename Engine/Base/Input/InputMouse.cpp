@@ -30,6 +30,9 @@ void MNE::InputMouse::Initialize(IDirectInput8* directInput)
 	result = mouse_->SetCooperativeLevel(
 		win->GetHwnd(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY);
 	assert(SUCCEEDED(result));
+
+	//	カーソル表示or非表示
+	ShowCursor(showCursor_);
 }
 
 //-----------------------------------------------------------------------------

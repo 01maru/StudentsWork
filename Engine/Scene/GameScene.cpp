@@ -60,9 +60,9 @@ void GameScene::LoadResources()
 	enemy_->Initialize(models->GetModel("eye"));
 
 	clear_ = std::make_unique<ClearUI>();
-	clear_->Initialize();
+	clear_->LoadResources();
 	gameOver_ = std::make_unique<GameOverUI>();
-	gameOver_->Initialize();
+	gameOver_->LoadResources();
 
 	UIData ui;
 	ui.LoadData("GameUI");
@@ -115,6 +115,7 @@ void GameScene::Initialize()
 
 	LoadResources();
 
+	gameOver_->Initialize();
 	//Vector3D pos = level.GetPlayerSpownPoint().pos;
 	//pos.y = 1.0f;
 	//player_->SetPosition(pos);
@@ -216,6 +217,10 @@ void GameScene::ImguiUpdate()
 
 	if (imguiMan->SetButton("EffectStart")) {
 		effect.Start();
+	}
+
+	if (imguiMan->SetButton("ResetGameOverAnime")) {
+		gameOver_->Reset();
 	}
 
 	if (imguiMan->SetButton("ResetPod"))	pod_.ResetAnimation();

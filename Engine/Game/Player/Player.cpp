@@ -20,7 +20,7 @@
 
 #include "GameOverCamera.h"
 
-#include "IGameState.h"
+#include "GameOverUI.h"
 
 using namespace CollAttribute;
 using namespace MNE;
@@ -43,10 +43,9 @@ void Player::Initialize(MNE::IModel* model)
 {
 	Object3D::Initialize();
 	SetModel(model);
-	//mat_.scale_ = Vector3D(0.4f, 0.4f, 0.4f);
-	float radius = 0.2f;
-	Vector3D offset(0.0f, 0.2f, 0.0f);
-	SetCollider(new SphereCollider(offset, radius));
+	float radius = 0.5f;
+	offset_ = Vector3D(0.0f, radius, 0.0f);
+	SetCollider(new SphereCollider(offset_, radius));
 	collider_->SetAttribute(COLLISION_ATTR_ALLIES);
 
 	PlayerMoveState::SetPlayer(this);
@@ -59,21 +58,27 @@ void Player::IsMovingUpdate()
 {
 	InputManager* input = InputManager::GetInstance();
 	InputKeyboard* keyboard = input->GetKeyboard();
-	int32_t frontKey = keyboard->GetKey(DIK_W) - keyboard->GetKey(DIK_S);
-	int32_t sideKey = keyboard->GetKey(DIK_D) - keyboard->GetKey(DIK_A);
+	int32_t frontInput = keyboard->GetKey(DIK_W) - keyboard->GetKey(DIK_S);
+	int32_t sideInput = keyboard->GetKey(DIK_D) - keyboard->GetKey(DIK_A);
 
-	InputJoypad* pad = input->GetPad();
-	Vector2D inputVec = pad->GetThumbL().GetNormalize() + Vector2D(sideKey, frontKey);
+	//	パッドでの移動入力
+	Vector2D inputVec = input->GetPad()->GetThumbL().GetNormalize();
+	//	パッド+キーでの入力
+	inputVec += Vector2D(sideInput, frontInput);
 
+	//	移動しているか判定
 	isMoving_ = inputVec.GetLength() != 0;
 
-	ICamera* camera = CameraManager::GetInstance()->GetCamera();
-	if (isMoving_ == true) {
-		moveVec_ = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
-		moveVec_.y = 0;
-	}
+	//	移動してなかったら以下の処理はしない
+	if (isMoving_ == FALSE) return;
 
-	//	Running
+	//	移動方向ベクトル変更
+	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+
+	moveVec_ = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
+	moveVec_.y = 0;
+
+	//	走っているか判定
 	if (input->GetTriggerKeyAndButton(DIK_LCONTROL, InputJoypad::B_Button)) {
 		isRunning_ = !isRunning_;
 	}
@@ -105,14 +110,20 @@ void Player::JumpUpdate()
 			onGround_ = false;
 			//	playerの状態に応じて変更予定
 			moveY_ = jumpFirstSpd_;
-			//SetAnimationIdx(1);
-			//SetAnimationTimer(0);
+			SetAnimationIdx("jumpUp");
+			SetAnimationTimer(0);
 
 			//	playJumpwav
 		}
 	}
 	else {
-		moveY_ = MyMath::mMax(moveY_ + fallAcc, fallVYMin);
+		float moveY = moveY_ + fallAcc;
+		if (moveY_ > 0 && moveY <= 0)
+		{
+			SetAnimationIdx("jumpDown");
+			SetAnimationTimer(0);
+		}
+		moveY_ = MyMath::mMax(moveY, fallVYMin);
 	}
 }
 
@@ -123,16 +134,20 @@ void Player::Update()
 	//	死亡判定
 	hp_.Update();
 
+	GetAnimation()->SetAnimeTimer(static_cast<float>(animationTimer_++));
+
 	//	死亡していたら
 	if (hp_.GetIsAlive() == false) {
 		if (gameOver_ == false) {
 			gameOver_ = true;
 			pGameOverState_->Start();
+			pGameOverState_->SetCameraPosData(mat_.trans_);
+			SetAnimationIdx("Death");
+			SetAnimationTimer(0);
+			GetAnimation()->SetIsLoop(false);
 		}
 		return;
 	}
-
-	GetAnimation()->SetAnimeTimer(static_cast<float>(animationTimer_++));
 
 	IsMovingUpdate();
 
@@ -159,7 +174,7 @@ void Player::Update()
 	camera->SetEye(target - camera->GetDisEyeTarget() * camera->GetFrontVec());
 	camera->MatUpdate();
 
-	crossHair_.Update(mat_.trans_);
+	crossHair_.Update(mat_.trans_ + offset_);
 
 	attackState_->Update();
 
@@ -177,7 +192,11 @@ void Player::Update()
 
 	MatUpdate();
 	Object3D::ColliderUpdate();
-	mat_.trans_ = CollisionManager::GetInstance()->CollisionStage(*dynamic_cast<SphereCollider*>(collider_));
+	mat_.trans_ = CollisionManager::GetInstance()->CollisionStage(*dynamic_cast<SphereCollider*>(collider_)) - offset_;
+}
+
+void Player::SavePlayerStatus()
+{
 }
 
 void Player::ImGuiMenuUpdate()
@@ -193,10 +212,6 @@ void Player::ImGuiMenuUpdate()
 	}
 }
 
-void Player::SavePlayerStatus()
-{
-}
-
 void Player::ImGuiUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
@@ -207,7 +222,6 @@ void Player::ImGuiUpdate()
 
 	crossHair_.ImGuiUpdate();
 
-	imgui->Text("animationIdx : %d", animationIdx_);
 	imgui->Text("animationTimer : %d", animationTimer_);
 	imgui->Text("angle : %.2f", mat_.angle_.y);
 	imgui->Text("bullet : %d", bullets_.size());
@@ -379,6 +393,11 @@ void Player::DecHP(int32_t damage)
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
+Vector3D Player::GetCenterPos()
+{
+	return mat_.trans_ + offset_;
+}
+
 bool Player::GetOnGround()
 {
 	return onGround_;
@@ -527,5 +546,5 @@ void Player::SetSlowAtCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& t
 
 void Player::SetGameOverState(IGameState* gameOverState)
 {
-	pGameOverState_ = gameOverState;
+	pGameOverState_ = dynamic_cast<GameOverUI*>(gameOverState);
 }

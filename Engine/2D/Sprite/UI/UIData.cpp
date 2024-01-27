@@ -374,6 +374,10 @@ bool MNE::UIData::GetIsEndAnimation()
 
 void MNE::UIData::Reset()
 {
+	if (count_ != nullptr) {
+		count_->ResetCount();
+	}
+
 	for (auto& sprite : obj_) {
 		sprite.second->ResetAnimation();
 	}

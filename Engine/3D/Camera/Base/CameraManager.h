@@ -15,7 +15,7 @@ namespace MNE
 	class CameraManager
 	{
 	private:
-		bool isDebug_ = true;
+		bool isDebug_ = false;
 		bool lightView_ = false;
 		bool drawTarget_ = false;
 

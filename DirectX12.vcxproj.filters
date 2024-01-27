@@ -456,7 +456,7 @@
     <ClCompile Include="Engine\2D\Sprite\DebugTextManager.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Base\JSONLoader.cpp">
+    <ClCompile Include="Engine\Base\Json\JSONLoader.cpp">
       <Filter>ソース ファイル\lib\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp">
@@ -786,13 +786,13 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="JSONData.cpp">
+    <ClCompile Include="Engine\Base\Json\JSONData.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ActiveSkillEffect.cpp">
+    <ClCompile Include="Engine\Game\Player\ActiveSkillEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ExplanatoryText.cpp">
+    <ClCompile Include="Engine\Game\UI\ExplanatoryText.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -974,7 +974,7 @@
     <ClInclude Include="Engine\2D\Sprite\SplashSprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Base\JSONLoader.h">
+    <ClInclude Include="Engine\Base\Json\JSONLoader.h">
       <Filter>ヘッダー ファイル\lib\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\PostEffect\PlanePolygon.h">
@@ -1328,13 +1328,13 @@
     <ClInclude Include="Engine\Scene\Base\SceneFactory.h">
       <Filter>ヘッダー ファイル\lib\Engine\Scene\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="JSONData.h">
+    <ClInclude Include="Engine\Base\Json\JSONData.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ActiveSkillEffect.h">
+    <ClInclude Include="Engine\Game\Player\ActiveSkillEffect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ExplanatoryText.h">
+    <ClInclude Include="Engine\Game\UI\ExplanatoryText.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

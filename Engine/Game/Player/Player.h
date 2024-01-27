@@ -11,6 +11,7 @@
 #include "CrossHair.h"
 
 class IGameState;
+class GameOverUI;
 
 class Player :public MNE::Object3D
 {
@@ -41,6 +42,8 @@ private:
 
 	Vector3D modelFront_;
 
+	Vector3D offset_;
+
 	//	cooltimer
 	AvoidCoolTimer avoidCT_;
 	CoolTime slowAtCT_;
@@ -49,21 +52,20 @@ private:
 	float walkSpd_ = 0.15f;
 	float runSpd_ = 0.2f;
 	float jumpingSpdDec_ = 0.75f;
-	int32_t avoidDecTime_ = 70;
-	int32_t avoidAccTime_ = 50;
+	int32_t avoidDecTime_ = 60;
+	int32_t avoidAccTime_ = 30;
 	int32_t avoidCoolTime_ = 240;
 	int32_t slowATCoolTime_ = 240;
 	int32_t bulletRate_ = 20;
 
 	float fallAcc = -0.01f;
 	float fallVYMin = -0.5f;
-	float jumpFirstSpd_ = 0.05f;
+	float jumpFirstSpd_ = 0.2f;
 
 	float avoidMaxSpd_ = 0.3f;
 
-	IGameState* pGameOverState_ = nullptr;
+	GameOverUI* pGameOverState_ = nullptr;
 
-	int16_t animationIdx_ = 0;
 	int32_t animationTimer_ = 0;
 
 private:
@@ -93,6 +95,7 @@ public:
 
 #pragma region Getter
 
+	Vector3D GetCenterPos();
 	bool GetOnGround();
 	float GetWalkSpd();
 	float GetRunSpd();

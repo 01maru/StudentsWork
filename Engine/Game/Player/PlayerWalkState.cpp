@@ -33,6 +33,15 @@ void PlayerWalkState::SpdUpdate()
 	}
 
 	sPlayer_->SetSpd(spd);
+
+	if (sPlayer_->GetIsRunning() == TRUE)
+	{
+		sPlayer_->SetAnimationIdx("Running");
+	}
+	else
+	{
+		sPlayer_->SetAnimationIdx("Walking");
+	}
 }
 
 void PlayerWalkState::SetNextState()

@@ -11,7 +11,7 @@ public:
 private:
 	MNE::Sprite sprite_;
 	Vector3D dir_;
-	const float MAX_DISTANCE = 30.0f;
+	const float MAX_DISTANCE = 80.0f;
 
 public:
 	void SetSprite(const MNE::Sprite& sprite) { sprite_ = sprite; }

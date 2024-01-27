@@ -12,10 +12,10 @@ S Text Shift.png 1220 664 64 32 0 0 64 32 0.5 0 0
 EndData DashCool
 
 S SlowAt SlowUI.png 1140 600 64 64 0 0 64 64 0.5 0 0
-S Text Mouse2.png 1140 664 64 32 0 0 64 32 0.5 0 0
+S Text M2.png 1140 664 64 32 0 0 64 32 0.5 0 0
 EndData SlowCool
 
 S NormalAt white1x1.png 1060 600 64 64 0 0 1 1 0.5 0 0
-S Text Mouse1.png 1060 664 64 32 0 0 64 32 0.5 0 0
+S Text M1.png 1060 664 64 32 0 0 64 32 0.5 0 0
 EndData NormalCool
 

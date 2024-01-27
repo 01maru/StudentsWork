@@ -15,14 +15,20 @@ using namespace MNE;
 
 void GameOverUI::Initialize()
 {
-	data_.LoadData("GameOver");
-	//	カーソル
-	cursor_.LoadResources();
-
 	//	カーソルの初期化
 	cursor_.Initialize();
 	//	初期位置設定(音再生しない)
 	cursor_.SetCursorPosition(data_.GetSelectPosition(), false);
+}
+
+void GameOverUI::LoadResources()
+{
+	//	配置データ
+	data_.LoadData("GameOver");
+	//	カーソル
+	cursor_.LoadResources();
+	//	選択音
+	XAudioManager::GetInstance()->LoadSoundWave("decision.wav");
 }
 
 //-----------------------------------------------------------------------------
@@ -31,10 +37,12 @@ void GameOverUI::Initialize()
 
 void GameOverUI::InputUpdate()
 {
-	bool dikButton = InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_SPACE, InputJoypad::A_Button);
+	bool dikButton = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button);
+
+	data_.CollisonCursorUpdate();
 
 	//	選択されたら
-	if (dikButton == TRUE)
+	if ((dikButton || data_.GetSelect()) == TRUE)
 	{
 		//	決定音再生
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
@@ -47,12 +55,17 @@ void GameOverUI::InputUpdate()
 		if (data_.GetSelectName() == "Quit") {
 			//	タイトルに戻る
 			SceneManager::GetInstance()->SetNextScene("TITLESCENE");
-			isActive_ = false;
 		}
 	}
 
-	MNE::InputManager* inputMan = InputManager::GetInstance();
-	int16_t inputValue = inputMan->GetTriggerKeyAndButton(DIK_W, InputJoypad::DPAD_Up) - inputMan->GetTriggerKeyAndButton(DIK_S, InputJoypad::DPAD_Down);
+	InputJoypad* pad = InputManager::GetInstance()->GetPad();
+
+	int16_t inputValue = 0;
+
+	if (pad->GetTriggerThumbLY() == TRUE)
+	{
+		inputValue = static_cast<int16_t>(MyMath::mClamp(-1.0f, 1.0f, -pad->GetThumbL().y));
+	}
 	//	選択中のボタン切り替え
 	data_.InputUpdate(inputValue);
 	//	カーソル移動
@@ -67,12 +80,13 @@ void GameOverUI::Update()
 	if (isActive_ == FALSE) return;
 
 	//	カメラのズームが終了していなかったら処理しない
-	if (pCamera_->GetEndMove() == FALSE) return;
+	if (pCamera_->GetEndCameraMove() == FALSE) return;
 
-	if (activeAnime_ == FALSE) {
-		activeAnime_ = TRUE;
+	if (animeDirtyFlag_ == TRUE) {
+		animeDirtyFlag_ = FALSE;
 		data_.ResetAnimation(true);
 	}
+	InputManager::GetInstance()->SetDrawExplane(data_.GetIsEndAnimation());
 
 	InputUpdate();
 
@@ -104,6 +118,11 @@ void GameOverUI::Draw()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
+void GameOverUI::SetCameraPosData(const Vector3D& playerPos)
+{
+	pCamera_->SetPosData(playerPos);
+}
+
 void GameOverUI::Start()
 {
 	isActive_ = true;
@@ -118,4 +137,15 @@ void GameOverUI::Start()
 	cameraMan->SetMainCamera(camera);
 
 	pCamera_ = dynamic_cast<GameOverCamera*>(cameraMan->GetMainCamera());
+}
+
+void GameOverUI::Reset()
+{
+	if (pCamera_ == nullptr) return;
+
+	isActive_ = true;
+	pCamera_->Reset();
+	data_.Reset();
+	cursor_.SetIsActive(false);
+	animeDirtyFlag_ = TRUE;
 }

@@ -69,4 +69,8 @@ void MNE::UIObject::ResetAnimation()
 	{
 		comp->Reset();
 	}
+	for (auto& comp : components_)
+	{
+		comp->MatUpdate();
+	}
 }

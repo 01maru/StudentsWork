@@ -10,7 +10,7 @@ using namespace MNE;
 
 void CrossHair::Update(const Vector3D& startPos)
 {
-	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+	ICamera* camera = CameraManager::GetInstance()->GetMainCamera();
 	camera->CalcDirectionVec();
 	Ray ray;
 	ray.start = camera->GetEye();

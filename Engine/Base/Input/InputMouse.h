@@ -58,7 +58,7 @@ namespace MNE
 		//	カーソルを中央に固定するかどうか
 		bool isLockCursor_ = false;
 		//	カーソルの表示フラグ
-		bool showCursor_ = true;
+		bool showCursor_ = false;
 		//	入力されているか
 		bool isActive_ = false;
 

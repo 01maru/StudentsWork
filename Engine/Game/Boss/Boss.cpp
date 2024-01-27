@@ -106,7 +106,7 @@ float Boss::RotationUpdate()
 	//frontVec_ = dir;
 
 	frontVec_ = mat_.trans_;
-	frontVec_ -= player_->GetPosition();
+	frontVec_ -= player_->GetCenterPos();
 	Vector2D vec2(frontVec_.x, frontVec_.z);
 	float dis = frontVec_.GetLength();
 	mat_.angle_.x = atan2(-frontVec_.y, vec2.GetLength());

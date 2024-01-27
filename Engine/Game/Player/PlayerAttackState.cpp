@@ -16,7 +16,7 @@ std::unique_ptr<PlayerAttackState> PlayerAttackState::SetNextState(int32_t nowSt
 	bool dikKey = false;
 	//	スロー攻撃
 	bool input = inputMan->GetMouse()->GetClick(InputMouse::RightClick) ||
-		inputMan->GetPad()->GetLTrigger() || inputMan->GetPad()->GetRTrigger();
+		inputMan->GetPad()->GetLTrigger();
 	if (input && sPlayer_->GetSlowAtIsActive())
 	{
 		if (nowState != SlowAttack)
@@ -32,7 +32,7 @@ std::unique_ptr<PlayerAttackState> PlayerAttackState::SetNextState(int32_t nowSt
 	
 	//	通常攻撃
 	input = inputMan->GetMouse()->GetClick(InputMouse::LeftClick) ||
-		inputMan->GetPad()->GetLTrigger() || inputMan->GetPad()->GetRTrigger();
+		inputMan->GetPad()->GetRTrigger();
 	if (input) {
 		if (nowState != NormalAttack)
 		{

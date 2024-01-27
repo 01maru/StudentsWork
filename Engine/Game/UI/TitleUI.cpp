@@ -163,7 +163,7 @@ void TitleUI::TitleUpdate(bool dikSelectButton)
 void TitleUI::OptionUpdate(bool dikSelectButton)
 {
 	//	オプション入力処理(オプションが終了したタイミングだったら)
-	if (option_.InputUpdate(dikSelectButton,inputValue_) == TRUE)
+	if (option_.InputUpdate(dikSelectButton, inputValue_) == TRUE)
 	{
 		//	タイトル出現
 		titleData_.ResetAnimation(true);

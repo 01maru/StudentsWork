@@ -3,27 +3,36 @@
 
 using namespace MNE;
 
-void ClearUI::Initialize()
+void ClearUI::LoadResources()
 {
+	//	配置データ
 	data_.LoadData("Clear");
 }
 
 void ClearUI::Update()
 {
-	if (isActive_ == false) return;
+	//	実行中じゃなかったら処理しない
+	if (isActive_ == FALSE) return;
 
-	if (data_.GetIsEndAnimation() == true)
+	//	アニメーションが終わったら
+	if (data_.GetIsEndAnimation() == TRUE)
 	{
-		isActive_ = false;
+		//	実行終了
+		isActive_ = FALSE;
 
+		//	タイトルシーンへ
 		SceneManager::GetInstance()->SetNextScene("TITLESCENE");
 	}
 
+	//	データオブジェクト更新
 	data_.Update();
 }
 
 void ClearUI::Draw()
 {
-	if (isActive_ == false) return;
+	//	実行中じゃなかったら処理しない
+	if (isActive_ == FALSE) return;
+
+	//	配置データ表示
 	data_.Draw();
 }

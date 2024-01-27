@@ -3,7 +3,7 @@
 
 void MNE::UISprite::MatUpdate()
 {
-	for (auto sprite : sprites_)
+	for (auto& sprite : sprites_)
 	{
 		sprite.second.Update();
 	}
@@ -11,7 +11,7 @@ void MNE::UISprite::MatUpdate()
 
 void MNE::UISprite::Draw()
 {
-	for (auto sprite : sprites_)
+	for (auto& sprite : sprites_)
 	{
 		if (sprite.second.GetTags() & parent_->GetParentData()->GetTag()) {
 			sprite.second.Draw();
