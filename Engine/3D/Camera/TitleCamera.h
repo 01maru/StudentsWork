@@ -1,7 +1,6 @@
 #pragma once
 #include "ICamera.h"
 #include "FrameCounter.h"
-#include "Quaternion.h"
 
 /**
 * @file TitleCamera.h
@@ -14,9 +13,9 @@ public:
 	//	カメラの表示モード
 	enum CameraMode
 	{
-		Menu,
-		Option,
-		SceneChange,
+		Menu,			//	タイトル表示時
+		Option,			//	オプション表示時
+		SceneChange,	//	シーン遷移
 	};
 
 public:
@@ -35,29 +34,33 @@ public:
 	void Update() override;
 
 private:
-	//	カメラが移動中か
-	bool moveCamera_ = false;
 	//	現在の表示モード
 	CameraMode mode_ = Menu;
+
+	//	アニメーションの経過時間
+	FrameCounter counter_;
 	
+	//	移動開始前と後の値格納用
 	Vector3D startEye_;
 	Vector3D endEye_;
 	Vector3D startFront_;
 	Vector3D endFront_;
-
-	FrameCounter counter_;
-
-	Vector3D titleEye_;
-	Vector3D titleFront_;
-
-	//	タイトルとオプション用
+	//	制御点
 	Vector3D controlPoint_;
 
+#pragma region カメラの最終値格納変数
+
+	//	タイトル
+	Vector3D titleEye_;
+	Vector3D titleFront_;
+	//	オプション
 	Vector3D optionEye_;
 	Vector3D optionFront_;
-
+	//	シーンチェンジ
 	Vector3D sceneChangeEye_;
 	Vector3D sceneChangeFront_;
+
+#pragma endregion
 
 private:
 	/**
@@ -70,11 +73,11 @@ public:
 #pragma region Getter
 
 	/**
-	* @fn GetIsCameraMove()
+	* @fn GetIsMoving()
 	* カメラが移動中かどうかの取得関数
 	* @return カメラが移動中かどうか
 	*/
-	bool GetIsCameraMove();
+	bool GetIsMoving();
 
 #pragma endregion
 

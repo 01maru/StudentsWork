@@ -23,22 +23,21 @@ void TitleCamera::Initialize(const Vector3D& eye, const Vector3D& target, const 
 
 void TitleCamera::CameraMoveUpdate()
 {
-	if (moveCamera_ == false) return;
+	//	移動中じゃなかったら処理しない
+	if (counter_.GetIsActive() == false) return;
 
-	float t = EaseOut(0.0f, 1.0f, counter_.GetCountPerMaxCount(), 1);
+	//	視点移動
+	float t = EaseOut(0.0f, 1.0f, counter_.GetCountPerMaxCount(), Easing::Single);
 	eye_ = MyMath::BezierCurve(startEye_, controlPoint_, endEye_, t);
 	frontVec_ = MyMath::BezierCurve(startFront_, controlPoint_, endFront_, t);
 	frontVec_.Normalize();
 
+	//	ターゲット移動
 	target_ = eye_ + frontVec_ * disEyeTarget_;
-
-	if (counter_.GetIsActive() == false)
-	{
-		moveCamera_ = false;
-	}
 }
 void TitleCamera::Update()
 {
+	//	カウンター更新
 	counter_.Update();
 
 	CameraMoveUpdate();
@@ -50,9 +49,9 @@ void TitleCamera::Update()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-bool TitleCamera::GetIsCameraMove()
+bool TitleCamera::GetIsMoving()
 {
-	return moveCamera_;
+	return counter_.GetIsActive();
 }
 
 //-----------------------------------------------------------------------------
@@ -87,15 +86,16 @@ void TitleCamera::SetCameraPos(const Vector3D& eye, const Vector3D& target, Came
 
 void TitleCamera::SetNextMode(CameraMode mode)
 {
+	//	モード設定
 	mode_ = mode;
 
+	//	開始位置格納
 	startEye_ = eye_;
-
 	startFront_ = frontVec_;
 
+	//	終了時の値格納
 	Vector3D nextEye;
 	Vector3D nextFront;
-
 	switch (mode)
 	{
 	case TitleCamera::Menu:
@@ -115,9 +115,8 @@ void TitleCamera::SetNextMode(CameraMode mode)
 	}
 
 	endFront_ = nextFront;
-
 	endEye_ = nextEye;
 
+	//	カウンタースタート
 	counter_.StartCount();
-	moveCamera_ = true;
 }
