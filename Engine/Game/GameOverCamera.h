@@ -42,13 +42,13 @@ private:
 	Vector3D eyeStart_;
 	//	終了位置
 	Vector3D eyeEnd_;
-	float eEyeYRate_ = 1 / 8.0f;
-	float eEyeLenRate_ = 1 / 4.0f;
+	float eEyeYRate_ = 0.125f;
+	float eEyeLenRate_ = 0.25f;
 
 	//	制御点
 	Vector3D controlPoint_;
-	float cPointYRate_ = 2 / 3.0f;
-	float cPointLenRate_ = 4 / 3.0f;
+	float cPointYRate_ = 0.66f;
+	float cPointLenRate_ = 1.33f;
 
 public:
 #pragma region Getter
