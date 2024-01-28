@@ -1,8 +1,10 @@
 #include "MyGame.h"
 #include "SceneManager.h"
-
 #include "LightManager.h"
-#include "Object3D.h"
+
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
 
 void MNE::MyGame::Initialize()
 {
@@ -19,24 +21,38 @@ void MNE::MyGame::Initialize()
 	light->SetDirLightShadow(lightIdx, true);
 	light->SetDirLightDir(lightIdx, dir);
 #pragma endregion
+
 	SceneManager::GetInstance()->Initialize();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Finalize
+//-----------------------------------------------------------------------------
+
+void MNE::MyGame::Finalize()
+{
+	SceneManager::GetInstance()->Finalize();
+	Framework::Finalize();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void MNE::MyGame::Update()
 {
 	Framework::Update();
 
 	SceneManager::GetInstance()->Update();
+
 	LightManager::GetInstance()->Update();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
 
 void MNE::MyGame::Draw()
 {
 	SceneManager::GetInstance()->Draw();
-}
-
-void MNE::MyGame::Finalize()
-{
-	SceneManager::GetInstance()->Finalize();
-	Framework::Finalize();
 }
