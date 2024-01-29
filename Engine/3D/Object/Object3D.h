@@ -88,7 +88,7 @@ namespace MNE
 
 		BaseCollider* GetCollider() { return collider_; }
 		const Vector4D& GetColor() { return color_; }
-		const Vector3D& GetPosition() { return mat_.trans_; }
+		Vector3D& GetPosition() { return mat_.trans_; }
 		const Vector3D& GetScale() { return mat_.scale_; }
 		const Vector3D& GetRotation() { return mat_.angle_; }
 		inline IModel* GetModel() { return model_; }

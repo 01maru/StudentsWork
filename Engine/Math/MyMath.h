@@ -125,7 +125,7 @@ namespace MyMath {
 
 	class SpriteMatrix
 	{
-	private:
+	public:
 		Matrix matWorld_;
 
 		Matrix matRot_;

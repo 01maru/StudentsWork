@@ -63,7 +63,8 @@ void SelectCursor::Draw()
 void SelectCursor::SetCursorPosition(const Vector2D& pos, bool playMoveSound)
 {
 	//	カーソルの位置変更されたか
-	if (cursor_.GetPosition() == pos) return;
+	Vector2D cursorPos = cursor_.GetPosition();
+	if (cursorPos == pos) return;
 
 	//	カーソル移動音再生
 	if (playMoveSound == TRUE)

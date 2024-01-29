@@ -74,6 +74,10 @@ void GameScene::LoadResources()
 	gameUISprite = gameUIObj->GetComponent<UISprite>();
 	player_->SetCrossHairSprite(gameUISprite->GetSprites()["crossHair"]);
 
+	gameUIObj = ui.GetUIObject("NormalCool");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	player_->SetNormalBulletSprite(gameUISprite->GetSprites()["NormalAt"], gameUISprite->GetSprites()["Text"]);
+	
 	gameUIObj = ui.GetUIObject("SlowCool");
 	gameUISprite = gameUIObj->GetComponent<UISprite>();
 	player_->SetSlowAtCoolSprite(gameUISprite->GetSprites()["SlowAt"], gameUISprite->GetSprites()["Text"]);
@@ -93,7 +97,6 @@ void GameScene::LoadResources()
 	pod_.LoadResources();
 	pod_.SetLetterBox(&letterBox_);
 	pod_.Initialize(models->GetModel("escapePod"), { 0.0f,-0.3f,-50.0f });
-	//pod_.SetScale({ 0.4f,0.4f,0.4f });
 
 	effect.LoadResources();
 	effect.Initialize();
@@ -127,6 +130,8 @@ void GameScene::Initialize()
 	enemy_->SetClearState(clear_.get());
 
 	camera_ = dynamic_cast<GameCamera*>(CameraManager::GetInstance()->GetMainCamera());
+	camera_->SetEnemyPos(enemy_->GetPositionPtr());
+	camera_->SetPlayerPos(player_->GetPositionPtr());
 	pause_.SetGameCamera(camera_);
 
 	std::unique_ptr<Cylinder> stageColl = std::make_unique<Cylinder>();

@@ -105,9 +105,9 @@ namespace MNE
 
 	#pragma region Getter
 
-		Vector2D& GetPosition() { return mat_.GetTrans(); }
-		Vector2D& GetSize() { return size_; }
-		Vector2D& GetAnchorPoint() { return anchorPoint_; }
+		const Vector2D& GetPosition() const { return mat_.trans_; }
+		const Vector2D& GetSize() const { return size_; }
+		const Vector2D& GetAnchorPoint() const { return anchorPoint_; }
 		float GetRotation() { return mat_.GetAngle(); }
 		const Vector4D& GetColor() const { return color_; }
 		const Vector2D& GetTextureSize() const { return textureSize_; }

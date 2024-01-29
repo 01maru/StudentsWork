@@ -43,7 +43,6 @@
     <ClCompile Include="Engine\2D\Particle\ParticleSpdAnimation.cpp" />
     <ClCompile Include="Engine\2D\Particle\ParticleValue.cpp" />
     <ClCompile Include="Engine\2D\Particle\SpriteParticle.cpp" />
-    <ClCompile Include="Engine\Game\Player\AvoidCoolTimer.cpp" />
     <ClCompile Include="Engine\Game\Boss\Boss.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossDeathState.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossIdleState.cpp" />
@@ -179,6 +178,7 @@
     <ClCompile Include="Engine\Game\EscapePod\PodCollGroundState.cpp" />
     <ClCompile Include="Engine\Game\EscapePod\PodOpenDoorState.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp" />
+    <ClCompile Include="Engine\Game\Player\PlayerSkill.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Game\Player\ActiveSkillEffect.h" />
@@ -213,7 +213,6 @@
     <ClInclude Include="Engine\2D\Particle\ParticleSpdAnimation.h" />
     <ClInclude Include="Engine\2D\Particle\ParticleValue.h" />
     <ClInclude Include="Engine\2D\Particle\SpriteParticle.h" />
-    <ClInclude Include="Engine\Game\Player\AvoidCoolTimer.h" />
     <ClInclude Include="Engine\Game\Boss\Boss.h" />
     <ClInclude Include="Engine\Game\Boss\BossDeathState.h" />
     <ClInclude Include="Engine\Game\Boss\BossIdleState.h" />
@@ -361,6 +360,7 @@
     <ClInclude Include="Engine\2D\Sprite\UI\UIScaling.h" />
     <ClInclude Include="Engine\Game\UI\ExplanatoryText.h" />
     <ClInclude Include="Engine\Base\Json\JSONData.h" />
+    <ClInclude Include="Engine\Game\Player\PlayerSkill.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

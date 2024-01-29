@@ -49,6 +49,7 @@ public:
 	bool GetBodyAttack();
 	Vector3D GetRot() { return mat_.angle_; }
 	Vector3D GetPosition() { return mat_.trans_; }
+	Vector3D* GetPositionPtr() { return &mat_.trans_; }
 	Vector3D GetFrontVec() { return frontVec_; }
 	Player* GetPlayer() { return player_; }
 

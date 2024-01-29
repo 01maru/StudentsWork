@@ -32,10 +32,13 @@ void Player::StatusInitialize()
 	moveState_->Initialize();
 	attackState_ = std::make_unique<PlayerNoAttackState>();
 
-	avoidCT_.SetMaxTime(avoidCoolTime_);
-	avoidCT_.Initialize();
-	slowAtCT_.SetMaxTime(slowATCoolTime_);
-	slowAtCT_.Initialize();
+	//	Skills
+	nBulletSprite_.Initialize();
+	avoidCTSprite_.SetMaxTime(avoidCoolTime_);
+	avoidCTSprite_.Initialize();
+	slowAtCTSprite_.SetMaxTime(slowATCoolTime_);
+	slowAtCTSprite_.Initialize();
+
 	hp_.Initialize();
 }
 
@@ -97,8 +100,9 @@ void Player::CalcModelFront()
 
 void Player::CoolTimeUpdate()
 {
-	avoidCT_.Update();
-	slowAtCT_.Update();
+	nBulletSprite_.Update();
+	avoidCTSprite_.Update();
+	slowAtCTSprite_.Update();
 }
 
 void Player::JumpUpdate()
@@ -252,12 +256,12 @@ void Player::ImGuiUpdate()
 	}
 	
 	if (imgui->CollapsingHeader("Avoid")) {
-		imgui->Text("AvoidIsActive : %s", avoidCT_.GetIsActive() ? "TRUE" : "FALSE");
-		imgui->Text("Avoid : %s", avoidCT_.GetIsAvoiding() ? "TRUE" : "FALSE");
+		imgui->Text("AvoidIsActive : %s", avoidCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
+		imgui->Text("Avoid : %s", avoiding_ ? "TRUE" : "FALSE");
 		imgui->InputInt("AvoidAccTime", avoidAccTime_);
 		imgui->InputInt("AvoidDecTime", avoidDecTime_);
 		imgui->InputInt("AvoidCoolTime", avoidCoolTime_);
-		avoidCT_.ImGuiUpdate();
+		//avoidCT_.ImGuiUpdate();
 	}
 
 	if(imgui->CollapsingHeader("Jump")) {
@@ -370,8 +374,11 @@ void Player::DrawUI()
 {
 	crossHair_.Draw();
 	hp_.Draw();
-	avoidCT_.Draw();
-	slowAtCT_.Draw();
+
+	//	Skills
+	nBulletSprite_.Draw();
+	avoidCTSprite_.Draw();
+	slowAtCTSprite_.Draw();
 }
 
 void Player::AddBullet(std::unique_ptr<Bullet>& bullet)
@@ -381,7 +388,12 @@ void Player::AddBullet(std::unique_ptr<Bullet>& bullet)
 
 void Player::StartSlowAtCT()
 {
-	slowAtCT_.StartCount();
+	slowAtCTSprite_.StartCount();
+}
+
+void Player::StartAvoidCT()
+{
+	avoidCTSprite_.StartCount();
 }
 
 void Player::DecHP(int32_t damage)
@@ -425,7 +437,7 @@ bool Player::GetIsRunning()
 
 bool Player::GetIsAvoid()
 {
-	return avoidCT_.GetIsAvoiding();
+	return avoiding_;
 }
 
 bool Player::GetIsMoving()
@@ -465,7 +477,7 @@ bool Player::GetRateCountIsActive()
 
 bool Player::GetSlowAtIsActive()
 {
-	return slowAtCT_.GetIsActive();
+	return slowAtCTSprite_.GetIsActive();
 }
 
 int32_t Player::GetBulletRate()
@@ -501,7 +513,7 @@ void Player::SetSpd(float spd)
 
 void Player::SetIsAvoid(bool isAvoid)
 {
-	avoidCT_.SetIsAvoiding(isAvoid);
+	avoiding_ = isAvoid;
 }
 
 void Player::SetIsRunning(bool isRunning)
@@ -532,16 +544,19 @@ void Player::SetHPBarSprite(const MNE::Sprite& sprite)
 	hp_.SetBarColor(green);
 }
 
+void Player::SetNormalBulletSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
+{
+	nBulletSprite_.SetSprite(sprite, text);
+}
+
 void Player::SetAvoidCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
 {
-	avoidCT_.SetSprite(sprite);
-	avoidCT_.SetTextSprite(text);
+	avoidCTSprite_.SetSprite(sprite, text);
 }
 
 void Player::SetSlowAtCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
 {
-	slowAtCT_.SetSprite(sprite);
-	slowAtCT_.SetTextSprite(text);
+	slowAtCTSprite_.SetSprite(sprite, text);
 }
 
 void Player::SetGameOverState(IGameState* gameOverState)

@@ -3,7 +3,7 @@
 #include "PlayerMoveState.h"
 #include "PlayerAttackState.h"
 #include "CharacterHP.h"
-#include "AvoidCoolTimer.h"
+#include "CoolTime.h"
 #include <memory>
 
 #include "Bullet.h"
@@ -44,9 +44,11 @@ private:
 
 	Vector3D offset_;
 
-	//	cooltimer
-	AvoidCoolTimer avoidCT_;
-	CoolTime slowAtCT_;
+	//	Skills
+	PlayerSkill nBulletSprite_;
+	bool avoiding_ = false;
+	SkillCoolTime avoidCTSprite_;
+	SkillCoolTime slowAtCTSprite_;
 
 	//	Load&Save
 	float walkSpd_ = 0.15f;
@@ -90,11 +92,13 @@ public:
 
 	void AddBullet(std::unique_ptr<Bullet>& bullet);
 	void StartSlowAtCT();
+	void StartAvoidCT();
 
 	void DecHP(int32_t damage);
 
 #pragma region Getter
 
+	Vector3D* GetPositionPtr() { return &mat_.trans_; }
 	Vector3D GetCenterPos();
 	bool GetOnGround();
 	float GetWalkSpd();
@@ -130,6 +134,8 @@ public:
 	void StartRateCount();
 	void SetCrossHairSprite(const MNE::Sprite& sprite);
 	void SetHPBarSprite(const MNE::Sprite& sprite);
+
+	void SetNormalBulletSprite(const MNE::Sprite& sprite, const MNE::Sprite& text);
 	void SetAvoidCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text);
 	void SetSlowAtCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text);
 

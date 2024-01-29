@@ -3,16 +3,31 @@
 
 using namespace Easing;
 
-void CoolTime::Initialize()
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
+void SkillCoolTime::Initialize()
 {
 	coolTimer_.SetIsActive(false);
 	coolTimer_.SetIsIncrement(true);
 	coolTimer_.SetFrameCountIsMax();
-	isActive_ = true;
+	
+	PlayerSkill::Initialize();
 }
 
-void CoolTime::SpriteUpdate()
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
+void SkillCoolTime::GaugeUpdate()
 {
+	//	クールタイム中じゃなかったら
+	if (coolTimer_.GetIsActive() == FALSE) {
+		isActive_ = true;
+		return;
+	}
+
 	float start = 1.0f;
 	float end = 0.0f;
 	float rate = lerp(start, end, coolTimer_.GetCountPerMaxCount());
@@ -23,64 +38,57 @@ void CoolTime::SpriteUpdate()
 
 	size.y = gaugeLen;
 	gauge_.SetSize(size);
-
-	sprite_.Update();
-	text_.Update();
-	gauge_.Update();
 }
 
-void CoolTime::Update()
+void SkillCoolTime::Update()
 {
 	coolTimer_.Update();
 
-	if (coolTimer_.GetIsActive() == false) {
-		isActive_ = true;
-	}
+	GaugeUpdate();
 
-	SpriteUpdate();
+	PlayerSkill::Update();
+	gauge_.Update();
 }
 
-void CoolTime::Draw()
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
+
+void SkillCoolTime::Draw()
 {
-	sprite_.Draw();
-	text_.Draw();
+	PlayerSkill::Draw();
 	
 	//	クールタイム中のみ表示
-	if (coolTimer_.GetIsActive()) {
+	if (coolTimer_.GetIsActive() == TRUE)
+	{
 		gauge_.Draw();
 	}
 }
 
-void CoolTime::StartCount()
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void SkillCoolTime::StartCount()
 {
 	coolTimer_.StartCount();
 	isActive_ = false;
 }
 
-bool CoolTime::GetIsActive()
+void SkillCoolTime::SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
 {
-	return isActive_;
-}
-
-void CoolTime::SetSprite(const MNE::Sprite& sprite)
-{
-	sprite_ = sprite;
+	PlayerSkill::SetSprite(sprite, text);
 
 	gauge_.Initialize();
-	gauge_.SetPosition(sprite_.GetPosition());
-	gauge_.SetAnchorPoint(sprite_.GetAnchorPoint());
+	gauge_.SetPosition(sprite.GetPosition());
+	gauge_.SetAnchorPoint(sprite.GetAnchorPoint());
 	float alpha = 0.3f;
 	float gray = 0.3f;
 	Vector4D color(gray, gray, gray, alpha);
 	gauge_.SetColor(color);
 }
 
-void CoolTime::SetTextSprite(const MNE::Sprite& sprite)
-{
-	text_ = sprite;
-}
-
-void CoolTime::SetMaxTime(int32_t time)
+void SkillCoolTime::SetMaxTime(int32_t time)
 {
 	coolTimer_.SetMaxFrameCount(time);
 }

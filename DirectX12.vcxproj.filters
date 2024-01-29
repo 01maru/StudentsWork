@@ -289,6 +289,15 @@
     <Filter Include="ヘッダー ファイル\Game\EscapePod\State">
       <UniqueIdentifier>{526c62b3-0ee4-4465-b17a-3e3f4e46de9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\lib\Engine\JSON">
+      <UniqueIdentifier>{ef2c44d6-71b8-4d88-a92f-87d06967895b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\SpriteEffect">
+      <UniqueIdentifier>{65e7cc49-81c4-4ff8-9329-0d710092df6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\lib\Engine\JSON">
+      <UniqueIdentifier>{aa9182c0-d372-4330-9bd6-555d58298c5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -455,9 +464,6 @@
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\DebugTextManager.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Base\Json\JSONLoader.cpp">
-      <Filter>ソース ファイル\lib\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp">
       <Filter>ソース ファイル\lib\2D\Screen</Filter>
@@ -633,9 +639,6 @@
     <ClCompile Include="Engine\Game\Player\PlayerWalkState.cpp">
       <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Player\AvoidCoolTimer.cpp">
-      <Filter>ソース ファイル\Game\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\Player\CoolTime.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
@@ -750,15 +753,6 @@
     <ClCompile Include="Engine\Game\UI\IGameState.cpp">
       <Filter>ソース ファイル\Game\UI\GameState</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Bonfire.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\Sprite\LoadSpriteAnime.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Player\CrossHair.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\EscapePod\EscapePod.cpp">
       <Filter>ソース ファイル\Game\EscapePod</Filter>
     </ClCompile>
@@ -786,14 +780,29 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Base\Json\JSONData.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Player\PlayerSkill.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Player\ActiveSkillEffect.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\SpriteEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\Sprite\LoadSpriteAnime.cpp">
+      <Filter>ソース ファイル\Game\SpriteEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Base\Json\JSONData.cpp">
+      <Filter>ソース ファイル\lib\Engine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Base\Json\JSONLoader.cpp">
+      <Filter>ソース ファイル\lib\Engine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Bonfire.cpp">
+      <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\UI\ExplanatoryText.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Player\CrossHair.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -973,9 +982,6 @@
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\SplashSprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Base\Json\JSONLoader.h">
-      <Filter>ヘッダー ファイル\lib\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\PostEffect\PlanePolygon.h">
       <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
@@ -1163,9 +1169,6 @@
     <ClInclude Include="Engine\Game\Player\CharacterHP.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Player\AvoidCoolTimer.h">
-      <Filter>ヘッダー ファイル\Game\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Player\PlayerWalkState.h">
       <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
     </ClInclude>
@@ -1289,15 +1292,6 @@
     <ClInclude Include="Engine\Game\UI\IGameState.h">
       <Filter>ヘッダー ファイル\Game\UI\GameState</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Bonfire.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\LoadSpriteAnime.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Player\CrossHair.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\EscapePod\EscapePod.h">
       <Filter>ヘッダー ファイル\Game\EscapePod</Filter>
     </ClInclude>
@@ -1328,14 +1322,29 @@
     <ClInclude Include="Engine\Scene\Base\SceneFactory.h">
       <Filter>ヘッダー ファイル\lib\Engine\Scene\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Base\Json\JSONData.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Player\PlayerSkill.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Bonfire.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Player\ActiveSkillEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\UI\ExplanatoryText.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Player\CrossHair.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Base\Json\JSONLoader.h">
+      <Filter>ヘッダー ファイル\lib\Engine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Base\Json\JSONData.h">
+      <Filter>ヘッダー ファイル\lib\Engine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\LoadSpriteAnime.h">
+      <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
