@@ -1,4 +1,4 @@
-#include "CoolTime.h"
+#include "SkillCoolTime.h"
 #include "Easing.h"
 
 using namespace Easing;

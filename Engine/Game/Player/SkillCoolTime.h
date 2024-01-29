@@ -27,8 +27,6 @@ public:
 	void Draw() override;
 
 protected:
-	//	スキルが使えるか
-	bool isActive_ = false;
 	//	クールタイムのタイマー
 	FrameCounter coolTimer_;
 

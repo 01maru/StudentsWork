@@ -48,7 +48,7 @@
     <ClCompile Include="Engine\Game\Boss\BossIdleState.cpp" />
     <ClCompile Include="Engine\Game\Player\Bullet.cpp" />
     <ClCompile Include="Engine\Game\Player\CharacterHP.cpp" />
-    <ClCompile Include="Engine\Game\Player\CoolTime.cpp" />
+    <ClCompile Include="Engine\Game\Player\SkillCoolTime.cpp" />
     <ClCompile Include="Engine\Game\Player\EnemyState.cpp" />
     <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIButton.cpp" />
@@ -218,7 +218,7 @@
     <ClInclude Include="Engine\Game\Boss\BossIdleState.h" />
     <ClInclude Include="Engine\Game\Player\Bullet.h" />
     <ClInclude Include="Engine\Game\Player\CharacterHP.h" />
-    <ClInclude Include="Engine\Game\Player\CoolTime.h" />
+    <ClInclude Include="Engine\Game\Player\SkillCoolTime.h" />
     <ClInclude Include="Engine\Game\Boss\EnemyState.h" />
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h" />
     <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h" />

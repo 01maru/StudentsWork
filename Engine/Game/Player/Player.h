@@ -3,7 +3,7 @@
 #include "PlayerMoveState.h"
 #include "PlayerAttackState.h"
 #include "CharacterHP.h"
-#include "CoolTime.h"
+#include "SkillCoolTime.h"
 #include <memory>
 
 #include "Bullet.h"

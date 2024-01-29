@@ -390,13 +390,13 @@ bool MNE::UIData::GetSelect()
 
 void MNE::UIData::ResetAnimation(bool startingAnimation)
 {
-	if (count_ != nullptr) {
-		count_->StartCount();
-	}
-
 	startAnimation_ = startingAnimation;
 	
 	Reset();
+
+	if (count_ != nullptr) {
+		count_->StartCount();
+	}
 }
 
 void MNE::UIData::SetSelectButton(const std::string& name)

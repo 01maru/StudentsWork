@@ -85,6 +85,13 @@ void Player::IsMovingUpdate()
 	if (input->GetTriggerKeyAndButton(DIK_LCONTROL, InputJoypad::B_Button)) {
 		isRunning_ = !isRunning_;
 	}
+
+	if (input->GetTriggerKeyAndButton(DIK_LSHIFT, InputJoypad::Left_Button) &&
+		avoidCTSprite_.GetIsActive())
+	{
+		avoidCTSprite_.StartCount();
+		avoiding_ = true;
+	}
 }
 
 void Player::CalcModelFront()
@@ -230,6 +237,7 @@ void Player::ImGuiUpdate()
 	imgui->Text("angle : %.2f", mat_.angle_.y);
 	imgui->Text("bullet : %d", bullets_.size());
 	imgui->Text("bulletRate : %d", rate_.GetFrameCount());
+	imgui->Text("slowAT : %s", slowAtCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
 
 	if (imgui->CollapsingHeader("HP")) {
 		imgui->Text("isAlive : %s", hp_.GetIsAlive() ? "TRUE" : "FALSE");
