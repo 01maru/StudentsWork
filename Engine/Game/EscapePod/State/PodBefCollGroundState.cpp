@@ -3,6 +3,7 @@
 #include "CameraManager.h"
 #include "Easing.h"
 #include "PodCollGroundState.h"
+#include "UIData.h"
 
 using namespace Easing;
 using namespace MNE;
@@ -13,7 +14,8 @@ using namespace MNE;
 
 void PodBefCollGroundState::Initialize()
 {
-	counter_.Initialize(moveMaxFrame_, true);
+	//	カウンター初期化
+	counter_.Initialize(moveMaxFrame_, TRUE);
 	counter_.StartCount();
 
 	camera = CameraManager::GetInstance()->GetMainCamera();
@@ -22,7 +24,8 @@ void PodBefCollGroundState::Initialize()
 	targetToPod_ = camera->GetTarget() - sPod_->GetPosition();
 	endPosY_ = sPod_->GetPosition().y;
 
-	sPod_->GetPtrLetterBox()->ResetAnimation(true);
+	//	ムービー用黒帯表示
+	sPod_->GetLetterBoxPtr()->ResetAnimation(TRUE);
 }
 
 //-----------------------------------------------------------------------------
@@ -31,17 +34,21 @@ void PodBefCollGroundState::Initialize()
 
 void PodBefCollGroundState::Update()
 {
+	//	カウンター更新
 	counter_.Update();
 
+	//	上から下にポッドを落とす
 	Vector3D pos = sPod_->GetPosition();
 	pos.y = EaseIn(startPosY_, endPosY_, counter_.GetCountPerMaxCount(), Quint);
 	sPod_->SetPosition(pos);
 
+	//	カメラのターゲット更新
 	camera->SetTarget(pos + targetToPod_);
-
+	//	シェイク
 	float shakeValue = EaseIn(0.0f, maxShakeV_, counter_.GetCountPerMaxCount(), Double);
 	camera->SetShake(-shakeValue, shakeValue);
 
+	//	カウントが終わったら次のステートへ
 	if (counter_.GetFrameCount() == moveMaxFrame_) {
 		std::unique_ptr<EscPodState> next_ = std::make_unique<PodCollGroundState>();
 		sPod_->SetNextState(next_);

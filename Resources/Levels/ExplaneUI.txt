@@ -18,11 +18,6 @@ MoveAnime 1100 665 1100 640
 FadeAnime 1.0 0.0
 EndData BackButton
 
-S exitText exitPod.png 750 400 155 24 0 0 620 96 0 0 12
-AnimeTimer 30 0
-FadeAnime 1.0 0.0
-EndData exitText
-
 T none 0
 T cantBack 1
 T canBack 2

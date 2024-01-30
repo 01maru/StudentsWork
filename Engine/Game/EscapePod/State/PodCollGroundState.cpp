@@ -15,7 +15,7 @@ using namespace MNE;
 void PodCollGroundState::Initialize()
 {
 	//	カウンター初期化
-	counter_.Initialize(collGroundShakeFrame_, true);
+	counter_.Initialize(collGroundShakeFrame_, TRUE);
 	counter_.StartCount();
 
 	//	メインカメラ設定
@@ -48,7 +48,7 @@ void PodCollGroundState::Update()
 		//	ボタンが押されたらドアを開ける
 		if (dikButton == TRUE)
 		{
-			sPod_->SetDrawUI(false);
+			sPod_->SetUIIsActive(FALSE);
 			//	次のStateへ
 			std::unique_ptr<EscPodState> next_ = std::make_unique<PodBefOpenDoorState>();
 			sPod_->SetNextState(next_);

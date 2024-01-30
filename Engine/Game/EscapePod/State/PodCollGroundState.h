@@ -1,25 +1,20 @@
 #pragma once
 #include "EscPodState.h"
 #include "FrameCounter.h"
-#include "Vector3D.h"
-
-#pragma region  前置宣言
-
-namespace MNE
-{
-
-	class ICamera;
-
-}
-
-#pragma endregion
 
 /**
-* @file PodCameraMoveState.h
-* @brief 脱出ポッドのドアが開く前のカメラの動きを管理するファイル
+* @file PodCollGroundState.h
+* @brief 脱出ポッドが地面に衝突した際の揺れとドアを開ける入力を管理するファイル
 */
 
-class PodCameraMoveState :public EscPodState
+#pragma region  前置宣言
+namespace MNE
+{
+	class ICamera;
+}
+#pragma endregion
+
+class PodCollGroundState :public EscPodState
 {
 public:
 	/**
@@ -36,13 +31,11 @@ public:
 private:
 	//	アニメーション用カウンター
 	FrameCounter counter_;
-	Vector3D startEye_;
-	Vector3D endEye_ = Vector3D(0.0f, 1.5f, -59.0f);
-	Vector3D startTarget_;
-	Vector3D endTarget_ = Vector3D(0.0f, 1.5f, -49.0f);
 	//	動かすカメラのポインター
 	MNE::ICamera* camera = nullptr;
-
-	int16_t cameraMoveFrame_ = 30;
+	//	地面の揺れる時間(フレーム数)
+	int16_t collGroundShakeFrame_ = 20;
+	//	カメラシェイクのマックス値
+	float maxShakeV_ = 0.75f;
 };
 

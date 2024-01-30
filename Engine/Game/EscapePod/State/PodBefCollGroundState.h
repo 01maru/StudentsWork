@@ -9,14 +9,10 @@
 */
 
 #pragma region  前置宣言
-
 namespace MNE
 {
-
 	class ICamera;
-
 }
-
 #pragma endregion
 
 class PodBefCollGroundState :public EscPodState
@@ -38,12 +34,12 @@ private:
 	FrameCounter counter_;
 	//	このState終了までのフレーム数
 	int16_t moveMaxFrame_ = 100;
-	//	ポッドの開始位置
-	float startPosY_ = 100.0f;
-	Vector3D targetToPod_;
-
+	//	ポッドの位置
+	float startPosY_ = 100.0f;	//	開始
+	float endPosY_;				//	終了
+	Vector3D targetToPod_;		//	ポッド座標とターゲットのオフセット値
+	//	カメラのシェイクマックス値
 	float maxShakeV_ = 0.2f;
-	float endPosY_;
 	//	動かすカメラのポインター
 	MNE::ICamera* camera = nullptr;
 };

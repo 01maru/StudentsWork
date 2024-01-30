@@ -96,7 +96,12 @@ void GameScene::LoadResources()
 	//	脱出ポッド
 	pod_.LoadResources();
 	pod_.SetLetterBox(&letterBox_);
-	pod_.Initialize(models->GetModel("escapePod"), { 0.0f,-0.3f,-50.0f });
+	pod_.Initialize({ 0.0f,-0.3f,-50.0f });
+	pod_.SetModel(models->GetModel("escapePod"));
+
+	gameUIObj = ui.GetUIObject("exitText");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	pod_.SetInputUISprite(gameUISprite->GetSprites()["exitText"], gameUISprite->GetSprites()["inputButton"]);
 
 	effect.LoadResources();
 	effect.Initialize();

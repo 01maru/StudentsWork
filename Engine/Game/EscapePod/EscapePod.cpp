@@ -1,49 +1,39 @@
 #include "EscapePod.h"
 #include "PodBefCollGroundState.h"
-#include "TextureManager.h"
-#include "Easing.h"
-#include "InputManager.h"
+#include "UIData.h"
 
-using namespace Easing;
 using namespace MNE;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
-void EscapePod::Initialize(MNE::IModel* model, const Vector3D& pos)
+void EscapePod::Initialize(const Vector3D& pos)
 {
 	//	Object3D初期化
 	Object3D::Initialize();
-	//	モデル設定
-	Object3D::SetModel(model);
-
+	
+	//	位置設定(ステート設定前に位置設定する)
 	mat_.trans_ = pos;
 	
 	//	State初期化
 	//	親ポッドの設定
 	EscPodState::SetPod(this);
+	//	ステート初期化
 	ResetAnimation();
+
+	//	アニメーション初期化
 	GetAnimation()->SetAnimeName("PrevOpen");
-	GetAnimation()->SetIsLoop(false);
+	GetAnimation()->SetIsLoop(FALSE);
 
-	ui_.Initialize(TextureManager::GetInstance()->GetTextureGraph("exitPod.png"));
-	ui_.SetPosition({ 750,400 });
-	ui_.SetAnchorPoint({ 0.0f,0.5f });
-	ui_.SetSize({ 155, 24 });
-	button_.Initialize(padTex_);
-	button_.SetPosition({ 730,400 });
-	button_.SetAnchorPoint({ 0.5f,0.5f });
-	button_.SetSize(padTex_->GetTextureSize() / 4.0f);
-
-	fadeCounter_.Initialize(30, true);
+	//	説明のスプライト初期化
+	ui_.Initialize();
 }
 
 void EscapePod::LoadResources()
 {
-	TextureManager::GetInstance()->LoadTextureGraph("exitPod.png");
-	keyTex_ = TextureManager::GetInstance()->LoadTextureGraph("EKey.png");
-	padTex_ = TextureManager::GetInstance()->LoadTextureGraph("XButton.png");
+	//	説明のスプライト用リソース読み込み
+	ui_.LoadResources();
 }
 
 //-----------------------------------------------------------------------------
@@ -58,25 +48,8 @@ void EscapePod::Update()
 		currentState_->Update();
 	}
 
-	if (drawUI_ == TRUE)
-	{
-		fadeCounter_.Update();
-
-		float fade = EaseIn(0.0f, 1.0f, fadeCounter_.GetCountPerMaxCount(), 2);
-		ui_.SetAlphaColor(fade);
-		ui_.Update();
-		button_.SetAlphaColor(fade);
-		button_.Update();
-
-		if (InputManager::GetInstance()->GetUsePad() == TRUE)
-		{
-			button_.SetTexture(padTex_);
-		}
-		else
-		{
-			button_.SetTexture(keyTex_);
-		}
-	}
+	//	入力説明用スプライト更新
+	ui_.Update();
 }
 
 //-----------------------------------------------------------------------------
@@ -85,23 +58,61 @@ void EscapePod::Update()
 
 void EscapePod::DrawUI()
 {
-	if (drawUI_ == FALSE) return;
-
+	//	入力説明用スプライト描画
 	ui_.Draw();
-	button_.Draw();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+MNE::UIData* EscapePod::GetLetterBoxPtr()
+{
+	return pLetterBox_;
+}
+
+bool EscapePod::GetOpenDoor()
+{
+	return openDoor_;
+}
+
+bool EscapePod::GetDrawPlayer()
+{
+	return drawPlayer_;
 }
 
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
+void EscapePod::SetInputUISprite(const MNE::Sprite& uiSprite, const MNE::Sprite& buttonSprite)
+{
+	ui_.SetSprite(uiSprite, buttonSprite);
+}
+
 void EscapePod::StartUICounter()
 {
-	if (drawUI_ == FALSE)
-	{
-		drawUI_ = true;
-		fadeCounter_.StartCount();
-	}
+	ui_.Start();
+}
+
+void EscapePod::SetUIIsActive(bool isActive)
+{
+	ui_.SetIsAcitve(isActive);
+}
+
+void EscapePod::SetLetterBox(MNE::UIData* data)
+{
+	pLetterBox_ = data;
+}
+
+void EscapePod::SetDrawPlayer(bool drawplayer)
+{
+	drawPlayer_ = drawplayer;
+}
+
+void EscapePod::SetOpenDoor(bool openDoor)
+{
+	openDoor_ = openDoor;
 }
 
 void EscapePod::ResetAnimation()
