@@ -2,7 +2,6 @@
 #include "GameCamera.h"
 #include "XAudioManager.h"
 #include "ParticleManager.h"
-#include "DebugTextManager.h"
 #include "SceneManager.h"
 
 #include "CollisionManager.h"
@@ -10,9 +9,7 @@
 #include "MeshCollider.h"
 #include "PlaneCollider.h"
 
-#include "InputManager.h"
 #include "CameraManager.h"
-#include "LightManager.h"
 #include "ImGuiManager.h"
 #include "ModelManager.h"
 
@@ -24,6 +21,10 @@
 
 using namespace MNE;
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void GameScene::LoadResources()
 {
 #pragma region Model
@@ -32,16 +33,6 @@ void GameScene::LoadResources()
 	models->LoadModel("eye");
 	models->LoadModel("player", true);
 	models->LoadModel("escapePod", true);
-	models->LoadModel();
-#pragma endregion
-
-#pragma region LevelData
-
-	JSONLoader level;
-	JSONData levelData = level.LoadJSON("game");
-
-	levelData.SetObjects(objs_);
-
 #pragma endregion
 
 	//	地面
@@ -59,49 +50,71 @@ void GameScene::LoadResources()
 	enemy_ = std::make_unique<Boss>();
 	enemy_->Initialize(models->GetModel("eye"));
 
-	clear_ = std::make_unique<ClearUI>();
-	clear_->LoadResources();
-	gameOver_ = std::make_unique<GameOverUI>();
-	gameOver_->LoadResources();
-
-	UIData ui;
-	ui.LoadData("GameUI");
-	UIObject* gameUIObj = ui.GetUIObject("HP");
-	UISprite* gameUISprite = gameUIObj->GetComponent<UISprite>();
-	player_->SetHPBarSprite(gameUISprite->GetSprites()["hp"]);
-
-	gameUIObj = ui.GetUIObject("crossHair");
-	gameUISprite = gameUIObj->GetComponent<UISprite>();
-	player_->SetCrossHairSprite(gameUISprite->GetSprites()["crossHair"]);
-
-	gameUIObj = ui.GetUIObject("NormalCool");
-	gameUISprite = gameUIObj->GetComponent<UISprite>();
-	player_->SetNormalBulletSprite(gameUISprite->GetSprites()["NormalAt"], gameUISprite->GetSprites()["Text"]);
-	
-	gameUIObj = ui.GetUIObject("SlowCool");
-	gameUISprite = gameUIObj->GetComponent<UISprite>();
-	player_->SetSlowAtCoolSprite(gameUISprite->GetSprites()["SlowAt"], gameUISprite->GetSprites()["Text"]);
-	
-	gameUIObj = ui.GetUIObject("DashCool");
-	gameUISprite = gameUIObj->GetComponent<UISprite>();
-	player_->SetAvoidCoolSprite(gameUISprite->GetSprites()["Dash"], gameUISprite->GetSprites()["Text"]);
-
-	gameUIObj = ui.GetUIObject("Enemy");
-	gameUISprite = gameUIObj->GetComponent<UISprite>();
-	enemy_->SetHPBarSprite(gameUISprite->GetSprites()["bossHP"]);
-
-	//	ムービー用黒帯
-	letterBox_.LoadData("LetterBox");
-
 	//	脱出ポッド
 	pod_.LoadResources();
 	pod_.SetLetterBox(&letterBox_);
 	pod_.Initialize({ 0.0f,-0.3f,-50.0f });
 	pod_.SetModel(models->GetModel("escapePod"));
 
+#pragma region LevelData
+
+	JSONLoader level;
+	JSONData levelData = level.LoadJSON("game");
+
+	levelData.SetObjects(objs_);
+
+#pragma endregion
+
+#pragma region SetUIInfo
+
+	//	クリア
+	clear_ = std::make_unique<ClearUI>();
+	clear_->LoadResources();
+	//	ゲームオーバー
+	gameOver_ = std::make_unique<GameOverUI>();
+	gameOver_->LoadResources();
+
+	UIData ui;
+	ui.LoadData("GameUI");
+	//	Player
+	//	HP
+	UIObject* gameUIObj = ui.GetUIObject("HP");
+	UISprite* gameUISprite = gameUIObj->GetComponent<UISprite>();
+	player_->SetHPBarSprite(gameUISprite->GetSprites()["hp"]);
+	//	CrossHair
+	gameUIObj = ui.GetUIObject("crossHair");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	player_->SetCrossHairSprite(gameUISprite->GetSprites()["crossHair"]);
+	//	Skill
+		//	NormalBullet
+	gameUIObj = ui.GetUIObject("NormalCool");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	player_->SetNormalBulletSprite(gameUISprite->GetSprites()["NormalAt"], gameUISprite->GetSprites()["Text"]);
+		//	FiveBullet
+	gameUIObj = ui.GetUIObject("SlowCool");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	player_->SetSlowAtCoolSprite(gameUISprite->GetSprites()["SlowAt"], gameUISprite->GetSprites()["Text"]);
+		//	Dash
+	gameUIObj = ui.GetUIObject("DashCool");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	player_->SetAvoidCoolSprite(gameUISprite->GetSprites()["Dash"], gameUISprite->GetSprites()["Text"]);
+
+	//	Enemy
+	//	HP
+	gameUIObj = ui.GetUIObject("Enemy");
+	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	enemy_->SetHPBarSprite(gameUISprite->GetSprites()["bossHP"]);
+
+	//	Pod
+	//	InputExplain
 	gameUIObj = ui.GetUIObject("exitText");
 	gameUISprite = gameUIObj->GetComponent<UISprite>();
 	pod_.SetInputUISprite(gameUISprite->GetSprites()["exitText"], gameUISprite->GetSprites()["inputButton"]);
+
+	//	ムービー用黒帯
+	letterBox_.LoadData("LetterBox");
+
+#pragma endregion
 
 	effect.LoadResources();
 	effect.Initialize();
@@ -115,9 +128,8 @@ void GameScene::Initialize()
 {
 	pause_.Initialize();
 
-	//CameraManager::GetInstance()->GetMainCamera()->Initialize(Vector3D(0.0f, 6.5f, -65.0f), Vector3D(0.0f, 1.0f, 50.0f), Vector3D(0, 1, 0));
+	//	ゲームカメラ
 	std::unique_ptr<ICamera> camera = std::make_unique<GameCamera>();
-	//camera->Initialize(Vector3D(0, 0, 1), player_->GetPosition(), 10.0f);
 	camera->Initialize(Vector3D(0.0f, 6.5f, -70.0f), Vector3D(0.0f, 1.5f, -50.0f), Vector3D(0, 1, 0));
 	CameraManager::GetInstance()->SetMainCamera(camera);
 
@@ -144,6 +156,10 @@ void GameScene::Initialize()
 	CollisionManager::GetInstance()->AddStageCollider(stageColl);
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Finalize
+//-----------------------------------------------------------------------------
+
 void GameScene::Finalize()
 {
 	ModelManager* models = ModelManager::GetInstance();
@@ -154,6 +170,10 @@ void GameScene::Finalize()
 
 	SceneManager::GetInstance()->ChangeScreenAlpha(0.0f);
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void GameScene::FirstFrameUpdate()
 {
@@ -213,6 +233,10 @@ void GameScene::Update()
 	}
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] ImGuiUpdate
+//-----------------------------------------------------------------------------
+
 void GameScene::ImguiUpdate()
 {
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
@@ -241,6 +265,10 @@ void GameScene::ImguiUpdate()
 
 	imguiMan->EndWindow();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
 
 void GameScene::DrawUIBeforeBlackScreen()
 {
