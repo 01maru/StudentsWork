@@ -4,31 +4,42 @@
 #include "PlayerAttackState.h"
 #include "CharacterHP.h"
 #include "SkillCoolTime.h"
+
 #include <memory>
 
 #include "Bullet.h"
 #include <list>
 #include "CrossHair.h"
+#include "UIData.h"
+
+/**
+* @file Player.h
+* @brief プレイヤーの動きを管理するためのファイル
+*/
+
+#pragma region 前置宣言
 
 class IGameState;
 class GameOverUI;
 
+#pragma endregion
+
 class Player :public MNE::Object3D
 {
 private:
-	bool isActive_ = true;
-	bool gameOver_ = false;
 	CharacterHP hp_;
 
-	//	state
+#pragma region MoveState
+
 	std::unique_ptr<PlayerMoveState> moveState_;
 	bool isRunning_ = false;
 	bool isMoving_ = false;
 	bool onGround_ = true;
+
+#pragma endregion
 	//	攻撃
 	std::unique_ptr<PlayerAttackState> attackState_;
 
-	std::list<std::unique_ptr<Bullet>> bullets_;
 	FrameCounter rate_;
 
 	CrossHair crossHair_;
@@ -44,13 +55,17 @@ private:
 
 	Vector3D offset_;
 
-	//	Skills
+#pragma region Skills
+
 	PlayerSkill nBulletSprite_;
 	bool avoiding_ = false;
 	SkillCoolTime avoidCTSprite_;
 	SkillCoolTime slowAtCTSprite_;
 
+#pragma endregion
+
 	//	Load&Save
+	int32_t maxHP_ = 100;
 	float walkSpd_ = 0.15f;
 	float runSpd_ = 0.2f;
 	float jumpingSpdDec_ = 0.75f;
@@ -66,15 +81,23 @@ private:
 
 	float avoidMaxSpd_ = 0.3f;
 
-	GameOverUI* pGameOverState_ = nullptr;
-
 	int32_t animationTimer_ = 0;
+
+	//	消したい
+	bool isActive_ = true;
+	bool gameOver_ = false;
+	GameOverUI* pGameOverState_ = nullptr;
+	std::list<std::unique_ptr<Bullet>> bullets_;
 
 private:
 	void StatusInitialize();
 	void IsMovingUpdate();
 	void CalcModelFront();
-	void CoolTimeUpdate();
+	/**
+	* @fn SkillsUpdate()
+	* スキルの更新処理関数
+	*/
+	void SkillsUpdate();
 	void JumpUpdate();
 
 	void ImGuiMenuUpdate();
@@ -132,12 +155,13 @@ public:
 	void SetIsRunning(bool isRunning);
 	void SetBulletRate(int32_t rate);
 	void StartRateCount();
-	void SetCrossHairSprite(const MNE::Sprite& sprite);
-	void SetHPBarSprite(const MNE::Sprite& sprite);
 
-	void SetNormalBulletSprite(const MNE::Sprite& sprite, const MNE::Sprite& text);
-	void SetAvoidCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text);
-	void SetSlowAtCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text);
+	/**
+	* @fn SetUIInfo(MNE::UIData&)
+	* UIの配置用関数
+	* @param uiData UIの配置情報
+	*/
+	void SetUIInfo(MNE::UIData& uiData);
 
 	void SetGameOverState(IGameState* gameOverState);
 

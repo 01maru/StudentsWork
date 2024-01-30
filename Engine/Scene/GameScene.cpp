@@ -50,12 +50,6 @@ void GameScene::LoadResources()
 	enemy_ = std::make_unique<Boss>();
 	enemy_->Initialize(models->GetModel("eye"));
 
-	//	脱出ポッド
-	pod_.LoadResources();
-	pod_.SetLetterBox(&letterBox_);
-	pod_.Initialize({ 0.0f,-0.3f,-50.0f });
-	pod_.SetModel(models->GetModel("escapePod"));
-
 #pragma region LevelData
 
 	JSONLoader level;
@@ -77,32 +71,12 @@ void GameScene::LoadResources()
 	UIData ui;
 	ui.LoadData("GameUI");
 	//	Player
-	//	HP
-	UIObject* gameUIObj = ui.GetUIObject("HP");
-	UISprite* gameUISprite = gameUIObj->GetComponent<UISprite>();
-	player_->SetHPBarSprite(gameUISprite->GetSprites()["hp"]);
-	//	CrossHair
-	gameUIObj = ui.GetUIObject("crossHair");
-	gameUISprite = gameUIObj->GetComponent<UISprite>();
-	player_->SetCrossHairSprite(gameUISprite->GetSprites()["crossHair"]);
-	//	Skill
-		//	NormalBullet
-	gameUIObj = ui.GetUIObject("NormalCool");
-	gameUISprite = gameUIObj->GetComponent<UISprite>();
-	player_->SetNormalBulletSprite(gameUISprite->GetSprites()["NormalAt"], gameUISprite->GetSprites()["Text"]);
-		//	FiveBullet
-	gameUIObj = ui.GetUIObject("SlowCool");
-	gameUISprite = gameUIObj->GetComponent<UISprite>();
-	player_->SetSlowAtCoolSprite(gameUISprite->GetSprites()["SlowAt"], gameUISprite->GetSprites()["Text"]);
-		//	Dash
-	gameUIObj = ui.GetUIObject("DashCool");
-	gameUISprite = gameUIObj->GetComponent<UISprite>();
-	player_->SetAvoidCoolSprite(gameUISprite->GetSprites()["Dash"], gameUISprite->GetSprites()["Text"]);
+	player_->SetUIInfo(ui);
 
 	//	Enemy
 	//	HP
-	gameUIObj = ui.GetUIObject("Enemy");
-	gameUISprite = gameUIObj->GetComponent<UISprite>();
+	UIObject* gameUIObj = ui.GetUIObject("Enemy");
+	UISprite* gameUISprite = gameUIObj->GetComponent<UISprite>();
 	enemy_->SetHPBarSprite(gameUISprite->GetSprites()["bossHP"]);
 
 	//	Pod
@@ -115,6 +89,12 @@ void GameScene::LoadResources()
 	letterBox_.LoadData("LetterBox");
 
 #pragma endregion
+
+	//	脱出ポッド
+	pod_.LoadResources();
+	pod_.SetLetterBox(&letterBox_);
+	pod_.Initialize({ 0.0f,-0.3f,-50.0f });
+	pod_.SetModel(models->GetModel("escapePod"));
 
 	effect.LoadResources();
 	effect.Initialize();

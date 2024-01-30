@@ -2,8 +2,8 @@
 #include "Sprite.h"
 
 /**
-* @file CoolTime.h
-* @brief スキルのクールタイムを管理するファイル
+* @file PlayerSkill.h
+* @brief スキルのUIを表示するためのファイル
 */
 
 class PlayerSkill
@@ -27,7 +27,7 @@ public:
 
 protected:
 	//	スキルが使えるか
-	bool isActive_ = false;
+	bool isActive_ = FALSE;
 
 #pragma region Sprite
 
@@ -54,9 +54,9 @@ public:
 
 	/**
 	* @fn SetSprite(const MNE::Sprite&, const MNE::Sprite&)
-	* カメラの移動時間設定用関数
-	* @param sprite 選択中かどうか
-	* @param text 選択中かどうか
+	* UIのスプライト設定用関数
+	* @param sprite スキルのスプライト表示情報
+	* @param text 入力方法表示情報
 	*/
 	virtual void SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text);
 

@@ -3,7 +3,7 @@
 #include "PlayerSkill.h"
 
 /**
-* @file CoolTime.h
+* @file SkillCoolTime.h
 * @brief スキルのクールタイムを管理するファイル
 */
 
@@ -47,8 +47,23 @@ private:
 public:
 #pragma region Setter
 
+	/**
+	* @fn StartCount()
+	* スキルのクールタイム開始用関数
+	*/
 	void StartCount();
+	/**
+	* @fn SetSprite(const MNE::Sprite&, const MNE::Sprite&)
+	* UIとして表示するために必要なスプライト設定用関数
+	* @param sprite スキルの見た目がわかるスプライト
+	* @param text スキルを使用するための入力方法表記用スプライト
+	*/
 	void SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text) override;
+	/**
+	* @fn SetMaxTime(int32_t)
+	* スキルのクールタイム総時間設定用関数
+	* @param time スキルのクールタイム総時間
+	*/
 	void SetMaxTime(int32_t time);
 
 #pragma endregion

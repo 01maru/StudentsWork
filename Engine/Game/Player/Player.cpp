@@ -25,6 +25,10 @@
 using namespace CollAttribute;
 using namespace MNE;
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void Player::StatusInitialize()
 {
 	//	初期ステート
@@ -39,6 +43,8 @@ void Player::StatusInitialize()
 	slowAtCTSprite_.SetMaxTime(slowATCoolTime_);
 	slowAtCTSprite_.Initialize();
 
+	//	HP初期化
+	hp_.SetMaxHP(maxHP_);
 	hp_.Initialize();
 }
 
@@ -56,6 +62,10 @@ void Player::Initialize(MNE::IModel* model)
 
 	StatusInitialize();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void Player::IsMovingUpdate()
 {
@@ -105,7 +115,7 @@ void Player::CalcModelFront()
 	}
 }
 
-void Player::CoolTimeUpdate()
+void Player::SkillsUpdate()
 {
 	nBulletSprite_.Update();
 	avoidCTSprite_.Update();
@@ -165,7 +175,7 @@ void Player::Update()
 	//	modelの正面(走らなくする判定もここで)
 	CalcModelFront();
 
-	CoolTimeUpdate();
+	SkillsUpdate();
 
 	//	ジャンプの判定
 	JumpUpdate();
@@ -206,86 +216,9 @@ void Player::Update()
 	mat_.trans_ = CollisionManager::GetInstance()->CollisionStage(*dynamic_cast<SphereCollider*>(collider_)) - offset_;
 }
 
-void Player::SavePlayerStatus()
-{
-}
-
-void Player::ImGuiMenuUpdate()
-{
-	ImGuiManager* imgui = ImGuiManager::GetInstance();
-
-	if (imgui->BeginMenuBar()) {
-		if (imgui->BeginMenu("File")) {
-			if (imgui->MenuItem("Save")) SavePlayerStatus();
-			imgui->EndMenu();
-		}
-		imgui->EndMenuBar();
-	}
-}
-
-void Player::ImGuiUpdate()
-{
-	ImGuiManager* imgui = ImGuiManager::GetInstance();
-
-	imgui->BeginWindow("PlayerStatus", true);
-
-	ImGuiMenuUpdate();
-
-	crossHair_.ImGuiUpdate();
-
-	imgui->Text("animationTimer : %d", animationTimer_);
-	imgui->Text("angle : %.2f", mat_.angle_.y);
-	imgui->Text("bullet : %d", bullets_.size());
-	imgui->Text("bulletRate : %d", rate_.GetFrameCount());
-	imgui->Text("slowAT : %s", slowAtCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
-
-	if (imgui->CollapsingHeader("HP")) {
-		imgui->Text("isAlive : %s", hp_.GetIsAlive() ? "TRUE" : "FALSE");
-		imgui->Text("HP : %d", hp_.GetHP());
-
-		int32_t maxHP = hp_.GetMaxHP();
-		imgui->InputInt("MaxHP", maxHP);
-		hp_.SetMaxHP(maxHP);
-
-		int32_t debugDamage = 10;
-		if (imgui->SetButton("GetDamage")) {
-			hp_.DecHp(debugDamage);
-		}
-	}
-
-	if (imgui->CollapsingHeader("Move")) {
-		imgui->Text("IsMoving : %s", isMoving_ ? "TRUE" : "FALSE");
-		imgui->Text("IsRunning : %s", isRunning_ ? "TRUE" : "FALSE");
-		imgui->Text("Spd : %.2f", spd_);
-
-		imgui->InputFloat("walkSpd", walkSpd_);
-		imgui->InputFloat("runSpd", runSpd_);
-		imgui->InputFloat("jumpingSpdDec", jumpingSpdDec_);
-	}
-	
-	if (imgui->CollapsingHeader("Avoid")) {
-		imgui->Text("AvoidIsActive : %s", avoidCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
-		imgui->Text("Avoid : %s", avoiding_ ? "TRUE" : "FALSE");
-		imgui->InputInt("AvoidAccTime", avoidAccTime_);
-		imgui->InputInt("AvoidDecTime", avoidDecTime_);
-		imgui->InputInt("AvoidCoolTime", avoidCoolTime_);
-		//avoidCT_.ImGuiUpdate();
-	}
-
-	if(imgui->CollapsingHeader("Jump")) {
-		imgui->Text("OnGround : %s", onGround_ ? "TRUE" : "FALSE");
-		imgui->InputFloat("FallAcc", fallAcc);
-		imgui->InputFloat("FallVYMin", fallVYMin);
-		imgui->InputFloat("JumpFirstSpd", jumpFirstSpd_);
-		imgui->Text("MoveY : %.2f", moveY_);
-	}
-
-	if (imgui->CollapsingHeader("State")) {
-		moveState_->ImGuiUpdate();
-	}
-
-	imgui->EndWindow();
-}
+//-----------------------------------------------------------------------------
+// [SECTION] CollisionUpdate
+//-----------------------------------------------------------------------------
 
 void Player::CollisionUpdate()
 {
@@ -369,6 +302,95 @@ void Player::OnCollision(CollisionInfo& info)
 {
 	(void)info;
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] ImGuiUpdate
+//-----------------------------------------------------------------------------
+
+void Player::SavePlayerStatus()
+{
+}
+
+void Player::ImGuiMenuUpdate()
+{
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
+	if (imgui->BeginMenuBar()) {
+		if (imgui->BeginMenu("File")) {
+			if (imgui->MenuItem("Save")) SavePlayerStatus();
+			imgui->EndMenu();
+		}
+		imgui->EndMenuBar();
+	}
+}
+
+void Player::ImGuiUpdate()
+{
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
+	imgui->BeginWindow("PlayerStatus", true);
+
+	ImGuiMenuUpdate();
+
+	crossHair_.ImGuiUpdate();
+
+	imgui->Text("animationTimer : %d", animationTimer_);
+	imgui->Text("angle : %.2f", mat_.angle_.y);
+	imgui->Text("bullet : %d", bullets_.size());
+	imgui->Text("bulletRate : %d", rate_.GetFrameCount());
+	imgui->Text("slowAT : %s", slowAtCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
+
+	if (imgui->CollapsingHeader("HP")) {
+		imgui->Text("isAlive : %s", hp_.GetIsAlive() ? "TRUE" : "FALSE");
+		imgui->Text("HP : %d", hp_.GetHP());
+
+		int32_t maxHP = hp_.GetMaxHP();
+		imgui->InputInt("MaxHP", maxHP);
+		hp_.SetMaxHP(maxHP);
+
+		int32_t debugDamage = 10;
+		if (imgui->SetButton("GetDamage")) {
+			hp_.DecHp(debugDamage);
+		}
+	}
+
+	if (imgui->CollapsingHeader("Move")) {
+		imgui->Text("IsMoving : %s", isMoving_ ? "TRUE" : "FALSE");
+		imgui->Text("IsRunning : %s", isRunning_ ? "TRUE" : "FALSE");
+		imgui->Text("Spd : %.2f", spd_);
+
+		imgui->InputFloat("walkSpd", walkSpd_);
+		imgui->InputFloat("runSpd", runSpd_);
+		imgui->InputFloat("jumpingSpdDec", jumpingSpdDec_);
+	}
+	
+	if (imgui->CollapsingHeader("Avoid")) {
+		imgui->Text("AvoidIsActive : %s", avoidCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
+		imgui->Text("Avoid : %s", avoiding_ ? "TRUE" : "FALSE");
+		imgui->InputInt("AvoidAccTime", avoidAccTime_);
+		imgui->InputInt("AvoidDecTime", avoidDecTime_);
+		imgui->InputInt("AvoidCoolTime", avoidCoolTime_);
+		//avoidCT_.ImGuiUpdate();
+	}
+
+	if(imgui->CollapsingHeader("Jump")) {
+		imgui->Text("OnGround : %s", onGround_ ? "TRUE" : "FALSE");
+		imgui->InputFloat("FallAcc", fallAcc);
+		imgui->InputFloat("FallVYMin", fallVYMin);
+		imgui->InputFloat("JumpFirstSpd", jumpFirstSpd_);
+		imgui->Text("MoveY : %.2f", moveY_);
+	}
+
+	if (imgui->CollapsingHeader("State")) {
+		moveState_->ImGuiUpdate();
+	}
+
+	imgui->EndWindow();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
 
 void Player::DrawBullets()
 {
@@ -539,32 +561,28 @@ void Player::StartRateCount()
 	rate_.StartCount();
 }
 
-void Player::SetCrossHairSprite(const MNE::Sprite& sprite)
+void Player::SetUIInfo(MNE::UIData& uiData)
 {
-	crossHair_.SetSprite(sprite);
-}
-
-void Player::SetHPBarSprite(const MNE::Sprite& sprite)
-{
-	hp_.SetSprite(sprite);
-
+	//	HP
+	UISprite* gameUISprite = uiData.GetUIObject("HP")->GetComponent<UISprite>();
+	hp_.SetSprite(gameUISprite->GetSprites()["hp"]);
 	Vector3D green(0.0f, 1.0f, 0.0f);
 	hp_.SetBarColor(green);
-}
 
-void Player::SetNormalBulletSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
-{
-	nBulletSprite_.SetSprite(sprite, text);
-}
+	//	CrossHair
+	gameUISprite = uiData.GetUIObject("crossHair")->GetComponent<UISprite>();
+	crossHair_.SetSprite(gameUISprite->GetSprites()["crossHair"]);
 
-void Player::SetAvoidCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
-{
-	avoidCTSprite_.SetSprite(sprite, text);
-}
-
-void Player::SetSlowAtCoolSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
-{
-	slowAtCTSprite_.SetSprite(sprite, text);
+	//	Skills
+		//	NormalBullet
+	gameUISprite = uiData.GetUIObject("NormalCool")->GetComponent<UISprite>();
+	nBulletSprite_.SetSprite(gameUISprite->GetSprites()["NormalAt"], gameUISprite->GetSprites()["Text"]);
+	//	FiveBullet
+	gameUISprite = uiData.GetUIObject("SlowCool")->GetComponent<UISprite>();
+	slowAtCTSprite_.SetSprite(gameUISprite->GetSprites()["SlowAt"], gameUISprite->GetSprites()["Text"]);
+	//	Dash
+	gameUISprite = uiData.GetUIObject("DashCool")->GetComponent<UISprite>();
+	avoidCTSprite_.SetSprite(gameUISprite->GetSprites()["Dash"], gameUISprite->GetSprites()["Text"]);
 }
 
 void Player::SetGameOverState(IGameState* gameOverState)

@@ -9,8 +9,9 @@ using namespace Easing;
 
 void SkillCoolTime::Initialize()
 {
-	coolTimer_.SetIsActive(false);
-	coolTimer_.SetIsIncrement(true);
+	//	クールタイムタイマー初期化
+	coolTimer_.SetIsActive(FALSE);
+	coolTimer_.SetIsIncrement(TRUE);
 	coolTimer_.SetFrameCountIsMax();
 	
 	PlayerSkill::Initialize();
@@ -24,13 +25,13 @@ void SkillCoolTime::GaugeUpdate()
 {
 	//	クールタイム中じゃなかったら
 	if (coolTimer_.GetIsActive() == FALSE) {
-		isActive_ = true;
+		//	使用可能状態に(以下の処理しない)
+		isActive_ = TRUE;
 		return;
 	}
 
-	float start = 1.0f;
-	float end = 0.0f;
-	float rate = lerp(start, end, coolTimer_.GetCountPerMaxCount());
+	//	以下ゲージの動き処理
+	float rate = lerp(1.0f, 0.0f, coolTimer_.GetCountPerMaxCount());
 
 	Vector2D size = sprite_.GetSize();
 
@@ -42,10 +43,13 @@ void SkillCoolTime::GaugeUpdate()
 
 void SkillCoolTime::Update()
 {
+	//	クールタイム更新
 	coolTimer_.Update();
 
+	//	ゲージの動き更新
 	GaugeUpdate();
 
+	//	スプライトの更新
 	PlayerSkill::Update();
 	gauge_.Update();
 }
@@ -56,11 +60,13 @@ void SkillCoolTime::Update()
 
 void SkillCoolTime::Draw()
 {
+	//	スキルや操作方法の描画
 	PlayerSkill::Draw();
 	
 	//	クールタイム中のみ表示
 	if (coolTimer_.GetIsActive() == TRUE)
 	{
+		//	ゲージの描画
 		gauge_.Draw();
 	}
 }
@@ -72,13 +78,14 @@ void SkillCoolTime::Draw()
 void SkillCoolTime::StartCount()
 {
 	coolTimer_.StartCount();
-	isActive_ = false;
+	isActive_ = FALSE;
 }
 
 void SkillCoolTime::SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
 {
 	PlayerSkill::SetSprite(sprite, text);
 
+	//	スキルのスプライトに合わせてゲージを初期化
 	gauge_.Initialize();
 	gauge_.SetPosition(sprite.GetPosition());
 	gauge_.SetAnchorPoint(sprite.GetAnchorPoint());
