@@ -11,6 +11,23 @@ using namespace MNE;
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
+void TitleUI::LoadResources()
+{
+#pragma region Sound
+
+	XAudioManager* xAudioMan = XAudioManager::GetInstance();
+	xAudioMan->LoadSoundWave("decision.wav");
+
+#pragma endregion
+
+	//	配置データ
+	titleData_.LoadData("Title");
+	//	カーソル
+	cursor_.LoadResources();
+	//	オプション
+	option_.LoadResources("Option");
+}
+
 void TitleUI::Initialize()
 {
 	//	リソース読み込み
@@ -32,28 +49,15 @@ void TitleUI::Initialize()
 	input->SetNextTag("cantBack", input->GetUsePad(), input->GetUsePad());
 	//	入力説明表示
 	input->SetDrawExplane(true);
+
+	//	カーソル固定解除
+	input->GetMouse()->SetLockCursor(false);
 }
 
 void TitleUI::Finalize()
 {
+	//	操作説明用スプライト非表示
 	InputManager::GetInstance()->SetDrawExplane(false);
-}
-
-void TitleUI::LoadResources()
-{
-#pragma region Sound
-
-	XAudioManager* xAudioMan = XAudioManager::GetInstance();
-	xAudioMan->LoadSoundWave("decision.wav");
-
-#pragma endregion
-
-	//	配置データ
-	titleData_.LoadData("Title");
-	//	カーソル
-	cursor_.LoadResources();
-	//	オプション
-	option_.LoadResources("Option");
 }
 
 //-----------------------------------------------------------------------------

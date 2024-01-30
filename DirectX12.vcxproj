@@ -146,7 +146,6 @@
     <ClCompile Include="Engine\Scene\Base\SplashScreenScene.cpp" />
     <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\ParticleEmitter.cpp" />
-    <ClCompile Include="Engine\Game\SpaceShip.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIAnimationTimer.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIComponent.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIFadeAnimation.cpp" />
@@ -319,7 +318,6 @@
     <ClInclude Include="Engine\Game\GameOverCamera.h" />
     <ClInclude Include="Engine\Game\UI\GameOverUI.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\ParticleEmitter.h" />
-    <ClInclude Include="Engine\Game\SpaceShip.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIAnimationTimer.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIComponent.h" />
     <ClInclude Include="Engine\2D\Sprite\UI\UIFadeAnimation.h" />

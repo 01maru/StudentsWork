@@ -21,7 +21,10 @@ public:
 	* 初期化関数
 	*/
 	void Initialize();
-
+	/**
+	* @fn Finalize()
+	* 終了時に呼び出す関数
+	*/
 	void Finalize();
 	/**
 	* @fn LoadResources()

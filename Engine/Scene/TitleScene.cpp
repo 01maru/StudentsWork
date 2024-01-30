@@ -77,9 +77,6 @@ void TitleScene::Initialize()
 	LightManager::GetInstance()->SetFogEnd(6.0f);
 	LightManager::GetInstance()->SetFogFar(30.0f);
 
-	//	カーソル固定解除
-	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
-
 	LoadResources();
 }
 

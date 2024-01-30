@@ -11,6 +11,7 @@
 class TitleScene :public MNE::IScene
 {
 public:
+	//	デストラクタ
 	~TitleScene() override {};
 
 	/**

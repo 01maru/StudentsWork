@@ -271,17 +271,11 @@
     <Filter Include="ヘッダー ファイル\Game\UI\GameState">
       <UniqueIdentifier>{021c3ce2-cc4f-49ba-b3ec-517095151feb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\SpaceShip">
-      <UniqueIdentifier>{bfd596a9-72b4-4c9f-8ace-1612a528236e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game\EscapePod">
       <UniqueIdentifier>{74ada9ae-e02d-4d8e-8511-b2ab0e482893}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\EscapePod">
       <UniqueIdentifier>{878c96cd-4b97-4c3d-b1f2-aac1139dc9ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\SpaceShip">
-      <UniqueIdentifier>{53469f30-c7be-45d8-a10b-74b4cb8decea}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Game\EscapePod\State">
       <UniqueIdentifier>{df78ba25-884c-488c-81e5-98314d9ec4d4}</UniqueIdentifier>
@@ -776,9 +770,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\EscapePod\State\PodBefOpenDoorState.cpp">
       <Filter>ソース ファイル\Game\EscapePod\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\SpaceShip.cpp">
-      <Filter>ソース ファイル\Game\SpaceShip</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
@@ -1318,9 +1309,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\EscapePod\State\PodBefCollGroundState.h">
       <Filter>ヘッダー ファイル\Game\EscapePod\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\SpaceShip.h">
-      <Filter>ヘッダー ファイル\Game\SpaceShip</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIScaling.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
