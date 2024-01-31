@@ -298,6 +298,12 @@
     <Filter Include="ヘッダー ファイル\Game\Player\Skill">
       <UniqueIdentifier>{6ee25530-29ba-431c-9277-bcc1c5125ebe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Player\UI">
+      <UniqueIdentifier>{b5bd6de2-631e-424e-b11c-513452339efc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player\UI">
+      <UniqueIdentifier>{7657af6a-881c-4374-bc51-a77250906f26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -639,9 +645,6 @@
     <ClCompile Include="Engine\Game\Player\PlayerWalkState.cpp">
       <Filter>ソース ファイル\Game\Player\MoveStatus</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Player\CharacterHP.cpp">
-      <Filter>ソース ファイル\Game\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\Player\PlayerAttackState.cpp">
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
@@ -792,9 +795,6 @@
     <ClCompile Include="Engine\Game\UI\ExplanatoryText.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Player\CrossHair.cpp">
-      <Filter>ソース ファイル\Game\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\Player\SkillCoolTime.cpp">
       <Filter>ソース ファイル\Game\Player\Skills</Filter>
     </ClCompile>
@@ -803,6 +803,12 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\EscapePod\PodInputUI.cpp">
       <Filter>ソース ファイル\Game\EscapePod</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Player\CrossHair.cpp">
+      <Filter>ソース ファイル\Game\Player\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Player\CharacterHP.cpp">
+      <Filter>ソース ファイル\Game\Player\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1163,9 +1169,6 @@
     <ClInclude Include="Engine\Game\Player\Player.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Player\CharacterHP.h">
-      <Filter>ヘッダー ファイル\Game\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Player\PlayerWalkState.h">
       <Filter>ヘッダー ファイル\Game\Player\MoveStatus</Filter>
     </ClInclude>
@@ -1325,9 +1328,6 @@
     <ClInclude Include="Engine\Game\UI\ExplanatoryText.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Player\CrossHair.h">
-      <Filter>ヘッダー ファイル\Game\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Base\Json\JSONLoader.h">
       <Filter>ヘッダー ファイル\lib\Engine\JSON</Filter>
     </ClInclude>
@@ -1345,6 +1345,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\EscapePod\PodInputUI.h">
       <Filter>ヘッダー ファイル\Game\EscapePod</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Player\CharacterHP.h">
+      <Filter>ヘッダー ファイル\Game\Player\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Player\CrossHair.h">
+      <Filter>ヘッダー ファイル\Game\Player\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

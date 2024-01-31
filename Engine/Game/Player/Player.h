@@ -27,6 +27,7 @@ class GameOverUI;
 class Player :public MNE::Object3D
 {
 private:
+	//	HPの表示や生存フラグ管理用
 	CharacterHP hp_;
 
 #pragma region MoveState
@@ -42,16 +43,16 @@ private:
 
 	FrameCounter rate_;
 
+	//	照準
 	CrossHair crossHair_;
 	
 	//	平面上のスピード
 	float spd_;
-	//	平面上の移動方向
+	//	平面上の移動方向(モデルの正面ベクトルでもある)
 	Vector3D moveVec_;
 	//	１フレームでの上下の移動量(上が+)
 	float moveY_ = -0.5f;
 
-	Vector3D modelFront_;
 
 	Vector3D offset_;
 
@@ -83,6 +84,9 @@ private:
 
 	int32_t animationTimer_ = 0;
 
+	float maxAngle_ = 90.0f;
+	float minAngle_ = 20.0f;
+
 	//	消したい
 	bool isActive_ = true;
 	bool gameOver_ = false;
@@ -92,7 +96,8 @@ private:
 private:
 	void StatusInitialize();
 	void IsMovingUpdate();
-	void CalcModelFront();
+	void InputUpdate();
+	void CalcModelFront(const Vector2D& inputVec);
 	/**
 	* @fn SkillsUpdate()
 	* スキルの更新処理関数

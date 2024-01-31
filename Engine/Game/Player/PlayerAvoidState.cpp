@@ -7,6 +7,10 @@
 
 using namespace MNE;
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void PlayerAvoidState::Initialize()
 {
 	timer_.Initialize(sPlayer_->GetAvoidAccTime(), true);
@@ -30,6 +34,10 @@ void PlayerAvoidState::Initialize()
 		//	横移動弱く、若干上に移動
 	}
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void PlayerAvoidState::Update()
 {

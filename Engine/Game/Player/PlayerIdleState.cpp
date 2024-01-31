@@ -5,11 +5,19 @@
 #include "InputManager.h"
 #include <memory>
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void PlayerIdleState::Initialize()
 {
 	sPlayer_->SetAnimationIdx("Idol");
 	sPlayer_->SetAnimationTimer(0);
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void PlayerIdleState::Update()
 {

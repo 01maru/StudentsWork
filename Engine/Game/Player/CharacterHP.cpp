@@ -24,8 +24,9 @@ void CharacterHP::Initialize()
 
 void CharacterHP::IsAliveUpdate()
 {
+	const int32_t MIN_FOR_ALIVE = 1;
 	//	HPが0以下なら死亡
-	if (hp_ <= 0) {
+	if (hp_ <= MIN_FOR_ALIVE) {
 		isAlive_ = FALSE;
 	}
 }
@@ -73,7 +74,8 @@ void CharacterHP::DecHp(int32_t damage)
 {
 	if (isAlive_ == false) return;
 
-	hp_ = MyMath::mMax(0, hp_ - damage);
+	const int32_t DEATH_LINE = 0;
+	hp_ = MyMath::mMax(DEATH_LINE, hp_ - damage);
 
 	IsAliveUpdate();
 

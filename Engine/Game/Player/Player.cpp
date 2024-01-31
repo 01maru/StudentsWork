@@ -67,6 +67,47 @@ void Player::Initialize(MNE::IModel* model)
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
+void Player::CalcModelFront(const Vector2D& inputVec)
+{
+	//	移動してなかったら以下の処理はしない
+	if (isMoving_ == FALSE) return;
+
+	//	移動方向ベクトル変更
+	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+
+	moveVec_ = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
+	moveVec_.y = 0;
+	//Vector3D inputMoveVec = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
+	//inputMoveVec.y = 0;
+
+	//float dot = moveVec_.dot(inputMoveVec);
+	//dot = (-dot + 1.0f) / 2.0f;		//	範囲を0.0f~1.0fに変更し、移動量が大きいときにdot値が大きくなるように変更
+
+	////	回転する角度を決める
+	//float angle = dot * maxAngle_;
+	//angle = MyMath::ConvertToRad(angle);
+
+	////	回転する向きを決める
+	//Vector3D cross = moveVec_.cross(inputMoveVec);
+
+	//if (cross.y < 0.0f)
+	//{
+	//	angle = -angle;
+	//}
+
+	////	Y軸回りに回転
+	//Quaternion axisY = MakeAxisAngle(Vector3D(0, 1, 0), angle);
+
+	//moveVec_ = RotateVector(inputMoveVec, axisY);
+
+	//	モデルの向き計算
+	Vector3D axisZ(0, 0, -1);
+	Vector3D axisX(-1, 0, 0);
+	dot = axisX.dot(moveVec_);
+	mat_.angle_.y = GetAngle(axisZ, moveVec_);
+	if (dot < 0) mat_.angle_.y = -mat_.angle_.y;
+}
+
 void Player::IsMovingUpdate()
 {
 	InputManager* input = InputManager::GetInstance();
@@ -82,36 +123,25 @@ void Player::IsMovingUpdate()
 	//	移動しているか判定
 	isMoving_ = inputVec.GetLength() != 0;
 
-	//	移動してなかったら以下の処理はしない
-	if (isMoving_ == FALSE) return;
+	//	モデルの正面&移動方向計算
+	CalcModelFront(inputVec);
+}
 
-	//	移動方向ベクトル変更
-	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+void Player::InputUpdate()
+{
+	InputManager* input = InputManager::GetInstance();
 
-	moveVec_ = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
-	moveVec_.y = 0;
-
-	//	走っているか判定
+	//	走っているか判定(攻撃中は歩くように)
 	if (input->GetTriggerKeyAndButton(DIK_LCONTROL, InputJoypad::B_Button)) {
 		isRunning_ = !isRunning_;
 	}
 
+	//	スライディングするか
 	if (input->GetTriggerKeyAndButton(DIK_LSHIFT, InputJoypad::Left_Button) &&
 		avoidCTSprite_.GetIsActive())
 	{
 		avoidCTSprite_.StartCount();
 		avoiding_ = true;
-	}
-}
-
-void Player::CalcModelFront()
-{
-	if (moveVec_.GetLength() != 0.0f) {
-		Vector3D axis(0, 0, -1);
-		Vector3D axis_(-1, 0, 0);
-		float dot = axis_.dot(moveVec_);
-		mat_.angle_.y = GetAngle(axis, moveVec_);
-		if (dot < 0) mat_.angle_.y = -mat_.angle_.y;
 	}
 }
 
@@ -152,7 +182,7 @@ void Player::Update()
 {
 	if (isActive_ == FALSE) return;
 
-	//	死亡判定
+	//	HPバーのアニメーション更新
 	hp_.Update();
 
 	GetAnimation()->SetAnimeTimer(static_cast<float>(animationTimer_++));
@@ -172,8 +202,7 @@ void Player::Update()
 
 	IsMovingUpdate();
 
-	//	modelの正面(走らなくする判定もここで)
-	CalcModelFront();
+	InputUpdate();
 
 	SkillsUpdate();
 

@@ -4,11 +4,19 @@
 #include "Player.h"
 #include "InputManager.h"
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void PlayerWalkState::Initialize()
 {
 	sPlayer_->SetAnimationIdx("Run");
 	sPlayer_->SetAnimationTimer(0);
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void PlayerWalkState::Update()
 {
