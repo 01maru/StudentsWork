@@ -11,6 +11,7 @@
 #include <list>
 #include "CrossHair.h"
 #include "UIData.h"
+#include "PlayerData.h"
 
 /**
 * @file Player.h
@@ -24,8 +25,18 @@ class GameOverUI;
 
 #pragma endregion
 
-class Player :public MNE::Object3D
+class Player :public MNE::Object3D, public PlayerData
 {
+public:
+	void Initialize(MNE::IModel* model_);
+	void Update();
+	void ImGuiUpdate();
+	void CollisionUpdate();
+	void OnCollision(CollisionInfo& info) override;
+
+	void DrawBullets();
+	void DrawUI();
+
 private:
 	//	HPの表示や生存フラグ管理用
 	CharacterHP hp_;
@@ -53,7 +64,7 @@ private:
 	//	１フレームでの上下の移動量(上が+)
 	float moveY_ = -0.5f;
 
-
+	//	プレイヤーの中心とモデルの位置のオフセット値
 	Vector3D offset_;
 
 #pragma region Skills
@@ -65,25 +76,9 @@ private:
 
 #pragma endregion
 
-	//	Load&Save
-	int32_t maxHP_ = 100;
-	float walkSpd_ = 0.15f;
-	float runSpd_ = 0.2f;
-	float jumpingSpdDec_ = 0.75f;
-	int32_t avoidDecTime_ = 60;
-	int32_t avoidAccTime_ = 30;
-	int32_t avoidCoolTime_ = 240;
-	int32_t slowATCoolTime_ = 240;
-	int32_t bulletRate_ = 20;
-
-	float fallAcc = -0.01f;
-	float fallVYMin = -0.5f;
-	float jumpFirstSpd_ = 0.2f;
-
-	float avoidMaxSpd_ = 0.3f;
-
 	int32_t animationTimer_ = 0;
 
+	//	Load&Save
 	float maxAngle_ = 90.0f;
 	float minAngle_ = 20.0f;
 
@@ -107,16 +102,8 @@ private:
 
 	void ImGuiMenuUpdate();
 
-	void SavePlayerStatus();
+	void HotLoadStatus();
 public:
-	void Initialize(MNE::IModel* model_);
-	void Update();
-	void ImGuiUpdate();
-	void CollisionUpdate();
-	void OnCollision(CollisionInfo& info) override;
-
-	void DrawBullets();
-	void DrawUI();
 
 	void AddBullet(std::unique_ptr<Bullet>& bullet);
 	void StartSlowAtCT();
@@ -129,20 +116,14 @@ public:
 	Vector3D* GetPositionPtr() { return &mat_.trans_; }
 	Vector3D GetCenterPos();
 	bool GetOnGround();
-	float GetWalkSpd();
-	float GetRunSpd();
-	float GetJumpingSpdDec();
 	bool GetIsRunning();
 	bool GetIsAvoid();
 	bool GetIsMoving();
-	int32_t GetAvoidAccTime();
-	int32_t GetAvoidDecTime();
 	float GetSpd();
 	float GetAvoidMaxSpd();
 	Vector3D GetBulletFront();
 	bool GetRateCountIsActive();
 	bool GetSlowAtIsActive();
-	int32_t GetBulletRate();
 	bool GetIsAlive();
 
 #pragma endregion

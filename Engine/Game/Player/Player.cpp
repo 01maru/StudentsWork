@@ -38,13 +38,10 @@ void Player::StatusInitialize()
 
 	//	Skills
 	nBulletSprite_.Initialize();
-	avoidCTSprite_.SetMaxTime(avoidCoolTime_);
 	avoidCTSprite_.Initialize();
-	slowAtCTSprite_.SetMaxTime(slowATCoolTime_);
 	slowAtCTSprite_.Initialize();
 
 	//	HP初期化
-	hp_.SetMaxHP(maxHP_);
 	hp_.Initialize();
 }
 
@@ -103,7 +100,7 @@ void Player::CalcModelFront(const Vector2D& inputVec)
 	//	モデルの向き計算
 	Vector3D axisZ(0, 0, -1);
 	Vector3D axisX(-1, 0, 0);
-	dot = axisX.dot(moveVec_);
+	float dot = axisX.dot(moveVec_);
 	mat_.angle_.y = GetAngle(axisZ, moveVec_);
 	if (dot < 0) mat_.angle_.y = -mat_.angle_.y;
 }
@@ -336,21 +333,28 @@ void Player::OnCollision(CollisionInfo& info)
 // [SECTION] ImGuiUpdate
 //-----------------------------------------------------------------------------
 
-void Player::SavePlayerStatus()
-{
-}
-
 void Player::ImGuiMenuUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
 	if (imgui->BeginMenuBar()) {
 		if (imgui->BeginMenu("File")) {
-			if (imgui->MenuItem("Save")) SavePlayerStatus();
+			if (imgui->MenuItem("Load")) HotLoadStatus();
+			if (imgui->MenuItem("Save")) SaveData();
 			imgui->EndMenu();
 		}
 		imgui->EndMenuBar();
 	}
+}
+
+void Player::HotLoadStatus()
+{
+	LoadData();
+
+	avoidCTSprite_.SetMaxTime(avoidCoolTime_);
+	slowAtCTSprite_.SetMaxTime(slowATCoolTime_);
+
+	hp_.SetMaxHP(maxHP_);
 }
 
 void Player::ImGuiUpdate()
@@ -363,19 +367,25 @@ void Player::ImGuiUpdate()
 
 	crossHair_.ImGuiUpdate();
 
-	imgui->Text("animationTimer : %d", animationTimer_);
-	imgui->Text("angle : %.2f", mat_.angle_.y);
-	imgui->Text("bullet : %d", bullets_.size());
-	imgui->Text("bulletRate : %d", rate_.GetFrameCount());
-	imgui->Text("slowAT : %s", slowAtCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
+	if (imgui->CollapsingHeader("Model")) {
+		imgui->Text("animationTimer : %d", animationTimer_);
+		imgui->Text("angle : %.2f", mat_.angle_.y);
+	}
+
+	if (imgui->CollapsingHeader("Attack")) {
+		imgui->Text("bullet : %d", bullets_.size());
+		imgui->Text("bulletRate : %d", rate_.GetFrameCount());
+		imgui->Text("slowAT : %s", slowAtCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
+
+		ImGuiAttackUpdate();
+	}
 
 	if (imgui->CollapsingHeader("HP")) {
 		imgui->Text("isAlive : %s", hp_.GetIsAlive() ? "TRUE" : "FALSE");
 		imgui->Text("HP : %d", hp_.GetHP());
 
-		int32_t maxHP = hp_.GetMaxHP();
-		imgui->InputInt("MaxHP", maxHP);
-		hp_.SetMaxHP(maxHP);
+		ImGuiHPUpdate();
+		hp_.SetMaxHP(maxHP_);
 
 		int32_t debugDamage = 10;
 		if (imgui->SetButton("GetDamage")) {
@@ -388,26 +398,22 @@ void Player::ImGuiUpdate()
 		imgui->Text("IsRunning : %s", isRunning_ ? "TRUE" : "FALSE");
 		imgui->Text("Spd : %.2f", spd_);
 
-		imgui->InputFloat("walkSpd", walkSpd_);
-		imgui->InputFloat("runSpd", runSpd_);
-		imgui->InputFloat("jumpingSpdDec", jumpingSpdDec_);
+		ImGuiMoveUpdate();
 	}
 	
 	if (imgui->CollapsingHeader("Avoid")) {
 		imgui->Text("AvoidIsActive : %s", avoidCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
 		imgui->Text("Avoid : %s", avoiding_ ? "TRUE" : "FALSE");
-		imgui->InputInt("AvoidAccTime", avoidAccTime_);
-		imgui->InputInt("AvoidDecTime", avoidDecTime_);
-		imgui->InputInt("AvoidCoolTime", avoidCoolTime_);
+
+		ImGuiAvoidUpdate();
 		//avoidCT_.ImGuiUpdate();
 	}
 
 	if(imgui->CollapsingHeader("Jump")) {
 		imgui->Text("OnGround : %s", onGround_ ? "TRUE" : "FALSE");
-		imgui->InputFloat("FallAcc", fallAcc);
-		imgui->InputFloat("FallVYMin", fallVYMin);
-		imgui->InputFloat("JumpFirstSpd", jumpFirstSpd_);
 		imgui->Text("MoveY : %.2f", moveY_);
+
+		ImGuiJumpUpdate();
 	}
 
 	if (imgui->CollapsingHeader("State")) {
@@ -474,21 +480,6 @@ bool Player::GetOnGround()
 	return onGround_;
 }
 
-float Player::GetWalkSpd()
-{
-	return walkSpd_;
-}
-
-float Player::GetRunSpd()
-{
-	return runSpd_;
-}
-
-float Player::GetJumpingSpdDec()
-{
-	return jumpingSpdDec_;
-}
-
 bool Player::GetIsRunning()
 {
 	return isRunning_;
@@ -502,16 +493,6 @@ bool Player::GetIsAvoid()
 bool Player::GetIsMoving()
 {
 	return isMoving_;
-}
-
-int32_t Player::GetAvoidAccTime()
-{
-	return avoidAccTime_;
-}
-
-int32_t Player::GetAvoidDecTime()
-{
-	return avoidDecTime_;
 }
 
 float Player::GetSpd()
@@ -537,11 +518,6 @@ bool Player::GetRateCountIsActive()
 bool Player::GetSlowAtIsActive()
 {
 	return slowAtCTSprite_.GetIsActive();
-}
-
-int32_t Player::GetBulletRate()
-{
-	return bulletRate_;
 }
 
 bool Player::GetIsAlive()

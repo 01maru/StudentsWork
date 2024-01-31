@@ -179,6 +179,7 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp" />
     <ClCompile Include="Engine\Game\Player\PlayerSkill.cpp" />
     <ClCompile Include="Engine\Game\EscapePod\PodInputUI.cpp" />
+    <ClCompile Include="PlayerData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Game\Player\ActiveSkillEffect.h" />
@@ -361,6 +362,7 @@
     <ClInclude Include="Engine\Base\Json\JSONData.h" />
     <ClInclude Include="Engine\Game\Player\PlayerSkill.h" />
     <ClInclude Include="Engine\Game\EscapePod\PodInputUI.h" />
+    <ClInclude Include="PlayerData.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

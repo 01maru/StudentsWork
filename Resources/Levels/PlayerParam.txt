@@ -1,0 +1,11 @@
+MAXHP 50
+WalkSPD 0.15
+RunSPD 0.2
+JumpDecSPD 0.75
+AvoidMaxSpd 0.3
+AvoidDecTime 60
+AvoidAccTime 30
+AvoidCT 240
+FallAcc -0.01
+FallMin -0.5
+JumpFstSpd 0.2
