@@ -29,8 +29,9 @@ public:
 	/**
 	* @fn Update()
 	* 更新処理関数
+	* @return IsActiveの切り替わったタイミング取得(Trigger)
 	*/
-	void Update();
+	bool Update();
 	/**
 	* @fn ImGuiUpdate()
 	* ImGui更新処理関数
@@ -60,8 +61,9 @@ private:
 	/**
 	* @fn IsActiveUpdate()
 	* ポーズ画面が実行中か切り替えるための更新処理関数
+	* @return IsActiveの切り替わったタイミング取得(Trigger)
 	*/
-	void IsActiveUpdate();
+	bool IsActiveUpdate();
 	/**
 	* @fn PauseInputUpdate(bool)
 	* ポーズ画面での入力更新用関数

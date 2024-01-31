@@ -24,15 +24,13 @@ void PlayerNormalBulletState::Update()
 		//	弾生成
 		sPlayer_->StartRateCount();
 
-		std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>();
-		bullet->Initialize();
-		bullet->SetLifeTime(bulletLifeTime_);
-		bullet->SetSpd(bulletSpd_);
-		bullet->SetMoveVec(sPlayer_->GetBulletFront());
-		bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
+		BulletInfo bullet;
+		bullet.lifeTime_ = bulletLifeTime_;
+		bullet.spd_ = bulletSpd_;
+		bullet.moveVec_ = sPlayer_->GetBulletFront();
 		Vector3D pos = sPlayer_->GetPosition();
 		pos.y = 0.3f;
-		bullet->SetPosition(pos);
+		bullet.pos_ = pos;
 		sPlayer_->AddBullet(bullet);
 	}
 }

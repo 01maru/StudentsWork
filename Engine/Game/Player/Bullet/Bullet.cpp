@@ -11,12 +11,20 @@
 
 using namespace MNE;
 
+//-----------------------------------------------------------------------------
+// [SECTION] Destructor
+//-----------------------------------------------------------------------------
+
 Bullet::~Bullet()
 {
 	if (emitter_ != nullptr) {
 		emitter_->SetIsDead(true);
 	}
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
 
 void Bullet::Initialize()
 {
@@ -30,6 +38,10 @@ void Bullet::Initialize()
 	emitter_ = ParticleManager::GetInstance()->AddEmitter(afterImgEmitter.GetEmitter());
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
 void Bullet::Update()
 {
 	lifeTime_.Update();
@@ -41,6 +53,19 @@ void Bullet::Update()
 	MatUpdate();
 	collider_->Update();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+bool Bullet::GetIsActive()
+{
+	return lifeTime_.GetIsActive();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
 
 void Bullet::SetMoveVec(const Vector3D& moveVec)
 {
@@ -58,11 +83,6 @@ void Bullet::SetSpd(float spd)
 void Bullet::SetLifeTime(int32_t time)
 {
 	lifeTime_.SetMaxFrameCount(time);
-}
-
-bool Bullet::GetIsActive()
-{
-	return lifeTime_.GetIsActive();
 }
 
 void Bullet::OnCollision(CollisionInfo& info)

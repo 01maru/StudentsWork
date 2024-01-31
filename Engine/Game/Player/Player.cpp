@@ -24,6 +24,7 @@
 
 using namespace CollAttribute;
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -51,6 +52,7 @@ void Player::Initialize(MNE::IModel* model)
 {
 	Object3D::Initialize();
 	SetModel(model);
+
 	float radius = 0.5f;
 	offset_ = Vector3D(0.0f, radius, 0.0f);
 	SetCollider(new SphereCollider(offset_, radius));
@@ -60,11 +62,46 @@ void Player::Initialize(MNE::IModel* model)
 	PlayerAttackState::SetPlayer(this);
 
 	StatusInitialize();
+
+	moveVec_ = Vector3D(0, 0, -1);
 }
 
 //-----------------------------------------------------------------------------
 // [SECTION] Update
 //-----------------------------------------------------------------------------
+
+void Player::CalcMoveVec(const Vector2D& inputVec)
+{
+	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+	Vector3D inputMoveVec = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
+	inputMoveVec.y = 0;
+
+	float dot = moveVec_.dot(inputMoveVec);
+	dot = (-dot + 1.0f) / 2.0f;		//	範囲を0.0f~1.0fに変更し、移動量が大きいときにdot値が大きくなるように変更
+
+	//	回転する角度を決める
+	float angle = dot * maxAngle_;
+	angle = ConvertToRad(mMax(angle, minAngle_));
+	if (GetAngle(moveVec_, inputMoveVec) <= abs(angle))
+	{
+		moveVec_ = inputMoveVec;
+	}
+	else
+	{
+		//	回転する向きを決める
+		Vector3D cross = moveVec_.cross(inputMoveVec);
+
+		if (cross.y < 0.0f)
+		{
+			angle = -angle;
+		}
+
+		//	Y軸回りに回転
+		Quaternion axisY = MakeAxisAngle(Vector3D(0, 1, 0), angle);
+
+		moveVec_ = RotateVector(moveVec_, axisY);
+	}
+}
 
 void Player::CalcModelFront(const Vector2D& inputVec)
 {
@@ -72,32 +109,7 @@ void Player::CalcModelFront(const Vector2D& inputVec)
 	if (isMoving_ == FALSE) return;
 
 	//	移動方向ベクトル変更
-	ICamera* camera = CameraManager::GetInstance()->GetCamera();
-
-	moveVec_ = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
-	moveVec_.y = 0;
-	//Vector3D inputMoveVec = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
-	//inputMoveVec.y = 0;
-
-	//float dot = moveVec_.dot(inputMoveVec);
-	//dot = (-dot + 1.0f) / 2.0f;		//	範囲を0.0f~1.0fに変更し、移動量が大きいときにdot値が大きくなるように変更
-
-	////	回転する角度を決める
-	//float angle = dot * maxAngle_;
-	//angle = MyMath::ConvertToRad(angle);
-
-	////	回転する向きを決める
-	//Vector3D cross = moveVec_.cross(inputMoveVec);
-
-	//if (cross.y < 0.0f)
-	//{
-	//	angle = -angle;
-	//}
-
-	////	Y軸回りに回転
-	//Quaternion axisY = MakeAxisAngle(Vector3D(0, 1, 0), angle);
-
-	//moveVec_ = RotateVector(inputMoveVec, axisY);
+	CalcMoveVec(inputVec);
 
 	//	モデルの向き計算
 	Vector3D axisZ(0, 0, -1);
@@ -228,14 +240,6 @@ void Player::Update()
 	attackState_->Update();
 
 	rate_.Update();
-	bullets_.remove_if([](std::unique_ptr<Bullet>& bullet) {
-		return bullet->GetIsActive() == false;
-		});
-
-	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
-	{
-		itr->get()->Update();
-	}
 
 	ColliderUpdate();
 
@@ -375,7 +379,6 @@ void Player::ImGuiUpdate()
 	}
 
 	if (imgui->CollapsingHeader("Attack")) {
-		imgui->Text("bullet : %d", bullets_.size());
 		imgui->Text("bulletRate : %d", rate_.GetFrameCount());
 		imgui->Text("slowAT : %s", slowAtCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
 
@@ -399,6 +402,7 @@ void Player::ImGuiUpdate()
 		imgui->Text("IsMoving : %s", isMoving_ ? "TRUE" : "FALSE");
 		imgui->Text("IsRunning : %s", isRunning_ ? "TRUE" : "FALSE");
 		imgui->Text("Spd : %.2f", spd_);
+		imgui->Text("MoveVec : (%.2f, %.2f, %.2f)", moveVec_.x, moveVec_.y, moveVec_.z);
 
 		ImGuiMoveUpdate();
 	}
@@ -429,14 +433,6 @@ void Player::ImGuiUpdate()
 // [SECTION] Draw
 //-----------------------------------------------------------------------------
 
-void Player::DrawBullets()
-{
-	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
-	{
-		itr->get()->Draw();
-	}
-}
-
 void Player::DrawUI()
 {
 	crossHair_.Draw();
@@ -448,9 +444,9 @@ void Player::DrawUI()
 	slowAtCTSprite_.Draw();
 }
 
-void Player::AddBullet(std::unique_ptr<Bullet>& bullet)
+void Player::AddBullet(BulletInfo& bullet)
 {
-	bullets_.push_back(std::move(bullet));
+	bullets_.push_back(bullet);
 }
 
 void Player::StartSlowAtCT()
@@ -525,6 +521,11 @@ bool Player::GetSlowAtIsActive()
 bool Player::GetIsAlive()
 {
 	return hp_.GetIsAlive();
+}
+
+std::list<BulletInfo>& Player::GetBullets()
+{
+	return bullets_;
 }
 
 //-----------------------------------------------------------------------------

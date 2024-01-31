@@ -29,7 +29,6 @@ void GameScene::LoadResources()
 {
 #pragma region Model
 	ModelManager* models = ModelManager::GetInstance();
-	models->LoadModel("bullet");
 	models->LoadModel("eye");
 	models->LoadModel("player", true);
 	models->LoadModel("escapePod", true);
@@ -46,6 +45,7 @@ void GameScene::LoadResources()
 	//	player
 	player_ = std::make_unique<Player>();
 	player_->Initialize(models->GetModel("player"));
+	playerBullets_.LoadResources();
 	//	enemy
 	enemy_ = std::make_unique<Boss>();
 	enemy_->Initialize(models->GetModel("eye"));
@@ -176,41 +176,65 @@ void GameScene::MatUpdate()
 	}
 }
 
-void GameScene::Update()
+void GameScene::InGameUpdate()
 {
-#pragma region 更新処理
-	pause_.Update();
-	camera_->SetIsActive(pod_.GetOpenDoor() && pause_.GetIsActive() == FALSE);
-	if (pause_.GetIsActive() == false)
+	//	ポーズ中だったら処理しない
+	if (pause_.GetIsActive() == TRUE)	return;
+	//	ポーズの切り替わりタイミングだったら処理しない
+	if (pauseActiveTrigger_ == TRUE)	return;
+	
+	ParticleManager::GetInstance()->Update();
+
+	pod_.Update();
+
+	if (pod_.GetOpenDoor() == TRUE)
 	{
-		ParticleManager::GetInstance()->Update();
-
-		pod_.Update();
-
-		if (pod_.GetOpenDoor() == TRUE)
-		{
-			player_->Update();
-			enemy_->Update();
-		}
+		player_->Update();
+		playerBullets_.Update(player_->GetBullets());
+		enemy_->Update();
 	}
-	effect.Update();
-#pragma endregion
-	MatUpdate();
+}
 
+void GameScene::UIUpdate()
+{
 	letterBox_.Update();
 	clear_->Update();
 	gameOver_->Update();
+}
 
+void GameScene::CollisionUpdate()
+{
+	//	ポーズ中だったら処理しない
+	if (pause_.GetIsActive() == TRUE)	return;
+	//	ポーズの切り替わりタイミングだったら処理しない
+	if (pauseActiveTrigger_ == TRUE)	return;
 
-	if (pause_.GetIsActive() == false)
+	if (pod_.GetOpenDoor() == TRUE)
 	{
-		if (pod_.GetOpenDoor() == TRUE)
-		{
-			player_->CollisionUpdate();
-		}
-
-		CollisionManager::GetInstance()->CheckAllCollisions();
+		player_->CollisionUpdate();
 	}
+
+	CollisionManager::GetInstance()->CheckAllCollisions();
+}
+
+void GameScene::Update()
+{
+#pragma region 更新処理
+	//	ポーズの更新
+	pauseActiveTrigger_ = pause_.Update();
+
+	camera_->SetIsActive(pod_.GetOpenDoor() && pause_.GetIsActive() == FALSE);
+
+	InGameUpdate();
+
+	MatUpdate();
+
+	UIUpdate();
+
+	CollisionUpdate();
+#pragma endregion
+
+	effect.Update();
 }
 
 //-----------------------------------------------------------------------------
@@ -276,16 +300,18 @@ void GameScene::Draw()
 	if (pod_.GetDrawPlayer() == TRUE) {
 
 		player_->Draw();
-		player_->DrawBullets();
+		playerBullets_.Draw();
 	}
 	enemy_->Draw();
 	enemy_->DrawBullets();
+	
+	//	脱出ポッド
+	pod_.Draw();
+	//	地形の描画
 	for (auto& obj : objs_)
 	{
 		obj->Draw();
 	}
-
-	pod_.Draw();
 
 	ParticleManager::GetInstance()->Draw();
 }

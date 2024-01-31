@@ -53,6 +53,8 @@ protected:
 	float walkSpd_ = 0.15f;
 	float runSpd_ = 0.2f;
 	float jumpingDecSpd_ = 0.75f;
+	float maxAngle_ = 60.0f;
+	float minAngle_ = 10.0f;
 
 	//	Avoid
 	float avoidMaxSpd_ = 0.3f;

@@ -3,7 +3,6 @@
 #include "Object3D.h"
 #include <memory>
 
-#include "SpaceShip.h"
 #include "EscapePod.h"
 
 #include "FrameCounter.h"

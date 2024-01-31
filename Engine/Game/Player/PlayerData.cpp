@@ -24,6 +24,8 @@ void PlayerData::ImGuiMoveUpdate()
 	imgui->InputFloat("walkSpd", walkSpd_);
 	imgui->InputFloat("runSpd", runSpd_);
 	imgui->InputFloat("jumpingSpdDec", jumpingDecSpd_);
+	imgui->InputFloat("MoveRotMaxAngle", maxAngle_);
+	imgui->InputFloat("MoveRotMinAngle", minAngle_);
 }
 
 void PlayerData::ImGuiAvoidUpdate()
@@ -71,6 +73,8 @@ void PlayerData::SaveData()
 	outPutFile << "WalkSPD " << walkSpd_ << std::endl;
 	outPutFile << "RunSPD " << runSpd_ << std::endl;
 	outPutFile << "JumpDecSPD " << jumpingDecSpd_ << std::endl;
+	outPutFile << "MoveRotMaxAngle " << maxAngle_ << std::endl;
+	outPutFile << "MoveRotMinAngle " << minAngle_ << std::endl;
 
 	//	Avoid
 	outPutFile << "AvoidMaxSpd " << avoidMaxSpd_ << std::endl;
@@ -133,6 +137,16 @@ void PlayerData::LoadData()
 		if (key == "JumpDecSPD")
 		{
 			line_stream >> jumpingDecSpd_;
+			return;
+		}
+		if (key == "MoveRotMaxAngle")
+		{
+			line_stream >> maxAngle_;
+			return;
+		}
+		if (key == "MoveRotMinAngle")
+		{
+			line_stream >> minAngle_;
 			return;
 		}
 

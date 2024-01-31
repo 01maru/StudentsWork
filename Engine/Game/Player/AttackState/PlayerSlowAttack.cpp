@@ -15,15 +15,14 @@ void PlayerSlowAttack::Update()
 	if (sPlayer_->GetRateCountIsActive() == false) {
 
 		//	弾生成
-		std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>();
-		bullet->Initialize();
-		bullet->SetLifeTime(bulletLifeTime_);
-		bullet->SetSpd(spd_);
-		bullet->SetMoveVec(sPlayer_->GetBulletFront());
-		bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
+
+		BulletInfo bullet;
+		bullet.lifeTime_ = bulletLifeTime_;
+		bullet.spd_ = spd_;
+		bullet.moveVec_ = sPlayer_->GetBulletFront();
 		Vector3D pos = sPlayer_->GetPosition();
 		pos.y = 0.3f;
-		bullet->SetPosition(pos);
+		bullet.pos_ = pos;
 		sPlayer_->AddBullet(bullet);
 
 		if (++bulletNum_ >= bulletMaxNum_) {

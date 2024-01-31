@@ -76,10 +76,10 @@ void PauseScreen::InputValueUpdate()
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void PauseScreen::IsActiveUpdate()
+bool PauseScreen::IsActiveUpdate()
 {
 	//	オプション中だったら更新しない
-	if (option_.GetIsActive() == TRUE) return;
+	if (option_.GetIsActive() == TRUE) return FALSE;
 
 	InputManager* input = InputManager::GetInstance();
 	bool dikButton = input->GetTriggerKeyAndButton(DIK_ESCAPE, InputJoypad::START_Button);
@@ -101,7 +101,11 @@ void PauseScreen::IsActiveUpdate()
 
 		InputManager::GetInstance()->SetNextTag("cantBack", true, isActive_);
 		InputManager::GetInstance()->SetDrawExplane(isActive_);
+
+		return TRUE;
 	}
+
+	return FALSE;
 }
 
 void PauseScreen::PauseInputUpdate(bool dikSelectButton)
@@ -199,13 +203,14 @@ void PauseScreen::OptionUpdate(bool dikSelectButton)
 	option_.Update();
 }
 
-void PauseScreen::Update()
+bool PauseScreen::Update()
 {
+	bool isActiveTrigger = false;
 	//	ポーズのアクティブ切り替え
-	IsActiveUpdate();
+	isActiveTrigger = IsActiveUpdate();
 
 	//	ポーズ中じゃなく、アニメーション中じゃなかったら更新しない
-	if (isActive_ == FALSE && pauseData_.GetIsEndAnimation() == TRUE) return;
+	if (isActive_ == FALSE && pauseData_.GetIsEndAnimation() == TRUE) return isActiveTrigger;
 
 	bool dikButton = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button);
 
@@ -219,6 +224,8 @@ void PauseScreen::Update()
 
 	//	カーソル更新
 	cursor_.Update();
+
+	return isActiveTrigger;
 }
 
 void PauseScreen::ImGuiUpdate()

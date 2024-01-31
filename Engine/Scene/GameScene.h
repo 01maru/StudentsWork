@@ -3,6 +3,7 @@
 #include "Object3D.h"
 
 #include "Player.h"
+#include "PlayerBulletManager.h"
 #include "Boss.h"
 
 #include "PauseScreen.h"
@@ -31,16 +32,22 @@ private:
 
 	std::unique_ptr<MNE::Object3D> skydome_;
 	std::unique_ptr<MNE::Object3D> ground_;
+	PlayerBulletManager playerBullets_;
 	std::unique_ptr<Player> player_;
 	std::unique_ptr<Boss> enemy_;
 	EscapePod pod_;
 
 	ActiveSkillEffect effect;
 
+	bool pauseActiveTrigger_ = FALSE;
+
 #pragma endregion
 
 private:	//	関数
 	void MatUpdate() override;
+	void InGameUpdate();
+	void UIUpdate();
+	void CollisionUpdate();
 
 public:	
 	~GameScene() override {};
