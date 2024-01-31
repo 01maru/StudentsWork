@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\Game\Player\ActiveSkillEffect.cpp" />
+    <ClCompile Include="Engine\Game\Player\UI\ActiveSkillEffect.cpp" />
     <ClCompile Include="Engine\Game\Bonfire.cpp" />
-    <ClCompile Include="Engine\Game\Player\CrossHair.cpp" />
+    <ClCompile Include="Engine\Game\Player\UI\CrossHair.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossBeamState.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossMeleeState.cpp" />
@@ -47,9 +47,9 @@
     <ClCompile Include="Engine\Game\Boss\BossDeathState.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossIdleState.cpp" />
     <ClCompile Include="Engine\Game\Player\Bullet.cpp" />
-    <ClCompile Include="Engine\Game\Player\CharacterHP.cpp" />
-    <ClCompile Include="Engine\Game\Player\SkillCoolTime.cpp" />
-    <ClCompile Include="Engine\Game\Player\EnemyState.cpp" />
+    <ClCompile Include="Engine\Game\Player\UI\CharacterHP.cpp" />
+    <ClCompile Include="Engine\Game\Player\UI\SkillCoolTime.cpp" />
+    <ClCompile Include="Engine\Game\Boss\EnemyState.cpp" />
     <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIButton.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIButtonManager.cpp" />
@@ -155,13 +155,13 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIRotation.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UISprite.cpp" />
     <ClCompile Include="Engine\Collider\PlaneCollider.cpp" />
-    <ClCompile Include="Engine\Game\Player\PlayerAttackState.cpp" />
-    <ClCompile Include="Engine\Game\Player\PlayerAvoidState.cpp" />
-    <ClCompile Include="Engine\Game\Player\PlayerIdleState.cpp" />
-    <ClCompile Include="Engine\Game\Player\PlayerMoveState.cpp" />
-    <ClCompile Include="Engine\Game\Player\PlayerNoAttackState.cpp" />
-    <ClCompile Include="Engine\Game\Player\PlayerNormalBulletState.cpp" />
-    <ClCompile Include="Engine\Game\Player\PlayerWalkState.cpp" />
+    <ClCompile Include="Engine\Game\Player\AttackState\PlayerAttackState.cpp" />
+    <ClCompile Include="Engine\Game\Player\MoveState\PlayerAvoidState.cpp" />
+    <ClCompile Include="Engine\Game\Player\MoveState\PlayerIdleState.cpp" />
+    <ClCompile Include="Engine\Game\Player\MoveState\PlayerMoveState.cpp" />
+    <ClCompile Include="Engine\Game\Player\AttackState\PlayerNoAttackState.cpp" />
+    <ClCompile Include="Engine\Game\Player\AttackState\PlayerNormalBulletState.cpp" />
+    <ClCompile Include="Engine\Game\Player\MoveState\PlayerWalkState.cpp" />
     <ClCompile Include="Engine\Game\UI\SelectCursor.cpp" />
     <ClCompile Include="Engine\Game\UI\TitleUI.cpp" />
     <ClCompile Include="Engine\3D\Object\Object3DAnimation.cpp" />
@@ -169,7 +169,7 @@
     <ClCompile Include="Engine\3D\Object\Object3DShadow.cpp" />
     <ClCompile Include="Engine\3D\Object\Object3DShilhouette.cpp" />
     <ClCompile Include="Engine\2D\Particle\ParticleFadeAnimation.cpp" />
-    <ClCompile Include="Engine\Game\Player\PlayerSlowAttack.cpp" />
+    <ClCompile Include="Engine\Game\Player\AttackState\PlayerSlowAttack.cpp" />
     <ClCompile Include="Engine\Game\Particle\SmokeParticleEmitter.cpp" />
     <ClCompile Include="Engine\Game\EscapePod\State\PodBefCollGroundState.cpp" />
     <ClCompile Include="Engine\Game\EscapePod\State\PodBefOpenDoorState.cpp" />
@@ -177,14 +177,14 @@
     <ClCompile Include="Engine\Game\EscapePod\State\PodCollGroundState.cpp" />
     <ClCompile Include="Engine\Game\EscapePod\State\PodOpenDoorState.cpp" />
     <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp" />
-    <ClCompile Include="Engine\Game\Player\PlayerSkill.cpp" />
+    <ClCompile Include="Engine\Game\Player\UI\PlayerSkill.cpp" />
     <ClCompile Include="Engine\Game\EscapePod\PodInputUI.cpp" />
-    <ClCompile Include="PlayerData.cpp" />
+    <ClCompile Include="Engine\Game\Player\PlayerData.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Game\Player\ActiveSkillEffect.h" />
+    <ClInclude Include="Engine\Game\Player\UI\ActiveSkillEffect.h" />
     <ClInclude Include="Engine\Game\Bonfire.h" />
-    <ClInclude Include="Engine\Game\Player\CrossHair.h" />
+    <ClInclude Include="Engine\Game\Player\UI\CrossHair.h" />
     <ClInclude Include="Engine\Game\Boss\BossBeamState.h" />
     <ClInclude Include="Engine\Game\Boss\BossBulletState.h" />
     <ClInclude Include="Engine\Game\Boss\BossMeleeState.h" />
@@ -218,8 +218,8 @@
     <ClInclude Include="Engine\Game\Boss\BossDeathState.h" />
     <ClInclude Include="Engine\Game\Boss\BossIdleState.h" />
     <ClInclude Include="Engine\Game\Player\Bullet.h" />
-    <ClInclude Include="Engine\Game\Player\CharacterHP.h" />
-    <ClInclude Include="Engine\Game\Player\SkillCoolTime.h" />
+    <ClInclude Include="Engine\Game\Player\UI\CharacterHP.h" />
+    <ClInclude Include="Engine\Game\Player\UI\SkillCoolTime.h" />
     <ClInclude Include="Engine\Game\Boss\EnemyState.h" />
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h" />
     <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h" />
@@ -329,13 +329,13 @@
     <ClInclude Include="Engine\2D\Sprite\UI\UISprite.h" />
     <ClInclude Include="Engine\Game\Particle\FireParticleEmitter.h" />
     <ClInclude Include="Engine\Collider\PlaneCollider.h" />
-    <ClInclude Include="Engine\Game\Player\PlayerAttackState.h" />
-    <ClInclude Include="Engine\Game\Player\PlayerAvoidState.h" />
-    <ClInclude Include="Engine\Game\Player\PlayerIdleState.h" />
-    <ClInclude Include="Engine\Game\Player\PlayerMoveState.h" />
-    <ClInclude Include="Engine\Game\Player\PlayerNoAttackState.h" />
-    <ClInclude Include="Engine\Game\Player\PlayerNormalBulletState.h" />
-    <ClInclude Include="Engine\Game\Player\PlayerWalkState.h" />
+    <ClInclude Include="Engine\Game\Player\AttackState\PlayerAttackState.h" />
+    <ClInclude Include="Engine\Game\Player\MoveState\PlayerAvoidState.h" />
+    <ClInclude Include="Engine\Game\Player\MoveState\PlayerIdleState.h" />
+    <ClInclude Include="Engine\Game\Player\MoveState\PlayerMoveState.h" />
+    <ClInclude Include="Engine\Game\Player\AttackState\PlayerNoAttackState.h" />
+    <ClInclude Include="Engine\Game\Player\AttackState\PlayerNormalBulletState.h" />
+    <ClInclude Include="Engine\Game\Player\MoveState\PlayerWalkState.h" />
     <ClInclude Include="Engine\Game\UI\SelectCursor.h" />
     <ClInclude Include="Engine\Game\UI\TitleUI.h" />
     <ClInclude Include="Engine\3D\Camera\Base\LightCamera.h" />
@@ -346,7 +346,7 @@
     <ClInclude Include="Engine\Base\RootParameterIdx.h" />
     <ClInclude Include="Engine\Scene\LoadingScene.h" />
     <ClInclude Include="Engine\2D\Particle\ParticleFadeAnimation.h" />
-    <ClInclude Include="Engine\Game\Player\PlayerSlowAttack.h" />
+    <ClInclude Include="Engine\Game\Player\AttackState\PlayerSlowAttack.h" />
     <ClInclude Include="Engine\Game\Particle\SmokeParticleEmitter.h" />
     <ClInclude Include="Engine\Game\UI\IGameState.h" />
     <ClInclude Include="Engine\2D\Sprite\LoadSpriteAnime.h" />
@@ -360,9 +360,9 @@
     <ClInclude Include="Engine\2D\Sprite\UI\UIScaling.h" />
     <ClInclude Include="Engine\Game\UI\ExplanatoryText.h" />
     <ClInclude Include="Engine\Base\Json\JSONData.h" />
-    <ClInclude Include="Engine\Game\Player\PlayerSkill.h" />
+    <ClInclude Include="Engine\Game\Player\UI\PlayerSkill.h" />
     <ClInclude Include="Engine\Game\EscapePod\PodInputUI.h" />
-    <ClInclude Include="PlayerData.h" />
+    <ClInclude Include="Engine\Game\Player\PlayerData.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
@@ -624,7 +624,7 @@
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\Particle\Emitter;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Json;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\UI;$(ProjectDir)Engine\Game\Boss;$(ProjectDir)Engine\Game\Player;$(ProjectDir)Engine\Game\EscapePod;$(ProjectDir)Engine\Game\EscapePod\State;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\Particle\Emitter;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Json;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\UI;$(ProjectDir)Engine\Game\Boss;$(ProjectDir)Engine\Game\Player;$(ProjectDir)Engine\Game\Player$MoveState;$(ProjectDir)Engine\Game\Player$AttackState;$(ProjectDir)Engine\Game\EscapePod;$(ProjectDir)Engine\Game\EscapePod\State;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -652,7 +652,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <Optimization>MinSpace</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\Particle\Emitter;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Json;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\UI;$(ProjectDir)Engine\Game\Boss;$(ProjectDir)Engine\Game\Player;$(ProjectDir)Engine\Game\EscapePod;$(ProjectDir)Engine\Game\EscapePod\State;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\Particle\Emitter;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Json;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\UI;$(ProjectDir)Engine\Game\Boss;$(ProjectDir)Engine\Game\Player;$(ProjectDir)Engine\Game\Player$MoveState;$(ProjectDir)Engine\Game\Player$AttackState;$(ProjectDir)Engine\Game\EscapePod;$(ProjectDir)Engine\Game\EscapePod\State;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
