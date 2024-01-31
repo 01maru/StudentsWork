@@ -31,6 +31,8 @@ using namespace MNE;
 
 void Player::StatusInitialize()
 {
+	HotLoadStatus();
+
 	//	初期ステート
 	moveState_ = std::make_unique<PlayerIdleState>();
 	moveState_->Initialize();
