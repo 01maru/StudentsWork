@@ -85,6 +85,7 @@ namespace MNE
         bool GetTriggerThumbLX();
         bool GetTriggerThumbLY();
         int32_t GetMaxThumbRange() { return 32767; }
+        int32_t GetThumbRDeadZone();
 
     #pragma endregion
     

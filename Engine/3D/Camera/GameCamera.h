@@ -63,6 +63,9 @@ private:
 	int32_t maxMoveTime_ = 20;
 	int32_t minMoveTime_ = 5;
 
+	//	マウスの移動最大半径の範囲
+	float mouseMaxRad_ = 300.0f;
+
 	//	一番カメラの向きから近い敵の位置
 	Vector3D* pEnemyPos_ = nullptr;
 	//	プレイヤーの位置

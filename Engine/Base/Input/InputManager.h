@@ -59,7 +59,7 @@ namespace MNE
 
 		ExplanatoryText explane_;
 
-		float sensitivity_ = 0.2f;
+		float sensitivity_ = 0.5f;
 
 	private:
 		void UsePadUpdate();

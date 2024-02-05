@@ -2,7 +2,9 @@
 #include "ImGuiManager.h"
 #include "InputManager.h"
 #include "Quaternion.h"
+#include "Easing.h"
 
+using namespace Easing;
 using namespace MNE;
 
 //-----------------------------------------------------------------------------
@@ -103,16 +105,20 @@ void GameCamera::UnTargetUpdate()
 	//	PadInfo
 	Vector2D padVec = pad->GetThumbR();
 	padVec.y = -padVec.y;
-	padVec.Normalize();
+	float maxLen = static_cast<float>(pad->GetMaxThumbRange() - pad->GetThumbRDeadZone());
+	padVec /= maxLen;
+	padVec *= padSpd_;
 
 	//	MouseInfo
 	Vector2D mouseVec = mouse->GetCursorMoveVec();
-	mouseVec.Normalize();
+	mouseVec /= mouseMaxRad_;
 
 	//	Mouse&Pad
 	Vector2D moveVec = padVec + mouseVec;
+	float len = moveVec.GetLength();
+	len = MyMath::mMin(len, 1.0f);
 	moveVec.Normalize();
-	moveVec *= input->GetSensitivity() * spd_;
+	moveVec *= input->GetSensitivity() * len;
 
 	//	座標更新
 	const Vector3D axisY(0, 1, 0);
@@ -132,7 +138,9 @@ void GameCamera::UnTargetUpdate()
 	rightVec_.Normalize();
 	frontVec_ = RotateVector(frontVec_, qMove);
 	frontVec_.Normalize();
-	up_ = frontVec_.cross(rightVec_);
+	//	上方向は常に(0, 1, 0)
+	//up_ = frontVec_.cross(rightVec_);
+	up_ = axisY;
 	up_.Normalize();
 
 	//	座標更新
@@ -164,6 +172,22 @@ void GameCamera::ImGuiInfo()
 
 	//	ターゲット中かどうか
 	imgui->Text("LockOn : %s", targeting_ ? "TRUE" : "FALSE");
+
+	InputManager* input = InputManager::GetInstance();
+	InputJoypad* pad = input->GetPad();
+	InputMouse* mouse = input->GetMouse();
+
+	//	Pad
+	Vector2D padVec = pad->GetThumbR();
+	padVec.y = -padVec.y;
+	padVec /= static_cast<float>(pad->GetMaxThumbRange());
+	imgui->Text("ThumbRInput (%.2f, %.2f)", padVec.x, padVec.y);
+	imgui->Text("ThumbRLen %.2f", padVec.GetLength());
+
+	Vector2D mouseVec = mouse->GetCursorMoveVec();
+	mouseVec /= 300.0f;
+	imgui->Text("MouseInput (%.2f, %.2f)", mouseVec.x, mouseVec.y);
+	imgui->Text("MouseLen %.2f", mouseVec.GetLength());
 }
 
 //-----------------------------------------------------------------------------

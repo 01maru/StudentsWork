@@ -152,10 +152,6 @@ private:
 
 public:
 
-	void AddBullet(BulletInfo& bullet);
-	void StartSlowAtCT();
-	void StartAvoidCT();
-
 	void DecHP(int32_t damage);
 
 #pragma region Getter
@@ -178,6 +174,30 @@ public:
 
 #pragma region Setter
 
+	/**
+	* @fn AddBullet(BulletInfo&)
+	* 追加する弾の情報をリストに加えるための関数
+	* @param bullet 追加する弾の情報
+	*/
+	void AddBullet(BulletInfo& bullet);
+	/**
+	* @fn StartSlowAtCT()
+	* スロー攻撃のクールタイムを開始にするための関数
+	*/
+	void StartSlowAtCT();
+	/**
+	* @fn StartAvoidCT()
+	* 回避のクールタイムを開始するための関数
+	*/
+	void StartAvoidCT();
+
+	/**
+	* @fn SetUIInfo(MNE::UIData&)
+	* UIの配置用関数
+	* @param uiData UIの配置情報
+	*/
+	void SetUIInfo(MNE::UIData& uiData);
+
 	void SetIsActive(bool isActive) { isActive_ = isActive; }
 	void SetAnimationIdx(const std::string& name) { 
 		GetAnimation()->SetAnimeName(name); }
@@ -190,12 +210,6 @@ public:
 	void SetBulletRate(int32_t rate);
 	void StartRateCount();
 
-	/**
-	* @fn SetUIInfo(MNE::UIData&)
-	* UIの配置用関数
-	* @param uiData UIの配置情報
-	*/
-	void SetUIInfo(MNE::UIData& uiData);
 
 	void SetGameOverState(IGameState* gameOverState);
 

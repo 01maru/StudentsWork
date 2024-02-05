@@ -193,6 +193,8 @@ void GameScene::InGameUpdate()
 		playerBullets_.Update(player_->GetBullets());
 		enemy_->Update();
 	}
+
+	UIUpdate();
 }
 
 void GameScene::UIUpdate()
@@ -228,8 +230,6 @@ void GameScene::Update()
 	InGameUpdate();
 
 	MatUpdate();
-
-	UIUpdate();
 
 	CollisionUpdate();
 #pragma endregion

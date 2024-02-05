@@ -1,6 +1,7 @@
 #include "InputJoypad.h"
 #include "Vector2D.h"
 #include "ImGuiManager.h"
+#include "MyMath.h"
 
 void MNE::InputJoypad::SetDeadZone(int16_t& sThumb, int32_t deadzone)
 {
@@ -8,6 +9,16 @@ void MNE::InputJoypad::SetDeadZone(int16_t& sThumb, int32_t deadzone)
 		sThumb = 0;
 	}
 	else {
+		//	マイナスの時
+		if (sThumb < 0)
+		{
+			sThumb = static_cast<int16_t>(MyMath::mMin(sThumb + deadzone, 0));
+		}
+		//	プラスの時
+		else
+		{
+			sThumb = static_cast<int16_t>(MyMath::mMax(sThumb - deadzone, 0));
+		}
 		inputted_ = true;
 	}
 }
@@ -274,6 +285,11 @@ bool MNE::InputJoypad::GetTriggerThumbLY()
 	if (!active_) return false;
 
 	return state_.Gamepad.sThumbLY != 0 && prevState_.Gamepad.sThumbLY == 0;
+}
+
+int32_t MNE::InputJoypad::GetThumbRDeadZone()
+{
+	return XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE;
 }
 
 void MNE::InputJoypad::SetVibration(const Vector2D& motorSpd)
