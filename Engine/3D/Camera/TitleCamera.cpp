@@ -27,7 +27,9 @@ void TitleCamera::CameraMoveUpdate()
 	if (counter_.GetIsActive() == false) return;
 
 	//	視点移動
-	float t = EaseOut(0.0f, 1.0f, counter_.GetCountPerMaxCount(), Easing::Single);
+	float startT = 0.0f;
+	float endT = 1.0f;
+	float t = EaseOut(startT, endT, counter_.GetCountPerMaxCount(), Easing::Single);
 	eye_ = MyMath::BezierCurve(startEye_, controlPoint_, endEye_, t);
 	frontVec_ = MyMath::BezierCurve(startFront_, controlPoint_, endFront_, t);
 	frontVec_.Normalize();
@@ -35,6 +37,7 @@ void TitleCamera::CameraMoveUpdate()
 	//	ターゲット移動
 	target_ = eye_ + frontVec_ * disEyeTarget_;
 }
+
 void TitleCamera::Update()
 {
 	//	カウンター更新

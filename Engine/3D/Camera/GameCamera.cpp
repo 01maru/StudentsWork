@@ -1,7 +1,6 @@
 #include "GameCamera.h"
 #include "ImGuiManager.h"
 #include "InputManager.h"
-#include "Quaternion.h"
 #include "Easing.h"
 
 using namespace Easing;
@@ -51,8 +50,9 @@ void GameCamera::TargetCameraUpdate()
 			startFront_ = Quaternion(0.0f, frontVec_);
 			endFront_ = Quaternion(0.0f, (*pEnemyPos_ - *pPlayerPos_).GetNormalize());
 			//	移動量に応じて終了時間調節
-			float dot = startFront_.Dot(endFront_) + 1.0f;		//	単位ベクトル同士の内積値は-1~1で0~2に変更したい
-			float maxV = 2.0f;									//	↑より内積値は最大値:1 と 最小値:-1 の差は2
+			const float DOT_MIN = -1.0f;
+			float dot = startFront_.Dot(endFront_) - DOT_MIN;	//	単位ベクトル同士の内積値は-1~1で0~2に変更したい
+			const float maxV = 2.0f;							//	↑より内積値は最大値:1 と 最小値:-1 の差は2
 			//	移動量による割合
 			float rate = (maxV - dot) / maxV;
 			float maxTime = minMoveTime_ + maxMoveTime_ * rate;
@@ -116,7 +116,8 @@ void GameCamera::UnTargetUpdate()
 	//	Mouse&Pad
 	Vector2D moveVec = padVec + mouseVec;
 	float len = moveVec.GetLength();
-	len = MyMath::mMin(len, 1.0f);
+	const float LEN_MAX = 1.0f;
+	len = MyMath::mMin(len, LEN_MAX);
 	moveVec.Normalize();
 	moveVec *= input->GetSensitivity() * len;
 
@@ -139,7 +140,6 @@ void GameCamera::UnTargetUpdate()
 	frontVec_ = RotateVector(frontVec_, qMove);
 	frontVec_.Normalize();
 	//	上方向は常に(0, 1, 0)
-	//up_ = frontVec_.cross(rightVec_);
 	up_ = axisY;
 	up_.Normalize();
 
@@ -172,22 +172,6 @@ void GameCamera::ImGuiInfo()
 
 	//	ターゲット中かどうか
 	imgui->Text("LockOn : %s", targeting_ ? "TRUE" : "FALSE");
-
-	InputManager* input = InputManager::GetInstance();
-	InputJoypad* pad = input->GetPad();
-	InputMouse* mouse = input->GetMouse();
-
-	//	Pad
-	Vector2D padVec = pad->GetThumbR();
-	padVec.y = -padVec.y;
-	padVec /= static_cast<float>(pad->GetMaxThumbRange());
-	imgui->Text("ThumbRInput (%.2f, %.2f)", padVec.x, padVec.y);
-	imgui->Text("ThumbRLen %.2f", padVec.GetLength());
-
-	Vector2D mouseVec = mouse->GetCursorMoveVec();
-	mouseVec /= 300.0f;
-	imgui->Text("MouseInput (%.2f, %.2f)", mouseVec.x, mouseVec.y);
-	imgui->Text("MouseLen %.2f", mouseVec.GetLength());
 }
 
 //-----------------------------------------------------------------------------
