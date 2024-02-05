@@ -1,7 +1,7 @@
 #pragma once
-#include "EnemyState.h"
+#include "BossState.h"
 
-class BossBeamState :public EnemyState
+class BossBeamState :public BossState
 {
 public:
 	void Update() override;

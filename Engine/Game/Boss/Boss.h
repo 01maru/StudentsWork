@@ -1,7 +1,7 @@
 #pragma once
 #include "Object3D.h"
 #include "CharacterHP.h"
-#include "EnemyState.h"
+#include "BossState.h"
 #include "EnemyBullet.h"
 
 class IModel;
@@ -26,7 +26,7 @@ private:
 
 	CharacterHP hp_;
 
-	std::unique_ptr<EnemyState> currentState_;
+	std::unique_ptr<BossState> currentState_;
 	std::list<std::unique_ptr<EnemyBullet>> bullets_;
 
 	bool bodyAt_ = false;
@@ -60,7 +60,7 @@ public:
 	void SetIsActive(bool isActive) { isActive_ = isActive; }
 	void SetRot(const Vector3D& rot) { mat_.angle_ = rot; }
 	void SetPosition(const Vector3D& pos) { mat_.trans_ = pos; }
-	void SetCurrentState(std::unique_ptr<EnemyState>& next);
+	void SetCurrentState(std::unique_ptr<BossState>& next);
 	void SetPlayer(Player* player);
 	void SetHPBarSprite(const MNE::Sprite& sprite);
 	void SetBodyAttack(bool attackFlag);

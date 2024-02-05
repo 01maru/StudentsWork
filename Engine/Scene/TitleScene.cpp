@@ -73,9 +73,10 @@ void TitleScene::Initialize()
 {
 	//	Fog
 	LightManager::GetInstance()->SetFogActive(true);
-	LightManager::GetInstance()->SetFogStart(2.2f);
-	LightManager::GetInstance()->SetFogEnd(6.0f);
-	LightManager::GetInstance()->SetFogFar(30.0f);
+	LightManager::GetInstance()->SetFogColor(fogColor_);
+	LightManager::GetInstance()->SetFogStart(fogStart_);
+	LightManager::GetInstance()->SetFogEnd(fogEnd_);
+	LightManager::GetInstance()->SetFogFar(fogFar_);
 
 	LoadResources();
 }

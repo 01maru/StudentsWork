@@ -244,18 +244,6 @@
     <Filter Include="ヘッダー ファイル\Game\Player\AttackState">
       <UniqueIdentifier>{28915d08-df12-4821-a57b-6a9761b4b8f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Enemy">
-      <UniqueIdentifier>{45b95463-fb26-497f-ab20-53267f0a2eaa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Enemy">
-      <UniqueIdentifier>{e53a36a1-e4e9-4c34-b07e-492bb3b16d2c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game\Enemy\State">
-      <UniqueIdentifier>{6c08f7ec-d875-4f92-9460-fcda75b23015}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Enemy\State">
-      <UniqueIdentifier>{c2597db6-511b-4c69-a060-f1c1257fff80}</UniqueIdentifier>
-    </Filter>
     <Filter Include="リソース ファイル\ObjShader\Dissolve">
       <UniqueIdentifier>{fa7f6121-9611-4749-bc36-0062d5844bb5}</UniqueIdentifier>
     </Filter>
@@ -303,6 +291,24 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\Player\Bullet">
       <UniqueIdentifier>{0cd56d23-eef0-493c-a6ba-7ecda9ac41f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss">
+      <UniqueIdentifier>{45b95463-fb26-497f-ab20-53267f0a2eaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss\State">
+      <UniqueIdentifier>{6c08f7ec-d875-4f92-9460-fcda75b23015}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss">
+      <UniqueIdentifier>{e53a36a1-e4e9-4c34-b07e-492bb3b16d2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss\State">
+      <UniqueIdentifier>{c2597db6-511b-4c69-a060-f1c1257fff80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss\AttackState">
+      <UniqueIdentifier>{f6b42128-a68f-473b-bdb5-3751c636fa44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss\AttackState">
+      <UniqueIdentifier>{6bd5b206-5644-4e4c-b5f0-3c96b009f625}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -652,16 +658,16 @@
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\Boss.cpp">
-      <Filter>ソース ファイル\Game\Enemy</Filter>
+      <Filter>ソース ファイル\Game\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Boss\EnemyState.cpp">
-      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+    <ClCompile Include="Engine\Game\Boss\State\BossState.cpp">
+      <Filter>ソース ファイル\Game\Boss\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\BossIdleState.cpp">
-      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+      <Filter>ソース ファイル\Game\Boss\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\BossDeathState.cpp">
-      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+      <Filter>ソース ファイル\Game\Boss\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\PlaneCollider.cpp">
       <Filter>ソース ファイル\lib\Engine\Collider</Filter>
@@ -727,19 +733,19 @@
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\BossBeamState.cpp">
-      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+      <Filter>ソース ファイル\Game\Boss\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp">
-      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+      <Filter>ソース ファイル\Game\Boss\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\BossMeleeState.cpp">
-      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+      <Filter>ソース ファイル\Game\Boss\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\BossWayBullets.cpp">
-      <Filter>ソース ファイル\Game\Enemy\State</Filter>
+      <Filter>ソース ファイル\Game\Boss\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\EnemyBullet.cpp">
-      <Filter>ソース ファイル\Game\Enemy</Filter>
+      <Filter>ソース ファイル\Game\Boss</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\UI\ClearUI.cpp">
       <Filter>ソース ファイル\Game\UI\GameState</Filter>
@@ -815,6 +821,15 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\Player\UI\SkillCoolTime.cpp">
       <Filter>ソース ファイル\Game\Player\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Boss\State\BossRoarState.cpp">
+      <Filter>ソース ファイル\Game\Boss\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Boss\State\BossStartState.cpp">
+      <Filter>ソース ファイル\Game\Boss\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Boss\AttackState\BossJumpAtState.cpp">
+      <Filter>ソース ファイル\Game\Boss\AttackState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1194,16 +1209,16 @@
       <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\Boss.h">
-      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+      <Filter>ヘッダー ファイル\Game\Boss</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\BossDeathState.h">
-      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\BossIdleState.h">
-      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Boss\EnemyState.h">
-      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+    <ClInclude Include="Engine\Game\Boss\State\BossState.h">
+      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\PlaneCollider.h">
       <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
@@ -1272,19 +1287,19 @@
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\EnemyBullet.h">
-      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+      <Filter>ヘッダー ファイル\Game\Boss</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\BossWayBullets.h">
-      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\BossMeleeState.h">
-      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\BossBulletState.h">
-      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\BossBeamState.h">
-      <Filter>ヘッダー ファイル\Game\Enemy\State</Filter>
+      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\UI\ClearUI.h">
       <Filter>ヘッダー ファイル\Game\UI\GameState</Filter>
@@ -1366,6 +1381,15 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Player\Bullet\BulletInfo.h">
       <Filter>ヘッダー ファイル\Game\Player\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Boss\State\BossRoarState.h">
+      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Boss\State\BossStartState.h">
+      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Boss\AttackState\BossJumpAtState.h">
+      <Filter>ヘッダー ファイル\Game\Boss\AttackState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

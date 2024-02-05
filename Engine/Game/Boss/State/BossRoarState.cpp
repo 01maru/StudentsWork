@@ -1,10 +1,8 @@
-#include "BossDeathState.h"
+#include "BossRoarState.h"
 #include "Boss.h"
-#include "Easing.h"
+#include "BossIdleState.h"
 #include "LightManager.h"
-
-#include "ParticleManager.h"
-#include "DeadParticleEmitter.h"
+#include "Easing.h"
 
 using namespace MNE;
 using namespace Easing;
@@ -13,28 +11,22 @@ using namespace Easing;
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
-void BossDeathState::Initialize()
+void BossRoarState::Initialize()
 {
-	//	タイマー初期化
-	timer_.Initialize(animationTime_, true, true);
+	//	タイマー初期化&スタート
+	timer_.Initialize(roarTime_, true);
 	timer_.StartCount();
 	fogTimer_.Initialize(fogTime_, true);
 
-	//	エミッターの生成
-	DeadParticleEmitter emitter;
-	emitter_ = ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
-	emitter_->SetPosition(sBoss_->GetPosition());
-
 	//	アニメーション設定
-	sBoss_->GetAnimation()->SetAnimeName("Dying");
-	sBoss_->GetAnimation()->SetIsLoop(FALSE);
+	sBoss_->GetAnimation()->SetAnimeName("Roaring");
 }
 
 //-----------------------------------------------------------------------------
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void BossDeathState::Update()
+void BossRoarState::Update()
 {
 	//	タイマー更新
 	timer_.Update();
@@ -46,20 +38,12 @@ void BossDeathState::Update()
 
 	//	次のステートへ
 	if (timer_.GetIsActive() == FALSE) {
-
-		sBoss_->StartClearState();
-
-		if (emitter_ != nullptr) {
-			emitter_->SetIsDead(TRUE);
-			emitter_ = nullptr;
-		}
-
-		std::unique_ptr<BossState> next_ = std::make_unique<BossState>();
+		std::unique_ptr<BossState> next_ = std::make_unique<BossIdleState>();
 		sBoss_->SetCurrentState(next_);
 	}
 }
 
-void BossDeathState::FogStartCount()
+void BossRoarState::FogStartCount()
 {
 	if (timer_.GetFrameCount() < fogStartTime_) return;
 
@@ -69,7 +53,7 @@ void BossDeathState::FogStartCount()
 	}
 }
 
-void BossDeathState::FogColorUpdate()
+void BossRoarState::FogColorUpdate()
 {
 	FogStartCount();
 
@@ -78,15 +62,15 @@ void BossDeathState::FogColorUpdate()
 	//	タイマー更新
 	fogTimer_.Update();
 
-	Vector3D color = EaseIn(startColor_, endColor_, fogTimer_.GetCountPerMaxCount(), Single);
+	Vector3D color = EaseOut(startColor_, endColor_, fogTimer_.GetCountPerMaxCount(), Triple);
 	LightManager::GetInstance()->SetFogColor(color);
 
-	float value = EaseIn(fogSStart_, fogEStart_, fogTimer_.GetCountPerMaxCount(), Single);
+	float value = EaseOut(fogSStart_, fogEStart_, fogTimer_.GetCountPerMaxCount(), Triple);
 	LightManager::GetInstance()->SetFogStart(value);
 
-	value = EaseIn(fogSEnd_, fogEEnd_, fogTimer_.GetCountPerMaxCount(), Single);
+	value = EaseOut(fogSEnd_, fogEEnd_, fogTimer_.GetCountPerMaxCount(), Triple);
 	LightManager::GetInstance()->SetFogEnd(value);
 
-	value = EaseIn(fogSNear_, fogENear_, fogTimer_.GetCountPerMaxCount(), Single);
+	value = EaseOut(fogSNear_, fogENear_, fogTimer_.GetCountPerMaxCount(), Triple);
 	LightManager::GetInstance()->SetFogNear(value);
 }

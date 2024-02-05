@@ -50,7 +50,7 @@ private:
 	float minAngleRange_;
 	float maxAngleRange_;
 
-	float spd_ = 0.1f;
+	float padSpd_ = 0.1f;
 
 	//	ターゲットカメラ実行中
 	bool targeting_ = false;

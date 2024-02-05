@@ -29,7 +29,7 @@ void GameScene::LoadResources()
 {
 #pragma region Model
 	ModelManager* models = ModelManager::GetInstance();
-	models->LoadModel("eye");
+	models->LoadModel("Boss", true);
 	models->LoadModel("player", true);
 	models->LoadModel("escapePod", true);
 #pragma endregion
@@ -48,7 +48,7 @@ void GameScene::LoadResources()
 	playerBullets_.LoadResources();
 	//	enemy
 	enemy_ = std::make_unique<Boss>();
-	enemy_->Initialize(models->GetModel("eye"));
+	enemy_->Initialize(models->GetModel("Boss"));
 
 #pragma region LevelData
 

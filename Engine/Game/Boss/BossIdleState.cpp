@@ -5,19 +5,32 @@
 #include "BossMeleeState.h"
 #include "BossBulletState.h"
 #include "BossWayBullets.h"
+#include "BossJumpAtState.h"
 
-#include "InputManager.h"
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void BossIdleState::Initialize()
 {
+	//	タイマー初期化
 	timer_.Initialize(idleTime_, true);
 	timer_.StartCount();
+
+	//	アニメーション設定
+	sBoss_->GetAnimation()->SetAnimeName("Walking");
+	sBoss_->GetAnimation()->SetAutoPlay(TRUE);
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void BossIdleState::Update()
 {
 	timer_.Update();
-	if (sBoss_->GetIsAlive() == false) {
-		std::unique_ptr<EnemyState> next_ = std::make_unique<BossDeathState>();
+	if (sBoss_->GetIsAlive() == FALSE) {
+		std::unique_ptr<BossState> next_ = std::make_unique<BossDeathState>();
 		sBoss_->SetCurrentState(next_);
 	}
 	else {
@@ -36,28 +49,18 @@ void BossIdleState::Update()
 		if (timer_.GetIsActive() == false) {
 			int rad = rand();
 			rad = rad % StateNum;
-			if (rad == BulletState) {
-				std::unique_ptr<EnemyState> next_ = std::make_unique<BossBulletState>();
-				sBoss_->SetCurrentState(next_);
-			}
-			else if (rad == WayBulletsState) {
-				std::unique_ptr<EnemyState> next_ = std::make_unique<BossWayBullets>();
-				sBoss_->SetCurrentState(next_);
-			}
+			std::unique_ptr<BossState> next_ = std::make_unique<BossJumpAtState>();
+			sBoss_->SetCurrentState(next_);
+			//if (rad == BulletState) {
+			//	std::unique_ptr<BossState> next_ = std::make_unique<BossBulletState>();
+			//	sBoss_->SetCurrentState(next_);
+			//}
+			//else if (rad == WayBulletsState) {
+			//	std::unique_ptr<BossState> next_ = std::make_unique<BossWayBullets>();
+			//	sBoss_->SetCurrentState(next_);
+			//}
+			sBoss_->GetAnimation()->SetAutoPlay(FALSE);
+			sBoss_->GetAnimation()->SetAnimeTimer(0.0f);
 		}
-
-		//InputManager* input = InputManager::GetInstance();
-		//if (input->GetKeyAndButton(DIK_1, InputJoypad::A_Button)) {
-		//	std::unique_ptr<EnemyState> next_ = std::make_unique<BossBulletState>();
-		//	sBoss_->SetCurrentState(next_);
-		//}
-		////if (input->GetKeyAndButton(DIK_2, InputJoypad::A_Button)) {
-		////	std::unique_ptr<EnemyState> next_ = std::make_unique<BossMeleeState>();
-		////	sBoss_->SetCurrentState(next_);
-		////}
-		//if (input->GetKeyAndButton(DIK_2, InputJoypad::A_Button)) {
-		//	std::unique_ptr<EnemyState> next_ = std::make_unique<BossWayBullets>();
-		//	sBoss_->SetCurrentState(next_);
-		//}
 	}
 }

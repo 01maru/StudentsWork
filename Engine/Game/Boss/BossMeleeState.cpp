@@ -61,7 +61,7 @@
 //
 //		if (timer_.GetIsActive() == false) {
 //			//	終了
-//			std::unique_ptr<EnemyState> next_ = std::make_unique<BossIdleState>();
+//			std::unique_ptr<BossState> next_ = std::make_unique<BossIdleState>();
 //			sBoss_->SetCurrentState(next_);
 //			sBoss_->SetBodyAttack(false);
 //		}

@@ -1,8 +1,8 @@
 #pragma once
-#include "EnemyState.h"
+#include "BossState.h"
 #include "FrameCounter.h"
 
-class BossWayBullets :public EnemyState
+class BossWayBullets :public BossState
 {
 private:
 	FrameCounter rate_;

@@ -3,19 +3,12 @@
 #include "FrameCounter.h"
 
 /**
-* @file BossIdleState.h
-* @brief ボスの攻撃選択中の動きを管理するファイル
+* @file BossStartState.h
+* @brief ボスの開始時演出を管理するファイル
 */
 
-class BossIdleState :public BossState
+class BossStartState :public BossState
 {
-private:
-	enum BossAtState {
-		BulletState = 0,
-		WayBulletsState,
-		StateNum,
-	};
-
 public:
 	/**
 	* @fn Initialize()
@@ -29,7 +22,8 @@ public:
 	void Update() override;
 
 private:
-	int32_t idleTime_ = 180;
+	//	アニメーションタイマー
 	FrameCounter timer_;
+	int32_t roarTime_ = 240;
 };
 

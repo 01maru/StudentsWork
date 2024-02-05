@@ -19,7 +19,7 @@ void BossWayBullets::Initialize()
 void BossWayBullets::Update()
 {
 	if (sBoss_->GetIsAlive() == false) {
-		std::unique_ptr<EnemyState> next_ = std::make_unique<BossDeathState>();
+		std::unique_ptr<BossState> next_ = std::make_unique<BossDeathState>();
 		sBoss_->SetCurrentState(next_);
 	}
 
@@ -64,7 +64,7 @@ void BossWayBullets::Update()
 		}
 
 		//	終了
-		std::unique_ptr<EnemyState> next_ = std::make_unique<BossIdleState>();
+		std::unique_ptr<BossState> next_ = std::make_unique<BossIdleState>();
 		sBoss_->SetCurrentState(next_);
 	}
 }

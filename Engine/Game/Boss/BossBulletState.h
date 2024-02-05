@@ -1,8 +1,8 @@
 #pragma once
-#include "EnemyState.h"
+#include "BossState.h"
 #include "FrameCounter.h"
 
-class BossBulletState :public EnemyState
+class BossBulletState :public BossState
 {
 private:
 	int32_t rateTime_ = 60;

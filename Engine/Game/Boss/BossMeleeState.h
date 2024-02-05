@@ -1,9 +1,9 @@
 //#pragma once
-//#include "EnemyState.h"
+//#include "BossState.h"
 //#include "FrameCounter.h"
 //#include "Vector3D.h"
 //
-//class BossMeleeState :public EnemyState
+//class BossMeleeState :public BossState
 //{
 //private:
 //	FrameCounter timer_;

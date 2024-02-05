@@ -1,7 +1,8 @@
 #include "Boss.h"
 #include "SphereCollider.h"
 #include "CollisionAttribute.h"
-#include "BossIdleState.h"
+#include "BossStartState.h"
+#include "BossRoarState.h"
 
 #include "Player.h"
 #include "Quaternion.h"
@@ -17,11 +18,11 @@ void Boss::StatusInitialize()
 	hp_.SetMaxHP(maxHP_);
 
 	//	初期ステート
-	currentState_ = std::make_unique<BossIdleState>();
-	EnemyState::SetBoss(this);
+	std::unique_ptr<BossState> next = std::make_unique<BossRoarState>();
+	SetCurrentState(next);
 
-	Vector3D pos(0.0f, 3.0f, 10.0f);
-	mat_.trans_ = pos;
+	//Vector3D pos(0.0f, 3.0f, 10.0f);
+	//mat_.trans_ = pos;
 
 	hp_.Initialize();
 }
@@ -30,6 +31,7 @@ void Boss::Initialize(MNE::IModel* model)
 {
 	Object3D::Initialize();
 	SetModel(model);
+	BossState::SetBoss(this);
 
 	StatusInitialize();
 
@@ -164,7 +166,7 @@ bool Boss::GetBodyAttack()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void Boss::SetCurrentState(std::unique_ptr<EnemyState>& next)
+void Boss::SetCurrentState(std::unique_ptr<BossState>& next)
 {
 	currentState_ = std::move(next);
 	currentState_->Initialize();

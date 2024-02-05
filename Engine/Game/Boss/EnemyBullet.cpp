@@ -6,9 +6,9 @@
 
 using namespace MNE;
 
-EnemyBullet::~EnemyBullet()
-{
-}
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
 
 void EnemyBullet::Initialize()
 {
@@ -20,6 +20,10 @@ void EnemyBullet::Initialize()
 	SetAttribute(CollAttribute::COLLISION_ATTR_ENEMY_AT);
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
 void EnemyBullet::Update()
 {
 	lifeTime_.Update();
@@ -28,26 +32,6 @@ void EnemyBullet::Update()
 
 	MatUpdate();
 	collider_->Update();
-}
-
-void EnemyBullet::SetMoveVec(const Vector3D& moveVec)
-{
-	moveVec_ = moveVec;
-}
-
-void EnemyBullet::SetSpd(float spd)
-{
-	spd_ = spd;
-}
-
-void EnemyBullet::SetLifeTime(int32_t time)
-{
-	lifeTime_.SetMaxFrameCount(time);
-}
-
-bool EnemyBullet::GetIsActive()
-{
-	return lifeTime_.GetIsActive();
 }
 
 void EnemyBullet::OnCollision(CollisionInfo& info)
@@ -70,4 +54,32 @@ void EnemyBullet::OnCollision(CollisionInfo& info)
 	default:
 		break;
 	}
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+bool EnemyBullet::GetIsActive()
+{
+	return lifeTime_.GetIsActive();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void EnemyBullet::SetMoveVec(const Vector3D& moveVec)
+{
+	moveVec_ = moveVec;
+}
+
+void EnemyBullet::SetSpd(float spd)
+{
+	spd_ = spd;
+}
+
+void EnemyBullet::SetLifeTime(int32_t time)
+{
+	lifeTime_.SetMaxFrameCount(time);
 }
