@@ -216,7 +216,7 @@ void SceneManager::ImguiUpdate()
 	UIEditor::GetInstance()->ImGuiUpdate();
 	glayscale->SetGlayScale(UIEditor::GetInstance()->GetActiveGlayscale());
 	CameraManager::GetInstance()->ImGuiUpdate();
-	XAudioManager::GetInstance()->ImguiUpdate(endLoading_);
+	XAudioManager::GetInstance()->ImGuiUpdate(endLoading_);
 	TextureManager::GetInstance()->ImGuiUpdate();
 	LightManager::GetInstance()->ImGuiUpdate();
 	ParticleManager::GetInstance()->ImGuiUpdate();

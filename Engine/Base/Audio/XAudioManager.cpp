@@ -100,7 +100,7 @@ float MNE::XAudioManager::LoadVolume(const std::string& filename)
 	return volume;
 }
 
-void MNE::XAudioManager::LoadAllValumeData()
+void MNE::XAudioManager::LoadAllVolumeData()
 {
 	for (auto& itr : data_)
 	{
@@ -176,7 +176,7 @@ void MNE::XAudioManager::SaveVolume()
 	outPutFile.close();
 }
 
-void MNE::XAudioManager::ImguiUpdate(bool endLoading)
+void MNE::XAudioManager::ImGuiUpdate(bool endLoading)
 {
 	if (!ImGuiController::GetInstance()->GetActiveVolumeManager()) return;
 
@@ -191,7 +191,7 @@ void MNE::XAudioManager::ImguiUpdate(bool endLoading)
 	if (imguiMan->BeginMenuBar()) {
 		if (imguiMan->BeginMenu("File")) {
 			if (imguiMan->MenuItem("Save")) SaveVolume();
-			if (imguiMan->MenuItem("Load")) LoadAllValumeData();
+			if (imguiMan->MenuItem("Load")) LoadAllVolumeData();
 			imguiMan->EndMenu();
 		}
 		imguiMan->EndMenuBar();

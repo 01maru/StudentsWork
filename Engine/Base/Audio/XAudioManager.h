@@ -93,7 +93,7 @@ namespace MNE
 
 		//	Save&Load
 		float LoadVolume(const std::string& filename);
-		void LoadAllValumeData();
+		void LoadAllVolumeData();
 		void SaveVolume();
 		
 		void PlayDebugSoundWave(const std::string& soundName, SoundType type, bool loop = false, bool isDebug = false);
@@ -116,7 +116,7 @@ namespace MNE
 		* Debug用のImGuiを使う際に使用する関数
 		* @param endLoading 非同期処理による書き換えが終わるまでデータを使用しないように回避するための引数
 		*/
-		void ImguiUpdate(bool endLoading);
+		void ImGuiUpdate(bool endLoading);
 
 		/**
 		* @fn LoadSoundWave(const std::string&)
