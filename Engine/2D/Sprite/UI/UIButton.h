@@ -9,15 +9,15 @@
 */
 
 #pragma region 前置宣言
-
-class Vector2D;
-
-#pragma endregion
-
+namespace MyMath
+{
+	class Vector2D;
+}
 namespace MNE
 {
-	
 	class UIPosition;
+
+#pragma endregion
 
 	class UIButton :public UIComponent
 	{
@@ -39,13 +39,13 @@ namespace MNE
 		* UIPositionの座標のGetter関数
 		* @return UIPositionの座標
 		*/
-		Vector2D& GetPosition();
+		MyMath::Vector2D& GetPosition();
 		/**
 		* @fn GetSize()
 		* サイズのGetter関数
 		* @return ボタンサイズ
 		*/
-		Vector2D& GetSize();
+		MyMath::Vector2D& GetSize();
 		/**
 		* @fn GetButtonName()
 		* name_のGetter関数

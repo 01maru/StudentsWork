@@ -4,12 +4,12 @@
 
 #define MAX_ERR 1e-10
 
-Matrix::Matrix()
+MyMath::Matrix::Matrix()
 {
 	Identity();
 }
 
-void Matrix::Identity()
+void MyMath::Matrix::Identity()
 {
 	for (size_t x = 0; x < 4; x++)
 	{
@@ -21,7 +21,7 @@ void Matrix::Identity()
 	}
 }
 
-Matrix& Matrix::operator*=(const Matrix& m2)
+MyMath::Matrix& MyMath::Matrix::operator*=(const Matrix& m2)
 {
 	Matrix prev(*this);
 
@@ -36,13 +36,13 @@ Matrix& Matrix::operator*=(const Matrix& m2)
 	return *this;
 }
 
-const Matrix operator*(const Matrix& m1, const Matrix& m2)
+const MyMath::Matrix MyMath::operator*(const Matrix& m1, const Matrix& m2)
 {
     Matrix temp(m1);
     return temp *= m2;
 }
 
-bool InverseMatrix(const Matrix& mat, Matrix& invMat)
+bool MyMath::InverseMatrix(const Matrix& mat, Matrix& invMat)
 {
     float sweep[4][8];
 
@@ -128,7 +128,7 @@ bool InverseMatrix(const Matrix& mat, Matrix& invMat)
     return true;
 }
 
-Matrix Create2DTransformMatrix()
+MyMath::Matrix MyMath::Create2DTransformMatrix()
 {
     Matrix ans;
 

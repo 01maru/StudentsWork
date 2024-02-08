@@ -34,7 +34,7 @@ namespace MNE
 		void LoadBone(size_t meshIndex, const aiMesh* src);
 		void SetTextureFilePath(const std::string& filename, Mesh& dst, const aiMaterial* src);
 
-		void ReadNodeHeirarchy(const AnimationData& animData, float AnimationTime, const Matrix& ParentTransform, const std::string& nodeName);
+		void ReadNodeHeirarchy(const AnimationData& animData, float AnimationTime, const MyMath::Matrix& ParentTransform, const std::string& nodeName);
 
 	public:
 		FbxModel(const char* filename, bool smoothing = false);
@@ -42,7 +42,7 @@ namespace MNE
 
 		void ImGuiUpdate() override;
 
-		void BoneTransform(float timer, std::vector<Matrix>& transforms, const std::string& animeName, bool isLoop) override;
+		void BoneTransform(float timer, std::vector<MyMath::Matrix>& transforms, const std::string& animeName, bool isLoop) override;
 	};
 
 }

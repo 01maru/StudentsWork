@@ -6,7 +6,7 @@
 class PlaneCollider :public BaseCollider, public Plane
 {
 public:
-	PlaneCollider(const Vector3D& normal);
+	PlaneCollider(const MyMath::Vector3D& normal);
 	void Update() override;
 };
 

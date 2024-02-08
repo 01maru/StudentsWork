@@ -2,6 +2,11 @@
 #include "Object3D.h"
 #include "FrameCounter.h"
 
+/**
+* @file EnemyBullet.h
+* @brief ボスの弾を管理するファイル
+*/
+
 class EnemyBullet :public MNE::Object3D
 {
 public:
@@ -20,9 +25,9 @@ public:
 
 private:
 	const int32_t LIFE_TIME = 600;
-	Vector3D moveVec_;
+	MyMath::Vector3D moveVec_;
 	float spd_;
-	FrameCounter lifeTime_;
+	MNE::FrameCounter lifeTime_;
 	float radius_ = 0.4f;
 	int32_t damage_ = 5;
 
@@ -31,14 +36,34 @@ public:
 
 #pragma region Getter
 
+	/**
+	* @fn GetIsActive()
+	* アクティブか取得用関数
+	* @return アクティブか
+	*/
 	bool GetIsActive();
 	
 #pragma endregion
 
 #pragma region Setter
 
-	void SetMoveVec(const Vector3D& moveVec);
+	/**
+	* @fn SetMoveVec(const Vector3D&)
+	* 移動方向ベクトル設定用関数
+	* @param moveVec 移動方向ベクトル
+	*/
+	void SetMoveVec(const MyMath::Vector3D& moveVec);
+	/**
+	* @fn SetSpd(float)
+	* 速度設定用関数
+	* @param spd 弾の速度
+	*/
 	void SetSpd(float spd);
+	/**
+	* @fn SetLifeTime(int32_t)
+	* 生存時間設定用関数
+	* @param time 生存時間
+	*/
 	void SetLifeTime(int32_t time);
 
 #pragma endregion

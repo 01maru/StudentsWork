@@ -14,7 +14,7 @@ public:
 	* 更新処理関数
 	* @param startPos 銃口の先端の位置(弾が出るところ)
 	*/
-	void Update(const Vector3D& startPos);
+	void Update(const MyMath::Vector3D& startPos);
 	/**
 	* @fn ImGuiUpdate()
 	* ImGui更新処理関数
@@ -30,7 +30,7 @@ private:
 	//	クロスヘアのスプライト
 	MNE::Sprite sprite_;
 	//	弾の発射方向
-	Vector3D dir_;
+	MyMath::Vector3D dir_;
 	//	地形とレイが当たらなかったときの発射の方向
 	const float MAX_DISTANCE = 80.0f;
 
@@ -42,7 +42,7 @@ public:
 	* 弾の発射方向取得関数
 	* @return 弾の発射方向
 	*/
-	Vector3D GetDir();
+	MyMath::Vector3D GetDir();
 	
 #pragma endregion
 

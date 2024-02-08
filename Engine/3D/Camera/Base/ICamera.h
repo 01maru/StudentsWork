@@ -20,7 +20,7 @@ namespace MNE
 		* @param center 注視点座標
 		* @param dis 注視点と視点座標の距離
 		*/
-		virtual void Initialize(const Vector3D& frontVec, const Vector3D& center, float dis);
+		virtual void Initialize(const MyMath::Vector3D& frontVec, const MyMath::Vector3D& center, float dis);
 		/**
 		* @fn Initialize(const Vector3D&, const Vector3D&, const Vector3D&)
 		* 初期化用関数
@@ -28,7 +28,7 @@ namespace MNE
 		* @param target 注視点座標
 		* @param up 上方向ベクトル
 		*/
-		virtual void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up);
+		virtual void Initialize(const MyMath::Vector3D& eye, const MyMath::Vector3D& target, const MyMath::Vector3D& up);
 		/**
 		* @fn Update()
 		* 更新処理関数
@@ -46,25 +46,25 @@ namespace MNE
 		void MatUpdate();
 
 	protected:
-		Matrix matView_;
-		Matrix matProj_;
+		MyMath::Matrix matView_;
+		MyMath::Matrix matProj_;
 
 		float disEyeTarget_ = 0.0f;
-		Vector3D eye_;						//	視点座標
-		Vector3D target_;					//	注視点座標
-		Vector3D up_ = { 0.0f,1.0f,0.0f };	//	上方向ベクトル
-		Vector3D frontVec_;
-		Vector3D rightVec_;
-		Vector3D downVec_;
+		MyMath::Vector3D eye_;						//	視点座標
+		MyMath::Vector3D target_;					//	注視点座標
+		MyMath::Vector3D up_ = { 0.0f,1.0f,0.0f };	//	上方向ベクトル
+		MyMath::Vector3D frontVec_;
+		MyMath::Vector3D rightVec_;
+		MyMath::Vector3D downVec_;
 
 		//	shake
 		bool isShaking_ = false;
-		Vector3D move_;
-		Vector3D shookEye_;					//	shake後の視点座標
-		Vector3D shookTarget_;				//	shake後の注視点座標
+		MyMath::Vector3D move_;
+		MyMath::Vector3D shookEye_;					//	shake後の視点座標
+		MyMath::Vector3D shookTarget_;				//	shake後の注視点座標
 
-		Matrix billboard_;
-		Matrix billboardY_;
+		MyMath::Matrix billboard_;
+		MyMath::Matrix billboardY_;
 
 	public:
 		/**
@@ -94,28 +94,28 @@ namespace MNE
 	#pragma region Getter
 	
 		float GetDisEyeTarget();
-		const Vector3D& GetEye();
-		const Vector3D& GetTarget();
-		const Vector3D& GetUp();
-		const Vector3D& GetFrontVec();
-		const Vector3D& GetRightVec();
-		const Vector3D& GetDownVec();
-		const Matrix& GetView();
-		const Matrix& GetProjection();
-		const Matrix& GetBillboard();
-		const Matrix& GetBillboardY();
-		Matrix GetViewProj() const { return matView_ * matProj_; }
+		const MyMath::Vector3D& GetEye();
+		const MyMath::Vector3D& GetTarget();
+		const MyMath::Vector3D& GetUp();
+		const MyMath::Vector3D& GetFrontVec();
+		const MyMath::Vector3D& GetRightVec();
+		const MyMath::Vector3D& GetDownVec();
+		const MyMath::Matrix& GetView();
+		const MyMath::Matrix& GetProjection();
+		const MyMath::Matrix& GetBillboard();
+		const MyMath::Matrix& GetBillboardY();
+		MyMath::Matrix GetViewProj() const { return matView_ * matProj_; }
 
 	#pragma endregion
 
 	#pragma region Setter
 
-		void SetTarget(const Vector3D& t);
-		void SetEye(const Vector3D& e);
-		void SetUp(const Vector3D& up);
+		void SetTarget(const MyMath::Vector3D& t);
+		void SetEye(const MyMath::Vector3D& e);
+		void SetUp(const MyMath::Vector3D& up);
 		//	fovYの単位はラジアン
 		void SetProjectionMatrix(int32_t width, int32_t height, float fovY);
-		void SetProjMatrix(const Matrix& matProj);
+		void SetProjMatrix(const MyMath::Matrix& matProj);
 
 	#pragma endregion
 	};

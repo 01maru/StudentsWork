@@ -12,7 +12,7 @@ using namespace MNE;
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void CrossHair::Update(const Vector3D& startPos)
+void CrossHair::Update(const MyMath::Vector3D& startPos)
 {
 	//	カメラの前方方向にレイを飛ばす
 	ICamera* camera = CameraManager::GetInstance()->GetMainCamera();
@@ -58,7 +58,7 @@ void CrossHair::Draw()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-Vector3D CrossHair::GetDir()
+MyMath::Vector3D CrossHair::GetDir()
 {
 	return dir_;
 }

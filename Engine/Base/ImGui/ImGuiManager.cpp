@@ -132,7 +132,7 @@ void MNE::ImGuiManager::Separator()
 	ImGui::Separator();
 }
 
-bool MNE::ImGuiManager::SetButton(const std::string& buttonName, const Vector2D& size)
+bool MNE::ImGuiManager::SetButton(const std::string& buttonName, const MyMath::Vector2D& size)
 {
 	return ImGui::Button(buttonName.c_str(), ImVec2(size.x, size.y));
 }
@@ -142,7 +142,7 @@ bool MNE::ImGuiManager::SetRadioButton(const std::string& buttonName, int32_t& v
 	return ImGui::RadioButton(buttonName.c_str(), &v, vButton);
 }
 
-void MNE::ImGuiManager::InputFloat3(const std::string& name, Vector3D& vec)
+void MNE::ImGuiManager::InputFloat3(const std::string& name, MyMath::Vector3D& vec)
 {
 	float v[3] = { vec.x,vec.y,vec.z };
 	ImGui::InputFloat3(name.c_str(), v);
@@ -150,7 +150,7 @@ void MNE::ImGuiManager::InputFloat3(const std::string& name, Vector3D& vec)
 	vec = { v[0],v[1],v[2] };
 }
 
-void MNE::ImGuiManager::InputFloat2(const std::string& name, Vector2D& vec)
+void MNE::ImGuiManager::InputFloat2(const std::string& name, MyMath::Vector2D& vec)
 {
 	float v[2] = { vec.x,vec.y };
 	ImGui::InputFloat2(name.c_str(), v);
@@ -174,7 +174,7 @@ void MNE::ImGuiManager::SetSliderFloat(const std::string& sliderName, float& val
 	ImGui::DragFloat(sliderName.c_str(), &value, spd, minValue, maxValue);
 }
 
-void MNE::ImGuiManager::SetSliderFloat2(const std::string& sliderName, Vector2D& value, float spd, float minValue, float maxValue)
+void MNE::ImGuiManager::SetSliderFloat2(const std::string& sliderName, MyMath::Vector2D& value, float spd, float minValue, float maxValue)
 {
 	float v[2] = { value.x,value.y };
 	ImGui::DragFloat2(sliderName.c_str(), v, spd, minValue, maxValue);
@@ -182,7 +182,7 @@ void MNE::ImGuiManager::SetSliderFloat2(const std::string& sliderName, Vector2D&
 	value = { v[0],v[1] };
 }
 
-void MNE::ImGuiManager::SetSliderFloat3(const std::string& sliderName, Vector3D& value, float spd, float minValue, float maxValue)
+void MNE::ImGuiManager::SetSliderFloat3(const std::string& sliderName, MyMath::Vector3D& value, float spd, float minValue, float maxValue)
 {
 	float v[3] = { value.x,value.y,value.z };
 	ImGui::DragFloat3(sliderName.c_str(), v, spd, minValue, maxValue);
@@ -200,7 +200,7 @@ void MNE::ImGuiManager::CheckBox(const std::string& name, bool& flag)
 	ImGui::Checkbox(name.c_str(), &flag);
 }
 
-void MNE::ImGuiManager::ColorPicker3(const std::string& name, Vector3D& color)
+void MNE::ImGuiManager::ColorPicker3(const std::string& name, MyMath::Vector3D& color)
 {
 	float v[3] = { color.x,color.y,color.z };
 
@@ -236,12 +236,12 @@ void MNE::ImGuiManager::PopID()
 	ImGui::PopID();
 }
 
-bool MNE::ImGuiManager::BeginChild(const Vector2D& size)
+bool MNE::ImGuiManager::BeginChild(const MyMath::Vector2D& size)
 {
 	return ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(size.x, size.y), ImGuiWindowFlags_NoTitleBar);
 }
 
-bool MNE::ImGuiManager::BeginChild(int64_t childId, const Vector2D& size)
+bool MNE::ImGuiManager::BeginChild(int64_t childId, const MyMath::Vector2D& size)
 {
 	return ImGui::BeginChild(ImGui::GetID((void*)childId), ImVec2(size.x, size.y), ImGuiWindowFlags_NoTitleBar);
 }

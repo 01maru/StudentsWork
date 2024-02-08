@@ -28,7 +28,7 @@ void PodCameraMoveState::Initialize()
 	//	アニメーションをドアの空いた後の動きに変更
 	sPod_->GetAnimation()->SetAnimeName("AfterOpen");
 	sPod_->GetAnimation()->SetAutoPlay(TRUE);		//	自動で再生
-	sPod_->GetAnimation()->SetAnimeTimer(0.0f);
+	sPod_->GetAnimation()->ResetAnimeTimer();
 }
 
 //-----------------------------------------------------------------------------

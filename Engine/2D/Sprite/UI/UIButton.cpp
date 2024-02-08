@@ -7,12 +7,12 @@
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-Vector2D& MNE::UIButton::GetPosition()
+MyMath::Vector2D& MNE::UIButton::GetPosition()
 {
 	return parent_->GetComponent<UIPosition>()->GetPosition();
 }
 
-Vector2D& MNE::UIButton::GetSize()
+MyMath::Vector2D& MNE::UIButton::GetSize()
 {
 	return parent_->GetComponent<UIPosition>()->GetSize();
 }

@@ -8,7 +8,10 @@
 * @brief コントローラーの入力処理をまとめたファイル
 */
 
-class Vector2D;
+namespace MyMath
+{
+    class Vector2D;
+}
 namespace MNE
 {
 
@@ -78,10 +81,10 @@ namespace MNE
         size_t GetLTriggerValue();
         size_t GetRTriggerValue();
 
-        Vector2D GetThumbR();
+        MyMath::Vector2D GetThumbR();
         bool GetTriggerThumbRX();
         bool GetTriggerThumbRY();
-        Vector2D GetThumbL();
+        MyMath::Vector2D GetThumbL();
         bool GetTriggerThumbLX();
         bool GetTriggerThumbLY();
         int32_t GetMaxThumbRange() { return 32767; }
@@ -98,7 +101,7 @@ namespace MNE
         * バイブレーションの強さ設定用関数
         * @param motorSpd バイブレーションの強さ motorSpd(x, y) = (Left, Right)
         */
-        void SetVibration(const Vector2D& motorSpd);
+        void SetVibration(const MyMath::Vector2D& motorSpd);
 
     #pragma endregion
     };

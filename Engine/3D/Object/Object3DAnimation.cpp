@@ -5,6 +5,8 @@
 #include <cassert>
 #include <vector>
 
+using namespace MyMath;
+
 void MNE::Object3DAnimation::Initialize()
 {
 	HRESULT result;
@@ -17,7 +19,7 @@ void MNE::Object3DAnimation::Initialize()
 	//	ボーンの初期化
 	for (size_t i = 0; i < MNE::CBuff::MAX_BONES; i++)
 	{
-		cSkinMap_->bones[i] = Matrix();
+		cSkinMap_->bones[i] = MyMath::Matrix();
 	}
 }
 
@@ -28,7 +30,7 @@ void MNE::Object3DAnimation::MatUpdate()
 		animeTimer_++;
 	}
 
-	std::vector<Matrix> Transforms;
+	std::vector<MyMath::Matrix> Transforms;
 	model_->BoneTransform(animeTimer_, Transforms, animeName_, isLoop_);
 
 	if (Transforms.empty()) return;
@@ -69,6 +71,11 @@ void MNE::Object3DAnimation::SetIsLoop(bool isLoop)
 void MNE::Object3DAnimation::SetAnimeName(const std::string& name)
 {
 	animeName_ = name;
+}
+
+void MNE::Object3DAnimation::ResetAnimeTimer()
+{
+	animeTimer_ = 0.0f;
 }
 
 void MNE::Object3DAnimation::SetAnimeTimer(float timer)

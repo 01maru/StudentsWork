@@ -4,6 +4,8 @@
 #include "Material.h"
 #include <cassert>
 
+using namespace MyMath;
+
 void MNE::Mesh::Initialzie()
 {
 	uint32_t sizeVB = static_cast<uint32_t>(sizeof(vertices_[0]) * vertices_.size());

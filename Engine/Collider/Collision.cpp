@@ -2,6 +2,8 @@
 #include "Easing.h"
 #include <cmath>
 
+using namespace MyMath;
+
 void Collision::ClosestPtPoint2Triangle(const Vector3D& point, const Triangle& triangle, Vector3D* closest)
 {
 	//	pointがp0の外側の頂点領域の中にあるかどうかチェック

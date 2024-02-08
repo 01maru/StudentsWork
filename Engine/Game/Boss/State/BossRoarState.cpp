@@ -6,6 +6,7 @@
 
 using namespace MNE;
 using namespace Easing;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -14,9 +15,9 @@ using namespace Easing;
 void BossRoarState::Initialize()
 {
 	//	タイマー初期化&スタート
-	timer_.Initialize(roarTime_, true);
+	timer_.Initialize(roarTime_, TRUE);
 	timer_.StartCount();
-	fogTimer_.Initialize(fogTime_, true);
+	fogTimer_.Initialize(fogTime_, TRUE);
 
 	//	アニメーション設定
 	sBoss_->GetAnimation()->SetAnimeName("Roaring");

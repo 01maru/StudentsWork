@@ -1,6 +1,8 @@
 #include "SphereCollider.h"
 #include "Object3D.h"
 
+using namespace MyMath;
+
 SphereCollider::SphereCollider(const Vector3D& offset, float radius) :offset_(offset)
 {
 	radius_ = radius;
@@ -9,7 +11,7 @@ SphereCollider::SphereCollider(const Vector3D& offset, float radius) :offset_(of
 
 void SphereCollider::Update()
 {
-	const Matrix matWorld = object_->GetMatWorld();
+	const MyMath::Matrix matWorld = object_->GetMatWorld();
 
 	Sphere::center_.x = matWorld.m[3][0] + offset_.x;
 	Sphere::center_.y = matWorld.m[3][1] + offset_.y;

@@ -8,6 +8,8 @@
 #include "PipelineManager.h"
 #include "RootParameterIdx.h"
 
+using namespace MyMath;
+
 void MNE::Object3DShadow::Initialize()
 {
 	HRESULT result;
@@ -20,7 +22,7 @@ void MNE::Object3DShadow::Initialize()
 
 void MNE::Object3DShadow::MatUpdate()
 {
-	const Matrix& matView_ = CameraManager::GetInstance()->GetLightCamera()->GetViewProj();
+	const MyMath::Matrix& matView_ = CameraManager::GetInstance()->GetLightCamera()->GetViewProj();
 
 	cShadowTransMap_->matViewProj = matView_;
 

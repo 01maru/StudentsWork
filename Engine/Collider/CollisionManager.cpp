@@ -7,6 +7,8 @@
 
 #include "Object3D.h"
 
+using namespace MyMath;
+
 CollisionManager* CollisionManager::GetInstance()
 {
     static CollisionManager instance;

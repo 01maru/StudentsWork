@@ -8,7 +8,7 @@ using namespace MyMath;
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
-void MNE::ICamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float dis)
+void MNE::ICamera::Initialize(const MyMath::Vector3D& frontVec, const MyMath::Vector3D& center, float dis)
 {
 	matProj_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT,
 		MyMath::ConvertToRad(50.0f), 0.1f, 1000.0f);
@@ -26,7 +26,7 @@ void MNE::ICamera::Initialize(const Vector3D& frontVec, const Vector3D& center, 
 	CalcDirectionVec();
 }
 
-void MNE::ICamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
+void MNE::ICamera::Initialize(const MyMath::Vector3D& eye, const MyMath::Vector3D& target, const MyMath::Vector3D& up)
 {
 	matProj_ = MyMath::PerspectiveFovLH(Window::sWIN_WIDTH, Window::sWIN_HEIGHT,
 		MyMath::ConvertToRad(50.0f), 0.1f, 1000.0f);
@@ -175,22 +175,22 @@ const Vector3D& MNE::ICamera::GetDownVec()
 	return downVec_;
 }
 
-const Matrix& MNE::ICamera::GetView()
+const MyMath::Matrix& MNE::ICamera::GetView()
 {
 	return matView_;
 }
 
-const Matrix& MNE::ICamera::GetProjection()
+const MyMath::Matrix& MNE::ICamera::GetProjection()
 {
 	return matProj_;
 }
 
-const Matrix& MNE::ICamera::GetBillboard()
+const MyMath::Matrix& MNE::ICamera::GetBillboard()
 {
 	return billboard_;
 }
 
-const Matrix& MNE::ICamera::GetBillboardY()
+const MyMath::Matrix& MNE::ICamera::GetBillboardY()
 {
 	return billboardY_;
 }
@@ -231,7 +231,7 @@ void MNE::ICamera::SetProjectionMatrix(int32_t width, int32_t height, float fovY
 	matProj_ = MyMath::PerspectiveFovLH(width, height, fovY, 0.1f, 1000.0f);
 }
 
-void MNE::ICamera::SetProjMatrix(const Matrix& matProj)
+void MNE::ICamera::SetProjMatrix(const MyMath::Matrix& matProj)
 {
 	matProj_ = matProj;
 }

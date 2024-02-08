@@ -91,18 +91,18 @@ namespace MNE
 		void Spacing();
 		void Separator();
 
-		bool SetButton(const std::string& buttonName, const Vector2D& size = Vector2D());
+		bool SetButton(const std::string& buttonName, const MyMath::Vector2D& size = MyMath::Vector2D());
 		bool SetRadioButton(const std::string& buttonName, int32_t& v, int32_t vButton);
-		void InputFloat3(const std::string& name, Vector3D& vec);
-		void InputFloat2(const std::string& name, Vector2D& vec);
+		void InputFloat3(const std::string& name, MyMath::Vector3D& vec);
+		void InputFloat2(const std::string& name, MyMath::Vector2D& vec);
 		void InputFloat(const std::string& name, float& v);
 		void InputInt(const std::string& name, int& v);
 		void SetSliderFloat(const std::string& sliderName, float& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
-		void SetSliderFloat2(const std::string& sliderName, Vector2D& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
-		void SetSliderFloat3(const std::string& sliderName, Vector3D& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
+		void SetSliderFloat2(const std::string& sliderName, MyMath::Vector2D& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
+		void SetSliderFloat3(const std::string& sliderName, MyMath::Vector3D& value, float spd = 1.0f, float minValue = 0.0f, float maxValue = 0.0f);
 		void SetSliderInt(const std::string& sliderName, int& value, float spd, size_t minValue, size_t maxValue);
 		void CheckBox(const std::string& name, bool& flag);
-		void ColorPicker3(const std::string& name, Vector3D& color);
+		void ColorPicker3(const std::string& name, MyMath::Vector3D& color);
 
 	#pragma endregion
 
@@ -116,8 +116,8 @@ namespace MNE
 	#pragma region Scroll
 
 		//	return isActive;
-		bool BeginChild(const Vector2D& size = Vector2D());
-		bool BeginChild(int64_t childId, const Vector2D& size = Vector2D());
+		bool BeginChild(const MyMath::Vector2D& size = MyMath::Vector2D());
+		bool BeginChild(int64_t childId, const MyMath::Vector2D& size = MyMath::Vector2D());
 		void EndChild();
 
 		void BeginGroup();

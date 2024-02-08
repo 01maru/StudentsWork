@@ -23,7 +23,7 @@ public:
 
 private:
 	//	アニメーションタイマー
-	FrameCounter timer_;
+	MNE::FrameCounter timer_;
 	int32_t roarTime_ = 240;
 };
 

@@ -59,7 +59,7 @@ namespace MNE
 	#pragma region Setter
 
 		void SetPipeline(MNE::GPipeline* blurXPipeline, MNE::GPipeline* blurYPipeline);
-		void SetClearColor(const Vector4D& color);
+		void SetClearColor(const MyMath::Vector4D& color);
 
 	#pragma endregion
 	};

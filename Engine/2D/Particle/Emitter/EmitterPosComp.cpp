@@ -9,7 +9,7 @@ void MNE::EmitterPosComp::Initialize(MNE::Particle* particle)
 	{
 		MNE::ObjectParticle* obj = particle->GetComponent<MNE::ObjectParticle>();
 
-		Vector3D pos = obj->GetPosition();
+		MyMath::Vector3D pos = obj->GetPosition();
 		pos += add_->GetValue();
 		obj->SetPosition(pos);
 	}
@@ -17,7 +17,7 @@ void MNE::EmitterPosComp::Initialize(MNE::Particle* particle)
 	{
 		MNE::SpriteParticle* sprite = particle->GetComponent<MNE::SpriteParticle>();
 
-		Vector3D pos = sprite->GetPosition();
+		MyMath::Vector3D pos = sprite->GetPosition();
 		pos += add_->GetValue();
 		sprite->SetPosition(pos);
 	}

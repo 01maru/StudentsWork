@@ -6,7 +6,9 @@
 
 #include "ImGuiManager.h"
 
-void MNE::MyDebugCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
+using namespace MyMath;
+
+void MNE::MyDebugCamera::Initialize(const MyMath::Vector3D& eye, const MyMath::Vector3D& target, const MyMath::Vector3D& up)
 {
 	mouse_ = InputManager::GetInstance()->GetMouse();
 	keyboard_ = InputManager::GetInstance()->GetKeyboard();
@@ -42,7 +44,7 @@ Vector3D MNE::MyDebugCamera::CalcTransMove(bool active)
 	if (!active)				return ans;
 	if (mode_ == RotationMove)	return ans;
 
-	Vector2D moveCursor = mouse_->GetCursorMoveVec();
+	MyMath::Vector2D moveCursor = mouse_->GetCursorMoveVec();
 	moveCursor.Normalize();
 	//	左右移動
 	ans -= rightVec_ * (float)(moveCursor.x) * transSpd_;
@@ -57,7 +59,7 @@ void MNE::MyDebugCamera::CalcRotMove(bool active)
 	if (!active)					return;
 	if (mode_ == TranslationMove)	return;
 
-	Vector2D moveCursor = mouse_->GetCursorMoveVec();
+	MyMath::Vector2D moveCursor = mouse_->GetCursorMoveVec();
 	moveCursor /= mouseMoveRate_;
 
 	rotValue_ = moveCursor;
@@ -81,7 +83,7 @@ void MNE::MyDebugCamera::SetPosition(const Vector3D& moveTarget)
 
 void MNE::MyDebugCamera::Update()
 {
-	rotValue_ = Vector2D();
+	rotValue_ = MyMath::Vector2D();
 	bool dikWheel = mouse_->GetClick(InputMouse::WheelClick);
 
 	SetMoveMode(mouse_->GetClickTrigger(InputMouse::WheelClick));

@@ -21,7 +21,7 @@ namespace MNE
 		MNE::InputMouse* mouse_ = nullptr;
 		MNE::InputKeyboard* keyboard_ = nullptr;
 
-		Vector2D rotValue_;
+		MyMath::Vector2D rotValue_;
 		float transSpd_ = 0.1f;
 		float frontMoveSpd_ = 0.001f;
 		float mouseMoveRate_ = 1000.0f;
@@ -35,9 +35,9 @@ namespace MNE
 	private:
 		void CalcDisEyeToTarget();
 		void SetMoveMode(bool active);
-		Vector3D CalcTransMove(bool active);
+		MyMath::Vector3D CalcTransMove(bool active);
 		void CalcRotMove(bool active);
-		void SetPosition(const Vector3D& moveTarget);
+		void SetPosition(const MyMath::Vector3D& moveTarget);
 
 		/**
 		* @fn ImGuiInfo()
@@ -53,7 +53,7 @@ namespace MNE
 		* @param target 注視点座標
 		* @param up 上方向ベクトル
 		*/
-		void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up) override;
+		void Initialize(const MyMath::Vector3D& eye, const MyMath::Vector3D& target, const MyMath::Vector3D& up) override;
 		/**
 		* @fn Update()
 		* 更新処理関数

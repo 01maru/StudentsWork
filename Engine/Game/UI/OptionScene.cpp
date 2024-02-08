@@ -6,6 +6,7 @@
 #include "ImGuiManager.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 void OptionScene::Initialize()
 {
@@ -97,35 +98,36 @@ void OptionScene::VolumeUpdate(const std::string& objectName, int16_t inputValue
 void OptionScene::CloseOption()
 {
 	//	非アクティブに
-	isActive_ = false;
+	isActive_ = FALSE;
 	//	決定音再生
 	XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 	//	カーソルをオプション前の位置へ(音再生しない)
-	cursor_->SetCursorPosition(befCursorPos_, false);
+	cursor_->SetCursorPosition(befCursorPos_, FALSE);
 	//	オプション閉じる
-	data_.ResetAnimation(false);
+	data_.ResetAnimation(FALSE);
 }
 
 bool OptionScene::InputUpdate(bool dikSelectButton, int16_t inputV)
 {
 	//	非アクティブだったら更新終了
-	if (isActive_ == FALSE) return false;
+	if (isActive_ == FALSE)			return FALSE;
 
 	InputManager* input = InputManager::GetInstance();
 
 	data_.CollisonCursorUpdate();
 
+	//	Bボタンを押したら閉じる
 	if (input->GetPad()->GetButtonTrigger(InputJoypad::B_Button))
 	{
 		CloseOption();
 
-		return true;
+		return TRUE;
 	}
 
 	//	スライダー用左右入力値取得
 	InputJoypad* pad = InputManager::GetInstance()->GetPad();
-	inputValue_ = 0;
-	inputValue_ = static_cast<int16_t>(MyMath::mClamp(-1.0f, 1.0f, pad->GetThumbL().x));
+	int16_t inputValue_ = 0;
+	inputValue_ = static_cast<int16_t>(MyMath::mClamp(-inputSpd_, inputSpd_, pad->GetThumbL().x));
 
 	//	選択位置が感度だったら
 	if (data_.GetSelectName() == "Sens") {
@@ -136,10 +138,10 @@ bool OptionScene::InputUpdate(bool dikSelectButton, int16_t inputV)
 	else if (data_.GetSelectName() == "Quit") {
 
 		//	選択中だったら
-		if (dikSelectButton || data_.GetSelect() == TRUE) {
+		if (dikSelectButton || data_.GetSelectMouse() == TRUE) {
 			CloseOption();
 
-			return true;
+			return TRUE;
 		}
 	}
 
@@ -149,11 +151,12 @@ bool OptionScene::InputUpdate(bool dikSelectButton, int16_t inputV)
 	}
 
 	//	選択中ボタンの更新
-	if (inputValue_ == 0) {
+	bool noInput = (inputValue_ == 0);
+	if (noInput == TRUE) {
 		data_.InputUpdate(inputV);
 	}
 
-	return false;
+	return FALSE;
 }
 
 void OptionScene::Update()
@@ -207,6 +210,11 @@ bool OptionScene::GetIsActive()
 Vector2D OptionScene::GetSelectPosition()
 {
 	return data_.GetSelectPosition();
+}
+
+bool OptionScene::GetSelecting()
+{
+	return data_.GetSelecting();
 }
 
 //-----------------------------------------------------------------------------

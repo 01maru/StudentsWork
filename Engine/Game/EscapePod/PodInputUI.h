@@ -35,7 +35,7 @@ private:
 	//	描画中だったら
 	bool isActive_ = FALSE;
 	//	フェードインアウトタイマー
-	FrameCounter counter_;
+	MNE::FrameCounter counter_;
 	int32_t fadeMaxTime_ = 30;
 	//	UIのスプライト
 	MNE::Sprite ui_;

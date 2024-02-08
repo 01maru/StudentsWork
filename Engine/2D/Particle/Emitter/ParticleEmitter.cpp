@@ -56,7 +56,7 @@ bool MNE::ParticleEmitter::GetIsObj()
 	return isObj_;
 }
 
-Vector3D& MNE::ParticleEmitter::GetPosition()
+MyMath::Vector3D& MNE::ParticleEmitter::GetPosition()
 {
 	return pos_;
 }
@@ -71,7 +71,7 @@ void MNE::ParticleEmitter::SetRate(int32_t v)
 	timer_.SetMaxFrameCount(v);
 }
 
-void MNE::ParticleEmitter::SetPosition(const Vector3D& pos)
+void MNE::ParticleEmitter::SetPosition(const MyMath::Vector3D& pos)
 {
 	pos_ = pos;
 }

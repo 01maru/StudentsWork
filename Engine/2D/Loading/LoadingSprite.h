@@ -38,7 +38,7 @@ namespace MNE
 
 		float minSize_ = 10.0f;
 		float maxSize_ = 30.0f;
-		Vector3D color_ = { 0.2f,0.2f,0.2f };
+		MyMath::Vector3D color_ = { 0.2f,0.2f,0.2f };
 
 	public:
 		void Start();

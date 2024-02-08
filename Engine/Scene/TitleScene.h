@@ -64,7 +64,7 @@ private:
 
 #pragma region Fog
 
-	Vector3D fogColor_ = { 1.0f,1.0f,1.0f };
+	MyMath::Vector3D fogColor_ = { 1.0f,1.0f,1.0f };
 	float fogStart_ = 2.2f;
 	float fogEnd_ = 6.0f;
 	float fogFar_ = 30.0f;

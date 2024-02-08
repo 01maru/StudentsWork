@@ -5,6 +5,7 @@
 #include "UISprite.h"
 
 using namespace Easing;
+using namespace MyMath;
 
 void MNE::UIMoveAnimation::Initialize()
 {

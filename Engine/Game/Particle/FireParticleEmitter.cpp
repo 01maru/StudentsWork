@@ -11,6 +11,7 @@
 #include "MyMath.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 void FireParticleEmitter::SetScaleComponent()
 {
@@ -43,7 +44,7 @@ void FireParticleEmitter::SetRotComponent()
 	rot->SetValue(v);
 }
 
-void FireParticleEmitter::SetResouceComponent()
+void FireParticleEmitter::SetResourceComponent()
 {
 	ParticleResource* resource = emitter_->AddComponent<ParticleResource>();
 	resource->SetResourceName("");
@@ -68,7 +69,7 @@ std::unique_ptr<ParticleEmitter>& FireParticleEmitter::GetEmitter()
 	fade->SetEndValue(endFade_);
 	emitter_->AddComponent<EmitterSpdAnimation>();
 
-	SetResouceComponent();
+	SetResourceComponent();
 
 	return emitter_;
 }

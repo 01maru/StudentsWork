@@ -17,8 +17,8 @@ namespace MNE
 	struct ButtonSquare
 	{
 		UIButton* parent_ = nullptr;
-		Vector2D leftTop_;
-		Vector2D rightBottom_;
+		MyMath::Vector2D leftTop_;
+		MyMath::Vector2D rightBottom_;
 	};
 
 	class UIData
@@ -90,19 +90,21 @@ namespace MNE
 		* 選択中の座標のGetter関数(カーソル用)
 		* @return 選択中の座標
 		*/
-		Vector2D& GetSelectPosition();
+		MyMath::Vector2D& GetSelectPosition();
 		/**
 		* @fn GetSelectSize()
 		* 選択中のボタンサイズのGetter関数(カーソルアニメーション用)
 		* @return 選択中のサイズ
 		*/
-		Vector2D& GetSelectSize();
+		MyMath::Vector2D& GetSelectSize();
 
 		UIObject* GetUIObject(const std::string& name);
 
 		bool GetIsEndAnimation();
 
-		bool GetSelect();
+		bool GetSelectMouse();
+
+		bool GetSelecting();
 	#pragma endregion
 
 		void Reset();

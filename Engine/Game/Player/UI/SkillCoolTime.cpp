@@ -2,6 +2,7 @@
 #include "Easing.h"
 
 using namespace Easing;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -91,7 +92,7 @@ void SkillCoolTime::SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text
 	gauge_.SetAnchorPoint(sprite.GetAnchorPoint());
 	float alpha = 0.3f;
 	float gray = 0.3f;
-	Vector4D color(gray, gray, gray, alpha);
+	MyMath::Vector4D color(gray, gray, gray, alpha);
 	gauge_.SetColor(color);
 }
 

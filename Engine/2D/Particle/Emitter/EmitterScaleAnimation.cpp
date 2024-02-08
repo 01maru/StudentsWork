@@ -4,6 +4,8 @@
 #include "ParticleScaleAnimation.h"
 #include "ParticleEmitter.h"
 
+using namespace MyMath;
+
 void MNE::EmitterScaleAnimation::Initialize(MNE::Particle* particle)
 {
 	if (parent_->GetIsObj())

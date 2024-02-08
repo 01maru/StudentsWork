@@ -14,8 +14,8 @@ namespace MNE
 	{
 	private:
 		//	中心座標
-		Vector2D pos_;
-		Vector2D size_;
+		MyMath::Vector2D pos_;
+		MyMath::Vector2D size_;
 
 	public:
 	#pragma region Getter
@@ -25,13 +25,13 @@ namespace MNE
 		* 座標のGetter関数
 		* @return 座標
 		*/
-		Vector2D& GetPosition();
+		MyMath::Vector2D& GetPosition();
 		/**
 		* @fn GetSize()
 		* サイズのGetter関数
 		* @return サイズ
 		*/
-		Vector2D& GetSize();
+		MyMath::Vector2D& GetSize();
 
 	#pragma endregion
 
@@ -42,13 +42,13 @@ namespace MNE
 		* 座標の値を変更するための関数
 		* @param pos 座標の変更値
 		*/
-		void SetPosition(const Vector2D& pos);
+		void SetPosition(const MyMath::Vector2D& pos);
 		/**
 		* @fn SetSize(const Vector2D&)
 		* サイズの値を変更するための関数
 		* @param size サイズの変更値
 		*/
-		void SetSize(const Vector2D& size);
+		void SetSize(const MyMath::Vector2D& size);
 
 	#pragma endregion
 	};

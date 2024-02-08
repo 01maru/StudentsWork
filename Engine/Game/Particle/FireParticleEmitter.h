@@ -9,13 +9,13 @@ private:
 	float addScaleMin_ = -0.2f;
 	float addScaleMax_ = -0.1f;
 	float endFade_ = 0.2f;
-	Vector3D startScale_ = { 0.2f, 0.2f, 0.2f };
+	MyMath::Vector3D startScale_ = { 0.2f, 0.2f, 0.2f };
 
 private:
 	void SetScaleComponent();
 	void SetPosComponent();
 	void SetRotComponent();
-	void SetResouceComponent();
+	void SetResourceComponent();
 public:
 	std::unique_ptr<MNE::ParticleEmitter>& GetEmitter();
 };

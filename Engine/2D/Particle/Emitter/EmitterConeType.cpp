@@ -15,13 +15,13 @@ void MNE::EmitterConeType::Update(MNE::Particle* particle)
 	float angleXZ = GetRand(0.0f, PIx2);
 	float lenRate = GetRand(0.0f, 1.0f);
 	
-	Vector3D dirXZ = Vector3D(cosf(angleXZ), 0.0f, sinf(angleXZ));
+	MyMath::Vector3D dirXZ = MyMath::Vector3D(cosf(angleXZ), 0.0f, sinf(angleXZ));
 
 	float angle = ConvertToRad(angle_ - 90.0f);
 
 	dirXZ.Normalize();
-	Vector3D up(0, 1, 0);
-	Vector3D v = up.cross(dirXZ);
+	MyMath::Vector3D up(0, 1, 0);
+	MyMath::Vector3D v = up.cross(dirXZ);
 
 	Quaternion q = SetQuaternion(v, angle);
 	dir_ = RotateVector(dirXZ, q);

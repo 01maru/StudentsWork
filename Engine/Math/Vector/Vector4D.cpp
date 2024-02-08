@@ -3,18 +3,18 @@
 #include "Matrix.h"
 #include <cmath>
 
-Vector4D::Vector4D() :x(0.0f), y(0.0f), z(0.0f), w(0.0f) {}
+MyMath::Vector4D::Vector4D() :x(0.0f), y(0.0f), z(0.0f), w(0.0f) {}
 
-Vector4D::Vector4D(float x, float y, float z, float w) :x(x), y(y), z(z), w(w) {}
+MyMath::Vector4D::Vector4D(float x, float y, float z, float w) :x(x), y(y), z(z), w(w) {}
 
-Vector4D::Vector4D(const Vector3D& v, float w) :x(v.x), y(v.y), z(v.z), w(w) {}
+MyMath::Vector4D::Vector4D(const Vector3D& v, float w) :x(v.x), y(v.y), z(v.z), w(w) {}
 
-float Vector4D::GetLength() const
+float MyMath::Vector4D::GetLength() const
 {
 	return sqrt(x * x + y * y + z * z + w * w);
 }
 
-Vector4D& Vector4D::GetNormalize()
+MyMath::Vector4D& MyMath::Vector4D::GetNormalize()
 {
 	float len = GetLength();
 	if (len != 0)
@@ -24,36 +24,36 @@ Vector4D& Vector4D::GetNormalize()
 	return *this;
 }
 
-void Vector4D::Normalize()
+void MyMath::Vector4D::Normalize()
 {
 	float len = GetLength();
 
 	if (len != 0)	*this /= len;
 }
 
-void Vector4D::SetVec3D(const Vector3D& vec3)
+void MyMath::Vector4D::SetVec3D(const Vector3D& vec3)
 {
 	x = vec3.x;
 	y = vec3.y;
 	z = vec3.z;
 }
 
-Vector3D Vector4D::GetVec3D()
+MyMath::Vector3D MyMath::Vector4D::GetVec3D()
 {
 	return Vector3D(x, y, z);
 }
 
-Vector4D Vector4D::operator+() const
+MyMath::Vector4D MyMath::Vector4D::operator+() const
 {
 	return *this;
 }
 
-Vector4D Vector4D::operator-() const
+MyMath::Vector4D MyMath::Vector4D::operator-() const
 {
 	return Vector4D(-x, -y, -z, -w);
 }
 
-Vector4D& Vector4D::operator-=(const Vector4D& v)
+MyMath::Vector4D& MyMath::Vector4D::operator-=(const Vector4D& v)
 {
 	x -= v.x;
 	y -= v.y;
@@ -62,7 +62,7 @@ Vector4D& Vector4D::operator-=(const Vector4D& v)
 	return *this;
 }
 
-Vector4D& Vector4D::operator/=(float s)
+MyMath::Vector4D& MyMath::Vector4D::operator/=(float s)
 {
 	x /= s;
 	y /= s;
@@ -71,7 +71,7 @@ Vector4D& Vector4D::operator/=(float s)
 	return *this;
 }
 
-Vector4D& Vector4D::operator*=(const Matrix& m)
+MyMath::Vector4D& MyMath::Vector4D::operator*=(const Matrix& m)
 {
 	Vector4D ans;
 	ans.x = x * m.m[0][0] + y * m.m[1][0] + z * m.m[2][0] + w * m.m[3][0];
@@ -82,12 +82,12 @@ Vector4D& Vector4D::operator*=(const Matrix& m)
 	return *this;
 }
 
-bool Vector4D::operator!=(const Vector4D& vec)
+bool MyMath::Vector4D::operator!=(const Vector4D& vec)
 {
 	return (this->x != vec.x) || (this->y != vec.y) || (this->z != vec.z) || (this->w != vec.w);
 }
 
-Vector4D operator-(const Vector4D& v1, const Vector4D& v2)
+MyMath::Vector4D MyMath::operator-(const Vector4D& v1, const Vector4D& v2)
 {
 	Vector4D temp(v1);
 	return temp -= v2;

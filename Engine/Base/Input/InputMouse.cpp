@@ -3,6 +3,8 @@
 #include "ImGuiManager.h"
 #include <cassert>
 
+using namespace MyMath;
+
 MNE::InputMouse::~InputMouse()
 {
 	//	範囲指定しない
@@ -206,7 +208,7 @@ bool MNE::InputMouse::GetClickRelease(MouseButton type)
 	return !(click_.rgbButtons[type] & (0x80)) && (prevClick_.rgbButtons[type] & (0x80));
 }
 
-const Vector2D& MNE::InputMouse::GetCursor()
+const MyMath::Vector2D& MNE::InputMouse::GetCursor()
 {
 	return cursor_;
 }

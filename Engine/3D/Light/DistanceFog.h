@@ -13,13 +13,13 @@ namespace MNE
 	{
 	private:
 		bool active_ = false;
-		Vector3D color_ = Vector3D(1.0f, 1.0f, 1.0f);
+		MyMath::Vector3D color_ = MyMath::Vector3D(1.0f, 1.0f, 1.0f);
 		float start_ = 0.1f;
 		float end_ = 5.0f;
 		float fogFar_ = 30.0f;
 		float fogNear_ = 0.1f;
 
-		Vector3D centerPos_;
+		MyMath::Vector3D centerPos_;
 
 	public:
 	#pragma region Getter
@@ -35,13 +35,13 @@ namespace MNE
 		* color_のGetter関数
 		* @return color_の値
 		*/
-		const Vector3D& GetColor() { return color_; }
+		const MyMath::Vector3D& GetColor() { return color_; }
 		/**
 		* @fn GetCenterPos()
 		* centerPos_のGetter関数
 		* @return centerPos_の値
 		*/
-		const Vector3D& GetCenterPos() { return centerPos_; }
+		const MyMath::Vector3D& GetCenterPos() { return centerPos_; }
 		/**
 		* @fn GetStart()
 		* start_のGetter関数
@@ -82,13 +82,13 @@ namespace MNE
 		* color_の値を変更するための関数
 		* @param color color_の変更後の値
 		*/
-		void SetColor(const Vector3D& color) { color_ = color; }
+		void SetColor(const MyMath::Vector3D& color) { color_ = color; }
 		/**
 		* @fn SetCenterPos(const Vector3D&)
 		* centerPos_の値を変更するための関数
 		* @param centerPos centerPos_の変更後の値
 		*/
-		void SetCenterPos(const Vector3D& centerPos) { centerPos_ = centerPos; }
+		void SetCenterPos(const MyMath::Vector3D& centerPos) { centerPos_ = centerPos; }
 		/**
 		* @fn SetStart(float)
 		* start_の値を変更するための関数

@@ -11,6 +11,7 @@
 #include "MyMath.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 void SmokeParticleEmitter::SetScaleComponent()
 {

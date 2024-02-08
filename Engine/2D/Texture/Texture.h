@@ -56,7 +56,7 @@ namespace MNE
 		*/
 		ID3D12Resource** GetResourceBuffAddress() { return texBuff_.ReleaseAndGetAddressOf(); }
 
-		Vector2D GetTextureSize();
+		MyMath::Vector2D GetTextureSize();
 
 	#pragma endregion
 	};

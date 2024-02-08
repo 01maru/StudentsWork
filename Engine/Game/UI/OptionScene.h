@@ -57,8 +57,9 @@ private:
 	//	カーソルポインタ
 	SelectCursor* cursor_ = nullptr;
 	//	実行する前のカーソルの位置
-	Vector2D befCursorPos_;
-	int16_t inputValue_ = 0;
+	MyMath::Vector2D befCursorPos_;
+
+	float inputSpd_ = 1.0f;
 
 private:
 	/**
@@ -91,7 +92,13 @@ public:
 	* 選択中のオブジェクトの中心座標取得用関数
 	* @return 選択中のオブジェクトの中心座標
 	*/
-	Vector2D GetSelectPosition();
+	MyMath::Vector2D GetSelectPosition();
+	/**
+	* @fn GetSelecting()
+	* 選択中かのGetter関数
+	* @return 選択中かどうか
+	*/
+	bool GetSelecting();
 
 #pragma endregion
 
@@ -108,7 +115,7 @@ public:
 	* 実行する前のカーソルの位置設定用関数
 	* @param pos 実行する前のカーソルの位置
 	*/
-	void SetCursorBackPos(const Vector2D& pos);
+	void SetCursorBackPos(const MyMath::Vector2D& pos);
 	/**
 	* @fn SetSelectCursor(SelectCursor*)
 	* カーソルのポインター設定用関数

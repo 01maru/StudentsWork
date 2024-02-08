@@ -59,11 +59,11 @@ private:
 	std::unique_ptr<MNE::DissolveSprite> backSprite_;
 	bool isDraw_ = false;
 	//	フェードインアウト用カウンター
-	FrameCounter counter_;
+	MNE::FrameCounter counter_;
 	const int32_t MAX_COUNT = 60;
 	const int32_t OBJ_MAX_COUNT = 30;
 	int32_t backEasePow_ = 2;
-	Vector2D texSize_;
+	MyMath::Vector2D texSize_;
 
 public:
 	void SetIsLoading(bool loading);

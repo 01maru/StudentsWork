@@ -149,12 +149,12 @@ float MNE::InputManager::GetSensitivity()
 
 void MNE::InputManager::SetDrawExplane(bool draw)
 {
-	explane_.SetDrawFlag(draw);
+	explane_.SetIsActive(draw);
 }
 
 void MNE::InputManager::SetNextTag(const std::string& nextTag, bool playAnimation, bool startingAnimation)
 {
-	explane_.SetNextAnimetionTag(nextTag, playAnimation, startingAnimation);
+	explane_.SetNextAnimationTag(nextTag, playAnimation, startingAnimation);
 }
 
 void MNE::InputManager::SetSensitivity(float sens)

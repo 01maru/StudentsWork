@@ -31,14 +31,14 @@ public:
 
 private:
 	//	アニメーション用カウンター
-	FrameCounter counter_;
+	MNE::FrameCounter counter_;
 	int16_t cameraMoveFrame_ = 30;	//	カウントマックス値
 	//	視点の開始と終了時の位置
-	Vector3D startEye_;
-	Vector3D endEye_ = Vector3D(0.0f, 1.5f, -59.0f);
+	MyMath::Vector3D startEye_;
+	MyMath::Vector3D endEye_ = MyMath::Vector3D(0.0f, 1.5f, -59.0f);
 	//	ターゲットの開始と終了時の位置
-	Vector3D startTarget_;
-	Vector3D endTarget_ = Vector3D(0.0f, 1.5f, -49.0f);
+	MyMath::Vector3D startTarget_;
+	MyMath::Vector3D endTarget_ = MyMath::Vector3D(0.0f, 1.5f, -49.0f);
 	//	動かすカメラのポインター
 	MNE::ICamera* camera = nullptr;
 };

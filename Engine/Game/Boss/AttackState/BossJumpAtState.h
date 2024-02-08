@@ -24,15 +24,15 @@ public:
 
 private:
 	//	アニメーション
-	FrameCounter timer_;
-	FrameCounter animeTimer_;
+	MNE::FrameCounter timer_;
+	MNE::FrameCounter animeTimer_;
 	int32_t animeTime_ = 180;
 	int32_t jumpStartTime_ = 30;
 	int32_t jumpingTime_ = 30;
 
 	bool jumping_ = false;
-	Vector3D startPos_;
-	Vector3D endPos_;
+	MyMath::Vector3D startPos_;
+	MyMath::Vector3D endPos_;
 
 private:
 	/**

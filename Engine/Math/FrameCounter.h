@@ -6,6 +6,9 @@
 * @brief フレームカウントする処理を使いやすくまとめたファイル
 */
 
+namespace MNE
+{
+
 class FrameCounter
 {
 private:
@@ -130,3 +133,4 @@ public:
 #pragma endregion
 };
 
+}

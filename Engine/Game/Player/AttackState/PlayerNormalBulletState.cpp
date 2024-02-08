@@ -4,6 +4,7 @@
 #include "ModelManager.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 void PlayerNormalBulletState::Initialize()
 {

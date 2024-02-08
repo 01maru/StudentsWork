@@ -36,7 +36,7 @@ namespace MNE
 
 	private:
 		//	線の最左端
-		Vector2D startPos_;
+		MyMath::Vector2D startPos_;
 		//	線の長さ
 		float railLen_ = 0.0f;
 
@@ -45,7 +45,7 @@ namespace MNE
 		float value_ = 0.0f;
 		float spd_ = 0.01f;
 
-		Vector2D size_ = Vector2D(10, 10);
+		MyMath::Vector2D size_ = MyMath::Vector2D(10, 10);
 
 		UISprite* sprites_ = nullptr;
 
@@ -72,7 +72,7 @@ namespace MNE
 
 		void SetRailLength(float len);
 
-		void SetRailStartPos(const Vector2D& pos);
+		void SetRailStartPos(const MyMath::Vector2D& pos);
 		/**
 		* @fn SetRailTexture(const std::string&)
 		* railの画像取得用関数(読み込まれていなかったら読み込みもする)

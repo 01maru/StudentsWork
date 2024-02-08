@@ -9,6 +9,7 @@
 #include <DirectXTex.h>
 
 using namespace DirectX;
+using namespace MyMath;
 
 MNE::Texture* MNE::TextureManager::sWhiteTexHandle = nullptr;
 

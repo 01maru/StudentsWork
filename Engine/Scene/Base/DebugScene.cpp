@@ -11,6 +11,8 @@
 #include "TextureManager.h"
 #include "Easing.h"
 
+using namespace MyMath;
+
 void MNE::DebugScene::LoadResources()
 {
 	TextureManager::GetInstance()->LoadTextureGraph("space.png");

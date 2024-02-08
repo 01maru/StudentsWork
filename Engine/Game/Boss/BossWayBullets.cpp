@@ -3,9 +3,13 @@
 #include "BossIdleState.h"
 #include "ModelManager.h"
 #include "Quaternion.h"
-#include "BossDeathState.h"
 
 using namespace MNE;
+using namespace MyMath;
+
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
 
 void BossWayBullets::Initialize()
 {
@@ -16,25 +20,25 @@ void BossWayBullets::Initialize()
 	wayAngle_ = MyMath::ConvertToRad(angle);
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
 void BossWayBullets::Update()
 {
-	if (sBoss_->GetIsAlive() == false) {
-		std::unique_ptr<BossState> next_ = std::make_unique<BossDeathState>();
-		sBoss_->SetCurrentState(next_);
-	}
-
 	sBoss_->RotationUpdate();
 
 	rate_.Update();
 
-	if (rate_.GetIsActive() == false) {
+	//	弾生成
+	if (rate_.GetIsActive() == FALSE) {
 
 		float startAngle;
 		int32_t half = 2;
 		int32_t bulletHalfNum = bulletMaxNum_ / half;
 		//	偶数だったら
-		bool isEvenNumver = bulletMaxNum_ % half == 0;
-		if (isEvenNumver == true) {
+		bool isEvenNumber = bulletMaxNum_ % half == 0;
+		if (isEvenNumber == TRUE) {
 			startAngle = wayAngle_ * bulletHalfNum - wayAngle_ / static_cast<float>(half);
 		}
 		else {

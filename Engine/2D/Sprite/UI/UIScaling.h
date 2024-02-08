@@ -32,8 +32,8 @@ namespace MNE
 		void Update() override;
 
 	private:
-		Vector2D startSize_;
-		Vector2D endSize_;
+		MyMath::Vector2D startSize_;
+		MyMath::Vector2D endSize_;
 
 		UISprite* pSprites_ = nullptr;
 		//	全体のtimer
@@ -47,13 +47,13 @@ namespace MNE
 		* スプライトの開始時サイズのGetter関数
 		* @return スプライトの開始時サイズ
 		*/
-		Vector2D& GetStartSize();
+		MyMath::Vector2D& GetStartSize();
 		/**
 		* @fn GetEndSize()
 		* スプライトの終了時サイズのGetter関数
 		* @return スプライトの終了時サイズ
 		*/
-		Vector2D& GetEndSize();
+		MyMath::Vector2D& GetEndSize();
 
 	#pragma endregion
 
@@ -64,13 +64,13 @@ namespace MNE
 		* スプライトの開始時サイズ設定用関数
 		* @param size startSize_の変更値
 		*/
-		void SetStartSize(const Vector2D& size);
+		void SetStartSize(const MyMath::Vector2D& size);
 		/**
 		* @fn SetEndSize(const Vector2D&)
 		* スプライトの終了時サイズ設定用関数
 		* @param size endSize_の変更値
 		*/
-		void SetEndSize(const Vector2D& size);
+		void SetEndSize(const MyMath::Vector2D& size);
 
 	#pragma endregion
 	};

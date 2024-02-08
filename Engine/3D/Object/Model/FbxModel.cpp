@@ -10,6 +10,7 @@
 
 using namespace std;
 using namespace MNE;
+using namespace MyMath;
 
 MNE::FbxModel::FbxModel(const char* filename, bool smoothing)
 {
@@ -254,7 +255,7 @@ void MNE::FbxModel::ImGuiUpdate()
 					imgui->Text(child->c_str());
 				}
 
-				Matrix transformation = itr->second.transformation;
+				MyMath::Matrix transformation = itr->second.transformation;
 				imgui->Text("Transformaion\n(%.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f)",
 					transformation.m[0][0], transformation.m[0][1], transformation.m[0][2], transformation.m[0][3],
 					transformation.m[1][0], transformation.m[1][1], transformation.m[1][2], transformation.m[1][3],
@@ -269,7 +270,7 @@ void MNE::FbxModel::ImGuiUpdate()
 
 		for (auto itr = boneMapping_.begin(); itr != boneMapping_.end(); ++itr) {
 			if (imgui->TreeNode(itr->first)) {
-				Matrix transformation = boneInfo_[itr->second].finalTransformation;
+				MyMath::Matrix transformation = boneInfo_[itr->second].finalTransformation;
 				imgui->Text("Transformaion\n(%.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f)",
 					transformation.m[0][0], transformation.m[0][1], transformation.m[0][2], transformation.m[0][3],
 					transformation.m[1][0], transformation.m[1][1], transformation.m[1][2], transformation.m[1][3],
@@ -284,9 +285,9 @@ void MNE::FbxModel::ImGuiUpdate()
 	imgui->EndWindow();
 }
 
-void MNE::FbxModel::BoneTransform(float timer, std::vector<Matrix>& transforms, const std::string& animeName, bool isLoop)
+void MNE::FbxModel::BoneTransform(float timer, std::vector<MyMath::Matrix>& transforms, const std::string& animeName, bool isLoop)
 {
-	Matrix Identity;
+	MyMath::Matrix Identity;
 
 	if (animations_.count(animeName) == 0) return;
 
@@ -308,11 +309,11 @@ void MNE::FbxModel::BoneTransform(float timer, std::vector<Matrix>& transforms, 
 	}
 }
 
-void MNE::FbxModel::ReadNodeHeirarchy(const AnimationData& animData, float AnimationTime, const Matrix& ParentTransform, const std::string& nodeName)
+void MNE::FbxModel::ReadNodeHeirarchy(const AnimationData& animData, float AnimationTime, const MyMath::Matrix& ParentTransform, const std::string& nodeName)
 {
 	//	nodeがあるか
 	if (nodes_.count(nodeName) == 0) assert(0);
-	Matrix NodeTransformation = nodes_[nodeName].transformation;
+	MyMath::Matrix NodeTransformation = nodes_[nodeName].transformation;
 
 	const KeyChannels* pNodeAnim = MNE::Util::FindNodeChannel(animData, nodeName);
 
@@ -343,7 +344,7 @@ void MNE::FbxModel::ReadNodeHeirarchy(const AnimationData& animData, float Anima
 		NodeTransformation *= mat.matTrans_;
 	}
 
-	Matrix GlobalTransformation = NodeTransformation;
+	MyMath::Matrix GlobalTransformation = NodeTransformation;
 	GlobalTransformation *= ParentTransform;
 
 	if (boneMapping_.find(nodeName) != boneMapping_.end()) {

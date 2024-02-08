@@ -7,6 +7,8 @@
 #include "ImGuiManager.h"
 #include "MyMath.h"
 
+using namespace MyMath;
+
 #pragma region Struct
 
 struct ChunkHeader {
@@ -198,7 +200,7 @@ void MNE::XAudioManager::ImguiUpdate(bool endLoading)
 	imguiMan->CheckBox("IsDebug", isDebug_);
 
 	if (isDebug_) {
-		imguiMan->BeginChild(Vector2D(0, 200));
+		imguiMan->BeginChild(MyMath::Vector2D(0, 200));
 
 		int32_t id = 0;
 

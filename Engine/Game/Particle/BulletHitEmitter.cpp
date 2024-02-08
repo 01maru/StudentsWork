@@ -8,6 +8,7 @@
 #include "EmitterLifeTime.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 void BulletHitEmitter::SetScaleComponent()
 {
@@ -30,7 +31,7 @@ void BulletHitEmitter::SetPosComponent()
 	emitter_->SetEmitterType(type);
 }
 
-void BulletHitEmitter::SetResouceComponent()
+void BulletHitEmitter::SetResourceComponent()
 {
 	ParticleResource* resource = emitter_->AddComponent<ParticleResource>();
 	resource->SetResourceName("particle2.png");
@@ -46,7 +47,7 @@ std::unique_ptr<MNE::ParticleEmitter>& BulletHitEmitter::GetEmitter()
 	SetPosComponent();
 
 	EmitterColor* color = emitter_->AddComponent<EmitterColor>();
-	Vector3D redColor(1.0f, 0.1f, 0.1f);
+	MyMath::Vector3D redColor(1.0f, 0.1f, 0.1f);
 	color->SetColor(redColor);
 
 	emitter_->AddComponent<EmitterFadeAnimation>();
@@ -54,7 +55,7 @@ std::unique_ptr<MNE::ParticleEmitter>& BulletHitEmitter::GetEmitter()
 	EmitterLifeTime* lifetime = emitter_->AddComponent<EmitterLifeTime>();
 	lifetime->SetLifeTime(lifeTime_);
 
-	SetResouceComponent();
+	SetResourceComponent();
 
 	return emitter_;
 }

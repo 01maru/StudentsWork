@@ -15,7 +15,7 @@ namespace MNE
 		void Update() override;
 
 	private:
-		Vector3D spd_;
+		MyMath::Vector3D spd_;
 		bool isObj_ = false;
 
 	public:
@@ -25,7 +25,7 @@ namespace MNE
 
 	#pragma region Setter
 
-		void SetSpd(const Vector3D& spd);
+		void SetSpd(const MyMath::Vector3D& spd);
 		void SetIsObj(bool isObj);
 
 	#pragma endregion

@@ -7,11 +7,13 @@ using namespace MNE;
 
 void Bonfire::Start()
 {
+	//	煙エミッターの生成
 	if (smoke_ == nullptr) {
 		SmokeParticleEmitter smokeEmitter;
 		smoke_ = ParticleManager::GetInstance()->AddEmitter(smokeEmitter.GetEmitter());
 	}
 
+	//	炎エミッターの生成
 	if (fire_ == nullptr) {
 		FireParticleEmitter emitter;
 		fire_ = ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());

@@ -19,6 +19,7 @@
 #include "GameOverUI.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 SceneManager* SceneManager::GetInstance()
 {

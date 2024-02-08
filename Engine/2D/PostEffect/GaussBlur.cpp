@@ -5,6 +5,8 @@
 #include "TextureManager.h"
 #include <cassert>
 
+using namespace MyMath;
+
 void MNE::GaussBlur::Initialize(float weight, MNE::PostEffect* original, DXGI_FORMAT format)
 {
 #pragma region ConstBuff

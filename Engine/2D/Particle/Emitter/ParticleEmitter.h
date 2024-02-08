@@ -33,7 +33,7 @@ namespace MNE
 		//	実行中か
 		bool isActive_ = true;
 		//	Emitterの座標
-		Vector3D pos_;
+		MyMath::Vector3D pos_;
 		//	生成レート
 		FrameCounter timer_;
 		//	ブレンド設定
@@ -71,7 +71,7 @@ namespace MNE
 
 		bool GetIsObj();
 
-		Vector3D& GetPosition();
+		MyMath::Vector3D& GetPosition();
 
 		EmitterType* GetEmitterType() { return shapeType_.get(); }
 
@@ -85,7 +85,7 @@ namespace MNE
 
 		void SetRate(int32_t v);
 
-		void SetPosition(const Vector3D& pos);
+		void SetPosition(const MyMath::Vector3D& pos);
 
 		void SetLifeTime(int32_t lifeTime);
 

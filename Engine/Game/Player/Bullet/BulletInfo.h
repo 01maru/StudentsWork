@@ -10,6 +10,6 @@ struct BulletInfo
 {
 	int32_t lifeTime_;
 	float spd_;
-	Vector3D moveVec_;
-	Vector3D pos_;
+	MyMath::Vector3D moveVec_;
+	MyMath::Vector3D pos_;
 };

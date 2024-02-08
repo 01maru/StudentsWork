@@ -52,13 +52,13 @@ namespace MNE
 		ConstBuff constBuff_;
 
 		bool dirty_ = false;
-		Vector3D ambientColor_ = { 1,1,1 };
+		MyMath::Vector3D ambientColor_ = { 1,1,1 };
 		DirLight dirLights_[CBuff::DIRLIGHT_NUM];
 		DistanceFog distanceFog_;
 
-		Vector3D ambient_ = { 0.8f, 0.8f, 0.8f };
-		Vector3D diffuse_ = { 0.7f, 0.7f, 0.7f };
-		Vector3D specular_= { 0.3f, 0.3f, 0.3f };
+		MyMath::Vector3D ambient_ = { 0.8f, 0.8f, 0.8f };
+		MyMath::Vector3D diffuse_ = { 0.7f, 0.7f, 0.7f };
+		MyMath::Vector3D specular_= { 0.3f, 0.3f, 0.3f };
 
 	private:
 		void TransferConstBuffer();
@@ -67,17 +67,17 @@ namespace MNE
 
 	#pragma region Getter
 
-		Vector3D GetMtlAmbient();
-		Vector3D GetMtlDiffuse();
-		Vector3D GetMtlSpecular();
+		MyMath::Vector3D GetMtlAmbient();
+		MyMath::Vector3D GetMtlDiffuse();
+		MyMath::Vector3D GetMtlSpecular();
 
 	#pragma endregion
 
 	#pragma region Setter
 
 		void SetDirLightActive(int32_t index, bool active);
-		void SetDirLightDir(int32_t index, const Vector3D& lightdir_);
-		void SetDirLightColor(int32_t index, const Vector3D& lightcolor_);
+		void SetDirLightDir(int32_t index, const MyMath::Vector3D& lightdir_);
+		void SetDirLightColor(int32_t index, const MyMath::Vector3D& lightcolor_);
 		void SetDirLightShadow(int32_t index, bool shadowflag);
 
 		void SetFogActive(bool active);
@@ -85,8 +85,8 @@ namespace MNE
 		void SetFogEnd(float end);
 		void SetFogNear(float fogNear);
 		void SetFogFar(float fogFar);
-		void SetFogColor(const Vector3D& color);
-		void SetCenterPos(const Vector3D& center);
+		void SetFogColor(const MyMath::Vector3D& color);
+		void SetCenterPos(const MyMath::Vector3D& center);
 
 	#pragma endregion
 	};

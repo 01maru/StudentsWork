@@ -4,6 +4,7 @@
 #include <cassert>
 
 using namespace MNE::CBuff;
+using namespace MyMath;
 
 MNE::LightManager* MNE::LightManager::GetInstance()
 {

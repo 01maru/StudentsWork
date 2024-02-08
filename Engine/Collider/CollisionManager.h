@@ -32,7 +32,7 @@ public:
 	bool Raycast(const Ray& ray, RayCast* hitinfo = nullptr, float maxDistance = D3D12_FLOAT32_MAX);
 	bool Raycast(const Ray& ray, unsigned short attribute, RayCast* hitinfo = nullptr, float maxDistance = D3D12_FLOAT32_MAX);
 
-	Vector3D CollisionStage(const Sphere& sphere);
+	MyMath::Vector3D CollisionStage(const Sphere& sphere);
 	void AddStageCollider(std::unique_ptr<Cylinder>& cylinder) { stageCollider_ = std::move(cylinder); }
 
 	void QuerySphere(const Sphere& sphere, QueryCallBack* callback, unsigned short attribute = (unsigned short)0xffff);

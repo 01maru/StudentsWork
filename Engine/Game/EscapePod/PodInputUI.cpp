@@ -47,7 +47,7 @@ void PodInputUI::Update()
 
 	counter_.Update();
 
-	float fade = EaseIn(0.0f, 1.0f, counter_.GetCountPerMaxCount(), Easing::Double);
+	float fade = EaseIn(GetNormalizedMinVal(), GetNormalizedMaxVal(), counter_.GetCountPerMaxCount(), Easing::Double);
 	ui_.SetAlphaColor(fade);
 	button_.SetAlphaColor(fade);
 

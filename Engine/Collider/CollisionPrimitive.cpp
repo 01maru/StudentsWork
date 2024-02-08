@@ -1,5 +1,7 @@
 #include "CollisionPrimitive.h"
 
+using namespace MyMath;
+
 void Triangle::ComputeNormal()
 {
 	Vector3D p0_p1 = p1 - p0;

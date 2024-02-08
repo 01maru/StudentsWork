@@ -7,7 +7,9 @@
 #include <cassert>
 #include "RootParameterIdx.h"
 
-Matrix MNE::Sprite::sMAT_2DTRANSFORM = Create2DTransformMatrix();
+using namespace MyMath;
+
+MyMath::Matrix MNE::Sprite::sMAT_2DTRANSFORM = MyMath::Create2DTransformMatrix();
 
 void MNE::Sprite::Initialize(Texture* texture)
 {
@@ -232,7 +234,7 @@ void MNE::Sprite::SetAlphaColor(float alpha)
 	}
 }
 
-void MNE::Sprite::SetColor(const Vector4D& color)
+void MNE::Sprite::SetColor(const MyMath::Vector4D& color)
 {
 	if (color_ != color)
 	{
@@ -241,7 +243,7 @@ void MNE::Sprite::SetColor(const Vector4D& color)
 	}
 }
 
-void MNE::Sprite::SetColor(const Vector3D& color)
+void MNE::Sprite::SetColor(const MyMath::Vector3D& color)
 {
 	if (color_.GetVec3D() != color)
 	{

@@ -32,7 +32,8 @@ void PodCollGroundState::Update()
 	counter_.Update();
 
 	//	カメラの揺れ
-	float shakeValue = EaseOut(maxShakeV_, 0.0f, counter_.GetCountPerMaxCount(), Double);
+	const float noShakeV = 0.0f;
+	float shakeValue = EaseOut(maxShakeV_, noShakeV, counter_.GetCountPerMaxCount(), Double);
 	camera->SetShake(-shakeValue, shakeValue);
 	
 	//	時間になったら

@@ -5,27 +5,32 @@
 * @brief 4x4行列クラスをまとめたファイル
 */
 
-class Matrix
+namespace MyMath
 {
-public:
-	float m[4][4];
 
-public:
-	//	コンストラクタ
-	Matrix();
+	class Matrix
+	{
+	public:
+		float m[4][4];
 
-	/**
-	* @fn Normalize()
-	* 単位行列化用関数
-	*/
-	void Identity();
+	public:
+		//	コンストラクタ
+		Matrix();
 
-	Matrix& operator*=(const Matrix& m2);
-};
+		/**
+		* @fn Normalize()
+		* 単位行列化用関数
+		*/
+		void Identity();
 
-const Matrix operator*(const Matrix& m1, const Matrix& m2);
-//	逆行列
-bool InverseMatrix(const Matrix& mat, Matrix& invMat);
+		Matrix& operator*=(const Matrix& m2);
+	};
 
-//	2D座標系変換用行列
-Matrix Create2DTransformMatrix();
+	const Matrix operator*(const Matrix& m1, const Matrix& m2);
+	//	逆行列
+	bool InverseMatrix(const Matrix& mat, Matrix& invMat);
+
+	//	2D座標系変換用行列
+	Matrix Create2DTransformMatrix();
+
+}

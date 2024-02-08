@@ -15,9 +15,9 @@ namespace MNE
 	{
 	public:
 		std::string name_;
-		Vector3D ambient_ = { 1.0f,1.0f,1.0f };
-		Vector3D diffuse_ = { 0.8f,0.8f,0.8f };
-		Vector3D specular_ = { 0.5f,0.5f,0.5f };
+		MyMath::Vector3D ambient_ = { 1.0f,1.0f,1.0f };
+		MyMath::Vector3D diffuse_ = { 0.8f,0.8f,0.8f };
+		MyMath::Vector3D specular_ = { 0.5f,0.5f,0.5f };
 		float alpha_ = 1.0f;
 
 		std::string textureFilename_;

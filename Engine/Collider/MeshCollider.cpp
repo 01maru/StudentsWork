@@ -4,6 +4,7 @@
 #include "Object3D.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 void MeshCollider::ConstructTriangles(MNE::IModel* model)
 {

@@ -1,6 +1,6 @@
 #include "PlaneCollider.h"
 
-PlaneCollider::PlaneCollider(const Vector3D& normal)
+PlaneCollider::PlaneCollider(const MyMath::Vector3D& normal)
 {
 	normal_ = normal;
 	shapeType_ = COLLISIONSHAPE_PLANE;

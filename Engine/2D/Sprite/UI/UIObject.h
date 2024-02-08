@@ -8,15 +8,14 @@
 * @brief コンポーネント指向で作成したUI用Objectファイル
 */
 
-#pragma region 前置宣言
-
-class FrameCounter;
-
-#pragma endregion
-
 namespace MNE
 {
+#pragma region 前置宣言
+
+	class FrameCounter;
 	class UIData;
+
+#pragma endregion
 
 	class UIObject
 	{

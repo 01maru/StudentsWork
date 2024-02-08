@@ -54,7 +54,7 @@ namespace MNE
 		DIMOUSESTATE prevClick_ = {};
 
 		//	クライアント領域のカーソル座標(カーソルの左上)
-		Vector2D cursor_;
+		MyMath::Vector2D cursor_;
 		//	カーソルを中央に固定するかどうか
 		bool isLockCursor_ = false;
 		//	カーソルの表示フラグ
@@ -130,13 +130,13 @@ namespace MNE
 		* cursor_の値を返す関数
 		* @return cursor_の値
 		*/
-		const Vector2D& GetCursor();
+		const MyMath::Vector2D& GetCursor();
 		/**
 		* @fn GetPrevCursor()
 		* 1フレームでのカーソルの移動量を返す関数
 		* @return 1フレームでのカーソルの移動量
 		*/
-		Vector2D GetCursorMoveVec();
+		MyMath::Vector2D GetCursorMoveVec();
 		/**
 		* @fn GetPrevCursor()
 		* 1フレームでのホイール回転量を返す関数
@@ -166,7 +166,7 @@ namespace MNE
 		*/
 		void SetLockCursor(bool lockCursor);
 
-		void SetCursorPosition(const Vector2D& pos);
+		void SetCursorPosition(const MyMath::Vector2D& pos);
 
 #pragma endregion
 	};

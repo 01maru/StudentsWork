@@ -30,7 +30,7 @@ public:
 
 private:
 	//	アニメーション用カウンター
-	FrameCounter counter_;
+	MNE::FrameCounter counter_;
 	//	動かすカメラのポインター
 	MNE::ICamera* camera = nullptr;
 	//	地面の揺れる時間(フレーム数)

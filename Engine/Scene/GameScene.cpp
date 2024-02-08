@@ -20,6 +20,7 @@
 #include "JSONLoader.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -95,9 +96,6 @@ void GameScene::LoadResources()
 	pod_.SetLetterBox(&letterBox_);
 	pod_.Initialize({ 0.0f,-0.3f,-50.0f });
 	pod_.SetModel(models->GetModel("escapePod"));
-
-	effect.LoadResources();
-	effect.Initialize();
 
 #pragma region Sound
 	XAudioManager::GetInstance()->LoadSoundWave("gameBGM.wav");
@@ -233,8 +231,6 @@ void GameScene::Update()
 
 	CollisionUpdate();
 #pragma endregion
-
-	effect.Update();
 }
 
 //-----------------------------------------------------------------------------
@@ -251,10 +247,6 @@ void GameScene::ImguiUpdate()
 
 	if (imguiMan->SetButton("BossActive")) {
 		enemy_->SetIsActive(true);
-	}
-
-	if (imguiMan->SetButton("EffectStart")) {
-		effect.Start();
 	}
 
 	if (imguiMan->SetButton("ResetGameOverAnime")) {
@@ -280,7 +272,6 @@ void GameScene::DrawUIBeforeBlackScreen()
 		enemy_->DrawUI();
 		player_->DrawUI();
 	}
-	effect.Draw();
 
 	clear_->Draw();
 

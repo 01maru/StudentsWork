@@ -2,7 +2,9 @@
 #include "ConstBuffStruct.h"
 #include <cassert>
 
-void MNE::LightCamera::ConstBuffInitialzie()
+using namespace MyMath;
+
+void MNE::LightCamera::ConstBuffInitialize()
 {
 	HRESULT result;
 
@@ -18,14 +20,14 @@ void MNE::LightCamera::ConstBuffInitialzie()
 
 void MNE::LightCamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float dis)
 {
-	ConstBuffInitialzie();
+	ConstBuffInitialize();
 
 	ICamera::Initialize(frontVec, center, dis);
 }
 
 void MNE::LightCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
 {
-	ConstBuffInitialzie();
+	ConstBuffInitialize();
 
 	ICamera::Initialize(eye, target, up);
 }

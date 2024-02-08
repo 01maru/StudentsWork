@@ -24,16 +24,16 @@ public:
 
 private:
 	//	アニメーション
-	FrameCounter timer_;
+	MNE::FrameCounter timer_;
 	int32_t roarTime_ = 320;
 
 	//	フォグ
 	int32_t fogStartTime_ = 110;
-	FrameCounter fogTimer_;
+	MNE::FrameCounter fogTimer_;
 	int32_t fogTime_ = 40;
 	//	パラメーター
-	Vector3D startColor_ = { 1.0f,1.0f,1.0f };
-	Vector3D endColor_ = { 0.4f,0.04f,0.04f };
+	MyMath::Vector3D startColor_ = { 1.0f,1.0f,1.0f };
+	MyMath::Vector3D endColor_ = { 0.4f,0.04f,0.04f };
 	float fogSStart_ = 2.2f;
 	float fogEStart_ = 2.0f;
 	float fogSEnd_ = 6.0f;

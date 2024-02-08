@@ -2,30 +2,30 @@
 #include "Boss.h"
 #include "BossIdleState.h"
 #include "ModelManager.h"
-#include "BossDeathState.h"
 
 using namespace MNE;
+
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
 
 void BossBulletState::Initialize()
 {
 	rate_.Initialize(rateTime_, true);
 	rate_.StartCount();
-
-	bulletNum_ = 0;
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void BossBulletState::Update()
 {
-	if (sBoss_->GetIsAlive() == false) {
-		std::unique_ptr<BossState> next_ = std::make_unique<BossDeathState>();
-		sBoss_->SetCurrentState(next_);
-	}
-
 	sBoss_->RotationUpdate();
 
 	rate_.Update();
 
-	if (rate_.GetIsActive() == false) {
+	if (rate_.GetIsActive() == FALSE) {
 
 		//	弾生成
 		std::unique_ptr<EnemyBullet> bullet = std::make_unique<EnemyBullet>();
@@ -37,6 +37,7 @@ void BossBulletState::Update()
 		bullet->SetPosition(sBoss_->GetPosition());
 		sBoss_->AddBullet(bullet);
 
+		//	弾をすべて撃ったら
 		if (++bulletNum_ >= bulletMaxNum_) {
 			//	終了
 			std::unique_ptr<BossState> next_ = std::make_unique<BossIdleState>();

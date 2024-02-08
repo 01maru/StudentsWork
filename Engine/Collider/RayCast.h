@@ -8,7 +8,7 @@ struct RayCast
 {
 	MNE::Object3D* object = nullptr;
 	BaseCollider* collider = nullptr;
-	Vector3D inter;
+	MyMath::Vector3D inter;
 	float distance = 0.0f;
 };
 

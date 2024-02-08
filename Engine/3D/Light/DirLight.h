@@ -14,11 +14,11 @@ namespace MNE
 	{
 	private:
 		bool active_ = false;
-		Vector3D dir_ = { 0,1,0 };
-		Vector3D color_ = { 1,1,1 };
+		MyMath::Vector3D dir_ = { 0,1,0 };
+		MyMath::Vector3D color_ = { 1,1,1 };
 
 		bool shadowing_ = false;
-		Vector3D center_ = { 0.0f, 1.0f, 0.0f };
+		MyMath::Vector3D center_ = { 0.0f, 1.0f, 0.0f };
 
 	public:
 #pragma region Getter
@@ -34,13 +34,13 @@ namespace MNE
 		* dir_のGetter関数
 		* @return dir_の値
 		*/
-		const Vector3D& GetLightDir() { return dir_; }
+		const MyMath::Vector3D& GetLightDir() { return dir_; }
 		/**
 		* @fn GetLightColor()
 		* color_のGetter関数
 		* @return color_の値
 		*/
-		const Vector3D& GetLightColor() { return color_; }
+		const MyMath::Vector3D& GetLightColor() { return color_; }
 		/**
 		* @fn GetShadowing()
 		* shadowing_のGetter関数
@@ -63,13 +63,13 @@ namespace MNE
 		* dir_をdirの正規化したの値に変更するための関数
 		* @param dir active_の変更後の値
 		*/
-		void SetLightDir(const Vector3D& dir);
+		void SetLightDir(const MyMath::Vector3D& dir);
 		/**
 		* @fn SetLightColor(const Vector3D&)
 		* color_の値を変更するための関数
 		* @param color color_の変更後の値
 		*/
-		void SetLightColor(const Vector3D& color) { color_ = color; }
+		void SetLightColor(const MyMath::Vector3D& color) { color_ = color; }
 		/**
 		* @fn SetShadow(bool)
 		* 影をつけるかどうか設定する関数

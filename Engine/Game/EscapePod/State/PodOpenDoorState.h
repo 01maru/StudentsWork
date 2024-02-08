@@ -31,13 +31,13 @@ public:
 
 private:
 	//	アニメーション用カウンター
-	FrameCounter counter_;
+	MNE::FrameCounter counter_;
 	int16_t openDoorFrame_ = 10;	//	カウントマックス値
 	//	開始位置
-	Vector3D startEye_;
-	Vector3D startTarget_;
+	MyMath::Vector3D startEye_;
+	MyMath::Vector3D startTarget_;
 	//	カメラの移動量
-	Vector3D move_;
+	MyMath::Vector3D move_;
 	//	動かすカメラのポインター
 	MNE::ICamera* camera = nullptr;
 

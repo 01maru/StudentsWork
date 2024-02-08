@@ -2,95 +2,146 @@
 #include "TextureManager.h"
 
 using namespace MNE;
+using namespace MyMath;
 
-void LoadSpriteAnime::Initialize(const Vector2D& centerPos, int32_t fadeTime)
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
+void LoadSpriteAnime::Initialize(const MyMath::Vector2D& centerPos, int32_t fadeTime)
 {
-	counter_.SetIsEndless(true);
+	//	カウンターがアクティブだったら、カウントし続けるように
+	counter_.SetIsEndless(TRUE);
+	//	初期化
+	int32_t time = TIME_BETWEEN_ANIME * MAX_ROW_NUM + WAIT_TIME;
+	counter_.Initialize(time, true);
 
+	//	9毎のスプライトをセット(左下から右上方向の順に格納)
 	Vector2D centerPoint(0.5f, 0.5f);
 	std::vector<Vector2D> pos;
+	Vector2D offset;
 
-	pos.push_back(centerPos - Vector2D(spriteSize_, -spriteSize_));
+	//	左下
+	offset = Vector2D(-spriteSize_, spriteSize_);
+	pos.push_back(centerPos + offset);
 
-	pos.push_back(centerPos - Vector2D(spriteSize_, 0.0f));
-	pos.push_back(centerPos + Vector2D(0.0f, spriteSize_));
+	//	左
+	offset = Vector2D(-spriteSize_, 0.0f);
+	pos.push_back(centerPos + offset);
+	//	下
+	offset = Vector2D(0.0f, spriteSize_);
+	pos.push_back(centerPos + offset);
 
-	pos.push_back(centerPos - Vector2D(spriteSize_, spriteSize_));
+	//	左上
+	offset = Vector2D(-spriteSize_, -spriteSize_);
+	pos.push_back(centerPos + offset);
+	//	真ん中
 	pos.push_back(centerPos);
-	pos.push_back(centerPos + Vector2D(spriteSize_, spriteSize_));
+	//	右下
+	offset = Vector2D(spriteSize_, spriteSize_);
+	pos.push_back(centerPos + offset);
 
-	pos.push_back(centerPos - Vector2D(0.0f, spriteSize_));
+	//	上
+	offset = Vector2D(0.0f, -spriteSize_);
+	pos.push_back(centerPos + offset);
+	//	右
+	offset = Vector2D(spriteSize_, 0.0f);
 	pos.push_back(centerPos + Vector2D(spriteSize_, 0.0f));
 
-	pos.push_back(centerPos - Vector2D(-spriteSize_, spriteSize_));
+	//	右上
+	offset = Vector2D(spriteSize_, -spriteSize_);
+	pos.push_back(centerPos + offset);
 
-	for (int32_t i = 0; i < pos.size(); i++)
+	//	スプライト初期化
+	for (auto itr : pos)
 	{
 		LoadingSprite sprite;
 		sprite.Initialize();
 		sprite.SetFadeAnimeTime(fadeTime);
 		sprite.SetTexture(TextureManager::GetWhiteTexture());
 		sprite.SetAnchorPoint(centerPoint);
-		sprite.SetPosition(pos[i]);
+		sprite.SetPosition(itr);
 		sprite.SetMaxSize(spriteSize_);
 		sprites_.push_back(sprite);
 	}
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
 void LoadSpriteAnime::ActiveUpdate()
 {
-	if (counter_.GetFrameCount() % TIME == 0) {
-		rowNum_ = MyMath::mMin(counter_.GetFrameCount() / TIME, MAX_ROW_NUM);
-		if (rowNum_ >= MAX_ROW_NUM)	return;
+	//	アニメーション開始時刻じゃなかったら処理しない
+	if (counter_.GetFrameCount() % TIME_BETWEEN_ANIME != 0)	return;
 
-		for (int32_t i = index_[rowNum_]; i < index_[rowNum_ + 1]; i++)
-		{
-			sprites_[i].Start();
-		}
+	//	現在何番目の行か
+	int32_t nowRowNum = MyMath::mMin(counter_.GetFrameCount() / TIME_BETWEEN_ANIME, MAX_ROW_NUM);
+
+	//	現在の行が最大値以上だったら以下処理しない
+	if (nowRowNum >= MAX_ROW_NUM)	return;
+
+	//	スプライトのアニメーション開始
+	for (int32_t i = index_[nowRowNum]; i < index_[nowRowNum + 1]; i++)
+	{
+		sprites_[i].Start();
 	}
 }
 
 void LoadSpriteAnime::Update()
 {
+	//	スプライトのアニメーション開始フラグの更新
 	ActiveUpdate();
 
+	//	カウンター更新
 	counter_.Update();
 
-	for (int32_t i = 0; i < sprites_.size(); i++)
+	//	スプライト更新
+	for (auto& itr : sprites_)
 	{
-		sprites_[i].Update();
+		itr.Update();
 	}
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
 
 void LoadSpriteAnime::Draw()
 {
-	for (int32_t i = 0; i < sprites_.size(); i++)
+	for (auto& itr : sprites_)
 	{
-		sprites_[i].Draw();
+		itr.Draw();
 	}
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
 void LoadSpriteAnime::Reset()
 {
+	//	カウントスタート
 	counter_.StartCount();
 }
 
 void LoadSpriteAnime::SetIsLoading(bool loading)
 {
-	for (int32_t i = 0; i < sprites_.size(); i++)
+	//	スプライトそれぞれローディング中か設定
+	for (auto& itr : sprites_)
 	{
-		sprites_[i].SetIsLoading(loading);
+		itr.SetIsLoading(loading);
 	}
 
-	if (loading == true)
+	//	ローディング中だったらタイマーリセット
+	if (loading == TRUE)
 	{
-		int32_t time = TIME * MAX_ROW_NUM + WAIT_TIME;
-		counter_.Initialize(time, true);
+		counter_.SetIsIncrement(TRUE);
 		counter_.StartCount();
 
-		for (int32_t i = 0; i < sprites_.size(); i++)
+		for (auto& itr : sprites_)
 		{
-			sprites_[i].Reset();
+			itr.Reset();
 		}
 	}
 }

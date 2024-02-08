@@ -34,11 +34,12 @@ public:
 private:
 	bool isActive_ = true;
 	MNE::Sprite cursor_;
-	FrameCounter counter_;
-	Vector2D minSize_;
-	Vector2D maxSize_;
+	const int32_t ANIME_TIME = 40;
+	MNE::FrameCounter counter_;
+	MyMath::Vector2D minSize_;
+	MyMath::Vector2D maxSize_;
 	//	選択中のモノのサイズ
-	Vector2D gapSize_ = Vector2D(10.0f, 10.0f);
+	MyMath::Vector2D gapSize_ = MyMath::Vector2D(10.0f, 10.0f);
 
 	int32_t easePawNum_ = 2;
 
@@ -58,13 +59,13 @@ public:
 	* @param pos 選択位置の中心座標
 	* @param playMoveSound 移動音再生するか
 	*/
-	void SetCursorPosition(const Vector2D& pos, bool playMoveSound = true);
+	void SetCursorPosition(const MyMath::Vector2D& pos, bool playMoveSound = true);
 	/**
 	* @fn SetSize(const Vector2D&)
 	* 選択中のモノのサイズ変更用関数
 	* @param size 選択中のモノのサイズ
 	*/
-	void SetButtonSize(const Vector2D& size);
+	void SetButtonSize(const MyMath::Vector2D& size);
 	/**
 	* @fn SetIsActive(bool)
 	* isActive_変更用関数

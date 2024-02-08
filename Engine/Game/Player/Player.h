@@ -61,7 +61,7 @@ private:
 	CharacterHP hp_;
 
 	//	プレイヤーの中心とモデルの位置のオフセット値
-	Vector3D offset_;
+	MyMath::Vector3D offset_;
 
 	int32_t animationTimer_ = 0;
 
@@ -75,7 +75,7 @@ private:
 	//	平面上のスピード
 	float spd_;
 	//	平面上の移動方向(モデルの正面ベクトルでもある)
-	Vector3D moveVec_;
+	MyMath::Vector3D moveVec_;
 	//	１フレームでの上下の移動量(上が+)
 	float moveY_ = -0.5f;
 
@@ -85,7 +85,7 @@ private:
 
 	//	攻撃
 	std::unique_ptr<PlayerAttackState> attackState_;
-	FrameCounter rate_;
+	MNE::FrameCounter rate_;
 	//	照準
 	CrossHair crossHair_;
 	std::list<BulletInfo> bullets_;
@@ -112,13 +112,13 @@ private:
 	* 入力とモデルの向きから補間した実際の移動方向ベクトルの計算処理関数
 	* @param inputVec (x, y) = (左右, 前後)の入力ベクトル
 	*/
-	void CalcMoveVec(const Vector2D& inputVec);
+	void CalcMoveVec(const MyMath::Vector2D& inputVec);
 	/**
 	* @fn CalcModelFront(const Vector2D&)
 	* 実際の移動方向ベクトルからモデルの向きを変更の計算処理関数
 	* @param inputVec (x, y) = (左右, 前後)の入力ベクトル
 	*/
-	void CalcModelFront(const Vector2D& inputVec);
+	void CalcModelFront(const MyMath::Vector2D& inputVec);
 	/**
 	* @fn IsMovingUpdate()
 	* 移動関連の処理をまとめた更新処理関数
@@ -156,15 +156,15 @@ public:
 
 #pragma region Getter
 
-	Vector3D* GetPositionPtr() { return &mat_.trans_; }
-	Vector3D GetCenterPos();
+	MyMath::Vector3D* GetPositionPtr() { return &mat_.trans_; }
+	MyMath::Vector3D GetCenterPos();
 	bool GetOnGround();
 	bool GetIsRunning();
 	bool GetIsAvoid();
 	bool GetIsMoving();
 	float GetSpd();
 	float GetAvoidMaxSpd();
-	Vector3D GetBulletFront();
+	MyMath::Vector3D GetBulletFront();
 	bool GetRateCountIsActive();
 	bool GetSlowAtIsActive();
 	bool GetIsAlive();

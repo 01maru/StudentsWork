@@ -29,7 +29,7 @@ void MNE::UIObject::Draw()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-FrameCounter* MNE::UIObject::GetCount()
+MNE::FrameCounter* MNE::UIObject::GetCount()
 {
 	return count_;
 }
@@ -48,7 +48,7 @@ MNE::UIData* MNE::UIObject::GetParentData()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void MNE::UIObject::SetCount(FrameCounter* pCount)
+void MNE::UIObject::SetCount(MNE::FrameCounter* pCount)
 {
 	count_ = pCount;
 }

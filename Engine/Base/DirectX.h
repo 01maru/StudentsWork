@@ -52,11 +52,11 @@ namespace MNE
 	private:
 		void DebugLayer();
 
-		void ScreenClear(const Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
+		void ScreenClear(const MyMath::Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle);
 
 		void SetResourceBarrier(D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, ID3D12Resource* pResource = nullptr);
 		void CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter,
-			D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum = 1, const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
+			D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum = 1, const MyMath::Vector4D& clearColor = MyMath::Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
 		void CmdListCloseAndFlip();
 
 		MyDirectX() {};
@@ -68,10 +68,10 @@ namespace MNE
 
 		void Initialize();
 
-		void PrevPostEffect(MNE::PostEffect* postEffect, const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
+		void PrevPostEffect(MNE::PostEffect* postEffect, const MyMath::Vector4D& clearColor = MyMath::Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
 		void PostEffectDraw(MNE::PostEffect* postEffect);
 
-		void PrevDraw(const Vector4D& clearColor = Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
+		void PrevDraw(const MyMath::Vector4D& clearColor = MyMath::Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
 		void PostDraw();
 
 		void DrawEnd();

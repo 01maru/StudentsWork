@@ -25,7 +25,7 @@ void DebugTextManager::Initialize()
 	}
 }
 
-void DebugTextManager::Print(const std::string& text, const Vector2D& pos, float size)
+void DebugTextManager::Print(const std::string& text, const MyMath::Vector2D& pos, float size)
 {
 	for (size_t i = 0; i < text.size(); i++)
 	{

@@ -5,6 +5,7 @@
 #include "Easing.h"
 
 using namespace Easing;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -13,9 +14,9 @@ using namespace Easing;
 void BossJumpAtState::Initialize()
 {
 	//	タイマー初期化
-	timer_.Initialize(jumpStartTime_, true);
+	timer_.Initialize(jumpStartTime_, TRUE);
 	timer_.StartCount();
-	animeTimer_.Initialize(animeTime_, true);
+	animeTimer_.Initialize(animeTime_, TRUE);
 	animeTimer_.StartCount();
 
 	//	アニメーション設定
@@ -51,7 +52,7 @@ void BossJumpAtState::BefJumpUpdate()
 	if (timer_.GetIsActive() == FALSE)
 	{
 		startPos_ = sBoss_->GetPosition();
-		endPos_ = sBoss_->GetPlayer()->GetPosition();
+		endPos_ = sBoss_->GetPlayerPtr()->GetPosition();
 
 		jumping_ = TRUE;
 
@@ -66,7 +67,7 @@ void BossJumpAtState::JumpUpdate()
 
 	int32_t nowT = timer_.GetFrameCount();
 	float t = nowT / static_cast<float>(jumpingTime_);
-	t = MyMath::mClamp(0.0f, 1.0f, t);
+	t = MyMath::mClamp(GetNormalizedMinVal(), GetNormalizedMaxVal(), t);
 
 	Vector3D pos = EaseInOut(startPos_, endPos_, t, Single);
 

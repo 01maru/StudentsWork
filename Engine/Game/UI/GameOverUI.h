@@ -45,7 +45,7 @@ private:
 	//	カーソルのスプライト
 	SelectCursor cursor_;
 	//	アニメーションを開始するためのダーティーフラグ
-	bool animeDirtyFlag_ = true;
+	bool animeDirtyFlag_ = TRUE;
 
 private:
 	/**
@@ -53,6 +53,11 @@ private:
 	* 入力更新処理関数
 	*/
 	void InputUpdate();
+	/**
+	* @fn UIAnimationFlagUpdate()
+	* UIのアニメーション更新処理関数
+	*/
+	void UIAnimationFlagUpdate();
 
 public:
 #pragma region Setter
@@ -62,7 +67,7 @@ public:
 	* カメラの終了位置や制御点を設定するための関数
 	* @param playerPos プレイヤーの位置(足元の座標)
 	*/
-	void SetCameraPosData(const Vector3D& playerPos);
+	void SetCameraPosData(const MyMath::Vector3D& playerPos);
 	/**
 	* @fn Start()
 	* アニメーションを開始させる関数

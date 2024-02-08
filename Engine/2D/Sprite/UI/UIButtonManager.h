@@ -44,13 +44,13 @@ namespace MNE
 		* 選択中の座標のGetter関数(カーソル用)
 		* @return 選択中の座標
 		*/
-		Vector2D& GetSelectPos();
+		MyMath::Vector2D& GetSelectPos();
 		/**
 		* @fn GetSelectSize()
 		* 選択中のボタンサイズのGetter関数(カーソルアニメーション用)
 		* @return 選択中のボタンサイズ
 		*/
-		Vector2D& GetSelectSize();
+		MyMath::Vector2D& GetSelectSize();
 
 	#pragma endregion
 

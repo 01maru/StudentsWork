@@ -3,6 +3,7 @@
 #include "Easing.h"
 
 using namespace Easing;
+using namespace MyMath;
 
 void MNE::LoadingModel::Initialize()
 {

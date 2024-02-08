@@ -7,7 +7,7 @@ using namespace Easing;
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
-void TitleCamera::Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
+void TitleCamera::Initialize(const MyMath::Vector3D& eye, const MyMath::Vector3D& target, const MyMath::Vector3D& up)
 {
 	//	カメラの初期化
 	ICamera::Initialize(eye, target, up);
@@ -66,21 +66,21 @@ void TitleCamera::SetAnimationTime(int32_t time)
 	counter_.Initialize(time, true);
 }
 
-void TitleCamera::SetCameraPos(const Vector3D& eye, const Vector3D& target, CameraMode mode)
+void TitleCamera::SetCameraPos(const MyMath::Vector3D& eye, const MyMath::Vector3D& target, CameraMode mode)
 {
 	switch (mode)
 	{
 	case TitleCamera::Menu:
 		titleEye_ = eye;
-		titleFront_ = Vector3D(target - titleEye_).GetNormalize();
+		titleFront_ = MyMath::Vector3D(target - titleEye_).GetNormalize();
 		break;
 	case TitleCamera::Option:
 		optionEye_ = eye;
-		optionFront_ = Vector3D(target - optionEye_).GetNormalize();
+		optionFront_ = MyMath::Vector3D(target - optionEye_).GetNormalize();
 		break;
 	case TitleCamera::SceneChange:
 		sceneChangeEye_ = eye;
-		sceneChangeFront_ = Vector3D(target - sceneChangeEye_).GetNormalize();
+		sceneChangeFront_ = MyMath::Vector3D(target - sceneChangeEye_).GetNormalize();
 		break;
 	default:
 		break;
@@ -97,8 +97,8 @@ void TitleCamera::SetNextMode(CameraMode mode)
 	startFront_ = frontVec_;
 
 	//	終了時の値格納
-	Vector3D nextEye;
-	Vector3D nextFront;
+	MyMath::Vector3D nextEye;
+	MyMath::Vector3D nextFront;
 	switch (mode)
 	{
 	case TitleCamera::Menu:

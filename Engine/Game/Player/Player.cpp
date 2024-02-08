@@ -70,7 +70,7 @@ void Player::Initialize(MNE::IModel* model)
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void Player::CalcMoveVec(const Vector2D& inputVec)
+void Player::CalcMoveVec(const MyMath::Vector2D& inputVec)
 {
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	Vector3D inputMoveVec = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
@@ -103,7 +103,7 @@ void Player::CalcMoveVec(const Vector2D& inputVec)
 	}
 }
 
-void Player::CalcModelFront(const Vector2D& inputVec)
+void Player::CalcModelFront(const MyMath::Vector2D& inputVec)
 {
 	//	移動してなかったら以下の処理はしない
 	if (isMoving_ == FALSE) return;
@@ -127,9 +127,9 @@ void Player::IsMovingUpdate()
 	int32_t sideInput = keyboard->GetKey(DIK_D) - keyboard->GetKey(DIK_A);
 
 	//	パッドでの移動入力
-	Vector2D inputVec = input->GetPad()->GetThumbL().GetNormalize();
+	MyMath::Vector2D inputVec = input->GetPad()->GetThumbL().GetNormalize();
 	//	パッド+キーでの入力
-	inputVec += Vector2D(sideInput, frontInput);
+	inputVec += MyMath::Vector2D(sideInput, frontInput);
 
 	//	移動しているか判定
 	isMoving_ = inputVec.GetLength() != 0;

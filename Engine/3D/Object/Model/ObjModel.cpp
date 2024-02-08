@@ -4,6 +4,7 @@
 #include <assert.h>
 
 using namespace std;
+using namespace MyMath;
 
 MNE::ObjModel::ObjModel(const char* filename, bool smoothing)
 {

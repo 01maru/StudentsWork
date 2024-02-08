@@ -31,6 +31,11 @@ public:
 #pragma region Setter
 
 	/**
+	* @fn SetStateForSpecificSituation()
+	* 特定状況下においてステートを設定するための関数
+	*/
+	void SetStateForSpecificSituation();
+	/**
 	* @fn SetBoss(Boss*)
 	* 親ポインター設定用関数
 	* @param boss 親のポインター

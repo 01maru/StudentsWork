@@ -14,6 +14,8 @@
 #include "UIScaling.h"
 #include "InputManager.h"
 
+using namespace MyMath;
+
 void MNE::UIData::Finalize()
 {
 	count_.release();
@@ -43,6 +45,10 @@ void MNE::UIData::CollisonCursorUpdate()
 				selecting_ = true;
 			}
 		}
+	}
+	else
+	{
+		selecting_ = TRUE;
 	}
 }
 
@@ -153,8 +159,8 @@ void MNE::UIData::LoadData(const std::string& filename)
 				sprite.Initialize(TextureManager::GetInstance()->AsyncLoadTextureGraph(texname));
 			}
 
-			Vector2D pos;
-			Vector2D size;
+			MyMath::Vector2D pos;
+			MyMath::Vector2D size;
 			line_stream >> pos.x;
 			line_stream >> pos.y;
 			line_stream >> size.x;
@@ -200,7 +206,7 @@ void MNE::UIData::LoadData(const std::string& filename)
 			UIMoveAnimation* uiMove = object->AddComponent<UIMoveAnimation>();
 			uiMove->Initialize();
 
-			Vector2D pos;
+			MyMath::Vector2D pos;
 			line_stream >> pos.x;
 			line_stream >> pos.y;
 			uiMove->SetStartPos(pos);
@@ -213,7 +219,7 @@ void MNE::UIData::LoadData(const std::string& filename)
 			UIScaling* uiScaling = object->AddComponent<UIScaling>();
 			uiScaling->Initialize();
 
-			Vector2D size;
+			MyMath::Vector2D size;
 			line_stream >> size.x;
 			line_stream >> size.y;
 			uiScaling->SetStartSize(size);
@@ -260,14 +266,14 @@ void MNE::UIData::LoadData(const std::string& filename)
 			button->SetName(buttonname);
 			buttons.emplace(buttonname, button);
 
-			Vector2D pos;
+			MyMath::Vector2D pos;
 			line_stream >> pos.x;
 			line_stream >> pos.y;
 
 			UIPosition* uiPos = object->AddComponent<UIPosition>();
 			uiPos->SetPosition(pos);
 
-			Vector2D size;
+			MyMath::Vector2D size;
 			line_stream >> size.x;
 			line_stream >> size.y;
 			uiPos->SetSize(size);
@@ -296,7 +302,7 @@ void MNE::UIData::LoadData(const std::string& filename)
 			line_stream >> name;
 			slider->SetRailTexture(name, tag);
 
-			Vector2D pos;
+			MyMath::Vector2D pos;
 			line_stream >> pos.x;
 			line_stream >> pos.y;
 			slider->SetRailStartPos(pos);
@@ -342,12 +348,12 @@ const std::string& MNE::UIData::GetSelectName()
 	return buttonMan_->GetSelectObjName();
 }
 
-Vector2D& MNE::UIData::GetSelectPosition()
+MyMath::Vector2D& MNE::UIData::GetSelectPosition()
 {
 	return buttonMan_->GetSelectPos();
 }
 
-Vector2D& MNE::UIData::GetSelectSize()
+MyMath::Vector2D& MNE::UIData::GetSelectSize()
 {
 	return buttonMan_->GetSelectSize();
 }
@@ -383,9 +389,14 @@ void MNE::UIData::Reset()
 	}
 }
 
-bool MNE::UIData::GetSelect()
+bool MNE::UIData::GetSelectMouse()
 {
 	return InputManager::GetInstance()->GetMouse()->GetClickTrigger(InputMouse::LeftClick) && selecting_;
+}
+
+bool MNE::UIData::GetSelecting()
+{
+	return selecting_;
 }
 
 void MNE::UIData::ResetAnimation(bool startingAnimation)

@@ -12,7 +12,7 @@ private:
 private:
 	void SetScaleComponent();
 	void SetPosComponent();
-	void SetResouceComponent();
+	void SetResourceComponent();
 public:
 	std::unique_ptr<MNE::ParticleEmitter>& GetEmitter();
 };

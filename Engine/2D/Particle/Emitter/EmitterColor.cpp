@@ -19,7 +19,7 @@ void MNE::EmitterColor::Initialize(MNE::Particle* particle)
 	}
 }
 
-void MNE::EmitterColor::SetColor(const Vector3D& color)
+void MNE::EmitterColor::SetColor(const MyMath::Vector3D& color)
 {
 	color_ = color;
 }

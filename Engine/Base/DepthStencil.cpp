@@ -1,14 +1,12 @@
 #include "DepthStencil.h"
 #include "DirectX.h"
 
-using namespace MNE;
-
-void DepthStencil::Initialize(int32_t width, int32_t height, DXGI_FORMAT format)
+void MNE::DepthStencil::Initialize(int32_t width, int32_t height, DXGI_FORMAT format)
 {
 	HRESULT result;
 	MyDirectX* dx = MyDirectX::GetInstance();
 
-	//	Resouce構造体設定
+	//	Resource構造体設定
 	D3D12_RESOURCE_DESC depthResourceDesc{};
 	depthResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
 	depthResourceDesc.Width = width;
@@ -51,7 +49,7 @@ void DepthStencil::Initialize(int32_t width, int32_t height, DXGI_FORMAT format)
 		dsvHeap_->GetCPUDescriptorHandleForHeapStart());
 }
 
-void DepthStencil::OMSetRenderTargets(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle)
+void MNE::DepthStencil::OMSetRenderTargets(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle)
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = dsvHeap_->GetCPUDescriptorHandleForHeapStart();
@@ -59,7 +57,7 @@ void DepthStencil::OMSetRenderTargets(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle)
 	dx->GetCmdList()->OMSetRenderTargets(1, &rtvHandle, true, &dsvHandle);
 }
 
-void DepthStencil::ClearDepthStencilView(D3D12_CLEAR_FLAGS flags)
+void MNE::DepthStencil::ClearDepthStencilView(D3D12_CLEAR_FLAGS flags)
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = dsvHeap_->GetCPUDescriptorHandleForHeapStart();

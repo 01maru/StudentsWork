@@ -5,6 +5,7 @@
 #include "Player.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -69,7 +70,7 @@ bool EnemyBullet::GetIsActive()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void EnemyBullet::SetMoveVec(const Vector3D& moveVec)
+void EnemyBullet::SetMoveVec(const MyMath::Vector3D& moveVec)
 {
 	moveVec_ = moveVec;
 }

@@ -4,6 +4,8 @@
 
 #include "PipelineManager.h"
 
+using namespace MyMath;
+
 void MNE::SplashScreenScene::Initialize()
 {
 	count_ = std::make_unique<FrameCounter>();

@@ -4,6 +4,7 @@
 
 using namespace Easing;
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -86,7 +87,7 @@ void GameOverCamera::Reset()
 	counter_.StartCount();
 }
 
-void GameOverCamera::SetPosData(const Vector3D& pos)
+void GameOverCamera::SetPosData(const MyMath::Vector3D& pos)
 {
 	Vector3D front = frontVec_;
 	front.y = 0;

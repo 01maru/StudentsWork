@@ -15,10 +15,10 @@ namespace MNE
 		void Initialize(MNE::Particle* particle) override;
 
 	private:
-		Vector3D color_;
+		MyMath::Vector3D color_;
 
 	public:
-		void SetColor(const Vector3D& color);
+		void SetColor(const MyMath::Vector3D& color);
 	};
 
 }

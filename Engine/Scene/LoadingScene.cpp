@@ -12,6 +12,7 @@
 
 using namespace Easing;
 using namespace MNE;
+using namespace MyMath;
 
 void LoadingScene::Initialize()
 {

@@ -6,8 +6,8 @@ struct QueryHit
 {
 	MNE::Object3D* object = nullptr;
 	BaseCollider* collider = nullptr;
-	Vector3D inter;
-	Vector3D reject;
+	MyMath::Vector3D inter;
+	MyMath::Vector3D reject;
 };
 
 

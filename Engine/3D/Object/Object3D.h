@@ -69,7 +69,7 @@ namespace MNE
 		Object3D* parent_ = nullptr;
 	protected:
 		MyMath::ObjMatrix mat_;
-		Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
+		MyMath::Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 		BaseCollider* collider_ = nullptr;
 
 		IModel* model_ = nullptr;
@@ -87,12 +87,12 @@ namespace MNE
 		static std::unique_ptr<Object3D> Create(IModel* model_ = nullptr);
 
 		BaseCollider* GetCollider() { return collider_; }
-		const Vector4D& GetColor() { return color_; }
-		Vector3D& GetPosition() { return mat_.trans_; }
-		const Vector3D& GetScale() { return mat_.scale_; }
-		const Vector3D& GetRotation() { return mat_.angle_; }
+		const MyMath::Vector4D& GetColor() { return color_; }
+		MyMath::Vector3D& GetPosition() { return mat_.trans_; }
+		const MyMath::Vector3D& GetScale() { return mat_.scale_; }
+		const MyMath::Vector3D& GetRotation() { return mat_.angle_; }
 		inline IModel* GetModel() { return model_; }
-		const Matrix& GetMatWorld() { return mat_.matWorld_; }
+		const MyMath::Matrix& GetMatWorld() { return mat_.matWorld_; }
 		Object3DAnimation* GetAnimation() { return animation_.get(); }
 
 	#pragma endregion
@@ -102,12 +102,12 @@ namespace MNE
 		void SetModel(IModel* model);
 		void SetCollider(BaseCollider* collider);
 		void SetAttribute(unsigned short attribute);
-		void SetColor(const Vector4D& color) { color_ = color; }
-		void SetColor(const Vector3D& color) { color_ = Vector4D(color, color_.w); }
+		void SetColor(const MyMath::Vector4D& color) { color_ = color; }
+		void SetColor(const MyMath::Vector3D& color) { color_ = MyMath::Vector4D(color, color_.w); }
 		void SetAlphaColor(float alpha);
-		void SetPosition(const Vector3D& pos) { mat_.trans_ = pos; }
-		void SetScale(const Vector3D& scale) { mat_.scale_ = scale; }
-		void SetRotation(const Vector3D& rot) { mat_.angle_ = rot; }
+		void SetPosition(const MyMath::Vector3D& pos) { mat_.trans_ = pos; }
+		void SetScale(const MyMath::Vector3D& scale) { mat_.scale_ = scale; }
+		void SetRotation(const MyMath::Vector3D& rot) { mat_.angle_ = rot; }
 		void SetCamera(MNE::ICamera* camera) { camera_ = camera; }
 
 	#pragma endregion

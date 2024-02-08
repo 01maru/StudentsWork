@@ -220,12 +220,6 @@
     <Filter Include="ヘッダー ファイル\lib\2D\Particle\Emitter">
       <UniqueIdentifier>{13054eda-4ced-4919-bbbf-c69af0bd5102}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Particle">
-      <UniqueIdentifier>{0ebd4eff-ec97-490e-aeed-c241b826b128}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Particle">
-      <UniqueIdentifier>{13d09f46-8654-4c4c-9405-73f6447b6bd8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game\Player">
       <UniqueIdentifier>{1036525c-b6f1-4d0c-b438-3856e792133a}</UniqueIdentifier>
     </Filter>
@@ -274,9 +268,6 @@
     <Filter Include="ヘッダー ファイル\lib\Engine\JSON">
       <UniqueIdentifier>{ef2c44d6-71b8-4d88-a92f-87d06967895b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\SpriteEffect">
-      <UniqueIdentifier>{65e7cc49-81c4-4ff8-9329-0d710092df6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\lib\Engine\JSON">
       <UniqueIdentifier>{aa9182c0-d372-4330-9bd6-555d58298c5a}</UniqueIdentifier>
     </Filter>
@@ -309,6 +300,18 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\Boss\AttackState">
       <UniqueIdentifier>{6bd5b206-5644-4e4c-b5f0-3c96b009f625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Effect">
+      <UniqueIdentifier>{0ebd4eff-ec97-490e-aeed-c241b826b128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Effect\SpriteEffect">
+      <UniqueIdentifier>{65e7cc49-81c4-4ff8-9329-0d710092df6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Effect">
+      <UniqueIdentifier>{13d09f46-8654-4c4c-9405-73f6447b6bd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Effect\SpriteEffect">
+      <UniqueIdentifier>{81ad1867-4378-4ace-8b59-fa52e654f7e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -458,9 +461,6 @@
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\ObjCamera2D.cpp">
       <Filter>ソース ファイル\lib\3D\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Math\FrameCounter.cpp">
-      <Filter>ソース ファイル\lib\Engine\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\ImGui\ImGuiController.cpp">
       <Filter>ソース ファイル\lib\Engine\ImGui</Filter>
@@ -631,7 +631,7 @@
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Particle\FireParticleEmitter.cpp">
-      <Filter>ソース ファイル\Game\Particle</Filter>
+      <Filter>ソース ファイル\Game\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\UI\TitleUI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
@@ -712,7 +712,7 @@
       <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Particle\SmokeParticleEmitter.cpp">
-      <Filter>ソース ファイル\Game\Particle</Filter>
+      <Filter>ソース ファイル\Game\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Player\AttackState\PlayerSlowAttack.cpp">
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
@@ -721,24 +721,18 @@
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Particle\DeadParticleEmitter.cpp">
-      <Filter>ソース ファイル\Game\Particle</Filter>
+      <Filter>ソース ファイル\Game\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Particle\BulletHitEmitter.cpp">
-      <Filter>ソース ファイル\Game\Particle</Filter>
+      <Filter>ソース ファイル\Game\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Particle\BulletAfterImgEmitter.cpp">
-      <Filter>ソース ファイル\Game\Particle</Filter>
+      <Filter>ソース ファイル\Game\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterLifeTime.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Boss\BossBeamState.cpp">
-      <Filter>ソース ファイル\Game\Boss\State</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp">
-      <Filter>ソース ファイル\Game\Boss\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Boss\BossMeleeState.cpp">
       <Filter>ソース ファイル\Game\Boss\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\BossWayBullets.cpp">
@@ -780,11 +774,8 @@
     <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Player\UI\ActiveSkillEffect.cpp">
-      <Filter>ソース ファイル\Game\SpriteEffect</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\LoadSpriteAnime.cpp">
-      <Filter>ソース ファイル\Game\SpriteEffect</Filter>
+      <Filter>ソース ファイル\Game\Effect\SpriteEffect</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Json\JSONData.cpp">
       <Filter>ソース ファイル\lib\Engine\JSON</Filter>
@@ -830,6 +821,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\AttackState\BossJumpAtState.cpp">
       <Filter>ソース ファイル\Game\Boss\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\FrameCounter.cpp">
+      <Filter>ソース ファイル\lib\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -991,9 +985,6 @@
     </ClInclude>
     <ClInclude Include="Engine\3D\Camera\ObjCamera2D.h">
       <Filter>ヘッダー ファイル\lib\3D\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Math\FrameCounter.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\ImGui\ImGuiManager.h">
       <Filter>ヘッダー ファイル\lib\Engine\ImGui</Filter>
@@ -1185,7 +1176,7 @@
       <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\FireParticleEmitter.h">
-      <Filter>ヘッダー ファイル\Game\Particle</Filter>
+      <Filter>ヘッダー ファイル\Game\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Player\Player.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
@@ -1263,7 +1254,7 @@
       <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\SmokeParticleEmitter.h">
-      <Filter>ヘッダー ファイル\Game\Particle</Filter>
+      <Filter>ヘッダー ファイル\Game\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Player\AttackState\PlayerSlowAttack.h">
       <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
@@ -1275,13 +1266,13 @@
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\DeadParticleEmitter.h">
-      <Filter>ヘッダー ファイル\Game\Particle</Filter>
+      <Filter>ヘッダー ファイル\Game\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\BulletHitEmitter.h">
-      <Filter>ヘッダー ファイル\Game\Particle</Filter>
+      <Filter>ヘッダー ファイル\Game\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\BulletAfterImgEmitter.h">
-      <Filter>ヘッダー ファイル\Game\Particle</Filter>
+      <Filter>ヘッダー ファイル\Game\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterLifeTime.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
@@ -1292,13 +1283,7 @@
     <ClInclude Include="Engine\Game\Boss\BossWayBullets.h">
       <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Boss\BossMeleeState.h">
-      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Boss\BossBulletState.h">
-      <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Boss\BossBeamState.h">
       <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\UI\ClearUI.h">
@@ -1340,9 +1325,6 @@
     <ClInclude Include="Engine\Game\Bonfire.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Player\UI\ActiveSkillEffect.h">
-      <Filter>ヘッダー ファイル\Game\Particle</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\UI\ExplanatoryText.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
@@ -1351,9 +1333,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Base\Json\JSONData.h">
       <Filter>ヘッダー ファイル\lib\Engine\JSON</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\Sprite\LoadSpriteAnime.h">
-      <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\EscapePod\PodInputUI.h">
       <Filter>ヘッダー ファイル\Game\EscapePod</Filter>
@@ -1390,6 +1369,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\AttackState\BossJumpAtState.h">
       <Filter>ヘッダー ファイル\Game\Boss\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\Sprite\LoadSpriteAnime.h">
+      <Filter>ヘッダー ファイル\Game\Effect\SpriteEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\FrameCounter.h">
+      <Filter>ヘッダー ファイル\lib\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

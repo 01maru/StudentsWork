@@ -41,7 +41,7 @@ namespace MNE
 		* @param pos 表示する文字列の左上座標
 		* @param size 文字サイズ
 		*/
-		void Print(const std::string& text, const Vector2D& pos, float size);
+		void Print(const std::string& text, const MyMath::Vector2D& pos, float size);
 		/**
 		* @fn Draw()
 		* 描画処理関数

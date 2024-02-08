@@ -58,6 +58,7 @@ private:
 	TitleCamera* pCamera_ = nullptr;
 
 	int16_t inputValue_ = 0;
+	float inputSpd_ = 1.0f;
 
 private:
 	/**

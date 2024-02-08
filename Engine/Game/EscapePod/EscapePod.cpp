@@ -3,6 +3,7 @@
 #include "UIData.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize

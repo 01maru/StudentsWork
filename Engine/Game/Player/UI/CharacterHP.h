@@ -38,7 +38,7 @@ protected:
 	float len_;
 
 	//	DamageAnimation
-	FrameCounter damageTimer_;
+	MNE::FrameCounter damageTimer_;
 	int32_t animationTime_ = 30;	//	アニメーションの時間
 	float damageLen_ = 0.0f;		//	ダメージを受けて実際に減少したHPの長さ
 
@@ -106,7 +106,7 @@ public:
 	* バーの色設定用関数
 	* @param color バーの色変更
 	*/
-	void SetBarColor(const Vector3D& color);
+	void SetBarColor(const MyMath::Vector3D& color);
 
 #pragma endregion
 };

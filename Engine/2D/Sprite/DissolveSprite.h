@@ -18,7 +18,7 @@ namespace MNE
 	private:
 		bool dirtyFlagDissolve_ = true;
 		float disolveValue_ = 0.0f;
-		Vector4D dissolveColor_;
+		MyMath::Vector4D dissolveColor_;
 
 	#pragma region CBuff
 		MNE::ConstBuff cbDissolve_;
@@ -56,7 +56,7 @@ namespace MNE
 		* dissolveColor_のGetter関数
 		* @return dissolveColor_の値
 		*/
-		Vector4D& GetDissolveColor() { return dissolveColor_; }
+		MyMath::Vector4D& GetDissolveColor() { return dissolveColor_; }
 
 	#pragma endregion
 

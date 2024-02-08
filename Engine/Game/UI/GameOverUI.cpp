@@ -8,6 +8,7 @@
 
 using namespace Easing;
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -18,7 +19,7 @@ void GameOverUI::Initialize()
 	//	カーソルの初期化
 	cursor_.Initialize();
 	//	初期位置設定(音再生しない)
-	cursor_.SetCursorPosition(data_.GetSelectPosition(), false);
+	cursor_.SetCursorPosition(data_.GetSelectPosition(), FALSE);
 }
 
 void GameOverUI::LoadResources()
@@ -35,21 +36,31 @@ void GameOverUI::LoadResources()
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
+void GameOverUI::UIAnimationFlagUpdate()
+{
+	if (animeDirtyFlag_ == TRUE)
+	{
+		animeDirtyFlag_ = FALSE;
+		data_.ResetAnimation(TRUE);
+	}
+}
+
 void GameOverUI::InputUpdate()
 {
-	bool dikButton = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button);
+	bool selectPad = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button);
 
+	//	マウスとの当たり判定更新
 	data_.CollisonCursorUpdate();
 
 	//	選択されたら
-	if ((dikButton || data_.GetSelect()) == TRUE)
+	if ((selectPad || data_.GetSelectMouse()) == TRUE)
 	{
 		//	決定音再生
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 
 		if (data_.GetSelectName() == "Continue") {
 			//	リセット
-			isActive_ = false;
+			isActive_ = FALSE;
 		}
 
 		if (data_.GetSelectName() == "Quit") {
@@ -61,10 +72,12 @@ void GameOverUI::InputUpdate()
 	InputJoypad* pad = InputManager::GetInstance()->GetPad();
 
 	int16_t inputValue = 0;
+	float spd = 1.0f;
 
+	//	パッドのステック入力されていたら
 	if (pad->GetTriggerThumbLY() == TRUE)
 	{
-		inputValue = static_cast<int16_t>(MyMath::mClamp(-1.0f, 1.0f, -pad->GetThumbL().y));
+		inputValue = static_cast<int16_t>(MyMath::mClamp(-spd, spd, -pad->GetThumbL().y));
 	}
 	//	選択中のボタン切り替え
 	data_.InputUpdate(inputValue);
@@ -82,10 +95,9 @@ void GameOverUI::Update()
 	//	カメラのズームが終了していなかったら処理しない
 	if (pCamera_->GetEndCameraMove() == FALSE) return;
 
-	if (animeDirtyFlag_ == TRUE) {
-		animeDirtyFlag_ = FALSE;
-		data_.ResetAnimation(true);
-	}
+	UIAnimationFlagUpdate();
+
+	//	説明テキスト表示
 	InputManager::GetInstance()->SetDrawExplane(data_.GetIsEndAnimation());
 
 	InputUpdate();
@@ -118,16 +130,19 @@ void GameOverUI::Draw()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void GameOverUI::SetCameraPosData(const Vector3D& playerPos)
+void GameOverUI::SetCameraPosData(const MyMath::Vector3D& playerPos)
 {
 	pCamera_->SetPosData(playerPos);
 }
 
 void GameOverUI::Start()
 {
-	isActive_ = true;
+	isActive_ = TRUE;
+	animeDirtyFlag_ = TRUE;
 
-	InputManager::GetInstance()->GetMouse()->SetLockCursor(false);
+	//	カーソルロックしない
+	InputManager::GetInstance()->GetMouse()->SetLockCursor(FALSE);
+
 	//	カメラ変更
 	CameraManager* cameraMan = CameraManager::GetInstance();
 	std::unique_ptr<ICamera> camera = std::make_unique<GameOverCamera>();
@@ -141,11 +156,12 @@ void GameOverUI::Start()
 
 void GameOverUI::Reset()
 {
+	//	カメラがセットされていなかったらリセットしない
 	if (pCamera_ == nullptr) return;
 
-	isActive_ = true;
+	isActive_ = TRUE;
+	animeDirtyFlag_ = TRUE;
 	pCamera_->Reset();
 	data_.Reset();
-	cursor_.SetIsActive(false);
-	animeDirtyFlag_ = TRUE;
+	cursor_.SetIsActive(FALSE);
 }

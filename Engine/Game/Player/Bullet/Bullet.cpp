@@ -10,6 +10,7 @@
 #include "EmitterConeType.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Destructor
@@ -67,7 +68,7 @@ bool Bullet::GetIsActive()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void Bullet::SetMoveVec(const Vector3D& moveVec)
+void Bullet::SetMoveVec(const MyMath::Vector3D& moveVec)
 {
 	moveVec_ = moveVec;
 	if (emitter_ != nullptr) {

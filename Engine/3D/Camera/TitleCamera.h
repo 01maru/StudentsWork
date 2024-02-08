@@ -26,7 +26,7 @@ public:
 	* @param target 注視点座標
 	* @param up 上方向ベクトル
 	*/
-	void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up) override;
+	void Initialize(const MyMath::Vector3D& eye, const MyMath::Vector3D& target, const MyMath::Vector3D& up) override;
 	/**
 	* @fn Update()
 	* 更新処理関数
@@ -38,27 +38,27 @@ private:
 	CameraMode mode_ = Menu;
 
 	//	アニメーションの経過時間
-	FrameCounter counter_;
+	MNE::FrameCounter counter_;
 	
 	//	移動開始前と後の値格納用
-	Vector3D startEye_;
-	Vector3D endEye_;
-	Vector3D startFront_;
-	Vector3D endFront_;
+	MyMath::Vector3D startEye_;
+	MyMath::Vector3D endEye_;
+	MyMath::Vector3D startFront_;
+	MyMath::Vector3D endFront_;
 	//	制御点
-	Vector3D controlPoint_;
+	MyMath::Vector3D controlPoint_;
 
 #pragma region カメラの最終値格納変数
 
 	//	タイトル
-	Vector3D titleEye_;
-	Vector3D titleFront_;
+	MyMath::Vector3D titleEye_;
+	MyMath::Vector3D titleFront_;
 	//	オプション
-	Vector3D optionEye_;
-	Vector3D optionFront_;
+	MyMath::Vector3D optionEye_;
+	MyMath::Vector3D optionFront_;
 	//	シーンチェンジ
-	Vector3D sceneChangeEye_;
-	Vector3D sceneChangeFront_;
+	MyMath::Vector3D sceneChangeEye_;
+	MyMath::Vector3D sceneChangeFront_;
 
 #pragma endregion
 
@@ -96,7 +96,7 @@ public:
 	* @param target ターゲットの位置
 	* @param mode 設定するモード
 	*/
-	void SetCameraPos(const Vector3D& eye, const Vector3D& target, CameraMode mode);
+	void SetCameraPos(const MyMath::Vector3D& eye, const MyMath::Vector3D& target, CameraMode mode);
 	/**
 	* @fn SetNextMode(CameraMode)
 	* 次の表示モード設定用関数

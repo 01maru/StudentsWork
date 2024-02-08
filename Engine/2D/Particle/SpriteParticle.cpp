@@ -9,6 +9,8 @@
 #include "CameraManager.h"
 #include "RootParameterIdx.h"
 
+using namespace MyMath;
+
 void MNE::SpriteParticle::Initialize()
 {
 	HRESULT result;
@@ -39,7 +41,7 @@ void MNE::SpriteParticle::Initialize()
 void MNE::SpriteParticle::MatUpdate()
 {
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
-	cTransformMap_->matBillboard = Matrix();
+	cTransformMap_->matBillboard = MyMath::Matrix();
 	if (isBillboardY_) {
 		cTransformMap_->matBillboard = camera->GetBillboardY();
 	}
@@ -82,7 +84,7 @@ const Vector3D& MNE::SpriteParticle::GetPosition()
 	return vertex_;
 }
 
-const Vector4D& MNE::SpriteParticle::GetColor()
+const MyMath::Vector4D& MNE::SpriteParticle::GetColor()
 {
 	return color_;
 }
@@ -111,7 +113,7 @@ void MNE::SpriteParticle::SetTextureHandle(int32_t handle)
 	texHandle_ = handle;
 }
 
-void MNE::SpriteParticle::SetPosition(const Vector3D& pos)
+void MNE::SpriteParticle::SetPosition(const MyMath::Vector3D& pos)
 {
 	if (vertex_ == pos) return;
 
@@ -119,12 +121,12 @@ void MNE::SpriteParticle::SetPosition(const Vector3D& pos)
 	TransferVertex();
 }
 
-void MNE::SpriteParticle::SetColor(const Vector4D& color)
+void MNE::SpriteParticle::SetColor(const MyMath::Vector4D& color)
 {
 	color_ = color;
 }
 
-void MNE::SpriteParticle::SetColor(const Vector3D& color)
+void MNE::SpriteParticle::SetColor(const MyMath::Vector3D& color)
 {
 	color_.SetVec3D(color);
 }

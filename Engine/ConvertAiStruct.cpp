@@ -3,7 +3,9 @@
 #include <cassert>
 #include "AnimationStruct.h"
 
-void MNE::Util::TransformMatToAiMat(Matrix& mat, const aiMatrix4x4& aiMat)
+using namespace MyMath;
+
+void MNE::Util::TransformMatToAiMat(MyMath::Matrix& mat, const aiMatrix4x4& aiMat)
 {
 	mat.m[0][0] = aiMat.a1;
 	mat.m[1][0] = aiMat.a2;
@@ -83,7 +85,7 @@ size_t MNE::Util::FindPosition(float AnimationTime, const KeyChannels* pNodeAnim
 	return 0;
 }
 
-void MNE::Util::CalcInterpolatedRotation(Quaternion& Out, float AnimationTime, const KeyChannels* pNodeAnim)
+void MNE::Util::CalcInterpolatedRotation(MyMath::Quaternion& Out, float AnimationTime, const KeyChannels* pNodeAnim)
 {
 	// 補間には最低でも２つの値が必要
 	if (pNodeAnim->rotationKeys.size() == 1) {
@@ -115,7 +117,7 @@ void MNE::Util::CalcInterpolatedRotation(Quaternion& Out, float AnimationTime, c
 	Out.w = ans.w;
 }
 
-void MNE::Util::CalcInterpolatedScaling(Vector3D& Out, float AnimationTime, const KeyChannels* pNodeAnim)
+void MNE::Util::CalcInterpolatedScaling(MyMath::Vector3D& Out, float AnimationTime, const KeyChannels* pNodeAnim)
 {
 	if (pNodeAnim->scalingKeys.size() == 1) {
 		Out = pNodeAnim->scalingKeys[0].value;

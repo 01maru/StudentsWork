@@ -17,7 +17,7 @@ private:
 	void DecSpdUpdate();
 	void AccSpdUpdate();
 private:
-	FrameCounter timer_;
+	MNE::FrameCounter timer_;
 	int32_t decTimer_;
 	bool acceleration_;
 

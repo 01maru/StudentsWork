@@ -56,9 +56,9 @@ namespace MNE
 	#pragma endregion
 
 		//	中心座標
-		Vector3D vertex_;
+		MyMath::Vector3D vertex_;
 		//	色
-		Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
+		MyMath::Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 		//	パーティクルのスケール
 		float scale_ = 1.0f;
 		//	ビルボード
@@ -75,13 +75,13 @@ namespace MNE
 		* vertex_のGetter関数
 		* @return vertex_の値
 		*/
-		const Vector3D& GetPosition();
+		const MyMath::Vector3D& GetPosition();
 		/**
 		* @fn GetColor()
 		* color_のGetter関数
 		* @return color_の値
 		*/
-		const Vector4D& GetColor();
+		const MyMath::Vector4D& GetColor();
 		/**
 		* @fn GetScale()
 		* scale_のGetter関数
@@ -111,14 +111,14 @@ namespace MNE
 		* 中心座標の値を変更し、GPUに転送する関数
 		* @param pos 中心座標の変更後の値
 		*/
-		void SetPosition(const Vector3D& pos);
+		void SetPosition(const MyMath::Vector3D& pos);
 		/**
 		* @fn SetColor(const Vector4D&)
 		* color_の値を変更するための関数
 		* @param color color_の変更後の値
 		*/
-		void SetColor(const Vector4D& color);
-		void SetColor(const Vector3D& color);
+		void SetColor(const MyMath::Vector4D& color);
+		void SetColor(const MyMath::Vector3D& color);
 		void SetAlphaColor(float alpha);
 		/**
 		* @fn SetScale(float)

@@ -6,6 +6,7 @@
 #include "EmitterLifeTime.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 void BulletAfterImgEmitter::SetScaleComponent()
 {
@@ -26,7 +27,7 @@ void BulletAfterImgEmitter::SetPosComponent()
 	emitter_->SetEmitterType(type);
 }
 
-void BulletAfterImgEmitter::SetResouceComponent()
+void BulletAfterImgEmitter::SetResourceComponent()
 {
 	ParticleResource* resource = emitter_->AddComponent<ParticleResource>();
 	resource->SetResourceName("particle2.png");
@@ -49,7 +50,7 @@ std::unique_ptr<ParticleEmitter>& BulletAfterImgEmitter::GetEmitter()
 	EmitterLifeTime* lifetime = emitter_->AddComponent<EmitterLifeTime>();
 	lifetime->SetLifeTime(lifeTime_);
 
-	SetResouceComponent();
+	SetResourceComponent();
 
 	return emitter_;
 }

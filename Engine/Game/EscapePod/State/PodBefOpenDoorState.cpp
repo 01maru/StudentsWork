@@ -6,6 +6,7 @@
 
 using namespace Easing;
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -37,7 +38,8 @@ void PodBefOpenDoorState::ShakeUpdate()
 
 	//	シェイク処理
 	float t = counter_.GetFrameCount() / static_cast<float>(shakeFrame_);
-	float shakeValue = EaseOut(maxShakeV_, 0.0f, t, Double);
+	const float noShakeV = 0.0f;
+	float shakeValue = EaseOut(maxShakeV_, noShakeV, t, Double);
 	camera->SetShake(-shakeValue, shakeValue);
 
 	//	ドアを開ける前のアニメーション処理

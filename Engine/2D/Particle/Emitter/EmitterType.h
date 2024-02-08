@@ -15,14 +15,14 @@ namespace MNE
 
 	protected:
 		MNE::ParticleEmitter* parent_;
-		Vector3D dir_;
-		Vector3D pos_;
+		MyMath::Vector3D dir_;
+		MyMath::Vector3D pos_;
 
 	public:
 		void SetParent(MNE::ParticleEmitter* parent);
-		void SetDir(const Vector3D& dir) { dir_ = dir; }
-		Vector3D GetDir() { return dir_; }
-		Vector3D GetPosition() { return pos_; }
+		void SetDir(const MyMath::Vector3D& dir) { dir_ = dir; }
+		MyMath::Vector3D GetDir() { return dir_; }
+		MyMath::Vector3D GetPosition() { return pos_; }
 	};
 
 }

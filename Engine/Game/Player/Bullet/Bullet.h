@@ -23,11 +23,11 @@ public:
 private:
 	const int32_t LIFE_TIME = 600;
 	//	移動方向ベクトル
-	Vector3D moveVec_;
+	MyMath::Vector3D moveVec_;
 	//	移動速度
 	float spd_;
 	//	生存時間管理用タイマー
-	FrameCounter lifeTime_;
+	MNE::FrameCounter lifeTime_;
 	//	半径
 	float radius_ = 0.4f;
 	//	ヒット時のダメージ
@@ -57,7 +57,7 @@ public:
 	* 移動方向ベクトル設定用関数
 	* @param moveVec 移動方向ベクトル
 	*/
-	void SetMoveVec(const Vector3D& moveVec);
+	void SetMoveVec(const MyMath::Vector3D& moveVec);
 	/**
 	* @fn SetSpd(float)
 	* 弾の速度設定用関数

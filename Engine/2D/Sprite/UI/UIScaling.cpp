@@ -5,6 +5,7 @@
 #include "Easing.h"
 
 using namespace Easing;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Update
@@ -31,12 +32,12 @@ void MNE::UIScaling::Update()
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
 
-Vector2D& MNE::UIScaling::GetStartSize()
+MyMath::Vector2D& MNE::UIScaling::GetStartSize()
 {
     return startSize_;
 }
 
-Vector2D& MNE::UIScaling::GetEndSize()
+MyMath::Vector2D& MNE::UIScaling::GetEndSize()
 {
     return endSize_;
 }
@@ -45,12 +46,12 @@ Vector2D& MNE::UIScaling::GetEndSize()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void MNE::UIScaling::SetStartSize(const Vector2D& size)
+void MNE::UIScaling::SetStartSize(const MyMath::Vector2D& size)
 {
     startSize_ = size;
 }
 
-void MNE::UIScaling::SetEndSize(const Vector2D& size)
+void MNE::UIScaling::SetEndSize(const MyMath::Vector2D& size)
 {
     endSize_ = size;
 }

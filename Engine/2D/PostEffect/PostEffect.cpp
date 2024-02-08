@@ -6,6 +6,8 @@
 
 #include "ConstBuffStruct.h"
 
+using namespace MyMath;
+
 void MNE::PostEffect::Initialize(int32_t width, int32_t height, const std::string& texName, int32_t textureNum, DXGI_FORMAT format)
 {
 	width_ = width;

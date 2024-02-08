@@ -37,7 +37,7 @@ float MyMath::mClamp(float minValue, float maxValue, float value)
 	return value;
 }
 
-Vector2D MyMath::mClamp(const Vector2D& minValue, const Vector2D& maxValue, const Vector2D& value)
+MyMath::Vector2D MyMath::mClamp(const MyMath::Vector2D& minValue, const MyMath::Vector2D& maxValue, const MyMath::Vector2D& value)
 {
 	Vector2D ans;
 	ans = mMax(value, minValue);
@@ -45,7 +45,7 @@ Vector2D MyMath::mClamp(const Vector2D& minValue, const Vector2D& maxValue, cons
 	return ans;
 }
 
-Vector3D MyMath::BezierCurve(const Vector3D& start, const Vector3D& controlPoint, const Vector3D& end, float t)
+MyMath::Vector3D MyMath::BezierCurve(const Vector3D& start, const Vector3D& controlPoint, const Vector3D& end, float t)
 {
 	Vector3D a = Easing::lerp(start, controlPoint, t);
 	Vector3D b = Easing::lerp(controlPoint, end, t);
@@ -72,7 +72,7 @@ void MyMath::CalcGaussianWeightsTable(std::vector<float>& weights, float sigma)
 	}
 }
 
-Matrix MyMath::LookAtLH(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
+MyMath::Matrix MyMath::LookAtLH(const Vector3D& eye, const Vector3D& target, const Vector3D& up)
 {
 	Vector3D baseX = up;
 	Vector3D baseY;
@@ -120,7 +120,7 @@ float MyMath::GetRand(float min, float max)
 	return distr(eng);
 }
 
-Vector2D MyMath::GetRand(const Vector2D& minV, const Vector2D& maxV)
+MyMath::Vector2D MyMath::GetRand(const MyMath::Vector2D& minV, const MyMath::Vector2D& maxV)
 {
 	Vector2D ans;
 	ans.x = GetRand(minV.x, maxV.x);
@@ -129,7 +129,7 @@ Vector2D MyMath::GetRand(const Vector2D& minV, const Vector2D& maxV)
 	return ans;
 }
 
-Vector3D MyMath::GetRand(const Vector3D& minV, const Vector3D& maxV)
+MyMath::Vector3D MyMath::GetRand(const Vector3D& minV, const Vector3D& maxV)
 {
 	Vector3D ans;
 	ans.x = GetRand(minV.x, maxV.x);
@@ -172,13 +172,13 @@ bool MyMath::CollisionCircleLay(const Vector3D& startL, const Vector3D& endL, co
 	return false;
 }
 
-bool MyMath::CollisionSquareToPoint(const Vector2D& leftTop, const Vector2D& rightBottom, const Vector2D& point)
+bool MyMath::CollisionSquareToPoint(const MyMath::Vector2D& leftTop, const MyMath::Vector2D& rightBottom, const MyMath::Vector2D& point)
 {
 	if (leftTop < point && rightBottom > point) return true;
 	return false;
 }
 
-Vector3D MyMath::CreatePolygonNormal(const Vector3D& a, const Vector3D& b, const Vector3D& c)
+MyMath::Vector3D MyMath::CreatePolygonNormal(const Vector3D& a, const Vector3D& b, const Vector3D& c)
 {
 	Vector3D AB(b - a);
 	Vector3D BC(c - b);
@@ -190,7 +190,7 @@ Vector3D MyMath::CreatePolygonNormal(const Vector3D& a, const Vector3D& b, const
 	return normal;
 }
 
-Matrix MyMath::PerspectiveFovLH(int32_t winwidth, int32_t winheight, float fovY, float nearZ, float farZ)
+MyMath::Matrix MyMath::PerspectiveFovLH(int32_t winwidth, int32_t winheight, float fovY, float nearZ, float farZ)
 {
 	assert(nearZ > 0.f && farZ > 0.f);
 	//assert(!XMScalarNearEqual(FovAngleY, 0.0f, 0.00001f * 2.0f));
@@ -214,7 +214,7 @@ Matrix MyMath::PerspectiveFovLH(int32_t winwidth, int32_t winheight, float fovY,
 	return matProjection;
 }
 
-Matrix MyMath::OrthoLH(int32_t winwidth, int32_t winheight, float nearZ, float farZ)
+MyMath::Matrix MyMath::OrthoLH(int32_t winwidth, int32_t winheight, float nearZ, float farZ)
 {
 	Matrix matProjection;
 	matProjection.Identity();

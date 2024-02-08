@@ -3,6 +3,8 @@
 #include "ImGuiManager.h"
 #include "MyMath.h"
 
+using namespace MyMath;
+
 void MNE::InputJoypad::SetDeadZone(int16_t& sThumb, int32_t deadzone)
 {
 	if ((sThumb < deadzone) && sThumb > -deadzone) {
@@ -268,9 +270,9 @@ bool MNE::InputJoypad::GetTriggerThumbRY()
 	return state_.Gamepad.sThumbRY != 0 && prevState_.Gamepad.sThumbRY == 0;
 }
 
-Vector2D MNE::InputJoypad::GetThumbL()
+MyMath::Vector2D MNE::InputJoypad::GetThumbL()
 {
-    return Vector2D(state_.Gamepad.sThumbLX, state_.Gamepad.sThumbLY);
+    return MyMath::Vector2D(state_.Gamepad.sThumbLX, state_.Gamepad.sThumbLY);
 }
 
 bool MNE::InputJoypad::GetTriggerThumbLX()

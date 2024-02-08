@@ -2,6 +2,8 @@
 #include "UIButton.h"
 #include "InputManager.h"
 
+using namespace MyMath;
+
 void MNE::UIButtonManager::Update(int16_t inputValue)
 {
 	int16_t inputV = inputValue;
@@ -37,12 +39,12 @@ const std::string& MNE::UIButtonManager::GetSelectObjName()
 	return selectButton_->GetButtonName();
 }
 
-Vector2D& MNE::UIButtonManager::GetSelectPos()
+MyMath::Vector2D& MNE::UIButtonManager::GetSelectPos()
 {
 	return selectButton_->GetPosition();
 }
 
-Vector2D& MNE::UIButtonManager::GetSelectSize()
+MyMath::Vector2D& MNE::UIButtonManager::GetSelectSize()
 {
 	return selectButton_->GetSize();
 }

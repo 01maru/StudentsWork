@@ -51,6 +51,7 @@ namespace MNE
 		void SetAutoPlay(bool autoPlay);
 		void SetIsLoop(bool isLoop);
 		void SetAnimeName(const std::string& name);
+		void ResetAnimeTimer();
 		void SetAnimeTimer(float timer);
 		void SetModel(IModel* model);
 

@@ -14,12 +14,9 @@
     <ClCompile Include="Engine\Game\Boss\AttackState\BossJumpAtState.cpp" />
     <ClCompile Include="Engine\Game\Boss\State\BossRoarState.cpp" />
     <ClCompile Include="Engine\Game\Boss\State\BossStartState.cpp" />
-    <ClCompile Include="Engine\Game\Player\UI\ActiveSkillEffect.cpp" />
     <ClCompile Include="Engine\Game\Bonfire.cpp" />
     <ClCompile Include="Engine\Game\Player\UI\CrossHair.cpp" />
-    <ClCompile Include="Engine\Game\Boss\BossBeamState.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp" />
-    <ClCompile Include="Engine\Game\Boss\BossMeleeState.cpp" />
     <ClCompile Include="Engine\Game\Boss\BossWayBullets.cpp" />
     <ClCompile Include="Engine\Game\Boss\EnemyBullet.cpp" />
     <ClCompile Include="Engine\Game\Particle\BulletAfterImgEmitter.cpp" />
@@ -190,12 +187,9 @@
     <ClInclude Include="Engine\Game\Boss\State\BossRoarState.h" />
     <ClInclude Include="Engine\Game\Boss\State\BossStartState.h" />
     <ClInclude Include="Engine\Game\Player\Bullet\BulletInfo.h" />
-    <ClInclude Include="Engine\Game\Player\UI\ActiveSkillEffect.h" />
     <ClInclude Include="Engine\Game\Bonfire.h" />
     <ClInclude Include="Engine\Game\Player\UI\CrossHair.h" />
-    <ClInclude Include="Engine\Game\Boss\BossBeamState.h" />
     <ClInclude Include="Engine\Game\Boss\BossBulletState.h" />
-    <ClInclude Include="Engine\Game\Boss\BossMeleeState.h" />
     <ClInclude Include="Engine\Game\Boss\BossWayBullets.h" />
     <ClInclude Include="Engine\Game\Boss\EnemyBullet.h" />
     <ClInclude Include="Engine\Game\Particle\BulletAfterImgEmitter.h" />

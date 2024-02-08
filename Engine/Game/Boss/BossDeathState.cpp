@@ -8,6 +8,7 @@
 
 using namespace MNE;
 using namespace Easing;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -16,9 +17,9 @@ using namespace Easing;
 void BossDeathState::Initialize()
 {
 	//	タイマー初期化
-	timer_.Initialize(animationTime_, true, true);
+	timer_.Initialize(animationTime_, TRUE, TRUE);
 	timer_.StartCount();
-	fogTimer_.Initialize(fogTime_, true);
+	fogTimer_.Initialize(fogTime_, TRUE);
 
 	//	エミッターの生成
 	DeadParticleEmitter emitter;

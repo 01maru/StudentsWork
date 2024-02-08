@@ -6,6 +6,7 @@
 
 using namespace Easing;
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -25,7 +26,8 @@ void PodOpenDoorState::Initialize()
 	//	移動量計算
 	move_ = startTarget_ - startEye_;
 	//	上下の移動はさせない
-	move_.y = 0.0f;
+	const float groundHeight = 0.0f;
+	move_.y = groundHeight;
 
 	//	ドアを開けるアニメーションに変更
 	sPod_->GetAnimation()->SetAnimeName("Open");

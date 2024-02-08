@@ -23,7 +23,7 @@ public:
 	* 初期化関数
 	* @param pos 表示する位置(演出終了後の位置)
 	*/
-	void Initialize(const Vector3D& pos);
+	void Initialize(const MyMath::Vector3D& pos);
 	/**
 	* @fn LoadResources()
 	* リソース読み込み処理関数
@@ -35,8 +35,8 @@ public:
 	*/
 	void Update();
 	/**
-	* @fn Update()
-	* 更新処理関数
+	* @fn DrawUI()
+	* UI描画処理関数
 	*/
 	void DrawUI();
 

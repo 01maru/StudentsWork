@@ -36,11 +36,11 @@ namespace MNE
 	
 	#pragma endregion
 
-		Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
+		MyMath::Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 		std::string name_;
 		int32_t width_ = 0;
 		int32_t height_ = 0;
-		Vector4D clearColor_ = { 0.1f,0.25f, 0.5f,0.0f };
+		MyMath::Vector4D clearColor_ = { 0.1f,0.25f, 0.5f,0.0f };
 
 		ComPtr<ID3D12DescriptorHeap> rtvHeap_;
 		//	ビューポートシザー矩形
@@ -83,13 +83,13 @@ namespace MNE
 		*/
 		void Draw();
 
-		void SetColor(const Vector4D& color);
+		void SetColor(const MyMath::Vector4D& color);
 
 	#pragma region Getter
 
 		int32_t GetWidth() const { return width_; }
 		int32_t GetHeight() const { return height_; }
-		const Vector4D& GetClearColor() { return clearColor_; }
+		const MyMath::Vector4D& GetClearColor() { return clearColor_; }
 		const std::string& GetName() { return name_; }
 
 		ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }

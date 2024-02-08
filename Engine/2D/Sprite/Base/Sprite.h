@@ -24,19 +24,19 @@ namespace MNE
 	class Sprite :public VertIdxBuff
 	{
 	protected:
-		static Matrix sMAT_2DTRANSFORM;
+		static MyMath::Matrix sMAT_2DTRANSFORM;
 
 		uint16_t tag_ = 0b0000000000000000;
 	
 		//	画像を張り付けるポリゴンの設定
 		MyMath::SpriteMatrix mat_;
-		Vector2D size_ = { 100.0f,100.0f };
-		Vector2D anchorPoint_;
+		MyMath::Vector2D size_ = { 100.0f,100.0f };
+		MyMath::Vector2D anchorPoint_;
 
 		//	表示する画像の設定
-		Vector2D textureLeftTop_;
-		Vector2D textureSize_ = { 100.0f,100.0f };
-		Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
+		MyMath::Vector2D textureLeftTop_;
+		MyMath::Vector2D textureSize_ = { 100.0f,100.0f };
+		MyMath::Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 		bool isFlipX_ = false;
 		bool isFlipY_ = false;
 
@@ -105,13 +105,13 @@ namespace MNE
 
 	#pragma region Getter
 
-		const Vector2D& GetPosition() const { return mat_.trans_; }
-		const Vector2D& GetSize() const { return size_; }
-		const Vector2D& GetAnchorPoint() const { return anchorPoint_; }
+		const MyMath::Vector2D& GetPosition() const { return mat_.trans_; }
+		const MyMath::Vector2D& GetSize() const { return size_; }
+		const MyMath::Vector2D& GetAnchorPoint() const { return anchorPoint_; }
 		float GetRotation() { return mat_.GetAngle(); }
-		const Vector4D& GetColor() const { return color_; }
-		const Vector2D& GetTextureSize() const { return textureSize_; }
-		const Vector2D& GetTextureLeftTop() const { return textureLeftTop_; }
+		const MyMath::Vector4D& GetColor() const { return color_; }
+		const MyMath::Vector2D& GetTextureSize() const { return textureSize_; }
+		const MyMath::Vector2D& GetTextureLeftTop() const { return textureLeftTop_; }
 
 		Texture* GetTexture() { return handle_; }
 
@@ -121,18 +121,18 @@ namespace MNE
 
 	#pragma region Setter
 
-		void SetPosition(const Vector2D& position);
+		void SetPosition(const MyMath::Vector2D& position);
 		void SetRotation(float rotation);
 	
 		void SetAlphaColor(float alpha);
-		void SetColor(const Vector4D& color);
-		void SetColor(const Vector3D& color);
+		void SetColor(const MyMath::Vector4D& color);
+		void SetColor(const MyMath::Vector3D& color);
 	
-		void SetSize(const Vector2D& size);
-		void SetAnchorPoint(const Vector2D& anchor);
+		void SetSize(const MyMath::Vector2D& size);
+		void SetAnchorPoint(const MyMath::Vector2D& anchor);
 
-		void SetTextureLeftTop(const Vector2D& leftTop);
-		void SetTextureSize(const Vector2D& size);
+		void SetTextureLeftTop(const MyMath::Vector2D& leftTop);
+		void SetTextureSize(const MyMath::Vector2D& size);
 		void SetTexture(Texture* handle);
 
 		void SetTags(const uint16_t tag) { tag_ = tag; }

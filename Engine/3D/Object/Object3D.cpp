@@ -16,6 +16,8 @@
 
 #include "RootParameterIdx.h"
 
+using namespace MyMath;
+
 MNE::Object3D::~Object3D()
 {
 	if (collider_) {
@@ -78,7 +80,7 @@ void MNE::Object3D::MatUpdate(bool calcRot)
 	else {
 		cam = CameraManager::GetInstance()->GetCamera();
 	}
-	const Matrix& matViewProjection = cam->GetViewProj();
+	const MyMath::Matrix& matViewProjection = cam->GetViewProj();
 	const Vector3D& cameraPos = cam->GetEye();
 
 	cTransformMap_->matViewProj = matViewProjection;

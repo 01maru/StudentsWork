@@ -31,13 +31,13 @@ public:
 
 private:
 	//	アニメーション用カウンター
-	FrameCounter counter_;
+	MNE::FrameCounter counter_;
 	//	このState終了までのフレーム数
 	int16_t moveMaxFrame_ = 100;
 	//	ポッドの位置
 	float startPosY_ = 100.0f;	//	開始
 	float endPosY_;				//	終了
-	Vector3D targetToPod_;		//	ポッド座標とターゲットのオフセット値
+	MyMath::Vector3D targetToPod_;		//	ポッド座標とターゲットのオフセット値
 	//	カメラのシェイクマックス値
 	float maxShakeV_ = 0.2f;
 	//	動かすカメラのポインター

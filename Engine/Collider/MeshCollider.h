@@ -15,7 +15,7 @@ class MeshCollider :public BaseCollider
 {
 private:
 	std::vector<Triangle> triangles_;
-	Matrix invMatWorld_;
+	MyMath::Matrix invMatWorld_;
 
 public:
 	MeshCollider() { shapeType_ = COLLISIONSHAPE_MESH; }
@@ -23,7 +23,7 @@ public:
 	void Update() override;
 
 	//	CheckCollision
-	bool CheckCollisionSphere(const Sphere& sphere, Vector3D* inter = nullptr, Vector3D* reject = nullptr);
-	bool CheckCollisionRay(const Ray& ray, float* dis = nullptr, Vector3D* inter = nullptr);
+	bool CheckCollisionSphere(const Sphere& sphere, MyMath::Vector3D* inter = nullptr, MyMath::Vector3D* reject = nullptr);
+	bool CheckCollisionRay(const Ray& ray, float* dis = nullptr, MyMath::Vector3D* inter = nullptr);
 };
 

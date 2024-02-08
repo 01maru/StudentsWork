@@ -1,12 +1,12 @@
 #include "FrameCounter.h"
 
-void FrameCounter::StartCount()
+void MNE::FrameCounter::StartCount()
 {
 	ResetCount();
 	isActive_ = true;
 }
 
-void FrameCounter::ResetCount()
+void MNE::FrameCounter::ResetCount()
 {
 	if(isIncrement_)	frameCount_ = 0;
 	else			frameCount_ = maxFrameCount_;
@@ -14,7 +14,7 @@ void FrameCounter::ResetCount()
 	count_ = 0;
 }
 
-void FrameCounter::Initialize(int32_t maxFrameCount, bool isIncrement, bool isLoop, int32_t maxCount)
+void MNE::FrameCounter::Initialize(int32_t maxFrameCount, bool isIncrement, bool isLoop, int32_t maxCount)
 {
 	if (isIncrement_) frameCount_ = 0;
 	else			  frameCount_ = maxFrameCount;
@@ -27,7 +27,7 @@ void FrameCounter::Initialize(int32_t maxFrameCount, bool isIncrement, bool isLo
 	isActive_ = false;
 }
 
-void FrameCounter::Update()
+void MNE::FrameCounter::Update()
 {
 	if (isActive_) {
 
@@ -75,7 +75,7 @@ void FrameCounter::Update()
 	}
 }
 
-float FrameCounter::GetCountPerMaxCount()
+float MNE::FrameCounter::GetCountPerMaxCount()
 {
 	if (maxFrameCount_ != 0) return (float)frameCount_ / maxFrameCount_;
 
@@ -83,19 +83,19 @@ float FrameCounter::GetCountPerMaxCount()
 	return 0.0f;
 }
 
-void FrameCounter::SetIsActive(bool isActive)
+void MNE::FrameCounter::SetIsActive(bool isActive)
 {
 	if (isActive_ != isActive && isActive) ResetCount();
 
 	isActive_ = isActive;
 }
 
-void FrameCounter::AddCount()
+void MNE::FrameCounter::AddCount()
 {
 	if (frameCount_ < maxFrameCount_) frameCount_++;
 }
 
-void FrameCounter::SubCount()
+void MNE::FrameCounter::SubCount()
 {
 	if (frameCount_ > 0) frameCount_--;
 }

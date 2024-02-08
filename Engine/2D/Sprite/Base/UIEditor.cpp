@@ -12,6 +12,8 @@
 #include "UIAnimationTimer.h"
 #include "UIMoveAnimation.h"
 
+using namespace MyMath;
+
 MNE::UIEditor* MNE::UIEditor::GetInstance()
 {
 	static UIEditor instance;

@@ -19,24 +19,24 @@ namespace MNE
 	{
 		std::string fileName;
 		//	オブジェクト情報
-		Vector3D translation;
-		Vector3D rotation;
-		Vector3D scaling;
+		MyMath::Vector3D translation;
+		MyMath::Vector3D rotation;
+		MyMath::Vector3D scaling;
 		//	親情報
 		ObjectData* parent = nullptr;
 	};
 
 	struct CameraData
 	{
-		Vector3D eye;
+		MyMath::Vector3D eye;
 		int32_t targetID;
-		Vector3D target;
+		MyMath::Vector3D target;
 	};
 
 	struct SpawnPoint
 	{
-		Vector3D pos;
-		Vector3D rotation;
+		MyMath::Vector3D pos;
+		MyMath::Vector3D rotation;
 	};
 
 	class JSONData

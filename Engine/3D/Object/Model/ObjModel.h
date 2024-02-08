@@ -17,7 +17,7 @@ namespace MNE
 		ObjModel(const char* filename, bool smoothing = false);
 		~ObjModel() override;
 		void ImGuiUpdate() override {};
-		void BoneTransform(float /*timer*/, std::vector<Matrix>& /*transforms*/, const std::string& /*animeName*/, bool /*isLoop*/) override {};
+		void BoneTransform(float /*timer*/, std::vector<MyMath::Matrix>& /*transforms*/, const std::string& /*animeName*/, bool /*isLoop*/) override {};
 	};
 
 }

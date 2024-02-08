@@ -30,6 +30,8 @@ public:
 
 private:
 	int32_t idleTime_ = 180;
-	FrameCounter timer_;
+	MNE::FrameCounter timer_;
+
+	float spd_ = 0.1f;
 };
 

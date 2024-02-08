@@ -11,13 +11,13 @@ namespace MNE
 	struct Key
 	{
 		float time;
-		Vector3D value;
+		MyMath::Vector3D value;
 	};
 
 	struct RotKey
 	{
 		float time;
-		Quaternion value;
+		MyMath::Quaternion value;
 	};
 
 	struct KeyChannels
@@ -42,7 +42,7 @@ namespace MNE
 
 	struct Node
 	{
-		Matrix transformation;
+		MyMath::Matrix transformation;
 		std::vector<std::string> childrenName;
 	};
 

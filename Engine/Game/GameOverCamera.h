@@ -17,7 +17,7 @@ public:
 	* @param center 注視点座標
 	* @param dis 注視点と視点座標の距離
 	*/
-	void Initialize(const Vector3D& eye, const Vector3D& target, const Vector3D& up) override;
+	void Initialize(const MyMath::Vector3D& eye, const MyMath::Vector3D& target, const MyMath::Vector3D& up) override;
 	/**
 	* @fn Update()
 	* 更新処理関数
@@ -33,20 +33,20 @@ private:
 
 private:
 	//	動いている時間管理カウンター
-	FrameCounter counter_;
+	MNE::FrameCounter counter_;
 	//	カウンターの変更時間
 	int32_t moveTime_ = 50;
 	int32_t easePaw_;
 
 	//	開始位置
-	Vector3D eyeStart_;
+	MyMath::Vector3D eyeStart_;
 	//	終了位置
-	Vector3D eyeEnd_;
+	MyMath::Vector3D eyeEnd_;
 	float eEyeYRate_ = 0.125f;
 	float eEyeLenRate_ = 0.25f;
 
 	//	制御点
-	Vector3D controlPoint_;
+	MyMath::Vector3D controlPoint_;
 	float cPointYRate_ = 0.66f;
 	float cPointLenRate_ = 1.33f;
 
@@ -74,7 +74,7 @@ public:
 	* カメラとプレイヤーの位置から制御点と終了位置を設定するための関数
 	* @param pos プレイヤーの位置(足元の座標)
 	*/
-	void SetPosData(const Vector3D& pos);
+	void SetPosData(const MyMath::Vector3D& pos);
 
 #pragma endregion
 };

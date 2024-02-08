@@ -28,7 +28,7 @@ public:
 
 protected:
 	//	クールタイムのタイマー
-	FrameCounter coolTimer_;
+	MNE::FrameCounter coolTimer_;
 
 #pragma region Sprite
 

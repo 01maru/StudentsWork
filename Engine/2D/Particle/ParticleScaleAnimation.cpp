@@ -28,16 +28,16 @@ void MNE::ObjectParticleScaleAnimation::Update()
 {
 	MNE::ObjectParticle* obj = parent_->GetComponent<MNE::ObjectParticle>();
 
-	Vector3D scale = lerp(start_, end_, parent_->GetTimerPerTime());
+	MyMath::Vector3D scale = lerp(start_, end_, parent_->GetTimerPerTime());
 	obj->SetScale(scale);
 }
 
-void MNE::ObjectParticleScaleAnimation::SetStartScale(const Vector3D& scale)
+void MNE::ObjectParticleScaleAnimation::SetStartScale(const MyMath::Vector3D& scale)
 {
 	start_ = scale;
 }
 
-void MNE::ObjectParticleScaleAnimation::SetEndScale(const Vector3D& scale)
+void MNE::ObjectParticleScaleAnimation::SetEndScale(const MyMath::Vector3D& scale)
 {
 	end_ = scale;
 }

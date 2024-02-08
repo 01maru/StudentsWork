@@ -10,12 +10,12 @@ namespace MNE
 		virtual void CalcValue() {};
 
 	protected:
-		Vector3D value_;
+		MyMath::Vector3D value_;
 
 	public:
-		Vector3D& GetValue();
+		MyMath::Vector3D& GetValue();
 
-		void SetValue(const Vector3D& v);
+		void SetValue(const MyMath::Vector3D& v);
 	};
 
 	class ParticleRandValue :public ParticleValue
@@ -24,8 +24,8 @@ namespace MNE
 		void CalcValue() override;
 
 	private:
-		Vector3D minValue_;
-		Vector3D maxValue_;
+		MyMath::Vector3D minValue_;
+		MyMath::Vector3D maxValue_;
 
 	public:
 	#pragma region Getter
@@ -34,8 +34,8 @@ namespace MNE
 
 	#pragma region Setter
 
-		void SetMinValue(const Vector3D& v);
-		void SetMaxValue(const Vector3D& v);
+		void SetMinValue(const MyMath::Vector3D& v);
+		void SetMaxValue(const MyMath::Vector3D& v);
 
 	#pragma endregion
 	};

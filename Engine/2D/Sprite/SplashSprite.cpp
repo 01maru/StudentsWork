@@ -5,6 +5,7 @@
 #include "Easing.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 void SplashSprite::Initialize(Texture* texture)
 {

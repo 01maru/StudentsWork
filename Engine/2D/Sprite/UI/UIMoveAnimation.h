@@ -37,9 +37,9 @@ namespace MNE
 		//	全体のtimer
 		UIAnimationTimer* timer_ = nullptr;
 		//	初期位置
-		Vector2D startPos;
+		MyMath::Vector2D startPos;
 		//	終了位置
-		Vector2D endPos;
+		MyMath::Vector2D endPos;
 
 	public:
 	#pragma region Getter
@@ -49,13 +49,13 @@ namespace MNE
 		* 初期位置のGetter関数
 		* @return 初期位置
 		*/
-		Vector2D& GetStartPos();
+		MyMath::Vector2D& GetStartPos();
 		/**
 		* @fn GetStartPos()
 		* 終了位置のGetter関数
 		* @return 終了位置
 		*/
-		Vector2D& GetEndPos();
+		MyMath::Vector2D& GetEndPos();
 
 	#pragma endregion
 
@@ -66,13 +66,13 @@ namespace MNE
 		* 初期位置を変更するための関数
 		* @param pos 初期位置の変更値
 		*/
-		void SetStartPos(const Vector2D& pos);
+		void SetStartPos(const MyMath::Vector2D& pos);
 		/**
 		* @fn SetEndPos(const Vector2D&)
 		* 終了位置を変更するための関数
 		* @param pos 終了位置の変更値
 		*/
-		void SetEndPos(const Vector2D& pos);
+		void SetEndPos(const MyMath::Vector2D& pos);
 
 		void Reset() override;
 

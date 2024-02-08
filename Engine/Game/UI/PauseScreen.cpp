@@ -15,18 +15,18 @@ using namespace MNE;
 void PauseScreen::Initialize()
 {
 	//	初期値は非アクティブ状態
-	isActive_ = false;
+	isActive_ = FALSE;
 	
 	//	リソース読み込み
 	LoadResources();
 
 	//	配置データ
-	pauseData_.ResetAnimation(true);
+	pauseData_.ResetAnimation(TRUE);
 
 	//	カーソルの初期化
 	cursor_.Initialize();
 	//	初期位置設定(音再生しない)
-	cursor_.SetCursorPosition(pauseData_.GetSelectPosition(), false);
+	cursor_.SetCursorPosition(pauseData_.GetSelectPosition(), FALSE);
 
 	//	オプションの初期化
 	option_.Initialize();
@@ -54,7 +54,7 @@ void PauseScreen::LoadResources()
 void PauseScreen::MouseCursorInit()
 {
 	//	ポーズ画面になったら
-	bool lockCursor = isActive_ == false;
+	bool lockCursor = isActive_ == FALSE;
 
 	//	カーソル表示
 	InputManager::GetInstance()->GetMouse()->SetLockCursor(lockCursor);
@@ -68,7 +68,7 @@ void PauseScreen::InputValueUpdate()
 
 	if (pad->GetTriggerThumbLY() == TRUE)
 	{
-		inputValue_ = static_cast<int16_t>(MyMath::mClamp(-1.0f, 1.0f, -pad->GetThumbL().y));
+		inputValue_ = static_cast<int16_t>(MyMath::mClamp(-inputSpd_, inputSpd_, -pad->GetThumbL().y));
 	}
 }
 
@@ -99,7 +99,7 @@ bool PauseScreen::IsActiveUpdate()
 		//	選択中のボタンを初期化する
 		pauseData_.SetSelectButton("Resume");
 
-		InputManager::GetInstance()->SetNextTag("cantBack", true, isActive_);
+		InputManager::GetInstance()->SetNextTag("cantBack", TRUE, isActive_);
 		InputManager::GetInstance()->SetDrawExplane(isActive_);
 
 		return TRUE;
@@ -116,7 +116,7 @@ void PauseScreen::PauseInputUpdate(bool dikSelectButton)
 	pauseData_.CollisonCursorUpdate();
 
 	//	選択ボタン入力中だったら
-	if ((dikSelectButton || pauseData_.GetSelect()) == TRUE) {
+	if ((dikSelectButton || pauseData_.GetSelectMouse()) == TRUE) {
 		//	決定音再生
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
 
@@ -124,34 +124,34 @@ void PauseScreen::PauseInputUpdate(bool dikSelectButton)
 
 		//	ゲームに戻る
 		if (buttonName == "Resume") {
-			isActive_ = false;
+			isActive_ = FALSE;
 
 			//	マウスカーソルロック
 			MouseCursorInit();
 
 			//	ポーズ画面消す
-			pauseData_.ResetAnimation(false);
+			pauseData_.ResetAnimation(FALSE);
 
-			InputManager::GetInstance()->SetNextTag("cantBack", true, isActive_);
+			InputManager::GetInstance()->SetNextTag("cantBack", TRUE, isActive_);
 			InputManager::GetInstance()->SetDrawExplane(isActive_);
 		}
 
 		//	オプション画面を開く
 		else if (buttonName == "Option") {
 			//	オプション画面へ
-			option_.SetIsActive(true);
+			option_.SetIsActive(TRUE);
 			//	選択中のボタンを初期化する
 			option_.ResetSelectButton();
 			//	変更前のカーソルの位置保存
 			option_.SetCursorBackPos(pauseData_.GetSelectPosition());
 			//	カーソルの位置変更(音再生しない)
-			cursor_.SetCursorPosition(option_.GetSelectPosition(), false);
+			cursor_.SetCursorPosition(option_.GetSelectPosition(), FALSE);
 			//	オプション出現
-			option_.ResetAnimation(true);
+			option_.ResetAnimation(TRUE);
 			//	ポーズ画面消す
-			pauseData_.ResetAnimation(false);
+			pauseData_.ResetAnimation(FALSE);
 
-			InputManager::GetInstance()->SetNextTag("canBack", true, false);
+			InputManager::GetInstance()->SetNextTag("canBack", TRUE, FALSE);
 		}
 
 		//	タイトルに戻る
@@ -191,12 +191,12 @@ void PauseScreen::OptionUpdate(bool dikSelectButton)
 	if (option_.InputUpdate(dikSelectButton, inputValue_) == TRUE)
 	{
 		//	ポーズ出現
-		pauseData_.ResetAnimation(true);
+		pauseData_.ResetAnimation(TRUE);
 
 		//	ポーズアニメーション中じゃないときにカーソル表示
 		cursor_.SetIsActive(pauseData_.GetIsEndAnimation());
 
-		InputManager::GetInstance()->SetNextTag("cantBack", true, false);
+		InputManager::GetInstance()->SetNextTag("cantBack", TRUE, FALSE);
 	}
 
 	//	オプションデータの更新処理
@@ -205,7 +205,7 @@ void PauseScreen::OptionUpdate(bool dikSelectButton)
 
 bool PauseScreen::Update()
 {
-	bool isActiveTrigger = false;
+	bool isActiveTrigger = FALSE;
 	//	ポーズのアクティブ切り替え
 	isActiveTrigger = IsActiveUpdate();
 
@@ -257,7 +257,11 @@ void PauseScreen::Draw()
 	option_.Draw();
 
 	//	カーソル描画
-	cursor_.Draw();
+	if ((pauseData_.GetSelecting() && option_.GetIsActive() == FALSE) ||
+		(option_.GetIsActive() && option_.GetSelecting()))
+	{
+		cursor_.Draw();
+	}
 }
 
 //-----------------------------------------------------------------------------

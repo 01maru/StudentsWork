@@ -3,6 +3,7 @@
 #include "PostEffect.h"
 #include <cassert>
 
+using namespace MyMath;
 
 // 対応レベルの配列
 D3D_FEATURE_LEVEL levels[] = {
@@ -226,13 +227,13 @@ void MNE::MyDirectX::SetResourceBarrier(D3D12_RESOURCE_STATES StateBefore, D3D12
 	cmdList_->ResourceBarrier(1, &barrierDesc_);
 }
 
-void MNE::MyDirectX::ScreenClear(const Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle)
+void MNE::MyDirectX::ScreenClear(const MyMath::Vector4D& clearColor, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle)
 {
 	FLOAT color[] = { clearColor.x,clearColor.y, clearColor.z,clearColor.w };
 	cmdList_->ClearRenderTargetView(rtvHandle, color, 0, nullptr);
 }
 
-void MNE::MyDirectX::CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum, const Vector4D& clearColor)
+void MNE::MyDirectX::CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_STATES StateBefore, D3D12_RESOURCE_STATES StateAfter, D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum, const MyMath::Vector4D& clearColor)
 {
 	// 1.リソースバリアで書き込み可能に変更
 #pragma region ReleaseBarrier
@@ -250,7 +251,7 @@ void MNE::MyDirectX::CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_S
 #pragma endregion
 }
 
-void MNE::MyDirectX::PrevPostEffect(MNE::PostEffect* postEffect, const Vector4D& clearColor)
+void MNE::MyDirectX::PrevPostEffect(MNE::PostEffect* postEffect, const MyMath::Vector4D& clearColor)
 {
 	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = postEffect->GetRTVHeap()->GetCPUDescriptorHandleForHeapStart();
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle_ = postEffect->GetDSVHeap()->GetCPUDescriptorHandleForHeapStart();
@@ -295,7 +296,7 @@ void MNE::MyDirectX::PostEffectDraw(MNE::PostEffect* postEffect)
 	}
 }
 
-void MNE::MyDirectX::PrevDraw(const Vector4D& clearColor)
+void MNE::MyDirectX::PrevDraw(const MyMath::Vector4D& clearColor)
 {
 	// 1.リソースバリアで書き込み可能に変更
 #pragma region ReleaseBarrier

@@ -8,7 +8,7 @@
 
 void BossStartState::Initialize()
 {
-	timer_.Initialize(roarTime_, true);
+	timer_.Initialize(roarTime_, TRUE);
 	timer_.StartCount();
 	sBoss_->GetAnimation()->SetAnimeName("StartRoar");
 }

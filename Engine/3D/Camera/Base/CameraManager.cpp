@@ -5,6 +5,8 @@
 #include "MyDebugCamera.h"
 #include "ModelManager.h"
 
+using namespace MyMath;
+
 MNE::CameraManager* MNE::CameraManager::GetInstance()
 {
     static CameraManager instance;

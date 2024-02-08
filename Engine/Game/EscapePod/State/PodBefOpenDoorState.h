@@ -31,14 +31,14 @@ public:
 
 private:
 	//	アニメーション用カウンター
-	FrameCounter counter_;
+	MNE::FrameCounter counter_;
 	int16_t cameraMoveFrame_ = 90;
 	//	開始視点
-	Vector3D startEye_;
+	MyMath::Vector3D startEye_;
 	//	終了視点
-	Vector3D endEye_ = Vector3D(0.0f, 1.0f, -64.0f);
+	MyMath::Vector3D endEye_ = MyMath::Vector3D(0.0f, 1.0f, -64.0f);
 	//	開始ターゲット位置
-	Vector3D startTarget_;
+	MyMath::Vector3D startTarget_;
 	//	終了時ターゲットの高さ
 	float endTargetY_ = 1.7f;
 	//	動かすカメラのポインター

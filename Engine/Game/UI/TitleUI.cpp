@@ -6,6 +6,7 @@
 #include "TitleCamera.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -57,7 +58,7 @@ void TitleUI::Initialize()
 void TitleUI::Finalize()
 {
 	//	操作説明用スプライト非表示
-	InputManager::GetInstance()->SetDrawExplane(false);
+	InputManager::GetInstance()->SetDrawExplane(FALSE);
 }
 
 //-----------------------------------------------------------------------------
@@ -68,11 +69,12 @@ void TitleUI::InputValueUpdate()
 {
 	InputJoypad* pad = InputManager::GetInstance()->GetPad();
 
+	//	リセット
 	inputValue_ = 0;
 
 	if (pad->GetTriggerThumbLY() == TRUE)
 	{
-		inputValue_ = static_cast<int16_t>(MyMath::mClamp(-1.0f, 1.0f, -pad->GetThumbL().y));
+		inputValue_ = static_cast<int16_t>(MyMath::mClamp(-inputSpd_, inputSpd_, -pad->GetThumbL().y));
 	}
 }
 
@@ -87,7 +89,7 @@ void TitleUI::TitleInputUpdate(bool dikSelectButton)
 	titleData_.CollisonCursorUpdate();
 
 	//	ボタンを選択したら
-	if ((dikSelectButton || titleData_.GetSelect()) == TRUE)
+	if ((dikSelectButton || titleData_.GetSelectMouse()) == TRUE)
 	{
 		//	決定音再生
 		XAudioManager::GetInstance()->PlaySoundWave("decision.wav", XAudioManager::SE);
@@ -98,7 +100,7 @@ void TitleUI::TitleInputUpdate(bool dikSelectButton)
 		if (selectButtonName == "Start")
 		{
 			//	タイトル消える
-			titleData_.ResetAnimation(false);
+			titleData_.ResetAnimation(FALSE);
 			//	カメラ動かす
 			pCamera_->SetNextMode(TitleCamera::SceneChange);
 
@@ -109,23 +111,23 @@ void TitleUI::TitleInputUpdate(bool dikSelectButton)
 		//	Option選択中だったら
 		else if (selectButtonName == "Settings") {
 			//	オプション画面へ
-			option_.SetIsActive(true);
+			option_.SetIsActive(TRUE);
 			//	選択中のボタンを初期化する
 			option_.ResetSelectButton();
 			//	変更前のカーソルの位置保存
 			option_.SetCursorBackPos(titleData_.GetSelectPosition());
 			//	カーソルの位置変更(音再生しない)
-			cursor_.SetCursorPosition(option_.GetSelectPosition(), false);
+			cursor_.SetCursorPosition(option_.GetSelectPosition(), FALSE);
 
 			//	タイトル消える
-			titleData_.ResetAnimation(false);
+			titleData_.ResetAnimation(FALSE);
 			//	オプション出現
-			option_.ResetAnimation(true);
+			option_.ResetAnimation(TRUE);
 
 			//	カメラ動かす
 			pCamera_->SetNextMode(TitleCamera::Option);
 
-			InputManager::GetInstance()->SetNextTag("canBack", true, false);
+			InputManager::GetInstance()->SetNextTag("canBack", TRUE, FALSE);
 		}
 
 		//	Quit選択中だったら
@@ -170,7 +172,7 @@ void TitleUI::OptionUpdate(bool dikSelectButton)
 	if (option_.InputUpdate(dikSelectButton, inputValue_) == TRUE)
 	{
 		//	タイトル出現
-		titleData_.ResetAnimation(true);
+		titleData_.ResetAnimation(TRUE);
 
 		//	タイトルアニメーション中じゃないときにカーソル表示
 		cursor_.SetIsActive(titleData_.GetIsEndAnimation());
@@ -178,7 +180,7 @@ void TitleUI::OptionUpdate(bool dikSelectButton)
 		//	カメラ戻す
 		pCamera_->SetNextMode(TitleCamera::Menu);
 
-		InputManager::GetInstance()->SetNextTag("cantBack", true, false);
+		InputManager::GetInstance()->SetNextTag("cantBack", TRUE, FALSE);
 	}
 
 	//	オプションデータの更新処理
@@ -210,7 +212,7 @@ void TitleUI::ImGuiUpdate()
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
 
 	//	選択中のモード
-	imgui->Text("mord : %s", titleData_.GetSelectName().c_str());
+	imgui->Text("mode : %s", titleData_.GetSelectName().c_str());
 
 	//	オプションImGui
 	option_.ImGuiUpdate();
@@ -229,7 +231,11 @@ void TitleUI::Draw()
 	option_.Draw();
 	
 	//	カーソル描画
-	cursor_.Draw();
+	if ((titleData_.GetSelecting() && option_.GetIsActive() == FALSE) ||
+		(option_.GetIsActive() && option_.GetSelecting()))
+	{
+		cursor_.Draw();
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -238,7 +244,7 @@ void TitleUI::Draw()
 
 void TitleUI::Start()
 {
-	titleData_.ResetAnimation(true);
+	titleData_.ResetAnimation(TRUE);
 }
 
 void TitleUI::SetTitleCamera(TitleCamera* pCamera)

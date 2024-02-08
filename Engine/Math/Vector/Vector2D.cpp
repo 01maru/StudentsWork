@@ -1,31 +1,31 @@
 #include "Vector2D.h"
 #include <cmath>
 
-Vector2D Vector2D::operator+() const
+MyMath::Vector2D MyMath::Vector2D::operator+() const
 {
 	return *this;
 }
 
-Vector2D& Vector2D::operator+=(const Vector2D& v)
+MyMath::Vector2D& MyMath::Vector2D::operator+=(const MyMath::Vector2D& v)
 {
 	x += v.x;
 	y += v.y;
 	return *this;
 }
 
-Vector2D& Vector2D::operator-=(const Vector2D& v)
+MyMath::Vector2D& MyMath::Vector2D::operator-=(const MyMath::Vector2D& v)
 {
 	x -= v.x;
 	y -= v.y;
 	return *this;
 }
 
-float Vector2D::GetLength() const
+float MyMath::Vector2D::GetLength() const
 {
 	return sqrt(x * x + y * y);
 }
 
-void Vector2D::Normalize()
+void MyMath::Vector2D::Normalize()
 {
 	float len = GetLength();
 
@@ -33,7 +33,7 @@ void Vector2D::Normalize()
 	if (len != 0)	*this /= len;
 }
 
-Vector2D& Vector2D::GetNormalize()
+MyMath::Vector2D& MyMath::Vector2D::GetNormalize()
 {
 	float len = GetLength();
 
@@ -43,82 +43,82 @@ Vector2D& Vector2D::GetNormalize()
 	return *this;
 }
 
-Vector2D& Vector2D::operator/=(float s)
+MyMath::Vector2D& MyMath::Vector2D::operator/=(float s)
 {
 	x /= s;
 	y /= s;
 	return *this;
 }
 
-Vector2D& Vector2D::operator*=(float s)
+MyMath::Vector2D& MyMath::Vector2D::operator*=(float s)
 {
 	x *= s;
 	y *= s;
 	return *this;
 }
 
-bool Vector2D::operator<(const Vector2D& v)
+bool MyMath::Vector2D::operator<(const MyMath::Vector2D& v)
 {
 	return x < v.x && y < v.y;
 }
 
-bool Vector2D::operator>(const Vector2D& v)
+bool MyMath::Vector2D::operator>(const MyMath::Vector2D& v)
 {
 	return x > v.x && y > v.y;
 }
 
-bool Vector2D::operator!=(const Vector2D& vec)
+bool MyMath::Vector2D::operator!=(const MyMath::Vector2D& vec)
 {
 	return (this->x != vec.x) || (this->y != vec.y);
 }
 
-bool Vector2D::operator==(const Vector2D& vec)
+bool MyMath::Vector2D::operator==(const MyMath::Vector2D& vec)
 {
 	return (this->x == vec.x) && (this->y == vec.y);
 }
 
-Vector2D operator-(const Vector2D& v1, const Vector2D& v2)
+MyMath::Vector2D MyMath::operator-(const MyMath::Vector2D& v1, const MyMath::Vector2D& v2)
 {
-	Vector2D temp(v1);
+	MyMath::Vector2D temp(v1);
 	return temp -= v2;
 }
 
-Vector2D operator+(const Vector2D& v1, const Vector2D& v2)
+MyMath::Vector2D MyMath::operator+(const MyMath::Vector2D& v1, const MyMath::Vector2D& v2)
 {
-	Vector2D temp(v1);
+	MyMath::Vector2D temp(v1);
 	return temp += v2;
 }
 
-Vector2D operator*(const Vector2D& v, float s)
+MyMath::Vector2D MyMath::operator*(const MyMath::Vector2D& v, float s)
 {
-	Vector2D temp(v);
+	MyMath::Vector2D temp(v);
 	return temp *= s;
 }
 
-Vector2D operator*(float s, const Vector2D& v)
+MyMath::Vector2D MyMath::operator*(float s, const MyMath::Vector2D& v)
 {
 	return v * s;
 }
 
-Vector2D operator/(const Vector2D& v, float s)
+MyMath::Vector2D MyMath::operator/(const MyMath::Vector2D& v, float s)
 {
-	Vector2D temp(v);
+	MyMath::Vector2D temp(v);
 	return temp /= s;
 }
 
-Vector2D operator/(float s, const Vector2D& v)
+MyMath::Vector2D MyMath::operator/(float s, const MyMath::Vector2D& v)
 {
 	return v / s;
 }
 
-bool operator<(const Vector2D& v1, const Vector2D& v2)
+bool MyMath::operator<(const MyMath::Vector2D& v1, const MyMath::Vector2D& v2)
 {
-	Vector2D temp(v1);
+	MyMath::Vector2D temp(v1);
 	return temp < v2;
 }
 
-bool operator>(const Vector2D& v1, const Vector2D& v2)
+bool MyMath::operator>(const MyMath::Vector2D& v1, const MyMath::Vector2D& v2)
 {
-	Vector2D temp(v1);
+	MyMath::Vector2D temp(v1);
 	return temp > v2;
 }

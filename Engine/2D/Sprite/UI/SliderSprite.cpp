@@ -4,6 +4,8 @@
 #include "UIObject.h"
 #include "InputManager.h"
 
+using namespace MyMath;
+
 void MNE::SliderSprite::Initialize()
 {
 	sprites_ = parent_->GetComponent<UISprite>();
@@ -16,7 +18,7 @@ void MNE::SliderSprite::Initialize()
 
 void MNE::SliderSprite::Update()
 {
-	Vector2D circlePos = startPos_;
+	MyMath::Vector2D circlePos = startPos_;
 
 	circlePos.x += value_ * railLen_;
 
@@ -25,10 +27,10 @@ void MNE::SliderSprite::Update()
 
 void MNE::SliderSprite::ColliderUpdate()
 {
-	Vector2D halfSize = size_ / 2.0f;
-	Vector2D posLT = sprites_->GetSprites()["Circle"].GetPosition() - halfSize;
-	Vector2D posRB = sprites_->GetSprites()["Circle"].GetPosition() + halfSize;
-	Vector2D cursorPos = InputManager::GetInstance()->GetMouse()->GetCursor();
+	MyMath::Vector2D halfSize = size_ / 2.0f;
+	MyMath::Vector2D posLT = sprites_->GetSprites()["Circle"].GetPosition() - halfSize;
+	MyMath::Vector2D posRB = sprites_->GetSprites()["Circle"].GetPosition() + halfSize;
+	MyMath::Vector2D cursorPos = InputManager::GetInstance()->GetMouse()->GetCursor();
 	if (MyMath::CollisionSquareToPoint(posLT, posRB, cursorPos) == TRUE)
 	{
 		if (select_ == FALSE)
@@ -50,8 +52,8 @@ void MNE::SliderSprite::ColliderUpdate()
 		{
 			if (InputManager::GetInstance()->GetMouse()->GetClick(InputMouse::LeftClick))
 			{
-				Vector2D railLeft = sprites_->GetSprites()["Rail"].GetPosition();
-				Vector2D railRight = sprites_->GetSprites()["Rail"].GetPosition();
+				MyMath::Vector2D railLeft = sprites_->GetSprites()["Rail"].GetPosition();
+				MyMath::Vector2D railRight = sprites_->GetSprites()["Rail"].GetPosition();
 				railRight.x += railLen_;
 				
 				cursorPos.x = MyMath::mClamp(railLeft.x, railRight.x, cursorPos.x);
@@ -102,7 +104,7 @@ void MNE::SliderSprite::SetRailLength(float len)
 	railLen_ = len;
 }
 
-void MNE::SliderSprite::SetRailStartPos(const Vector2D& pos)
+void MNE::SliderSprite::SetRailStartPos(const MyMath::Vector2D& pos)
 {
 	sprites_->GetSprites()["Circle"].SetPosition(pos);
 	sprites_->GetSprites()["Rail"].SetPosition(pos);
@@ -115,7 +117,7 @@ void MNE::SliderSprite::SetRailTexture(const std::string& texName, int16_t tag)
 
 	Sprite railSprite;
 	railSprite.Initialize(railTex_);
-	railSprite.SetAnchorPoint(Vector2D{ 0.0f,0.5f });
+	railSprite.SetAnchorPoint(MyMath::Vector2D{ 0.0f,0.5f });
 	railSprite.SetTags(tag);
 	sprites_->AddSprite("Rail", railSprite);
 }
@@ -125,7 +127,7 @@ void MNE::SliderSprite::SetCircleTexture(const std::string& texName, int16_t tag
 	circleTex_ = TextureManager::GetInstance()->LoadTextureGraph(texName);
 	Sprite circleSprite;
 	circleSprite.Initialize(circleTex_);
-	circleSprite.SetAnchorPoint(Vector2D{ 0.5f,0.5f });
+	circleSprite.SetAnchorPoint(MyMath::Vector2D{ 0.5f,0.5f });
 	circleSprite.SetSize(size_);
 	circleSprite.SetTags(tag);
 	sprites_->AddSprite("Circle", circleSprite);

@@ -42,8 +42,8 @@ namespace MNE
 		void Update() override;
 
 	private:
-		Vector3D start_;
-		Vector3D end_;
+		MyMath::Vector3D start_;
+		MyMath::Vector3D end_;
 
 	public:
 	#pragma region Getter
@@ -52,8 +52,8 @@ namespace MNE
 
 	#pragma region Setter
 
-		void SetStartScale(const Vector3D& scale);
-		void SetEndScale(const Vector3D& scale);
+		void SetStartScale(const MyMath::Vector3D& scale);
+		void SetEndScale(const MyMath::Vector3D& scale);
 
 	#pragma endregion
 	};

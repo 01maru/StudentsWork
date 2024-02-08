@@ -7,6 +7,7 @@
 
 using namespace Easing;
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -45,7 +46,8 @@ void PodBefCollGroundState::Update()
 	//	カメラのターゲット更新
 	camera->SetTarget(pos + targetToPod_);
 	//	シェイク
-	float shakeValue = EaseIn(0.0f, maxShakeV_, counter_.GetCountPerMaxCount(), Double);
+	const float noShakeV = 0.0f;
+	float shakeValue = EaseIn(noShakeV, maxShakeV_, counter_.GetCountPerMaxCount(), Double);
 	camera->SetShake(-shakeValue, shakeValue);
 
 	//	カウントが終わったら次のステートへ

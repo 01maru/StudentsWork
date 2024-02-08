@@ -4,6 +4,7 @@
 #include "PlayerNoAttackState.h"
 
 using namespace MNE;
+using namespace MyMath;
 
 void PlayerSlowAttack::Initialize()
 {

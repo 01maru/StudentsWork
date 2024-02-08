@@ -8,7 +8,7 @@ void MNE::ParticleSpdAnimation::Update()
 	if (isObj_ == true) {
 		MNE::ObjectParticle* obj = parent_->GetComponent<MNE::ObjectParticle>();
 
-		Vector3D pos = obj->GetPosition();
+		MyMath::Vector3D pos = obj->GetPosition();
 		pos += spd_;
 		obj->SetPosition(pos);
 	}
@@ -16,13 +16,13 @@ void MNE::ParticleSpdAnimation::Update()
 	else {
 		MNE::SpriteParticle* sprite = parent_->GetComponent<MNE::SpriteParticle>();
 
-		Vector3D pos = sprite->GetPosition();
+		MyMath::Vector3D pos = sprite->GetPosition();
 		pos += spd_;
 		sprite->SetPosition(pos);
 	}
 }
 
-void MNE::ParticleSpdAnimation::SetSpd(const Vector3D& spd)
+void MNE::ParticleSpdAnimation::SetSpd(const MyMath::Vector3D& spd)
 {
 	spd_ = spd;
 }

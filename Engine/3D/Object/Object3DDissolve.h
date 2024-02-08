@@ -24,7 +24,7 @@ namespace MNE
 	#pragma endregion
 
 		float dissolveValue_ = 1.0f;
-		Vector4D dissolveColor_;
+		MyMath::Vector4D dissolveColor_;
 
 	public:
 	};

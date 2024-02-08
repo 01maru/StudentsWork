@@ -3,33 +3,33 @@
 #include "Vector2D.h"
 
 struct Sphere {
-	Vector3D center_;
+	MyMath::Vector3D center_;
 	float radius_ = 1.0f;
 };
 
 struct Cylinder {
-	Vector2D center_;
+	MyMath::Vector2D center_;
 	float radius_ = 1.0f;
 };
 
 struct Plane {
-	Vector3D normal_ = { 0.0f,1.0f,0.0f };
+	MyMath::Vector3D normal_ = { 0.0f,1.0f,0.0f };
 	float distance = 0.0f;
 };
 
 struct Ray
 {
-	Vector3D start;
-	Vector3D dir = { 1.0f,0.0f,0.0f };
+	MyMath::Vector3D start;
+	MyMath::Vector3D dir = { 1.0f,0.0f,0.0f };
 };
 
 class Triangle
 {
 public:
-	Vector3D p0;
-	Vector3D p1;
-	Vector3D p2;
-	Vector3D normal;
+	MyMath::Vector3D p0;
+	MyMath::Vector3D p1;
+	MyMath::Vector3D p2;
+	MyMath::Vector3D normal;
 
 	void ComputeNormal();
 };
