@@ -5,12 +5,20 @@
 using namespace Easing;
 using namespace MyMath;
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void MNE::LoadingModel::Initialize()
 {
     Object3DShilhouette::Initialize();
 
     Object3DShilhouette::SetCamera(CameraManager::GetInstance()->GetOrthoProjCamera());
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void MNE::LoadingModel::Update()
 {
@@ -29,6 +37,10 @@ void MNE::LoadingModel::Update()
     Object3DShilhouette::SetRotation(rot);
     Object3DShilhouette::MatUpdate();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
 
 void MNE::LoadingModel::Draw()
 {

@@ -35,6 +35,8 @@ namespace MNE
 		int32_t easePaw_ = 4;
 		int32_t sizeEasePaw_ = 2;
 		FrameCounter timer_;
+		int32_t time_ = 10;
+		int32_t countNum_ = 2;
 
 		float minSize_ = 10.0f;
 		float maxSize_ = 30.0f;

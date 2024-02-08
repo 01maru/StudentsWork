@@ -102,9 +102,9 @@ float MNE::XAudioManager::LoadVolume(const std::string& filename)
 
 void MNE::XAudioManager::LoadAllValumeData()
 {
-	for (auto itr = data_.begin(); itr != data_.end(); ++itr)
+	for (auto& itr : data_)
 	{
-		itr->second.volume = LoadVolume(itr->first);
+		itr.second.volume = LoadVolume(itr.first);
 	}
 }
 
@@ -164,13 +164,13 @@ void MNE::XAudioManager::SaveVolume()
 	//	ファイルが開けなかったら
 	if (outPutFile.fail()) { assert(0); }
 
-	for (size_t i = 0; i < volumeData.size(); i++)
+	for (auto& data : volumeData)
 	{
-		outPutFile << volumeData[i].name_ << " " << volumeData[i].volume_ << std::endl;
+		outPutFile << data.name_ << " " << data.volume_ << std::endl;
 	}
-	for (size_t i = 0; i < newVolumeData.size(); i++)
+	for (auto& data : newVolumeData)
 	{
-		outPutFile << newVolumeData[i].name_ << " " << newVolumeData[i].volume_ << std::endl;
+		outPutFile << data.name_ << " " << data.volume_ << std::endl;
 	}
 
 	outPutFile.close();
@@ -200,7 +200,7 @@ void MNE::XAudioManager::ImguiUpdate(bool endLoading)
 	imguiMan->CheckBox("IsDebug", isDebug_);
 
 	if (isDebug_) {
-		imguiMan->BeginChild(MyMath::Vector2D(0, 200));
+		imguiMan->BeginChild();
 
 		int32_t id = 0;
 

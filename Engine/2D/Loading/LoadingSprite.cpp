@@ -5,12 +5,20 @@
 using namespace Easing;
 using namespace MyMath;
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void MNE::LoadingSprite::Initialize()
 {
 	Sprite::Initialize();
 
     Sprite::SetColor(color_);
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void MNE::LoadingSprite::Update()
 {
@@ -31,10 +39,18 @@ void MNE::LoadingSprite::Update()
     Sprite::Update();
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
+
 void MNE::LoadingSprite::Draw()
 {
     Sprite::Draw(PipelineManager::GetInstance()->GetPipeline("LoadingSprite"));
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
 
 void MNE::LoadingSprite::Start()
 {
@@ -44,7 +60,7 @@ void MNE::LoadingSprite::Start()
 
 void MNE::LoadingSprite::Reset()
 {
-    timer_.Initialize(10, true, true, 2);
+    timer_.Initialize(time_, true, true, countNum_);
     Sprite::SetSize(Vector2D(maxSize_, maxSize_));
     Sprite::Update();
 }
