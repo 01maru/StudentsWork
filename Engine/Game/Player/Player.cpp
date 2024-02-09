@@ -32,7 +32,8 @@ using namespace MyMath;
 
 void Player::StatusInitialize()
 {
-	HotLoadStatus();
+	//	ステータスの読み込み
+	HotReloadStatus();
 
 	//	初期ステート
 	moveState_ = std::make_unique<PlayerIdleState>();
@@ -53,11 +54,13 @@ void Player::Initialize(MNE::IModel* model)
 	Object3D::Initialize();
 	SetModel(model);
 
+	//	当たり判定設定
 	float radius = 0.5f;
 	offset_ = Vector3D(0.0f, radius, 0.0f);
 	SetCollider(new SphereCollider(offset_, radius));
 	collider_->SetAttribute(COLLISION_ATTR_ALLIES);
 
+	//	ステートにPlayer設定
 	PlayerMoveState::SetPlayer(this);
 	PlayerAttackState::SetPlayer(this);
 
@@ -345,7 +348,7 @@ void Player::ImGuiMenuUpdate()
 
 	if (imgui->BeginMenuBar()) {
 		if (imgui->BeginMenu("File")) {
-			if (imgui->MenuItem("Load")) HotLoadStatus();
+			if (imgui->MenuItem("Load")) HotReloadStatus();
 			if (imgui->MenuItem("Save")) SaveData();
 			imgui->EndMenu();
 		}
@@ -353,7 +356,7 @@ void Player::ImGuiMenuUpdate()
 	}
 }
 
-void Player::HotLoadStatus()
+void Player::HotReloadStatus()
 {
 	LoadData();
 

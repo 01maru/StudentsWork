@@ -145,10 +145,10 @@ private:
 	*/
 	void ImGuiMenuUpdate();
 	/**
-	* @fn HotLoadStatus()
+	* @fn HotReloadStatus()
 	* ステータスをホットリロードするための関数
 	*/
-	void HotLoadStatus();
+	void HotReloadStatus();
 
 public:
 
