@@ -3,6 +3,7 @@
 #include "CameraManager.h"
 #include "Easing.h"
 #include "PodCameraMoveState.h"
+#include "GameScene.h"
 
 using namespace Easing;
 using namespace MNE;
@@ -55,7 +56,8 @@ void PodOpenDoorState::Update()
 
 	//	カウント終わったら次のステートへ
 	if (counter_.GetIsActive() == FALSE) {
-		sPod_->SetDrawPlayer(TRUE);
+		//	プレイヤー描画
+		sPod_->GetGameScene()->SetDrawPlayer(TRUE);
 		std::unique_ptr<EscPodState> next_ = std::make_unique<PodCameraMoveState>();
 		sPod_->SetNextState(next_);
 	}

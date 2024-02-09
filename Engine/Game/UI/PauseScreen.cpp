@@ -5,6 +5,7 @@
 #include "ImGuiManager.h"
 #include "CameraManager.h"
 #include "GameCamera.h"
+#include "GameScene.h"
 
 using namespace MNE;
 
@@ -72,6 +73,39 @@ void PauseScreen::InputValueUpdate()
 	}
 }
 
+void PauseScreen::PauseInitialize(bool isActive)
+{
+	isActive_ = isActive;
+
+	//	ステートの設定
+	if (isActive_ == TRUE)
+	{
+		prevState_ = gameScene_->GetNowState();
+		gameScene_->SetNextState(GameScene::PauseState);
+	}
+	else
+	{
+		gameScene_->SetNextState(prevState_);
+		//	ポーズアニメーション中じゃないときにカーソル表示
+		cursor_.SetIsActive(FALSE);
+	}
+
+	//	カメラの動き停止
+	gameCamera_->SetIsActive(!isActive_);
+	//	マウスのロック解除
+	MouseCursorInit();
+
+	//	ポーズ画面出現or消す
+	pauseData_.ResetAnimation(isActive_);
+
+	//	選択中のボタンを初期化する
+	pauseData_.SetSelectButton("Resume");
+
+	InputManager::GetInstance()->SetNextTag("cantBack", TRUE, isActive_);
+	InputManager::GetInstance()->SetDrawExplane(isActive_);
+
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Update
 //-----------------------------------------------------------------------------
@@ -86,22 +120,8 @@ bool PauseScreen::IsActiveUpdate()
 
 	//	キー入力されたら
 	if (dikButton) {
-		isActive_ = !isActive_;
-
-		//	カメラの動き停止
-		gameCamera_->SetIsActive(!isActive_);
-		//	マウスのロック解除
-		MouseCursorInit();
-
-		//	ポーズ画面出現or消す
-		pauseData_.ResetAnimation(isActive_);
-
-		//	選択中のボタンを初期化する
-		pauseData_.SetSelectButton("Resume");
-
-		InputManager::GetInstance()->SetNextTag("cantBack", TRUE, isActive_);
-		InputManager::GetInstance()->SetDrawExplane(isActive_);
-
+		PauseInitialize(!isActive_);
+		
 		return TRUE;
 	}
 
@@ -124,16 +144,7 @@ void PauseScreen::PauseInputUpdate(bool dikSelectButton)
 
 		//	ゲームに戻る
 		if (buttonName == "Resume") {
-			isActive_ = FALSE;
-
-			//	マウスカーソルロック
-			MouseCursorInit();
-
-			//	ポーズ画面消す
-			pauseData_.ResetAnimation(FALSE);
-
-			InputManager::GetInstance()->SetNextTag("cantBack", TRUE, isActive_);
-			InputManager::GetInstance()->SetDrawExplane(isActive_);
+			PauseInitialize(FALSE);
 		}
 
 		//	オプション画面を開く
@@ -180,9 +191,6 @@ void PauseScreen::PauseUpdate(bool dikSelectButton)
 		//	ポーズアニメーション中じゃないときにカーソル表示
 		cursor_.SetIsActive(pauseData_.GetIsEndAnimation());
 	}
-
-	//	ポーズ更新処理
-	pauseData_.Update();
 }
 
 void PauseScreen::OptionUpdate(bool dikSelectButton)
@@ -198,19 +206,12 @@ void PauseScreen::OptionUpdate(bool dikSelectButton)
 
 		InputManager::GetInstance()->SetNextTag("cantBack", TRUE, FALSE);
 	}
-
-	//	オプションデータの更新処理
-	option_.Update();
 }
 
-bool PauseScreen::Update()
+void PauseScreen::Update()
 {
-	bool isActiveTrigger = FALSE;
-	//	ポーズのアクティブ切り替え
-	isActiveTrigger = IsActiveUpdate();
-
 	//	ポーズ中じゃなく、アニメーション中じゃなかったら更新しない
-	if (isActive_ == FALSE && pauseData_.GetIsEndAnimation() == TRUE) return isActiveTrigger;
+	if (isActive_ == FALSE && pauseData_.GetIsEndAnimation() == TRUE) return;
 
 	bool dikButton = InputManager::GetInstance()->GetPad()->GetButtonTrigger(InputJoypad::A_Button);
 
@@ -221,21 +222,31 @@ bool PauseScreen::Update()
 
 	//	オプションの更新処理
 	OptionUpdate(dikButton);
+}
+
+void PauseScreen::AnimationUpdate()
+{
+	//	ポーズ中じゃなく、アニメーション中じゃなかったら更新しない
+	if (isActive_ == FALSE && pauseData_.GetIsEndAnimation() == TRUE) return;
+
+	//	ポーズ更新処理
+	pauseData_.Update();
+
+	//	オプションデータの更新処理
+	option_.Update();
 
 	//	カーソル更新
 	cursor_.Update();
-
-	return isActiveTrigger;
 }
 
 void PauseScreen::ImGuiUpdate()
 {
-	ImGuiManager* imgui = ImGuiManager::GetInstance();
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
 
 	//	ポーズ中か確認用
-	imgui->Text("Pause : %s", isActive_ ? "True" : "False");
+	imGui->Text("Pause : %s", isActive_ ? "True" : "False");
 	//	選択しているボタン名表示
-	imgui->Text("SelectButton : %s", pauseData_.GetSelectName().c_str());
+	imGui->Text("SelectButton : %s", pauseData_.GetSelectName().c_str());
 
 	//	オプションのImGui更新
 	option_.ImGuiUpdate();
@@ -282,7 +293,12 @@ void PauseScreen::SetIsActive(bool isActive)
     isActive_ = isActive;
 }
 
-void PauseScreen::SetGameCamera(GameCamera* gamecamera)
+void PauseScreen::SetGameCamera(GameCamera* gameCamera)
 {
-	gameCamera_ = gamecamera;
+	gameCamera_ = gameCamera;
+}
+
+void PauseScreen::SetGameScene(GameScene* gameScene)
+{
+	gameScene_ = gameScene;
 }

@@ -3,6 +3,7 @@
 #include "CameraManager.h"
 #include "Easing.h"
 #include "UIData.h"
+#include "GameScene.h"
 
 using namespace Easing;
 using namespace MNE;
@@ -49,6 +50,7 @@ void PodCameraMoveState::Update()
 		std::unique_ptr<EscPodState> next_ = nullptr;
 		sPod_->SetNextState(next_);
 		//	ポッドの演出終了
-		sPod_->SetOpenDoor(TRUE);
+		//	プレイ中のステートへ
+		sPod_->GetGameScene()->SetNextState(GameScene::PlayState);
 	}
 }

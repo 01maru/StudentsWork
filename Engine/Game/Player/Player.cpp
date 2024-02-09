@@ -2,6 +2,9 @@
 #include "InputManager.h"
 #include "CameraManager.h"
 #include "Quaternion.h"
+#include "ImGuiManager.h"
+#include "UISprite.h"
+#include "GameScene.h"
 #include <cassert>
 
 #include "SphereCollider.h"
@@ -9,18 +12,11 @@
 #include "CollisionAttribute.h"
 #include "QueryCallBack.h"
 #include "XAudioManager.h"
-#include "ImGuiManager.h"
 #include "RayCast.h"
 
 #include "PlayerIdleState.h"
 #include "PlayerNoAttackState.h"
 
-#include "UIData.h"
-#include "UISprite.h"
-
-#include "GameOverCamera.h"
-
-#include "GameOverUI.h"
 
 using namespace CollAttribute;
 using namespace MNE;
@@ -194,8 +190,6 @@ void Player::JumpUpdate()
 
 void Player::Update()
 {
-	if (isActive_ == FALSE) return;
-
 	//	HPバーのアニメーション更新
 	hp_.Update();
 
@@ -203,14 +197,12 @@ void Player::Update()
 
 	//	死亡していたら
 	if (hp_.GetIsAlive() == false) {
-		if (gameOver_ == false) {
-			gameOver_ = true;
-			pGameOverState_->Start();
-			pGameOverState_->SetCameraPosData(mat_.trans_);
-			SetAnimationIdx("Death");
-			SetAnimationTimer(0);
-			GetAnimation()->SetIsLoop(false);
-		}
+		pGameScene_->ActiveGameOver();
+		pGameScene_->SetNextState(GameScene::EndState);
+		SetAnimationIdx("Death");
+		SetAnimationTimer(0);
+		GetAnimation()->SetIsLoop(false);
+		GetAnimation()->SetAutoPlay(TRUE);
 		return;
 	}
 
@@ -596,7 +588,7 @@ void Player::SetUIInfo(MNE::UIData& uiData)
 	avoidCTSprite_.SetSprite(gameUISprite->GetSprites()["Dash"], gameUISprite->GetSprites()["Text"]);
 }
 
-void Player::SetGameOverState(IGameState* gameOverState)
+void Player::SetGameScene(GameScene* gameScene)
 {
-	pGameOverState_ = dynamic_cast<GameOverUI*>(gameOverState);
+	pGameScene_ = gameScene;
 }

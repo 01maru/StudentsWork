@@ -104,6 +104,7 @@ void GameScene::LoadResources()
 
 void GameScene::Initialize()
 {
+	stateTable_ = { &GameScene::PauseScene,&GameScene::StartScene,&GameScene::PlayScene,&GameScene::EndScene };
 	pause_.Initialize();
 
 	//	ゲームカメラ
@@ -119,10 +120,8 @@ void GameScene::Initialize()
 	//player_->SetPosition(pos);
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
 	player_->SetPosition({ 0.0f,0.0f,-52.0f });
-	player_->SetGameOverState(gameOver_.get());
 
 	enemy_->SetPlayer(player_.get());
-	enemy_->SetClearState(clear_.get());
 
 	camera_ = dynamic_cast<GameCamera*>(CameraManager::GetInstance()->GetMainCamera());
 	camera_->SetEnemyPos(enemy_->GetPositionPtr());
@@ -132,6 +131,12 @@ void GameScene::Initialize()
 	std::unique_ptr<Cylinder> stageColl = std::make_unique<Cylinder>();
 	stageColl->radius_ = 60.0f;
 	CollisionManager::GetInstance()->AddStageCollider(stageColl);
+
+	enemy_->SetGameScene(this);
+	player_->SetGameScene(this);
+	pod_.SetGameScene(this);
+	pause_.SetGameScene(this);
+	nowState_ = StartState;
 }
 
 //-----------------------------------------------------------------------------
@@ -158,8 +163,41 @@ void GameScene::FirstFrameUpdate()
 	//XAudioManager::GetInstance()->PlaySoundWave("gameBGM.wav", XAudioManager::BGM, true);
 }
 
+void GameScene::PauseScene()
+{
+	pause_.Update();
+}
+
+void GameScene::StartScene()
+{
+	pod_.Update();
+}
+
+void GameScene::PlayScene()
+{
+	PlayGameUpdate();
+}
+
+void GameScene::EndScene()
+{
+	PlayGameUpdate();
+
+	clear_->Update();
+	gameOver_->Update();
+}
+
+void GameScene::PlayGameUpdate()
+{
+	pod_.Update();
+	player_->Update();
+	playerBullets_.Update(player_->GetBullets());
+	enemy_->Update();
+}
+
 void GameScene::MatUpdate()
 {
+	pause_.AnimationUpdate();
+
 	ParticleManager::GetInstance()->MatUpdate();
 	ground_->MatUpdate();
 	skydome_->MatUpdate();
@@ -174,58 +212,62 @@ void GameScene::MatUpdate()
 	}
 }
 
-void GameScene::InGameUpdate()
-{
-	//	ポーズ中だったら処理しない
-	if (pause_.GetIsActive() == TRUE)	return;
-	//	ポーズの切り替わりタイミングだったら処理しない
-	if (pauseActiveTrigger_ == TRUE)	return;
-	
-	ParticleManager::GetInstance()->Update();
-
-	pod_.Update();
-
-	if (pod_.GetOpenDoor() == TRUE)
-	{
-		player_->Update();
-		playerBullets_.Update(player_->GetBullets());
-		enemy_->Update();
-	}
-
-	UIUpdate();
-}
-
-void GameScene::UIUpdate()
-{
-	letterBox_.Update();
-	clear_->Update();
-	gameOver_->Update();
-}
-
 void GameScene::CollisionUpdate()
 {
 	//	ポーズ中だったら処理しない
 	if (pause_.GetIsActive() == TRUE)	return;
-	//	ポーズの切り替わりタイミングだったら処理しない
-	if (pauseActiveTrigger_ == TRUE)	return;
 
-	if (pod_.GetOpenDoor() == TRUE)
-	{
-		player_->CollisionUpdate();
-	}
+	player_->CollisionUpdate();
 
 	CollisionManager::GetInstance()->CheckAllCollisions();
+}
+
+int32_t GameScene::GetNowState()
+{
+	return nowState_;
+}
+
+void GameScene::SetNextState(int32_t nextState)
+{
+	nowState_ = nextState;
+}
+
+void GameScene::SetDrawPlayer(bool drawPlayer)
+{
+	drawPlayer_ = drawPlayer;
+}
+
+void GameScene::ActiveGameOver()
+{
+	if (gameOver_->GetIsActive() == TRUE) return;
+
+	gameOver_->Start();
+	gameOver_->SetCameraPosData(player_->GetPosition());
+}
+
+void GameScene::ActiveClearState()
+{
+	if (clear_->GetIsActive() == TRUE) return;
+
+	clear_->Start();
 }
 
 void GameScene::Update()
 {
 #pragma region 更新処理
 	//	ポーズの更新
-	pauseActiveTrigger_ = pause_.Update();
+	pause_.IsActiveUpdate();
 
-	camera_->SetIsActive(pod_.GetOpenDoor() && pause_.GetIsActive() == FALSE);
+	camera_->SetIsActive(nowState_ != StartState && pause_.GetIsActive() == FALSE);
 
-	InGameUpdate();
+	//	現在のステートの更新
+	(this->*stateTable_[nowState_])();
+
+	//	パーティクルマネージャの更新
+	ParticleManager::GetInstance()->Update();
+
+	//	黒帯の更新
+	letterBox_.Update();
 
 	MatUpdate();
 
@@ -239,27 +281,29 @@ void GameScene::Update()
 
 void GameScene::ImguiUpdate()
 {
-	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+	ImGuiManager* imGuiMan = ImGuiManager::GetInstance();
 
 	player_->ImGuiUpdate();
 
-	imguiMan->BeginWindow("GameScene", true);
+	imGuiMan->BeginWindow("GameScene", true);
 
-	if (imguiMan->SetButton("BossActive")) {
+	imGuiMan->Text("NowState : %d", nowState_);
+
+	if (imGuiMan->SetButton("BossActive")) {
 		enemy_->SetIsActive(true);
 	}
 
-	if (imguiMan->SetButton("ResetGameOverAnime")) {
+	if (imGuiMan->SetButton("ResetGameOverAnime")) {
 		gameOver_->Reset();
 	}
 
-	if (imguiMan->SetButton("ResetPod"))	pod_.ResetAnimation();
+	if (imGuiMan->SetButton("ResetPod"))	pod_.ResetAnimation();
 
 	enemy_->ImGuiUpdate();
 
 	pause_.ImGuiUpdate();
 
-	imguiMan->EndWindow();
+	imGuiMan->EndWindow();
 }
 
 //-----------------------------------------------------------------------------
@@ -268,7 +312,7 @@ void GameScene::ImguiUpdate()
 
 void GameScene::DrawUIBeforeBlackScreen()
 {
-	if (pod_.GetDrawPlayer() == TRUE) {
+	if (drawPlayer_ == TRUE) {
 		enemy_->DrawUI();
 		player_->DrawUI();
 	}
@@ -288,7 +332,7 @@ void GameScene::DrawUIAfterBlackScreen()
 
 void GameScene::Draw()
 {
-	if (pod_.GetDrawPlayer() == TRUE) {
+	if (drawPlayer_ == TRUE) {
 
 		player_->Draw();
 		playerBullets_.Draw();

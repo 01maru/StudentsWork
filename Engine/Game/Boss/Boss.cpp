@@ -140,11 +140,6 @@ void Boss::DecHP(int32_t damage)
 	hp_.DecHp(damage);
 }
 
-void Boss::StartClearState()
-{
-	pClearState_->Start();
-}
-
 //-----------------------------------------------------------------------------
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
@@ -185,6 +180,11 @@ Player* Boss::GetPlayerPtr()
 	return player_;
 }
 
+GameScene* Boss::GetGameScene()
+{
+	return pGameScene_;
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
@@ -223,7 +223,7 @@ void Boss::SetBodyAttack(bool attackFlag)
 	bodyAt_ = attackFlag;
 }
 
-void Boss::SetClearState(IGameState* clearState)
+void Boss::SetGameScene(GameScene* gameScene)
 {
-	pClearState_ = clearState;
+	pGameScene_ = gameScene;
 }

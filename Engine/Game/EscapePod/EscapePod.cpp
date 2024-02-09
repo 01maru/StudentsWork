@@ -72,14 +72,9 @@ MNE::UIData* EscapePod::GetLetterBoxPtr()
 	return pLetterBox_;
 }
 
-bool EscapePod::GetOpenDoor()
+GameScene* EscapePod::GetGameScene()
 {
-	return openDoor_;
-}
-
-bool EscapePod::GetDrawPlayer()
-{
-	return drawPlayer_;
+	return pGameScene_;
 }
 
 //-----------------------------------------------------------------------------
@@ -106,16 +101,6 @@ void EscapePod::SetLetterBox(MNE::UIData* data)
 	pLetterBox_ = data;
 }
 
-void EscapePod::SetDrawPlayer(bool drawplayer)
-{
-	drawPlayer_ = drawplayer;
-}
-
-void EscapePod::SetOpenDoor(bool openDoor)
-{
-	openDoor_ = openDoor;
-}
-
 void EscapePod::ResetAnimation()
 {
 	//	初期ステート
@@ -132,4 +117,9 @@ void EscapePod::SetNextState(std::unique_ptr<EscPodState>& next)
 	{
 		currentState_->Initialize();
 	}
+}
+
+void EscapePod::SetGameScene(GameScene* gameScene)
+{
+	pGameScene_ = gameScene;
 }

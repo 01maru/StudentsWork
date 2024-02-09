@@ -1,4 +1,4 @@
-MAXHP 50
+MAXHP 10
 WalkSPD 0.15
 RunSPD 0.2
 JumpDecSPD 0.75

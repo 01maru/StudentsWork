@@ -10,9 +10,8 @@
 */
 
 #pragma region 前置宣言
-class IModel;
 class Player;
-class IGameState;
+class GameScene;
 #pragma endregion
 
 class Boss :public MNE::Object3D
@@ -70,7 +69,7 @@ private:
 
 	//	プレイヤーのポインター
 	Player* player_ = nullptr;
-	IGameState* pClearState_ = nullptr;
+	GameScene* pGameScene_ = nullptr;
 	
 public:
 	/**
@@ -90,12 +89,6 @@ public:
 	* @param damage HP減少量
 	*/
 	void DecHP(int32_t damage);
-
-	/**
-	* @fn StartClearState()
-	* クリア演出開始用関数
-	*/
-	void StartClearState();
 
 #pragma region Getter
 
@@ -142,6 +135,8 @@ public:
 	*/
 	Player* GetPlayerPtr();
 
+	GameScene* GetGameScene();
+
 #pragma endregion
 
 #pragma region Setter
@@ -182,12 +177,8 @@ public:
 	* @param attackFlag ボディーアタック中か
 	*/
 	void SetBodyAttack(bool attackFlag);
-	/**
-	* @fn SetClearState(IGameState*)
-	* クリアステートのポインター設定用関数
-	* @param clearState クリアステートのポインター
-	*/
-	void SetClearState(IGameState* clearState);
+
+	void SetGameScene(GameScene* gameScene);
 
 #pragma endregion
 };

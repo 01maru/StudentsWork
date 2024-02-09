@@ -16,10 +16,7 @@
 */
 
 #pragma region 前置宣言
-
-class IGameState;
-class GameOverUI;
-
+class GameScene;
 #pragma endregion
 
 class Player :public MNE::Object3D, public PlayerData
@@ -101,10 +98,8 @@ private:
 
 #pragma endregion
 
-	//	消したい
-	bool isActive_ = true;
-	bool gameOver_ = false;
-	GameOverUI* pGameOverState_ = nullptr;
+	//	ゲームシーンのポインタ(ステート変更用)
+	GameScene* pGameScene_ = nullptr;
 
 private:
 	/**
@@ -198,7 +193,7 @@ public:
 	*/
 	void SetUIInfo(MNE::UIData& uiData);
 
-	void SetIsActive(bool isActive) { isActive_ = isActive; }
+	//void SetIsActive(bool isActive) { isActive_ = isActive; }
 	void SetAnimationIdx(const std::string& name) { 
 		GetAnimation()->SetAnimeName(name); }
 	void SetAnimationTimer(int32_t timer) { animationTimer_ = timer; }
@@ -211,7 +206,7 @@ public:
 	void StartRateCount();
 
 
-	void SetGameOverState(IGameState* gameOverState);
+	void SetGameScene(GameScene* gameScene);
 
 #pragma endregion
 };

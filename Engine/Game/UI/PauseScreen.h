@@ -10,6 +10,7 @@
 #pragma region 前置宣言
 
 class GameCamera;
+class GameScene;
 
 #pragma endregion
 
@@ -27,11 +28,19 @@ public:
 	*/
 	void LoadResources();
 	/**
+	* @fn IsActiveUpdate()
+	* ポーズ画面が実行中か切り替えるための更新処理関数
+	* @return IsActiveの切り替わったタイミング取得(Trigger)
+	*/
+	bool IsActiveUpdate();
+	/**
 	* @fn Update()
 	* 更新処理関数
 	* @return IsActiveの切り替わったタイミング取得(Trigger)
 	*/
-	bool Update();
+	void Update();
+
+	void AnimationUpdate();
 	/**
 	* @fn ImGuiUpdate()
 	* ImGui更新処理関数
@@ -55,16 +64,13 @@ private:
 	//	カメラポインター
 	GameCamera* gameCamera_ = nullptr;
 
+	GameScene* gameScene_ = nullptr;
+	int32_t prevState_;
+
 	int16_t inputValue_ = 0;
 	float inputSpd_ = 1.0f;
 
 private:
-	/**
-	* @fn IsActiveUpdate()
-	* ポーズ画面が実行中か切り替えるための更新処理関数
-	* @return IsActiveの切り替わったタイミング取得(Trigger)
-	*/
-	bool IsActiveUpdate();
 	/**
 	* @fn PauseInputUpdate(bool)
 	* ポーズ画面での入力更新用関数
@@ -91,6 +97,8 @@ private:
 
 	void InputValueUpdate();
 
+	void PauseInitialize(bool isActive);
+
 public:
 #pragma region Getter
 
@@ -114,9 +122,10 @@ public:
 	/**
 	* @fn SetGameCamera(GameCamera*)
 	* 使用中のゲームカメラ設定用(カーソルロックやカメラの動きを止める用)
-	* @param gamecamera ゲームカメラのポインター
+	* @param gameCamera ゲームカメラのポインター
 	*/
-	void SetGameCamera(GameCamera* gamecamera);
+	void SetGameCamera(GameCamera* gameCamera);
+	void SetGameScene(GameScene* gameScene);
 
 #pragma endregion
 };

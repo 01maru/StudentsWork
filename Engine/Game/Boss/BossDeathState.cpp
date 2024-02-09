@@ -5,6 +5,7 @@
 
 #include "ParticleManager.h"
 #include "DeadParticleEmitter.h"
+#include "GameScene.h"
 
 using namespace MNE;
 using namespace Easing;
@@ -48,7 +49,8 @@ void BossDeathState::Update()
 	//	次のステートへ
 	if (timer_.GetIsActive() == FALSE) {
 
-		sBoss_->StartClearState();
+		sBoss_->GetGameScene()->ActiveClearState();
+		sBoss_->GetGameScene()->SetNextState(GameScene::EndState);
 
 		if (emitter_ != nullptr) {
 			emitter_->SetIsDead(TRUE);

@@ -13,6 +13,7 @@ namespace MNE
 {
 	class UIData;
 }
+class GameScene;
 #pragma endregion
 
 class EscapePod :public MNE::Object3D
@@ -49,10 +50,8 @@ private:
 	//	ドアを開ける入力説明用
 	PodInputUI ui_;
 
-	//	ドアが開いたか(TRUEで操作可能に)
-	bool openDoor_ = false;
-	//	プレイヤー描画用フラグ
-	bool drawPlayer_ = false;
+	//	ステート変更用ゲームシーンポインタ
+	GameScene* pGameScene_ = nullptr;
 
 public:
 
@@ -64,18 +63,7 @@ public:
 	* @return ムービー用黒帯データのポインタ
 	*/
 	MNE::UIData* GetLetterBoxPtr();
-	/**
-	* @fn GetOpenDoor()
-	* ドアが開いているかの取得関数
-	* @return ドアが開いているか
-	*/
-	bool GetOpenDoor();
-	/**
-	* @fn GetDrawPlayer()
-	* プレイヤーが表示されているかの取得関数
-	* @return プレイヤーが表示されているか
-	*/
-	bool GetDrawPlayer();
+	GameScene* GetGameScene();
 
 #pragma endregion
 
@@ -106,18 +94,6 @@ public:
 	*/
 	void SetLetterBox(MNE::UIData* data);
 	/**
-	* @fn SetOpenDoor(bool)
-	* ドアが開いているかのセット用関数
-	* @param openDoor ドアが開いているか
-	*/
-	void SetOpenDoor(bool openDoor);
-	/**
-	* @fn SetDrawPlayer(bool)
-	* プレイヤーが表示されているかのセット用関数
-	* @param drawplayer プレイヤーが表示されているか
-	*/
-	void SetDrawPlayer(bool drawplayer);
-	/**
 	* @fn ResetAnimation()
 	* アニメーションを初めからに戻す関数(debug用)
 	*/
@@ -128,6 +104,7 @@ public:
 	* @param next 次のState
 	*/
 	void SetNextState(std::unique_ptr<EscPodState>& next);
+	void SetGameScene(GameScene* gameScene);
 
 #pragma endregion
 
