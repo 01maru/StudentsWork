@@ -300,8 +300,6 @@ void Player::Update()
 
 	rate_.Update();
 
-	ColliderUpdate();
-
 	MatUpdate();
 	Object3D::ColliderUpdate();
 	mat_.trans_ = CollisionManager::GetInstance()->CollisionStage(*dynamic_cast<SphereCollider*>(collider_)) - offset_;

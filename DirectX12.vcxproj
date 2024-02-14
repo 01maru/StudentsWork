@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Collider\CollisionInfo.cpp" />
     <ClCompile Include="Engine\Game\Boss\AttackState\BossJumpAtState.cpp" />
     <ClCompile Include="Engine\Game\Boss\State\BossRoarState.cpp" />
     <ClCompile Include="Engine\Game\Boss\State\BossStartState.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="Engine\Game\EscapePod\State\EscPodState.cpp" />
     <ClCompile Include="Engine\Game\UI\ExplanatoryText.cpp" />
     <ClCompile Include="Engine\Base\Json\JSONData.cpp" />
+    <ClCompile Include="IBullet.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -366,6 +368,7 @@
     <ClInclude Include="Engine\Game\EscapePod\PodInputUI.h" />
     <ClInclude Include="Engine\Game\Player\PlayerData.h" />
     <ClInclude Include="Engine\Game\Player\Bullet\PlayerBulletManager.h" />
+    <ClInclude Include="IBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

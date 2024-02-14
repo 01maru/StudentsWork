@@ -229,7 +229,9 @@ void GameScene::CollisionUpdate()
 
 	player_->CollisionUpdate();
 
-	CollisionManager::GetInstance()->CheckAllCollisions();
+	playerBullets_.CollisionUpdate();
+
+	//CollisionManager::GetInstance()->CheckAllCollisions();
 }
 
 void GameScene::Update()

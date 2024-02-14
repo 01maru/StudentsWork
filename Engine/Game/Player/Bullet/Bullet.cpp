@@ -29,11 +29,7 @@ Bullet::~Bullet()
 
 void Bullet::Initialize()
 {
-	Object3D::Initialize();
-	lifeTime_.StartCount();
-	float dismeter = radius_ * 2.0f;
-	mat_.scale_ = Vector3D(dismeter, dismeter, dismeter);
-	SetCollider(new SphereCollider(Vector3D(), radius_));
+	IBullet::Initialize();
 
 	BulletAfterImgEmitter afterImgEmitter;
 	emitter_ = ParticleManager::GetInstance()->AddEmitter(afterImgEmitter.GetEmitter());
@@ -45,45 +41,12 @@ void Bullet::Initialize()
 
 void Bullet::Update()
 {
-	lifeTime_.Update();
-
-	mat_.trans_ += moveVec_ * spd_;
+	IBullet::Update();
 
 	emitter_->SetPosition(mat_.trans_);
 
 	MatUpdate();
-	collider_->Update();
-}
-
-//-----------------------------------------------------------------------------
-// [SECTION] Getter
-//-----------------------------------------------------------------------------
-
-bool Bullet::GetIsActive()
-{
-	return lifeTime_.GetIsActive();
-}
-
-//-----------------------------------------------------------------------------
-// [SECTION] Setter
-//-----------------------------------------------------------------------------
-
-void Bullet::SetMoveVec(const MyMath::Vector3D& moveVec)
-{
-	moveVec_ = moveVec;
-	if (emitter_ != nullptr) {
-		emitter_->GetEmitterType()->SetDir(moveVec);
-	}
-}
-
-void Bullet::SetSpd(float spd)
-{
-	spd_ = spd;
-}
-
-void Bullet::SetLifeTime(int32_t time)
-{
-	lifeTime_.SetMaxFrameCount(time);
+	ColliderUpdate();
 }
 
 void Bullet::OnCollision(CollisionInfo& info)

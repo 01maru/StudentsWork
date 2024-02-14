@@ -26,10 +26,10 @@ private:
 	std::unique_ptr<Cylinder> stageCollider_;
 
 public:
-	
-	void CheckAllCollisions();
-	void AddCollider(std::unique_ptr<BaseCollider> collider) { colliders_.push_front(std::move(collider)); }
 
+	void CheckCollision(BaseCollider* collider, uint16_t attribute);
+	
+	void AddCollider(std::unique_ptr<BaseCollider> collider) { colliders_.push_front(std::move(collider)); }
 
 	bool Raycast(const Ray& ray, RayCast* hitinfo = nullptr, float maxDistance = D3D12_FLOAT32_MAX);
 	bool Raycast(const Ray& ray, unsigned short attribute, RayCast* hitinfo = nullptr, float maxDistance = D3D12_FLOAT32_MAX);

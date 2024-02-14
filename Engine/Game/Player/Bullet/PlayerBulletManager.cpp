@@ -1,8 +1,11 @@
 #include "PlayerBulletManager.h"
 #include "ModelManager.h"
 #include "ImGuiManager.h"
+#include "CollisionManager.h"
+#include "CollisionAttribute.h"
 
 using namespace MNE;
+using namespace CollAttribute;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -44,6 +47,14 @@ void PlayerBulletManager::Update(std::list<BulletInfo>& bullets)
 	for (auto& itr : bullets_)
 	{
 		itr->Update();
+	}
+}
+
+void PlayerBulletManager::CollisionUpdate()
+{
+	for (auto& bullet : bullets_)
+	{
+		CollisionManager::GetInstance()->CheckCollision(bullet->GetCollider(), COLLISION_ATTR_LANDSHAPE | COLLISION_ATTR_ENEMYS);
 	}
 }
 

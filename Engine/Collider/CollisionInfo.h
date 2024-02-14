@@ -23,7 +23,12 @@ public:
 		this->collider = collider;
 		this->inter = inter;
 	}
-	BaseCollider* GetCollider() { return collider; }
-	MyMath::Vector3D& GetInter() { return inter; }
+
+#pragma region Getter
+
+	BaseCollider* GetCollider();
+	MyMath::Vector3D& GetInter();
+
+#pragma endregion
 };
 

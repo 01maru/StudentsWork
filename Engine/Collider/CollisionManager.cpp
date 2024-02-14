@@ -22,83 +22,79 @@ void CollisionManager::RemoveCollider()
         });
 }
 
-void CollisionManager::CheckAllCollisions()
+void CollisionManager::CheckCollision(BaseCollider* collider, uint16_t attribute)
 {
-    std::forward_list<std::unique_ptr<BaseCollider>>::iterator itB;
+    //  削除予定だったら処理しない
+    if (collider->GetDeleteFlag() == TRUE) return;
 
-    auto itA = colliders_.begin();
+    for (auto& col : colliders_)
+    {
+        //  削除予定だったら処理しない
+        if (col->GetDeleteFlag() == TRUE) continue;
 
-    for (; itA != colliders_.end(); ++itA) {
-        itB = itA;
-        ++itB;
+        //  判定予定の属性ではなかったら処理しない
+        if (!(col->attribute_ & attribute)) continue;
 
-        BaseCollider* colA = itA->get();
-        if (colA->GetDeleteFlag() == TRUE) continue;
-
-        for (; itB != colliders_.end(); ++itB) {
-            BaseCollider* colB = itB->get();
-            if (colB->GetDeleteFlag() == TRUE) continue;
-
-            if (colA->GetShapeType() == COLLISIONSHAPE_SPHERE &&
-                colB->GetShapeType() == COLLISIONSHAPE_SPHERE) {
-                //  球同士の当たり判定
-                Sphere* sphereA = dynamic_cast<Sphere*>(colA);
-                Sphere* sphereB = dynamic_cast<Sphere*>(colB);
-                Vector3D inter;
-                if (Collision::CheckSphere2Sphere(*sphereA, *sphereB, &inter)) {
-                    CollisionInfo colBInfo(colB->GetObject3D(), colB, inter);
-                    CollisionInfo colAInfo(colA->GetObject3D(), colA, inter);
-                    colA->OnCollision(colBInfo);
-                    colB->OnCollision(colAInfo);
-                }
+        //  球同士
+        if (collider->GetShapeType() == COLLISIONSHAPE_SPHERE &&
+            col->GetShapeType() == COLLISIONSHAPE_SPHERE) {
+            //  球同士の当たり判定
+            Sphere* sphereA = dynamic_cast<Sphere*>(collider);
+            Sphere* sphereB = dynamic_cast<Sphere*>(col.get());
+            Vector3D inter;
+            if (Collision::CheckSphere2Sphere(*sphereA, *sphereB, &inter)) {
+                CollisionInfo colAInfo(collider->GetObject3D(), collider, inter);
+                CollisionInfo colBInfo(col->GetObject3D(), col.get(), inter);
+                collider->OnCollision(colBInfo);
+                col->OnCollision(colAInfo);
             }
-            else if (colA->GetShapeType() == COLLISIONSHAPE_PLANE &&
-                colB->GetShapeType() == COLLISIONSHAPE_SPHERE) {
-                Plane* plane = dynamic_cast<Plane*>(colA);
-                Sphere* sphere = dynamic_cast<Sphere*>(colB);
-                Vector3D inter;
-                if (Collision::CheckSphere2Plane(*sphere, *plane, &inter)) {
-                    CollisionInfo colBInfo(colB->GetObject3D(), colB, inter);
-                    CollisionInfo colAInfo(colA->GetObject3D(), colA, inter);
-                    colA->OnCollision(colBInfo);
-                    colB->OnCollision(colAInfo);
-                }
+        }
+        else if (collider->GetShapeType() == COLLISIONSHAPE_PLANE &&
+            col->GetShapeType() == COLLISIONSHAPE_SPHERE) {
+            Plane* plane = dynamic_cast<Plane*>(collider);
+            Sphere* sphere = dynamic_cast<Sphere*>(col.get());
+            Vector3D inter;
+            if (Collision::CheckSphere2Plane(*sphere, *plane, &inter)) {
+                CollisionInfo colBInfo(col->GetObject3D(), col.get(), inter);
+                CollisionInfo colAInfo(collider->GetObject3D(), collider, inter);
+                collider->OnCollision(colBInfo);
+                col->OnCollision(colAInfo);
             }
-            else if (colA->GetShapeType() == COLLISIONSHAPE_SPHERE &&
-                colB->GetShapeType() == COLLISIONSHAPE_PLANE) {
-                Plane* plane = dynamic_cast<Plane*>(colB);
-                Sphere* sphere = dynamic_cast<Sphere*>(colA);
-                Vector3D inter;
-                if (Collision::CheckSphere2Plane(*sphere, *plane, &inter)) {
-                    CollisionInfo colBInfo(colB->GetObject3D(), colB, inter);
-                    CollisionInfo colAInfo(colA->GetObject3D(), colA, inter);
-                    colA->OnCollision(colBInfo);
-                    colB->OnCollision(colAInfo);
-                }
+        }
+        else if (collider->GetShapeType() == COLLISIONSHAPE_SPHERE &&
+            col->GetShapeType() == COLLISIONSHAPE_PLANE) {
+            Sphere* sphere = dynamic_cast<Sphere*>(collider);
+            Plane* plane = dynamic_cast<Plane*>(col.get());
+            Vector3D inter;
+            if (Collision::CheckSphere2Plane(*sphere, *plane, &inter)) {
+                CollisionInfo colBInfo(col->GetObject3D(), col.get(), inter);
+                CollisionInfo colAInfo(collider->GetObject3D(), collider, inter);
+                collider->OnCollision(colBInfo);
+                col->OnCollision(colAInfo);
             }
-            else if (colA->GetShapeType() == COLLISIONSHAPE_MESH &&
-                colB->GetShapeType() == COLLISIONSHAPE_SPHERE) {
-                MeshCollider* meshCollider = dynamic_cast<MeshCollider*>(colA);
-                Sphere* sphere = dynamic_cast<Sphere*>(colB);
-                Vector3D inter;
-                if (meshCollider->CheckCollisionSphere(*sphere, &inter)) {
-                    CollisionInfo colBInfo(colB->GetObject3D(), colB, inter);
-                    CollisionInfo colAInfo(colA->GetObject3D(), colA, inter);
-                    colA->OnCollision(colBInfo);
-                    colB->OnCollision(colAInfo);
-                }
+        }
+        else if (collider->GetShapeType() == COLLISIONSHAPE_MESH &&
+            col->GetShapeType() == COLLISIONSHAPE_SPHERE) {
+            MeshCollider* meshCollider = dynamic_cast<MeshCollider*>(collider);
+            Sphere* sphere = dynamic_cast<Sphere*>(col.get());
+            Vector3D inter;
+            if (meshCollider->CheckCollisionSphere(*sphere, &inter)) {
+                CollisionInfo colBInfo(col->GetObject3D(), col.get(), inter);
+                CollisionInfo colAInfo(collider->GetObject3D(), collider, inter);
+                collider->OnCollision(colBInfo);
+                col->OnCollision(colAInfo);
             }
-            else if (colA->GetShapeType() == COLLISIONSHAPE_SPHERE &&
-                colB->GetShapeType() == COLLISIONSHAPE_MESH) {
-                MeshCollider* meshCollider = dynamic_cast<MeshCollider*>(colB);
-                Sphere* sphere = dynamic_cast<Sphere*>(colA);
-                Vector3D inter;
-                if (meshCollider->CheckCollisionSphere(*sphere, &inter)) {
-                    CollisionInfo colBInfo(colB->GetObject3D(), colB, inter);
-                    CollisionInfo colAInfo(colA->GetObject3D(), colA, inter);
-                    colA->OnCollision(colBInfo);
-                    colB->OnCollision(colAInfo);
-                }
+        }
+        else if (collider->GetShapeType() == COLLISIONSHAPE_SPHERE &&
+            col->GetShapeType() == COLLISIONSHAPE_MESH) {
+            MeshCollider* meshCollider = dynamic_cast<MeshCollider*>(col.get());
+            Sphere* sphere = dynamic_cast<Sphere*>(collider);
+            Vector3D inter;
+            if (meshCollider->CheckCollisionSphere(*sphere, &inter)) {
+                CollisionInfo colBInfo(col->GetObject3D(), col.get(), inter);
+                CollisionInfo colAInfo(collider->GetObject3D(), collider, inter);
+                collider->OnCollision(colBInfo);
+                col->OnCollision(colAInfo);
             }
         }
     }

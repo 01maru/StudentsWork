@@ -21,6 +21,8 @@ public:
 	* 更新処理関数
 	*/
 	void Update(std::list<BulletInfo>& bullets);
+
+	void CollisionUpdate();
 	/**
 	* @fn ImGuiUpdate()
 	* ImGui更新処理関数
