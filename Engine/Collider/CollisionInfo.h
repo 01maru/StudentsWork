@@ -12,19 +12,16 @@ namespace MNE
 
 	struct CollisionInfo
 	{
+	public:
+		//	コンストラクタ
+		CollisionInfo(MNE::Object3D* object, BaseCollider* collider, const MyMath::Vector3D& inter);
+
 	private:
-		MNE::Object3D* object = nullptr;
-		BaseCollider* collider = nullptr;
-		MyMath::Vector3D inter;
+		MNE::Object3D* object_ = nullptr;
+		BaseCollider* collider_ = nullptr;
+		MyMath::Vector3D inter_;
 
 	public:
-		CollisionInfo(MNE::Object3D* object, BaseCollider* collider,
-			const MyMath::Vector3D& inter) {
-			this->object = object;
-			this->collider = collider;
-			this->inter = inter;
-		}
-
 #pragma region Getter
 
 		BaseCollider* GetCollider();

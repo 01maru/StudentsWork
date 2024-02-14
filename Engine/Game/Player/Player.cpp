@@ -360,7 +360,7 @@ void Player::CollisionUpdate()
 	Vector3D downVec(0, -1, 0);
 	ray.dir = downVec;
 	RayCast raycastHit;
-
+	
 	float diameter = sphereCollider->GetRadius() * 2.0f;
 	if (onGround_) {
 		const float adsDis = 0.2f;

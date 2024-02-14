@@ -2,6 +2,11 @@
 #include "Vector3D.h"
 #include "Vector2D.h"
 
+/**
+* @file CollisionPrimitive.h
+* @brief 当たり判定の形状の構造体をまとめたのファイル
+*/
+
 namespace MNE
 {
 

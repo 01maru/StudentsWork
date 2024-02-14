@@ -7,7 +7,7 @@ namespace MNE
 
 	struct QueryHit
 	{
-		MNE::Object3D* object = nullptr;
+		Object3D* object = nullptr;
 		BaseCollider* collider = nullptr;
 		MyMath::Vector3D inter;
 		MyMath::Vector3D reject;

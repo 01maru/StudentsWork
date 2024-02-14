@@ -4,6 +4,10 @@
 
 using namespace MyMath;
 
+//-----------------------------------------------------------------------------
+// [SECTION] Point
+//-----------------------------------------------------------------------------
+
 void MNE::Collision::ClosestPtPoint2Triangle(const Vector3D& point, const Triangle& triangle, Vector3D* closest)
 {
 	//	pointがp0の外側の頂点領域の中にあるかどうかチェック
@@ -83,6 +87,10 @@ void MNE::Collision::ClosestPtPoint2Triangle(const Vector3D& point, const Triang
 	*closest += p0_p2 * w;
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Sphere
+//-----------------------------------------------------------------------------
+
 bool MNE::Collision::CheckSphere2Sphere(const Sphere& sphereA, const Sphere& sphereB, Vector3D* inter, Vector3D* reject)
 {
     float dis = sphereA.radius_ + sphereB.radius_;
@@ -149,6 +157,10 @@ bool MNE::Collision::CheckSphere2Triangle(const Sphere& sphere, const Triangle& 
 	}
     return true;
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Ray
+//-----------------------------------------------------------------------------
 
 bool MNE::Collision::CheckRay2Plane(const Ray& ray, const Plane& plane, float* distance, Vector3D* inter)
 {
