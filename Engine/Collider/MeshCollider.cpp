@@ -51,7 +51,7 @@ void MeshCollider::ConstructTriangles(MNE::IModel* model)
 
 void MeshCollider::Update()
 {
-	InverseMatrix(GetObject3D()->GetMatWorld(), invMatWorld_);
+	InverseMatrix(GetWorldMatrix(), invMatWorld_);
 }
 
 bool MeshCollider::CheckCollisionSphere(const Sphere& sphere, Vector3D* inter, Vector3D* reject)
@@ -68,13 +68,13 @@ bool MeshCollider::CheckCollisionSphere(const Sphere& sphere, Vector3D* inter, V
 
 		if (Collision::CheckSphere2Triangle(localSphere, triangle, inter, reject)) {
 			if (inter) {
-				const Matrix& matWorld = GetObject3D()->GetMatWorld();
+				const Matrix& matWorld = GetWorldMatrix();
 
 				*inter = Vec3Transform(*inter, matWorld);
 			}
 
 			if (reject) {
-				const Matrix& matWorld = GetObject3D()->GetMatWorld();
+				const Matrix& matWorld = GetWorldMatrix();
 				*reject = Vec3TransformNormal(*reject, matWorld);
 			}
 			return true;
@@ -99,7 +99,7 @@ bool MeshCollider::CheckCollisionRay(const Ray& ray, float* dis, Vector3D* inter
 
 		if (Collision::CheckRay2Triangle(localRay, triangle, nullptr, &tempInter)) {
 
-			const Matrix& matWorld = GetObject3D()->GetMatWorld();
+			const Matrix& matWorld = GetWorldMatrix();
 			tempInter = Vec3Transform(tempInter, matWorld);
 
 			if (dis) {

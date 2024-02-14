@@ -15,18 +15,29 @@ CollisionManager* CollisionManager::GetInstance()
     return &instance;
 }
 
+void CollisionManager::RemoveCollider()
+{
+    colliders_.remove_if([](std::unique_ptr<BaseCollider>& collider) {
+        return collider->GetDeleteFlag();
+        });
+}
+
 void CollisionManager::CheckAllCollisions()
 {
     std::forward_list<std::unique_ptr<BaseCollider>>::iterator itB;
 
-    auto itA = colliders.begin();
+    auto itA = colliders_.begin();
 
-    for (; itA != colliders.end(); ++itA) {
+    for (; itA != colliders_.end(); ++itA) {
         itB = itA;
         ++itB;
-        for (; itB != colliders.end(); ++itB) {
-            BaseCollider* colA = itA->get();
+
+        BaseCollider* colA = itA->get();
+        if (colA->GetDeleteFlag() == TRUE) continue;
+
+        for (; itB != colliders_.end(); ++itB) {
             BaseCollider* colB = itB->get();
+            if (colB->GetDeleteFlag() == TRUE) continue;
 
             if (colA->GetShapeType() == COLLISIONSHAPE_SPHERE &&
                 colB->GetShapeType() == COLLISIONSHAPE_SPHERE) {
@@ -101,15 +112,15 @@ bool CollisionManager::Raycast(const Ray& ray, RayCast* hitinfo, float maxDistan
 bool CollisionManager::Raycast(const Ray& ray, unsigned short attribute, RayCast* hitinfo, float maxDistance)
 {
     bool ans = false;
-    auto itr = colliders.begin();
+    auto itr = colliders_.begin();
     std::forward_list<std::unique_ptr<BaseCollider>>::iterator itr_hit;
     float distance = maxDistance;
     Vector3D inter;
 
-    for (; itr != colliders.end(); ++itr) {
+    for (; itr != colliders_.end(); ++itr) {
         BaseCollider* colA = itr->get();
 
-        if (!(colA->attribute & attribute)) continue;
+        if (!(colA->attribute_ & attribute)) continue;
 
         if (colA->GetShapeType() == COLLISIONSHAPE_SPHERE) {
             Sphere* sphere = dynamic_cast<Sphere*>(colA);
@@ -183,10 +194,10 @@ void CollisionManager::QuerySphere(const Sphere& sphere, QueryCallBack* callback
 {
     assert(callback);
 
-    for (auto it = colliders.begin(); it != colliders.end(); ++it) {
+    for (auto it = colliders_.begin(); it != colliders_.end(); ++it) {
         BaseCollider* col = it->get();
 
-        if (!(col->attribute & attribute)) continue;
+        if (!(col->attribute_ & attribute)) continue;
 
         // 球
         if (col->GetShapeType() == COLLISIONSHAPE_SPHERE) {

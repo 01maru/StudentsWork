@@ -1,4 +1,8 @@
 #pragma once
+/**
+* @file CollisionShapeType.h
+* @brief 当たり判定の形をまとめたのファイル
+*/
 
 enum CollisionShapeType
 {

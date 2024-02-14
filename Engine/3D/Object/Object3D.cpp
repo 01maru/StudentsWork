@@ -22,7 +22,6 @@ MNE::Object3D::~Object3D()
 {
 	if (collider_) {
 		collider_->Finalize();
-		CollisionManager::GetInstance()->RemoveCollider();
 		collider_ = nullptr;
 	}
 }

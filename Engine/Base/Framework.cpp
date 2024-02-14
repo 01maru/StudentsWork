@@ -11,6 +11,7 @@
 #include "FPSController.h"
 #include "CameraManager.h"
 #include "SceneManager.h"
+#include "CollisionManager.h"
 
 void MNE::Framework::Run()
 {
@@ -62,6 +63,9 @@ void MNE::Framework::Update()
 
 	//	60fps固定
 	FPSController::GetInstance()->Update();
+
+	//	コライダー削除
+	CollisionManager::GetInstance()->RemoveCollider();
 }
 
 void MNE::Framework::Finalize()

@@ -1,6 +1,11 @@
 #pragma once
 #include "CollisionPrimitive.h"
 
+/**
+* @file Collision.h
+* @brief 当たり判定の関数をまとめたのファイル
+*/
+
 class Collision
 {
 public:

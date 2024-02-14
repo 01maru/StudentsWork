@@ -1,12 +1,28 @@
-﻿//#include "BaseCollider.h"
-//#include "Object3D.h"
-//
-//inline void BaseCollider::OnCollision(const CollisionInfo& info)
-//{
-//	
-//}
-//
-//inline void BaseCollider::SetObject3D(Object3D* object)
-//{
-//	object_ = object;
-//}
+#include "BaseCollider.h"
+
+//-----------------------------------------------------------------------------
+// [SECTION] Finalize
+//-----------------------------------------------------------------------------
+
+void BaseCollider::Finalize()
+{
+    deleteFlag_ = TRUE;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+MyMath::Matrix BaseCollider::GetWorldMatrix()
+{
+    if (matWorld_ == nullptr)
+    {
+        return object_->GetMatWorld();
+    }
+
+    return *matWorld_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
