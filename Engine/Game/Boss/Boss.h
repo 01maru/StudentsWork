@@ -48,7 +48,7 @@ public:
 	*/
 	void DrawUI();
 	void CollisionUpdate();
-	void OnCollision(CollisionInfo& info) override;
+	void OnCollision(MNE::CollisionInfo& info) override;
 
 private:
 	bool isActive_ = true;

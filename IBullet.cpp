@@ -2,6 +2,7 @@
 #include "SphereCollider.h"
 
 using namespace MyMath;
+using namespace MNE;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize

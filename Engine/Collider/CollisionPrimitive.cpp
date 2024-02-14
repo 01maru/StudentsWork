@@ -2,7 +2,7 @@
 
 using namespace MyMath;
 
-void Triangle::ComputeNormal()
+void MNE::Triangle::ComputeNormal()
 {
 	Vector3D p0_p1 = p1 - p0;
 	Vector3D p0_p2 = p2 - p0;

@@ -192,9 +192,9 @@ void MNE::FbxModel::LoadMesh(Mesh& dst, const aiMesh* src)
 	{
 		const auto& face = src->mFaces[i];
 
-		dst.AddIndex((unsigned short)face.mIndices[0]);
-		dst.AddIndex((unsigned short)face.mIndices[1]);
-		dst.AddIndex((unsigned short)face.mIndices[2]);
+		dst.AddIndex((uint16_t)face.mIndices[0]);
+		dst.AddIndex((uint16_t)face.mIndices[1]);
+		dst.AddIndex((uint16_t)face.mIndices[2]);
 	}
 }
 

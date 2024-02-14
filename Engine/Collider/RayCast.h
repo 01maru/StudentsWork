@@ -4,11 +4,16 @@
 class BaseCollider;
 class Object3D;
 
-struct RayCast
+namespace MNE
 {
-	MNE::Object3D* object = nullptr;
-	BaseCollider* collider = nullptr;
-	MyMath::Vector3D inter;
-	float distance = 0.0f;
-};
+
+	struct RayCast
+	{
+		MNE::Object3D* object = nullptr;
+		BaseCollider* collider = nullptr;
+		MyMath::Vector3D inter;
+		float distance = 0.0f;
+	};
+
+}
 

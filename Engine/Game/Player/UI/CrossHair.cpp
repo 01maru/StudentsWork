@@ -5,7 +5,7 @@
 #include "CollisionAttribute.h"
 #include "ImGuiManager.h"
 
-using namespace CollAttribute;
+using namespace MNE::CollAttribute;
 using namespace MNE;
 
 //-----------------------------------------------------------------------------

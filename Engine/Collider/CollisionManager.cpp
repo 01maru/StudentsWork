@@ -9,20 +9,20 @@
 
 using namespace MyMath;
 
-CollisionManager* CollisionManager::GetInstance()
+MNE::CollisionManager* MNE::CollisionManager::GetInstance()
 {
     static CollisionManager instance;
     return &instance;
 }
 
-void CollisionManager::RemoveCollider()
+void MNE::CollisionManager::RemoveCollider()
 {
     colliders_.remove_if([](std::unique_ptr<BaseCollider>& collider) {
         return collider->GetDeleteFlag();
         });
 }
 
-void CollisionManager::CheckCollision(BaseCollider* collider, uint16_t attribute)
+void MNE::CollisionManager::CheckCollision(BaseCollider* collider, uint16_t attribute)
 {
     //  削除予定だったら処理しない
     if (collider->GetDeleteFlag() == TRUE) return;
@@ -100,12 +100,12 @@ void CollisionManager::CheckCollision(BaseCollider* collider, uint16_t attribute
     }
 }
 
-bool CollisionManager::Raycast(const Ray& ray, RayCast* hitinfo, float maxDistance)
+bool MNE::CollisionManager::Raycast(const Ray& ray, RayCast* hitinfo, float maxDistance)
 {
     return Raycast(ray, 0xFFFF, hitinfo, maxDistance);
 }
 
-bool CollisionManager::Raycast(const Ray& ray, unsigned short attribute, RayCast* hitinfo, float maxDistance)
+bool MNE::CollisionManager::Raycast(const Ray& ray, uint16_t attribute, RayCast* hitinfo, float maxDistance)
 {
     bool ans = false;
     auto itr = colliders_.begin();
@@ -169,7 +169,7 @@ bool CollisionManager::Raycast(const Ray& ray, unsigned short attribute, RayCast
     return ans;
 }
 
-Vector3D CollisionManager::CollisionStage(const Sphere& sphere)
+Vector3D MNE::CollisionManager::CollisionStage(const Sphere& sphere)
 {
     Vector3D ans = sphere.center_;
 
@@ -186,7 +186,7 @@ Vector3D CollisionManager::CollisionStage(const Sphere& sphere)
     return ans;
 }
 
-void CollisionManager::QuerySphere(const Sphere& sphere, QueryCallBack* callback, unsigned short attribute)
+void MNE::CollisionManager::QuerySphere(const Sphere& sphere, QueryCallBack* callback, uint16_t attribute)
 {
     assert(callback);
 

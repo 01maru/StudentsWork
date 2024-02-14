@@ -24,7 +24,7 @@ public:
 	*/
 	void Update() override;
 
-	void OnCollision(CollisionInfo& info) override;
+	void OnCollision(MNE::CollisionInfo& info) override;
 
 private:
 	//	エミッターの生存時間

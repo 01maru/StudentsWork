@@ -3,13 +3,13 @@
 
 using namespace MyMath;
 
-SphereCollider::SphereCollider(const Vector3D& offset, float radius) :offset_(offset)
+MNE::SphereCollider::SphereCollider(const Vector3D& offset, float radius) :offset_(offset)
 {
 	radius_ = radius;
 	shapeType_ = COLLISIONSHAPE_SPHERE;
 }
 
-void SphereCollider::Update()
+void MNE::SphereCollider::Update()
 {
 	const MyMath::Matrix matWorld = GetWorldMatrix();
 

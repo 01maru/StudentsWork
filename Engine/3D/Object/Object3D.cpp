@@ -193,7 +193,7 @@ void MNE::Object3D::SetAlphaColor(float alpha)
 	color_.w = alpha;
 }
 
-void MNE::Object3D::SetAttribute(unsigned short attribute)
+void MNE::Object3D::SetAttribute(uint16_t attribute)
 {
 	collider_->SetAttribute(attribute);
 }

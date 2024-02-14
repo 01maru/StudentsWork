@@ -4,7 +4,7 @@
 
 using namespace MyMath;
 
-void Collision::ClosestPtPoint2Triangle(const Vector3D& point, const Triangle& triangle, Vector3D* closest)
+void MNE::Collision::ClosestPtPoint2Triangle(const Vector3D& point, const Triangle& triangle, Vector3D* closest)
 {
 	//	pointがp0の外側の頂点領域の中にあるかどうかチェック
 	Vector3D p0_p1 = triangle.p1 - triangle.p0;
@@ -83,7 +83,7 @@ void Collision::ClosestPtPoint2Triangle(const Vector3D& point, const Triangle& t
 	*closest += p0_p2 * w;
 }
 
-bool Collision::CheckSphere2Sphere(const Sphere& sphereA, const Sphere& sphereB, Vector3D* inter, Vector3D* reject)
+bool MNE::Collision::CheckSphere2Sphere(const Sphere& sphereA, const Sphere& sphereB, Vector3D* inter, Vector3D* reject)
 {
     float dis = sphereA.radius_ + sphereB.radius_;
 	dis *= dis;
@@ -117,7 +117,7 @@ bool Collision::CheckSphere2Sphere(const Sphere& sphereA, const Sphere& sphereB,
 	return false;
 }
 
-bool Collision::CheckSphere2Plane(const Sphere& sphere, const Plane& plane, Vector3D* inter)
+bool MNE::Collision::CheckSphere2Plane(const Sphere& sphere, const Plane& plane, Vector3D* inter)
 {
     Vector3D distV = sphere.center_;
     float dist = distV.dot(plane.normal_) - plane.distance;
@@ -132,7 +132,7 @@ bool Collision::CheckSphere2Plane(const Sphere& sphere, const Plane& plane, Vect
     return true;
 }
 
-bool Collision::CheckSphere2Triangle(const Sphere& sphere, const Triangle& triangle, Vector3D* inter, Vector3D* reject)
+bool MNE::Collision::CheckSphere2Triangle(const Sphere& sphere, const Triangle& triangle, Vector3D* inter, Vector3D* reject)
 {
     Vector3D p;
     ClosestPtPoint2Triangle(sphere.center_, triangle, &p);
@@ -150,7 +150,7 @@ bool Collision::CheckSphere2Triangle(const Sphere& sphere, const Triangle& trian
     return true;
 }
 
-bool Collision::CheckRay2Plane(const Ray& ray, const Plane& plane, float* distance, Vector3D* inter)
+bool MNE::Collision::CheckRay2Plane(const Ray& ray, const Plane& plane, float* distance, Vector3D* inter)
 {
     const float epsilon = 1.0e-5f;
     Vector3D vec = plane.normal_;
@@ -170,7 +170,7 @@ bool Collision::CheckRay2Plane(const Ray& ray, const Plane& plane, float* distan
     return true;
 }
 
-bool Collision::CheckRay2Sphere(const Ray& ray, const Sphere& sphere, float* distance, Vector3D* inter)
+bool MNE::Collision::CheckRay2Sphere(const Ray& ray, const Sphere& sphere, float* distance, Vector3D* inter)
 {
     Vector3D m = ray.start;
     m -= sphere.center_;
@@ -191,7 +191,7 @@ bool Collision::CheckRay2Sphere(const Ray& ray, const Sphere& sphere, float* dis
     return true;
 }
 
-bool Collision::CheckRay2Triangle(const Ray& ray, const Triangle& triangle, float* distance, Vector3D* inter)
+bool MNE::Collision::CheckRay2Triangle(const Ray& ray, const Triangle& triangle, float* distance, Vector3D* inter)
 {
 	Plane plane;
 	Vector3D interPlane;

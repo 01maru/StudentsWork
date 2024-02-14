@@ -9,11 +9,11 @@
 #pragma region 前置宣言
 
 
-class BaseCollider;
 
 namespace MNE
 {
 
+	class BaseCollider;
 	namespace CBuff {
 		struct CBuffObj3DTransform;
 		struct CBuffColorMaterial;

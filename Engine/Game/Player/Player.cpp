@@ -18,7 +18,7 @@
 #include "PlayerNoAttackState.h"
 #include "GameCamera.h"
 
-using namespace CollAttribute;
+using namespace MNE::CollAttribute;
 using namespace MNE;
 using namespace MyMath;
 

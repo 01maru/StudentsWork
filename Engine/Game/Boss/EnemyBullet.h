@@ -32,7 +32,7 @@ private:
 	int32_t damage_ = 5;
 
 public:
-	void OnCollision(CollisionInfo& info) override;
+	void OnCollision(MNE::CollisionInfo& info) override;
 
 #pragma region Getter
 

@@ -46,7 +46,7 @@ public:
 	void ImGuiUpdate();
 
 	void CollisionUpdate();
-	void OnCollision(CollisionInfo& info) override;
+	void OnCollision(MNE::CollisionInfo& info) override;
 
 	/**
 	* @fn DrawUI()

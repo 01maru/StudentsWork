@@ -4,11 +4,16 @@
 * @brief 当たり判定の形をまとめたのファイル
 */
 
-enum CollisionShapeType
+namespace MNE
 {
-	SHAPE_UNKNOWN = -1,
-	COLLISIONSHAPE_SPHERE,
-	COLLISIONSHAPE_MESH,
-	COLLISIONSHAPE_PLANE,
-};
+
+	enum CollisionShapeType
+	{
+		SHAPE_UNKNOWN = -1,
+		COLLISIONSHAPE_SPHERE,
+		COLLISIONSHAPE_MESH,
+		COLLISIONSHAPE_PLANE,
+	};
+
+}
 
