@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include "Vector3D.h"
 
 /**
 * @file PlayerData.h
@@ -9,6 +10,7 @@
 class PlayerData
 {
 protected:
+	void ImGuiCamera();
 	/**
 	* @fn ImGuiHPUpdate()
 	* HPに関するImGui更新処理関数
@@ -53,8 +55,16 @@ protected:
 	float walkSpd_ = 0.15f;
 	float runSpd_ = 0.2f;
 	float jumpingDecSpd_ = 0.75f;
-	float maxAngle_ = 60.0f;
-	float minAngle_ = 10.0f;
+	float acc_ = 0.01f;
+	float accDelta_ = 0.01f;
+	float decelRate_ = 0.1f;
+	int32_t accTime_ = 5;
+	//	移動方向ベクトル
+	float maxAngle_ = 60.0f;		//	最大回転値
+	float minAngle_ = 10.0f;		//	最小回転値
+
+	//	Camera
+	MyMath::Vector3D cameraOffset_;
 
 	//	Avoid
 	float avoidMaxSpd_ = 0.3f;
@@ -86,6 +96,10 @@ public:
 	* @return 走りの最大速度
 	*/
 	float GetRunSpd();
+	float GetAvoidMaxSpd();
+	float GetAcc();
+	float GetAccDelta();
+	float GetDecelRate();
 	/**
 	* @fn GetJumpingSpdDec()
 	* ジャンプの減速スピード取得関数

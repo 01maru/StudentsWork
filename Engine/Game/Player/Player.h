@@ -17,6 +17,7 @@
 
 #pragma region 前置宣言
 class GameScene;
+class GameCamera;
 #pragma endregion
 
 class Player :public MNE::Object3D, public PlayerData
@@ -70,7 +71,10 @@ private:
 	bool onGround_ = true;
 
 	//	平面上のスピード
-	float spd_;
+	float spd_ = 0.0f;
+	float decel_ = 0.0f;
+	float nowMaxSpd_ = 0.0f;
+	MNE::FrameCounter accTimer_;
 	//	平面上の移動方向(モデルの正面ベクトルでもある)
 	MyMath::Vector3D moveVec_;
 	//	１フレームでの上下の移動量(上が+)
@@ -100,6 +104,7 @@ private:
 
 	//	ゲームシーンのポインタ(ステート変更用)
 	GameScene* pGameScene_ = nullptr;
+	GameCamera* pCamera_ = nullptr;
 
 private:
 	/**
@@ -114,6 +119,8 @@ private:
 	* @param inputVec (x, y) = (左右, 前後)の入力ベクトル
 	*/
 	void CalcModelFront(const MyMath::Vector2D& inputVec);
+	void MaxSpdUpdate(float inputLen);
+	void CameraUpdate();
 	/**
 	* @fn IsMovingUpdate()
 	* 移動関連の処理をまとめた更新処理関数
@@ -157,8 +164,20 @@ public:
 	bool GetIsRunning();
 	bool GetIsAvoid();
 	bool GetIsMoving();
+	/**
+	* @fn GetSpd()
+	* 現在のスピード取得関数
+	* @return 現在のスピード
+	*/
 	float GetSpd();
-	float GetAvoidMaxSpd();
+	/**
+	* @fn GetNowMaxSpd()
+	* 現在の最大スピード取得関数
+	* @return 現在の最大スピード
+	*/
+	float GetNowMaxSpd();
+	float GetDecel();
+	float GetAccRate();
 	MyMath::Vector3D GetBulletFront();
 	bool GetRateCountIsActive();
 	bool GetSlowAtIsActive();
@@ -207,6 +226,9 @@ public:
 
 
 	void SetGameScene(GameScene* gameScene);
+	void SetGameCamera(GameCamera* camera);
+
+	//void SetMoveVec(const Vector3D& moveVec);
 
 #pragma endregion
 };

@@ -47,8 +47,14 @@ private:
 	//	縦軸のカメラの移動可能範囲
 	const float MAX_ANGLE_Y = 160.0f;
 	const float MIN_ANGLE_Y = 20.0f;
+	float midAngle_ = MyMath::ConvertToRad(90.0f);
 	float minAngleRange_;
 	float maxAngleRange_;
+	float normAngle_;
+
+	float minDisEyeTarget_ = 10.0f;
+	float maxDisEyeTarget_ = 15.0f;
+	MyMath::Vector3D controlFront_;
 
 	float padSpd_ = 0.1f;
 
@@ -84,6 +90,12 @@ private:
 	void UnTargetUpdate();
 
 public:
+#pragma region Getter
+
+	float GetNormAngle();
+
+#pragma endregion
+
 #pragma region Setter
 
 	/**

@@ -2,16 +2,13 @@
 #include <Windows.h>
 #include <Xinput.h>
 #include <stdint.h>
+#include "Vector2D.h"
 
 /**
 * @file InputJoypad.h
 * @brief コントローラーの入力処理をまとめたファイル
 */
 
-namespace MyMath
-{
-    class Vector2D;
-}
 namespace MNE
 {
 
@@ -46,6 +43,8 @@ namespace MNE
         XINPUT_STATE prevState_{};
         bool activeVibration_ = false;
         XINPUT_VIBRATION vibration_{};
+        MyMath::Vector2D thumbRNorm_;
+        MyMath::Vector2D thumbLNorm_;
 
     private:    //  関数
         void SetDeadZone(int16_t& sThumb, int32_t deadzone);
@@ -82,9 +81,11 @@ namespace MNE
         size_t GetRTriggerValue();
 
         MyMath::Vector2D GetThumbR();
+        MyMath::Vector2D GetThumbRNorm();
         bool GetTriggerThumbRX();
         bool GetTriggerThumbRY();
         MyMath::Vector2D GetThumbL();
+        MyMath::Vector2D GetThumbLNorm();
         bool GetTriggerThumbLX();
         bool GetTriggerThumbLY();
         int32_t GetMaxThumbRange() { return 32767; }

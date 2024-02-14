@@ -242,7 +242,10 @@ float MyMath::GetAngle(const Vector3D& axis, const Vector3D& v)
     qAxis.Normalize();
     qV.Normalize();
 
-    return acosf(qAxis.Dot(qV));
+    float ans = qAxis.Dot(qV);
+    ans = mClamp(-1.0f, 1.0f, ans);
+    
+    return acosf(ans);
 }
 
 MyMath::Quaternion MyMath::Normalize(const Quaternion& quaternion)

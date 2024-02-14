@@ -126,6 +126,7 @@ void GameScene::Initialize()
 	camera_ = dynamic_cast<GameCamera*>(CameraManager::GetInstance()->GetMainCamera());
 	camera_->SetEnemyPos(enemy_->GetPositionPtr());
 	camera_->SetPlayerPos(player_->GetPositionPtr());
+	player_->SetGameCamera(camera_);
 	pause_.SetGameCamera(camera_);
 
 	std::unique_ptr<Cylinder> stageColl = std::make_unique<Cylinder>();
@@ -165,16 +166,25 @@ void GameScene::FirstFrameUpdate()
 
 void GameScene::PauseScene()
 {
+	//	ポーズの更新
+	pause_.IsActiveUpdate();
+
 	pause_.Update();
 }
 
 void GameScene::StartScene()
 {
+	//	ポーズの更新
+	pause_.IsActiveUpdate();
+
 	pod_.Update();
 }
 
 void GameScene::PlayScene()
 {
+	//	ポーズの更新
+	pause_.IsActiveUpdate();
+
 	PlayGameUpdate();
 }
 
@@ -222,41 +232,9 @@ void GameScene::CollisionUpdate()
 	CollisionManager::GetInstance()->CheckAllCollisions();
 }
 
-int32_t GameScene::GetNowState()
-{
-	return nowState_;
-}
-
-void GameScene::SetNextState(int32_t nextState)
-{
-	nowState_ = nextState;
-}
-
-void GameScene::SetDrawPlayer(bool drawPlayer)
-{
-	drawPlayer_ = drawPlayer;
-}
-
-void GameScene::ActiveGameOver()
-{
-	if (gameOver_->GetIsActive() == TRUE) return;
-
-	gameOver_->Start();
-	gameOver_->SetCameraPosData(player_->GetPosition());
-}
-
-void GameScene::ActiveClearState()
-{
-	if (clear_->GetIsActive() == TRUE) return;
-
-	clear_->Start();
-}
-
 void GameScene::Update()
 {
 #pragma region 更新処理
-	//	ポーズの更新
-	pause_.IsActiveUpdate();
 
 	camera_->SetIsActive(nowState_ != StartState && pause_.GetIsActive() == FALSE);
 
@@ -349,4 +327,42 @@ void GameScene::Draw()
 	}
 
 	ParticleManager::GetInstance()->Draw();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+int32_t GameScene::GetNowState()
+{
+	return nowState_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void GameScene::SetNextState(int32_t nextState)
+{
+	nowState_ = nextState;
+}
+
+void GameScene::SetDrawPlayer(bool drawPlayer)
+{
+	drawPlayer_ = drawPlayer;
+}
+
+void GameScene::ActiveGameOver()
+{
+	if (gameOver_->GetIsActive() == TRUE) return;
+
+	gameOver_->Start();
+	gameOver_->SetCameraPosData(player_->GetPosition());
+}
+
+void GameScene::ActiveClearState()
+{
+	if (clear_->GetIsActive() == TRUE) return;
+
+	clear_->Start();
 }

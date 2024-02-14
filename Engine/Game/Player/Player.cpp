@@ -16,7 +16,7 @@
 
 #include "PlayerIdleState.h"
 #include "PlayerNoAttackState.h"
-
+#include "GameCamera.h"
 
 using namespace CollAttribute;
 using namespace MNE;
@@ -43,6 +43,8 @@ void Player::StatusInitialize()
 
 	//	HP初期化
 	hp_.Initialize();
+
+	accTimer_.Initialize(accTime_, FALSE);
 }
 
 void Player::Initialize(MNE::IModel* model)
@@ -73,15 +75,20 @@ void Player::CalcMoveVec(const MyMath::Vector2D& inputVec)
 {
 	ICamera* camera = CameraManager::GetInstance()->GetCamera();
 	Vector3D inputMoveVec = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
-	inputMoveVec.y = 0;
+	inputMoveVec.y = 0.0f;			//	平面上のベクトルにするためにY軸は常に0.0f
 
+	//	現在の移動方向ベクトルと入力によるベクトルの内積
 	float dot = moveVec_.dot(inputMoveVec);
-	dot = (-dot + 1.0f) / 2.0f;		//	範囲を0.0f~1.0fに変更し、移動量が大きいときにdot値が大きくなるように変更
+	//	内積値の正規化
+	const float MAX_DOT = 2.0f;
+	dot = (-dot + 1.0f) / MAX_DOT;	//	範囲を0.0f~1.0fに変更し、移動量が大きいときに内積値が大きくなるように変更
 
 	//	回転する角度を決める
-	float angle = dot * maxAngle_;
-	angle = ConvertToRad(mMax(angle, minAngle_));
-	if (GetAngle(moveVec_, inputMoveVec) <= abs(angle))
+	float rotAngle = ConvertToRad(mMax(dot * maxAngle_, minAngle_));
+	float nowAngle = GetAngle(moveVec_, inputMoveVec);
+	
+	//	回転予定の角度より現在の角度が小さかったら(追い越さない用の処理)
+	if (nowAngle <= rotAngle)
 	{
 		moveVec_ = inputMoveVec;
 	}
@@ -89,16 +96,17 @@ void Player::CalcMoveVec(const MyMath::Vector2D& inputVec)
 	{
 		//	回転する向きを決める
 		Vector3D cross = moveVec_.cross(inputMoveVec);
-
+		//	外積のYの値がマイナスだったら反対方向回転
 		if (cross.y < 0.0f)
 		{
-			angle = -angle;
+			rotAngle = -rotAngle;
 		}
 
 		//	Y軸回りに回転
-		Quaternion axisY = MakeAxisAngle(Vector3D(0, 1, 0), angle);
-
-		moveVec_ = RotateVector(moveVec_, axisY);
+		Vector3D axisY(0, 1, 0);
+		Quaternion rotQ = MakeAxisAngle(axisY, rotAngle);
+		//	ベクトルの回転
+		moveVec_ = RotateVector(moveVec_, rotQ);
 	}
 }
 
@@ -107,10 +115,10 @@ void Player::CalcModelFront(const MyMath::Vector2D& inputVec)
 	//	移動してなかったら以下の処理はしない
 	if (isMoving_ == FALSE) return;
 
-	//	移動方向ベクトル変更
+	//	移動方向ベクトル更新
 	CalcMoveVec(inputVec);
 
-	//	モデルの向き計算
+	//	モデルの向き計算(変更予定)
 	Vector3D axisZ(0, 0, -1);
 	Vector3D axisX(-1, 0, 0);
 	float dot = axisX.dot(moveVec_);
@@ -118,20 +126,63 @@ void Player::CalcModelFront(const MyMath::Vector2D& inputVec)
 	if (dot < 0) mat_.angle_.y = -mat_.angle_.y;
 }
 
+void Player::MaxSpdUpdate(float inputLen)
+{
+	//	移動してなかったら
+	if (isMoving_ == FALSE)
+	{
+		nowMaxSpd_ = 0.0f;
+		return;
+	}
+
+	//	走っていたら
+	if (isRunning_ == TRUE)
+	{
+		nowMaxSpd_ = runSpd_;
+	}
+	//	歩いていたら
+	else
+	{
+		float len = mMin(inputLen, 1.0f);
+		nowMaxSpd_ = walkSpd_ * len;
+	}
+
+	//	空中にいたら減速させる
+	if (onGround_ == FALSE) {
+		nowMaxSpd_ *= jumpingDecSpd_;
+	}
+}
+
 void Player::IsMovingUpdate()
 {
-	InputManager* input = InputManager::GetInstance();
-	InputKeyboard* keyboard = input->GetKeyboard();
+	InputJoypad* joypad = InputManager::GetInstance()->GetPad();
+	InputKeyboard* keyboard = InputManager::GetInstance()->GetKeyboard();
 	int32_t frontInput = keyboard->GetKey(DIK_W) - keyboard->GetKey(DIK_S);
 	int32_t sideInput = keyboard->GetKey(DIK_D) - keyboard->GetKey(DIK_A);
 
 	//	パッドでの移動入力
-	MyMath::Vector2D inputVec = input->GetPad()->GetThumbL().GetNormalize();
+	MyMath::Vector2D inputVec = joypad->GetThumbLNorm();
 	//	パッド+キーでの入力
 	inputVec += MyMath::Vector2D(sideInput, frontInput);
 
+	float len = inputVec.GetLength();
 	//	移動しているか判定
-	isMoving_ = inputVec.GetLength() != 0;
+	bool prevIsMoving = isMoving_;
+	isMoving_ = len != 0;
+
+	accTimer_.SetIsIncrement(isMoving_);
+	if (prevIsMoving != isMoving_)
+	{
+		decel_ = nowMaxSpd_ * decelRate_;
+
+		if (accTimer_.GetIsActive() == FALSE)
+		{
+			accTimer_.StartCount();
+		}
+	}
+	accTimer_.Update();
+
+	MaxSpdUpdate(len);
 
 	//	モデルの正面&移動方向計算
 	CalcModelFront(inputVec);
@@ -188,6 +239,26 @@ void Player::JumpUpdate()
 	}
 }
 
+void Player::CameraUpdate()
+{
+	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+	//	頭の中心
+	Vector3D target = mat_.trans_ + Vector3D(0.0f, 1.5f, 0.0f);
+	//	スピードによる補間
+	float offsetRate = mClamp(0.0f, 1.0f, spd_ / runSpd_);
+	target -= moveVec_ * cameraOffset_.x * offsetRate;
+
+	//	eye設定
+	camera->SetEye(target - camera->GetDisEyeTarget() * camera->GetFrontVec());
+	
+	target += camera->GetFrontVec() * cameraOffset_.z;
+	target.y += cameraOffset_.y * pCamera_->GetNormAngle();
+
+	camera->SetTarget(target);
+
+	camera->MatUpdate();
+}
+
 void Player::Update()
 {
 	//	HPバーのアニメーション更新
@@ -221,14 +292,7 @@ void Player::Update()
 	mat_.trans_ += moveVec_ * spd_;
 	mat_.trans_.y += moveY_;
 
-	ICamera* camera = CameraManager::GetInstance()->GetCamera();
-	Vector3D target = mat_.trans_;
-	target += camera->GetFrontVec() * 3.0f;
-	target.y += 2.0f;
-	camera->SetTarget(target);
-	//	eyeも動かす
-	camera->SetEye(target - camera->GetDisEyeTarget() * camera->GetFrontVec());
-	camera->MatUpdate();
+	CameraUpdate();
 
 	crossHair_.Update(mat_.trans_ + offset_);
 
@@ -334,6 +398,16 @@ void Player::OnCollision(CollisionInfo& info)
 // [SECTION] ImGuiUpdate
 //-----------------------------------------------------------------------------
 
+void Player::HotReloadStatus()
+{
+	LoadData();
+
+	avoidCTSprite_.SetMaxTime(avoidCoolTime_);
+	slowAtCTSprite_.SetMaxTime(slowATCoolTime_);
+
+	hp_.SetMaxHP(maxHP_);
+}
+
 void Player::ImGuiMenuUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
@@ -348,16 +422,6 @@ void Player::ImGuiMenuUpdate()
 	}
 }
 
-void Player::HotReloadStatus()
-{
-	LoadData();
-
-	avoidCTSprite_.SetMaxTime(avoidCoolTime_);
-	slowAtCTSprite_.SetMaxTime(slowATCoolTime_);
-
-	hp_.SetMaxHP(maxHP_);
-}
-
 void Player::ImGuiUpdate()
 {
 	ImGuiManager* imgui = ImGuiManager::GetInstance();
@@ -367,6 +431,35 @@ void Player::ImGuiUpdate()
 	ImGuiMenuUpdate();
 
 	crossHair_.ImGuiUpdate();
+
+	if (imgui->CollapsingHeader("Move")) {
+		imgui->Text("IsMoving : %s", isMoving_ ? "TRUE" : "FALSE");
+		imgui->Text("IsRunning : %s", isRunning_ ? "TRUE" : "FALSE");
+		imgui->Text("Spd : %.2f", spd_);
+		imgui->Text("MoveVec : (%.2f, %.2f, %.2f)", moveVec_.x, moveVec_.y, moveVec_.z);
+
+		ImGuiMoveUpdate();
+	}
+
+	if (imgui->CollapsingHeader("Avoid")) {
+		imgui->Text("AvoidIsActive : %s", avoidCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
+		imgui->Text("Avoid : %s", avoiding_ ? "TRUE" : "FALSE");
+
+		ImGuiAvoidUpdate();
+		//avoidCT_.ImGuiUpdate();
+	}
+
+	if (imgui->CollapsingHeader("Jump")) {
+		imgui->Text("OnGround : %s", onGround_ ? "TRUE" : "FALSE");
+		imgui->Text("MoveY : %.2f", moveY_);
+
+		ImGuiJumpUpdate();
+	}
+
+	if (imgui->CollapsingHeader("Camera")) {
+		ImGuiCamera();
+		pCamera_->ImGuiUpdate();
+	}
 
 	if (imgui->CollapsingHeader("Model")) {
 		imgui->Text("animationTimer : %d", animationTimer_);
@@ -391,30 +484,6 @@ void Player::ImGuiUpdate()
 		if (imgui->SetButton("GetDamage")) {
 			hp_.DecHp(debugDamage);
 		}
-	}
-
-	if (imgui->CollapsingHeader("Move")) {
-		imgui->Text("IsMoving : %s", isMoving_ ? "TRUE" : "FALSE");
-		imgui->Text("IsRunning : %s", isRunning_ ? "TRUE" : "FALSE");
-		imgui->Text("Spd : %.2f", spd_);
-		imgui->Text("MoveVec : (%.2f, %.2f, %.2f)", moveVec_.x, moveVec_.y, moveVec_.z);
-
-		ImGuiMoveUpdate();
-	}
-	
-	if (imgui->CollapsingHeader("Avoid")) {
-		imgui->Text("AvoidIsActive : %s", avoidCTSprite_.GetIsActive() ? "TRUE" : "FALSE");
-		imgui->Text("Avoid : %s", avoiding_ ? "TRUE" : "FALSE");
-
-		ImGuiAvoidUpdate();
-		//avoidCT_.ImGuiUpdate();
-	}
-
-	if(imgui->CollapsingHeader("Jump")) {
-		imgui->Text("OnGround : %s", onGround_ ? "TRUE" : "FALSE");
-		imgui->Text("MoveY : %.2f", moveY_);
-
-		ImGuiJumpUpdate();
 	}
 
 	if (imgui->CollapsingHeader("State")) {
@@ -493,9 +562,19 @@ float Player::GetSpd()
 	return spd_;
 }
 
-float Player::GetAvoidMaxSpd()
+float Player::GetNowMaxSpd()
 {
-	return avoidMaxSpd_;
+	return nowMaxSpd_;
+}
+
+float Player::GetDecel()
+{
+	return decel_;
+}
+
+float Player::GetAccRate()
+{
+	return accTimer_.GetCountPerMaxCount();
 }
 
 Vector3D Player::GetBulletFront()
@@ -583,12 +662,17 @@ void Player::SetUIInfo(MNE::UIData& uiData)
 	//	FiveBullet
 	gameUISprite = uiData.GetUIObject("SlowCool")->GetComponent<UISprite>();
 	slowAtCTSprite_.SetSprite(gameUISprite->GetSprites()["SlowAt"], gameUISprite->GetSprites()["Text"]);
-	//	Dash
-	gameUISprite = uiData.GetUIObject("DashCool")->GetComponent<UISprite>();
-	avoidCTSprite_.SetSprite(gameUISprite->GetSprites()["Dash"], gameUISprite->GetSprites()["Text"]);
+	//	Sliding
+	gameUISprite = uiData.GetUIObject("SlideCool")->GetComponent<UISprite>();
+	avoidCTSprite_.SetSprite(gameUISprite->GetSprites()["Sliding"], gameUISprite->GetSprites()["Text"]);
 }
 
 void Player::SetGameScene(GameScene* gameScene)
 {
 	pGameScene_ = gameScene;
+}
+
+void Player::SetGameCamera(GameCamera* camera)
+{
+	pCamera_ = camera;
 }

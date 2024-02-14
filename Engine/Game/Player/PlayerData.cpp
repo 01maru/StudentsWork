@@ -10,49 +10,56 @@ using namespace MNE;
 // [SECTION] ImGuiUpdate
 //-----------------------------------------------------------------------------
 
+void PlayerData::ImGuiCamera()
+{
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
+
+	imGui->InputFloat3("CameraOffset", cameraOffset_);
+}
+
 void PlayerData::ImGuiHPUpdate()
 {
-	ImGuiManager* imgui = ImGuiManager::GetInstance();
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
 
-	imgui->InputInt("MaxHP", maxHP_);
+	imGui->InputInt("MaxHP", maxHP_);
 }
 
 void PlayerData::ImGuiMoveUpdate()
 {
-	ImGuiManager* imgui = ImGuiManager::GetInstance();
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
 
-	imgui->InputFloat("walkSpd", walkSpd_);
-	imgui->InputFloat("runSpd", runSpd_);
-	imgui->InputFloat("jumpingSpdDec", jumpingDecSpd_);
-	imgui->InputFloat("MoveRotMaxAngle", maxAngle_);
-	imgui->InputFloat("MoveRotMinAngle", minAngle_);
+	imGui->InputFloat("walkSpd", walkSpd_);
+	imGui->InputFloat("runSpd", runSpd_);
+	imGui->InputFloat("jumpingSpdDec", jumpingDecSpd_);
+	imGui->InputFloat("MoveRotMaxAngle", maxAngle_);
+	imGui->InputFloat("MoveRotMinAngle", minAngle_);
 }
 
 void PlayerData::ImGuiAvoidUpdate()
 {
-	ImGuiManager* imgui = ImGuiManager::GetInstance();
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
 
-	imgui->InputFloat("AvoidMaxSpd", avoidMaxSpd_);
-	imgui->InputInt("AvoidAccTime", avoidAccTime_);
-	imgui->InputInt("AvoidDecTime", avoidDecTime_);
-	imgui->InputInt("AvoidCoolTime", avoidCoolTime_);
+	imGui->InputFloat("AvoidMaxSpd", avoidMaxSpd_);
+	imGui->InputInt("AvoidAccTime", avoidAccTime_);
+	imGui->InputInt("AvoidDecTime", avoidDecTime_);
+	imGui->InputInt("AvoidCoolTime", avoidCoolTime_);
 }
 
 void PlayerData::ImGuiAttackUpdate()
 {
-	ImGuiManager* imgui = ImGuiManager::GetInstance();
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
 
-	imgui->InputInt("SlowATCoolTime", slowATCoolTime_);
-	imgui->InputInt("BulletRate", bulletRate_);
+	imGui->InputInt("SlowATCoolTime", slowATCoolTime_);
+	imGui->InputInt("BulletRate", bulletRate_);
 }
 
 void PlayerData::ImGuiJumpUpdate()
 {
-	ImGuiManager* imgui = ImGuiManager::GetInstance();
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
 
-	imgui->InputFloat("FallAcc", fallAcc);
-	imgui->InputFloat("FallVYMin", fallVYMin);
-	imgui->InputFloat("JumpFirstSpd", jumpFirstSpd_);
+	imGui->InputFloat("FallAcc", fallAcc);
+	imGui->InputFloat("FallVYMin", fallVYMin);
+	imGui->InputFloat("JumpFirstSpd", jumpFirstSpd_);
 }
 
 //-----------------------------------------------------------------------------
@@ -75,6 +82,12 @@ void PlayerData::SaveData()
 	outPutFile << "JumpDecSPD " << jumpingDecSpd_ << std::endl;
 	outPutFile << "MoveRotMaxAngle " << maxAngle_ << std::endl;
 	outPutFile << "MoveRotMinAngle " << minAngle_ << std::endl;
+
+	//	Camera
+	outPutFile << "CameraOffset "
+		<< cameraOffset_.x << " "
+		<< cameraOffset_.y << " "
+		<< cameraOffset_.z << std::endl;
 
 	//	Avoid
 	outPutFile << "AvoidMaxSpd " << avoidMaxSpd_ << std::endl;
@@ -120,73 +133,82 @@ void PlayerData::LoadData()
 		if (key == "MAXHP")
 		{
 			line_stream >> maxHP_;
-			return;
+			continue;
 		}
 
 		//	Move
 		if (key == "WalkSPD")
 		{
 			line_stream >> walkSpd_;
-			return;
+			continue;
 		}
 		if (key == "RunSPD")
 		{
 			line_stream >> runSpd_;
-			return;
+			continue;
 		}
 		if (key == "JumpDecSPD")
 		{
 			line_stream >> jumpingDecSpd_;
-			return;
+			continue;
 		}
 		if (key == "MoveRotMaxAngle")
 		{
 			line_stream >> maxAngle_;
-			return;
+			continue;
 		}
 		if (key == "MoveRotMinAngle")
 		{
 			line_stream >> minAngle_;
-			return;
+			continue;
+		}
+
+		//	Camera
+		if (key == "CameraOffset")
+		{
+			line_stream >> cameraOffset_.x;
+			line_stream >> cameraOffset_.y;
+			line_stream >> cameraOffset_.z;
+			continue;
 		}
 
 		//	Avoid
 		if (key == "AvoidMaxSpd")
 		{
 			line_stream >> avoidMaxSpd_;
-			return;
+			continue;
 		}
 		if (key == "AvoidDecTime")
 		{
 			line_stream >> avoidDecTime_;
-			return;
+			continue;
 		}
 		if (key == "AvoidAccTime")
 		{
 			line_stream >> avoidAccTime_;
-			return;
+			continue;
 		}
 		if (key == "AvoidCT")
 		{
 			line_stream >> avoidCoolTime_;
-			return;
+			continue;
 		}
 
 		//	Jump
 		if (key == "FallAcc")
 		{
 			line_stream >> fallAcc;
-			return;
+			continue;
 		}
 		if (key == "FallMin")
 		{
 			line_stream >> fallVYMin;
-			return;
+			continue;
 		}
 		if (key == "JumpFstSpd")
 		{
 			line_stream >> jumpFirstSpd_;
-			return;
+			continue;
 		}
 	}
 }
@@ -203,6 +225,26 @@ float PlayerData::GetWalkSpd()
 float PlayerData::GetRunSpd()
 {
 	return runSpd_;
+}
+
+float PlayerData::GetAvoidMaxSpd()
+{
+	return avoidMaxSpd_;
+}
+
+float PlayerData::GetAcc()
+{
+	return acc_;
+}
+
+float PlayerData::GetAccDelta()
+{
+	return accDelta_;
+}
+
+float PlayerData::GetDecelRate()
+{
+	return decelRate_;
 }
 
 float PlayerData::GetJumpingSpdDec()

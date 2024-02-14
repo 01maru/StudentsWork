@@ -18,8 +18,10 @@ void GameCamera::Initialize(const Vector3D& eye, const Vector3D& target, const V
 
 	minAngleRange_ = MyMath::ConvertToRad(MIN_ANGLE_Y);
 	maxAngleRange_ = MyMath::ConvertToRad(MAX_ANGLE_Y);
-
+	
 	ICamera::Initialize(eye, target, up);
+
+	controlFront_ = frontVec_;
 }
 
 void GameCamera::Initialize(const Vector3D& frontVec, const Vector3D& center, float dis)
@@ -32,6 +34,8 @@ void GameCamera::Initialize(const Vector3D& frontVec, const Vector3D& center, fl
 	maxAngleRange_ = MyMath::ConvertToRad(MAX_ANGLE_Y);
 
 	ICamera::Initialize(frontVec, center, dis);
+
+	controlFront_ = frontVec_;
 }
 
 //-----------------------------------------------------------------------------
@@ -125,7 +129,7 @@ void GameCamera::UnTargetUpdate()
 	//	座標更新
 	const Vector3D axisY(0, 1, 0);
 	//	現在の縦軸と正面ベクトルの角度
-	float angleY = GetAngle(axisY, frontVec_);
+	float angleY = GetAngle(axisY, controlFront_);
 	//	入力による移動をした際に制限範囲外に行っていたら範囲内に戻す処理
 	moveVec.y = MyMath::mClamp(minAngleRange_ - angleY, maxAngleRange_ - angleY, moveVec.y);
 
@@ -138,16 +142,26 @@ void GameCamera::UnTargetUpdate()
 	//	方向ベクトルを移動させる
 	rightVec_ = RotateVector(rightVec_, qMove);
 	rightVec_.Normalize();
-	frontVec_ = RotateVector(frontVec_, qMove);
-	frontVec_.Normalize();
+	controlFront_ = RotateVector(controlFront_, qMove);
+	controlFront_.Normalize();
 	//	上方向は常に(0, 1, 0)
 	up_ = axisY;
 	up_.Normalize();
 
+	float angleLen = maxAngleRange_ - midAngle_;
+	//	移動後の角度
+	angleY = GetAngle(axisY, controlFront_);
+	normAngle_ = 1.0f - abs(angleY - midAngle_) / angleLen;
+
 	//	座標更新
-	eye_ = target_ - disEyeTarget_ * frontVec_;
+	eye_ = target_ - maxDisEyeTarget_ * controlFront_;
 	//	座標更新後の方向ベクトル更新
 	CalcDirectionVec();
+}
+
+float GameCamera::GetNormAngle()
+{
+	return normAngle_;
 }
 
 void GameCamera::Update()
@@ -173,6 +187,7 @@ void GameCamera::ImGuiInfo()
 
 	//	ターゲット中かどうか
 	imgui->Text("LockOn : %s", targeting_ ? "TRUE" : "FALSE");
+	imgui->Text("NormAngle : %.2f", normAngle_);
 }
 
 //-----------------------------------------------------------------------------

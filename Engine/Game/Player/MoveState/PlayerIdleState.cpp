@@ -5,6 +5,8 @@
 #include "InputManager.h"
 #include <memory>
 
+using namespace MyMath;
+
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
@@ -21,8 +23,9 @@ void PlayerIdleState::Initialize()
 
 void PlayerIdleState::Update()
 {
-	//	急に止まる原因(後で修正)
-	sPlayer_->SetSpd(0.0f);
+	float spd = sPlayer_->GetSpd();
+	spd = mMax(spd - sPlayer_->GetDecel(), 0.0f);
+	sPlayer_->SetSpd(spd);
 
 	//	avoid
 	if (sPlayer_->GetIsAvoid() == true) {

@@ -44,6 +44,14 @@ void MNE::InputJoypad::Update()
     SetDeadZone(state_.Gamepad.sThumbLY, XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE);
     SetDeadZone(state_.Gamepad.sThumbRX, XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
     SetDeadZone(state_.Gamepad.sThumbRY, XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+
+	thumbRNorm_ = GetThumbR();
+	float maxLen = static_cast<float>(GetMaxThumbRange() - XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+	thumbRNorm_ /= maxLen;
+
+	thumbLNorm_ = GetThumbL();
+	maxLen = static_cast<float>(GetMaxThumbRange() - XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE);
+	thumbLNorm_ /= maxLen;
 }
 
 void MNE::InputJoypad::ImGuiUpdateVibration(ImGuiManager* imgui)
@@ -256,6 +264,11 @@ Vector2D MNE::InputJoypad::GetThumbR()
     return Vector2D(state_.Gamepad.sThumbRX, state_.Gamepad.sThumbRY);
 }
 
+MyMath::Vector2D MNE::InputJoypad::GetThumbRNorm()
+{
+	return thumbRNorm_;
+}
+
 bool MNE::InputJoypad::GetTriggerThumbRX()
 {
 	if (!active_) return false;
@@ -273,6 +286,11 @@ bool MNE::InputJoypad::GetTriggerThumbRY()
 MyMath::Vector2D MNE::InputJoypad::GetThumbL()
 {
     return MyMath::Vector2D(state_.Gamepad.sThumbLX, state_.Gamepad.sThumbLY);
+}
+
+MyMath::Vector2D MNE::InputJoypad::GetThumbLNorm()
+{
+	return thumbLNorm_;
 }
 
 bool MNE::InputJoypad::GetTriggerThumbLX()

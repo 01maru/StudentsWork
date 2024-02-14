@@ -1,7 +1,10 @@
-MAXHP 10
+MAXHP 50
 WalkSPD 0.15
 RunSPD 0.2
 JumpDecSPD 0.75
+MoveRotMaxAngle 60
+MoveRotMinAngle 10
+CameraOffset 0.1 2 5
 AvoidMaxSpd 0.3
 AvoidDecTime 60
 AvoidAccTime 30
