@@ -6,6 +6,13 @@
 * @brief スキルのUIを表示するためのファイル
 */
 
+#pragma region 前置宣言
+namespace MNE
+{
+	class Texture;
+}
+#pragma endregion
+
 class PlayerSkill
 {
 public:
@@ -36,6 +43,10 @@ protected:
 	//	入力キー表示
 	MNE::Sprite text_;
 
+	//	入力方法表示用テクスチャ
+	MNE::Texture* keyTex_ = nullptr;
+	MNE::Texture* padTex_ = nullptr;
+
 #pragma endregion
 
 public:
@@ -53,12 +64,13 @@ public:
 #pragma region Setter
 
 	/**
-	* @fn SetSprite(const MNE::Sprite&, const MNE::Sprite&)
+	* @fn SetSprite(const MNE::Sprite&, const MNE::Sprite&, MNE::Texture*)
 	* UIのスプライト設定用関数
 	* @param sprite スキルのスプライト表示情報
 	* @param text 入力方法表示情報
+	* @param padTex パッドの入力方法表示用テクスチャ
 	*/
-	virtual void SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text);
+	virtual void SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text, MNE::Texture* padTex);
 
 #pragma endregion
 };

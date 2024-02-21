@@ -37,6 +37,7 @@ void Player::StatusInitialize()
 	attackState_ = std::make_unique<PlayerNoAttackState>();
 
 	//	Skills
+	runUI_.Initialize();
 	nBulletSprite_.Initialize();
 	avoidCTSprite_.Initialize();
 	slowAtCTSprite_.Initialize();
@@ -198,16 +199,23 @@ void Player::InputUpdate()
 	}
 
 	//	スライディングするか
-	if (input->GetTriggerKeyAndButton(DIK_LSHIFT, InputJoypad::Left_Button) &&
-		avoidCTSprite_.GetIsActive())
+	if (input->GetTriggerKeyAndButton(DIK_LSHIFT, InputJoypad::Left_Button) == TRUE)
 	{
-		avoidCTSprite_.StartCount();
-		avoiding_ = true;
+		if (avoidCTSprite_.GetIsActive() == TRUE)
+		{
+			avoidCTSprite_.StartCount();
+			avoiding_ = true;
+		}
+		else
+		{
+			avoidCTSprite_.StartShakeAnime();
+		}
 	}
 }
 
 void Player::SkillsUpdate()
 {
+	runUI_.Update();
 	nBulletSprite_.Update();
 	avoidCTSprite_.Update();
 	slowAtCTSprite_.Update();
@@ -501,6 +509,7 @@ void Player::DrawUI()
 	hp_.Draw();
 
 	//	Skills
+	runUI_.Draw();
 	nBulletSprite_.Draw();
 	avoidCTSprite_.Draw();
 	slowAtCTSprite_.Draw();
@@ -519,6 +528,11 @@ void Player::StartSlowAtCT()
 void Player::StartAvoidCT()
 {
 	avoidCTSprite_.StartCount();
+}
+
+void Player::StartSlowAtShake()
+{
+	slowAtCTSprite_.StartShakeAnime();
 }
 
 void Player::DecHP(int32_t damage)
@@ -654,15 +668,17 @@ void Player::SetUIInfo(MNE::UIData& uiData)
 	crossHair_.SetSprite(gameUISprite->GetSprites()["crossHair"]);
 
 	//	Skills
-		//	NormalBullet
+	gameUISprite = uiData.GetUIObject("Run")->GetComponent<UISprite>();
+	runUI_.SetSprite(gameUISprite->GetSprites()["Run"], gameUISprite->GetSprites()["Text"], gameUISprite->GetSprites()["PadText"].GetTexture());
+	//	NormalBullet
 	gameUISprite = uiData.GetUIObject("NormalCool")->GetComponent<UISprite>();
-	nBulletSprite_.SetSprite(gameUISprite->GetSprites()["NormalAt"], gameUISprite->GetSprites()["Text"]);
+	nBulletSprite_.SetSprite(gameUISprite->GetSprites()["NormalAt"], gameUISprite->GetSprites()["Text"], gameUISprite->GetSprites()["PadText"].GetTexture());
 	//	FiveBullet
 	gameUISprite = uiData.GetUIObject("SlowCool")->GetComponent<UISprite>();
-	slowAtCTSprite_.SetSprite(gameUISprite->GetSprites()["SlowAt"], gameUISprite->GetSprites()["Text"]);
+	slowAtCTSprite_.SetSprite(gameUISprite->GetSprites()["SlowAt"], gameUISprite->GetSprites()["Text"], gameUISprite->GetSprites()["PadText"].GetTexture());
 	//	Sliding
 	gameUISprite = uiData.GetUIObject("SlideCool")->GetComponent<UISprite>();
-	avoidCTSprite_.SetSprite(gameUISprite->GetSprites()["Sliding"], gameUISprite->GetSprites()["Text"]);
+	avoidCTSprite_.SetSprite(gameUISprite->GetSprites()["Sliding"], gameUISprite->GetSprites()["Text"], gameUISprite->GetSprites()["PadText"].GetTexture());
 }
 
 void Player::SetGameScene(GameScene* gameScene)

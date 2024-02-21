@@ -28,8 +28,6 @@ private:
 	bool isActive_ = false;
 
 public:
-	FrameCounter() {};
-
 	/**
 	* @fn StartCount()
 	* カウントスタート時に呼ぶ関数

@@ -1,7 +1,10 @@
 #include "PlayerSkill.h"
+#include "InputManager.h"
+
+using namespace MNE;
 
 //-----------------------------------------------------------------------------
-// [SECTION] Update
+// [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
 void PlayerSkill::Initialize()
@@ -9,8 +12,24 @@ void PlayerSkill::Initialize()
 	isActive_ = TRUE;
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
 void PlayerSkill::Update()
 {
+	//	パッド使用時
+	if (InputManager::GetInstance()->GetUsePad() == TRUE)
+	{
+		//	パッドの操作方法表記
+		text_.SetTexture(padTex_);
+	}
+	else
+	{
+		//	キーマウの操作方法表記
+		text_.SetTexture(keyTex_);
+	}
+	
 	sprite_.Update();
 	text_.Update();
 }
@@ -38,8 +57,10 @@ bool PlayerSkill::GetIsActive()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void PlayerSkill::SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
+void PlayerSkill::SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text, MNE::Texture* padTex)
 {
 	sprite_ = sprite;
 	text_ = text;
+	keyTex_ = text_.GetTexture();
+	padTex_ = padTex;
 }

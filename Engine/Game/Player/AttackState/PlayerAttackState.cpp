@@ -17,16 +17,23 @@ std::unique_ptr<PlayerAttackState> PlayerAttackState::SetNextState(int32_t nowSt
 	//	スロー攻撃
 	bool input = inputMan->GetMouse()->GetClick(InputMouse::RightClick) ||
 		inputMan->GetPad()->GetLTrigger();
-	if (input && sPlayer_->GetSlowAtIsActive())
+	if (input == TRUE)
 	{
-		if (nowState != SlowAttack)
+		if (sPlayer_->GetSlowAtIsActive() == TRUE)
 		{
-			sPlayer_->StartSlowAtCT();
-			return std::make_unique<PlayerSlowAttack>();
+			if (nowState != SlowAttack)
+			{
+				sPlayer_->StartSlowAtCT();
+				return std::make_unique<PlayerSlowAttack>();
+			}
+			else
+			{
+				dikKey = true;
+			}
 		}
-		else 
+		else
 		{
-			dikKey = true;
+			sPlayer_->StartSlowAtShake();
 		}
 	}
 	

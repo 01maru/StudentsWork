@@ -95,6 +95,7 @@ private:
 
 #pragma region Skills
 
+	PlayerSkill runUI_;
 	PlayerSkill nBulletSprite_;
 	bool avoiding_ = false;
 	SkillCoolTime avoidCTSprite_;
@@ -154,6 +155,7 @@ private:
 
 public:
 
+	void StartSlowAtShake();
 	void DecHP(int32_t damage);
 
 #pragma region Getter

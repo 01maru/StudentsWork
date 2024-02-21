@@ -16,6 +16,11 @@ void SkillCoolTime::Initialize()
 	coolTimer_.SetFrameCountIsMax();
 	
 	PlayerSkill::Initialize();
+
+	effect_.LoadResources();
+	effect_.Initialize();
+
+	shakeTimer_.Initialize(shakeTime_, FALSE);
 }
 
 //-----------------------------------------------------------------------------
@@ -26,6 +31,11 @@ void SkillCoolTime::GaugeUpdate()
 {
 	//	クールタイム中じゃなかったら
 	if (coolTimer_.GetIsActive() == FALSE) {
+
+		if (isActive_ == FALSE) {
+			effect_.Start();
+		}
+
 		//	使用可能状態に(以下の処理しない)
 		isActive_ = TRUE;
 		return;
@@ -42,6 +52,24 @@ void SkillCoolTime::GaugeUpdate()
 	gauge_.SetSize(size);
 }
 
+void SkillCoolTime::ShakeUpdate()
+{
+	if (shakeTimer_.GetIsActive() == FALSE) return;
+	shakeTimer_.Update();
+
+	float shakeMaxX = lerp(0.0f, shakeMax_, shakeTimer_.GetCountPerMaxCount());
+	float rotMax = lerp(0.0f, rotMax_, shakeTimer_.GetCountPerMaxCount());
+	float shakePos_ = GetRand(-shakeMaxX, shakeMaxX);
+	float rotVal_ = GetRand(-rotMax, rotMax);
+	Vector2D pos = centerPos_;
+	pos.x += shakePos_;
+
+	gauge_.SetRotation(rotVal_);
+	gauge_.SetPosition(pos);
+	sprite_.SetRotation(rotVal_);
+	sprite_.SetPosition(pos);
+}
+
 void SkillCoolTime::Update()
 {
 	//	クールタイム更新
@@ -50,9 +78,13 @@ void SkillCoolTime::Update()
 	//	ゲージの動き更新
 	GaugeUpdate();
 
+	ShakeUpdate();
+
 	//	スプライトの更新
 	PlayerSkill::Update();
 	gauge_.Update();
+
+	effect_.Update();
 }
 
 //-----------------------------------------------------------------------------
@@ -70,11 +102,20 @@ void SkillCoolTime::Draw()
 		//	ゲージの描画
 		gauge_.Draw();
 	}
+
+	effect_.Draw();
 }
 
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
+
+void SkillCoolTime::StartShakeAnime()
+{
+	if (shakeTimer_.GetIsActive() == TRUE) return;
+
+	shakeTimer_.StartCount();
+}
 
 void SkillCoolTime::StartCount()
 {
@@ -82,18 +123,26 @@ void SkillCoolTime::StartCount()
 	isActive_ = FALSE;
 }
 
-void SkillCoolTime::SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text)
+void SkillCoolTime::SetSprite(const MNE::Sprite& sprite, const MNE::Sprite& text, MNE::Texture* padTex)
 {
-	PlayerSkill::SetSprite(sprite, text);
+	PlayerSkill::SetSprite(sprite, text, padTex);
+
+	centerPos_ = sprite.GetPosition();
 
 	//	スキルのスプライトに合わせてゲージを初期化
 	gauge_.Initialize();
-	gauge_.SetPosition(sprite.GetPosition());
+	gauge_.SetPosition(centerPos_);
+	gauge_.SetSize(sprite.GetSize());
 	gauge_.SetAnchorPoint(sprite.GetAnchorPoint());
-	float alpha = 0.3f;
-	float gray = 0.3f;
+	float alpha = 0.8f;
+	float gray = 0.1f;
 	MyMath::Vector4D color(gray, gray, gray, alpha);
 	gauge_.SetColor(color);
+
+	Vector2D startPos = centerPos_;
+	startPos.y += gauge_.GetSize().y;
+	
+	effect_.SetStartPos(startPos);
 }
 
 void SkillCoolTime::SetMaxTime(int32_t time)
