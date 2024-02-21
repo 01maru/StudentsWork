@@ -159,11 +159,6 @@ void GameCamera::UnTargetUpdate()
 	CalcDirectionVec();
 }
 
-float GameCamera::GetNormAngle()
-{
-	return normAngle_;
-}
-
 void GameCamera::Update()
 {
 	//	実行中なら
@@ -183,11 +178,25 @@ void GameCamera::Update()
 
 void GameCamera::ImGuiInfo()
 {
-	ImGuiManager* imgui = ImGuiManager::GetInstance();
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
 
 	//	ターゲット中かどうか
-	imgui->Text("LockOn : %s", targeting_ ? "TRUE" : "FALSE");
-	imgui->Text("NormAngle : %.2f", normAngle_);
+	imGui->Text("LockOn : %s", targeting_ ? "TRUE" : "FALSE");
+	imGui->Text("NormAngle : %.2f", normAngle_);
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+float GameCamera::GetNormAngle()
+{
+	return normAngle_;
+}
+
+float GameCamera::GetMaxDisEyeTarget()
+{
+	return maxDisEyeTarget_;
 }
 
 //-----------------------------------------------------------------------------

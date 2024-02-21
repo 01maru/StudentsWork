@@ -52,8 +52,8 @@ private:
 	float maxAngleRange_;
 	float normAngle_;
 
-	float minDisEyeTarget_ = 10.0f;
-	float maxDisEyeTarget_ = 15.0f;
+	//float minDisEyeTarget_ = 10.0f;
+	float maxDisEyeTarget_ = 10.0f;
 	MyMath::Vector3D controlFront_;
 
 	float padSpd_ = 0.1f;
@@ -93,6 +93,8 @@ public:
 #pragma region Getter
 
 	float GetNormAngle();
+
+	float GetMaxDisEyeTarget();
 
 #pragma endregion
 

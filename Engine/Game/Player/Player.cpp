@@ -258,8 +258,21 @@ void Player::CameraUpdate()
 	float offsetRate = mClamp(0.0f, 1.0f, spd_ / runSpd_);
 	target -= moveVec_ * cameraOffset_.x * offsetRate;
 
+	//	ターゲットからRayを飛ばし何かに当たったらその位置にカメラをセット
+	Ray ray;
+	ray.start = target;
+	ray.dir = -camera->GetFrontVec();
+	RayCast rayCastHit;
+
 	//	eye設定
-	camera->SetEye(target - camera->GetDisEyeTarget() * camera->GetFrontVec());
+	if (CollisionManager::GetInstance()->Raycast(ray, &rayCastHit, pCamera_->GetMaxDisEyeTarget())) {
+		camera->SetEye(target - rayCastHit.distance * camera->GetFrontVec());
+	}
+	else
+	{
+		camera->SetEye(target - camera->GetDisEyeTarget() * camera->GetFrontVec());
+	}
+
 	
 	target += camera->GetFrontVec() * cameraOffset_.z;
 	target.y += cameraOffset_.y * pCamera_->GetNormAngle();

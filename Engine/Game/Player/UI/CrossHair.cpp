@@ -20,12 +20,12 @@ void CrossHair::Update(const MyMath::Vector3D& startPos)
 	Ray ray;
 	ray.start = camera->GetEye();
 	ray.dir = camera->GetFrontVec();
-	RayCast raycastHit;
+	RayCast rayCastHit;
 
 	//	弾の発射方向更新
 	//	例が敵か地形に当たったら
-	if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_ENEMYS | COLLISION_ATTR_LANDSHAPE, &raycastHit)) {
-		dir_ = raycastHit.inter - startPos;
+	if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_ENEMYS | COLLISION_ATTR_LANDSHAPE, &rayCastHit)) {
+		dir_ = rayCastHit.inter - startPos;
 	}
 	//	当たらなかったら
 	else {

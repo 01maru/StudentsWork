@@ -256,7 +256,7 @@ void MNE::FbxModel::ImGuiUpdate()
 				}
 
 				MyMath::Matrix transformation = itr->second.transformation;
-				imgui->Text("Transformaion\n(%.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f)",
+				imgui->Text("Transformation\n(%.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f)",
 					transformation.m[0][0], transformation.m[0][1], transformation.m[0][2], transformation.m[0][3],
 					transformation.m[1][0], transformation.m[1][1], transformation.m[1][2], transformation.m[1][3],
 					transformation.m[2][0], transformation.m[2][1], transformation.m[2][2], transformation.m[2][3],
@@ -271,7 +271,7 @@ void MNE::FbxModel::ImGuiUpdate()
 		for (auto itr = boneMapping_.begin(); itr != boneMapping_.end(); ++itr) {
 			if (imgui->TreeNode(itr->first)) {
 				MyMath::Matrix transformation = boneInfo_[itr->second].finalTransformation;
-				imgui->Text("Transformaion\n(%.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f)",
+				imgui->Text("Transformation\n(%.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f,\n %.2f, %.2f, %.2f, %.2f)",
 					transformation.m[0][0], transformation.m[0][1], transformation.m[0][2], transformation.m[0][3],
 					transformation.m[1][0], transformation.m[1][1], transformation.m[1][2], transformation.m[1][3],
 					transformation.m[2][0], transformation.m[2][1], transformation.m[2][2], transformation.m[2][3],
