@@ -45,13 +45,16 @@ void PlayerWalkState::SpdUpdate()
 
 	sPlayer_->SetSpd(spd);
 
-	if (sPlayer_->GetIsRunning() == TRUE)
+	if (sPlayer_->GetOnGround() == TRUE) 
 	{
-		sPlayer_->SetAnimationIdx("Running");
-	}
-	else
-	{
-		sPlayer_->SetAnimationIdx("Walking");
+		if (sPlayer_->GetIsRunning() == TRUE)
+		{
+			sPlayer_->SetAnimationIdx("Running");
+		}
+		else
+		{
+			sPlayer_->SetAnimationIdx("Walking");
+		}
 	}
 }
 

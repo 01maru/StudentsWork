@@ -232,6 +232,7 @@ void Player::JumpUpdate()
 			moveY_ = jumpFirstSpd_;
 			SetAnimationIdx("jumpUp");
 			SetAnimationTimer(0);
+			GetAnimation()->SetIsLoop(FALSE);
 
 			//	playJumpwav
 		}
@@ -242,6 +243,7 @@ void Player::JumpUpdate()
 		{
 			SetAnimationIdx("jumpDown");
 			SetAnimationTimer(0);
+			GetAnimation()->SetIsLoop(FALSE);
 		}
 		moveY_ = MyMath::mMax(moveY, fallVYMin);
 	}
@@ -387,6 +389,8 @@ void Player::CollisionUpdate()
 	else if (moveY_ <= 0.0f) {
 		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &raycastHit,
 			diameter)) {
+			GetAnimation()->SetIsLoop(TRUE);
+			moveState_->Initialize();
 			onGround_ = true;
 			mat_.trans_.y -= (raycastHit.distance - diameter);
 			Object3D::ColliderUpdate();
