@@ -202,6 +202,8 @@ void GameScene::PlayGameUpdate()
 	player_->Update();
 	playerBullets_.Update(player_->GetBullets());
 	enemy_->Update();
+
+	CollisionUpdate();
 }
 
 void GameScene::MatUpdate()
@@ -224,14 +226,9 @@ void GameScene::MatUpdate()
 
 void GameScene::CollisionUpdate()
 {
-	//	ポーズ中だったら処理しない
-	if (pause_.GetIsActive() == TRUE)	return;
-
 	player_->CollisionUpdate();
 
 	playerBullets_.CollisionUpdate();
-
-	//CollisionManager::GetInstance()->CheckAllCollisions();
 }
 
 void GameScene::Update()
@@ -251,7 +248,6 @@ void GameScene::Update()
 
 	MatUpdate();
 
-	CollisionUpdate();
 #pragma endregion
 }
 
@@ -312,6 +308,12 @@ void GameScene::DrawUIAfterBlackScreen()
 
 void GameScene::Draw()
 {
+	//	地形の描画
+	for (auto& obj : objs_)
+	{
+		obj->Draw();
+	}
+
 	if (drawPlayer_ == TRUE) {
 
 		player_->Draw();
@@ -322,11 +324,6 @@ void GameScene::Draw()
 	
 	//	脱出ポッド
 	pod_.Draw();
-	//	地形の描画
-	for (auto& obj : objs_)
-	{
-		obj->Draw();
-	}
 
 	ParticleManager::GetInstance()->Draw();
 }

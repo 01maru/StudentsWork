@@ -9,21 +9,21 @@ EndData crossHair
 
 S Sliding Sliding.png 1220 600 64 64 0 0 64 64 0.5 0 0
 S Text Shift.png 1220 664 64 32 0 0 64 32 0.5 0 0
-S PadText white1x1.png 1220 664 64 32 0 0 64 32 0.5 0 0
+S PadText padLB.png 1220 664 64 32 0 0 64 32 0.5 0 0
 EndData SlideCool
 
 S SlowAt SlowUI.png 1140 600 64 64 0 0 64 64 0.5 0 0
 S Text M2.png 1140 664 64 32 0 0 64 32 0.5 0 0
-S PadText white1x1.png 1140 664 64 32 0 0 64 32 0.5 0 0
+S PadText padLT.png 1140 664 64 32 0 0 64 32 0.5 0 0
 EndData SlowCool
 
 S NormalAt NormalAT.png 1060 600 64 64 0 0 64 64 0.5 0 0
 S Text M1.png 1060 664 64 32 0 0 64 32 0.5 0 0
-S PadText white1x1.png 1060 664 64 32 0 0 64 32 0.5 0 0
+S PadText padRT.png 1060 664 64 32 0 0 64 32 0.5 0 0
 EndData NormalCool
 
 S Run RunPictogram.png 980 616 48 48 0 0 64 64 0.5 0 0
-S Text M1.png 980 664 64 32 0 0 64 32 0.5 0 0
+S Text Ctrl.png 980 664 64 32 0 0 64 32 0.5 0 0
 S PadText white1x1.png 980 664 64 32 0 0 64 32 0.5 0 0
 EndData Run
 

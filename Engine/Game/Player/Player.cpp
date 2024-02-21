@@ -264,8 +264,8 @@ void Player::CameraUpdate()
 	ray.dir = -camera->GetFrontVec();
 	RayCast rayCastHit;
 
-	//	eye設定
-	if (CollisionManager::GetInstance()->Raycast(ray, &rayCastHit, pCamera_->GetMaxDisEyeTarget())) {
+	//	eye設定(地形にめり込まないように)
+	if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &rayCastHit, pCamera_->GetMaxDisEyeTarget())) {
 		camera->SetEye(target - rayCastHit.distance * camera->GetFrontVec());
 	}
 	else
@@ -324,8 +324,6 @@ void Player::Update()
 	rate_.Update();
 
 	MatUpdate();
-	Object3D::ColliderUpdate();
-	mat_.trans_ = CollisionManager::GetInstance()->CollisionStage(*dynamic_cast<SphereCollider*>(collider_)) - offset_;
 }
 
 //-----------------------------------------------------------------------------
@@ -334,6 +332,9 @@ void Player::Update()
 
 void Player::CollisionUpdate()
 {
+	Object3D::ColliderUpdate();
+	mat_.trans_ = CollisionManager::GetInstance()->CollisionStage(*dynamic_cast<SphereCollider*>(collider_)) - offset_;
+
 	// クエリーコールバッククラス
 	class PlayerQueryCallback : public QueryCallBack
 	{
@@ -382,15 +383,15 @@ void Player::CollisionUpdate()
 	ray.start.y += sphereCollider->GetRadius();
 	Vector3D downVec(0, -1, 0);
 	ray.dir = downVec;
-	RayCast raycastHit;
+	RayCast rayCastHit;
 	
 	float diameter = sphereCollider->GetRadius() * 2.0f;
 	if (onGround_) {
 		const float adsDis = 0.2f;
-		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &raycastHit,
+		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &rayCastHit,
 			diameter + adsDis)) {
 			onGround_ = true;
-			mat_.trans_.y -= (raycastHit.distance - diameter);
+			mat_.trans_.y -= (rayCastHit.distance - diameter);
 			Object3D::ColliderUpdate();
 			MatUpdate();
 		}
@@ -400,12 +401,12 @@ void Player::CollisionUpdate()
 		}
 	}
 	else if (moveY_ <= 0.0f) {
-		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &raycastHit,
+		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &rayCastHit,
 			diameter)) {
 			GetAnimation()->SetIsLoop(TRUE);
 			moveState_->Initialize();
 			onGround_ = true;
-			mat_.trans_.y -= (raycastHit.distance - diameter);
+			mat_.trans_.y -= (rayCastHit.distance - diameter);
 			Object3D::ColliderUpdate();
 			MatUpdate();
 		}
