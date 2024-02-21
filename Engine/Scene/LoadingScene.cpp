@@ -55,7 +55,6 @@ void LoadingScene::Update()
 	backSprite_->SetDissolveValue(value);
 
 	backSprite_->Update();
-	//loadObj_->Update();
 	loadSprite_->Update();
 }
 
@@ -65,17 +64,15 @@ void LoadingScene::Draw()
 
 	backSprite_->Draw();
 
-	//loadObj_->Draw();
-
 	loadSprite_->Draw();
 }
 
 void LoadingScene::SetIsLoading(bool loading)
 {
-	//loadObj_->SetIsLoading(loading);
 	loadSprite_->SetIsLoading(loading);
 
-	backSprite_->SetTextureLeftTop(MyMath::GetRand(Vector2D(), texSize_));
+	//	ランダム性を持たせるため(画像が用意出来たら実装)
+	//backSprite_->SetTextureLeftTop(MyMath::GetRand(Vector2D(), texSize_));
 }
 
 bool LoadingScene::GetIsDrawn()
