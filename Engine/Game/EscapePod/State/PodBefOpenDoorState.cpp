@@ -60,6 +60,12 @@ void PodBefOpenDoorState::CameraMoveUpdate()
 	target.y = lerp(startTarget_.y, endTargetY_, counter_.GetCountPerMaxCount());
 	camera->SetTarget(target);
 
+	////	シェイクコントローラー
+	//if (counter_.GetFrameCount() > shakeFrame_)
+	//{
+	//	
+	//}
+
 	//	カウントが終わったら次のステートへ
 	if (counter_.GetFrameCount() == cameraMoveFrame_) {
 		std::unique_ptr<EscPodState> next_ = std::make_unique<PodOpenDoorState>();

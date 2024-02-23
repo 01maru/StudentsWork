@@ -29,6 +29,7 @@ public:
 protected:
 	//	生存中か
 	bool isAlive_ = FALSE;
+	bool isDeadTrigger_ = FALSE;
 	//	現在のHP
 	int32_t hp_;
 	//	HPの最大値
@@ -84,6 +85,7 @@ public:
 	* @return HPの最大値
 	*/
 	int32_t GetMaxHP();
+	bool GetIsDeadTrigger();
 
 #pragma endregion
 

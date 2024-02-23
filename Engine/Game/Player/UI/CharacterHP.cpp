@@ -28,7 +28,11 @@ void CharacterHP::IsAliveUpdate()
 	const int32_t MIN_FOR_ALIVE = 1;
 	//	HPが0以下なら死亡
 	if (hp_ <= MIN_FOR_ALIVE) {
-		isAlive_ = FALSE;
+		if (isAlive_ == TRUE)
+		{
+			isDeadTrigger_ = TRUE;
+			isAlive_ = FALSE;
+		}
 	}
 }
 
@@ -108,6 +112,16 @@ int32_t CharacterHP::GetHP()
 int32_t CharacterHP::GetMaxHP()
 {
 	return maxHP_;
+}
+
+bool CharacterHP::GetIsDeadTrigger()
+{
+	if (isDeadTrigger_ == TRUE)
+	{
+		isDeadTrigger_ = FALSE;
+		return TRUE;
+	}
+	return FALSE;
 }
 
 bool CharacterHP::GetIsAlive()

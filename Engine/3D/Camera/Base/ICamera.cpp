@@ -1,8 +1,10 @@
 #include "ICamera.h"
 #include "ImGuiManager.h"
 #include "Window.h"
+#include "InputManager.h"
 
 using namespace MyMath;
+using namespace MNE;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -200,6 +202,11 @@ void MNE::ICamera::SetShake(float min, float max)
 	isShaking_ = true;
 	move_.x = GetRand(min, max);
 	move_.z = GetRand(min, max);
+
+	InputJoypad* pad = InputManager::GetInstance()->GetPad();
+	Vector2D vibrationVal(max, max);
+	vibrationVal *= static_cast<float>(pad->GetVibrationMaxVal());
+	pad->SetVibration(vibrationVal);
 }
 
 void MNE::ICamera::StopShake()

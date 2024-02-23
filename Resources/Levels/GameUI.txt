@@ -24,7 +24,7 @@ EndData NormalCool
 
 S Run RunPictogram.png 980 616 48 48 0 0 64 64 0.5 0 0
 S Text Ctrl.png 980 664 64 32 0 0 64 32 0.5 0 0
-S PadText white1x1.png 980 664 64 32 0 0 64 32 0.5 0 0
+S PadText BButton.png 980 664 64 32 0 0 64 32 0.5 0 0
 EndData Run
 
 S exitText exitPod.png 750 400 155 24 0 0 620 96 0 0.5 2

@@ -62,7 +62,7 @@ void MNE::InputJoypad::ImGuiUpdateVibration(ImGuiManager* imgui)
 	imgui->SetSliderInt("Vibration Right", vibR, 10.0f, 0, 65535);
 	vibration_.wLeftMotorSpeed = (WORD)vibL;
 	vibration_.wRightMotorSpeed = (WORD)vibR;
-
+	
 	imgui->CheckBox("ActiveVibration", activeVibration_);
 	if (activeVibration_) SetVibration(Vector2D(vibL, vibR));
 }

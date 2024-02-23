@@ -90,6 +90,7 @@ namespace MNE
         bool GetTriggerThumbLY();
         int32_t GetMaxThumbRange() { return 32767; }
         int32_t GetThumbRDeadZone();
+        int32_t GetVibrationMaxVal() { return 65535; }
 
     #pragma endregion
     
