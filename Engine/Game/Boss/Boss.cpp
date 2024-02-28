@@ -9,9 +9,12 @@
 #include "ImGuiManager.h"
 
 #include "IGameState.h"
+#include "CollisionManager.h"
+#include "CollisionAttribute.h"
 
 using namespace MNE;
 using namespace MyMath;
+using namespace CollAttribute;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -37,7 +40,7 @@ void Boss::Initialize(MNE::IModel* model)
 	StatusInitialize();
 
 	float radius = 3.0f;
-	MyMath::Vector3D offset;
+	MyMath::Vector3D offset(0.0f, 3.0f, 0.0f);
 	SetCollider(new SphereCollider(offset, radius));
 	collider_->SetAttribute(CollAttribute::COLLISION_ATTR_ENEMYS);
 }
@@ -70,6 +73,8 @@ void Boss::Update()
 		return bullet->GetIsActive() == false;
 		});
 
+	currentState_->SetStateForSpecificSituation();
+
 	currentState_->Update();
 
 	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
@@ -91,6 +96,11 @@ void Boss::CollisionUpdate()
 {
 	MatUpdate();
 	collider_->Update();
+
+	for (auto& bullet : bullets_)
+	{
+		CollisionManager::GetInstance()->CheckCollision(bullet->GetCollider(), COLLISION_ATTR_LANDSHAPE | COLLISION_ATTR_ALLIES);
+	}
 }
 
 void Boss::OnCollision(CollisionInfo& info)

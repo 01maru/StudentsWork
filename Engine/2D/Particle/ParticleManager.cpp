@@ -104,17 +104,17 @@ void MNE::ParticleManager::ImGuiUpdate()
 
 void MNE::ParticleManager::Draw()
 {
-	Blend::BlendMord prev = Blend::NONE_BLEND;
+	Blend::BlendMode prev = Blend::NONE_BLEND;
 
 	for (auto itr = spriteParticles_.begin(); itr != spriteParticles_.end(); itr++)
 	{
 		//	リストの最初 or 前のブレンドモード設定から変更があったら
-		if (itr == spriteParticles_.begin() || prev != itr->get()->GetBlendMord()) {
-			GPipeline* pipeline = pipelines_[itr->get()->GetBlendMord()];
+		if (itr == spriteParticles_.begin() || prev != itr->get()->GetBlendMode()) {
+			GPipeline* pipeline = pipelines_[itr->get()->GetBlendMode()];
 			pipeline->SetGraphicsRootSignature();
 			pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 
-			prev = itr->get()->GetBlendMord();
+			prev = itr->get()->GetBlendMode();
 		}
 
 		//	パーティクル描画

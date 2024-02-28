@@ -3,7 +3,10 @@
 #include "BossIdleState.h"
 #include "ModelManager.h"
 
+#include "Player.h"
+
 using namespace MNE;
+using namespace MyMath;
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -32,9 +35,15 @@ void BossBulletState::Update()
 		bullet->Initialize();
 		bullet->SetLifeTime(bulletLifeTime_);
 		bullet->SetSpd(bulletSpd_);
-		bullet->SetMoveVec(-sBoss_->GetFrontVec());
+
+		Vector3D offset(0.0f, 3.0f, 0.0f);
+		Vector3D pos = sBoss_->GetPosition() + offset;
+		Vector3D moveVec = sBoss_->GetPlayerPtr()->GetCenterPos() - pos;
+		moveVec.Normalize();
+		bullet->SetMoveVec(moveVec);
 		bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
-		bullet->SetPosition(sBoss_->GetPosition());
+
+		bullet->SetPosition(pos);
 		sBoss_->AddBullet(bullet);
 
 		//	弾をすべて撃ったら

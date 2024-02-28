@@ -227,6 +227,7 @@ void GameScene::MatUpdate()
 void GameScene::CollisionUpdate()
 {
 	player_->CollisionUpdate();
+	enemy_->CollisionUpdate();
 
 	playerBullets_.CollisionUpdate();
 }

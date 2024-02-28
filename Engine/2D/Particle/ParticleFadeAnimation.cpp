@@ -8,10 +8,25 @@ using namespace Easing;
 
 void MNE::ParticleFadeAnimation::Update()
 {
-	MNE::ObjectParticle* sprite = parent_->GetComponent<MNE::ObjectParticle>();
+	if (isObj_ == TRUE)
+	{
+		ObjectParticle* obj = parent_->GetComponent<ObjectParticle>();
 
-	float alpha = lerp(start_, end_, parent_->GetTimerPerTime());
-	sprite->SetAlphaColor(alpha);
+		float alpha = lerp(start_, end_, parent_->GetTimerPerTime());
+		obj->SetAlphaColor(alpha);
+	}
+	else
+	{
+		SpriteParticle* sprite = parent_->GetComponent<SpriteParticle>();
+
+		float alpha = lerp(start_, end_, parent_->GetTimerPerTime());
+		sprite->SetAlphaColor(alpha);
+	}
+}
+
+void MNE::ParticleFadeAnimation::SetIsObj(bool isObj)
+{
+	isObj_ = isObj;
 }
 
 void MNE::ParticleFadeAnimation::SetStartAlpha(float alpha)

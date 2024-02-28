@@ -11,6 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterAccComponent.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterCircleType.cpp" />
+    <ClCompile Include="Engine\2D\Particle\Emitter\EmitterCircumType.cpp" />
     <ClCompile Include="Engine\Collider\CollisionInfo.cpp" />
     <ClCompile Include="Engine\Game\Boss\AttackState\BossJumpAtState.cpp" />
     <ClCompile Include="Engine\Game\Boss\State\BossRoarState.cpp" />
@@ -136,7 +139,7 @@
     <ClCompile Include="Engine\Game\EscapePod\State\EscPodState.cpp" />
     <ClCompile Include="Engine\Game\UI\ExplanatoryText.cpp" />
     <ClCompile Include="Engine\Base\Json\JSONData.cpp" />
-    <ClCompile Include="IBullet.cpp" />
+    <ClCompile Include="Engine\Game\Player\Bullet\IBullet.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -184,8 +187,14 @@
     <ClCompile Include="Engine\Game\EscapePod\PodInputUI.cpp" />
     <ClCompile Include="Engine\Game\Player\PlayerData.cpp" />
     <ClCompile Include="Engine\Game\Player\Bullet\PlayerBulletManager.cpp" />
+    <ClCompile Include="Engine\2D\Particle\ParticleAccComponent.cpp" />
+    <ClCompile Include="Engine\Game\Particle\PlayerLandEffect.cpp" />
+    <ClCompile Include="Engine\Game\Particle\PlayerSlideEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterAccComponent.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterCircleType.h" />
+    <ClInclude Include="Engine\2D\Particle\Emitter\EmitterCircumType.h" />
     <ClInclude Include="Engine\Game\Boss\AttackState\BossJumpAtState.h" />
     <ClInclude Include="Engine\Game\Boss\State\BossRoarState.h" />
     <ClInclude Include="Engine\Game\Boss\State\BossStartState.h" />
@@ -370,7 +379,10 @@
     <ClInclude Include="Engine\Game\EscapePod\PodInputUI.h" />
     <ClInclude Include="Engine\Game\Player\PlayerData.h" />
     <ClInclude Include="Engine\Game\Player\Bullet\PlayerBulletManager.h" />
-    <ClInclude Include="IBullet.h" />
+    <ClInclude Include="Engine\Game\Player\Bullet\IBullet.h" />
+    <ClInclude Include="Engine\2D\Particle\ParticleAccComponent.h" />
+    <ClInclude Include="Engine\Game\Particle\PlayerLandEffect.h" />
+    <ClInclude Include="Engine\Game\Particle\PlayerSlideEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

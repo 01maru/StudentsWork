@@ -5,7 +5,7 @@
 namespace MNE
 {
 
-	class ParticleSpdAnimation :public ParticleComponent
+	class ParticleAccComponent :public ParticleComponent
 	{
 	public:
 		/**
@@ -16,19 +16,22 @@ namespace MNE
 
 	private:
 		MyMath::Vector3D spd_;
+		MyMath::Vector3D acc_;
 		bool isObj_ = false;
 
 	public:
-	#pragma region Getter
+#pragma region Getter
 
-	#pragma endregion
+#pragma endregion
 
-	#pragma region Setter
+#pragma region Setter
 
 		void SetSpd(const MyMath::Vector3D& spd);
+		void SetAcc(const MyMath::Vector3D& acc);
 		void SetIsObj(bool isObj);
 
-	#pragma endregion
+#pragma endregion
 	};
 
 }
+

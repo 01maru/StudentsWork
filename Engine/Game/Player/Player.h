@@ -18,6 +18,10 @@
 #pragma region 前置宣言
 class GameScene;
 class GameCamera;
+namespace MNE
+{
+	class ParticleEmitter;
+}
 #pragma endregion
 
 class Player :public MNE::Object3D, public PlayerData
@@ -102,6 +106,14 @@ private:
 	SkillCoolTime slowAtCTSprite_;
 
 #pragma endregion
+
+#pragma region Effect
+
+	MNE::ParticleEmitter* landEmitter_;
+	MNE::ParticleEmitter* slideEmitter_;
+
+#pragma endregion
+
 
 	//	ゲームシーンのポインタ(ステート変更用)
 	GameScene* pGameScene_ = nullptr;

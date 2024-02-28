@@ -70,7 +70,7 @@ void Bullet::OnCollision(CollisionInfo& info)
 		lifeTime_.SetIsActive(false);
 		hitEmitter = ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
 		cone = dynamic_cast<EmitterConeType*>(hitEmitter->GetEmitterType());
-		cone->SetConeDir(-moveVec_);
+		cone->SetDir(-moveVec_);
 		hitEmitter->SetPosition(mat_.trans_);
 		deadTimer = std::make_unique<FrameCounter>();
 		deadTimer->Initialize(emitterLifeTime_, true);

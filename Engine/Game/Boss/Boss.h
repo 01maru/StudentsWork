@@ -70,7 +70,9 @@ private:
 	//	プレイヤーのポインター
 	Player* player_ = nullptr;
 	GameScene* pGameScene_ = nullptr;
-	
+
+	bool isDeathState_ = false;
+
 public:
 	/**
 	* @fn RotationUpdate()
@@ -135,6 +137,8 @@ public:
 	*/
 	Player* GetPlayerPtr();
 
+	bool GetIsDeathState() { return isDeathState_; }
+
 	GameScene* GetGameScene();
 
 #pragma endregion
@@ -177,6 +181,8 @@ public:
 	* @param attackFlag ボディーアタック中か
 	*/
 	void SetBodyAttack(bool attackFlag);
+
+	void SetIsDeathState(bool isDeathState) { isDeathState_ = isDeathState; }
 
 	void SetGameScene(GameScene* gameScene);
 

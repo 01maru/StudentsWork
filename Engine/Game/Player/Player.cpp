@@ -18,6 +18,10 @@
 #include "PlayerNoAttackState.h"
 #include "GameCamera.h"
 
+#include "PlayerLandEffect.h"
+#include "ParticleManager.h"
+#include "PlayerSlideEffect.h"
+#include "EmitterCircleType.h"
 using namespace MNE::CollAttribute;
 using namespace MNE;
 using namespace MyMath;
@@ -66,6 +70,14 @@ void Player::Initialize(MNE::IModel* model)
 	StatusInitialize();
 
 	moveVec_ = Vector3D(0, 0, -1);
+
+	PlayerLandEffect emitter;
+	landEmitter_ = ParticleManager::GetInstance()->AddEmitter(emitter.GetEmitter());
+	landEmitter_->SetIsActive(FALSE);
+
+	//PlayerSlideEffect slideEmitter;
+	//slideEmitter_ = ParticleManager::GetInstance()->AddEmitter(slideEmitter.GetEmitter());
+	//slideEmitter_->SetIsActive(FALSE);
 }
 
 //-----------------------------------------------------------------------------
@@ -386,8 +398,12 @@ void Player::CollisionUpdate()
 	RayCast rayCastHit;
 	
 	float diameter = sphereCollider->GetRadius() * 2.0f;
-	if (onGround_) {
+	landEmitter_->SetIsActive(FALSE);
+
+	//	地面にいたら
+	if (onGround_ == TRUE) {
 		const float adsDis = 0.2f;
+		//	斜め床でガタガタしないように補正値を足す
 		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &rayCastHit,
 			diameter + adsDis)) {
 			onGround_ = true;
@@ -395,12 +411,14 @@ void Player::CollisionUpdate()
 			Object3D::ColliderUpdate();
 			MatUpdate();
 		}
+		//	離れていたら地面についていない
 		else {
 			onGround_ = false;
 			moveY_ = 0.0f;
 		}
 	}
 	else if (moveY_ <= 0.0f) {
+		//	着地
 		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE, &rayCastHit,
 			diameter)) {
 			GetAnimation()->SetIsLoop(TRUE);
@@ -409,6 +427,10 @@ void Player::CollisionUpdate()
 			mat_.trans_.y -= (rayCastHit.distance - diameter);
 			Object3D::ColliderUpdate();
 			MatUpdate();
+
+			landEmitter_->SetIsActive(TRUE);
+			landEmitter_->GetEmitterType()->SetDir(Vector3D(0, 1, 0));
+			landEmitter_->SetPosition(mat_.trans_);
 		}
 	}
 }

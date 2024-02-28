@@ -211,7 +211,7 @@ void MNE::PipelineManager::Initialize()
 	InitializeParticle();
 }
 
-MNE::GPipeline* MNE::PipelineManager::GetPipeline(const std::string& name, Blend::BlendMord blend)
+MNE::GPipeline* MNE::PipelineManager::GetPipeline(const std::string& name, Blend::BlendMode blend)
 {
 	if (name == "Model") {
 		return modelPipeline_[blend].get();

@@ -37,7 +37,7 @@ namespace MNE
 		//	生成レート
 		FrameCounter timer_;
 		//	ブレンド設定
-		MNE::Blend::BlendMord blendMord_ = MNE::Blend::ALPHA_BLEND;
+		MNE::Blend::BlendMode blendMode_ = MNE::Blend::ALPHA_BLEND;
 
 		int32_t lifeTime_ = 60;
 		//	発生させるパーティクルの情報
@@ -89,11 +89,13 @@ namespace MNE
 
 		void SetLifeTime(int32_t lifeTime);
 
-		void SetBlendMord(MNE::Blend::BlendMord blendMord);
+		void SetBlendMord(MNE::Blend::BlendMode blendMord);
 
 		void SetEmitterType(std::unique_ptr<EmitterType>& type);
 
 		void SetIsDead(bool isDead) { isDead_ = isDead; }
+
+		void SetIsActive(bool isActive) { isActive_ = isActive; }
 
 		void SetDeadTimer(std::unique_ptr<FrameCounter>& timer);
 

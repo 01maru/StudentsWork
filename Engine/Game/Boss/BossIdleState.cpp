@@ -29,8 +29,6 @@ void BossIdleState::Initialize()
 
 void BossIdleState::Update()
 {
-	SetStateForSpecificSituation();
-
 	timer_.Update();
 
 	float dis = sBoss_->RotationUpdate();

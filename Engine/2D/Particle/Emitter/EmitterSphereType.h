@@ -4,10 +4,10 @@
 namespace MNE
 {
 
-	 class EmitterSphereType :public EmitterType
+	class EmitterSphereType :public EmitterType
 	{
 	public:
-		void Update(MNE::Particle* particle) override;
+		std::vector<std::unique_ptr<MNE::Particle>> Update() override;
 
 	private:
 		float radiusThickness_ = 0.0f;

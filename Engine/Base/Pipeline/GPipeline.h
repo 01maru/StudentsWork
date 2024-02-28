@@ -59,7 +59,7 @@ namespace MNE
 #pragma region Setter
 
 		/**
-		* @fn SetBlendMord(size_t)
+		* @fn SetBlendMode(size_t)
 		* パイプラインのブレンドモード変更用関数
 		* @param mord ブレンドモードの設定値
 		*/

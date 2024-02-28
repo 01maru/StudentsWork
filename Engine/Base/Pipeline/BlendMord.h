@@ -4,7 +4,7 @@ namespace MNE
 {
 	namespace Blend
 	{
-		enum BlendMord
+		enum BlendMode
 		{
 			ADD_BLEND = 0,
 			SUB_BLEND,

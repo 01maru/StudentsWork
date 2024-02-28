@@ -79,13 +79,13 @@ namespace MNE
 #pragma region Getter
 
 		/**
-		* @fn GetPipeline(const std::string&, GPipeline::BlendMord)
+		* @fn GetPipeline(const std::string&, GPipeline::BlendMode)
 		* 引数で指定したパイプラインを返す関数
 		* @param name パイプラインの名前
 		* @param blend パイプラインのブレンドの種類指定
 		* @return 引数で指定したパイプラインを返す
 		*/
-		GPipeline* GetPipeline(const std::string& name, Blend::BlendMord blend = Blend::NONE_BLEND);
+		GPipeline* GetPipeline(const std::string& name, Blend::BlendMode blend = Blend::NONE_BLEND);
 
 #pragma endregion
 	};

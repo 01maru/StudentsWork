@@ -4,6 +4,8 @@
 #include "ModelManager.h"
 #include "Quaternion.h"
 
+#include "Player.h"
+
 using namespace MNE;
 using namespace MyMath;
 
@@ -45,9 +47,12 @@ void BossWayBullets::Update()
 			startAngle = wayAngle_ * bulletHalfNum;
 		}
 
+		Vector3D offset(0.0f, 3.0f, 0.0f);
+		Vector3D pos = sBoss_->GetPosition() + offset;
 		for (size_t i = 0; i < bulletMaxNum_; i++)
 		{
- 			Vector3D dirVec = -sBoss_->GetFrontVec();
+ 			Vector3D dirVec = sBoss_->GetPlayerPtr()->GetCenterPos() - pos;
+			dirVec.Normalize();
  			float angle = wayAngle_ * i;
 
 			angle = startAngle - angle;
@@ -63,7 +68,8 @@ void BossWayBullets::Update()
 			bullet->SetSpd(bulletSpd_);
 			bullet->SetMoveVec(dirVec);
 			bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
-			bullet->SetPosition(sBoss_->GetPosition());
+
+			bullet->SetPosition(pos);
 			sBoss_->AddBullet(bullet);
 		}
 

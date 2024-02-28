@@ -12,9 +12,10 @@ Boss* BossState::sBoss_ = nullptr;
 void BossState::SetStateForSpecificSituation()
 {
 	//	死亡時
-	if (sBoss_->GetIsAlive() == FALSE) {
+	if (sBoss_->GetIsAlive() == FALSE && sBoss_->GetIsDeathState() == FALSE) {
 		std::unique_ptr<BossState> next_ = std::make_unique<BossDeathState>();
 		sBoss_->SetCurrentState(next_);
+		sBoss_->SetIsDeathState(TRUE);
 	}
 	//	HPが半分以下になった時
 	else if (sBoss_->GetIsHPLessThanHalf() == TRUE && sBoss_->GetIsSecondForm() == FALSE)

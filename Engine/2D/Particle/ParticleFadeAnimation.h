@@ -16,6 +16,7 @@ namespace MNE
 	private:
 		float start_ = 1.0f;
 		float end_ = 5.0f;
+		bool isObj_ = true;
 
 	public:
 	#pragma region Getter
@@ -24,6 +25,7 @@ namespace MNE
 
 	#pragma region Setter
 
+		void SetIsObj(bool isObj);
 		void SetStartAlpha(float alpha);
 		void SetEndAlpha(float alpha);
 

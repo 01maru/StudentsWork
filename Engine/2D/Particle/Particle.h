@@ -2,6 +2,7 @@
 #include "BlendMord.h"
 #include "ParticleComponent.h"
 #include "FrameCounter.h"
+#include "Vector3D.h"
 #include <list>
 #include <memory>
 
@@ -36,9 +37,11 @@ namespace MNE
 		//	パーティクル終了フラグ
 		bool isEnd_ = false;
 		//	ブレンド設定
-		MNE::Blend::BlendMord blendMord_ = MNE::Blend::ALPHA_BLEND;
+		MNE::Blend::BlendMode blendMode_ = MNE::Blend::ALPHA_BLEND;
 		//	消滅までの時間
 		FrameCounter lifeTimer_;
+		//	パーティクルの移動方向
+		MyMath::Vector3D dir_;
 	
 		//	コンポーネントリスト
 		std::list<std::unique_ptr<ParticleComponent>> components_;
@@ -66,19 +69,22 @@ namespace MNE
 		template<class T>
 		T* GetComponent();
 		/**
-		* @fn GetBlendMord()
-		* blendMord_のGetter関数
-		* @return blendMord_
+		* @fn GetBlendMode()
+		* blendMode_のGetter関数
+		* @return blendMode_
 		*/
-		Blend::BlendMord GetBlendMord();
+		Blend::BlendMode GetBlendMode();
 
 		bool GetIsEnd();
 
 		float GetTimerPerTime();
 
+		MyMath::Vector3D GetDir();
+
 	#pragma endregion
 
-		void SetBlendMord(Blend::BlendMord blendMord);
+		void SetDir(const MyMath::Vector3D& dir);
+		void SetBlendMode(Blend::BlendMode blendMode);
 		void SetLifeTime(int32_t time);
 		void StartTimer();
 	};

@@ -27,28 +27,32 @@ void MNE::ParticleEmitter::Update()
 
 void MNE::ParticleEmitter::AddParticle()
 {
-	std::unique_ptr<Particle> particle = std::make_unique<Particle>();
-	particle->StartTimer();
-	particle->SetLifeTime(lifeTime_);
-	particle->SetBlendMord(blendMord_);
+	//std::unique_ptr<Particle> particle = std::make_unique<Particle>();
 
-	if (isObj_) {
-		ObjectParticle* object = particle->AddComponent<ObjectParticle>();
-		object->SetPosition(pos_);
-	}
-	else {
-		SpriteParticle* sprite = particle->AddComponent<SpriteParticle>();
-		sprite->SetPosition(pos_);
-	}
+	//if (isObj_) {
+	//	ObjectParticle* object = particle->AddComponent<ObjectParticle>();
+	//	object->SetPosition(pos_);
+	//}
+	//else {
+	//	SpriteParticle* sprite = particle->AddComponent<SpriteParticle>();
+	//	sprite->SetPosition(pos_);
+	//}
 
-	shapeType_->Update(particle.get());
+	std::vector<std::unique_ptr<MNE::Particle>> particles = shapeType_->Update();
 
-	for (auto& compo : components_)
+	for (auto& particle : particles)
 	{
-		compo->Initialize(particle.get());
-	}
+		particle->StartTimer();
+		particle->SetLifeTime(lifeTime_);
+		particle->SetBlendMode(blendMode_);
 
-	ParticleManager::GetInstance()->AddParticle(particle, isObj_);
+		for (auto& compo : components_)
+		{
+			compo->Initialize(particle.get());
+		}
+
+		ParticleManager::GetInstance()->AddParticle(particle, isObj_);
+	}
 }
 
 bool MNE::ParticleEmitter::GetIsObj()
@@ -81,9 +85,9 @@ void MNE::ParticleEmitter::SetLifeTime(int32_t lifeTime)
 	lifeTime_ = lifeTime;
 }
 
-void MNE::ParticleEmitter::SetBlendMord(Blend::BlendMord blendMord)
+void MNE::ParticleEmitter::SetBlendMord(Blend::BlendMode blendMord)
 {
-	blendMord_ = blendMord;
+	blendMode_ = blendMord;
 }
 
 void MNE::ParticleEmitter::SetEmitterType(std::unique_ptr<EmitterType>& type)

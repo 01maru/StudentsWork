@@ -10,6 +10,8 @@
 #include "ParticleManager.h"
 #include "JSONLoader.h"
 
+#include "PlayerLandEffect.h"
+
 using namespace MNE;
 using namespace MyMath;
 
