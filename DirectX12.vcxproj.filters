@@ -313,6 +313,12 @@
     <Filter Include="ヘッダー ファイル\Game\Effect\SpriteEffect">
       <UniqueIdentifier>{81ad1867-4378-4ace-8b59-fa52e654f7e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Bullet">
+      <UniqueIdentifier>{47bfa1a2-c152-41d5-a003-dbf53a29be72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss\Bullet">
+      <UniqueIdentifier>{4fce813e-cd2e-4d3a-be9e-2d182ba805bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
@@ -732,15 +738,6 @@
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterLifeTime.cpp">
       <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp">
-      <Filter>ソース ファイル\Game\Boss\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Boss\BossWayBullets.cpp">
-      <Filter>ソース ファイル\Game\Boss\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Boss\EnemyBullet.cpp">
-      <Filter>ソース ファイル\Game\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\UI\ClearUI.cpp">
       <Filter>ソース ファイル\Game\UI\GameState</Filter>
     </ClCompile>
@@ -850,12 +847,24 @@
       <Filter>ソース ファイル\lib\Engine\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Player\Bullet\IBullet.cpp">
-      <Filter>ソース ファイル\Game\Player\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyBulletManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="IBulletManager.cpp">
+      <Filter>ソース ファイル\Game\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBulletManager.cpp">
+      <Filter>ソース ファイル\Game\Boss\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Boss\EnemyBullet.cpp">
+      <Filter>ソース ファイル\Game\Boss\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Boss\BossWayBullets.cpp">
+      <Filter>ソース ファイル\Game\Boss\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp">
+      <Filter>ソース ファイル\Game\Boss\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBeamState.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1437,6 +1446,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="IBulletManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBeamState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

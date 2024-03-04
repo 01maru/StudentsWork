@@ -22,6 +22,11 @@ public:
 	* 更新処理関数
 	*/
 	virtual void Update() {};
+	/**
+	* @fn Draw()
+	* 描画処理関数
+	*/
+	virtual void Draw() {};
 
 protected:
 	//	親ポインタ

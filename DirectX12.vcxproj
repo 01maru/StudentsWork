@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BossBeamState.cpp" />
     <ClCompile Include="EnemyBulletManager.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterAccComponent.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterCircleType.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="Engine\Game\Particle\PlayerSlideEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BossBeamState.h" />
     <ClInclude Include="EnemyBulletManager.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterAccComponent.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterCircleType.h" />

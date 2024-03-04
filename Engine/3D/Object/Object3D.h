@@ -110,6 +110,8 @@ namespace MNE
 		void SetRotation(const MyMath::Vector3D& rot) { mat_.angle_ = rot; }
 		void SetCamera(MNE::ICamera* camera) { camera_ = camera; }
 
+		void SetRotMatrix(const MyMath::Matrix& mat) { mat_.matRot_ = mat; }
+
 	#pragma endregion
 	};
 

@@ -47,8 +47,7 @@ void BossWayBullets::Update()
 			startAngle = wayAngle_ * bulletHalfNum;
 		}
 
-		Vector3D offset(0.0f, 3.0f, 0.0f);
-		Vector3D pos = sBoss_->GetPosition() + offset;
+		Vector3D pos = sBoss_->GetShotPoint();
 		for (size_t i = 0; i < bulletMaxNum_; i++)
 		{
  			Vector3D dirVec = sBoss_->GetPlayerPtr()->GetCenterPos() - pos;

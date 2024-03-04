@@ -12,6 +12,8 @@
 #include "CollisionManager.h"
 #include "CollisionAttribute.h"
 
+#include "BossBeamState.h"
+
 using namespace MNE;
 using namespace MyMath;
 using namespace CollAttribute;
@@ -25,7 +27,7 @@ void Boss::StatusInitialize()
 	hp_.SetMaxHP(maxHP_);
 
 	//	初期ステート
-	std::unique_ptr<BossState> next = std::make_unique<BossStartState>();
+	std::unique_ptr<BossState> next = std::make_unique<BossBeamState>();
 	SetCurrentState(next);
 
 	hp_.Initialize();
@@ -118,6 +120,11 @@ void Boss::DrawUI()
 	hp_.Draw();
 }
 
+void Boss::DrawBeam()
+{
+	currentState_->Draw();
+}
+
 void Boss::AddBullet(EnemyBulletInfo& bullet)
 {
 	bullets_.push_back(bullet);
@@ -166,6 +173,18 @@ MyMath::Vector3D Boss::GetFrontVec()
 Player* Boss::GetPlayerPtr()
 {
 	return player_;
+}
+
+MyMath::Vector3D Boss::GetShotPoint()
+{
+	Vector3D offset(0.0f, 3.0f, 0.0f);
+	return mat_.trans_ + offset;
+}
+
+MyMath::Vector3D Boss::GetBeamPoint()
+{
+	Vector3D offset(0.0f, 3.0f, 0.0f);
+	return mat_.trans_ + offset;
 }
 
 std::list<EnemyBulletInfo>& Boss::GetBullets()

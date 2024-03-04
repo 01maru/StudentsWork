@@ -42,6 +42,7 @@ public:
 	* UI描画処理関数
 	*/
 	void DrawUI();
+	void DrawBeam();
 	void CollisionUpdate();
 	void OnCollision(MNE::CollisionInfo& info) override;
 
@@ -131,6 +132,9 @@ public:
 	* @return プレイヤーのポインター
 	*/
 	Player* GetPlayerPtr();
+
+	MyMath::Vector3D GetShotPoint();
+	MyMath::Vector3D GetBeamPoint();
 
 	std::list<EnemyBulletInfo>& GetBullets();
 

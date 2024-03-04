@@ -326,6 +326,7 @@ void GameScene::Draw()
 		playerBullets_.Draw();
 	}
 	enemy_->Draw();
+	enemy_->DrawBeam();
 	enemyBullets_.Draw();
 	
 	//	脱出ポッド

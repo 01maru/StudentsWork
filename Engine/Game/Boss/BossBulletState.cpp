@@ -35,13 +35,11 @@ void BossBulletState::Update()
 		bullet.lifeTime_ = bulletLifeTime_;
 		bullet.spd_ = bulletSpd_;
 
-		Vector3D offset(0.0f, 3.0f, 0.0f);
-		Vector3D pos = sBoss_->GetPosition() + offset;
-		Vector3D moveVec = sBoss_->GetPlayerPtr()->GetCenterPos() - pos;
+		Vector3D moveVec = sBoss_->GetPlayerPtr()->GetCenterPos() - sBoss_->GetShotPoint();
 		moveVec.Normalize();
 		bullet.moveVec_ = moveVec;
 
-		bullet.pos_ = pos;
+		bullet.pos_ = sBoss_->GetShotPoint();
 		sBoss_->AddBullet(bullet);
 
 		//	弾をすべて撃ったら
