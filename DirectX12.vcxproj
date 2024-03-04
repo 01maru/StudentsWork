@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EnemyBulletManager.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterAccComponent.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterCircleType.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterCircumType.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="Engine\Game\UI\ExplanatoryText.cpp" />
     <ClCompile Include="Engine\Base\Json\JSONData.cpp" />
     <ClCompile Include="Engine\Game\Player\Bullet\IBullet.cpp" />
+    <ClCompile Include="IBulletManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -192,6 +194,7 @@
     <ClCompile Include="Engine\Game\Particle\PlayerSlideEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EnemyBulletManager.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterAccComponent.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterCircleType.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterCircumType.h" />
@@ -383,6 +386,7 @@
     <ClInclude Include="Engine\2D\Particle\ParticleAccComponent.h" />
     <ClInclude Include="Engine\Game\Particle\PlayerLandEffect.h" />
     <ClInclude Include="Engine\Game\Particle\PlayerSlideEffect.h" />
+    <ClInclude Include="IBulletManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

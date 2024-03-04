@@ -1,9 +1,9 @@
-#include "PlayerBulletManager.h"
+#include "EnemyBulletManager.h"
 #include "ModelManager.h"
 #include "ImGuiManager.h"
 #include "CollisionManager.h"
+#include "EnemyBullet.h"
 #include "CollisionAttribute.h"
-#include "Bullet.h"
 
 using namespace MNE;
 using namespace CollAttribute;
@@ -12,27 +12,25 @@ using namespace CollAttribute;
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
-void PlayerBulletManager::Initialize()
+void EnemyBulletManager::Initialize()
 {
-	attribute_ = COLLISION_ATTR_LANDSHAPE | COLLISION_ATTR_ENEMYS;
+	attribute_ = COLLISION_ATTR_LANDSHAPE | COLLISION_ATTR_ALLIES;
 }
 
-void PlayerBulletManager::LoadResources()
+void EnemyBulletManager::LoadResources()
 {
-	ModelManager* models = ModelManager::GetInstance();
-	models->LoadModel("bullet");
 }
 
 //-----------------------------------------------------------------------------
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void PlayerBulletManager::Update(std::list<BulletInfo>& bullets)
+void EnemyBulletManager::Update(std::list<EnemyBulletInfo>& bullets)
 {
 	//	弾生成
 	for (auto& itr : bullets)
 	{
-		std::unique_ptr<IBullet> bullet = std::make_unique<Bullet>();
+		std::unique_ptr<IBullet> bullet = std::make_unique<EnemyBullet>();
 		bullet->Initialize();
 		bullet->SetLifeTime(itr.lifeTime_);
 		bullet->SetSpd(itr.spd_);
@@ -40,7 +38,7 @@ void PlayerBulletManager::Update(std::list<BulletInfo>& bullets)
 		bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
 		bullet->SetPosition(itr.pos_);
 
-		bullet->SetAttribute(COLLISION_ATTR_ALLIES_AT);
+		bullet->SetAttribute(COLLISION_ATTR_ENEMY_AT);
 
 		bullets_.push_back(std::move(bullet));
 	}

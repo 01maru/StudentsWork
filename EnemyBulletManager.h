@@ -3,11 +3,11 @@
 #include "BulletInfo.h"
 
 /**
-* @file PlayerBulletManager.h
-* @brief プレイヤーの弾丸をまとめて管理するファイル
+* @file EnemyBulletManager.h
+* @brief 敵の弾丸をまとめて管理するファイル
 */
 
-class PlayerBulletManager : public IBulletManager
+class EnemyBulletManager :public IBulletManager
 {
 public:
 	/**
@@ -24,6 +24,6 @@ public:
 	* @fn Update()
 	* 更新処理関数
 	*/
-	void Update(std::list<BulletInfo>& bullets);
+	void Update(std::list<EnemyBulletInfo>& bullets);
 };
 

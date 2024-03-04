@@ -69,18 +69,9 @@ void Boss::Update()
 	//	死亡判定
 	hp_.Update();
 
-	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
-		return bullet->GetIsActive() == false;
-		});
-
 	currentState_->SetStateForSpecificSituation();
 
 	currentState_->Update();
-
-	for (auto itr = bullets_.begin(); itr != bullets_.end(); itr++)
-	{
-		itr->get()->Update();
-	}
 
 	if (hp_.GetIsAlive() == true) {
 
@@ -96,11 +87,6 @@ void Boss::CollisionUpdate()
 {
 	MatUpdate();
 	collider_->Update();
-
-	for (auto& bullet : bullets_)
-	{
-		CollisionManager::GetInstance()->CheckCollision(bullet->GetCollider(), COLLISION_ATTR_LANDSHAPE | COLLISION_ATTR_ALLIES);
-	}
 }
 
 void Boss::OnCollision(CollisionInfo& info)
@@ -114,35 +100,27 @@ void Boss::OnCollision(CollisionInfo& info)
 
 void Boss::ImGuiUpdate()
 {
-	ImGuiManager* imgui = ImGuiManager::GetInstance();
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
 
-	imgui->BeginWindow("PlayerStatus", true);
+	imGui->BeginWindow("PlayerStatus", true);
 
-	imgui->Text("frontVec : (%.2f, %.2f, %.2f)", frontVec_.x, frontVec_.y, frontVec_.z);
+	imGui->Text("frontVec : (%.2f, %.2f, %.2f)", frontVec_.x, frontVec_.y, frontVec_.z);
 
-	imgui->EndWindow();
+	imGui->EndWindow();
 }
 
 //-----------------------------------------------------------------------------
 // [SECTION] Draw
 //-----------------------------------------------------------------------------
 
-void Boss::DrawBullets()
-{
-	for (auto& itr : bullets_)
-	{
-		itr->Draw();
-	}
-}
-
 void Boss::DrawUI()
 {
 	hp_.Draw();
 }
 
-void Boss::AddBullet(std::unique_ptr<EnemyBullet>& bullet)
+void Boss::AddBullet(EnemyBulletInfo& bullet)
 {
-	bullets_.push_back(std::move(bullet));
+	bullets_.push_back(bullet);
 }
 
 void Boss::DecHP(int32_t damage)
@@ -188,6 +166,11 @@ MyMath::Vector3D Boss::GetFrontVec()
 Player* Boss::GetPlayerPtr()
 {
 	return player_;
+}
+
+std::list<EnemyBulletInfo>& Boss::GetBullets()
+{
+	return bullets_;
 }
 
 GameScene* Boss::GetGameScene()

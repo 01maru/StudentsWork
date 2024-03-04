@@ -62,14 +62,14 @@ void BossWayBullets::Update()
 			dirVec = RotateVector(dirVec, rot);
 
 			//	弾生成
-			std::unique_ptr<EnemyBullet> bullet = std::make_unique<EnemyBullet>();
-			bullet->Initialize();
-			bullet->SetLifeTime(bulletLifeTime_);
-			bullet->SetSpd(bulletSpd_);
-			bullet->SetMoveVec(dirVec);
-			bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
+			//	弾生成
+			EnemyBulletInfo bullet;
+			bullet.lifeTime_ = bulletLifeTime_;
+			bullet.spd_ = bulletSpd_;
 
-			bullet->SetPosition(pos);
+			bullet.moveVec_ = dirVec;
+
+			bullet.pos_ = pos;
 			sBoss_->AddBullet(bullet);
 		}
 

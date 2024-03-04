@@ -2,7 +2,7 @@
 #include "Object3D.h"
 #include "CharacterHP.h"
 #include "BossState.h"
-#include "EnemyBullet.h"
+#include "BulletInfo.h"
 
 /**
 * @file Boss.h
@@ -38,11 +38,6 @@ public:
 	*/
 	void ImGuiUpdate();
 	/**
-	* @fn DrawBullets()
-	* 弾の描画処理関数
-	*/
-	void DrawBullets();
-	/**
 	* @fn DrawUI()
 	* UI描画処理関数
 	*/
@@ -58,8 +53,8 @@ private:
 	CharacterHP hp_;
 	//	現在のステート
 	std::unique_ptr<BossState> currentState_;
-	//	敵の弾リスト(後々マネージャーで管理する予定)
-	std::list<std::unique_ptr<EnemyBullet>> bullets_;
+	//	追加する敵の弾リスト
+	std::list<EnemyBulletInfo> bullets_;
 
 	//	体に触れたらダメージを与えるようフラグ
 	bool bodyAt_ = false;
@@ -80,11 +75,11 @@ public:
 	*/
 	float RotationUpdate();
 	/**
-	* @fn AddBullet(std::unique_ptr<EnemyBullet>&)
-	* リストに弾追加関数
+	* @fn AddBullet(EnemyBulletInfo&)
+	* 追加する弾の情報をリストに加えるための関数
 	* @param bullet 追加する弾の情報
 	*/
-	void AddBullet(std::unique_ptr<EnemyBullet>& bullet);
+	void AddBullet(EnemyBulletInfo& bullet);
 	/**
 	* @fn DecHP(int32_t)
 	* HP減少させる用関数
@@ -136,6 +131,8 @@ public:
 	* @return プレイヤーのポインター
 	*/
 	Player* GetPlayerPtr();
+
+	std::list<EnemyBulletInfo>& GetBullets();
 
 	bool GetIsDeathState() { return isDeathState_; }
 

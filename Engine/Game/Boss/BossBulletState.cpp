@@ -31,19 +31,17 @@ void BossBulletState::Update()
 	if (rate_.GetIsActive() == FALSE) {
 
 		//	弾生成
-		std::unique_ptr<EnemyBullet> bullet = std::make_unique<EnemyBullet>();
-		bullet->Initialize();
-		bullet->SetLifeTime(bulletLifeTime_);
-		bullet->SetSpd(bulletSpd_);
+		EnemyBulletInfo bullet;
+		bullet.lifeTime_ = bulletLifeTime_;
+		bullet.spd_ = bulletSpd_;
 
 		Vector3D offset(0.0f, 3.0f, 0.0f);
 		Vector3D pos = sBoss_->GetPosition() + offset;
 		Vector3D moveVec = sBoss_->GetPlayerPtr()->GetCenterPos() - pos;
 		moveVec.Normalize();
-		bullet->SetMoveVec(moveVec);
-		bullet->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
+		bullet.moveVec_ = moveVec;
 
-		bullet->SetPosition(pos);
+		bullet.pos_ = pos;
 		sBoss_->AddBullet(bullet);
 
 		//	弾をすべて撃ったら

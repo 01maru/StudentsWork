@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "PlayerBulletManager.h"
 #include "Boss.h"
+#include "EnemyBulletManager.h"
 
 #include "PauseScreen.h"
 
@@ -69,6 +70,7 @@ private:
 	PlayerBulletManager playerBullets_;
 	std::unique_ptr<Player> player_;
 	std::unique_ptr<Boss> enemy_;
+	EnemyBulletManager enemyBullets_;
 	EscapePod pod_;
 
 #pragma endregion

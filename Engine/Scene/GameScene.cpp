@@ -138,6 +138,9 @@ void GameScene::Initialize()
 	pod_.SetGameScene(this);
 	pause_.SetGameScene(this);
 	nowState_ = StartState;
+
+	playerBullets_.Initialize();
+	enemyBullets_.Initialize();
 }
 
 //-----------------------------------------------------------------------------
@@ -202,6 +205,7 @@ void GameScene::PlayGameUpdate()
 	player_->Update();
 	playerBullets_.Update(player_->GetBullets());
 	enemy_->Update();
+	enemyBullets_.Update(enemy_->GetBullets());
 
 	CollisionUpdate();
 }
@@ -230,6 +234,7 @@ void GameScene::CollisionUpdate()
 	enemy_->CollisionUpdate();
 
 	playerBullets_.CollisionUpdate();
+	enemyBullets_.CollisionUpdate();
 }
 
 void GameScene::Update()
@@ -321,7 +326,7 @@ void GameScene::Draw()
 		playerBullets_.Draw();
 	}
 	enemy_->Draw();
-	enemy_->DrawBullets();
+	enemyBullets_.Draw();
 	
 	//	脱出ポッド
 	pod_.Draw();

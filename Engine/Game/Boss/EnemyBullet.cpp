@@ -8,17 +8,20 @@ using namespace MNE;
 using namespace MyMath;
 
 //-----------------------------------------------------------------------------
+// [SECTION] Destructor
+//-----------------------------------------------------------------------------
+
+EnemyBullet::~EnemyBullet()
+{
+}
+
+//-----------------------------------------------------------------------------
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
 void EnemyBullet::Initialize()
 {
-	Object3D::Initialize();
-	lifeTime_.StartCount();
-	float diameter = radius_ * 2.0f;
-	mat_.scale_ = Vector3D(diameter, diameter, diameter);
-	SetCollider(new SphereCollider(Vector3D(), radius_));
-	SetAttribute(CollAttribute::COLLISION_ATTR_ENEMY_AT);
+	IBullet::Initialize();
 }
 
 //-----------------------------------------------------------------------------
@@ -27,12 +30,10 @@ void EnemyBullet::Initialize()
 
 void EnemyBullet::Update()
 {
-	lifeTime_.Update();
-
-	mat_.trans_ += moveVec_ * spd_;
+	IBullet::Update();
 
 	MatUpdate();
-	collider_->Update();
+	ColliderUpdate();
 }
 
 void EnemyBullet::OnCollision(CollisionInfo& info)
@@ -55,32 +56,4 @@ void EnemyBullet::OnCollision(CollisionInfo& info)
 	default:
 		break;
 	}
-}
-
-//-----------------------------------------------------------------------------
-// [SECTION] Getter
-//-----------------------------------------------------------------------------
-
-bool EnemyBullet::GetIsActive()
-{
-	return lifeTime_.GetIsActive();
-}
-
-//-----------------------------------------------------------------------------
-// [SECTION] Setter
-//-----------------------------------------------------------------------------
-
-void EnemyBullet::SetMoveVec(const MyMath::Vector3D& moveVec)
-{
-	moveVec_ = moveVec;
-}
-
-void EnemyBullet::SetSpd(float spd)
-{
-	spd_ = spd;
-}
-
-void EnemyBullet::SetLifeTime(int32_t time)
-{
-	lifeTime_.SetMaxFrameCount(time);
 }
