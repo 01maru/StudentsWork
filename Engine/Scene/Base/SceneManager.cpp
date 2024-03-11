@@ -74,6 +74,14 @@ void SceneManager::Initialize()
 
 #pragma region PostEffect
 
+	Vector4D clearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	std::unique_ptr<IPostEffect> shadow = std::make_unique<IPostEffect>();
+	shadow->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "shadow", 2, DXGI_FORMAT_R32G32_FLOAT);
+	shadow->SetClearColor(clearColor);
+	//	関数設定
+
+	postEffects_.emplace_back(std::move(shadow));
+
 	mainScene = std::make_unique<PostEffect>();
 	mainScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "main", 2, DXGI_FORMAT_R11G11B10_FLOAT);
 
@@ -233,6 +241,52 @@ void SceneManager::ImguiUpdate()
 #endif // _DEBUG
 }
 
+void MNE::SceneManager::DrawShadow()
+{
+	if (endLoading_ && !isSplashScreen_) {
+		drawShadow_ = true;
+		scene_->DrawShadow();
+	}
+}
+
+void MNE::SceneManager::DrawScene()
+{
+	if (isSplashScreen_) {
+		splashScene_->Draw();
+	}
+	else {
+	}
+	if (endLoading_) {
+		drawShadow_ = false;
+		scene_->Draw();
+		ModelManager::GetInstance()->DrawPreview();
+		CameraManager::GetInstance()->DrawTarget();
+
+		scene_->DrawUIBeforeBlackScreen();
+
+		blackScreen_.Draw();
+
+		scene_->DrawUIAfterBlackScreen();
+		InputManager::GetInstance()->Draw();
+
+		UIEditor::GetInstance()->Draw();
+		TextureManager::GetInstance()->DrawPreview();
+	}
+}
+
+void MNE::SceneManager::DrawFinalScene()
+{
+	//	最後の描画
+	auto end = postEffects_.end()->get();
+	end->Draw();
+
+	loading_.Draw();
+
+#ifdef _DEBUG
+	ImGuiManager::GetInstance()->Draw();
+#endif // _DEBUG
+}
+
 void SceneManager::Update()
 {
 	CameraManager::GetInstance()->Update();
@@ -255,15 +309,16 @@ void SceneManager::Draw()
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 
+	for (auto& i : postEffects_)
+	{
+		i->Update();
+	}
 #pragma region DrawScreen
 	Vector4D shadowClearColor_(1.0f, 1.0f, 1.0f, 1.0f);
 
 	dx->PrevPostEffect(shadowEffect.get(), shadowClearColor_);
 
-	if (endLoading_ && !isSplashScreen_) {
-		drawShadow_ = true;
-		scene_->DrawShadow();
-	}
+	DrawShadow();
 	
 	dx->PostEffectDraw(shadowEffect.get());
 
@@ -273,27 +328,7 @@ void SceneManager::Draw()
 	
 	dx->PrevPostEffect(mainScene.get());
 
-	if (isSplashScreen_) {
-		splashScene_->Draw();
-	}
-	else {
-	}
-	if (endLoading_) {
-		drawShadow_ = false;
-		scene_->Draw();
-		ModelManager::GetInstance()->DrawPreview();
-		CameraManager::GetInstance()->DrawTarget();
-		
-		scene_->DrawUIBeforeBlackScreen();
-
-		blackScreen_.Draw();
-
-		scene_->DrawUIAfterBlackScreen();
-		InputManager::GetInstance()->Draw();
-
-		UIEditor::GetInstance()->Draw();
-		TextureManager::GetInstance()->DrawPreview();
-	}
+	DrawScene();
 
 	dx->PostEffectDraw(mainScene.get());
 
@@ -319,11 +354,7 @@ void SceneManager::Draw()
 
 	glayscale->DrawGlay();
 
-	loading_.Draw();
-
-#ifdef _DEBUG
-	ImGuiManager::GetInstance()->Draw();
-#endif // _DEBUG
+	DrawFinalScene();
 
 	dx->PostDraw();
 #pragma endregion

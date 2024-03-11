@@ -9,6 +9,8 @@
 
 #include "LoadingScene.h"
 
+#include "IPostEffect.h"
+
 namespace MNE
 {
 
@@ -64,6 +66,9 @@ namespace MNE
 
 		std::unique_ptr<GaussBlur> strongBulr;
 		std::unique_ptr<GaussBlur> weakBulr;
+
+		std::list<std::unique_ptr<IPostEffect>> postEffects_;
+
 #pragma endregion
 
 	private:	//	関数
@@ -73,6 +78,10 @@ namespace MNE
 		void SceneAsyncUpdate();
 		void SceneUpdate();
 		void ImguiUpdate();
+
+		void DrawShadow();
+		void DrawScene();
+		void DrawFinalScene();
 
 		void SceneInitialize();		//	SplashScreen用
 		void FirstScreenInitialize();

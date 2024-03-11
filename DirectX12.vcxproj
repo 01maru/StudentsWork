@@ -140,6 +140,7 @@
     <ClCompile Include="Engine\Game\UI\ExplanatoryText.cpp" />
     <ClCompile Include="Engine\Base\Json\JSONData.cpp" />
     <ClCompile Include="Engine\Game\Player\Bullet\IBullet.cpp" />
+    <ClCompile Include="IPostEffect.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -383,6 +384,7 @@
     <ClInclude Include="Engine\2D\Particle\ParticleAccComponent.h" />
     <ClInclude Include="Engine\Game\Particle\PlayerLandEffect.h" />
     <ClInclude Include="Engine\Game\Particle\PlayerSlideEffect.h" />
+    <ClInclude Include="IPostEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

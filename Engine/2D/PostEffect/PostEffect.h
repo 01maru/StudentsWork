@@ -17,16 +17,22 @@ namespace MNE
 
 	namespace CBuff {
 		struct CBuffColorMaterial;
-		struct CBuffGlayScale;
 	}
 	class GPipeline;
 
-	class PostEffect :public MNE::PlanePolygon
+	class PostEffect :public PlanePolygon
 	{
+	public:
+		void Initialize(int32_t width, int32_t height, const std::string& name, int32_t textureNum = 1, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
+		/**
+		* @fn Draw()
+		* 描画処理関数
+		*/
+		virtual void Draw();
+
 	private:
 		template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-		int32_t texNum_ = 2;
 		std::vector<Texture*> texture_;
 	
 	#pragma region ConstBuff
@@ -36,8 +42,9 @@ namespace MNE
 	
 	#pragma endregion
 
-		MyMath::Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 		std::string name_;
+
+		MyMath::Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
 		int32_t width_ = 0;
 		int32_t height_ = 0;
 		MyMath::Vector4D clearColor_ = { 0.1f,0.25f, 0.5f,0.0f };
@@ -48,7 +55,6 @@ namespace MNE
 
 		DepthStencil dsv_;
 	public:
-		void Initialize(int32_t width, int32_t height, const std::string& texName, int32_t textureNum = 1, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		void RSSetVPandSR();
 		void SetGPipelineAndIAVertIdxBuff(MNE::GPipeline* pipeline);
@@ -77,11 +83,6 @@ namespace MNE
 		* 描画処理関数
 		*/
 		void DrawMultiTask();
-		/**
-		* @fn DrawIndexedInstanced()
-		* 描画処理関数
-		*/
-		void Draw();
 
 		void SetColor(const MyMath::Vector4D& color);
 
@@ -94,11 +95,10 @@ namespace MNE
 
 		ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }
 		ID3D12Resource** GetTextureBuffPtr(int32_t index = 0) { return texture_[index]->GetResourceBuffAddress(); }
-		int32_t GetTextureNum() { return texNum_; }
+		int32_t GetTextureNum() { return texture_.size(); }
 		ID3D12DescriptorHeap* GetRTVHeap() { return rtvHeap_.Get(); }
 		ID3D12DescriptorHeap* GetDSVHeap() { return dsv_.GetDSVHeap(); }
-		Texture* GetTexture() { return texture_[0]; }
-		Texture* GetTexture(int32_t index) { return texture_[index]; }
+		Texture* GetTexture(int32_t index = 0);
 
 	#pragma endregion
 	};

@@ -7,18 +7,18 @@
 #include "ConstBuffStruct.h"
 
 using namespace MyMath;
+using namespace MNE;
 
-void MNE::PostEffect::Initialize(int32_t width, int32_t height, const std::string& texName, int32_t textureNum, DXGI_FORMAT format)
+void MNE::PostEffect::Initialize(int32_t width, int32_t height, const std::string& name, int32_t textureNum, DXGI_FORMAT format)
 {
 	width_ = width;
 	height_ = height;
 
-	texNum_ = textureNum;
 	texture_.resize(textureNum);
-	name_ = texName;
+	name_ = name;
 	for (size_t i = 0; i < textureNum; i++)
 	{
-		texture_[i] = TextureManager::GetInstance()->CreateNoneGraphTexture(texName + "PostEffectScreen" + std::to_string(i));
+		texture_[i] = TextureManager::GetInstance()->CreateNoneGraphTexture(name + "PostEffectScreen" + std::to_string(i));
 	}
 
 #pragma region  ConstBuffer
@@ -197,6 +197,11 @@ void MNE::PostEffect::DrawMultiTask()
 void MNE::PostEffect::SetColor(const Vector4D& color)
 {
 	cMaterialMap_->color = color;
+}
+
+Texture* MNE::PostEffect::GetTexture(int32_t index)
+{
+	return texture_[index];
 }
 
 void MNE::PostEffect::Draw()
