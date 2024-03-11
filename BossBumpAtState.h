@@ -1,6 +1,5 @@
 #pragma once
 #include "BossState.h"
-#include "BulletInfo.h"
 #include "FrameCounter.h"
 
 class BossBumpAtState :public BossState

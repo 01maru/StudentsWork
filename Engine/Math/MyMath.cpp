@@ -190,6 +190,12 @@ MyMath::Vector3D MyMath::CreatePolygonNormal(const Vector3D& a, const Vector3D& 
 	return normal;
 }
 
+float MyMath::GetCircleToLineLen(const Vector2D& circlePos, float radius, const Vector2D& linePos, const Vector2D& lineDir)
+{
+
+	return 0.0f;
+}
+
 MyMath::Matrix MyMath::PerspectiveFovLH(int32_t winwidth, int32_t winheight, float fovY, float nearZ, float farZ)
 {
 	assert(nearZ > 0.f && farZ > 0.f);

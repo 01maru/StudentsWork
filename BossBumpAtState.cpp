@@ -12,14 +12,16 @@ using namespace MyMath;
 
 void BossBumpAtState::Initialize()
 {
-	//	プレイヤーと敵の位置で長さ変更
-
 	objMaxNum_ = static_cast<int32_t>(length_ / scale_);
 	objNum_ = 0;
 
 	dir_ = sBoss_->GetPlayerPtr()->GetCenterPos() - sBoss_->GetPosition();
 	dir_.y = 0.0f;
 	dir_.Normalize();
+
+	//	プレイヤーと敵の位置で長さ変更
+	Vector2D center;
+
 }
 
 //-----------------------------------------------------------------------------

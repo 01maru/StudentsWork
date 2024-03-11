@@ -15,6 +15,7 @@
     <ClCompile Include="BossBumpAtState.cpp" />
     <ClCompile Include="BossData.cpp" />
     <ClCompile Include="BossRockFallState.cpp" />
+    <ClCompile Include="DestructibleObj.cpp" />
     <ClCompile Include="EnemyBulletManager.cpp" />
     <ClCompile Include="EnemyBumpStone.cpp" />
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterAccComponent.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="BossBumpAtState.h" />
     <ClInclude Include="BossData.h" />
     <ClInclude Include="BossRockFallState.h" />
+    <ClInclude Include="DestructibleObj.h" />
     <ClInclude Include="EnemyBulletManager.h" />
     <ClInclude Include="EnemyBumpStone.h" />
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterAccComponent.h" />

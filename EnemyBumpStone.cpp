@@ -1,4 +1,10 @@
 #include "EnemyBumpStone.h"
+#include "Player.h"
+#include "CollisionAttribute.h"
+#include "BaseCollider.h"
+
+using namespace MNE::CollAttribute;
+using namespace MNE;
 
 EnemyBumpStone::~EnemyBumpStone()
 {
@@ -19,8 +25,23 @@ void EnemyBumpStone::Update()
 	ColliderUpdate();
 }
 
-void EnemyBumpStone::OnCollision(MNE::CollisionInfo& /*info*/)
+void EnemyBumpStone::OnCollision(MNE::CollisionInfo& info)
 {
+	Player* player = nullptr;
+
+	switch (info.GetCollider()->GetAttribute())
+	{
+	case COLLISION_ATTR_ALLIES:
+
+		player = dynamic_cast<Player*>(info.GetCollider()->GetObject3D());
+		player->DecHP(damage_);
+
+		lifeTime_.SetIsActive(FALSE);
+
+		break;
+	default:
+		break;
+	}
 }
 
 void EnemyBumpStone::SetScale(const MyMath::Vector3D& scale)

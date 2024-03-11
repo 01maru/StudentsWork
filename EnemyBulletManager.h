@@ -1,6 +1,7 @@
 #pragma once
 #include "IBulletManager.h"
 #include "BulletInfo.h"
+#include "DestructibleObj.h"
 #include <vector>
 
 /**
@@ -34,6 +35,6 @@ private:
 	MNE::Object3D beamObj_;
 
 	//	岩のオブジェクト配列
-	std::vector<MNE::Object3D> rocks_;
+	std::vector<DestructibleObj> rocks_;
 };
 

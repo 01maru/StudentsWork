@@ -4,6 +4,7 @@
 #include "CollisionManager.h"
 #include "EnemyBullet.h"
 #include "EnemyBumpStone.h"
+#include "RockObjBullet.h"
 #include "CollisionAttribute.h"
 
 using namespace MNE;
@@ -63,6 +64,21 @@ void EnemyBulletManager::Update(std::list<EnemyBulletInfo>& bullets, const BeamI
 
 			bullet = std::move(bump);
 		}
+		else if (itr.type_ == LandStone)
+		{
+			std::unique_ptr<RockObjBullet> bump = std::make_unique<RockObjBullet>();
+			bump->Initialize();
+			bump->SetLifeTime(itr.lifeTime_);
+			bump->SetSpd(itr.spd_);
+			bump->SetMoveVec(itr.moveVec_);
+			bump->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
+			bump->SetPosition(itr.pos_);
+			bump->SetScale(itr.scale_);
+
+			bump->SetAttribute(COLLISION_ATTR_ENEMY_AT);
+
+			bullet = std::move(bump);
+		}
 
 		bullets_.push_back(std::move(bullet));
 	}
@@ -92,7 +108,11 @@ void EnemyBulletManager::Update(std::list<EnemyBulletInfo>& bullets, const BeamI
 		}
 	}
 
-	IBulletManager::Update();
+	//	弾更新
+	for (auto& itr : bullets_)
+	{
+		itr->Update();
+	}
 }
 
 void EnemyBulletManager::Draw()

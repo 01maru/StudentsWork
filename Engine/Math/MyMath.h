@@ -90,6 +90,8 @@ namespace MyMath {
 	*/
 	Vector3D CreatePolygonNormal(const Vector3D& a, const Vector3D& b, const Vector3D& c);
 
+	float GetCircleToLineLen(const Vector2D& circlePos, float radius, const Vector2D& linePos, const Vector2D& lineDir);
+
 	class MatView {
 	public:
 		Matrix mat_;
