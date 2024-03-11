@@ -3,6 +3,7 @@
 #include "CharacterHP.h"
 #include "BossState.h"
 #include "BulletInfo.h"
+#include "BossData.h"
 
 /**
 * @file Boss.h
@@ -14,7 +15,7 @@ class Player;
 class GameScene;
 #pragma endregion
 
-class Boss :public MNE::Object3D
+class Boss :public MNE::Object3D, public BossData
 {
 public:
 	/**
@@ -49,7 +50,6 @@ private:
 	bool isActive_ = true;
 
 	//	体力
-	int32_t maxHP_ = 100;
 	CharacterHP hp_;
 	//	現在のステート
 	std::unique_ptr<BossState> currentState_;

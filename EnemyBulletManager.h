@@ -1,6 +1,7 @@
 #pragma once
 #include "IBulletManager.h"
 #include "BulletInfo.h"
+#include <vector>
 
 /**
 * @file EnemyBulletManager.h
@@ -31,5 +32,8 @@ public:
 private:
 	bool beamActive_ = false;
 	MNE::Object3D beamObj_;
+
+	//	岩のオブジェクト配列
+	std::vector<MNE::Object3D> rocks_;
 };
 
