@@ -40,7 +40,6 @@ void EnemyBullet::OnCollision(CollisionInfo& info)
 {
 	(void)info;
 	Player* player = nullptr;
-	std::unique_ptr<FrameCounter> deadTimer;
 
 	switch (info.GetCollider()->GetAttribute())
 	{

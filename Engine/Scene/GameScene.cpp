@@ -50,6 +50,7 @@ void GameScene::LoadResources()
 	//	enemy
 	enemy_ = std::make_unique<Boss>();
 	enemy_->Initialize(models->GetModel("Boss"));
+	enemyBullets_.LoadResources();
 
 #pragma region LevelData
 
@@ -205,7 +206,7 @@ void GameScene::PlayGameUpdate()
 	player_->Update();
 	playerBullets_.Update(player_->GetBullets());
 	enemy_->Update();
-	enemyBullets_.Update(enemy_->GetBullets());
+	enemyBullets_.Update(enemy_->GetBullets(), enemy_->GetBeamInfo());
 
 	CollisionUpdate();
 }
@@ -326,7 +327,6 @@ void GameScene::Draw()
 		playerBullets_.Draw();
 	}
 	enemy_->Draw();
-	enemy_->DrawBeam();
 	enemyBullets_.Draw();
 	
 	//	脱出ポッド

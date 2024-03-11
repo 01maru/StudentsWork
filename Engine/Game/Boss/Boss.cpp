@@ -120,11 +120,6 @@ void Boss::DrawUI()
 	hp_.Draw();
 }
 
-void Boss::DrawBeam()
-{
-	currentState_->Draw();
-}
-
 void Boss::AddBullet(EnemyBulletInfo& bullet)
 {
 	bullets_.push_back(bullet);
@@ -192,6 +187,11 @@ std::list<EnemyBulletInfo>& Boss::GetBullets()
 	return bullets_;
 }
 
+BeamInfo Boss::GetBeamInfo()
+{
+	return beam_;
+}
+
 GameScene* Boss::GetGameScene()
 {
 	return pGameScene_;
@@ -233,6 +233,11 @@ void Boss::SetHPBarSprite(const MNE::Sprite& sprite)
 void Boss::SetBodyAttack(bool attackFlag)
 {
 	bodyAt_ = attackFlag;
+}
+
+void Boss::SetBeamInfo(const BeamInfo& beam)
+{
+	beam_ = beam;
 }
 
 void Boss::SetGameScene(GameScene* gameScene)

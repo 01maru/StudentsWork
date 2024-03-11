@@ -1,7 +1,8 @@
 #pragma once
+#include "BulletInfo.h"
 #include "BossState.h"
 #include "FrameCounter.h"
-#include "Object3D.h"
+#include <array>
 
 /**
 * @file BossBeamState.h
@@ -10,6 +11,22 @@
 
 class BossBeamState :public BossState
 {
+private:
+	//	ステート
+	enum BeamState
+	{
+		ChargeState = 0,	//	チャージ中
+		AttackState,		//	攻撃
+		EndState,			//	終了時演出
+		TotalStates,
+	};
+
+	typedef void (BossBeamState::* state)(BeamInfo&);
+	//	関数ポインタテーブル
+	std::array<state, TotalStates> stateTable_;
+	//	現在のステート
+	int32_t nowState_ = ChargeState;
+
 public:
 	/**
 	* @fn Initialize()
@@ -21,19 +38,35 @@ public:
 	* 更新処理関数
 	*/
 	void Update() override;
-	/**
-	* @fn Draw()
-	* 描画処理関数
-	*/
-	void Draw() override;
 
 private:
+	bool attacking_;
 
-	MNE::Object3D beamObj_;
+	MNE::FrameCounter timer_;
+	MNE::FrameCounter avoidTimer_;
+	//	攻撃予備動作
+	int32_t chargeTime_ = 60;
+	//	攻撃時間
+	int32_t attackTime_ = 60;
+	//	攻撃に当たっていない時の経過時間(経過したら攻撃終了)
+	int32_t avoidTime_ = 60;
+	//	終了演出時間
+	int32_t endTime_ = 60;
 
-	MNE::FrameCounter rate_;
-	int32_t delayTime_ = 60;
-	float bulletSpd_ = 1.0f;
+	MyMath::Vector3D chargeScale_ = { 0.5f, 0.5f, 0.5f };
+	MyMath::Vector3D maxScale_ = { 0.8f, 0.8f, 0.8f };
 
+	MyMath::Vector3D color_ = { 0.7f, 0.1f, 0.1f };
+	float chargeAlpha_ = 0.4f;
+
+private:
+	void RayCollisionUpdate(BeamInfo& info);
+	bool AvoidTimerUpdate();
+	void ChargeStateInitialize();
+	void ChargeStateUpdate(BeamInfo& info);
+	void AttackStateInitialize();
+	void AttackStateUpdate(BeamInfo& info);
+	void EndStateInitialize();
+	void EndStateUpdate(BeamInfo& info);
 };
 

@@ -24,6 +24,12 @@ public:
 	* @fn Update()
 	* 更新処理関数
 	*/
-	void Update(std::list<EnemyBulletInfo>& bullets);
+	void Update(std::list<EnemyBulletInfo>& bullets, const BeamInfo& beam);
+
+	void Draw() override;
+
+private:
+	bool beamActive_ = false;
+	MNE::Object3D beamObj_;
 };
 

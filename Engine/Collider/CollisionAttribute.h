@@ -20,6 +20,8 @@ namespace MNE
 		const uint16_t COLLISION_ATTR_ENEMYS = 0b1 << 3;
 		//	敵の攻撃
 		const uint16_t COLLISION_ATTR_ENEMY_AT = 0b1 << 4;
+		//	敵の攻撃
+		const uint16_t COLLISION_ATTR_ENEMY_AT_LANDSHAPE = 0b1 << 5;
 	}
 
 }

@@ -1,8 +1,6 @@
-#include "BossBulletState.h"
-#include "Boss.h"
+#include "BossBumpAtState.h"
 #include "BossIdleState.h"
-#include "ModelManager.h"
-
+#include "Boss.h"
 #include "Player.h"
 
 using namespace MNE;
@@ -12,19 +10,25 @@ using namespace MyMath;
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
 
-void BossBulletState::Initialize()
+void BossBumpAtState::Initialize()
 {
-	rate_.Initialize(rateTime_, true);
-	rate_.StartCount();
+	//	プレイヤーと敵の位置で長さ変更
+
+	objMaxNum_ = static_cast<int32_t>(length_ / scale_);
+	objNum_ = 0;
+
+	dir_ = sBoss_->GetPlayerPtr()->GetCenterPos() - sBoss_->GetPosition();
+	dir_.y = 0.0f;
+	dir_.Normalize();
 }
 
 //-----------------------------------------------------------------------------
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
-void BossBulletState::Update()
+void BossBumpAtState::Update()
 {
-	sBoss_->RotationUpdate();
+	BeamInfo info;
 
 	rate_.Update();
 
@@ -32,19 +36,22 @@ void BossBulletState::Update()
 
 		//	弾生成
 		EnemyBulletInfo bullet;
-		bullet.type_ = NormalStone;
-		bullet.lifeTime_ = bulletLifeTime_;
-		bullet.spd_ = bulletSpd_;
+		bullet.type_ = BumpStone;
+		bullet.lifeTime_ = bumpLifeTime_;
+		//bullet.spd_ = bulletSpd_;
+		bullet.scale_ = Vector3D(scale_, height_, scale_);
 
-		Vector3D moveVec = sBoss_->GetPlayerPtr()->GetCenterPos() - sBoss_->GetShotPoint();
-		moveVec.Normalize();
+		Vector3D moveVec = Vector3D(0, 1, 0);
 		bullet.moveVec_ = moveVec;
 
-		bullet.pos_ = sBoss_->GetShotPoint();
+		Vector3D pos = sBoss_->GetPosition();
+		pos += dir_ * (scale_ / 2.0f);
+		pos += dir_ * scale_ * static_cast<float>(objNum_);
+		bullet.pos_ = pos;
 		sBoss_->AddBullet(bullet);
 
 		//	弾をすべて撃ったら
-		if (++bulletNum_ >= bulletMaxNum_) {
+		if (++objNum_ >= objMaxNum_) {
 			//	終了
 			std::unique_ptr<BossState> next_ = std::make_unique<BossIdleState>();
 			sBoss_->SetCurrentState(next_);

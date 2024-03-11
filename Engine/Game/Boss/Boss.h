@@ -42,7 +42,6 @@ public:
 	* UI描画処理関数
 	*/
 	void DrawUI();
-	void DrawBeam();
 	void CollisionUpdate();
 	void OnCollision(MNE::CollisionInfo& info) override;
 
@@ -56,6 +55,7 @@ private:
 	std::unique_ptr<BossState> currentState_;
 	//	追加する敵の弾リスト
 	std::list<EnemyBulletInfo> bullets_;
+	BeamInfo beam_;
 
 	//	体に触れたらダメージを与えるようフラグ
 	bool bodyAt_ = false;
@@ -137,6 +137,7 @@ public:
 	MyMath::Vector3D GetBeamPoint();
 
 	std::list<EnemyBulletInfo>& GetBullets();
+	BeamInfo GetBeamInfo();
 
 	bool GetIsDeathState() { return isDeathState_; }
 
@@ -182,6 +183,8 @@ public:
 	* @param attackFlag ボディーアタック中か
 	*/
 	void SetBodyAttack(bool attackFlag);
+
+	void SetBeamInfo(const BeamInfo& beam);
 
 	void SetIsDeathState(bool isDeathState) { isDeathState_ = isDeathState; }
 

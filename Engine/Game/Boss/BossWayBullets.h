@@ -23,7 +23,7 @@ public:
 
 private:
 	MNE::FrameCounter rate_;
-	int32_t bulletMaxNum_ = 5;
+	int32_t bulletMaxNum_ = 8;
 	int32_t delayTime_ = 60;
 	float bulletSpd_ = 1.0f;
 	int32_t bulletLifeTime_ = 600;

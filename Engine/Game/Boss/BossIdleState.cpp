@@ -5,6 +5,7 @@
 #include "BossBulletState.h"
 #include "BossWayBullets.h"
 #include "BossJumpAtState.h"
+#include "BossBumpAtState.h"
 
 using namespace MyMath;
 
@@ -48,11 +49,11 @@ void BossIdleState::Update()
 		int rad = rand();
 		rad = rad % StateNum;
 		if (rad == BulletState) {
-			std::unique_ptr<BossState> next_ = std::make_unique<BossBulletState>();
+			std::unique_ptr<BossState> next_ = std::make_unique<BossWayBullets>();
 			sBoss_->SetCurrentState(next_);
 		}
 		else if (rad == WayBulletsState) {
-			std::unique_ptr<BossState> next_ = std::make_unique<BossWayBullets>();
+			std::unique_ptr<BossState> next_ = std::make_unique<BossBulletState>();
 			sBoss_->SetCurrentState(next_);
 		}
 		sBoss_->GetAnimation()->SetAutoPlay(FALSE);

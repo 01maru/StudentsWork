@@ -29,7 +29,7 @@ public:
 	* @fn Draw()
 	* 描画処理関数
 	*/
-	void Draw();
+	virtual void Draw();
 
 protected:
 	//	弾リスト
