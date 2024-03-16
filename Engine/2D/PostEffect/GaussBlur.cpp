@@ -1,79 +1,95 @@
 #include "GaussBlur.h"
 #include "DirectX.h"
 #include "ConstBuffStruct.h"
-#include "PostEffect.h"
 #include "TextureManager.h"
 #include <cassert>
 
+#include "PostEffectManager.h"
+
 using namespace MyMath;
 
-void MNE::GaussBlur::Initialize(float weight, MNE::PostEffect* original, DXGI_FORMAT format)
+void MNE::GaussBlurPostEffect::Draw(int32_t /*mode*/)
+{
+	SetGPipelineAndIAVertIdxBuff();
+	parent_->SetWeightGraphicsRootCBuffView(2);
+
+	originalPE_->Draw();
+}
+
+void MNE::GaussBlurPostEffect::SetGaussBlur(GaussBlur* gaussBlur)
+{
+	parent_ = gaussBlur;
+}
+
+/////////////////
+
+void MNE::GaussBlur::Initialize(IPostEffect* original, DXGI_FORMAT format)
 {
 #pragma region ConstBuff
 
 	weight_.Initialize((sizeof(CBuff::CBufferBlurWeight) + 0xFF) & ~0xFF);
 
-	weights_.resize(8);
-	MyMath::CalcGaussianWeightsTable(
-		weights_,			// 重みの格納先
-		weight				// ボケ具合。この数値が大きくなるとボケが強くなる
-	);
-
-	CBuff::CBufferBlurWeight* mapWeight = nullptr;
-	HRESULT result = weight_.GetResource()->Map(0, nullptr, (void**)&mapWeight);	//	マッピング
-	mapWeight->weight[0] = Vector4D(weights_[0], weights_[1], weights_[2], weights_[3]);
-	mapWeight->weight[1] = Vector4D(weights_[4], weights_[5], weights_[6], weights_[7]);
+	HRESULT result = weight_.GetResource()->Map(0, nullptr, (void**)&mapWeight_);	//	マッピング
 	assert(SUCCEEDED(result));
-	weight_.GetResource()->Unmap(0, nullptr);
 
 #pragma endregion
 
-	original_ = original;
+	PostEffectManager* peMan = PostEffectManager::GetInstance();
 
-	int32_t width = original_->GetWidth() / 2;
-	int32_t height = original_->GetHeight();
-	blurX_ = std::make_unique<MNE::PostEffect>();
-	blurX_->Initialize(width, height, original_->GetName() + "/xblur", 1, format);
+	auto originItr = peMan->GetPostEffectItr(original->GetName());
 
-	height /= 2;
-	blurY_ = std::make_unique<MNE::PostEffect>();
-	blurY_->Initialize(width, height, original_->GetName() + "/yblur", 1, format);
+	std::unique_ptr<IPostEffect> blur;
+	if (blurX_ == nullptr)
+	{
+		int32_t width = original->GetWidth() / 2;
+		int32_t height = original->GetHeight();
+		std::unique_ptr<GaussBlurPostEffect> blurX = std::make_unique<GaussBlurPostEffect>();
+		blurX->Initialize(width, height, original->GetName() + "/xBlur", 1, format);
+		blurX->SetOriginalPostEffect(original);
+
+		blur = std::move(blurX);
+
+		blurX_ = dynamic_cast<GaussBlurPostEffect*>(peMan->AddPostEffect(blur, originItr));
+	}
+
+	if (blurY_ == nullptr)
+	{
+		int32_t width = original->GetWidth() / 2;
+		int32_t height = original->GetHeight() / 2;
+		std::unique_ptr<GaussBlurPostEffect> blurY = std::make_unique<GaussBlurPostEffect>();
+		blurY->Initialize(width, height, original->GetName() + "/yBlur", 1, format);
+		blurY->SetOriginalPostEffect(blurX_);
+
+		blur = std::move(blurY);
+
+		blurY_ = dynamic_cast<GaussBlurPostEffect*>(peMan->AddPostEffect(blur, std::next(originItr, 1)));
+	}
 }
 
-void MNE::GaussBlur::Draw()
+void MNE::GaussBlur::SetWeightGraphicsRootCBuffView(int32_t rootparaIdx)
 {
-	MyDirectX* dx = MyDirectX::GetInstance();
+	weight_.SetGraphicsRootCBuffView(rootparaIdx);
+}
 
-
-	dx->PrevPostEffect(blurX_.get(), blurX_->GetClearColor());
-
-	blurX_->SetGPipelineAndIAVertIdxBuff(pipeline[0]);
-	weight_.SetGraphicsRootCBuffView(2);
-
-	original_->Draw();
-
-	dx->PostEffectDraw(blurX_.get());
-
-	dx->PrevPostEffect(blurY_.get(), blurY_->GetClearColor());
-
-	blurX_->SetGPipelineAndIAVertIdxBuff(pipeline[1]);
-
-	dx->GetCmdList()->SetGraphicsRootDescriptorTable(0, TextureManager::GetInstance()->GetTextureHandle(blurX_->GetTexture()->GetHandle()));
-	weight_.SetGraphicsRootCBuffView(2);
-
-	blurX_->DrawIndexedInstanced();
-
-	dx->PostEffectDraw(blurY_.get());
+void MNE::GaussBlur::SetWeight(float weight)
+{
+	CalcGaussianWeightsTable(
+		weights_,			// 重みの格納先
+		weight				// ボケ具合。この数値が大きくなるとボケが強くなる
+	);
+	//	格納
+	mapWeight_->weight[0] = Vector4D(weights_[0], weights_[1], weights_[2], weights_[3]);
+	mapWeight_->weight[1] = Vector4D(weights_[4], weights_[5], weights_[6], weights_[7]);
 }
 
 void MNE::GaussBlur::SetPipeline(GPipeline* blurXPipeline, GPipeline* blurYPipeline)
 {
-	pipeline[0] = blurXPipeline;
-	pipeline[1] = blurYPipeline;
+	blurX_->SetGPipeline(blurXPipeline);
+	blurY_->SetGPipeline(blurYPipeline);
 }
 
-void MNE::GaussBlur::SetClearColor(const Vector4D& color)
+void MNE::GaussBlur::SetClearColor(const MyMath::Vector4D& color)
 {
-	blurX_->SetColor(color);
-	blurY_->SetColor(color);
+	blurX_->SetClearColor(color);
+	blurY_->SetClearColor(color);
 }

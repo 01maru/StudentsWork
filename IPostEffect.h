@@ -3,7 +3,10 @@
 #include "ConstBuff.h"
 #include "ViewPortScissorRect.h"
 #include "DepthStencil.h"
+#include "Texture.h"
 #include <string>
+#include <vector>
+#include <cstdint>
 
 namespace MNE
 {
@@ -11,7 +14,6 @@ namespace MNE
 	namespace CBuff {
 		struct CBuffColorMaterial;
 	}
-	class Texture;
 	class GPipeline;
 #pragma endregion
 
@@ -20,12 +22,12 @@ namespace MNE
 	{
 	public:
 		void Initialize(int32_t width, int32_t height, const std::string& name, int32_t textureNum = 1, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
-		void Update();
+		virtual void Update();
 		/**
 		* @fn Draw()
 		* 描画処理関数
 		*/
-		virtual void Draw();
+		virtual void Draw(int32_t mode = 0);
 
 	protected:
 		template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
@@ -36,6 +38,8 @@ namespace MNE
 		ConstBuff material_;
 
 #pragma endregion
+		std::string name_;
+
 		//	ビューポートシザー矩形
 		ViewPortScissorRect viewPortSciRect_;
 		ComPtr<ID3D12DescriptorHeap> rtvHeap_;
@@ -44,7 +48,7 @@ namespace MNE
 		//	使用するテクスチャポインタ
 		std::vector<Texture*> texture_;
 		//	使用するパイプライン
-		GPipeline* pipeline_;
+		GPipeline* pipeline_ = nullptr;
 
 		//	ポストエフェクト全体の色
 		MyMath::Vector4D color_ = { 1.0f,1.0f,1.0f,1.0f };
@@ -54,9 +58,9 @@ namespace MNE
 		//	クリアカラー
 		MyMath::Vector4D clearColor_ = { 0.1f,0.25f, 0.5f,0.0f };
 
-		typedef void (IPostEffect::* Original)();
-		//	ポストエフェクト前のテクスチャの描画関数ポインタ
-		Original original_;
+		int32_t mode_ = 0;
+
+		IPostEffect* originalPE_ = nullptr;
 
 	public:
 
@@ -67,16 +71,23 @@ namespace MNE
 		const MyMath::Vector4D& GetClearColor();
 		int32_t GetTextureNum();
 		Texture* GetTexture(int32_t index = 0);
+		std::string GetName();
+
 #pragma endregion
 
 #pragma region Setter
 
 		void RSSetVPandSR();
 		void SetGPipelineAndIAVertIdxBuff();
-
+		void SetMode(int32_t mode);
+		void SetGPipeline(GPipeline* pipeline);
+		ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }
+		ID3D12DescriptorHeap* GetRTVHeap() { return rtvHeap_.Get(); }
+		ID3D12DescriptorHeap* GetDSVHeap() { return dsv_.GetDSVHeap(); }
 		void SetColor(const MyMath::Vector4D& color);
 		void SetClearColor(const MyMath::Vector4D& color);
-		void SetOriginal(Original original);
+		void SetOriginalPostEffect(IPostEffect* original);
+
 #pragma endregion
 	};
 

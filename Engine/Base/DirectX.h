@@ -13,7 +13,7 @@
 
 namespace MNE
 {
-	class PostEffect;
+	class IPostEffect;
 
 	class MyDirectX
 	{
@@ -68,8 +68,8 @@ namespace MNE
 
 		void Initialize();
 
-		void PrevPostEffect(MNE::PostEffect* postEffect, const MyMath::Vector4D& clearColor = MyMath::Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
-		void PostEffectDraw(MNE::PostEffect* postEffect);
+		void PrevPostEffect(MNE::IPostEffect* postEffect, const MyMath::Vector4D& clearColor = MyMath::Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
+		void PostEffectDraw(MNE::IPostEffect* postEffect);
 
 		void PrevDraw(const MyMath::Vector4D& clearColor = MyMath::Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
 		void PostDraw();

@@ -36,7 +36,7 @@ namespace MNE
 			float value;
 		};
 
-		struct CBuffGlayScale {
+		struct CBuffGrayScale {
 			bool active;
 		};
 

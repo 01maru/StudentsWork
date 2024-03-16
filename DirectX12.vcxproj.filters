@@ -342,9 +342,6 @@
     <ClCompile Include="Engine\Base\Window\ViewPortScissorRect.cpp">
       <Filter>ソース ファイル\lib\2D\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\2D\PostEffect\PostEffect.cpp">
-      <Filter>ソース ファイル\lib\2D\Screen</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Math\Vector\Vector2D.cpp">
       <Filter>ソース ファイル\lib\Engine\Math\Vector</Filter>
     </ClCompile>
@@ -482,9 +479,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Base\DepthStencil.cpp">
       <Filter>ソース ファイル\lib\Engine\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\PostEffect\GlayScale.cpp">
-      <Filter>ソース ファイル\lib\2D\Screen</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\PostEffect\GaussBlur.cpp">
       <Filter>ソース ファイル\lib\2D\Screen</Filter>
@@ -855,6 +849,18 @@
     <ClCompile Include="IPostEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="GrayScale.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="PostEffectManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MainPostEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowPostEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -888,9 +894,6 @@
       <Filter>ヘッダー ファイル\lib\3D\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Window\ViewPortScissorRect.h">
-      <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\PostEffect\PostEffect.h">
       <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Buffer\VertIdxBuff.h">
@@ -1038,9 +1041,6 @@
       <Filter>ヘッダー ファイル\lib\Engine\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\PostEffect\GaussBlur.h">
-      <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\PostEffect\GlayScale.h">
       <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\SphereCollider.h">
@@ -1431,6 +1431,18 @@
       <Filter>ヘッダー ファイル\Game\Player\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="IPostEffect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GrayScale.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="PostEffectManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MainPostEffect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowPostEffect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

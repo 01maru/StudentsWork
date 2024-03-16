@@ -106,7 +106,6 @@
     <ClCompile Include="Engine\Math\Quaternion.cpp" />
     <ClCompile Include="Engine\Scene\Base\SceneFactory.cpp" />
     <ClCompile Include="Engine\Scene\Base\SceneManager.cpp" />
-    <ClCompile Include="Engine\2D\PostEffect\PostEffect.cpp" />
     <ClCompile Include="Engine\3D\Light\SpotLight.cpp" />
     <ClCompile Include="Engine\2D\Sprite\Base\Sprite.cpp" />
     <ClCompile Include="Engine\2D\Texture\TextureManager.cpp" />
@@ -127,7 +126,6 @@
     <ClCompile Include="Engine\Base\ImGui\ImGuiController.cpp" />
     <ClCompile Include="Engine\2D\PostEffect\GaussBlur.cpp" />
     <ClCompile Include="Engine\Base\Json\JSONLoader.cpp" />
-    <ClCompile Include="Engine\2D\PostEffect\GlayScale.cpp" />
     <ClCompile Include="Engine\Game\GameOverCamera.cpp" />
     <ClCompile Include="Engine\Game\UI\GameOverUI.cpp" />
     <ClCompile Include="Engine\Game\Particle\FireParticleEmitter.cpp" />
@@ -140,6 +138,7 @@
     <ClCompile Include="Engine\Game\UI\ExplanatoryText.cpp" />
     <ClCompile Include="Engine\Base\Json\JSONData.cpp" />
     <ClCompile Include="Engine\Game\Player\Bullet\IBullet.cpp" />
+    <ClCompile Include="GrayScale.cpp" />
     <ClCompile Include="IPostEffect.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
@@ -191,6 +190,9 @@
     <ClCompile Include="Engine\2D\Particle\ParticleAccComponent.cpp" />
     <ClCompile Include="Engine\Game\Particle\PlayerLandEffect.cpp" />
     <ClCompile Include="Engine\Game\Particle\PlayerSlideEffect.cpp" />
+    <ClCompile Include="MainPostEffect.cpp" />
+    <ClCompile Include="PostEffectManager.cpp" />
+    <ClCompile Include="ShadowPostEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterAccComponent.h" />
@@ -298,7 +300,6 @@
     <ClInclude Include="Engine\Math\Quaternion.h" />
     <ClInclude Include="Engine\Scene\Base\SceneFactory.h" />
     <ClInclude Include="Engine\Scene\Base\SceneManager.h" />
-    <ClInclude Include="Engine\2D\PostEffect\PostEffect.h" />
     <ClInclude Include="Engine\3D\Light\SpotLight.h" />
     <ClInclude Include="Engine\2D\Sprite\Base\Sprite.h" />
     <ClInclude Include="Engine\2D\Texture\TextureManager.h" />
@@ -327,7 +328,6 @@
     <ClInclude Include="Engine\2D\Sprite\Base\UIEditor.h" />
     <ClInclude Include="Engine\Base\Json\JSONLoader.h" />
     <ClInclude Include="Engine\2D\PostEffect\PlanePolygon.h" />
-    <ClInclude Include="Engine\2D\PostEffect\GlayScale.h" />
     <ClInclude Include="Engine\Game\UI\PauseScreen.h" />
     <ClInclude Include="Engine\3D\Object\Model\ModelManager.h" />
     <ClInclude Include="Engine\Scene\Base\SplashScreenScene.h" />
@@ -384,7 +384,11 @@
     <ClInclude Include="Engine\2D\Particle\ParticleAccComponent.h" />
     <ClInclude Include="Engine\Game\Particle\PlayerLandEffect.h" />
     <ClInclude Include="Engine\Game\Particle\PlayerSlideEffect.h" />
+    <ClInclude Include="GrayScale.h" />
     <ClInclude Include="IPostEffect.h" />
+    <ClInclude Include="MainPostEffect.h" />
+    <ClInclude Include="PostEffectManager.h" />
+    <ClInclude Include="ShadowPostEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

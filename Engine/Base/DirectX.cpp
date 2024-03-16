@@ -1,6 +1,6 @@
 #include "DirectX.h"
 #include "Window.h"
-#include "PostEffect.h"
+#include "IPostEffect.h"
 #include <cassert>
 
 using namespace MyMath;
@@ -251,7 +251,7 @@ void MNE::MyDirectX::CmdListDrawAble(ID3D12Resource* pResource, D3D12_RESOURCE_S
 #pragma endregion
 }
 
-void MNE::MyDirectX::PrevPostEffect(MNE::PostEffect* postEffect, const MyMath::Vector4D& clearColor)
+void MNE::MyDirectX::PrevPostEffect(MNE::IPostEffect* postEffect, const MyMath::Vector4D& clearColor)
 {
 	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = postEffect->GetRTVHeap()->GetCPUDescriptorHandleForHeapStart();
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle_ = postEffect->GetDSVHeap()->GetCPUDescriptorHandleForHeapStart();
@@ -287,7 +287,7 @@ void MNE::MyDirectX::PrevPostEffect(MNE::PostEffect* postEffect, const MyMath::V
 	cmdList_->SetDescriptorHeaps(1, srvHeap_.GetAddressOf());
 }
 
-void MNE::MyDirectX::PostEffectDraw(MNE::PostEffect* postEffect)
+void MNE::MyDirectX::PostEffectDraw(MNE::IPostEffect* postEffect)
 {
 	for (size_t i = 0; i < postEffect->GetTextureNum(); i++)
 	{

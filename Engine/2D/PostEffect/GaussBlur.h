@@ -1,7 +1,6 @@
 #pragma once
-#include "PostEffect.h"
-#include "ConstBuff.h"
-#include "GPipeline.h"
+#include "IPostEffect.h"
+#include <array>
 #include <memory>
 
 /**
@@ -11,24 +10,26 @@
 
 namespace MNE
 {
+	class GaussBlur;
+	namespace CBuff
+	{
+		struct CBufferBlurWeight;
+	}
+
+	class GaussBlurPostEffect :public IPostEffect
+	{
+	public:
+		void Draw(int32_t mode = 0) override;
+
+	private:
+		GaussBlur* parent_ = nullptr;
+
+	public:
+		void SetGaussBlur(GaussBlur* gaussBlur);
+	};
 
 	class GaussBlur
 	{
-	private:
-		std::unique_ptr<MNE::PostEffect> blurX_;
-		std::unique_ptr<MNE::PostEffect> blurY_;
-
-		MNE::GPipeline* pipeline[2];
-
-		MNE::PostEffect* original_ = nullptr;
-
-	#pragma region ConstBuff
-
-		MNE::ConstBuff weight_;
-		std::vector<float> weights_;
-
-	#pragma endregion
-
 	public:
 		/**
 		* @fn Initialize(float, PostEffect*, DXGI_FORMAT)
@@ -37,12 +38,21 @@ namespace MNE
 		* @param original ブラーをかける前の画像
 		* @param index ブラーかけた後の結果のフォーマット指定
 		*/
-		void Initialize(float weight, MNE::PostEffect* original, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
-		/**
-		* @fn Draw()
-		* 描画処理関数
-		*/
-		void Draw();
+		void Initialize(IPostEffect* original, DXGI_FORMAT format);
+
+	private:
+		GaussBlurPostEffect* blurX_ = nullptr;
+		GaussBlurPostEffect* blurY_ = nullptr;
+
+	#pragma region ConstBuff
+
+		CBuff::CBufferBlurWeight* mapWeight_ = nullptr;
+		ConstBuff weight_;
+		std::array<float, MyMath::WEIDHTS_NUM> weights_;
+
+	#pragma endregion
+
+	public:
 
 	#pragma region Getter
 
@@ -58,7 +68,9 @@ namespace MNE
 
 	#pragma region Setter
 
-		void SetPipeline(MNE::GPipeline* blurXPipeline, MNE::GPipeline* blurYPipeline);
+		void SetWeightGraphicsRootCBuffView(int32_t rootparaIdx);
+		void SetWeight(float weight);
+		void SetPipeline(GPipeline* blurXPipeline, GPipeline* blurYPipeline);
 		void SetClearColor(const MyMath::Vector4D& color);
 
 	#pragma endregion

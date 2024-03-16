@@ -18,6 +18,13 @@
 
 #include "GameOverUI.h"
 
+#include "GrayScale.h"
+
+#include "PostEffectManager.h"
+#include "ShadowPostEffect.h"
+#include "MainPostEffect.h"
+//#include "GaussBlur.h"
+
 using namespace MNE;
 using namespace MyMath;
 
@@ -26,6 +33,10 @@ SceneManager* SceneManager::GetInstance()
 	static SceneManager instance;
 	return &instance;
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
 
 void SceneManager::SceneInitialize()
 {
@@ -74,36 +85,48 @@ void SceneManager::Initialize()
 
 #pragma region PostEffect
 
+	PostEffectManager* peMan = PostEffectManager::GetInstance();
+	std::unique_ptr<IPostEffect> postEffect;
+
 	Vector4D clearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	std::unique_ptr<IPostEffect> shadow = std::make_unique<IPostEffect>();
-	shadow->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "shadow", 2, DXGI_FORMAT_R32G32_FLOAT);
-	shadow->SetClearColor(clearColor);
-	//	関数設定
+	postEffect = std::make_unique<ShadowPostEffect>();
+	postEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "shadow", 2, DXGI_FORMAT_R32G32_FLOAT);
+	postEffect->SetClearColor(clearColor);
+	/*IPostEffect* shadowPtr = */peMan->AddPostEffectBack(postEffect);
 
-	postEffects_.emplace_back(std::move(shadow));
+	//GaussBlur shadowBlur;
+	//shadowBlur.Initialize(shadowPtr, DXGI_FORMAT_R32G32_FLOAT);
+	//shadowBlur.SetClearColor(clearColor);
+	//shadowBlur.SetPipeline(PipelineManager::GetInstance()->GetPipeline("xBlur"),
+	//	PipelineManager::GetInstance()->GetPipeline("yBlur"));
+	//shadowBlur.SetWeight(1.0f);
 
-	mainScene = std::make_unique<PostEffect>();
-	mainScene->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "main", 2, DXGI_FORMAT_R11G11B10_FLOAT);
+	std::unique_ptr<MainPostEffect> main = std::make_unique<MainPostEffect>();
+	main->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "main", 2, DXGI_FORMAT_R11G11B10_FLOAT);
+	postEffect = std::move(main);
+	IPostEffect* mainPtr = peMan->AddPostEffectBack(postEffect);
 
-	glayscale = std::make_unique<GlayScale>();
-	glayscale->Initialize(mainScene.get());
+	clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+	postEffect = std::make_unique<IPostEffect>();
+	postEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "luminance", 2, DXGI_FORMAT_R11G11B10_FLOAT);
+	postEffect->SetOriginalPostEffect(mainPtr);
+	postEffect->SetClearColor(clearColor);
+	postEffect->SetMode(MainPostEffect::Luminance);
+	peMan->AddPostEffectBack(postEffect);
 
-	luminnce = std::make_unique<PostEffect>();
-	luminnce->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "luminnce", 2, DXGI_FORMAT_R11G11B10_FLOAT);
+	//GaussBlur luminanceBlur;
+	//luminanceBlur.Initialize(shadowPtr, DXGI_FORMAT_R11G11B10_FLOAT);
+	//luminanceBlur.SetClearColor(clearColor);
+	//luminanceBlur.SetPipeline(PipelineManager::GetInstance()->GetPipeline("luminncexBlur"),
+	//	PipelineManager::GetInstance()->GetPipeline("luminnceyBlur"));
+	//luminanceBlur.SetWeight(5.0f);
 
-	luminnceBulr = std::make_unique<GaussBlur>();
-	luminnceBulr->Initialize(5.0f, luminnce.get(), DXGI_FORMAT_R11G11B10_FLOAT);
-	luminnceBulr->SetPipeline(PipelineManager::GetInstance()->GetPipeline("luminncexBlur"),
-		PipelineManager::GetInstance()->GetPipeline("luminnceyBlur"));
-
-	shadowEffect = std::make_unique<PostEffect>();
-	shadowEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "shadow", 2, DXGI_FORMAT_R32G32_FLOAT);
-
-	shadowBulr = std::make_unique<GaussBlur>();
-	shadowBulr->Initialize(1.0f, shadowEffect.get(), DXGI_FORMAT_R32G32_FLOAT);
-	shadowBulr->SetPipeline(PipelineManager::GetInstance()->GetPipeline("xBlur"),
-		PipelineManager::GetInstance()->GetPipeline("yBlur"));
-	shadowBulr->SetClearColor({ 1.0f,1.0f,1.0f,1.0f });
+	std::unique_ptr<GrayScale> gray = std::make_unique<GrayScale>();
+	gray->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "Gray", 2, DXGI_FORMAT_R11G11B10_FLOAT);
+	gray->SetOriginalPostEffect(mainPtr);
+	postEffect = std::move(gray);
+	IPostEffect* grayPtr = peMan->AddPostEffectBack(postEffect);
+	UIEditor::GetInstance()->SetGrayScalePE(dynamic_cast<GrayScale*>(grayPtr));
 
 #pragma endregion
 
@@ -121,6 +144,10 @@ void SceneManager::Initialize()
 	ModelManager::GetInstance()->Initialize();
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Finalize
+//-----------------------------------------------------------------------------
+
 void SceneManager::Finalize()
 {
 	scene_->Finalize();
@@ -131,6 +158,10 @@ void SceneManager::Finalize()
 
 #endif // _DEBUG
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
 
 void SceneManager::SplashUpdate()
 {
@@ -212,7 +243,7 @@ void SceneManager::AllSceneUpdate()
 	SceneAsyncUpdate();
 }
 
-void SceneManager::ImguiUpdate()
+void SceneManager::ImGuiUpdate()
 {
 #ifdef _DEBUG
 	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
@@ -222,7 +253,6 @@ void SceneManager::ImguiUpdate()
 
 	InputManager::GetInstance()->ImGuiUpdate();
 	UIEditor::GetInstance()->ImGuiUpdate();
-	glayscale->SetGlayScale(UIEditor::GetInstance()->GetActiveGlayscale());
 	CameraManager::GetInstance()->ImGuiUpdate();
 	XAudioManager::GetInstance()->ImGuiUpdate(endLoading_);
 	TextureManager::GetInstance()->ImGuiUpdate();
@@ -240,6 +270,28 @@ void SceneManager::ImguiUpdate()
 
 #endif // _DEBUG
 }
+
+void SceneManager::Update()
+{
+	CameraManager::GetInstance()->Update();
+
+	SplashUpdate();
+
+	AllSceneUpdate();
+
+	//	ロード画面
+	loading_.Update();
+	//	黒スクリーン
+	blackScreen_.Update();
+
+	InputManager::GetInstance()->MatUpdate();
+
+	ImGuiUpdate();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
 
 void MNE::SceneManager::DrawShadow()
 {
@@ -274,93 +326,39 @@ void MNE::SceneManager::DrawScene()
 	}
 }
 
-void MNE::SceneManager::DrawFinalScene()
+void MNE::SceneManager::DrawBackBuffer()
 {
+	MyDirectX* dx = MyDirectX::GetInstance();
+
+	dx->PrevDraw();
+
 	//	最後の描画
-	auto end = postEffects_.end()->get();
-	end->Draw();
+	PostEffectManager::GetInstance()->DrawBack();
 
 	loading_.Draw();
 
 #ifdef _DEBUG
 	ImGuiManager::GetInstance()->Draw();
 #endif // _DEBUG
-}
 
-void SceneManager::Update()
-{
-	CameraManager::GetInstance()->Update();
-
-	SplashUpdate();
-
-	AllSceneUpdate();
-
-	//	ロード画面
-	loading_.Update();
-	//	黒スクリーン
-	blackScreen_.Update();
-
-	InputManager::GetInstance()->MatUpdate();
-
-	ImguiUpdate();
+	dx->PostDraw();
 }
 
 void SceneManager::Draw()
 {
-	MyDirectX* dx = MyDirectX::GetInstance();
 
-	for (auto& i : postEffects_)
-	{
-		i->Update();
-	}
 #pragma region DrawScreen
-	Vector4D shadowClearColor_(1.0f, 1.0f, 1.0f, 1.0f);
 
-	dx->PrevPostEffect(shadowEffect.get(), shadowClearColor_);
-
-	DrawShadow();
-	
-	dx->PostEffectDraw(shadowEffect.get());
-
-
-	//shadowBulr->Draw();
-
-	
-	dx->PrevPostEffect(mainScene.get());
-
-	DrawScene();
-
-	dx->PostEffectDraw(mainScene.get());
-
-	//Vector4D luminnceClearColor_(0.0f, 0.0f, 0.0f, 1.0f);
-	//dx->PrevPostEffect(luminnce.get(), luminnceClearColor_);
-
-	//mainScene->DrawLuminnce();
-
-	//dx->PostEffectDraw(luminnce.get());
-
-	//luminnceBulr->Draw();
-
-	dx->PrevPostEffect(glayscale.get());
-
-	PostEffect* main = mainScene.get();
-	main->Draw(PipelineManager::GetInstance()->GetPipeline("PostEffect"), false, luminnceBulr->GetTexture(0)->GetHandle());
-
-	dx->PostEffectDraw(glayscale.get());
-
+	PostEffectManager::GetInstance()->Update();
 
 #pragma region DrawBackBuffer
-	dx->PrevDraw();
 
-	glayscale->DrawGlay();
+	DrawBackBuffer();
 
-	DrawFinalScene();
-
-	dx->PostDraw();
 #pragma endregion
 #pragma endregion
 
-	dx->DrawEnd();
+	MyDirectX::GetInstance()->DrawEnd();
 
 	if (endLoading_) TextureManager::GetInstance()->UploadTexture();
 }

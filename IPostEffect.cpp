@@ -136,7 +136,10 @@ void MNE::IPostEffect::Update()
 
 	dx->PrevPostEffect(this);
 
-	(this->*original_)();
+	if (originalPE_ != nullptr)
+	{
+		originalPE_->Draw(mode_);
+	}
 
 	dx->PostEffectDraw(this);
 }
@@ -145,7 +148,7 @@ void MNE::IPostEffect::Update()
 // [SECTION] Draw
 //-----------------------------------------------------------------------------
 
-void MNE::IPostEffect::Draw()
+void MNE::IPostEffect::Draw(int32_t /*mode*/)
 {
 	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
 
@@ -180,12 +183,17 @@ const MyMath::Vector4D& MNE::IPostEffect::GetClearColor()
 
 int32_t MNE::IPostEffect::GetTextureNum()
 {
-	return texture_.size();
+	return static_cast<int32_t>(texture_.size());
 }
 
 Texture* MNE::IPostEffect::GetTexture(int32_t index)
 {
 	return texture_[index];
+}
+
+std::string MNE::IPostEffect::GetName()
+{
+	return name_;
 }
 
 //-----------------------------------------------------------------------------
@@ -205,6 +213,16 @@ void MNE::IPostEffect::SetGPipelineAndIAVertIdxBuff()
 	VertIdxBuff::IASetVertIdxBuff();
 }
 
+void MNE::IPostEffect::SetMode(int32_t mode)
+{
+	mode_ = mode;
+}
+
+void MNE::IPostEffect::SetGPipeline(GPipeline* pipeline)
+{
+	pipeline_ = pipeline;
+}
+
 void MNE::IPostEffect::SetColor(const MyMath::Vector4D& color)
 {
 	cMaterialMap_->color = color;
@@ -215,7 +233,12 @@ void MNE::IPostEffect::SetClearColor(const MyMath::Vector4D& color)
 	clearColor_ = color;
 }
 
-void MNE::IPostEffect::SetOriginal(Original original)
+void MNE::IPostEffect::SetOriginalPostEffect(IPostEffect* original)
 {
-	original_ = original;
+	originalPE_ = original;
 }
+
+//void MNE::IPostEffect::SetOriginal(Original original)
+//{
+//	original_ = original;
+//}

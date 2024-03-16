@@ -12,6 +12,8 @@
 #include "UIAnimationTimer.h"
 #include "UIMoveAnimation.h"
 
+#include "GrayScale.h"
+
 using namespace MyMath;
 
 MNE::UIEditor* MNE::UIEditor::GetInstance()
@@ -452,6 +454,8 @@ void MNE::UIEditor::ImGuiUpdate()
 
 	imguiMan->CheckBox("GlayScale", activeGlayscale_);
 
+	grayScale_->SetActiveGrayScale(activeGlayscale_);
+
 	imguiMan->CheckBox("Animation", editAnimation_);
 	
 	EditTag();
@@ -547,4 +551,9 @@ bool MNE::UIEditor::GetActiveGlayscale()
 bool MNE::UIEditor::GetEditUI()
 {
 	return editUI_;
+}
+
+void MNE::UIEditor::SetGrayScalePE(GrayScale* grayScale)
+{
+	grayScale_ = grayScale;
 }

@@ -16,6 +16,7 @@ namespace MNE
 #pragma region 前置宣言
 
 	class UIAnimationTimer;
+	class GrayScale;
 
 #pragma endregion
 
@@ -52,6 +53,8 @@ namespace MNE
 		bool activeGlayscale_ = false;
 		bool editUI_ = false;
 		bool editAnimation_ = false;
+
+		GrayScale* grayScale_ = nullptr;
 
 	private:
 		/**
@@ -113,6 +116,8 @@ namespace MNE
 		bool GetEditUI();
 
 	#pragma endregion
+
+		void SetGrayScalePE(GrayScale* grayScale);
 	};
 
 }
