@@ -2,12 +2,6 @@
 #include "Boss.h"
 #include "BossDeathState.h"
 
-#include "BossBulletState.h"
-#include "BossWayBullets.h"
-#include "BossJumpAtState.h"
-#include "BossBumpAtState.h"
-#include "BossRockFallState.h"
-
 using namespace MyMath;
 
 //-----------------------------------------------------------------------------
@@ -29,35 +23,54 @@ void BossIdleState::Initialize()
 // [SECTION] Update
 //-----------------------------------------------------------------------------
 
+void BossIdleState::MoveUpdate()
+{
+	Vector3D pos = sBoss_->GetPosition();
+	Vector3D dir;
+	dir.x = -sBoss_->GetFrontVec().x;
+	dir.z = -sBoss_->GetFrontVec().z;
+
+	pos += dir * sBoss_->GetMoveSpd();
+	sBoss_->SetPosition(pos);
+}
+
+
+#include "BossTornadoState.h"
 void BossIdleState::Update()
 {
+	SetStateForSpecificSituation();
+
 	timer_.Update();
 
 	float dis = sBoss_->RotationUpdate();
-	const float MIN_DIS = 10.0f;
 
-	if (dis > MIN_DIS) {
-		Vector3D pos = sBoss_->GetPosition();
-		Vector3D dir;
-		dir.x = -sBoss_->GetFrontVec().x;
-		dir.z = -sBoss_->GetFrontVec().z;
-
-		pos += dir * spd_;
-		sBoss_->SetPosition(pos);
+	//	最低距離になったら
+	if (dis < sBoss_->GetLenMin())
+	{
+		//	超近距離攻撃
+		sBoss_->CalcPriority(TRUE);
 	}
 
-	if (timer_.GetIsActive() == FALSE) {
-		int rad = rand();
-		rad = rad % StateNum;
-		if (rad == BulletState) {
-			std::unique_ptr<BossState> next_ = std::make_unique<BossRockFallState>();
-			sBoss_->SetCurrentState(next_);
+	//	距離範囲内だったら
+	else
+	{
+		//	前方へ移動
+		MoveUpdate();
+
+		//	一定時間経過したら攻撃ステートへ
+		if (timer_.GetIsActive() == FALSE) {
+			//	距離計算
+			float len = mMin(dis, static_cast<float>(sBoss_->GetLenMax()));
+			len -= sBoss_->GetLenMin();
+			float maxLen = static_cast<float>(sBoss_->GetLenMax() - sBoss_->GetLenMin());
+			len /= maxLen;
+
+			//sBoss_->CalcPriority(FALSE, len);
+			std::unique_ptr<BossState> next = std::make_unique<BossTornadoState>();
+			sBoss_->SetCurrentState(next);
+
+			sBoss_->GetAnimation()->SetAutoPlay(FALSE);
+			sBoss_->GetAnimation()->ResetAnimeTimer();
 		}
-		else if (rad == WayBulletsState) {
-			std::unique_ptr<BossState> next_ = std::make_unique<BossRockFallState>();
-			sBoss_->SetCurrentState(next_);
-		}
-		sBoss_->GetAnimation()->SetAutoPlay(FALSE);
-		sBoss_->GetAnimation()->ResetAnimeTimer();
 	}
 }

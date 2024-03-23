@@ -9,13 +9,6 @@
 
 class BossIdleState :public BossState
 {
-private:
-	enum BossAtState {
-		BulletState = 0,
-		WayBulletsState,
-		StateNum,
-	};
-
 public:
 	/**
 	* @fn Initialize()
@@ -32,6 +25,7 @@ private:
 	int32_t idleTime_ = 180;
 	MNE::FrameCounter timer_;
 
-	float spd_ = 0.1f;
+private:
+	void MoveUpdate();
 };
 

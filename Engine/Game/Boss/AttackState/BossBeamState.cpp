@@ -24,12 +24,12 @@ void BossBeamState::Initialize()
 
 	ChargeStateInitialize();
 
-	avoidTimer_.Initialize(avoidTime_, TRUE);
+	avoidTimer_.Initialize(sBoss_->GetBeamAvoidTime(), TRUE);
 }
 
 void BossBeamState::ChargeStateInitialize()
 {
-	timer_.Initialize(chargeTime_, TRUE);
+	timer_.Initialize(sBoss_->GetBeamChargeTime(), TRUE);
 	timer_.StartCount();
 
 	attacking_ = FALSE;
@@ -38,7 +38,7 @@ void BossBeamState::ChargeStateInitialize()
 
 void BossBeamState::AttackStateInitialize()
 {
-	timer_.Initialize(attackTime_, TRUE);
+	timer_.Initialize(sBoss_->GetBeamAttackTime(), TRUE);
 	timer_.StartCount();
 
 	attacking_ = TRUE;
@@ -47,7 +47,7 @@ void BossBeamState::AttackStateInitialize()
 
 void BossBeamState::EndStateInitialize()
 {
-	timer_.Initialize(endTime_, TRUE);
+	timer_.Initialize(sBoss_->GetBeamEndTime(), TRUE);
 	timer_.StartCount();
 
 	attacking_ = FALSE;
@@ -121,7 +121,7 @@ void BossBeamState::RayCollisionUpdate(BeamInfo& info)
 			//	回避中タイマーカウント中だったら止める
 			if (avoidTimer_.GetIsActive() == TRUE)
 			{
-				avoidTimer_.Initialize(avoidTime_, TRUE);
+				avoidTimer_.Initialize(sBoss_->GetBeamAvoidTime(), TRUE);
 			}
 		}
 		else
@@ -148,7 +148,7 @@ bool BossBeamState::AvoidTimerUpdate()
 	avoidTimer_.Update();
 
 	//	設定された時間よけ続けたら
-	if (avoidTimer_.GetFrameCount() == avoidTime_)
+	if (avoidTimer_.GetFrameCount() == sBoss_->GetBeamAvoidTime())
 	{
 		//	終了
 		std::unique_ptr<BossState> next_ = std::make_unique<BossIdleState>();

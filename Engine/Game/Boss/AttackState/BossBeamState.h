@@ -44,14 +44,6 @@ private:
 
 	MNE::FrameCounter timer_;
 	MNE::FrameCounter avoidTimer_;
-	//	攻撃予備動作
-	int32_t chargeTime_ = 60;
-	//	攻撃時間
-	int32_t attackTime_ = 60;
-	//	攻撃に当たっていない時の経過時間(経過したら攻撃終了)
-	int32_t avoidTime_ = 60;
-	//	終了演出時間
-	int32_t endTime_ = 60;
 
 	MyMath::Vector3D chargeScale_ = { 0.5f, 0.5f, 0.5f };
 	MyMath::Vector3D maxScale_ = { 0.8f, 0.8f, 0.8f };

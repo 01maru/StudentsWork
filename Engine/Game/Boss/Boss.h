@@ -59,7 +59,8 @@ private:
 
 	//	体に触れたらダメージを与えるようフラグ
 	bool bodyAt_ = false;
-	bool isSecondForm_ = false;
+	//bool isSecondForm_ = false;
+	int32_t nowForm_ = FirstForm;
 
 	MyMath::Vector3D frontVec_ = { 0.0f,0.0f,-1.0f };
 
@@ -69,12 +70,20 @@ private:
 
 	bool isDeathState_ = false;
 
+	int32_t prevAtState_ = NoAtState;
+	//	攻撃ステート連続回数
+	int16_t consecutiveAtState_ = 0;
+
 public:
 	/**
 	* @fn RotationUpdate()
 	* モデルの回転更新用関数
 	*/
 	float RotationUpdate();
+
+	void CalcPriority(bool isClose, float normLen = 0.0f);
+
+	void ImGuiMenuUpdate();
 	/**
 	* @fn AddBullet(EnemyBulletInfo&)
 	* 追加する弾の情報をリストに加えるための関数
@@ -147,12 +156,13 @@ public:
 
 #pragma region Setter
 
+	void SetAtState(int32_t atState);
 	/**
 	* @fn SetIsSecondForm(bool)
 	* 第二形態かのフラグ設定用関数
 	* @param isSecondForm 第二形態か
 	*/
-	void SetIsSecondForm(bool isSecondForm);
+	void SetNowForm(int32_t form);
 	/**
 	* @fn SetIsActive(bool)
 	* アクティブかのフラグ設定用関数

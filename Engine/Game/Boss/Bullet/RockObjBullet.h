@@ -1,5 +1,6 @@
 #pragma once
 #include "IBullet.h"
+#include "DestructibleObj.h"
 
 class RockObjBullet :public IBullet
 {

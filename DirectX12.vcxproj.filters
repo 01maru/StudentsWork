@@ -295,12 +295,6 @@
     <Filter Include="ヘッダー ファイル\Game\Boss\State">
       <UniqueIdentifier>{c2597db6-511b-4c69-a060-f1c1257fff80}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Boss\AttackState">
-      <UniqueIdentifier>{f6b42128-a68f-473b-bdb5-3751c636fa44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Boss\AttackState">
-      <UniqueIdentifier>{6bd5b206-5644-4e4c-b5f0-3c96b009f625}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game\Effect">
       <UniqueIdentifier>{0ebd4eff-ec97-490e-aeed-c241b826b128}</UniqueIdentifier>
     </Filter>
@@ -318,6 +312,18 @@
     </Filter>
     <Filter Include="ソース ファイル\Game\Boss\Bullet">
       <UniqueIdentifier>{4fce813e-cd2e-4d3a-be9e-2d182ba805bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss\Bullet">
+      <UniqueIdentifier>{b0f34701-dba2-4a14-8fe5-83f56f4a4732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Bullet">
+      <UniqueIdentifier>{22a2f4bb-5712-4f88-abe6-3b1e66ee2e68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss\State\AttackState">
+      <UniqueIdentifier>{f6b42128-a68f-473b-bdb5-3751c636fa44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss\State\AttackState">
+      <UniqueIdentifier>{6bd5b206-5644-4e4c-b5f0-3c96b009f625}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -582,7 +588,7 @@
     <ClCompile Include="Engine\2D\Sprite\UI\SliderSprite.cpp">
       <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\GameOverCamera.cpp">
+    <ClCompile Include="Engine\Game\Camera\GameOverCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\UI\PauseScreen.cpp">
@@ -817,7 +823,7 @@
       <Filter>ソース ファイル\Game\Boss\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\AttackState\BossJumpAtState.cpp">
-      <Filter>ソース ファイル\Game\Boss\AttackState</Filter>
+      <Filter>ソース ファイル\Game\Boss\State\AttackState</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\FrameCounter.cpp">
       <Filter>ソース ファイル\lib\Engine</Filter>
@@ -846,43 +852,49 @@
     <ClCompile Include="Engine\Collider\CollisionInfo.cpp">
       <Filter>ソース ファイル\lib\Engine\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Player\Bullet\IBullet.cpp">
+    <ClCompile Include="Engine\Game\Bullet\IBullet.cpp">
       <Filter>ソース ファイル\Game\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="IBulletManager.cpp">
+    <ClCompile Include="Engine\Game\Bullet\IBulletManager.cpp">
       <Filter>ソース ファイル\Game\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBulletManager.cpp">
+    <ClCompile Include="Engine\Game\Boss\Bullet\EnemyBulletManager.cpp">
       <Filter>ソース ファイル\Game\Boss\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Boss\EnemyBullet.cpp">
+    <ClCompile Include="Engine\Game\Boss\Bullet\EnemyBullet.cpp">
       <Filter>ソース ファイル\Game\Boss\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Boss\BossWayBullets.cpp">
-      <Filter>ソース ファイル\Game\Boss\AttackState</Filter>
+    <ClCompile Include="Engine\Game\Boss\AttackState\BossWayBullets.cpp">
+      <Filter>ソース ファイル\Game\Boss\State\AttackState</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp">
-      <Filter>ソース ファイル\Game\Boss\AttackState</Filter>
+    <ClCompile Include="Engine\Game\Boss\AttackState\BossBulletState.cpp">
+      <Filter>ソース ファイル\Game\Boss\State\AttackState</Filter>
     </ClCompile>
-    <ClCompile Include="BossRockFallState.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Boss\AttackState\BossBumpAtState.cpp">
+      <Filter>ソース ファイル\Game\Boss\State\AttackState</Filter>
     </ClCompile>
-    <ClCompile Include="RockObjBullet.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\Game\Boss\AttackState\BossBeamState.cpp">
+      <Filter>ソース ファイル\Game\Boss\State\AttackState</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBumpStone.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="BossBumpAtState.cpp">
-      <Filter>ソース ファイル\Game\Boss\AttackState</Filter>
-    </ClCompile>
-    <ClCompile Include="BossBeamState.cpp">
-      <Filter>ソース ファイル\Game\Boss\AttackState</Filter>
-    </ClCompile>
-    <ClCompile Include="BossData.cpp">
+    <ClCompile Include="Engine\Game\Boss\BossData.cpp">
       <Filter>ソース ファイル\Game\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="DestructibleObj.cpp">
+    <ClCompile Include="Engine\Game\Boss\AttackState\BossRockFallState.cpp">
+      <Filter>ソース ファイル\Game\Boss\State\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Boss\Bullet\EnemyBumpStone.cpp">
+      <Filter>ソース ファイル\Game\Boss\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Boss\Bullet\RockObjBullet.cpp">
+      <Filter>ソース ファイル\Game\Boss\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\DestructibleObj.cpp">
+      <Filter>ソース ファイル\Game\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossTornadoState.cpp">
+      <Filter>ソース ファイル\Game\Boss\State\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="SuctionEmptyObj.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1178,7 +1190,7 @@
     <ClInclude Include="Engine\2D\Sprite\UI\SliderSprite.h">
       <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\GameOverCamera.h">
+    <ClInclude Include="Engine\Game\Camera\GameOverCamera.h">
       <Filter>ヘッダー ファイル\Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\UI\PauseScreen.h">
@@ -1337,9 +1349,6 @@
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterLifeTime.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Boss\EnemyBullet.h">
-      <Filter>ヘッダー ファイル\Game\Boss</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\UI\ClearUI.h">
       <Filter>ヘッダー ファイル\Game\UI\GameState</Filter>
     </ClInclude>
@@ -1422,7 +1431,7 @@
       <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\AttackState\BossJumpAtState.h">
-      <Filter>ヘッダー ファイル\Game\Boss\AttackState</Filter>
+      <Filter>ヘッダー ファイル\Game\Boss\State\AttackState</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\LoadSpriteAnime.h">
       <Filter>ヘッダー ファイル\Game\Effect\SpriteEffect</Filter>
@@ -1451,40 +1460,49 @@
     <ClInclude Include="Engine\2D\Particle\ParticleAccComponent.h">
       <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Player\Bullet\IBullet.h">
-      <Filter>ヘッダー ファイル\Game\Player\Bullet</Filter>
+    <ClInclude Include="Engine\Game\Boss\AttackState\BossBumpAtState.h">
+      <Filter>ヘッダー ファイル\Game\Boss\State\AttackState</Filter>
     </ClInclude>
-    <ClInclude Include="IBulletManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Boss\AttackState\BossBeamState.h">
+      <Filter>ヘッダー ファイル\Game\Boss\State\AttackState</Filter>
     </ClInclude>
-    <ClInclude Include="BossRockFallState.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Boss\AttackState\BossWayBullets.h">
+      <Filter>ヘッダー ファイル\Game\Boss\State\AttackState</Filter>
     </ClInclude>
-    <ClInclude Include="RockObjBullet.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Boss\AttackState\BossBulletState.h">
+      <Filter>ヘッダー ファイル\Game\Boss\State\AttackState</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBumpStone.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="BossBumpAtState.h">
-      <Filter>ヘッダー ファイル\Game\Boss\AttackState</Filter>
-    </ClInclude>
-    <ClInclude Include="BossBeamState.h">
-      <Filter>ヘッダー ファイル\Game\Boss\AttackState</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Boss\BossWayBullets.h">
-      <Filter>ヘッダー ファイル\Game\Boss\AttackState</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Boss\BossBulletState.h">
-      <Filter>ヘッダー ファイル\Game\Boss\AttackState</Filter>
-    </ClInclude>
-    <ClInclude Include="BossData.h">
+    <ClInclude Include="Engine\Game\Boss\BossData.h">
       <Filter>ヘッダー ファイル\Game\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBulletManager.h">
+    <ClInclude Include="Engine\Game\Boss\Bullet\EnemyBumpStone.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Boss\Bullet\EnemyBulletManager.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Boss\Bullet\EnemyBullet.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Boss\Bullet\RockObjBullet.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\DestructibleObj.h">
       <Filter>ヘッダー ファイル\Game\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="DestructibleObj.h">
+    <ClInclude Include="Engine\Game\Boss\AttackState\BossRockFallState.h">
+      <Filter>ヘッダー ファイル\Game\Boss\State\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Bullet\IBulletManager.h">
+      <Filter>ヘッダー ファイル\Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Bullet\IBullet.h">
+      <Filter>ヘッダー ファイル\Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BossTornadoState.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SuctionEmptyObj.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,17 +1,13 @@
 #pragma once
 #include "IScene.h"
 #include "Object3D.h"
-
 #include "Player.h"
 #include "PlayerBulletManager.h"
 #include "Boss.h"
 #include "EnemyBulletManager.h"
-
 #include "PauseScreen.h"
-
 #include "IGameState.h"
 #include "GameOverUI.h"
-
 #include "EscapePod.h"
 #include "UIData.h"
 #include <array>
@@ -69,7 +65,7 @@ private:
 	std::unique_ptr<MNE::Object3D> ground_;
 	PlayerBulletManager playerBullets_;
 	std::unique_ptr<Player> player_;
-	std::unique_ptr<Boss> enemy_;
+	std::unique_ptr<Boss> boss_;
 	EnemyBulletManager enemyBullets_;
 	EscapePod pod_;
 

@@ -73,7 +73,7 @@ void EnemyBulletManager::Update(std::list<EnemyBulletInfo>& bullets, const BeamI
 			bump->SetMoveVec(itr.moveVec_);
 			bump->SetModel(ModelManager::GetInstance()->GetModel("bullet"));
 			bump->SetPosition(itr.pos_);
-			bump->SetScale(itr.scale_);
+			//bump->SetScale(itr.scale_);
 
 			bump->SetAttribute(COLLISION_ATTR_ENEMY_AT);
 
@@ -94,25 +94,39 @@ void EnemyBulletManager::Update(std::list<EnemyBulletInfo>& bullets, const BeamI
 		beamObj_.MatUpdate(FALSE);
 	}
 
-	//	弾削除
-	for (auto& itr : bullets_)
+	//	障害物生成
+	for (auto itr = bullets_.begin(); itr!=bullets_.end();)
 	{
-		if (itr->GetIsActive() == FALSE)
+		auto ptr = itr->get();
+		if (ptr->GetIsActive() == FALSE)
 		{
-			if (itr->GetCollider()->GetAttribute() & COLLISION_ATTR_LANDSHAPE)
+			if (ptr->GetCollider()->GetAttribute() & COLLISION_ATTR_LANDSHAPE)
 			{
-				rocks_.emplace_back(itr);
+				std::unique_ptr<Object3D> rockObj(dynamic_cast<Object3D*>(itr->release()));
+				//Object3D* rock = rockObj.get();
+				
+				//rocks_.emplace_back(static_cast<DestructibleObj>(*rock));
+
+				////	リストから削除
+				//itr = bullets_.erase(itr);
+				continue;
 			}
-
-			bullets_.remove(itr);
 		}
+
+		++itr;
 	}
 
-	//	弾更新
-	for (auto& itr : bullets_)
-	{
-		itr->Update();
-	}
+	////	弾更新
+	//for (auto& itr : bullets_)
+	//{
+	//	itr->Update();
+	//}
+	IBulletManager::Update();
+
+	//for (auto& rock : rocks_)
+	//{
+	//	rock->Update();
+	//}
 }
 
 void EnemyBulletManager::Draw()
@@ -121,6 +135,11 @@ void EnemyBulletManager::Draw()
 	{
 		beamObj_.Draw();
 	}
+
+	//for (auto& rock : rocks_)
+	//{
+	//	rock->Draw();
+	//}
 
 	IBulletManager::Draw();
 }

@@ -7,7 +7,7 @@ using namespace MyMath;
 
 void BossRockFallState::Initialize()
 {
-	timer_.Initialize(waitTime_, true);
+	timer_.Initialize(sBoss_->GetRockWaitTime(), true);
 	timer_.StartCount();
 }
 
@@ -29,6 +29,8 @@ void BossRockFallState::Update()
 		bullet.moveVec_ = moveVec;
 
 		bullet.pos_ = sBoss_->GetShotPoint();
+		bullet.scale_ = { 5.0f,5.0f,5.0f };
+
 		sBoss_->AddBullet(bullet);
 
 		//	終了

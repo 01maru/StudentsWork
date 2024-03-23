@@ -17,7 +17,6 @@ public:
 	void Update() override;
 
 private:
-	int32_t waitTime_ = 60;
 	MNE::FrameCounter timer_;
 	float bulletSpd_ = 1.0f;
 };

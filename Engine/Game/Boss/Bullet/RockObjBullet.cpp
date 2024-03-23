@@ -8,6 +8,10 @@ using namespace MNE;
 using namespace MNE::CollAttribute;
 using namespace MyMath;
 
+RockObjBullet::~RockObjBullet()
+{
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
 //-----------------------------------------------------------------------------
@@ -53,6 +57,10 @@ void RockObjBullet::OnCollision(MNE::CollisionInfo& info)
 		{
 
 		}
+		break;
+	case COLLISION_ATTR_LANDSHAPE:
+		lifeTime_.SetIsActive(FALSE);
+		collider_->SetAttribute(COLLISION_ATTR_LANDSHAPE);
 		break;
 	default:
 		break;

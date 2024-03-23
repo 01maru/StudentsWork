@@ -20,7 +20,7 @@ void BossState::SetStateForSpecificSituation()
 	//	HPが半分以下になった時
 	else if (sBoss_->GetIsHPLessThanHalf() == TRUE && sBoss_->GetIsSecondForm() == FALSE)
 	{
-		sBoss_->SetIsSecondForm(TRUE);
+		sBoss_->SetNowForm(Boss::SecondForm);
 
 		std::unique_ptr<BossState> next_ = std::make_unique<BossRoarState>();
 		sBoss_->SetCurrentState(next_);

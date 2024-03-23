@@ -192,8 +192,21 @@ MyMath::Vector3D MyMath::CreatePolygonNormal(const Vector3D& a, const Vector3D& 
 
 float MyMath::GetCircleToLineLen(const Vector2D& circlePos, float radius, const Vector2D& linePos, const Vector2D& lineDir)
 {
+	Vector2D pos = linePos - circlePos;
 
-	return 0.0f;
+	//	二次方程式の解の公式を使用する
+	float a = lineDir.x * lineDir.x + lineDir.y * lineDir.y;
+	float b = lineDir.x * pos.x + lineDir.y * pos.y;
+	float c = pos.x * pos.x + pos.y * pos.y - radius * radius;
+	//	ルートの値をDとする
+	float D = sqrt(b * b - a * c);
+
+	float len1 = (-b + D) / a;
+	float len2 = (-b - D) / a;
+
+	float ans = mMax(len1, len2);
+
+	return ans;
 }
 
 MyMath::Matrix MyMath::PerspectiveFovLH(int32_t winwidth, int32_t winheight, float fovY, float nearZ, float farZ)

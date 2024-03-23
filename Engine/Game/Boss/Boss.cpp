@@ -10,9 +10,15 @@
 
 #include "IGameState.h"
 #include "CollisionManager.h"
-#include "CollisionAttribute.h"
+#include "BossIdleState.h"
 
+#include "BossBulletState.h"
+#include "BossWayBullets.h"
+#include "BossJumpAtState.h"
+#include "BossBumpAtState.h"
+#include "BossRockFallState.h"
 #include "BossBeamState.h"
+#include "BossTornadoState.h"
 
 using namespace MNE;
 using namespace MyMath;
@@ -27,8 +33,10 @@ void Boss::StatusInitialize()
 	hp_.SetMaxHP(maxHP_);
 
 	//	初期ステート
-	std::unique_ptr<BossState> next = std::make_unique<BossBeamState>();
+	std::unique_ptr<BossState> next = std::make_unique<BossStartState>();
 	SetCurrentState(next);
+
+	BossData::LoadData();
 
 	hp_.Initialize();
 }
@@ -62,6 +70,81 @@ float Boss::RotationUpdate()
 	mat_.angle_.y = atan2(frontVec_.x, frontVec_.z);
 
 	return dis;
+}
+
+void Boss::CalcPriority(bool isClose, float normLen)
+{
+	float medV = mClamp(0.0f, 1.0f, normLen);
+	float farV = 1.0f - medV;
+
+	int32_t totalPriority = 0;
+	int32_t priorityV = 0;
+
+	for (int32_t i = 0; i < StateNum; i++)
+	{
+		if (isClose == TRUE)
+		{
+			priorityV = priority_.atState[i][nowForm_].range[AttackPriority::Close];
+		}
+		else
+		{
+			priorityV = static_cast<int32_t>(priority_.atState[i][nowForm_].range[AttackPriority::Medium] * medV);
+			priorityV += static_cast<int32_t>(priority_.atState[i][nowForm_].range[AttackPriority::Long] * farV);
+		}
+
+		//	連続で同じ攻撃になる確率を減らす用
+		if (i == prevAtState_)
+		{
+			float value = static_cast<float>(mMax(0, (maxConsecutiveNum_ - consecutiveAtState_)));
+			priorityV = static_cast<int32_t>(priorityV * value / maxConsecutiveNum_);
+		}
+
+		totalPriority += priorityV;
+		priority_.atState[i][nowForm_].range[AttackPriority::NowPriority] = priorityV;
+	}
+
+	int32_t rad = rand();
+	rad = rad % totalPriority;
+
+	int32_t nextState = NoAtState;
+	for (int32_t i = 0; i < StateNum; i++)
+	{
+		int32_t nowPriority = priority_.atState[i][nowForm_].range[AttackPriority::NowPriority];
+		rad -= nowPriority;
+
+		if (rad <= 0 && nowPriority > 0)
+		{
+			nextState = i;
+			break;
+		}
+	}
+
+	//	次のステートへ
+	std::unique_ptr<BossState> next;
+	if (nextState == Boss::BulletState) {
+		next = std::make_unique<BossBulletState>();
+	}
+	else if (nextState == Boss::WayBulletsState) {
+		next = std::make_unique<BossWayBullets>();
+	}
+	else if (nextState == Boss::BeamState) {
+		next = std::make_unique<BossBeamState>();
+	}
+	else if (nextState == Boss::JumpAtState) {
+		next = std::make_unique<BossJumpAtState>();
+	}
+	else if (nextState == Boss::RockFallState) {
+		next = std::make_unique<BossRockFallState>();
+	}
+	else if (nextState == Boss::BumpState) {
+		next = std::make_unique<BossBumpAtState>();
+	}
+	else if (nextState == Boss::Tornado) {
+		next = std::make_unique<BossTornadoState>();
+	}
+	SetCurrentState(next);
+
+	SetAtState(nextState);
 }
 
 void Boss::Update()
@@ -100,13 +183,46 @@ void Boss::OnCollision(CollisionInfo& info)
 // [SECTION] ImGuiUpdate
 //-----------------------------------------------------------------------------
 
+void Boss::ImGuiMenuUpdate()
+{
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
+
+	if (imGui->BeginMenuBar()) {
+		if (imGui->BeginMenu("File")) {
+			if (imGui->MenuItem("Load")) LoadData();
+			if (imGui->MenuItem("Save")) SaveData();
+			imGui->EndMenu();
+		}
+		imGui->EndMenuBar();
+	}
+}
+
 void Boss::ImGuiUpdate()
 {
 	ImGuiManager* imGui = ImGuiManager::GetInstance();
 
-	imGui->BeginWindow("PlayerStatus", true);
+	imGui->BeginWindow("BossStatus", true);
+
+	ImGuiMenuUpdate();
 
 	imGui->Text("frontVec : (%.2f, %.2f, %.2f)", frontVec_.x, frontVec_.y, frontVec_.z);
+
+	if (imGui->CollapsingHeader("State")) {
+		//moveState_->ImGuiUpdate();
+	}
+
+	//if (imGui->CollapsingHeader("Model")) {
+	//	imGui->Text("animationTimer : %d", animationTimer_);
+	//	imGui->Text("angle : %.2f", mat_.angle_.y);
+	//}
+
+	if (imGui->CollapsingHeader("HP")) {
+		imGui->Text("isAlive : %s", hp_.GetIsAlive() ? "TRUE" : "FALSE");
+		imGui->Text("HP : %d", hp_.GetHP());
+
+		imGui->InputInt("MaxHP", maxHP_);
+		hp_.SetMaxHP(maxHP_);
+	}
 
 	imGui->EndWindow();
 }
@@ -147,7 +263,7 @@ bool Boss::GetIsHPLessThanHalf()
 
 bool Boss::GetIsSecondForm()
 {
-	return isSecondForm_;
+	return nowForm_ == SecondForm;
 }
 
 bool Boss::GetBodyAttack()
@@ -197,13 +313,25 @@ GameScene* Boss::GetGameScene()
 	return pGameScene_;
 }
 
+void Boss::SetAtState(int32_t atState)
+{
+	if (prevAtState_ == atState)
+	{
+		consecutiveAtState_++;
+	}
+	else {
+		prevAtState_ = atState;
+		consecutiveAtState_ = 0;
+	}
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void Boss::SetIsSecondForm(bool isSecondForm)
+void Boss::SetNowForm(int32_t form)
 {
-	isSecondForm_ = isSecondForm;
+	nowForm_ = form;
 }
 
 void Boss::SetIsActive(bool isActive)

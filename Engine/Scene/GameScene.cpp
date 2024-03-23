@@ -47,9 +47,9 @@ void GameScene::LoadResources()
 	player_ = std::make_unique<Player>();
 	player_->Initialize(models->GetModel("player"));
 	playerBullets_.LoadResources();
-	//	enemy
-	enemy_ = std::make_unique<Boss>();
-	enemy_->Initialize(models->GetModel("Boss"));
+	//	Boss
+	boss_ = std::make_unique<Boss>();
+	boss_->Initialize(models->GetModel("Boss"));
 	enemyBullets_.LoadResources();
 
 #pragma region LevelData
@@ -79,7 +79,7 @@ void GameScene::LoadResources()
 	//	HP
 	UIObject* gameUIObj = ui.GetUIObject("Enemy");
 	UISprite* gameUISprite = gameUIObj->GetComponent<UISprite>();
-	enemy_->SetHPBarSprite(gameUISprite->GetSprites()["bossHP"]);
+	boss_->SetHPBarSprite(gameUISprite->GetSprites()["bossHP"]);
 
 	//	Pod
 	//	InputExplain
@@ -122,10 +122,10 @@ void GameScene::Initialize()
 	//player_->SetRotation(level.GetPlayerSpownPoint().rotation);
 	player_->SetPosition({ 0.0f,0.0f,-52.0f });
 
-	enemy_->SetPlayer(player_.get());
+	boss_->SetPlayer(player_.get());
 
 	camera_ = dynamic_cast<GameCamera*>(CameraManager::GetInstance()->GetMainCamera());
-	camera_->SetEnemyPos(enemy_->GetPositionPtr());
+	camera_->SetEnemyPos(boss_->GetPositionPtr());
 	camera_->SetPlayerPos(player_->GetPositionPtr());
 	player_->SetGameCamera(camera_);
 	pause_.SetGameCamera(camera_);
@@ -134,7 +134,7 @@ void GameScene::Initialize()
 	stageColl->radius_ = 60.0f;
 	CollisionManager::GetInstance()->AddStageCollider(stageColl);
 
-	enemy_->SetGameScene(this);
+	boss_->SetGameScene(this);
 	player_->SetGameScene(this);
 	pod_.SetGameScene(this);
 	pause_.SetGameScene(this);
@@ -205,8 +205,8 @@ void GameScene::PlayGameUpdate()
 	pod_.Update();
 	player_->Update();
 	playerBullets_.Update(player_->GetBullets());
-	enemy_->Update();
-	enemyBullets_.Update(enemy_->GetBullets(), enemy_->GetBeamInfo());
+	boss_->Update();
+	enemyBullets_.Update(boss_->GetBullets(), boss_->GetBeamInfo());
 
 	CollisionUpdate();
 }
@@ -220,7 +220,7 @@ void GameScene::MatUpdate()
 	skydome_->MatUpdate();
 
 	player_->MatUpdate();
-	enemy_->MatUpdate();
+	boss_->MatUpdate();
 
 	pod_.MatUpdate();
 	for (auto& obj : objs_)
@@ -232,7 +232,7 @@ void GameScene::MatUpdate()
 void GameScene::CollisionUpdate()
 {
 	player_->CollisionUpdate();
-	enemy_->CollisionUpdate();
+	boss_->CollisionUpdate();
 
 	playerBullets_.CollisionUpdate();
 	enemyBullets_.CollisionUpdate();
@@ -273,7 +273,7 @@ void GameScene::ImguiUpdate()
 	imGuiMan->Text("NowState : %d", nowState_);
 
 	if (imGuiMan->SetButton("BossActive")) {
-		enemy_->SetIsActive(true);
+		boss_->SetIsActive(true);
 	}
 
 	if (imGuiMan->SetButton("ResetGameOverAnime")) {
@@ -282,7 +282,7 @@ void GameScene::ImguiUpdate()
 
 	if (imGuiMan->SetButton("ResetPod"))	pod_.ResetAnimation();
 
-	enemy_->ImGuiUpdate();
+	boss_->ImGuiUpdate();
 
 	pause_.ImGuiUpdate();
 
@@ -296,7 +296,7 @@ void GameScene::ImguiUpdate()
 void GameScene::DrawUIBeforeBlackScreen()
 {
 	if (drawPlayer_ == TRUE) {
-		enemy_->DrawUI();
+		boss_->DrawUI();
 		player_->DrawUI();
 	}
 
@@ -326,7 +326,7 @@ void GameScene::Draw()
 		player_->Draw();
 		playerBullets_.Draw();
 	}
-	enemy_->Draw();
+	boss_->Draw();
 	enemyBullets_.Draw();
 	
 	//	脱出ポッド
