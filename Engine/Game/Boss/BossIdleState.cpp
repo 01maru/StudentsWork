@@ -65,9 +65,7 @@ void BossIdleState::Update()
 			float maxLen = static_cast<float>(sBoss_->GetLenMax() - sBoss_->GetLenMin());
 			len /= maxLen;
 
-			//sBoss_->CalcPriority(FALSE, len);
-			std::unique_ptr<BossState> next = std::make_unique<BossTornadoState>();
-			sBoss_->SetCurrentState(next);
+			sBoss_->CalcPriority(FALSE, len);
 
 			sBoss_->GetAnimation()->SetAutoPlay(FALSE);
 			sBoss_->GetAnimation()->ResetAnimeTimer();

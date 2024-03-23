@@ -895,7 +895,7 @@
       <Filter>ソース ファイル\Game\Boss\State\AttackState</Filter>
     </ClCompile>
     <ClCompile Include="SuctionEmptyObj.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1503,7 +1503,7 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SuctionEmptyObj.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
