@@ -16,9 +16,11 @@ namespace MNE
 
 	private:
 		MyMath::Vector3D color_;
+		bool activeBloom_ = false;
 
 	public:
 		void SetColor(const MyMath::Vector3D& color);
+		void SetActiveBloom(bool active);
 	};
 
 }

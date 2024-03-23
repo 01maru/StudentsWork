@@ -1,5 +1,6 @@
 #pragma once
 #include "IPostEffect.h"
+#include <array>
 
 namespace MNE
 {
@@ -21,10 +22,14 @@ namespace MNE
 
 	private:
 		GPipeline* luminancePipe_ = nullptr;
-
+		std::array<Texture*, 3> luminanceTex_;
+		
 	private:
 		void DrawLuminance();
 		void DrawNormal();
+
+	public:
+		void SetLuminanceTex(int32_t idx, Texture* tex);
 	};
 
 }

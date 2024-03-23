@@ -16,7 +16,7 @@ namespace MNE
 	class BaseCollider;
 	namespace CBuff {
 		struct CBuffObj3DTransform;
-		struct CBuffColorMaterial;
+		struct CBuffObjColorMaterial;
 	}
 	class GPipeline;
 	class ICamera;
@@ -55,7 +55,7 @@ namespace MNE
 	
 		MNE::CBuff::CBuffObj3DTransform* cTransformMap_ = nullptr;
 
-		MNE::CBuff::CBuffColorMaterial* cColorMap_ = nullptr;
+		MNE::CBuff::CBuffObjColorMaterial* cColorMap_ = nullptr;
 
 		MNE::ConstBuff transform_;
 		MNE::ConstBuff colorMaterial_;
@@ -109,6 +109,7 @@ namespace MNE
 		void SetScale(const MyMath::Vector3D& scale) { mat_.scale_ = scale; }
 		void SetRotation(const MyMath::Vector3D& rot) { mat_.angle_ = rot; }
 		void SetCamera(MNE::ICamera* camera) { camera_ = camera; }
+		void SetActiveBloom(bool active);
 
 	#pragma endregion
 	};

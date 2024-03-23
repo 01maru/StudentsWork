@@ -8,7 +8,7 @@ void MNE::ShadowPostEffect::Update()
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 
-	dx->PrevPostEffect(this);
+	dx->PrevPostEffect(this, clearColor_);
 
 	SceneManager::GetInstance()->DrawShadow();
 

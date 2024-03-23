@@ -46,7 +46,7 @@ void MNE::Sprite::Initialize(Texture* texture)
 	assert(SUCCEEDED(result));
 
 
-	cbColorMaterial_.Initialize(sizeof(CBuff::CBuffColorMaterial));
+	cbColorMaterial_.Initialize(sizeof(CBuff::CBuffObjColorMaterial));
 	//	定数バッファのマッピング
 	result = cbColorMaterial_.GetResource()->Map(0, nullptr, (void**)&cbMaterialMap_);	//	マッピング
 	assert(SUCCEEDED(result));

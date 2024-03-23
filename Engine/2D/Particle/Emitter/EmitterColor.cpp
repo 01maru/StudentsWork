@@ -10,6 +10,7 @@ void MNE::EmitterColor::Initialize(MNE::Particle* particle)
 		MNE::ObjectParticle* obj = particle->GetComponent<MNE::ObjectParticle>();
 
 		obj->SetColor(color_);
+		obj->SetActiveBloom(activeBloom_);
 	}
 	else
 	{
@@ -22,4 +23,9 @@ void MNE::EmitterColor::Initialize(MNE::Particle* particle)
 void MNE::EmitterColor::SetColor(const MyMath::Vector3D& color)
 {
 	color_ = color;
+}
+
+void MNE::EmitterColor::SetActiveBloom(bool active)
+{
+	activeBloom_ = active;
 }

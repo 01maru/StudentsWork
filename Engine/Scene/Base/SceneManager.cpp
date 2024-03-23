@@ -23,7 +23,6 @@
 #include "PostEffectManager.h"
 #include "ShadowPostEffect.h"
 #include "MainPostEffect.h"
-//#include "GaussBlur.h"
 
 using namespace MNE;
 using namespace MyMath;
@@ -101,25 +100,29 @@ void SceneManager::Initialize()
 	//	PipelineManager::GetInstance()->GetPipeline("yBlur"));
 	//shadowBlur.SetWeight(1.0f);
 
+	clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 	std::unique_ptr<MainPostEffect> main = std::make_unique<MainPostEffect>();
 	main->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "main", 2, DXGI_FORMAT_R11G11B10_FLOAT);
+	main->SetClearColor(clearColor);
 	postEffect = std::move(main);
 	IPostEffect* mainPtr = peMan->AddPostEffectBack(postEffect);
 
-	clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 	postEffect = std::make_unique<IPostEffect>();
 	postEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "luminance", 2, DXGI_FORMAT_R11G11B10_FLOAT);
 	postEffect->SetOriginalPostEffect(mainPtr);
 	postEffect->SetClearColor(clearColor);
 	postEffect->SetMode(MainPostEffect::Luminance);
-	peMan->AddPostEffectBack(postEffect);
 
-	//GaussBlur luminanceBlur;
-	//luminanceBlur.Initialize(shadowPtr, DXGI_FORMAT_R11G11B10_FLOAT);
+	IPostEffect* luminancePtr = peMan->AddPostEffectBack(postEffect);
+
+	luminanceBlur.Initialize(luminancePtr, DXGI_FORMAT_R11G11B10_FLOAT);
 	//luminanceBlur.SetClearColor(clearColor);
 	//luminanceBlur.SetPipeline(PipelineManager::GetInstance()->GetPipeline("luminncexBlur"),
 	//	PipelineManager::GetInstance()->GetPipeline("luminnceyBlur"));
-	//luminanceBlur.SetWeight(5.0f);
+	luminanceBlur.SetWeight(5.0f);
+
+	MainPostEffect* mainPE = dynamic_cast<MainPostEffect*>(mainPtr);
+	mainPE->SetLuminanceTex(0, luminanceBlur.GetTexture(0));
 
 	std::unique_ptr<GrayScale> gray = std::make_unique<GrayScale>();
 	gray->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "Gray", 2, DXGI_FORMAT_R11G11B10_FLOAT);

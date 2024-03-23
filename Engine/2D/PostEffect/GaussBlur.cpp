@@ -6,7 +6,10 @@
 
 #include "PostEffectManager.h"
 
+#include "PipelineManager.h"
+
 using namespace MyMath;
+using namespace MNE;
 
 void MNE::GaussBlurPostEffect::Draw(int32_t /*mode*/)
 {
@@ -46,10 +49,15 @@ void MNE::GaussBlur::Initialize(IPostEffect* original, DXGI_FORMAT format)
 		std::unique_ptr<GaussBlurPostEffect> blurX = std::make_unique<GaussBlurPostEffect>();
 		blurX->Initialize(width, height, original->GetName() + "/xBlur", 1, format);
 		blurX->SetOriginalPostEffect(original);
+		blurX->SetGaussBlur(this);
+
+		blurX->SetClearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+		blurX->SetGPipeline(PipelineManager::GetInstance()->GetPipeline("luminncexBlur"));
 
 		blur = std::move(blurX);
-
-		blurX_ = dynamic_cast<GaussBlurPostEffect*>(peMan->AddPostEffect(blur, originItr));
+		//IPostEffect* blurXPtr = peMan->AddPostEffectBack(blur, std::next(originItr));
+		IPostEffect* blurXPtr = peMan->AddPostEffectBack(blur);
+		blurX_ = dynamic_cast<GaussBlurPostEffect*>(blurXPtr);
 	}
 
 	if (blurY_ == nullptr)
@@ -59,10 +67,17 @@ void MNE::GaussBlur::Initialize(IPostEffect* original, DXGI_FORMAT format)
 		std::unique_ptr<GaussBlurPostEffect> blurY = std::make_unique<GaussBlurPostEffect>();
 		blurY->Initialize(width, height, original->GetName() + "/yBlur", 1, format);
 		blurY->SetOriginalPostEffect(blurX_);
+		blurY->SetGaussBlur(this);
+
+		blurY->SetClearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+		blurY->SetGPipeline(PipelineManager::GetInstance()->GetPipeline("luminnceyBlur"));
 
 		blur = std::move(blurY);
 
-		blurY_ = dynamic_cast<GaussBlurPostEffect*>(peMan->AddPostEffect(blur, std::next(originItr, 1)));
+		//IPostEffect* blurYPtr = peMan->AddPostEffect(blur, std::next(std::next(originItr)));
+		IPostEffect* blurYPtr = peMan->AddPostEffectBack(blur);
+		tex = blurYPtr->GetTexture();
+		blurY_ = dynamic_cast<GaussBlurPostEffect*>(blurYPtr);
 	}
 }
 

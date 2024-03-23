@@ -44,6 +44,8 @@ namespace MNE
 		GaussBlurPostEffect* blurX_ = nullptr;
 		GaussBlurPostEffect* blurY_ = nullptr;
 
+		Texture* tex;
+
 	#pragma region ConstBuff
 
 		CBuff::CBufferBlurWeight* mapWeight_ = nullptr;
@@ -62,7 +64,7 @@ namespace MNE
 		* @param index 画像のインデックス
 		* @return ブラーかけた後の結果
 		*/
-		Texture* GetTexture(int32_t index) { return blurY_->GetTexture(index); }
+		Texture* GetTexture(int32_t /*index*/) { return tex; }
 
 	#pragma endregion
 

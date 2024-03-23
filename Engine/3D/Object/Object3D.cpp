@@ -37,10 +37,12 @@ void MNE::Object3D::Initialize()
 	result = transform_.GetResource()->Map(0, nullptr, (void**)&cTransformMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
-	colorMaterial_.Initialize(sizeof(MNE::CBuff::CBuffColorMaterial));
+	colorMaterial_.Initialize(sizeof(MNE::CBuff::CBuffObjColorMaterial));
 	//	定数バッファのマッピング
 	result = colorMaterial_.GetResource()->Map(0, nullptr, (void**)&cColorMap_);	//	マッピング
 	assert(SUCCEEDED(result));
+
+	cColorMap_->bloomActive = FALSE;
 
 #pragma endregion
 
@@ -191,6 +193,11 @@ void MNE::Object3D::SetCollider(BaseCollider* collider)
 void MNE::Object3D::SetAlphaColor(float alpha)
 {
 	color_.w = alpha;
+}
+
+void MNE::Object3D::SetActiveBloom(bool active)
+{
+	cColorMap_->bloomActive = active;
 }
 
 void MNE::Object3D::SetAttribute(uint16_t attribute)

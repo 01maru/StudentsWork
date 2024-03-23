@@ -16,7 +16,7 @@ namespace MNE
 {
 
 	namespace CBuff {
-		struct CBuffColorMaterial;
+		struct CBuffObjColorMaterial;
 		struct CBuffSpriteTransform;
 	}
 	class GPipeline;
@@ -69,7 +69,7 @@ namespace MNE
 		MNE::CBuff::CBuffSpriteTransform* cbTransformMat_ = nullptr;
 		//	色
 		MNE::ConstBuff cbColorMaterial_;
-		MNE::CBuff::CBuffColorMaterial* cbMaterialMap_ = nullptr;
+		MNE::CBuff::CBuffObjColorMaterial* cbMaterialMap_ = nullptr;
 	#pragma endregion
 
 	private:

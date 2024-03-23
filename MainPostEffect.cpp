@@ -18,7 +18,7 @@ void MNE::MainPostEffect::Update()
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 
-	dx->PrevPostEffect(this);
+	dx->PrevPostEffect(this, clearColor_);
 
 	SceneManager::GetInstance()->DrawScene();
 
@@ -60,7 +60,7 @@ void MNE::MainPostEffect::DrawLuminance()
 	luminancePipe_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	VertIdxBuff::IASetVertIdxBuff();
 	//	テクスチャ
-	cmdList->SetGraphicsRootDescriptorTable(rootParaIdx++, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
+	cmdList->SetGraphicsRootDescriptorTable(rootParaIdx++, TextureManager::GetInstance()->GetTextureHandle(texture_[1]->GetHandle()));
 	material_.SetGraphicsRootCBuffView(rootParaIdx++);
 
 	PlanePolygon::DrawIndexedInstanced();
@@ -84,10 +84,15 @@ void MNE::MainPostEffect::DrawNormal()
 	//else {
 	//	
 	//}
-	cmdList->SetGraphicsRootDescriptorTable(rootParaIdx++, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
-	cmdList->SetGraphicsRootDescriptorTable(rootParaIdx++, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
-	cmdList->SetGraphicsRootDescriptorTable(rootParaIdx++, TextureManager::GetInstance()->GetTextureHandle(texture_[0]->GetHandle()));
+	cmdList->SetGraphicsRootDescriptorTable(rootParaIdx++, TextureManager::GetInstance()->GetTextureHandle(luminanceTex_[0]->GetHandle()));
+	cmdList->SetGraphicsRootDescriptorTable(rootParaIdx++, TextureManager::GetInstance()->GetTextureHandle(luminanceTex_[0]->GetHandle()));
+	cmdList->SetGraphicsRootDescriptorTable(rootParaIdx++, TextureManager::GetInstance()->GetTextureHandle(luminanceTex_[0]->GetHandle()));
 	material_.SetGraphicsRootCBuffView(rootParaIdx++);
 
 	PlanePolygon::DrawIndexedInstanced();
+}
+
+void MNE::MainPostEffect::SetLuminanceTex(int32_t idx, Texture* tex)
+{
+	luminanceTex_[idx] = tex;
 }

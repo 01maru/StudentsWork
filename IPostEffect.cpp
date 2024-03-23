@@ -15,6 +15,7 @@ void MNE::IPostEffect::Initialize(int32_t width, int32_t height, const std::stri
 {
 	width_ = width;
 	height_ = height;
+	name_ = name;
 
 	//	テクスチャ生成
 	TextureManager* texMan = TextureManager::GetInstance();
@@ -134,7 +135,7 @@ void MNE::IPostEffect::Update()
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 
-	dx->PrevPostEffect(this);
+	dx->PrevPostEffect(this, clearColor_);
 
 	if (originalPE_ != nullptr)
 	{

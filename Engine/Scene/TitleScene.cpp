@@ -171,7 +171,7 @@ void TitleScene::Draw()
 	{
 		obj->Draw();
 	}
-	bonfire_->Draw();
+	//bonfire_->Draw();
 
 	ParticleManager::GetInstance()->Draw();
 }

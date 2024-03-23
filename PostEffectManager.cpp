@@ -16,7 +16,6 @@ void MNE::PostEffectManager::Update()
 
 MNE::IPostEffect* MNE::PostEffectManager::AddPostEffect(std::unique_ptr<IPostEffect>& postEffect, const std::list<std::unique_ptr<IPostEffect>>::iterator& before)
 {
-
 	//	挿入
 	postEffects_.insert(before, std::move(postEffect));
 
@@ -38,7 +37,7 @@ void MNE::PostEffectManager::DeletePostEffect(const std::list<std::unique_ptr<IP
 
 std::list<std::unique_ptr<MNE::IPostEffect>>::iterator MNE::PostEffectManager::GetPostEffectItr(const std::string& name)
 {
-	for (auto itr = postEffects_.begin(); itr != postEffects_.end(); itr++)
+	for (auto itr = postEffects_.begin(); itr != postEffects_.end(); ++itr)
 	{
 		if (itr->get()->GetName() == name)
 		{

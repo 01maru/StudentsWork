@@ -5,6 +5,7 @@
 
 #include "SplashScreenScene.h"
 #include "LoadingScene.h"
+#include "GaussBlur.h"
 
 namespace MNE
 {
@@ -41,6 +42,7 @@ namespace MNE
 
 		bool isSplashScreen_ = false;
 		std::unique_ptr<SplashScreenScene> splashScene_;
+		GaussBlur luminanceBlur;
 
 #pragma endregion
 
