@@ -1,32 +1,51 @@
 #include "GaussBlur.h"
 #include "DirectX.h"
 #include "ConstBuffStruct.h"
-#include "TextureManager.h"
-#include <cassert>
-
 #include "PostEffectManager.h"
-
+#include "Shader.h"
 #include "PipelineManager.h"
+#include <cassert>
 
 using namespace MyMath;
 using namespace MNE;
 
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////////////GaussBlurPostEffect//////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
+
 void MNE::GaussBlurPostEffect::Draw(int32_t /*mode*/)
 {
 	SetGPipelineAndIAVertIdxBuff();
-	parent_->SetWeightGraphicsRootCBuffView(2);
 
-	originalPE_->Draw();
+	int32_t rootParaIdx = 0;
+	SetGraphicsRoot(rootParaIdx);
+	parent_->SetWeightGraphicsRootCBuffView(rootParaIdx++);
+
+	originalPE_->DrawIndexedInstanced();
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
 
 void MNE::GaussBlurPostEffect::SetGaussBlur(GaussBlur* gaussBlur)
 {
 	parent_ = gaussBlur;
 }
 
-/////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////GaussBlur///////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
-void MNE::GaussBlur::Initialize(IPostEffect* original, DXGI_FORMAT format)
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
+void MNE::GaussBlur::Initialize(IPostEffect* original)
 {
 #pragma region ConstBuff
 
@@ -47,17 +66,12 @@ void MNE::GaussBlur::Initialize(IPostEffect* original, DXGI_FORMAT format)
 		int32_t width = original->GetWidth() / 2;
 		int32_t height = original->GetHeight();
 		std::unique_ptr<GaussBlurPostEffect> blurX = std::make_unique<GaussBlurPostEffect>();
-		blurX->Initialize(width, height, original->GetName() + "/xBlur", 1, format);
+		blurX->Initialize(width, height, original->GetName() + "/xBlur", 1, original->GetFormat());
 		blurX->SetOriginalPostEffect(original);
 		blurX->SetGaussBlur(this);
 
-		blurX->SetClearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
-		blurX->SetGPipeline(PipelineManager::GetInstance()->GetPipeline("luminncexBlur"));
-
 		blur = std::move(blurX);
-		//IPostEffect* blurXPtr = peMan->AddPostEffectBack(blur, std::next(originItr));
-		IPostEffect* blurXPtr = peMan->AddPostEffectBack(blur);
-		blurX_ = dynamic_cast<GaussBlurPostEffect*>(blurXPtr);
+		blurX_ = peMan->AddPostEffectBack(blur);
 	}
 
 	if (blurY_ == nullptr)
@@ -65,21 +79,85 @@ void MNE::GaussBlur::Initialize(IPostEffect* original, DXGI_FORMAT format)
 		int32_t width = original->GetWidth() / 2;
 		int32_t height = original->GetHeight() / 2;
 		std::unique_ptr<GaussBlurPostEffect> blurY = std::make_unique<GaussBlurPostEffect>();
-		blurY->Initialize(width, height, original->GetName() + "/yBlur", 1, format);
+		blurY->Initialize(width, height, original->GetName() + "/yBlur", 1, original->GetFormat());
 		blurY->SetOriginalPostEffect(blurX_);
 		blurY->SetGaussBlur(this);
 
-		blurY->SetClearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
-		blurY->SetGPipeline(PipelineManager::GetInstance()->GetPipeline("luminnceyBlur"));
-
 		blur = std::move(blurY);
 
-		//IPostEffect* blurYPtr = peMan->AddPostEffect(blur, std::next(std::next(originItr)));
-		IPostEffect* blurYPtr = peMan->AddPostEffectBack(blur);
-		tex = blurYPtr->GetTexture();
-		blurY_ = dynamic_cast<GaussBlurPostEffect*>(blurYPtr);
+		blurY_ = peMan->AddPostEffectBack(blur);
+	}
+
+	AddPipeline(original->GetFormat());
+}
+
+void MNE::GaussBlur::AddPipeline(DXGI_FORMAT format)
+{
+	PipelineManager* pipeMan = PipelineManager::GetInstance();
+
+	std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout = {
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT,
+		D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },	//	xyz座標
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT,
+		D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }		//	uv座標
+	};
+	std::unique_ptr<GPipeline> pipeline;
+	GPipeline* pipeX = nullptr;
+	GPipeline* pipeY = nullptr;
+
+	//	XBlur
+	std::string name = "GaussBlurX" + std::to_string(format);
+
+	pipeX = pipeMan->GetPipeline(name);
+
+	if (pipeX == nullptr)
+	{
+		Shader xBlur("XBlurVS", "BlurPS");
+
+		pipeline = std::make_unique<GPipeline>();
+		pipeline->Initialize(xBlur, inputLayout, 2,
+			D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK,
+			D3D12_DEPTH_WRITE_MASK_ZERO, true, format);
+
+		pipeX = pipeMan->AddPipeline(pipeline, "GaussBlurX" + std::to_string(format));
+	}
+
+	if (blurX_ != nullptr)
+	{
+		blurX_->SetGPipeline(pipeX);
+	}
+
+	if (pipeY == nullptr)
+	{
+		//	YBlur
+		Shader yBlur("YBlurVS", "BlurPS");
+
+		pipeline = std::make_unique<GPipeline>();
+		pipeline->Initialize(yBlur, inputLayout, 2,
+			D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK,
+			D3D12_DEPTH_WRITE_MASK_ZERO, true, format);
+
+		pipeY = pipeMan->AddPipeline(pipeline, "GaussBlurY" + std::to_string(format));
+	}
+
+	if (blurY_ != nullptr)
+	{
+		blurY_->SetGPipeline(pipeY);
 	}
 }
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+Texture* MNE::GaussBlur::GetBlurredTexture()
+{
+	return blurY_->GetTexture();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
 
 void MNE::GaussBlur::SetWeightGraphicsRootCBuffView(int32_t rootparaIdx)
 {

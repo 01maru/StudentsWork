@@ -1,11 +1,11 @@
 #include "DissolveSprite.h"
 #include "ConstBuffStruct.h"
-#include <cassert>
-
 #include "PipelineManager.h"
 #include "TextureManager.h"
 #include "DirectX.h"
 #include "RootParameterIdx.h"
+#include "Shader.h"
+#include <cassert>
 
 void MNE::DissolveSprite::Initialize(Texture* texture)
 {
@@ -19,6 +19,34 @@ void MNE::DissolveSprite::Initialize(Texture* texture)
 	assert(SUCCEEDED(result));
 
 #pragma endregion
+
+#pragma region Pipeline
+
+	PipelineManager* pipeMan = PipelineManager::GetInstance();
+
+	pipeline_ = pipeMan->GetPipeline("DissolveSprite");
+
+	if (pipeline_ == nullptr)
+	{
+		std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout = {
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT,
+			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },	//	xyz座標
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT,
+			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }		//	uv座標
+		};
+
+		Shader shader("SpriteVS", "DissolveSpritePS");
+
+		std::unique_ptr<GPipeline> pipeline = std::make_unique<GPipeline>();
+		pipeline->Initialize(shader, inputLayout, 3, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
+			D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO,
+			true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, 2);
+		pipeline->SetBlendMord(Blend::ALPHA_BLEND);
+
+		pipeline_ = pipeMan->AddPipeline(pipeline, "DissolveSprite");
+	}
+
+#pragma endregion
 }
 
 void MNE::DissolveSprite::Update()
@@ -30,7 +58,7 @@ void MNE::DissolveSprite::Update()
 		dirtyFlagDissolve_ = false;
 
 		cbDissolveMat_->color = dissolveColor_;
-		cbDissolveMat_->value = disolveValue_;
+		cbDissolveMat_->value = dissolveValue_;
 	}
 }
 
@@ -38,12 +66,12 @@ void MNE::DissolveSprite::Draw(GPipeline* pipeline)
 {
 	if (isInvisible_) return;
 
-	GPipeline* pipeline_ = nullptr;
-	if (pipeline != nullptr) pipeline_ = pipeline;
+	GPipeline* pipe = nullptr;
+	if (pipeline != nullptr) pipe = pipeline;
 
-	else					 pipeline_ = PipelineManager::GetInstance()->GetPipeline("DissolveSprite", Blend::ALPHA_BLEND);
-	pipeline_->SetGraphicsRootSignature();
-	pipeline_->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	else					 pipe = pipeline_;
+	pipe->SetGraphicsRootSignature();
+	pipe->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	IASetVertIdxBuff();
 
@@ -63,9 +91,9 @@ void MNE::DissolveSprite::Draw(GPipeline* pipeline)
 
 void MNE::DissolveSprite::SetDissolveValue(float value)
 {
-	if (disolveValue_ != value)
+	if (dissolveValue_ != value)
 	{
 		dirtyFlagDissolve_ = true;
-		disolveValue_ = value;
+		dissolveValue_ = value;
 	}
 }

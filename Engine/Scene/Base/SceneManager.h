@@ -5,7 +5,6 @@
 
 #include "SplashScreenScene.h"
 #include "LoadingScene.h"
-#include "GaussBlur.h"
 
 namespace MNE
 {
@@ -42,7 +41,6 @@ namespace MNE
 
 		bool isSplashScreen_ = false;
 		std::unique_ptr<SplashScreenScene> splashScene_;
-		GaussBlur luminanceBlur;
 
 #pragma endregion
 
@@ -71,15 +69,14 @@ namespace MNE
 	public:
 #pragma region Getter
 
-		bool GetIsDrawShadow() { return drawShadow_; }
-		bool GetGameLoop() { return gameLoop_; }
-		Texture* GetShadowMap() { return /*shadowEffect->GetTexture(0)*/nullptr; }
+		bool GetIsDrawShadow();
+		bool GetGameLoop();
 
 #pragma endregion
 
 #pragma region Setter
 
-		void GameLoopEnd() { gameLoop_ = false; }
+		void GameLoopEnd();
 		void ChangeScreenAlpha(float alpha);
 		void SetNextScene(const std::string& sceneName);
 

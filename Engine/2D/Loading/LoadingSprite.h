@@ -42,6 +42,8 @@ namespace MNE
 		float maxSize_ = 30.0f;
 		MyMath::Vector3D color_ = { 0.2f,0.2f,0.2f };
 
+		GPipeline* pipeline_ = nullptr;
+
 	public:
 		void Start();
 		void Reset();

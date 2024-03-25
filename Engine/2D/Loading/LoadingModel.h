@@ -1,5 +1,5 @@
 #pragma once
-#include "Object3DShilhouette.h"
+#include "Object3DSilhouette.h"
 #include "ILoadingObj.h"
 
 /**
@@ -10,7 +10,7 @@
 namespace MNE
 {
 
-	class LoadingModel :public ILoadingObj, public Object3DShilhouette
+	class LoadingModel :public ILoadingObj, public Object3DSilhouette
 	{
 	public:
 		/**

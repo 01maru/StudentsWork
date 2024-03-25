@@ -40,6 +40,8 @@ namespace MNE
 #pragma endregion
 		std::string name_;
 
+		DXGI_FORMAT format_;
+
 		//	ビューポートシザー矩形
 		ViewPortScissorRect viewPortSciRect_;
 		ComPtr<ID3D12DescriptorHeap> rtvHeap_;
@@ -72,11 +74,13 @@ namespace MNE
 		int32_t GetTextureNum();
 		Texture* GetTexture(int32_t index = 0);
 		std::string GetName();
+		DXGI_FORMAT GetFormat();
 
 #pragma endregion
 
 #pragma region Setter
-
+		
+		void SetGraphicsRoot(int32_t& rootParaIdx);
 		void RSSetVPandSR();
 		void SetGPipelineAndIAVertIdxBuff();
 		void SetMode(int32_t mode);

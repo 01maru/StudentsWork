@@ -16,6 +16,7 @@ void MNE::IPostEffect::Initialize(int32_t width, int32_t height, const std::stri
 	width_ = width;
 	height_ = height;
 	name_ = name;
+	format_ = format;
 
 	//	テクスチャ生成
 	TextureManager* texMan = TextureManager::GetInstance();
@@ -72,7 +73,7 @@ void MNE::IPostEffect::Initialize(int32_t width, int32_t height, const std::stri
 			&clearValue,
 			IID_PPV_ARGS(texture_[i]->GetResourceBuffAddress()));
 	}
-
+	
 #pragma region RTV
 	D3D12_DESCRIPTOR_HEAP_DESC heapDesc = MyDirectX::GetInstance()->GetRTVHeapDesc();
 	//	heap
@@ -80,7 +81,7 @@ void MNE::IPostEffect::Initialize(int32_t width, int32_t height, const std::stri
 	result = MyDirectX::GetInstance()->GetDev()->CreateDescriptorHeap(
 		&heapDesc,
 		IID_PPV_ARGS(rtvHeap_.ReleaseAndGetAddressOf()));
-
+	
 	D3D12_RENDER_TARGET_VIEW_DESC _rtvDesc = {};
 	_rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
 	if (format == DXGI_FORMAT_R8G8B8A8_UNORM) {
@@ -89,7 +90,7 @@ void MNE::IPostEffect::Initialize(int32_t width, int32_t height, const std::stri
 	else {
 		_rtvDesc.Format = format;
 	}
-
+	
 	//	RTV
 	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle_ = rtvHeap_->GetCPUDescriptorHandleForHeapStart();
 	for (size_t i = 0; i < textureNum; i++)
@@ -122,7 +123,7 @@ void MNE::IPostEffect::Initialize(int32_t width, int32_t height, const std::stri
 			srvHandle);
 	}
 #pragma endregion
-
+	
 	//	深度バッファ
 	dsv_.Initialize(width, height, DXGI_FORMAT_D32_FLOAT);
 }
@@ -151,14 +152,8 @@ void MNE::IPostEffect::Update()
 
 void MNE::IPostEffect::Draw(int32_t /*mode*/)
 {
-	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
-
-	//	テクスチャ
 	int32_t rootParaIdx = 0;
-	TextureManager* texMan = TextureManager::GetInstance();
-	cmdList->SetGraphicsRootDescriptorTable(rootParaIdx++, texMan->GetTextureHandle(texture_[0]->GetHandle()));
-
-	material_.SetGraphicsRootCBuffView(rootParaIdx++);
+	SetGraphicsRoot(rootParaIdx);
 
 	PlanePolygon::DrawIndexedInstanced();
 }
@@ -197,9 +192,24 @@ std::string MNE::IPostEffect::GetName()
 	return name_;
 }
 
+DXGI_FORMAT MNE::IPostEffect::GetFormat()
+{
+	return format_;
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
+
+void MNE::IPostEffect::SetGraphicsRoot(int32_t& rootParaIdx)
+{
+	ID3D12GraphicsCommandList* cmdList = MyDirectX::GetInstance()->GetCmdList();
+
+	TextureManager* texMan = TextureManager::GetInstance();
+	cmdList->SetGraphicsRootDescriptorTable(rootParaIdx++, texMan->GetTextureHandle(texture_[0]->GetHandle()));
+
+	material_.SetGraphicsRootCBuffView(rootParaIdx++);
+}
 
 void MNE::IPostEffect::RSSetVPandSR()
 {

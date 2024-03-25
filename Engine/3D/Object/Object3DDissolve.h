@@ -23,6 +23,8 @@ namespace MNE
 
 	#pragma endregion
 
+		static GPipeline* sPipeline_;
+
 		float dissolveValue_ = 1.0f;
 		MyMath::Vector4D dissolveColor_;
 

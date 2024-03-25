@@ -1,21 +1,36 @@
 #include "Shader.h"
+#include "ConvertString.h"
 #include <string>
 #include <cassert>
 
-MNE::Shader::Shader(const LPCWSTR& VSFileName, const LPCWSTR& PSFileName, const LPCSTR& pEntryPoint, const LPCWSTR& GSFileName, const LPCWSTR& DSFileName, const LPCWSTR& HSFileName)
+using namespace MNE::Util;
+
+//-----------------------------------------------------------------------------
+// [SECTION] Constructor
+//-----------------------------------------------------------------------------
+
+MNE::Shader::Shader(const std::string& VSFileName, const std::string& PSFileName, const LPCSTR& pEntryPoint, const std::string& GSFileName, const std::string& DSFileName, const std::string& HSFileName)
 {
 	Initialize(VSFileName, PSFileName, pEntryPoint, GSFileName, DSFileName, HSFileName);
 }
 
-void MNE::Shader::Initialize(const LPCWSTR& VSFileName, const LPCWSTR& PSFileName, const LPCSTR& pEntryPoint, const LPCWSTR& GSFileName, const LPCWSTR& DSFileName, const LPCWSTR& HSFileName)
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
+void MNE::Shader::Initialize(const std::string& VSFileName, const std::string& PSFileName, const LPCSTR& pEntryPoint, const std::string& GSFileName, const std::string& DSFileName, const std::string& HSFileName)
 {
+	std::string filePath = "Resources/Shader/";
+	std::wstring vs = ToWideString(filePath + VSFileName + ".hlsl");
+	std::wstring ps = ToWideString(filePath + PSFileName + ".hlsl");
+
 #pragma region VertexShader
 	//	頂点シェーダファイル読み込み＆コンパイル
 	HRESULT result = D3DCompileFromFile(
-		VSFileName,									// シェーダファイル名
+		vs.c_str(),											// シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,					// インクルード可能にする
-		pEntryPoint, "vs_5_0",									// エントリーポイント名、シェーダーモデル指定
+		pEntryPoint, "vs_5_0",								// エントリーポイント名、シェーダーモデル指定
 		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,	// デバッグ用設定
 		0,
 		&vsBlob, &errorBlob);
@@ -25,10 +40,12 @@ void MNE::Shader::Initialize(const LPCWSTR& VSFileName, const LPCWSTR& PSFileNam
 #pragma endregion
 
 #pragma region HS
-	if (HSFileName != nullptr) {
+	if (HSFileName.empty() == FALSE) {
+		std::wstring hs = ToWideString(filePath + HSFileName + ".hlsl");
+
 		//	頂点シェーダファイル読み込み＆コンパイル
 		result = D3DCompileFromFile(
-			HSFileName,									// シェーダファイル名
+			hs.c_str(),									// シェーダファイル名
 			nullptr,
 			D3D_COMPILE_STANDARD_FILE_INCLUDE,					// インクルード可能にする
 			pEntryPoint, "hs_5_0",									// エントリーポイント名、シェーダーモデル指定
@@ -42,10 +59,12 @@ void MNE::Shader::Initialize(const LPCWSTR& VSFileName, const LPCWSTR& PSFileNam
 #pragma endregion
 
 #pragma region DS
-	if (DSFileName != nullptr) {
+	if (DSFileName.empty() == FALSE) {
+		std::wstring ds = ToWideString(filePath + DSFileName + ".hlsl");
+
 		//	頂点シェーダファイル読み込み＆コンパイル
 		result = D3DCompileFromFile(
-			DSFileName,									// シェーダファイル名
+			ds.c_str(),									// シェーダファイル名
 			nullptr,
 			D3D_COMPILE_STANDARD_FILE_INCLUDE,					// インクルード可能にする
 			pEntryPoint, "ds_5_0",									// エントリーポイント名、シェーダーモデル指定
@@ -59,10 +78,12 @@ void MNE::Shader::Initialize(const LPCWSTR& VSFileName, const LPCWSTR& PSFileNam
 #pragma endregion
 
 #pragma region GS
-	if (GSFileName != nullptr) {
+	if (GSFileName.empty() == FALSE) {
+		std::wstring gs = ToWideString(filePath + GSFileName + ".hlsl");
+
 		//	頂点シェーダファイル読み込み＆コンパイル
 		result = D3DCompileFromFile(
-			GSFileName,									// シェーダファイル名
+			gs.c_str(),									// シェーダファイル名
 			nullptr,
 			D3D_COMPILE_STANDARD_FILE_INCLUDE,					// インクルード可能にする
 			pEntryPoint, "gs_5_0",									// エントリーポイント名、シェーダーモデル指定
@@ -78,7 +99,7 @@ void MNE::Shader::Initialize(const LPCWSTR& VSFileName, const LPCWSTR& PSFileNam
 #pragma region PixelShader
 	// ピクセルシェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		PSFileName, // シェーダファイル名
+		ps.c_str(), // シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE, // インクルード可能にする
 		pEntryPoint, "ps_5_0", // エントリーポイント名、シェーダーモデル指定
@@ -105,4 +126,33 @@ void MNE::Shader::Error(HRESULT result)
 		OutputDebugStringA(error.c_str());
 		assert(0);
 	}
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+ID3DBlob* MNE::Shader::GetVSBlob()
+{
+	return vsBlob.Get();
+}
+
+ID3DBlob* MNE::Shader::GetHSBlob()
+{
+	return hsBlob.Get();
+}
+
+ID3DBlob* MNE::Shader::GetDSBlob()
+{
+	return dsBlob.Get();
+}
+
+ID3DBlob* MNE::Shader::GetGSBlob()
+{
+	return gsBlob.Get();
+}
+
+ID3DBlob* MNE::Shader::GetPSBlob()
+{
+	return psBlob.Get();
 }

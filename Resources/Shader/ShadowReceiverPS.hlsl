@@ -1,4 +1,4 @@
-#include "ShadowRecieverHeader.hlsli"
+#include "ShadowReceiverHeader.hlsli"
 
 Texture2D<float4> g_albedo : register(t0);
 Texture2D<float4> g_shadowMap : register(t1);  // シャドウマップ

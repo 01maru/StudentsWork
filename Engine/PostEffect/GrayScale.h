@@ -28,6 +28,7 @@ namespace MNE
 #pragma endregion
 
 	public:
+		bool GetActiveGrayScale();
 		void SetActiveGrayScale(bool active);
 	};
 }

@@ -50,7 +50,6 @@ namespace MNE
 
 		uint16_t drawTag_ = 0;
 
-		bool activeGlayscale_ = false;
 		bool editUI_ = false;
 		bool editAnimation_ = false;
 
@@ -102,12 +101,6 @@ namespace MNE
 
 	#pragma region Getter
 
-		/**
-		* @fn GetActiveGlayscale()
-		* activeGlayscale_のGetter関数
-		* @return activeGlayscale_の値
-		*/
-		bool GetActiveGlayscale();
 		/**
 		* @fn GetEditUI()
 		* editUI_のGetter関数

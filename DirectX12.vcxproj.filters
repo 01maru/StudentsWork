@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ソース ファイル\lib">
-      <UniqueIdentifier>{331e0e18-3b24-4f17-bc5a-e61d2fe8a167}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib">
-      <UniqueIdentifier>{6e16ea8a-da35-44a9-9ecb-b79c83022990}</UniqueIdentifier>
-    </Filter>
     <Filter Include="リソース ファイル\ObjShader">
       <UniqueIdentifier>{4dd5e3ca-3dd4-4518-bcf0-b514b0134a98}</UniqueIdentifier>
     </Filter>
@@ -27,12 +21,6 @@
     </Filter>
     <Filter Include="リソース ファイル\ScreenShader">
       <UniqueIdentifier>{ff9620a1-dd83-45e4-bcf1-c7ba4f3beded}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine">
-      <UniqueIdentifier>{c4836694-7005-4bfb-ab6d-40193e6e2fc8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine">
-      <UniqueIdentifier>{1f0ccf88-d0c0-44b1-b621-34a6efb37278}</UniqueIdentifier>
     </Filter>
     <Filter Include="リソース ファイル\ParticleShader">
       <UniqueIdentifier>{14139a39-543d-4ef0-99bb-606295e6c151}</UniqueIdentifier>
@@ -58,167 +46,14 @@
     <Filter Include="リソース ファイル\ObjShader\Shadow">
       <UniqueIdentifier>{1dc8f669-4fbf-4b91-be50-39461a0149de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル\ObjShader\ShadowReciever">
-      <UniqueIdentifier>{6fd680be-0d9a-425b-a586-ecafb87ec5cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="リソース ファイル\BlurShader">
       <UniqueIdentifier>{e644b231-63d3-433c-8186-68fa566b9a63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\2D">
-      <UniqueIdentifier>{9c7558e5-ac47-4336-bfbb-6cc9ef99b521}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\2D\Texture">
-      <UniqueIdentifier>{609b394e-0519-43ab-9c37-6fca928bdd26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\2D\Screen">
-      <UniqueIdentifier>{0cf03d78-c0e8-4f3a-a0a3-88ae52a7c450}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\Buffer">
-      <UniqueIdentifier>{80c70e3f-dd56-443d-a01e-40d477926dd9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\Input">
-      <UniqueIdentifier>{93f600e8-e369-4098-844a-04d4d5693156}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\Light">
-      <UniqueIdentifier>{ca92afc7-ffe8-4ff6-a85a-0bc7ea545696}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\Math">
-      <UniqueIdentifier>{ddc85c55-7dd0-44fc-ba60-2a9679582e05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\Math\Vector">
-      <UniqueIdentifier>{2671a1c2-40f1-41dc-a221-13888586c1dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\2D\Particle">
-      <UniqueIdentifier>{aba9683d-4663-44f1-a888-c50d13c20b87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\Scene">
-      <UniqueIdentifier>{98665880-bf97-4628-8fdb-31730a64deba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\Scene\Factry">
-      <UniqueIdentifier>{b5acfc7c-f5cd-438d-91df-935ca00dda2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\Pipeline">
-      <UniqueIdentifier>{97b643dd-3499-4302-9290-4c7094d5e747}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\Collider">
-      <UniqueIdentifier>{003ed402-1e96-4b56-ae69-50158e104860}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\Buffer">
-      <UniqueIdentifier>{bcfa7d92-c5dd-4f99-865a-4d56c9d07e56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\Input">
-      <UniqueIdentifier>{6d61ee45-941e-4fce-a5e3-811e68e5ce13}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\Light">
-      <UniqueIdentifier>{827694f0-1a1e-41d1-8bbf-033c98a3b40b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\Collider">
-      <UniqueIdentifier>{482525e3-0f7c-4db6-ae7c-891f800edbb6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\Math">
-      <UniqueIdentifier>{de02d834-15bb-4b37-b202-df3a44d4931e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\Math\Vector">
-      <UniqueIdentifier>{34de8827-480c-4077-95e2-05d12216df3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\Pipeline">
-      <UniqueIdentifier>{d94b1615-03ab-4b7e-818a-00af1be4797c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\Scene">
-      <UniqueIdentifier>{ee7eeafa-ba10-4f48-adda-53d851321279}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\Scene\Factory">
-      <UniqueIdentifier>{42772aa9-08e8-4017-b335-078ba12f35d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D">
-      <UniqueIdentifier>{e4ccf34a-ee68-41c1-af71-7bb2f469c11d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D\Texture">
-      <UniqueIdentifier>{4387dd1c-02f5-4967-96dd-02d9ed6aed12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D\Screen">
-      <UniqueIdentifier>{d4186948-3272-4baa-808a-7e9a0579c1e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D\Particle">
-      <UniqueIdentifier>{44e0c28d-5b5a-423f-9b63-e9490a2d51dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\3D">
-      <UniqueIdentifier>{d9833ab5-ddc3-4d58-9611-5991c9788f2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\3D\Camera">
-      <UniqueIdentifier>{281a38cb-bad6-4eba-b6ff-e5adba4110dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\3D\Obj">
-      <UniqueIdentifier>{3fe43bff-cdde-4cd5-a76e-8b71c17eab6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\3D\Obj\Model">
-      <UniqueIdentifier>{60277e91-8772-4321-915e-5a2e5b30e3a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\3D">
-      <UniqueIdentifier>{7b502438-3cd0-401c-b747-71697eceaf5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\3D\Obj">
-      <UniqueIdentifier>{f538b9ee-37be-482b-b8e5-7f7c3ce1d851}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\3D\Obj\Model">
-      <UniqueIdentifier>{37cd1151-b7de-40d3-821e-db1624a514da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\3D\Camera">
-      <UniqueIdentifier>{188ae459-f43d-4c22-9439-90a18e6fad50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\ImGui">
-      <UniqueIdentifier>{e306d696-4662-49b3-9bd7-506fcf281fda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\ImGui">
-      <UniqueIdentifier>{27a2c090-6dd2-4a4f-a34d-97cb7645620c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\2D\Sprite">
-      <UniqueIdentifier>{6eb434e3-0d5d-4d14-bea5-bc13f983e719}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D\Sprite">
-      <UniqueIdentifier>{ced67229-c305-43ef-825f-4d31272b0ad6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D\Sprite\UI">
-      <UniqueIdentifier>{56c3dd44-b154-4592-860f-67feb7481337}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\2D\Sprite\UI">
-      <UniqueIdentifier>{d663767c-f4a2-450f-b8e1-9e018c1d19f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Converter">
-      <UniqueIdentifier>{597041fd-1303-4218-a81f-a33bc16b173d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Converter">
-      <UniqueIdentifier>{9850619c-2658-4931-a3df-06ed138e1b0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D\Particle\Base">
-      <UniqueIdentifier>{2dff0dd9-3c2b-4e97-9fc6-144c2763927d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\2D\Particle\Base">
-      <UniqueIdentifier>{0dbf8005-6bcd-45fa-86e5-8bb0dca24d3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D\Sprite\UI\Component">
-      <UniqueIdentifier>{890852bf-62c7-404e-a40c-96842c75f5c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\2D\Sprite\UI\Component">
-      <UniqueIdentifier>{0e5fc657-c26b-44a0-9c5b-59f263f3cb79}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Game\UI">
       <UniqueIdentifier>{7d9b8718-abab-4ee5-bf09-52e0e1630a6c}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\UI">
       <UniqueIdentifier>{408dec68-e845-43bb-b5ba-0923d81b029c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\2D\Particle\Emitter">
-      <UniqueIdentifier>{27c28fb4-ecd5-413e-a722-6c652fcd1fbf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\2D\Particle\Component">
-      <UniqueIdentifier>{1d89ae3f-71e8-425d-b714-a8f5a96fd945}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D\Particle\Component">
-      <UniqueIdentifier>{56c5cf86-1428-4c39-b820-b83198088869}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\2D\Particle\Emitter">
-      <UniqueIdentifier>{13054eda-4ced-4919-bbbf-c69af0bd5102}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Game\Player">
       <UniqueIdentifier>{1036525c-b6f1-4d0c-b438-3856e792133a}</UniqueIdentifier>
@@ -241,12 +76,6 @@
     <Filter Include="リソース ファイル\ObjShader\Dissolve">
       <UniqueIdentifier>{fa7f6121-9611-4749-bc36-0062d5844bb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\lib\Loading">
-      <UniqueIdentifier>{8bbc42ab-4290-48d0-849d-0f2b5aad04e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Loading">
-      <UniqueIdentifier>{a7a5d3cf-a515-4bba-8e5e-4a1ba4f37eb2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game\UI\GameState">
       <UniqueIdentifier>{58429215-3a42-42bf-9222-553f65093c6b}</UniqueIdentifier>
     </Filter>
@@ -264,12 +93,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\EscapePod\State">
       <UniqueIdentifier>{526c62b3-0ee4-4465-b17a-3e3f4e46de9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\Engine\JSON">
-      <UniqueIdentifier>{ef2c44d6-71b8-4d88-a92f-87d06967895b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\Engine\JSON">
-      <UniqueIdentifier>{aa9182c0-d372-4330-9bd6-555d58298c5a}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Game\Player\UI">
       <UniqueIdentifier>{b5bd6de2-631e-424e-b11c-513452339efc}</UniqueIdentifier>
@@ -313,85 +136,268 @@
     <Filter Include="ヘッダー ファイル\Game\Effect\SpriteEffect">
       <UniqueIdentifier>{81ad1867-4378-4ace-8b59-fa52e654f7e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Lib">
+      <UniqueIdentifier>{331e0e18-3b24-4f17-bc5a-e61d2fe8a167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Engine">
+      <UniqueIdentifier>{1f0ccf88-d0c0-44b1-b621-34a6efb37278}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\2D">
+      <UniqueIdentifier>{9c7558e5-ac47-4336-bfbb-6cc9ef99b521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\2D\Texture">
+      <UniqueIdentifier>{609b394e-0519-43ab-9c37-6fca928bdd26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\2D\Screen">
+      <UniqueIdentifier>{0cf03d78-c0e8-4f3a-a0a3-88ae52a7c450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\2D\Particle">
+      <UniqueIdentifier>{aba9683d-4663-44f1-a888-c50d13c20b87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\2D\Particle\Base">
+      <UniqueIdentifier>{0dbf8005-6bcd-45fa-86e5-8bb0dca24d3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\2D\Particle\Emitter">
+      <UniqueIdentifier>{27c28fb4-ecd5-413e-a722-6c652fcd1fbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\2D\Particle\Component">
+      <UniqueIdentifier>{1d89ae3f-71e8-425d-b714-a8f5a96fd945}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\2D\Sprite">
+      <UniqueIdentifier>{6eb434e3-0d5d-4d14-bea5-bc13f983e719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\2D\Sprite\UI">
+      <UniqueIdentifier>{d663767c-f4a2-450f-b8e1-9e018c1d19f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\2D\Sprite\UI\Component">
+      <UniqueIdentifier>{0e5fc657-c26b-44a0-9c5b-59f263f3cb79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\3D">
+      <UniqueIdentifier>{7b502438-3cd0-401c-b747-71697eceaf5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\3D\Obj">
+      <UniqueIdentifier>{f538b9ee-37be-482b-b8e5-7f7c3ce1d851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\3D\Obj\Model">
+      <UniqueIdentifier>{37cd1151-b7de-40d3-821e-db1624a514da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\3D\Camera">
+      <UniqueIdentifier>{188ae459-f43d-4c22-9439-90a18e6fad50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Converter">
+      <UniqueIdentifier>{9850619c-2658-4931-a3df-06ed138e1b0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Loading">
+      <UniqueIdentifier>{8bbc42ab-4290-48d0-849d-0f2b5aad04e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Collider">
+      <UniqueIdentifier>{003ed402-1e96-4b56-ae69-50158e104860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Buffer">
+      <UniqueIdentifier>{80c70e3f-dd56-443d-a01e-40d477926dd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\JSON">
+      <UniqueIdentifier>{aa9182c0-d372-4330-9bd6-555d58298c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\ImGui">
+      <UniqueIdentifier>{e306d696-4662-49b3-9bd7-506fcf281fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\PostEffect">
+      <UniqueIdentifier>{6ceb8508-82e9-4d96-a72c-9de121f7ebd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Scene">
+      <UniqueIdentifier>{98665880-bf97-4628-8fdb-31730a64deba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Scene\Factry">
+      <UniqueIdentifier>{b5acfc7c-f5cd-438d-91df-935ca00dda2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Pipeline">
+      <UniqueIdentifier>{97b643dd-3499-4302-9290-4c7094d5e747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Math">
+      <UniqueIdentifier>{ddc85c55-7dd0-44fc-ba60-2a9679582e05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Math\Vector">
+      <UniqueIdentifier>{2671a1c2-40f1-41dc-a221-13888586c1dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Light">
+      <UniqueIdentifier>{ca92afc7-ffe8-4ff6-a85a-0bc7ea545696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Input">
+      <UniqueIdentifier>{93f600e8-e369-4098-844a-04d4d5693156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib">
+      <UniqueIdentifier>{6e16ea8a-da35-44a9-9ecb-b79c83022990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Engine">
+      <UniqueIdentifier>{c4836694-7005-4bfb-ab6d-40193e6e2fc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\2D">
+      <UniqueIdentifier>{e4ccf34a-ee68-41c1-af71-7bb2f469c11d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\2D\Texture">
+      <UniqueIdentifier>{4387dd1c-02f5-4967-96dd-02d9ed6aed12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\2D\Screen">
+      <UniqueIdentifier>{d4186948-3272-4baa-808a-7e9a0579c1e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\2D\Particle">
+      <UniqueIdentifier>{44e0c28d-5b5a-423f-9b63-e9490a2d51dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\2D\Particle\Base">
+      <UniqueIdentifier>{2dff0dd9-3c2b-4e97-9fc6-144c2763927d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\2D\Particle\Component">
+      <UniqueIdentifier>{56c5cf86-1428-4c39-b820-b83198088869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\2D\Particle\Emitter">
+      <UniqueIdentifier>{13054eda-4ced-4919-bbbf-c69af0bd5102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\2D\Sprite">
+      <UniqueIdentifier>{ced67229-c305-43ef-825f-4d31272b0ad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\2D\Sprite\UI">
+      <UniqueIdentifier>{56c3dd44-b154-4592-860f-67feb7481337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\2D\Sprite\UI\Component">
+      <UniqueIdentifier>{890852bf-62c7-404e-a40c-96842c75f5c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\3D">
+      <UniqueIdentifier>{d9833ab5-ddc3-4d58-9611-5991c9788f2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\3D\Camera">
+      <UniqueIdentifier>{281a38cb-bad6-4eba-b6ff-e5adba4110dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\3D\Obj">
+      <UniqueIdentifier>{3fe43bff-cdde-4cd5-a76e-8b71c17eab6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\3D\Obj\Model">
+      <UniqueIdentifier>{60277e91-8772-4321-915e-5a2e5b30e3a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Converter">
+      <UniqueIdentifier>{597041fd-1303-4218-a81f-a33bc16b173d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Loading">
+      <UniqueIdentifier>{a7a5d3cf-a515-4bba-8e5e-4a1ba4f37eb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Buffer">
+      <UniqueIdentifier>{bcfa7d92-c5dd-4f99-865a-4d56c9d07e56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Collider">
+      <UniqueIdentifier>{482525e3-0f7c-4db6-ae7c-891f800edbb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\ImGui">
+      <UniqueIdentifier>{27a2c090-6dd2-4a4f-a34d-97cb7645620c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Input">
+      <UniqueIdentifier>{6d61ee45-941e-4fce-a5e3-811e68e5ce13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\JSON">
+      <UniqueIdentifier>{ef2c44d6-71b8-4d88-a92f-87d06967895b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Light">
+      <UniqueIdentifier>{827694f0-1a1e-41d1-8bbf-033c98a3b40b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Math">
+      <UniqueIdentifier>{de02d834-15bb-4b37-b202-df3a44d4931e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Math\Vector">
+      <UniqueIdentifier>{34de8827-480c-4077-95e2-05d12216df3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Pipeline">
+      <UniqueIdentifier>{d94b1615-03ab-4b7e-818a-00af1be4797c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Scene">
+      <UniqueIdentifier>{ee7eeafa-ba10-4f48-adda-53d851321279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Scene\Factory">
+      <UniqueIdentifier>{42772aa9-08e8-4017-b335-078ba12f35d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\PostEffect">
+      <UniqueIdentifier>{8424da2b-f334-4dc3-94ed-7d0a21774b2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\ObjShader\ShadowReceiver">
+      <UniqueIdentifier>{6fd680be-0d9a-425b-a586-ecafb87ec5cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Matrix.cpp">
-      <Filter>ソース ファイル\lib\Engine\Math</Filter>
+      <Filter>ソース ファイル\Lib\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\MyMath.cpp">
-      <Filter>ソース ファイル\lib\Engine\Math</Filter>
+      <Filter>ソース ファイル\Lib\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Input\InputJoypad.cpp">
-      <Filter>ソース ファイル\lib\Engine\Input</Filter>
+      <Filter>ソース ファイル\Lib\Input</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Input\InputKeyboard.cpp">
-      <Filter>ソース ファイル\lib\Engine\Input</Filter>
+      <Filter>ソース ファイル\Lib\Input</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\Base\MyDebugCamera.cpp">
-      <Filter>ソース ファイル\lib\3D\Camera</Filter>
+      <Filter>ソース ファイル\Lib\3D\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\Easing.cpp">
-      <Filter>ソース ファイル\lib\Engine\Math</Filter>
+      <Filter>ソース ファイル\Lib\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene\Base\SceneManager.cpp">
-      <Filter>ソース ファイル\lib\Engine\Scene</Filter>
+      <Filter>ソース ファイル\Lib\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\Quaternion.cpp">
-      <Filter>ソース ファイル\lib\Engine\Math</Filter>
+      <Filter>ソース ファイル\Lib\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Window\ViewPortScissorRect.cpp">
-      <Filter>ソース ファイル\lib\2D\Screen</Filter>
+      <Filter>ソース ファイル\Lib\2D\Screen</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\Vector\Vector2D.cpp">
-      <Filter>ソース ファイル\lib\Engine\Math\Vector</Filter>
+      <Filter>ソース ファイル\Lib\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\Vector\Vector3D.cpp">
-      <Filter>ソース ファイル\lib\Engine\Math\Vector</Filter>
+      <Filter>ソース ファイル\Lib\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\Vector\Vector4D.cpp">
-      <Filter>ソース ファイル\lib\Engine\Math\Vector</Filter>
+      <Filter>ソース ファイル\Lib\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene\Base\SceneFactory.cpp">
-      <Filter>ソース ファイル\lib\Engine\Scene\Factry</Filter>
+      <Filter>ソース ファイル\Lib\Scene\Factry</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Buffer\ConstBuff.cpp">
-      <Filter>ソース ファイル\lib\Engine\Buffer</Filter>
+      <Filter>ソース ファイル\Lib\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Buffer\VertIdxBuff.cpp">
-      <Filter>ソース ファイル\lib\Engine\Buffer</Filter>
+      <Filter>ソース ファイル\Lib\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\DirectX.cpp">
-      <Filter>ソース ファイル\lib\Engine</Filter>
+      <Filter>ソース ファイル\Lib\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Audio\XAudioManager.cpp">
-      <Filter>ソース ファイル\lib\Engine</Filter>
+      <Filter>ソース ファイル\Lib\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Window\Window.cpp">
-      <Filter>ソース ファイル\lib\Engine</Filter>
+      <Filter>ソース ファイル\Lib\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Light\SpotLight.cpp">
-      <Filter>ソース ファイル\lib\Engine\Light</Filter>
+      <Filter>ソース ファイル\Lib\Light</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Light\DirLight.cpp">
-      <Filter>ソース ファイル\lib\Engine\Light</Filter>
+      <Filter>ソース ファイル\Lib\Light</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Light\CircleShadow.cpp">
-      <Filter>ソース ファイル\lib\Engine\Light</Filter>
+      <Filter>ソース ファイル\Lib\Light</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Light\LightManager.cpp">
-      <Filter>ソース ファイル\lib\Engine\Light</Filter>
+      <Filter>ソース ファイル\Lib\Light</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\IModel.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj\Model</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\Material.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj\Model</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\Mesh.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj\Model</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Object3D.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene\GameScene.cpp">
       <Filter>ソース ファイル\Game\Scene</Filter>
@@ -403,172 +409,166 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\FbxModel.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj\Model</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj\Model</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\MyGame.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Framework.cpp">
-      <Filter>ソース ファイル\lib\Engine</Filter>
+      <Filter>ソース ファイル\Lib\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\Base\ICamera.cpp">
-      <Filter>ソース ファイル\lib\3D\Camera</Filter>
+      <Filter>ソース ファイル\Lib\3D\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\GameCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Pipeline\GPipeline.cpp">
-      <Filter>ソース ファイル\lib\Engine\Pipeline</Filter>
+      <Filter>ソース ファイル\Lib\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp">
-      <Filter>ソース ファイル\lib\Engine\Pipeline</Filter>
+      <Filter>ソース ファイル\Lib\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Texture\Texture.cpp">
-      <Filter>ソース ファイル\lib\2D\Texture</Filter>
+      <Filter>ソース ファイル\Lib\2D\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Texture\TextureManager.cpp">
-      <Filter>ソース ファイル\lib\2D\Texture</Filter>
+      <Filter>ソース ファイル\Lib\2D\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Window\FPSController.cpp">
-      <Filter>ソース ファイル\lib\Engine</Filter>
+      <Filter>ソース ファイル\Lib\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Input\InputManager.cpp">
-      <Filter>ソース ファイル\lib\Engine\Input</Filter>
+      <Filter>ソース ファイル\Lib\Input</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Input\InputMouse.cpp">
-      <Filter>ソース ファイル\lib\Engine\Input</Filter>
+      <Filter>ソース ファイル\Lib\Input</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Loading\ILoadingObj.cpp">
-      <Filter>ソース ファイル\lib\Loading</Filter>
+      <Filter>ソース ファイル\Lib\Loading</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Loading\LoadingModel.cpp">
-      <Filter>ソース ファイル\lib\Loading</Filter>
+      <Filter>ソース ファイル\Lib\Loading</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Loading\LoadingSprite.cpp">
-      <Filter>ソース ファイル\lib\Loading</Filter>
+      <Filter>ソース ファイル\Lib\Loading</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\Base\CameraManager.cpp">
-      <Filter>ソース ファイル\lib\3D\Camera</Filter>
+      <Filter>ソース ファイル\Lib\3D\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Pipeline\Shader.cpp">
-      <Filter>ソース ファイル\lib\Engine\Pipeline</Filter>
+      <Filter>ソース ファイル\Lib\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\ObjCamera2D.cpp">
-      <Filter>ソース ファイル\lib\3D\Camera</Filter>
+      <Filter>ソース ファイル\Lib\3D\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\ImGui\ImGuiController.cpp">
-      <Filter>ソース ファイル\lib\Engine\ImGui</Filter>
+      <Filter>ソース ファイル\Lib\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\ImGui\ImGuiManager.cpp">
-      <Filter>ソース ファイル\lib\Engine\ImGui</Filter>
+      <Filter>ソース ファイル\Lib\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\Base\Sprite.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\SplashSprite.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\DebugTextManager.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp">
-      <Filter>ソース ファイル\lib\2D\Screen</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\DepthStencil.cpp">
-      <Filter>ソース ファイル\lib\Engine\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\2D\PostEffect\GaussBlur.cpp">
-      <Filter>ソース ファイル\lib\2D\Screen</Filter>
+      <Filter>ソース ファイル\Lib\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\MeshCollider.cpp">
-      <Filter>ソース ファイル\lib\Engine\Collider</Filter>
+      <Filter>ソース ファイル\Lib\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\QueryCallBack.cpp">
-      <Filter>ソース ファイル\lib\Engine\Collider</Filter>
+      <Filter>ソース ファイル\Lib\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\SphereCollider.cpp">
-      <Filter>ソース ファイル\lib\Engine\Collider</Filter>
+      <Filter>ソース ファイル\Lib\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\CollisionPrimitive.cpp">
-      <Filter>ソース ファイル\lib\Engine\Collider</Filter>
+      <Filter>ソース ファイル\Lib\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\CollisionManager.cpp">
-      <Filter>ソース ファイル\lib\Engine\Collider</Filter>
+      <Filter>ソース ファイル\Lib\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\Collision.cpp">
-      <Filter>ソース ファイル\lib\Engine\Collider</Filter>
+      <Filter>ソース ファイル\Lib\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\BaseCollider.cpp">
-      <Filter>ソース ファイル\lib\Engine\Collider</Filter>
+      <Filter>ソース ファイル\Lib\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\BoxModel.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj\Model</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Model\ModelManager.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj\Model</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\Base\UIEditor.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene\Base\DebugScene.cpp">
-      <Filter>ソース ファイル\lib\Engine\Scene</Filter>
+      <Filter>ソース ファイル\Lib\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ConvertString.cpp">
-      <Filter>ソース ファイル\lib\Converter</Filter>
+      <Filter>ソース ファイル\Lib\Converter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ConvertAiStruct.cpp">
-      <Filter>ソース ファイル\lib\Converter</Filter>
+      <Filter>ソース ファイル\Lib\Converter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\TitleCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene\Base\SplashScreenScene.cpp">
-      <Filter>ソース ファイル\lib\Engine\Scene</Filter>
+      <Filter>ソース ファイル\Lib\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\DissolveSprite.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleManager.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIButton.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIButtonManager.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UISprite.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIPosition.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIObject.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIData.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIComponent.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIMoveAnimation.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIFadeAnimation.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIAnimationTimer.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIRotation.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\SliderSprite.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\GameOverCamera.cpp">
       <Filter>ソース ファイル\Game\Camera</Filter>
@@ -580,46 +580,46 @@
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterComponent.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterPosComp.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterScaleAnimation.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterSpdAnimation.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterSpdComp.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\ParticleEmitter.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\SpriteParticle.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ObjectParticle.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Particle.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleSpdAnimation.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleScaleAnimation.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleComponent.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleValue.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Base</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleResource.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\UI\SelectCursor.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
@@ -664,46 +664,46 @@
       <Filter>ソース ファイル\Game\Boss\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\PlaneCollider.cpp">
-      <Filter>ソース ファイル\lib\Engine\Collider</Filter>
+      <Filter>ソース ファイル\Lib\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Player\AttackState\PlayerNormalBulletState.cpp">
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\3D\Object\Object3DShilhouette.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj</Filter>
+    <ClCompile Include="Engine\3D\Object\Object3DSilhouette.cpp">
+      <Filter>ソース ファイル\Lib\3D\Obj</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Object3DAnimation.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Object3DDissolve.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Object\Object3DShadow.cpp">
-      <Filter>ソース ファイル\lib\3D\Obj</Filter>
+      <Filter>ソース ファイル\Lib\3D\Obj</Filter>
     </ClCompile>
     <ClCompile Include="Engine\3D\Camera\Base\LightCamera.cpp">
-      <Filter>ソース ファイル\lib\3D\Camera</Filter>
+      <Filter>ソース ファイル\Lib\3D\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterColor.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterConeType.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterFadeAnimation.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterRotation.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterType.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene\LoadingScene.cpp">
       <Filter>ソース ファイル\Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleFadeAnimation.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Particle\SmokeParticleEmitter.cpp">
       <Filter>ソース ファイル\Game\Effect</Filter>
@@ -712,7 +712,7 @@
       <Filter>ソース ファイル\Game\Player\AttackStatus</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterSphereType.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Particle\DeadParticleEmitter.cpp">
       <Filter>ソース ファイル\Game\Effect</Filter>
@@ -724,7 +724,7 @@
       <Filter>ソース ファイル\Game\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterLifeTime.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Boss\BossBulletState.cpp">
       <Filter>ソース ファイル\Game\Boss\State</Filter>
@@ -766,16 +766,16 @@
       <Filter>ソース ファイル\Game\EscapePod\State</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\UI\UIScaling.cpp">
-      <Filter>ソース ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Sprite\LoadSpriteAnime.cpp">
       <Filter>ソース ファイル\Game\Effect\SpriteEffect</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Json\JSONData.cpp">
-      <Filter>ソース ファイル\lib\Engine\JSON</Filter>
+      <Filter>ソース ファイル\Lib\JSON</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Json\JSONLoader.cpp">
-      <Filter>ソース ファイル\lib\Engine\JSON</Filter>
+      <Filter>ソース ファイル\Lib\JSON</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Bonfire.cpp">
       <Filter>ソース ファイル\Game</Filter>
@@ -817,7 +817,7 @@
       <Filter>ソース ファイル\Game\Boss\AttackState</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\FrameCounter.cpp">
-      <Filter>ソース ファイル\lib\Engine</Filter>
+      <Filter>ソース ファイル\Lib\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Particle\PlayerSlideEffect.cpp">
       <Filter>ソース ファイル\Game\Effect</Filter>
@@ -829,129 +829,135 @@
       <Filter>ソース ファイル\Game\Effect\SpriteEffect</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\ParticleAccComponent.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Component</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterCircumType.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterCircleType.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\2D\Particle\Emitter\EmitterAccComponent.cpp">
-      <Filter>ソース ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ソース ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\CollisionInfo.cpp">
-      <Filter>ソース ファイル\lib\Engine\Collider</Filter>
+      <Filter>ソース ファイル\Lib\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Player\Bullet\IBullet.cpp">
       <Filter>ソース ファイル\Game\Player\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="IPostEffect.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\PostEffect\PostEffectManager.cpp">
+      <Filter>ソース ファイル\Lib\PostEffect</Filter>
     </ClCompile>
-    <ClCompile Include="GrayScale.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\PostEffect\ShadowPostEffect.cpp">
+      <Filter>ソース ファイル\Lib\PostEffect</Filter>
     </ClCompile>
-    <ClCompile Include="PostEffectManager.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\PostEffect\MainPostEffect.cpp">
+      <Filter>ソース ファイル\Lib\PostEffect</Filter>
     </ClCompile>
-    <ClCompile Include="MainPostEffect.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\PostEffect\IPostEffect.cpp">
+      <Filter>ソース ファイル\Lib\PostEffect</Filter>
     </ClCompile>
-    <ClCompile Include="ShadowPostEffect.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Engine\PostEffect\GrayScale.cpp">
+      <Filter>ソース ファイル\Lib\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\PostEffect\GaussBlur.cpp">
+      <Filter>ソース ファイル\Lib\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp">
+      <Filter>ソース ファイル\Lib\2D\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Input</Filter>
+      <Filter>ヘッダー ファイル\Lib\Input</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Input\InputKeyboard.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Input</Filter>
+      <Filter>ヘッダー ファイル\Lib\Input</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\Matrix.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Math</Filter>
+      <Filter>ヘッダー ファイル\Lib\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\MyMath.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Math</Filter>
+      <Filter>ヘッダー ファイル\Lib\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Camera\Base\MyDebugCamera.h">
-      <Filter>ヘッダー ファイル\lib\3D\Camera</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\Easing.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Math</Filter>
+      <Filter>ヘッダー ファイル\Lib\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\Base\IScene.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Scene</Filter>
+      <Filter>ヘッダー ファイル\Lib\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\Base\SceneManager.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Scene</Filter>
+      <Filter>ヘッダー ファイル\Lib\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\Quaternion.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Math</Filter>
+      <Filter>ヘッダー ファイル\Lib\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Camera\Base\ICamera.h">
-      <Filter>ヘッダー ファイル\lib\3D\Camera</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Window\ViewPortScissorRect.h">
-      <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Screen</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Buffer\VertIdxBuff.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Buffer</Filter>
+      <Filter>ヘッダー ファイル\Lib\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Buffer\ConstBuff.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Buffer</Filter>
+      <Filter>ヘッダー ファイル\Lib\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\Vector\Vector2D.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Math\Vector</Filter>
+      <Filter>ヘッダー ファイル\Lib\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\Vector\Vector3D.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Math\Vector</Filter>
+      <Filter>ヘッダー ファイル\Lib\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\Vector\Vector4D.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Math\Vector</Filter>
+      <Filter>ヘッダー ファイル\Lib\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\Base\AbstractSceneFactory.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Scene\Factory</Filter>
+      <Filter>ヘッダー ファイル\Lib\Scene\Factory</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\DirectX.h">
-      <Filter>ヘッダー ファイル\lib\Engine</Filter>
+      <Filter>ヘッダー ファイル\Lib\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Audio\XAudioManager.h">
-      <Filter>ヘッダー ファイル\lib\Engine</Filter>
+      <Filter>ヘッダー ファイル\Lib\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Window\Window.h">
-      <Filter>ヘッダー ファイル\lib\Engine</Filter>
+      <Filter>ヘッダー ファイル\Lib\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Buffer\VertexStruct.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Buffer</Filter>
+      <Filter>ヘッダー ファイル\Lib\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Light\LightManager.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Light</Filter>
+      <Filter>ヘッダー ファイル\Lib\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Light\DirLight.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Light</Filter>
+      <Filter>ヘッダー ファイル\Lib\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Light\PointLight.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Light</Filter>
+      <Filter>ヘッダー ファイル\Lib\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Light\SpotLight.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Light</Filter>
+      <Filter>ヘッダー ファイル\Lib\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Light\CircleShadow.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Light</Filter>
+      <Filter>ヘッダー ファイル\Lib\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\Mesh.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj\Model</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\IModel.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj\Model</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\Material.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj\Model</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Light\DistanceFog.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Light</Filter>
+      <Filter>ヘッダー ファイル\Lib\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\GameScene.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
@@ -960,193 +966,190 @@
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\FbxModel.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj\Model</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\ObjModel.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj\Model</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\MyGame.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Framework.h">
-      <Filter>ヘッダー ファイル\lib\Engine</Filter>
+      <Filter>ヘッダー ファイル\Lib\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Camera\GameCamera.h">
       <Filter>ヘッダー ファイル\Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Texture\Texture.h">
-      <Filter>ヘッダー ファイル\lib\2D\Texture</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Texture\TextureManager.h">
-      <Filter>ヘッダー ファイル\lib\2D\Texture</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Pipeline\GPipeline.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Pipeline</Filter>
+      <Filter>ヘッダー ファイル\Lib\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Pipeline\PipelineManager.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Pipeline</Filter>
+      <Filter>ヘッダー ファイル\Lib\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Window\FPSController.h">
-      <Filter>ヘッダー ファイル\lib\Engine</Filter>
+      <Filter>ヘッダー ファイル\Lib\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Input\InputManager.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Input</Filter>
+      <Filter>ヘッダー ファイル\Lib\Input</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Input\InputMouse.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Input</Filter>
+      <Filter>ヘッダー ファイル\Lib\Input</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Loading\LoadingSprite.h">
-      <Filter>ヘッダー ファイル\lib\Loading</Filter>
+      <Filter>ヘッダー ファイル\Lib\Loading</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Loading\LoadingModel.h">
-      <Filter>ヘッダー ファイル\lib\Loading</Filter>
+      <Filter>ヘッダー ファイル\Lib\Loading</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Loading\ILoadingObj.h">
-      <Filter>ヘッダー ファイル\lib\Loading</Filter>
+      <Filter>ヘッダー ファイル\Lib\Loading</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Camera\Base\CameraManager.h">
-      <Filter>ヘッダー ファイル\lib\3D\Camera</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Buffer\ConstBuffStruct.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Buffer</Filter>
+      <Filter>ヘッダー ファイル\Lib\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Pipeline\Shader.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Pipeline</Filter>
+      <Filter>ヘッダー ファイル\Lib\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Object3D.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Camera\ObjCamera2D.h">
-      <Filter>ヘッダー ファイル\lib\3D\Camera</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\ImGui\ImGuiManager.h">
-      <Filter>ヘッダー ファイル\lib\Engine\ImGui</Filter>
+      <Filter>ヘッダー ファイル\Lib\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\ImGui\ImGuiController.h">
-      <Filter>ヘッダー ファイル\lib\Engine\ImGui</Filter>
+      <Filter>ヘッダー ファイル\Lib\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\Base\Sprite.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\DebugTextManager.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\SplashSprite.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\PostEffect\PlanePolygon.h">
-      <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Screen</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\DepthStencil.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\2D\PostEffect\GaussBlur.h">
-      <Filter>ヘッダー ファイル\lib\2D\Screen</Filter>
+      <Filter>ヘッダー ファイル\Lib\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\SphereCollider.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\BaseCollider.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\Collision.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\CollisionAttribute.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\CollisionInfo.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\CollisionManager.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\CollisionPrimitive.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\CollisionType.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\MeshCollider.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\QueryCallBack.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\RayCast.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\BoxModel.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj\Model</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\ModelManager.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj\Model</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\Base\UIEditor.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\Base\DebugScene.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Scene</Filter>
+      <Filter>ヘッダー ファイル\Lib\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ConvertAiStruct.h">
-      <Filter>ヘッダー ファイル\lib\Converter</Filter>
+      <Filter>ヘッダー ファイル\Lib\Converter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ConvertString.h">
-      <Filter>ヘッダー ファイル\lib\Converter</Filter>
+      <Filter>ヘッダー ファイル\Lib\Converter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Model\AnimationStruct.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj\Model</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj\Model</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIData.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Camera\TitleCamera.h">
       <Filter>ヘッダー ファイル\Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\Base\SplashScreenScene.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Scene</Filter>
+      <Filter>ヘッダー ファイル\Lib\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\DissolveSprite.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ParticleManager.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Base</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Pipeline\BlendMord.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Pipeline</Filter>
+      <Filter>ヘッダー ファイル\Lib\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIButton.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIButtonManager.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UISprite.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIPosition.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIObject.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIComponent.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIMoveAnimation.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIFadeAnimation.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIAnimationTimer.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIRotation.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\SliderSprite.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\GameOverCamera.h">
       <Filter>ヘッダー ファイル\Game\Camera</Filter>
@@ -1164,46 +1167,46 @@
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterComponent.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterPosComp.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterScaleAnimation.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterSpdAnimation.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterSpdComp.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\ParticleEmitter.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Particle.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Base</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\SpriteParticle.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Base</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ObjectParticle.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Base</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ParticleValue.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Base</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Base</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ParticleSpdAnimation.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ParticleScaleAnimation.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ParticleResource.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ParticleComponent.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\FireParticleEmitter.h">
       <Filter>ヘッダー ファイル\Game\Effect</Filter>
@@ -1242,46 +1245,46 @@
       <Filter>ヘッダー ファイル\Game\Boss\State</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\PlaneCollider.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Collider</Filter>
+      <Filter>ヘッダー ファイル\Lib\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Player\AttackState\PlayerNormalBulletState.h">
       <Filter>ヘッダー ファイル\Game\Player\AttackState</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\3D\Object\Object3DShilhouette.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj</Filter>
+    <ClInclude Include="Engine\3D\Object\Object3DSilhouette.h">
+      <Filter>ヘッダー ファイル\Lib\3D\Obj</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Object3DAnimation.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Object3DDissolve.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Object\Object3DShadow.h">
-      <Filter>ヘッダー ファイル\lib\3D\Obj</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Obj</Filter>
     </ClInclude>
     <ClInclude Include="Engine\3D\Camera\Base\LightCamera.h">
-      <Filter>ヘッダー ファイル\lib\3D\Camera</Filter>
+      <Filter>ヘッダー ファイル\Lib\3D\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\RootParameterIdx.h">
-      <Filter>ヘッダー ファイル\lib\Engine</Filter>
+      <Filter>ヘッダー ファイル\Lib\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterColor.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterConeType.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterFadeAnimation.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterRotation.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterType.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ParticleFadeAnimation.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\SmokeParticleEmitter.h">
       <Filter>ヘッダー ファイル\Game\Effect</Filter>
@@ -1293,7 +1296,7 @@
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterSphereType.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\DeadParticleEmitter.h">
       <Filter>ヘッダー ファイル\Game\Effect</Filter>
@@ -1305,7 +1308,7 @@
       <Filter>ヘッダー ファイル\Game\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterLifeTime.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Boss\EnemyBullet.h">
       <Filter>ヘッダー ファイル\Game\Boss</Filter>
@@ -1347,10 +1350,10 @@
       <Filter>ヘッダー ファイル\Game\EscapePod\State</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Sprite\UI\UIScaling.h">
-      <Filter>ヘッダー ファイル\lib\2D\Sprite\UI\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Sprite\UI\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\Base\SceneFactory.h">
-      <Filter>ヘッダー ファイル\lib\Engine\Scene\Factory</Filter>
+      <Filter>ヘッダー ファイル\Lib\Scene\Factory</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Bonfire.h">
       <Filter>ヘッダー ファイル\Game</Filter>
@@ -1359,10 +1362,10 @@
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Json\JSONLoader.h">
-      <Filter>ヘッダー ファイル\lib\Engine\JSON</Filter>
+      <Filter>ヘッダー ファイル\Lib\JSON</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Json\JSONData.h">
-      <Filter>ヘッダー ファイル\lib\Engine\JSON</Filter>
+      <Filter>ヘッダー ファイル\Lib\JSON</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\EscapePod\PodInputUI.h">
       <Filter>ヘッダー ファイル\Game\EscapePod</Filter>
@@ -1404,7 +1407,7 @@
       <Filter>ヘッダー ファイル\Game\Effect\SpriteEffect</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\FrameCounter.h">
-      <Filter>ヘッダー ファイル\lib\Engine</Filter>
+      <Filter>ヘッダー ファイル\Lib\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\PlayerSlideEffect.h">
       <Filter>ヘッダー ファイル\Game\Effect</Filter>
@@ -1416,34 +1419,37 @@
       <Filter>ヘッダー ファイル\Game\Effect\SpriteEffect</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterAccComponent.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterCircleType.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterCircumType.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Emitter</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Engine\2D\Particle\ParticleAccComponent.h">
-      <Filter>ヘッダー ファイル\lib\2D\Particle\Component</Filter>
+      <Filter>ヘッダー ファイル\Lib\2D\Particle\Component</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Player\Bullet\IBullet.h">
       <Filter>ヘッダー ファイル\Game\Player\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="IPostEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\PostEffect\GrayScale.h">
+      <Filter>ヘッダー ファイル\Lib\PostEffect</Filter>
     </ClInclude>
-    <ClInclude Include="GrayScale.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\PostEffect\IPostEffect.h">
+      <Filter>ヘッダー ファイル\Lib\PostEffect</Filter>
     </ClInclude>
-    <ClInclude Include="PostEffectManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\PostEffect\MainPostEffect.h">
+      <Filter>ヘッダー ファイル\Lib\PostEffect</Filter>
     </ClInclude>
-    <ClInclude Include="MainPostEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\PostEffect\PostEffectManager.h">
+      <Filter>ヘッダー ファイル\Lib\PostEffect</Filter>
     </ClInclude>
-    <ClInclude Include="ShadowPostEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\PostEffect\ShadowPostEffect.h">
+      <Filter>ヘッダー ファイル\Lib\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\2D\PostEffect\GaussBlur.h">
+      <Filter>ヘッダー ファイル\Lib\PostEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1462,13 +1468,13 @@
     <None Include="Resources\Shader\ObjShadowHeader.hlsli">
       <Filter>リソース ファイル\ObjShader\Shadow</Filter>
     </None>
-    <None Include="Resources\Shader\ShadowRecieverHeader.hlsli">
-      <Filter>リソース ファイル\ObjShader\ShadowReciever</Filter>
+    <None Include="Resources\Shader\ShadowReceiverHeader.hlsli">
+      <Filter>リソース ファイル\ObjShader\ShadowReceiver</Filter>
     </None>
     <None Include="Resources\Shader\BlurHeader.hlsli">
       <Filter>リソース ファイル\BlurShader</Filter>
     </None>
-    <None Include="Resources\Shader\GlayScaleHeader.hlsli">
+    <None Include="Resources\Shader\GrayScaleHeader.hlsli">
       <Filter>リソース ファイル\ScreenShader</Filter>
     </None>
     <None Include="Resources\Shader\DissolveSpriteHeader.hlsli">
@@ -1512,11 +1518,11 @@
     <FxCompile Include="Resources\Shader\ObjShadowVS.hlsl">
       <Filter>リソース ファイル\ObjShader\Shadow</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\ShadowRecieverPS.hlsl">
-      <Filter>リソース ファイル\ObjShader\ShadowReciever</Filter>
+    <FxCompile Include="Resources\Shader\ShadowReceiverPS.hlsl">
+      <Filter>リソース ファイル\ObjShader\ShadowReceiver</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\ShadowRecieverVS.hlsl">
-      <Filter>リソース ファイル\ObjShader\ShadowReciever</Filter>
+    <FxCompile Include="Resources\Shader\ShadowReceiverVS.hlsl">
+      <Filter>リソース ファイル\ObjShader\ShadowReceiver</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\YBlurVS.hlsl">
       <Filter>リソース ファイル\BlurShader</Filter>
@@ -1527,7 +1533,7 @@
     <FxCompile Include="Resources\Shader\XBlurVS.hlsl">
       <Filter>リソース ファイル\BlurShader</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\LuminncePS.hlsl">
+    <FxCompile Include="Resources\Shader\LuminancePS.hlsl">
       <Filter>リソース ファイル\ScreenShader</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\ScreenShadowPS.hlsl">
@@ -1536,7 +1542,7 @@
     <FxCompile Include="Resources\Shader\SilhouettePS.hlsl">
       <Filter>リソース ファイル\ObjShader</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\GlayScalePS.hlsl">
+    <FxCompile Include="Resources\Shader\GrayScalePS.hlsl">
       <Filter>リソース ファイル\ScreenShader</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\DepthOfFieldPS.hlsl">

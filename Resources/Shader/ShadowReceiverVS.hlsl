@@ -1,4 +1,4 @@
-#include "ShadowRecieverHeader.hlsli"
+#include "ShadowReceiverHeader.hlsli"
 
 SkinOutput ComputeSkin(float4 pos : POSITION, float3 normal : NORMAL, uint4 boneIndices : BONEINDICES, float4 boneWeights : BONEWEIGHTS)
 {

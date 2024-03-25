@@ -1,6 +1,5 @@
 #pragma once
 #include "GPipeline.h"
-#include <vector>
 #include <memory>
 #include <string>
 #include <map>
@@ -16,53 +15,9 @@ namespace MNE
 	class PipelineManager
 	{
 	private:
-		std::map<std::string, std::unique_ptr<GPipeline>, std::less<>> pipelines_;
-
-#pragma region Sprite
-
-		std::vector<std::unique_ptr<GPipeline>> spritePipeline_;
-		std::unique_ptr<GPipeline> loadingSpritePipe_;		//	Loading用
-		std::unique_ptr<GPipeline> dissolveSpritePipe_;		//	シーン遷移用
-
-#pragma endregion
-
-#pragma region Model
-
-		std::unique_ptr<GPipeline> modelSilhouettePipe_;		//	Obj3D単色シェーダー
-		std::vector<std::unique_ptr<GPipeline>> modelPipeline_;
-		std::unique_ptr<GPipeline> shadowPipeline_;
-		std::unique_ptr<GPipeline> shadowRecieverPipeline_;
-
-#pragma endregion
-
-#pragma region Particle
-
-		std::vector<std::unique_ptr<GPipeline>> particlePipeline_;
-
-#pragma endregion
-
-#pragma region PostEffect
-
-		std::unique_ptr<GPipeline> postEffectPipeline_;
-		std::unique_ptr<GPipeline> postShadowPipeline_;
-		std::unique_ptr<GPipeline> luminncePipeline_;
-		std::unique_ptr<GPipeline> xBlurPipeline_;
-		std::unique_ptr<GPipeline> yBlurPipeline_;
-		std::unique_ptr<GPipeline> luminncexBlurPipeline_;
-		std::unique_ptr<GPipeline> luminnceyBlurPipeline_;
-		std::unique_ptr<GPipeline> glayScalePipeline_;
-		std::unique_ptr<GPipeline> dofPipeline_;
-
-#pragma endregion
-
-	private:
-		void InitializeSprite();
-		void InitializeParticle();
-		void InitializePostEffect();
-		void InitializeModel();
-
 		PipelineManager() {};
 		~PipelineManager() {};
+
 	public:
 		static PipelineManager* GetInstance();
 		//	コピーコンストラクタ無効
@@ -75,9 +30,40 @@ namespace MNE
 		* 初期化用関数
 		*/
 		void Initialize();
+		/**
+		* @fn ImGuiUpdate()
+		* ImGui更新用関数
+		*/
+		void ImGuiUpdate();
+
+	private:
+		//	パイプラインのマップ
+		std::map<std::string, std::unique_ptr<GPipeline>, std::less<>> pipelines_;
+
+	private:
+		void InitializeSprite();
+		void InitializeParticle();
+		void InitializePostEffect();
+		void InitializeModel();
+
+	public:
+		bool FindPipeline(const std::string& name);
+
+		GPipeline* AddPipeline(std::unique_ptr<GPipeline>& pipeline, const std::string& name);
+		
+		GPipeline* AddPipeline(std::unique_ptr<GPipeline>& pipeline, const std::string& name, int32_t blend);
+
+		void DeletePipeline(const std::string& name);
 
 #pragma region Getter
 
+		/**
+		* @fn GetPipeline(const std::string&)
+		* 引数で指定したパイプラインを返す関数
+		* @param name パイプラインの名前
+		* @return 引数で指定したパイプラインを返す
+		*/
+		GPipeline* GetPipeline(const std::string& name);
 		/**
 		* @fn GetPipeline(const std::string&, GPipeline::BlendMode)
 		* 引数で指定したパイプラインを返す関数
@@ -85,7 +71,7 @@ namespace MNE
 		* @param blend パイプラインのブレンドの種類指定
 		* @return 引数で指定したパイプラインを返す
 		*/
-		GPipeline* GetPipeline(const std::string& name, Blend::BlendMode blend = Blend::NONE_BLEND);
+		GPipeline* GetPipeline(const std::string& name, Blend::BlendMode blend);
 
 #pragma endregion
 	};

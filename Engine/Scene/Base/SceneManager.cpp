@@ -23,6 +23,7 @@
 #include "PostEffectManager.h"
 #include "ShadowPostEffect.h"
 #include "MainPostEffect.h"
+#include "GaussBlur.h"
 
 using namespace MNE;
 using namespace MyMath;
@@ -87,19 +88,23 @@ void SceneManager::Initialize()
 	PostEffectManager* peMan = PostEffectManager::GetInstance();
 	std::unique_ptr<IPostEffect> postEffect;
 
+	//	ShadowMap
 	Vector4D clearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	postEffect = std::make_unique<ShadowPostEffect>();
-	postEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "shadow", 2, DXGI_FORMAT_R32G32_FLOAT);
-	postEffect->SetClearColor(clearColor);
+	std::unique_ptr<ShadowPostEffect> shadowMap = std::make_unique<ShadowPostEffect>();
+	shadowMap->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "shadow", 2, DXGI_FORMAT_R32G32_FLOAT);
+	shadowMap->SetClearColor(clearColor);
+	postEffect = std::move(shadowMap);
 	/*IPostEffect* shadowPtr = */peMan->AddPostEffectBack(postEffect);
 
-	//GaussBlur shadowBlur;
-	//shadowBlur.Initialize(shadowPtr, DXGI_FORMAT_R32G32_FLOAT);
-	//shadowBlur.SetClearColor(clearColor);
-	//shadowBlur.SetPipeline(PipelineManager::GetInstance()->GetPipeline("xBlur"),
-	//	PipelineManager::GetInstance()->GetPipeline("yBlur"));
-	//shadowBlur.SetWeight(1.0f);
+	////	ShadowGaussBlur
+	//std::unique_ptr<GaussBlur> gaussBlur = std::make_unique<GaussBlur>();
+	//gaussBlur->Initialize(shadowPtr);
+	//gaussBlur->SetClearColor(clearColor);
+	//gaussBlur->SetWeight(1.0f);
+	//GaussBlur* shadowBlur = peMan->AddGaussBlur(gaussBlur);
+	//Object3D::SetShadowMapTex(shadowBlur->GetBlurredTexture());
 
+	//	Main
 	clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 	std::unique_ptr<MainPostEffect> main = std::make_unique<MainPostEffect>();
 	main->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "main", 2, DXGI_FORMAT_R11G11B10_FLOAT);
@@ -107,29 +112,34 @@ void SceneManager::Initialize()
 	postEffect = std::move(main);
 	IPostEffect* mainPtr = peMan->AddPostEffectBack(postEffect);
 
+	//	Luminance
 	postEffect = std::make_unique<IPostEffect>();
 	postEffect->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "luminance", 2, DXGI_FORMAT_R11G11B10_FLOAT);
 	postEffect->SetOriginalPostEffect(mainPtr);
 	postEffect->SetClearColor(clearColor);
 	postEffect->SetMode(MainPostEffect::Luminance);
+	//postEffect->SetGPipeline(PipelineManager::GetInstance()->GetPipeline("MainPostEffect"));
 
 	IPostEffect* luminancePtr = peMan->AddPostEffectBack(postEffect);
 
-	luminanceBlur.Initialize(luminancePtr, DXGI_FORMAT_R11G11B10_FLOAT);
-	//luminanceBlur.SetClearColor(clearColor);
-	//luminanceBlur.SetPipeline(PipelineManager::GetInstance()->GetPipeline("luminncexBlur"),
-	//	PipelineManager::GetInstance()->GetPipeline("luminnceyBlur"));
-	luminanceBlur.SetWeight(5.0f);
+	//	LuminanceGaussBlur
+	std::unique_ptr<GaussBlur> gaussBlur = std::make_unique<GaussBlur>();
+	gaussBlur->Initialize(luminancePtr);
+	gaussBlur->SetClearColor(clearColor);
+	gaussBlur->SetWeight(5.0f);
+	GaussBlur* luminanceBlur = peMan->AddGaussBlur(gaussBlur);
 
 	MainPostEffect* mainPE = dynamic_cast<MainPostEffect*>(mainPtr);
-	mainPE->SetLuminanceTex(0, luminanceBlur.GetTexture(0));
+	mainPE->SetLuminanceTex(0, luminanceBlur->GetBlurredTexture());
 
+	//	GrayScale
 	std::unique_ptr<GrayScale> gray = std::make_unique<GrayScale>();
 	gray->Initialize(Window::sWIN_WIDTH, Window::sWIN_HEIGHT, "Gray", 2, DXGI_FORMAT_R11G11B10_FLOAT);
 	gray->SetOriginalPostEffect(mainPtr);
 	postEffect = std::move(gray);
 	IPostEffect* grayPtr = peMan->AddPostEffectBack(postEffect);
 	UIEditor::GetInstance()->SetGrayScalePE(dynamic_cast<GrayScale*>(grayPtr));
+	peMan->SetBackBuffer(grayPtr);
 
 #pragma endregion
 
@@ -336,7 +346,7 @@ void MNE::SceneManager::DrawBackBuffer()
 	dx->PrevDraw();
 
 	//	最後の描画
-	PostEffectManager::GetInstance()->DrawBack();
+	PostEffectManager::GetInstance()->DrawBackBuffer();
 
 	loading_.Draw();
 
@@ -349,7 +359,6 @@ void MNE::SceneManager::DrawBackBuffer()
 
 void SceneManager::Draw()
 {
-
 #pragma region DrawScreen
 
 	PostEffectManager::GetInstance()->Update();
@@ -366,11 +375,6 @@ void SceneManager::Draw()
 	if (endLoading_) TextureManager::GetInstance()->UploadTexture();
 }
 
-void SceneManager::ChangeScreenAlpha(float alpha)
-{
-	blackScreen_.SetAlphaColor(alpha);
-}
-
 void SceneManager::SceneChange()
 {
 	if (nextScene_ != nullptr) {
@@ -382,6 +386,34 @@ void SceneManager::SceneChange()
 		SceneInitialize();
 		nextScene_.release();
 	}
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+bool MNE::SceneManager::GetIsDrawShadow()
+{
+	return drawShadow_;
+}
+
+bool MNE::SceneManager::GetGameLoop()
+{
+	return gameLoop_;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
+void MNE::SceneManager::GameLoopEnd()
+{
+	gameLoop_ = false;
+}
+
+void SceneManager::ChangeScreenAlpha(float alpha)
+{
+	blackScreen_.SetAlphaColor(alpha);
 }
 
 void SceneManager::SetNextScene(const std::string& sceneName)

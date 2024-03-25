@@ -41,6 +41,7 @@ namespace MNE
 		virtual void Draw();
 
 	private:
+		static Texture* sShadowMapTex_;
 
 		MNE::ICamera* camera_ = nullptr;
 
@@ -77,7 +78,7 @@ namespace MNE
 	protected:
 		void DrawModel(int32_t& rootParaIdx);
 	private:
-		void DrawShadowReciever(int32_t& nextIdx);
+		void DrawShadowReceiver(int32_t& nextIdx);
 
 	public:
 		virtual void OnCollision(CollisionInfo& info) { (void)info; }
@@ -99,6 +100,7 @@ namespace MNE
 
 	#pragma region Setter
 
+		static void SetShadowMapTex(Texture* tex);
 		void SetModel(IModel* model);
 		void SetCollider(BaseCollider* collider);
 		void SetAttribute(unsigned short attribute);

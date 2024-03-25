@@ -32,17 +32,15 @@ namespace MNE
 	{
 	public:
 		/**
-		* @fn Initialize(float, PostEffect*, DXGI_FORMAT)
+		* @fn Initialize(float, PostEffect*)
 		* 初期化用関数
-		* @param weight ブラーの強さ
-		* @param original ブラーをかける前の画像
-		* @param index ブラーかけた後の結果のフォーマット指定
+		* @param original ブラーをかける元のポストエフェクト
 		*/
-		void Initialize(IPostEffect* original, DXGI_FORMAT format);
+		void Initialize(IPostEffect* original);
 
 	private:
-		GaussBlurPostEffect* blurX_ = nullptr;
-		GaussBlurPostEffect* blurY_ = nullptr;
+		IPostEffect* blurX_ = nullptr;
+		IPostEffect* blurY_ = nullptr;
 
 		Texture* tex;
 
@@ -54,17 +52,18 @@ namespace MNE
 
 	#pragma endregion
 
+	private:
+		void AddPipeline(DXGI_FORMAT format);
+
 	public:
 
 	#pragma region Getter
 
 		/**
-		* @fn GetTexture(int32_t)
+		* @fn GetBlurredTexture()
 		* ブラーかけた後の結果を返す関数
-		* @param index 画像のインデックス
-		* @return ブラーかけた後の結果
 		*/
-		Texture* GetTexture(int32_t /*index*/) { return tex; }
+		Texture* GetBlurredTexture();
 
 	#pragma endregion
 

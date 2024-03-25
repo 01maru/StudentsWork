@@ -11,6 +11,7 @@ namespace MNE
 			INV_BLEND,
 			ALPHA_BLEND,
 			NONE_BLEND,
+			TOTAL_BLEND,
 		};
 	}
 }

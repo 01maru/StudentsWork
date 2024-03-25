@@ -3,6 +3,7 @@
 #include "DirectX.h"
 #include "TextureManager.h"
 #include "PipelineManager.h"
+#include "Shader.h"
 #include <cassert>
 
 using namespace MNE;
@@ -21,7 +22,26 @@ void MNE::GrayScale::Initialize(int32_t width, int32_t height, const std::string
 
 #pragma endregion
 
-	pipeline_ = PipelineManager::GetInstance()->GetPipeline("glayScale");
+#pragma region Pipeline
+
+	PipelineManager* pipeMan = PipelineManager::GetInstance();
+	std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout = {
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT,
+		D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },	//	xyz座標
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT,
+		D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }		//	uv座標
+	};
+
+	Shader shader("ScreenVS", "GrayScalePS");
+
+	std::unique_ptr<GPipeline> pipeline = std::make_unique<GPipeline>();
+	pipeline->Initialize(shader, inputLayout, 2, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
+		D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO,
+		true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB);
+
+	pipeline_ = pipeMan->AddPipeline(pipeline, "GrayScale");
+
+#pragma endregion
 
 	IPostEffect::Initialize(width, height, name, textureNum, format);
 }
@@ -44,6 +64,15 @@ void MNE::GrayScale::Draw(int32_t /*mode*/)
 	activeGray_.SetGraphicsRootCBuffView(rootParaIdx++);
 
 	PlanePolygon::DrawIndexedInstanced();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+bool MNE::GrayScale::GetActiveGrayScale()
+{
+	return cGrayScaleMap_->active;
 }
 
 //-----------------------------------------------------------------------------

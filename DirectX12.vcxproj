@@ -138,8 +138,8 @@
     <ClCompile Include="Engine\Game\UI\ExplanatoryText.cpp" />
     <ClCompile Include="Engine\Base\Json\JSONData.cpp" />
     <ClCompile Include="Engine\Game\Player\Bullet\IBullet.cpp" />
-    <ClCompile Include="GrayScale.cpp" />
-    <ClCompile Include="IPostEffect.cpp" />
+    <ClCompile Include="Engine\PostEffect\GrayScale.cpp" />
+    <ClCompile Include="Engine\PostEffect\IPostEffect.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\3D\Object\Model\ObjModel.cpp" />
     <ClCompile Include="Engine\Base\Pipeline\PipelineManager.cpp" />
@@ -173,7 +173,7 @@
     <ClCompile Include="Engine\3D\Object\Object3DAnimation.cpp" />
     <ClCompile Include="Engine\3D\Object\Object3DDissolve.cpp" />
     <ClCompile Include="Engine\3D\Object\Object3DShadow.cpp" />
-    <ClCompile Include="Engine\3D\Object\Object3DShilhouette.cpp" />
+    <ClCompile Include="Engine\3D\Object\Object3DSilhouette.cpp" />
     <ClCompile Include="Engine\2D\Particle\ParticleFadeAnimation.cpp" />
     <ClCompile Include="Engine\Game\Player\AttackState\PlayerSlowAttack.cpp" />
     <ClCompile Include="Engine\Game\Particle\SmokeParticleEmitter.cpp" />
@@ -190,9 +190,9 @@
     <ClCompile Include="Engine\2D\Particle\ParticleAccComponent.cpp" />
     <ClCompile Include="Engine\Game\Particle\PlayerLandEffect.cpp" />
     <ClCompile Include="Engine\Game\Particle\PlayerSlideEffect.cpp" />
-    <ClCompile Include="MainPostEffect.cpp" />
-    <ClCompile Include="PostEffectManager.cpp" />
-    <ClCompile Include="ShadowPostEffect.cpp" />
+    <ClCompile Include="Engine\PostEffect\MainPostEffect.cpp" />
+    <ClCompile Include="Engine\PostEffect\PostEffectManager.cpp" />
+    <ClCompile Include="Engine\PostEffect\ShadowPostEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\2D\Particle\Emitter\EmitterAccComponent.h" />
@@ -358,7 +358,7 @@
     <ClInclude Include="Engine\3D\Object\Object3DAnimation.h" />
     <ClInclude Include="Engine\3D\Object\Object3DDissolve.h" />
     <ClInclude Include="Engine\3D\Object\Object3DShadow.h" />
-    <ClInclude Include="Engine\3D\Object\Object3DShilhouette.h" />
+    <ClInclude Include="Engine\3D\Object\Object3DSilhouette.h" />
     <ClInclude Include="Engine\Base\RootParameterIdx.h" />
     <ClInclude Include="Engine\Scene\LoadingScene.h" />
     <ClInclude Include="Engine\2D\Particle\ParticleFadeAnimation.h" />
@@ -384,11 +384,11 @@
     <ClInclude Include="Engine\2D\Particle\ParticleAccComponent.h" />
     <ClInclude Include="Engine\Game\Particle\PlayerLandEffect.h" />
     <ClInclude Include="Engine\Game\Particle\PlayerSlideEffect.h" />
-    <ClInclude Include="GrayScale.h" />
-    <ClInclude Include="IPostEffect.h" />
-    <ClInclude Include="MainPostEffect.h" />
-    <ClInclude Include="PostEffectManager.h" />
-    <ClInclude Include="ShadowPostEffect.h" />
+    <ClInclude Include="Engine\PostEffect\GrayScale.h" />
+    <ClInclude Include="Engine\PostEffect\IPostEffect.h" />
+    <ClInclude Include="Engine\PostEffect\MainPostEffect.h" />
+    <ClInclude Include="Engine\PostEffect\PostEffectManager.h" />
+    <ClInclude Include="Engine\PostEffect\ShadowPostEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
@@ -401,13 +401,13 @@
   <ItemGroup>
     <None Include="Resources\Shader\DissolveHeader.hlsli" />
     <None Include="Resources\Shader\DissolveSpriteHeader.hlsli" />
-    <None Include="Resources\Shader\GlayScaleHeader.hlsli" />
+    <None Include="Resources\Shader\GrayScaleHeader.hlsli" />
     <None Include="Resources\Shader\BlurHeader.hlsli" />
     <None Include="Resources\Shader\ObjShadowHeader.hlsli" />
     <None Include="Resources\Shader\Particle.hlsli" />
     <None Include="Resources\Shader\ObjHeader.hlsli" />
     <None Include="Resources\Shader\ScreenHeader.hlsli" />
-    <None Include="Resources\Shader\ShadowRecieverHeader.hlsli" />
+    <None Include="Resources\Shader\ShadowReceiverHeader.hlsli" />
     <None Include="Resources\Shader\SpriteHeader.hlsli" />
   </ItemGroup>
   <ItemGroup>
@@ -437,7 +437,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\GlayScalePS.hlsl">
+    <FxCompile Include="Resources\Shader\GrayScalePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
@@ -453,7 +453,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\LuminncePS.hlsl">
+    <FxCompile Include="Resources\Shader\LuminancePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
@@ -541,7 +541,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\ShadowRecieverPS.hlsl">
+    <FxCompile Include="Resources\Shader\ShadowReceiverPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
@@ -549,7 +549,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\ShadowRecieverVS.hlsl">
+    <FxCompile Include="Resources\Shader\ShadowReceiverVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
@@ -650,7 +650,7 @@
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\Particle\Emitter;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Json;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\UI;$(ProjectDir)Engine\Game\Boss;$(ProjectDir)Engine\Game\Boss\AttackState;$(ProjectDir)Engine\Game\Boss\State;$(ProjectDir)Engine\Game\Player;$(ProjectDir)Engine\Game\Player\MoveState;$(ProjectDir)Engine\Game\Player\AttackState;$(ProjectDir)Engine\Game\Player\Bullet;$(ProjectDir)Engine\Game\Player\UI;$(ProjectDir)Engine\Game\EscapePod;$(ProjectDir)Engine\Game\EscapePod\State;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\Particle\Emitter;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Json;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\UI;$(ProjectDir)Engine\Game\Boss;$(ProjectDir)Engine\Game\Boss\AttackState;$(ProjectDir)Engine\Game\Boss\State;$(ProjectDir)Engine\Game\Player;$(ProjectDir)Engine\Game\Player\MoveState;$(ProjectDir)Engine\Game\Player\AttackState;$(ProjectDir)Engine\Game\Player\Bullet;$(ProjectDir)Engine\Game\Player\UI;$(ProjectDir)Engine\Game\EscapePod;$(ProjectDir)Engine\Game\EscapePod\State;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\PostEffect;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -678,7 +678,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <Optimization>MinSpace</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\Particle\Emitter;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Json;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\UI;$(ProjectDir)Engine\Game\Boss;$(ProjectDir)Engine\Game\Boss\AttackState;$(ProjectDir)Engine\Game\Boss\State;$(ProjectDir)Engine\Game\Player;$(ProjectDir)Engine\Game\Player\MoveState;$(ProjectDir)Engine\Game\Player\AttackState;$(ProjectDir)Engine\Game\Player\Bullet;$(ProjectDir)Engine\Game\Player\UI;$(ProjectDir)Engine\Game\EscapePod;$(ProjectDir)Engine\Game\EscapePod\State;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Engine\2D;$(ProjectDir)Engine\2D\Loading;$(ProjectDir)Engine\2D\Particle;$(ProjectDir)Engine\2D\Particle\Emitter;$(ProjectDir)Engine\2D\PostEffect;$(ProjectDir)Engine\2D\Sprite;$(ProjectDir)Engine\2D\Sprite\UI;$(ProjectDir)Engine\2D\Sprite\Base;$(ProjectDir)Engine\2D\Texture;$(ProjectDir)Engine\3D\Camera;$(ProjectDir)Engine\3D\Camera\Base;$(ProjectDir)Engine\3D\Light;$(ProjectDir)Engine\3D\Object;$(ProjectDir)Engine\3D\Object\Model;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\Audio;$(ProjectDir)Engine\Base\Buffer;$(ProjectDir)Engine\Base\ImGui;$(ProjectDir)Engine\Base\Input;$(ProjectDir)Engine\Base\Pipeline;$(ProjectDir)Engine\Base\Json;$(ProjectDir)Engine\Base\Window;$(ProjectDir)Engine\Collider;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\UI;$(ProjectDir)Engine\Game\Boss;$(ProjectDir)Engine\Game\Boss\AttackState;$(ProjectDir)Engine\Game\Boss\State;$(ProjectDir)Engine\Game\Player;$(ProjectDir)Engine\Game\Player\MoveState;$(ProjectDir)Engine\Game\Player\AttackState;$(ProjectDir)Engine\Game\Player\Bullet;$(ProjectDir)Engine\Game\Player\UI;$(ProjectDir)Engine\Game\EscapePod;$(ProjectDir)Engine\Game\EscapePod\State;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\PostEffect;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Base;$(ProjectDir)Engine;$(ProjectDir)</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>

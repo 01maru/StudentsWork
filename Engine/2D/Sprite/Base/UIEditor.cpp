@@ -452,9 +452,9 @@ void MNE::UIEditor::ImGuiUpdate()
 	imguiMan->SameLine();
 	if (imguiMan->SetButton("Load")) LoadEditFileData();
 
-	imguiMan->CheckBox("GlayScale", activeGlayscale_);
-
-	grayScale_->SetActiveGrayScale(activeGlayscale_);
+	bool activeGS = grayScale_->GetActiveGrayScale();
+	imguiMan->CheckBox("ActiveGrayScale", activeGS);
+	grayScale_->SetActiveGrayScale(activeGS);
 
 	imguiMan->CheckBox("Animation", editAnimation_);
 	
@@ -542,11 +542,6 @@ void MNE::UIEditor::Draw()
 //-----------------------------------------------------------------------------
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
-
-bool MNE::UIEditor::GetActiveGlayscale()
-{
-	return activeGlayscale_;
-}
 
 bool MNE::UIEditor::GetEditUI()
 {
