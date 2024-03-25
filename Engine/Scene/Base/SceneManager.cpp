@@ -342,11 +342,12 @@ void MNE::SceneManager::DrawScene()
 void MNE::SceneManager::DrawBackBuffer()
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
+	PostEffectManager* peMan = PostEffectManager::GetInstance();
 
-	dx->PrevDraw();
+	dx->PrevDraw(peMan->GetBackBufferPtr()->GetClearColor());
 
 	//	最後の描画
-	PostEffectManager::GetInstance()->DrawBackBuffer();
+	peMan->DrawBackBuffer();
 
 	loading_.Draw();
 

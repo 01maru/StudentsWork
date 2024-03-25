@@ -136,7 +136,7 @@ void MNE::IPostEffect::Update()
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 
-	dx->PrevPostEffect(this, clearColor_);
+	dx->PrevPostEffect(this);
 
 	if (originalPE_ != nullptr)
 	{

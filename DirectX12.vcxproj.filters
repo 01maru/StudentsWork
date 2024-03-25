@@ -304,9 +304,6 @@
     <Filter Include="ヘッダー ファイル\Lib\Math\Vector">
       <UniqueIdentifier>{34de8827-480c-4077-95e2-05d12216df3c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Lib\Pipeline">
-      <UniqueIdentifier>{d94b1615-03ab-4b7e-818a-00af1be4797c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Lib\Scene">
       <UniqueIdentifier>{ee7eeafa-ba10-4f48-adda-53d851321279}</UniqueIdentifier>
     </Filter>
@@ -318,6 +315,9 @@
     </Filter>
     <Filter Include="リソース ファイル\ObjShader\ShadowReceiver">
       <UniqueIdentifier>{6fd680be-0d9a-425b-a586-ecafb87ec5cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Lib\Pipeline">
+      <UniqueIdentifier>{d94b1615-03ab-4b7e-818a-00af1be4797c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

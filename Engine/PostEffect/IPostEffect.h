@@ -75,6 +75,9 @@ namespace MNE
 		Texture* GetTexture(int32_t index = 0);
 		std::string GetName();
 		DXGI_FORMAT GetFormat();
+		ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }
+		ID3D12DescriptorHeap* GetRTVHeap() { return rtvHeap_.Get(); }
+		ID3D12DescriptorHeap* GetDSVHeap() { return dsv_.GetDSVHeap(); }
 
 #pragma endregion
 
@@ -85,9 +88,6 @@ namespace MNE
 		void SetGPipelineAndIAVertIdxBuff();
 		void SetMode(int32_t mode);
 		void SetGPipeline(GPipeline* pipeline);
-		ID3D12Resource* GetTextureBuff(int32_t index = 0) { return texture_[index]->GetResourceBuff(); }
-		ID3D12DescriptorHeap* GetRTVHeap() { return rtvHeap_.Get(); }
-		ID3D12DescriptorHeap* GetDSVHeap() { return dsv_.GetDSVHeap(); }
 		void SetColor(const MyMath::Vector4D& color);
 		void SetClearColor(const MyMath::Vector4D& color);
 		void SetOriginalPostEffect(IPostEffect* original);

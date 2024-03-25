@@ -99,6 +99,11 @@ MNE::IPostEffect* MNE::PostEffectManager::GetPostEffect(const std::string& name)
 	return nullptr;
 }
 
+MNE::IPostEffect* MNE::PostEffectManager::GetBackBufferPtr()
+{
+	return backBuffer_;
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Setter
 //-----------------------------------------------------------------------------

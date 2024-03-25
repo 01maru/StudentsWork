@@ -43,7 +43,7 @@ void MNE::MainPostEffect::Update()
 {
 	MyDirectX* dx = MyDirectX::GetInstance();
 
-	dx->PrevPostEffect(this, clearColor_);
+	dx->PrevPostEffect(this);
 
 	SceneManager::GetInstance()->DrawScene();
 

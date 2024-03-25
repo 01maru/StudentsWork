@@ -36,6 +36,7 @@ namespace MNE
 
 		std::list<std::unique_ptr<IPostEffect>>::iterator GetPostEffectItr(const std::string& name);
 		IPostEffect* GetPostEffect(const std::string& name);
+		IPostEffect* GetBackBufferPtr();
 
 #pragma endregion
 

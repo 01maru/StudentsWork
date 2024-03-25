@@ -18,6 +18,25 @@ namespace MNE
 	class MyDirectX
 	{
 	private:
+		MyDirectX() {};
+		~MyDirectX() {};
+
+	public:
+		static MyDirectX* GetInstance();
+		MyDirectX(const MyDirectX& obj) = delete;
+		MyDirectX& operator=(const MyDirectX& obj) = delete;
+
+		void Initialize();
+
+		void PrevPostEffect(MNE::IPostEffect* postEffect);
+		void PostEffectDraw(MNE::IPostEffect* postEffect);
+
+		void PrevDraw(const MyMath::Vector4D& clearColor);
+		void PostDraw();
+
+		void DrawEnd();
+
+	private:
 		template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
 		ComPtr<ID3D12Device> device_;
@@ -59,24 +78,9 @@ namespace MNE
 			D3D12_CPU_DESCRIPTOR_HANDLE& rtvHandle, D3D12_CPU_DESCRIPTOR_HANDLE& dsvHandle, int32_t rtDescNum = 1, const MyMath::Vector4D& clearColor = MyMath::Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
 		void CmdListCloseAndFlip();
 
-		MyDirectX() {};
-		~MyDirectX() {};
 	public:
-		static MyDirectX* GetInstance();
-		MyDirectX(const MyDirectX& obj) = delete;
-		MyDirectX& operator=(const MyDirectX& obj) = delete;
+#pragma region Getter
 
-		void Initialize();
-
-		void PrevPostEffect(MNE::IPostEffect* postEffect, const MyMath::Vector4D& clearColor = MyMath::Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
-		void PostEffectDraw(MNE::IPostEffect* postEffect);
-
-		void PrevDraw(const MyMath::Vector4D& clearColor = MyMath::Vector4D(0.1f, 0.25f, 0.5f, 0.0f));
-		void PostDraw();
-
-		void DrawEnd();
-
-		//	Getter
 		const D3D12_CPU_DESCRIPTOR_HANDLE GetCPUSRVHeapForHeapStart() { return srvHeap_->GetCPUDescriptorHandleForHeapStart(); }
 		const D3D12_GPU_DESCRIPTOR_HANDLE GetGPUSRVHeapForHeapStart() { return srvHeap_->GetGPUDescriptorHandleForHeapStart(); }
 
@@ -85,6 +89,8 @@ namespace MNE
 		ID3D12GraphicsCommandList* GetCmdList() { return cmdList_.Get(); }
 		D3D12_RESOURCE_DESC GetBackBuffDesc() { return backBuffers_[0]->GetDesc(); }
 		D3D12_DESCRIPTOR_HEAP_DESC GetRTVHeapDesc() { return rtvHeap_->GetDesc(); }
+
+#pragma endregion
 	};
 
 }
