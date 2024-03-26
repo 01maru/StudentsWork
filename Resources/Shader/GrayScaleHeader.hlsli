@@ -3,9 +3,9 @@ cbuffer ConstBufferDataMaterial:register(b0)
 	float4 color;	//	RGBA
 };
 
-cbuffer CBuffActiveGlayScale:register(b1)
+cbuffer CBuffActiveGrayScale:register(b1)
 {
-	bool activeGlayScale;	//	RGBA
+	bool activeGrayScale;	//	RGBA
 };
 
 struct VSOutput

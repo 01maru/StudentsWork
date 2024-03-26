@@ -16,7 +16,7 @@ namespace MNE
 	class BaseCollider;
 	namespace CBuff {
 		struct CBuffObj3DTransform;
-		struct CBuffColorMaterial;
+		struct CBuffObjColorMaterial;
 	}
 	class GPipeline;
 	class ICamera;
@@ -41,6 +41,7 @@ namespace MNE
 		virtual void Draw();
 
 	private:
+		static Texture* sShadowMapTex_;
 
 		MNE::ICamera* camera_ = nullptr;
 
@@ -55,7 +56,7 @@ namespace MNE
 	
 		MNE::CBuff::CBuffObj3DTransform* cTransformMap_ = nullptr;
 
-		MNE::CBuff::CBuffColorMaterial* cColorMap_ = nullptr;
+		MNE::CBuff::CBuffObjColorMaterial* cColorMap_ = nullptr;
 
 		MNE::ConstBuff transform_;
 		MNE::ConstBuff colorMaterial_;
@@ -77,7 +78,7 @@ namespace MNE
 	protected:
 		void DrawModel(int32_t& rootParaIdx);
 	private:
-		void DrawShadowReciever(int32_t& nextIdx);
+		void DrawShadowReceiver(int32_t& nextIdx);
 
 	public:
 		virtual void OnCollision(CollisionInfo& info) { (void)info; }
@@ -99,6 +100,7 @@ namespace MNE
 
 	#pragma region Setter
 
+		static void SetShadowMapTex(Texture* tex);
 		void SetModel(IModel* model);
 		void SetCollider(BaseCollider* collider);
 		void SetAttribute(unsigned short attribute);
@@ -109,6 +111,7 @@ namespace MNE
 		void SetScale(const MyMath::Vector3D& scale) { mat_.scale_ = scale; }
 		void SetRotation(const MyMath::Vector3D& rot) { mat_.angle_ = rot; }
 		void SetCamera(MNE::ICamera* camera) { camera_ = camera; }
+		void SetActiveBloom(bool active);
 
 		void SetRotMatrix(const MyMath::Matrix& mat) { mat_.matRot_ = mat; }
 

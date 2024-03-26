@@ -22,7 +22,7 @@ void MNE::SpriteParticle::Initialize()
 	result = transform_.GetResource()->Map(0, nullptr, (void**)&cTransformMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
-	colorMaterial_.Initialize(sizeof(MNE::CBuff::CBuffColorMaterial));
+	colorMaterial_.Initialize(sizeof(MNE::CBuff::CBuffObjColorMaterial));
 	//	定数バッファのマッピング
 	result = colorMaterial_.GetResource()->Map(0, nullptr, (void**)&cColorMap_);	//	マッピング
 	assert(SUCCEEDED(result));

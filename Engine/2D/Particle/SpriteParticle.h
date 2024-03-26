@@ -18,7 +18,7 @@ namespace MNE
 #pragma region 前置宣言
 
 	namespace CBuff {
-		struct CBuffColorMaterial;
+		struct CBuffObjColorMaterial;
 		struct CBufferParticleTransform;
 	}
 
@@ -51,7 +51,7 @@ namespace MNE
 		MNE::CBuff::CBufferParticleTransform* cTransformMap_ = nullptr;
 		//	色
 		MNE::ConstBuff colorMaterial_;
-		MNE::CBuff::CBuffColorMaterial* cColorMap_ = nullptr;
+		MNE::CBuff::CBuffObjColorMaterial* cColorMap_ = nullptr;
 
 	#pragma endregion
 

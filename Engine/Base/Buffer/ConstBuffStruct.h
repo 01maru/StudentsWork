@@ -27,6 +27,11 @@ namespace MNE
 			float scale;
 		};
 
+		struct CBuffObjColorMaterial {
+			MyMath::Vector4D color;	//	RGBA
+			bool bloomActive;
+		};
+
 		struct CBuffColorMaterial {
 			MyMath::Vector4D color;	//	RGBA
 		};
@@ -36,7 +41,7 @@ namespace MNE
 			float value;
 		};
 
-		struct CBuffGlayScale {
+		struct CBuffGrayScale {
 			bool active;
 		};
 

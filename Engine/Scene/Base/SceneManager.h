@@ -1,12 +1,9 @@
 #pragma once
 #include "AbstractSceneFactory.h"
 #include "IScene.h"
-#include "PostEffect.h"
 #include <future>
-#include "GaussBlur.h"
-#include "GlayScale.h"
-#include "SplashScreenScene.h"
 
+#include "SplashScreenScene.h"
 #include "LoadingScene.h"
 
 namespace MNE
@@ -26,6 +23,8 @@ namespace MNE
 		void Initialize();
 		void Finalize();
 		void Update();
+		void DrawShadow();
+		void DrawScene();
 		void Draw();
 
 	private:
@@ -53,26 +52,15 @@ namespace MNE
 
 #pragma endregion
 
-#pragma region PostEffect
-		std::unique_ptr<PostEffect> mainScene;
-		std::unique_ptr<PostEffect> luminnce;
-
-		std::unique_ptr<PostEffect> shadowEffect;
-		std::unique_ptr<GaussBlur> luminnceBulr;
-		std::unique_ptr<GaussBlur> shadowBulr;
-		std::unique_ptr<GlayScale> glayscale;
-
-		std::unique_ptr<GaussBlur> strongBulr;
-		std::unique_ptr<GaussBlur> weakBulr;
-#pragma endregion
-
 	private:	//	関数
 		void SplashUpdate();
 		void AllSceneUpdate();
 		void SceneAsyncInitialize();
 		void SceneAsyncUpdate();
 		void SceneUpdate();
-		void ImguiUpdate();
+		void ImGuiUpdate();
+
+		void DrawBackBuffer();
 
 		void SceneInitialize();		//	SplashScreen用
 		void FirstScreenInitialize();
@@ -81,15 +69,14 @@ namespace MNE
 	public:
 #pragma region Getter
 
-		bool GetIsDrawShadow() { return drawShadow_; }
-		bool GetGameLoop() { return gameLoop_; }
-		Texture* GetShadowMap() { return shadowEffect->GetTexture(0); }
+		bool GetIsDrawShadow();
+		bool GetGameLoop();
 
 #pragma endregion
 
 #pragma region Setter
 
-		void GameLoopEnd() { gameLoop_ = false; }
+		void GameLoopEnd();
 		void ChangeScreenAlpha(float alpha);
 		void SetNextScene(const std::string& sceneName);
 

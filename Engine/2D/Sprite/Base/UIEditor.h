@@ -16,6 +16,7 @@ namespace MNE
 #pragma region 前置宣言
 
 	class UIAnimationTimer;
+	class GrayScale;
 
 #pragma endregion
 
@@ -49,9 +50,10 @@ namespace MNE
 
 		uint16_t drawTag_ = 0;
 
-		bool activeGlayscale_ = false;
 		bool editUI_ = false;
 		bool editAnimation_ = false;
+
+		GrayScale* grayScale_ = nullptr;
 
 	private:
 		/**
@@ -100,12 +102,6 @@ namespace MNE
 	#pragma region Getter
 
 		/**
-		* @fn GetActiveGlayscale()
-		* activeGlayscale_のGetter関数
-		* @return activeGlayscale_の値
-		*/
-		bool GetActiveGlayscale();
-		/**
 		* @fn GetEditUI()
 		* editUI_のGetter関数
 		* @return editUI_の値
@@ -113,6 +109,8 @@ namespace MNE
 		bool GetEditUI();
 
 	#pragma endregion
+
+		void SetGrayScalePE(GrayScale* grayScale);
 	};
 
 }

@@ -18,6 +18,8 @@
 
 using namespace MyMath;
 
+MNE::Texture* MNE::Object3D::sShadowMapTex_ = nullptr;
+
 MNE::Object3D::~Object3D()
 {
 	if (collider_) {
@@ -37,10 +39,12 @@ void MNE::Object3D::Initialize()
 	result = transform_.GetResource()->Map(0, nullptr, (void**)&cTransformMap_);	//	マッピング
 	assert(SUCCEEDED(result));
 
-	colorMaterial_.Initialize(sizeof(MNE::CBuff::CBuffColorMaterial));
+	colorMaterial_.Initialize(sizeof(MNE::CBuff::CBuffObjColorMaterial));
 	//	定数バッファのマッピング
 	result = colorMaterial_.GetResource()->Map(0, nullptr, (void**)&cColorMap_);	//	マッピング
 	assert(SUCCEEDED(result));
+
+	cColorMap_->bloomActive = FALSE;
 
 #pragma endregion
 
@@ -117,13 +121,12 @@ void MNE::Object3D::DrawModel(int32_t& rootParaIdx)
 	model_->Draw(rootParaIdx++);
 }
 
-void MNE::Object3D::DrawShadowReciever(int32_t& nextIdx)
+void MNE::Object3D::DrawShadowReceiver(int32_t& nextIdx)
 {
 	//	影の影響を受けないなら
 	if (!shadowReciev_) return;
 
-	Texture* shadowmap = SceneManager::GetInstance()->GetShadowMap();
-	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(shadowmap->GetHandle()));
+	MyDirectX::GetInstance()->GetCmdList()->SetGraphicsRootDescriptorTable(nextIdx++, TextureManager::GetInstance()->GetTextureHandle(sShadowMapTex_->GetHandle()));
 
 	LightCamera* camera = dynamic_cast<LightCamera*>(CameraManager::GetInstance()->GetLightCamera());
 	camera->SetGraphicsRootCBuffView(nextIdx++);
@@ -141,7 +144,7 @@ void MNE::Object3D::Draw()
 
 		GPipeline* pipeline = nullptr;
 		if (shadowReciev_ == true) {
-			pipeline = PipelineManager::GetInstance()->GetPipeline("ShadowReciever");
+			pipeline = PipelineManager::GetInstance()->GetPipeline("ShadowReceiver");
 		}
 		else {
 			pipeline = PipelineManager::GetInstance()->GetPipeline("Model", Blend::ALPHA_BLEND);
@@ -149,7 +152,7 @@ void MNE::Object3D::Draw()
 		pipeline->SetGraphicsRootSignature();
 		pipeline->SetPipeStateAndPrimitive(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		DrawShadowReciever(nextIdx);
+		DrawShadowReceiver(nextIdx);
 
 		DrawModel(nextIdx);
 	}
@@ -193,9 +196,19 @@ void MNE::Object3D::SetAlphaColor(float alpha)
 	color_.w = alpha;
 }
 
+void MNE::Object3D::SetActiveBloom(bool active)
+{
+	cColorMap_->bloomActive = active;
+}
+
 void MNE::Object3D::SetAttribute(uint16_t attribute)
 {
 	collider_->SetAttribute(attribute);
+}
+
+void MNE::Object3D::SetShadowMapTex(Texture* tex)
+{
+	sShadowMapTex_ = tex;
 }
 
 void MNE::Object3D::SetModel(IModel* model)

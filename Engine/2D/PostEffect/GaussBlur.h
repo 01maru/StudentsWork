@@ -1,7 +1,6 @@
 #pragma once
-#include "PostEffect.h"
-#include "ConstBuff.h"
-#include "GPipeline.h"
+#include "IPostEffect.h"
+#include <array>
 #include <memory>
 
 /**
@@ -11,54 +10,68 @@
 
 namespace MNE
 {
+	class GaussBlur;
+	namespace CBuff
+	{
+		struct CBufferBlurWeight;
+	}
+
+	class GaussBlurPostEffect :public IPostEffect
+	{
+	public:
+		void Draw(int32_t mode = 0) override;
+
+	private:
+		GaussBlur* parent_ = nullptr;
+
+	public:
+		void SetGaussBlur(GaussBlur* gaussBlur);
+	};
 
 	class GaussBlur
 	{
+	public:
+		/**
+		* @fn Initialize(float, PostEffect*)
+		* 初期化用関数
+		* @param original ブラーをかける元のポストエフェクト
+		*/
+		void Initialize(IPostEffect* original);
+
 	private:
-		std::unique_ptr<MNE::PostEffect> blurX_;
-		std::unique_ptr<MNE::PostEffect> blurY_;
+		IPostEffect* blurX_ = nullptr;
+		IPostEffect* blurY_ = nullptr;
 
-		MNE::GPipeline* pipeline[2];
-
-		MNE::PostEffect* original_ = nullptr;
+		Texture* tex;
 
 	#pragma region ConstBuff
 
-		MNE::ConstBuff weight_;
-		std::vector<float> weights_;
+		CBuff::CBufferBlurWeight* mapWeight_ = nullptr;
+		ConstBuff weight_;
+		std::array<float, MyMath::WEIDHTS_NUM> weights_;
 
 	#pragma endregion
 
+	private:
+		void AddPipeline(DXGI_FORMAT format);
+
 	public:
-		/**
-		* @fn Initialize(float, PostEffect*, DXGI_FORMAT)
-		* 初期化用関数
-		* @param weight ブラーの強さ
-		* @param original ブラーをかける前の画像
-		* @param index ブラーかけた後の結果のフォーマット指定
-		*/
-		void Initialize(float weight, MNE::PostEffect* original, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
-		/**
-		* @fn Draw()
-		* 描画処理関数
-		*/
-		void Draw();
 
 	#pragma region Getter
 
 		/**
-		* @fn GetTexture(int32_t)
+		* @fn GetBlurredTexture()
 		* ブラーかけた後の結果を返す関数
-		* @param index 画像のインデックス
-		* @return ブラーかけた後の結果
 		*/
-		Texture* GetTexture(int32_t index) { return blurY_->GetTexture(index); }
+		Texture* GetBlurredTexture();
 
 	#pragma endregion
 
 	#pragma region Setter
 
-		void SetPipeline(MNE::GPipeline* blurXPipeline, MNE::GPipeline* blurYPipeline);
+		void SetWeightGraphicsRootCBuffView(int32_t rootparaIdx);
+		void SetWeight(float weight);
+		void SetPipeline(GPipeline* blurXPipeline, GPipeline* blurYPipeline);
 		void SetClearColor(const MyMath::Vector4D& color);
 
 	#pragma endregion

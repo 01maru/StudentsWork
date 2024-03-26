@@ -42,6 +42,7 @@ cbuffer skinning:register(b2)
 cbuffer CBuffColorMaterial:register(b3)
 {
 	float4 materialColor;
+	uint bloomActive;
 }
 
 cbuffer ConstBufferDataMaterial:register(b4)
