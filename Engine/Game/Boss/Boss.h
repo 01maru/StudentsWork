@@ -59,7 +59,6 @@ private:
 
 	//	体に触れたらダメージを与えるようフラグ
 	bool bodyAt_ = false;
-	//bool isSecondForm_ = false;
 	int32_t nowForm_ = FirstForm;
 
 	MyMath::Vector3D frontVec_ = { 0.0f,0.0f,-1.0f };
@@ -70,9 +69,16 @@ private:
 
 	bool isDeathState_ = false;
 
+	//	Debug用
+	int32_t nowState_ = 0;
+	bool stopState_ = FALSE;
+
 	int32_t prevAtState_ = NoAtState;
 	//	攻撃ステート連続回数
 	int16_t consecutiveAtState_ = 0;
+
+private:
+	void ImGuiSelectState();
 
 public:
 	/**
@@ -175,6 +181,8 @@ public:
 	* @param next 次のステート
 	*/
 	void SetCurrentState(std::unique_ptr<BossState>& next);
+
+	void SetCurrentState(int32_t nextState);
 	/**
 	* @fn SetPlayer(Player*)
 	* プレイヤーのポインター設定用関数

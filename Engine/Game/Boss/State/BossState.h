@@ -24,6 +24,8 @@ public:
 	*/
 	virtual void Update() {};
 
+	virtual void ImGuiUpdate() {};
+
 protected:
 	//	親ポインタ
 	static Boss* sBoss_;

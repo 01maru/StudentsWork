@@ -115,7 +115,7 @@ void BossBeamState::RayCollisionUpdate(BeamInfo& info)
 			//	攻撃中だったらダメージを与える
 			if (attacking_ == TRUE)
 			{
-				//sBoss_->GetPlayerPtr()->DecHP(1);
+				sBoss_->GetPlayerPtr()->DecHP(sBoss_->GetBeamDamage());
 			}
 
 			//	回避中タイマーカウント中だったら止める

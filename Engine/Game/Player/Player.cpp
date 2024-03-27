@@ -86,7 +86,7 @@ void Player::Initialize(MNE::IModel* model)
 
 void Player::CalcMoveVec(const MyMath::Vector2D& inputVec)
 {
-	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+	ICamera* camera = CameraManager::GetInstance()->GetMainCamera();
 	Vector3D inputMoveVec = inputVec.y * camera->GetFrontVec() + inputVec.x * camera->GetRightVec();
 	inputMoveVec.y = 0.0f;			//	平面上のベクトルにするためにY軸は常に0.0f
 
@@ -263,7 +263,7 @@ void Player::JumpUpdate()
 
 void Player::CameraUpdate()
 {
-	ICamera* camera = CameraManager::GetInstance()->GetCamera();
+	ICamera* camera = CameraManager::GetInstance()->GetMainCamera();
 	//	頭の中心
 	Vector3D target = mat_.trans_ + Vector3D(0.0f, 1.5f, 0.0f);
 	//	スピードによる補間

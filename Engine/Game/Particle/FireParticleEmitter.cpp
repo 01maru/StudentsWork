@@ -62,7 +62,7 @@ std::unique_ptr<ParticleEmitter>& FireParticleEmitter::GetEmitter()
 	SetPosComponent();
 
 	EmitterColor* color = emitter_->AddComponent<EmitterColor>();
-	Vector3D redColor(3.0f, 0.1f, 0.1f);
+	Vector3D redColor(6.0f, 0.1f, 0.1f);
 	color->SetColor(redColor);
 	color->SetActiveBloom(true);
 

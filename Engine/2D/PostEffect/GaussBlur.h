@@ -19,6 +19,7 @@ namespace MNE
 	class GaussBlurPostEffect :public IPostEffect
 	{
 	public:
+		void Update() override;
 		void Draw(int32_t mode = 0) override;
 
 	private:
@@ -26,6 +27,7 @@ namespace MNE
 
 	public:
 		void SetGaussBlur(GaussBlur* gaussBlur);
+		void SetOriginalPipeline(GPipeline* pipeline);
 	};
 
 	class GaussBlur
@@ -39,8 +41,8 @@ namespace MNE
 		void Initialize(IPostEffect* original);
 
 	private:
-		IPostEffect* blurX_ = nullptr;
-		IPostEffect* blurY_ = nullptr;
+		GaussBlurPostEffect* blurX_ = nullptr;
+		GaussBlurPostEffect* blurY_ = nullptr;
 
 		Texture* tex;
 

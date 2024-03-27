@@ -13,6 +13,26 @@ using namespace MNE;
 //////////////////////////////GaussBlurPostEffect//////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
+void MNE::GaussBlurPostEffect::Update()
+{
+	MyDirectX* dx = MyDirectX::GetInstance();
+
+	dx->PrevPostEffect(this);
+
+	if (originalPE_ != nullptr)
+	{
+		SetGPipelineAndIAVertIdxBuff();
+
+		int32_t rootParaIdx = 0;
+		originalPE_->SetGraphicsRoot(rootParaIdx);
+		parent_->SetWeightGraphicsRootCBuffView(rootParaIdx++);
+
+		originalPE_->DrawIndexedInstanced();
+	}
+
+	dx->PostEffectDraw(this);
+}
+
 //-----------------------------------------------------------------------------
 // [SECTION] Draw
 //-----------------------------------------------------------------------------
@@ -25,7 +45,7 @@ void MNE::GaussBlurPostEffect::Draw(int32_t /*mode*/)
 	SetGraphicsRoot(rootParaIdx);
 	parent_->SetWeightGraphicsRootCBuffView(rootParaIdx++);
 
-	originalPE_->DrawIndexedInstanced();
+	DrawIndexedInstanced();
 }
 
 //-----------------------------------------------------------------------------
@@ -35,6 +55,11 @@ void MNE::GaussBlurPostEffect::Draw(int32_t /*mode*/)
 void MNE::GaussBlurPostEffect::SetGaussBlur(GaussBlur* gaussBlur)
 {
 	parent_ = gaussBlur;
+}
+
+void MNE::GaussBlurPostEffect::SetOriginalPipeline(GPipeline* pipeline)
+{
+	originalPE_->SetGPipeline(pipeline);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -71,7 +96,7 @@ void MNE::GaussBlur::Initialize(IPostEffect* original)
 		blurX->SetGaussBlur(this);
 
 		blur = std::move(blurX);
-		blurX_ = peMan->AddPostEffectBack(blur);
+		blurX_ = dynamic_cast<GaussBlurPostEffect*>(peMan->AddPostEffectBack(blur));
 	}
 
 	if (blurY_ == nullptr)
@@ -85,7 +110,7 @@ void MNE::GaussBlur::Initialize(IPostEffect* original)
 
 		blur = std::move(blurY);
 
-		blurY_ = peMan->AddPostEffectBack(blur);
+		blurY_ = dynamic_cast<GaussBlurPostEffect*>(peMan->AddPostEffectBack(blur));
 	}
 
 	AddPipeline(original->GetFormat());

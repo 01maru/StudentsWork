@@ -19,6 +19,7 @@ namespace MNE
 		bool activeLightManager_ = false;
 		bool activeParticleManager_ = false;
 		bool activeModelManager_ = false;
+		bool activeSceneManager_ = false;
 
 	private:	//	関数
 		ImGuiController() {};
@@ -85,6 +86,7 @@ namespace MNE
 		* @return activeModelManager_の値
 		*/
 		bool GetActiveModelManager() { return activeModelManager_; }
+		bool GetActiveSceneManager() { return activeSceneManager_; }
 
 	#pragma endregion
 	};

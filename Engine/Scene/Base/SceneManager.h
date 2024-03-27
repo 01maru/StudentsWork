@@ -28,12 +28,14 @@ namespace MNE
 		void Draw();
 
 	private:
+		bool debugging_ = FALSE;
+
 		bool drawShadow_ = false;
 		bool gameLoop_ = true;
 
 		std::unique_ptr<IScene> scene_;
 		std::unique_ptr<IScene> nextScene_;
-		std::unique_ptr<AbstractSceneFactory> sceneFactry_;
+		std::unique_ptr<AbstractSceneFactory> sceneFactory_;
 
 		Sprite blackScreen_;
 
@@ -65,6 +67,8 @@ namespace MNE
 		void SceneInitialize();		//	SplashScreen用
 		void FirstScreenInitialize();
 		void SceneChange();
+
+		void SceneManagerImGuiUpdate();
 
 	public:
 #pragma region Getter

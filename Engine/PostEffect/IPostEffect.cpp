@@ -152,6 +152,8 @@ void MNE::IPostEffect::Update()
 
 void MNE::IPostEffect::Draw(int32_t /*mode*/)
 {
+	//SetGPipelineAndIAVertIdxBuff();
+
 	int32_t rootParaIdx = 0;
 	SetGraphicsRoot(rootParaIdx);
 

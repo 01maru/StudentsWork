@@ -10,7 +10,6 @@
 
 #include "IGameState.h"
 #include "CollisionManager.h"
-#include "BossIdleState.h"
 
 #include "BossBulletState.h"
 #include "BossWayBullets.h"
@@ -19,6 +18,9 @@
 #include "BossRockFallState.h"
 #include "BossBeamState.h"
 #include "BossTornadoState.h"
+#include "BossRoarState.h"
+#include "BossIdleState.h"
+#include "BossDeathState.h"
 
 using namespace MNE;
 using namespace MyMath;
@@ -120,29 +122,7 @@ void Boss::CalcPriority(bool isClose, float normLen)
 	}
 
 	//	次のステートへ
-	std::unique_ptr<BossState> next;
-	if (nextState == Boss::BulletState) {
-		next = std::make_unique<BossBulletState>();
-	}
-	else if (nextState == Boss::WayBulletsState) {
-		next = std::make_unique<BossWayBullets>();
-	}
-	else if (nextState == Boss::BeamState) {
-		next = std::make_unique<BossBeamState>();
-	}
-	else if (nextState == Boss::JumpAtState) {
-		next = std::make_unique<BossJumpAtState>();
-	}
-	else if (nextState == Boss::RockFallState) {
-		next = std::make_unique<BossRockFallState>();
-	}
-	else if (nextState == Boss::BumpState) {
-		next = std::make_unique<BossBumpAtState>();
-	}
-	else if (nextState == Boss::Tornado) {
-		next = std::make_unique<BossTornadoState>();
-	}
-	SetCurrentState(next);
+	SetCurrentState(nextState);
 
 	SetAtState(nextState);
 }
@@ -156,7 +136,7 @@ void Boss::Update()
 
 	currentState_->SetStateForSpecificSituation();
 
-	currentState_->Update();
+	if (stopState_ == FALSE) currentState_->Update();
 
 	if (hp_.GetIsAlive() == true) {
 
@@ -197,6 +177,65 @@ void Boss::ImGuiMenuUpdate()
 	}
 }
 
+void Boss::ImGuiSelectState()
+{
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
+
+	if (imGui->CollapsingHeader("State")) {
+		imGui->CheckBox("StopState", stopState_);
+
+		int32_t prevState = nowState_;
+		imGui->SetRadioButton("Bullet", nowState_, BulletState);
+		imGui->SameLine();
+		imGui->SetRadioButton("WayBullet", nowState_, WayBulletsState);
+		imGui->SameLine();
+		imGui->SetRadioButton("Beam", nowState_, BeamState);
+		imGui->SameLine();
+		imGui->SetRadioButton("JumpAt", nowState_, JumpAtState);
+
+		imGui->SetRadioButton("Rock", nowState_, RockFallState);
+		imGui->SameLine();
+		imGui->SetRadioButton("Bump", nowState_, BumpState);
+		imGui->SameLine();
+		imGui->SetRadioButton("Tornado", nowState_, Tornado);
+
+		imGui->SetRadioButton("Idol", nowState_, IdolState);
+		imGui->SameLine();
+		imGui->SetRadioButton("Start", nowState_, StartState);
+		imGui->SameLine();
+		imGui->SetRadioButton("Roar", nowState_, RoarState);
+		imGui->SameLine();
+		imGui->SetRadioButton("Death", nowState_, DeathState);
+
+		//	ステート変更
+		if (prevState != nowState_)
+		{
+			SetCurrentState(nowState_);
+		}
+
+		imGui->Text("BodyAttack : %s", bodyAt_ ? "TRUE" : "FALSE");
+
+		if (imGui->TreeNode("AttackStateAI")) {
+			imGui->Text("NowState : %d", nowState_);
+			imGui->Text("prevAtState : %d", prevAtState_);
+			imGui->Text("ConsecutiveAtState : %d", consecutiveAtState_);
+
+			imGui->TreePop();
+		}
+
+		if (imGui->TreeNode("CurrentState")) {
+			if (imGui->TreeNode("StateData")) {
+				ImGuiStateUpdate(nowState_);
+
+				imGui->TreePop();
+			}
+			currentState_->ImGuiUpdate();
+
+			imGui->TreePop();
+		}
+	}
+}
+
 void Boss::ImGuiUpdate()
 {
 	ImGuiManager* imGui = ImGuiManager::GetInstance();
@@ -205,20 +244,18 @@ void Boss::ImGuiUpdate()
 
 	ImGuiMenuUpdate();
 
-	imGui->Text("frontVec : (%.2f, %.2f, %.2f)", frontVec_.x, frontVec_.y, frontVec_.z);
+	ImGuiSelectState();
 
-	if (imGui->CollapsingHeader("State")) {
-		//moveState_->ImGuiUpdate();
+	if (imGui->CollapsingHeader("Model")) {
+		//imGui->Text("animationTimer : %d", animationTimer_);
+		imGui->Text("angle : %.2f", mat_.angle_.y);
+		imGui->Text("frontVec : (%.2f, %.2f, %.2f)", frontVec_.x, frontVec_.y, frontVec_.z);
 	}
-
-	//if (imGui->CollapsingHeader("Model")) {
-	//	imGui->Text("animationTimer : %d", animationTimer_);
-	//	imGui->Text("angle : %.2f", mat_.angle_.y);
-	//}
 
 	if (imGui->CollapsingHeader("HP")) {
 		imGui->Text("isAlive : %s", hp_.GetIsAlive() ? "TRUE" : "FALSE");
 		imGui->Text("HP : %d", hp_.GetHP());
+		imGui->Text("NowForm(FirstForm : 0 SecondForm : 1) : %d", nowForm_);
 
 		imGui->InputInt("MaxHP", maxHP_);
 		hp_.SetMaxHP(maxHP_);
@@ -343,6 +380,45 @@ void Boss::SetCurrentState(std::unique_ptr<BossState>& next)
 {
 	currentState_ = std::move(next);
 	currentState_->Initialize();
+}
+
+void Boss::SetCurrentState(int32_t nextState)
+{
+	std::unique_ptr<BossState> next;
+	if (nextState == Boss::BulletState) {
+		next = std::make_unique<BossBulletState>();
+	}
+	else if (nextState == Boss::WayBulletsState) {
+		next = std::make_unique<BossWayBullets>();
+	}
+	else if (nextState == Boss::BeamState) {
+		next = std::make_unique<BossBeamState>();
+	}
+	else if (nextState == Boss::JumpAtState) {
+		next = std::make_unique<BossJumpAtState>();
+	}
+	else if (nextState == Boss::RockFallState) {
+		next = std::make_unique<BossRockFallState>();
+	}
+	else if (nextState == Boss::BumpState) {
+		next = std::make_unique<BossBumpAtState>();
+	}
+	else if (nextState == Boss::Tornado) {
+		next = std::make_unique<BossTornadoState>();
+	}
+	else if (nextState == Boss::IdolState) {
+		next = std::make_unique<BossIdleState>();
+	}
+	else if (nextState == Boss::StartState) {
+		next = std::make_unique<BossStartState>();
+	}
+	else if (nextState == Boss::RoarState) {
+		next = std::make_unique<BossRoarState>();
+	}
+	else if (nextState == Boss::DeathState) {
+		next = std::make_unique<BossDeathState>();
+	}
+	SetCurrentState(next);
 }
 
 void Boss::SetPlayer(Player* player)

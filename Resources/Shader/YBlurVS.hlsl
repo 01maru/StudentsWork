@@ -1,15 +1,16 @@
 #include  "BlurHeader.hlsli"
-Texture2D<float4> sceneTexture : register(t0); // シーンテクスチャ
+
+Texture2D<float4> sceneTexture : register(t0);  //  ブラーをかける元のテクスチャ
 sampler Sampler : register(s0);
+
 VSOutput main(float4 pos : POSITION, float2 uv : TEXCOORD0)
 {
-    // step-14 縦ブラー用の頂点シェーダーを実装
     VSOutput output;
 
-    // 座標変換
+    //  座標変換
     output.pos = pos;
 
-    // テクスチャサイズを取得
+    //  テクスチャサイズを取得
     float2 texSize;
     float level;
     sceneTexture.GetDimensions(0, texSize.x, texSize.y, level);
@@ -18,28 +19,28 @@ VSOutput main(float4 pos : POSITION, float2 uv : TEXCOORD0)
     float2 tex = uv;
 
     // 基準テクセルからV座標を+1テクセルずらすためのオフセットを計算する
-    output.tex0.xy = float2(0.0f, 1.0f / texSize.y);
+    output.tex0.xy =  float2(0.0f, 1.0f / texSize.y);
 
     // 基準テクセルからV座標を+3テクセルずらすためのオフセットを計算する
-    output.tex1.xy = float2(0.0f, 3.0f / texSize.y);
+    output.tex1.xy =  float2(0.0f, 3.0f / texSize.y);
 
     // 基準テクセルからV座標を+5テクセルずらすためのオフセットを計算する
-    output.tex2.xy = float2(0.0f, 5.0f / texSize.y);
+    output.tex2.xy =  float2(0.0f, 5.0f / texSize.y);
 
     // 基準テクセルからV座標を+7テクセルずらすためのオフセットを計算する
-    output.tex3.xy = float2(0.0f, 7.0f / texSize.y);
+    output.tex3.xy =  float2(0.0f, 7.0f / texSize.y);
 
     // 基準テクセルからV座標を+9テクセルずらすためのオフセットを計算する
-    output.tex4.xy = float2(0.0f, 9.0f / texSize.y);
+    output.tex4.xy =  float2(0.0f, 9.0f / texSize.y);
 
     // 基準テクセルからV座標を+11テクセルずらすためのオフセットを計算する
-    output.tex5.xy = float2(0.0f, 11.0f / texSize.y);
+    output.tex5.xy =  float2(0.0f, 11.0f / texSize.y);
 
     // 基準テクセルからV座標を+13テクセルずらすためのオフセットを計算する
-    output.tex6.xy = float2(0.0f, 13.0f / texSize.y);
+    output.tex6.xy =  float2(0.0f, 13.0f / texSize.y);
 
     // 基準テクセルからV座標を+15テクセルずらすためのオフセットを計算する
-    output.tex7.xy = float2(0.0f, 15.0f / texSize.y);
+    output.tex7.xy =  float2(0.0f, 15.0f / texSize.y);
 
     // オフセットに-1を掛けてマイナス方向のオフセットも計算する
     output.tex0.zw = output.tex0.xy * -1.0f;
@@ -61,5 +62,26 @@ VSOutput main(float4 pos : POSITION, float2 uv : TEXCOORD0)
     output.tex5 += float4(tex, tex);
     output.tex6 += float4(tex, tex);
     output.tex7 += float4(tex, tex);
+    
+    //  uv座標が0~1の範囲内になるように(端で光った際に反対側で光らないように)
+    output.tex0.xy = saturate(output.tex0.xy);
+    output.tex1.xy = saturate(output.tex1.xy);
+    output.tex2.xy = saturate(output.tex2.xy);
+    output.tex3.xy = saturate(output.tex3.xy);
+    output.tex4.xy = saturate(output.tex4.xy);
+    output.tex5.xy = saturate(output.tex5.xy);
+    output.tex6.xy = saturate(output.tex6.xy);
+    output.tex7.xy = saturate(output.tex7.xy);
+
+    output.tex0.zw = saturate(output.tex0.zw);
+    output.tex1.zw = saturate(output.tex1.zw);
+    output.tex2.zw = saturate(output.tex2.zw);
+    output.tex3.zw = saturate(output.tex3.zw);
+    output.tex4.zw = saturate(output.tex4.zw);
+    output.tex5.zw = saturate(output.tex5.zw);
+    output.tex6.zw = saturate(output.tex6.zw);
+    output.tex7.zw = saturate(output.tex7.zw);
+
+
     return output;
 }

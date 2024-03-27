@@ -1,7 +1,49 @@
 #include "BossData.h"
+#include "ImGuiManager.h"
 #include <fstream>
 #include <sstream>
 #include <cassert>
+
+using namespace MNE;
+
+//-----------------------------------------------------------------------------
+// [SECTION] ImGui
+//-----------------------------------------------------------------------------
+
+void BossData::ImGuiBeam()
+{
+	//ImGuiManager* imGui = ImGuiManager::GetInstance();
+
+	//imGui->InputFloat("walkSpd", walkSpd_);
+	//imGui->InputFloat("runSpd", runSpd_);
+	//imGui->InputFloat("jumpingSpdDec", jumpingDecSpd_);
+	//imGui->InputFloat("MoveRotMaxAngle", maxAngle_);
+	//imGui->InputFloat("MoveRotMinAngle", minAngle_);
+}
+
+void BossData::ImGuiStateUpdate(int32_t nowState)
+{
+	switch (nowState)
+	{
+	case BossData::BulletState:
+		break;
+	case BossData::WayBulletsState:
+		break;
+	case BossData::BeamState:
+		ImGuiBeam();
+		break;
+	case BossData::JumpAtState:
+		break;
+	case BossData::RockFallState:
+		break;
+	case BossData::BumpState:
+		break;
+	case BossData::Tornado:
+		break;
+	default:
+		break;
+	}
+}
 
 //-----------------------------------------------------------------------------
 // [SECTION] Save
@@ -190,6 +232,11 @@ int32_t BossData::GetBeamAvoidTime()
 int32_t BossData::GetBeamEndTime()
 {
 	return beamEndTime_;
+}
+
+int32_t BossData::GetBeamDamage()
+{
+	return beamDamage_;
 }
 
 //-----------------------------------------------------------------------------

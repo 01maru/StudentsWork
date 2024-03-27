@@ -68,8 +68,8 @@ void SceneManager::FirstScreenInitialize()
 
 void SceneManager::Initialize()
 {
-	sceneFactry_ = std::make_unique<SceneFactory>();
-	scene_ = sceneFactry_->CreateScene("TITLESCENE");
+	sceneFactory_ = std::make_unique<SceneFactory>();
+	scene_ = sceneFactory_->CreateScene("TITLESCENE");
 
 	blackScreen_.Initialize();
 	blackScreen_.SetSize({ Window::sWIN_WIDTH,Window::sWIN_HEIGHT });
@@ -118,7 +118,6 @@ void SceneManager::Initialize()
 	postEffect->SetOriginalPostEffect(mainPtr);
 	postEffect->SetClearColor(clearColor);
 	postEffect->SetMode(MainPostEffect::Luminance);
-	//postEffect->SetGPipeline(PipelineManager::GetInstance()->GetPipeline("MainPostEffect"));
 
 	IPostEffect* luminancePtr = peMan->AddPostEffectBack(postEffect);
 
@@ -256,30 +255,57 @@ void SceneManager::AllSceneUpdate()
 	SceneAsyncUpdate();
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] ImGuiUpdate
+//-----------------------------------------------------------------------------
+
+void MNE::SceneManager::SceneManagerImGuiUpdate()
+{
+	if (!ImGuiController::GetInstance()->GetActiveSceneManager()) return;
+
+	ImGuiManager* imGui = ImGuiManager::GetInstance();
+
+	imGui->BeginWindow("ModelManager");
+
+	imGui->Text("endLoading : %d", endLoading_);
+
+	imGui->EndWindow();
+}
+
 void SceneManager::ImGuiUpdate()
 {
 #ifdef _DEBUG
-	ImGuiManager* imguiMan = ImGuiManager::GetInstance();
+	ImGuiManager* imGuiMan = ImGuiManager::GetInstance();
 
-	ImGuiManager::GetInstance()->Begin();
-	ImGuiController::GetInstance()->Update();
-
-	InputManager::GetInstance()->ImGuiUpdate();
-	UIEditor::GetInstance()->ImGuiUpdate();
-	CameraManager::GetInstance()->ImGuiUpdate();
-	XAudioManager::GetInstance()->ImGuiUpdate(endLoading_);
-	TextureManager::GetInstance()->ImGuiUpdate();
-	LightManager::GetInstance()->ImGuiUpdate();
-	ParticleManager::GetInstance()->ImGuiUpdate();
-	ModelManager::GetInstance()->ImGuiUpdate();
-
-	if (endLoading_) {
-		scene_->ImguiUpdate();
+	if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_RETURN, InputJoypad::BACK_Button))
+	{
+		debugging_ = !debugging_;
 	}
 
-	imguiMan->Text("endLoading : %d", endLoading_);
+	if (debugging_ == TRUE)
+	{
+		imGuiMan->Begin();
+		ImGuiController::GetInstance()->Update();
 
-	ImGuiManager::GetInstance()->End();
+		InputManager::GetInstance()->ImGuiUpdate();
+		UIEditor::GetInstance()->ImGuiUpdate();
+		CameraManager::GetInstance()->ImGuiUpdate();
+		XAudioManager::GetInstance()->ImGuiUpdate(endLoading_);
+		TextureManager::GetInstance()->ImGuiUpdate();
+		LightManager::GetInstance()->ImGuiUpdate();
+		ParticleManager::GetInstance()->ImGuiUpdate();
+		ModelManager::GetInstance()->ImGuiUpdate();
+		PostEffectManager::GetInstance()->ImGuiUpdate();
+		PipelineManager::GetInstance()->ImGuiUpdate();
+
+		if (endLoading_) {
+			scene_->ImguiUpdate();
+		}
+
+		SceneManagerImGuiUpdate();
+
+		imGuiMan->End();
+	}
 
 #endif // _DEBUG
 }
@@ -352,7 +378,10 @@ void MNE::SceneManager::DrawBackBuffer()
 	loading_.Draw();
 
 #ifdef _DEBUG
-	ImGuiManager::GetInstance()->Draw();
+	if (debugging_ == TRUE)
+	{
+		ImGuiManager::GetInstance()->Draw();
+	}
 #endif // _DEBUG
 
 	dx->PostDraw();
@@ -419,7 +448,7 @@ void SceneManager::ChangeScreenAlpha(float alpha)
 
 void SceneManager::SetNextScene(const std::string& sceneName)
 {
-	nextScene_ = sceneFactry_->CreateScene(sceneName);
+	nextScene_ = sceneFactory_->CreateScene(sceneName);
 	
 	//	nextSceneがセットされたら
 	if (nextScene_ != nullptr) {

@@ -23,6 +23,14 @@ public:
 		StateNum,
 	};
 
+	enum BossMoveState
+	{
+		IdolState = BossAtState::StateNum,
+		StartState,
+		RoarState,
+		DeathState,
+	};
+
 	enum BossForm
 	{
 		FirstForm = 0,
@@ -95,6 +103,8 @@ protected:
 	int32_t beamAvoidTime_ = 60;
 	//	終了演出時間
 	int32_t beamEndTime_ = 60;
+	//	ダメージ
+	int32_t beamDamage_ = 1;
 
 		//	RockFall
 	int32_t rockWaitTime_ = 60;
@@ -110,6 +120,12 @@ protected:
 	//	AtPriority
 	PriorityData priority_;
 	int32_t maxConsecutiveNum_ = 3;
+
+private:
+	void ImGuiBeam();
+
+protected:
+	void ImGuiStateUpdate(int32_t nowState);
 
 public:
 #pragma region Getter
@@ -140,6 +156,7 @@ public:
 	int32_t GetBeamAttackTime();
 	int32_t GetBeamAvoidTime();
 	int32_t GetBeamEndTime();
+	int32_t GetBeamDamage();
 
 	//	Rock
 	int32_t GetRockWaitTime();
