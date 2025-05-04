@@ -1,38 +1,28 @@
 #include "SceneManager.h"
-#include "ImGuiManager.h"
-#include "DirectX.h"
-#include "ImGuiController.h"
-#include "InputManager.h"
-#include "XAudioManager.h"
 #include "SceneFactory.h"
-#include "TextureManager.h"
-#include "UIEditor.h"
-#include "CameraManager.h"
-#include "LightManager.h"
-#include "ParticleManager.h"
-
+#include "DirectX.h"
 #include "Window.h"
 
+#include "ImGuiManager.h"
+#include "ImGuiController.h"
+#include "InputManager.h"
+#include "UIEditor.h"
+#include "CameraManager.h"
+#include "XAudioManager.h"
+#include "TextureManager.h"
+#include "LightManager.h"
+#include "ParticleManager.h"
 #include "ModelManager.h"
+#include "PostEffectManager.h"
 #include "PipelineManager.h"
 
-#include "GameOverUI.h"
-
 #include "GrayScale.h"
-
-#include "PostEffectManager.h"
 #include "ShadowPostEffect.h"
 #include "MainPostEffect.h"
 #include "GaussBlur.h"
 
 using namespace MNE;
 using namespace MyMath;
-
-SceneManager* SceneManager::GetInstance()
-{
-	static SceneManager instance;
-	return &instance;
-}
 
 //-----------------------------------------------------------------------------
 // [SECTION] Initialize
@@ -71,11 +61,6 @@ void SceneManager::Initialize()
 	sceneFactory_ = std::make_unique<SceneFactory>();
 	scene_ = sceneFactory_->CreateScene("TITLESCENE");
 
-	blackScreen_.Initialize();
-	blackScreen_.SetSize({ Window::sWIN_WIDTH,Window::sWIN_HEIGHT });
-	Vector3D blackColor;
-	blackScreen_.SetColor(blackColor);
-	blackScreen_.SetAlphaColor(0.0f);
 #pragma region Loading
 
 	endLoading_ = true;
@@ -261,11 +246,11 @@ void SceneManager::AllSceneUpdate()
 
 void MNE::SceneManager::SceneManagerImGuiUpdate()
 {
-	if (!ImGuiController::GetInstance()->GetActiveSceneManager()) return;
+	if (ImGuiController::GetInstance()->GetActiveSceneManager() == FALSE) return;
 
 	ImGuiManager* imGui = ImGuiManager::GetInstance();
 
-	imGui->BeginWindow("ModelManager");
+	imGui->BeginWindow("SceneManager");
 
 	imGui->Text("endLoading : %d", endLoading_);
 
@@ -277,6 +262,7 @@ void SceneManager::ImGuiUpdate()
 #ifdef _DEBUG
 	ImGuiManager* imGuiMan = ImGuiManager::GetInstance();
 
+	//	デバッグモード切替
 	if (InputManager::GetInstance()->GetTriggerKeyAndButton(DIK_RETURN, InputJoypad::BACK_Button))
 	{
 		debugging_ = !debugging_;
@@ -320,8 +306,6 @@ void SceneManager::Update()
 
 	//	ロード画面
 	loading_.Update();
-	//	黒スクリーン
-	blackScreen_.Update();
 
 	InputManager::GetInstance()->MatUpdate();
 
@@ -355,8 +339,6 @@ void MNE::SceneManager::DrawScene()
 
 		scene_->DrawUIBeforeBlackScreen();
 
-		blackScreen_.Draw();
-
 		scene_->DrawUIAfterBlackScreen();
 		InputManager::GetInstance()->Draw();
 
@@ -375,8 +357,10 @@ void MNE::SceneManager::DrawBackBuffer()
 	//	最後の描画
 	peMan->DrawBackBuffer();
 
+	//	ロード画面
 	loading_.Draw();
 
+	//	ImGui表示
 #ifdef _DEBUG
 	if (debugging_ == TRUE)
 	{
@@ -389,38 +373,27 @@ void MNE::SceneManager::DrawBackBuffer()
 
 void SceneManager::Draw()
 {
-#pragma region DrawScreen
-
+	//	ポストエフェクト更新
 	PostEffectManager::GetInstance()->Update();
 
-#pragma region DrawBackBuffer
-
+	//	バックバッファに描画
 	DrawBackBuffer();
 
-#pragma endregion
-#pragma endregion
-
+	//	バックとフロントバッファの切り替え
 	MyDirectX::GetInstance()->DrawEnd();
 
 	if (endLoading_) TextureManager::GetInstance()->UploadTexture();
 }
 
-void SceneManager::SceneChange()
-{
-	if (nextScene_ != nullptr) {
-		if (scene_ != nullptr) {
-			scene_->Finalize();
-		}
-
-		scene_.reset(nextScene_.get());
-		SceneInitialize();
-		nextScene_.release();
-	}
-}
-
 //-----------------------------------------------------------------------------
 // [SECTION] Getter
 //-----------------------------------------------------------------------------
+
+SceneManager* SceneManager::GetInstance()
+{
+	static SceneManager instance;
+	return &instance;
+}
 
 bool MNE::SceneManager::GetIsDrawShadow()
 {
@@ -436,14 +409,23 @@ bool MNE::SceneManager::GetGameLoop()
 // [SECTION] Setter
 //-----------------------------------------------------------------------------
 
-void MNE::SceneManager::GameLoopEnd()
+void SceneManager::SceneChange()
 {
-	gameLoop_ = false;
+	//	次のシーンがあったら切り替える
+	if (nextScene_ != nullptr) {
+		//	既にシーンがあったら終了処理
+		if (scene_ != nullptr) {
+			scene_->Finalize();
+		}
+
+		scene_ = std::move(nextScene_);
+		SceneInitialize();
+	}
 }
 
-void SceneManager::ChangeScreenAlpha(float alpha)
+void MNE::SceneManager::GameLoopEnd()
 {
-	blackScreen_.SetAlphaColor(alpha);
+	gameLoop_ = FALSE;
 }
 
 void SceneManager::SetNextScene(const std::string& sceneName)
@@ -452,9 +434,9 @@ void SceneManager::SetNextScene(const std::string& sceneName)
 	
 	//	nextSceneがセットされたら
 	if (nextScene_ != nullptr) {
-		loading_.SetIsLoading(true);
+		loading_.SetIsLoading(TRUE);
 
 		//	フェードイン
-		loading_.StartFadeAnimation(true);
+		loading_.StartFadeAnimation(TRUE);
 	}
 }

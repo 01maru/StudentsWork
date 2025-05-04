@@ -31,7 +31,7 @@ void MNE::PipelineManager::InitializeSprite()
 		std::unique_ptr<GPipeline> pipeline = std::make_unique<GPipeline>();
 		pipeline->Initialize(shader, inputLayout, 2, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
 			, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO);
-		pipeline->SetBlendMord(i);
+		pipeline->SetBlendMode(i);
 
 		AddPipeline(pipeline, "Sprite", i);
 	}
@@ -54,7 +54,7 @@ void MNE::PipelineManager::InitializeParticle()
 		std::unique_ptr<GPipeline> pipeline = std::make_unique<GPipeline>();
 		pipeline->Initialize(shader, inputLayout, 2, D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT
 			, D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ZERO);
-		pipeline->SetBlendMord(i);
+		pipeline->SetBlendMode(i);
 
 		AddPipeline(pipeline, "Particle", i);
 	}
@@ -106,7 +106,7 @@ void MNE::PipelineManager::InitializeModel()
 		pipeline->Initialize(shader, inputLayout, 5, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
 			D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL,
 			true, DXGI_FORMAT_R11G11B10_FLOAT);
-		pipeline->SetBlendMord(i);
+		pipeline->SetBlendMode(i);
 
 		AddPipeline(pipeline, "Model", i);
 	}
@@ -129,10 +129,10 @@ void MNE::PipelineManager::Initialize()
 
 void MNE::PipelineManager::ImGuiUpdate()
 {
-	//for (auto& pipeline : pipelines_)
-	//{
-	//	
-	//}
+	for (auto& pipeline : pipelines_)
+	{
+		pipeline.second->ImGuiUpdate();
+	}
 }
 
 //-----------------------------------------------------------------------------

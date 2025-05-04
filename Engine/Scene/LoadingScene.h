@@ -1,6 +1,5 @@
 #pragma once
 #include "IScene.h"
-#include "ILoadingObj.h"
 #include "DissolveSprite.h"
 #include "FrameCounter.h"
 #include "LoadSpriteAnime.h"
@@ -53,7 +52,6 @@ public:
 	void Draw() override;
 	
 private:
-	//std::unique_ptr<ILoadingObj> loadObj_;
 	std::unique_ptr<LoadSpriteAnime> loadSprite_;
 	//	ロード画面の背景
 	std::unique_ptr<MNE::DissolveSprite> backSprite_;
@@ -68,6 +66,11 @@ private:
 public:
 	void SetIsLoading(bool loading);
 
+	/**
+	* @fn GetIsDrawn()
+	* ロードシーンがすべて描画されているか取得
+	* @return シーン描画済みだったらTRUEを返す
+	*/
 	bool GetIsDrawn();
 
 	void StartFadeAnimation(bool isFadeIn);

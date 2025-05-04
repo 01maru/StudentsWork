@@ -84,7 +84,7 @@ namespace MNE
 		* スプラッシュスクリーン終了判定用関数
 		* @return スプラッシュスクリーンの処理が終わったらtrueを返す
 		*/
-		bool EndScene() { return !count_->GetIsActive(); }
+		bool EndScene();
 
 	#pragma endregion
 	};

@@ -63,6 +63,7 @@ void TitleScene::LoadResources()
 	bonfire_->Start();
 
 #pragma endregion
+	test_.Initialize();
 
 #pragma region UI
 
@@ -109,6 +110,7 @@ void TitleScene::FirstFrameUpdate()
 void TitleScene::Update()
 {
 	uiData_.Update();
+	test_.Update();
 
 	ParticleManager::GetInstance()->Update();
 	
@@ -171,7 +173,8 @@ void TitleScene::Draw()
 	{
 		obj->Draw();
 	}
+	test_.Draw();
 	//bonfire_->Draw();
 
-	ParticleManager::GetInstance()->Draw();
+	//ParticleManager::GetInstance()->Draw();
 }

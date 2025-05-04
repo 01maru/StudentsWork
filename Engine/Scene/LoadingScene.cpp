@@ -14,6 +14,10 @@ using namespace Easing;
 using namespace MNE;
 using namespace MyMath;
 
+//-----------------------------------------------------------------------------
+// [SECTION] Initialize
+//-----------------------------------------------------------------------------
+
 void LoadingScene::Initialize()
 {
 	LoadResources();
@@ -42,6 +46,10 @@ void LoadingScene::LoadResources()
 	TextureManager::GetInstance()->LoadTextureGraph("noise.png");
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Update
+//-----------------------------------------------------------------------------
+
 void LoadingScene::Update()
 {
 	counter_.Update();
@@ -58,6 +66,10 @@ void LoadingScene::Update()
 	loadSprite_->Update();
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Draw
+//-----------------------------------------------------------------------------
+
 void LoadingScene::Draw()
 {
 	if (isDraw_ == false) return;
@@ -67,17 +79,25 @@ void LoadingScene::Draw()
 	loadSprite_->Draw();
 }
 
+//-----------------------------------------------------------------------------
+// [SECTION] Getter
+//-----------------------------------------------------------------------------
+
+bool LoadingScene::GetIsDrawn()
+{
+	return counter_.GetFrameCount() == counter_.GetMaxFrameCount();
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] Setter
+//-----------------------------------------------------------------------------
+
 void LoadingScene::SetIsLoading(bool loading)
 {
 	loadSprite_->SetIsLoading(loading);
 
 	//	ランダム性を持たせるため(画像が用意出来たら実装)
 	//backSprite_->SetTextureLeftTop(MyMath::GetRand(Vector2D(), texSize_));
-}
-
-bool LoadingScene::GetIsDrawn()
-{
-	return counter_.GetFrameCount() == counter_.GetMaxFrameCount();
 }
 
 void LoadingScene::StartFadeAnimation(bool isFadeIn)

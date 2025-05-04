@@ -2,8 +2,6 @@
 #include "Window.h"
 #include "TextureManager.h"
 
-#include "PipelineManager.h"
-
 using namespace MyMath;
 
 void MNE::SplashScreenScene::Initialize()
@@ -49,4 +47,9 @@ void MNE::SplashScreenScene::Draw()
 {
 	backSprite_->Draw();
 	engineSprite_->Draw();
+}
+
+bool MNE::SplashScreenScene::EndScene()
+{
+	return !count_->GetIsActive();
 }

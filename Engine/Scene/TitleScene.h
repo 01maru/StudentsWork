@@ -2,6 +2,7 @@
 #include "IScene.h"
 #include "TitleUI.h"
 #include "Bonfire.h"
+#include "Sprite3D.h"
 
 /**
 * @file TitleScene.h
@@ -61,6 +62,8 @@ private:
 	std::vector<std::unique_ptr<MNE::Object3D>> objs_;
 
 	std::unique_ptr<Bonfire> bonfire_;
+
+	MNE::Sprite3D test_;
 
 #pragma region Fog
 

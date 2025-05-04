@@ -34,7 +34,7 @@ void MNE::Object3DSilhouette::Initialize()
 		pipeline->Initialize(shader, inputLayout, 5, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
 			D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL,
 			true, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB);
-		pipeline->SetBlendMord(Blend::ALPHA_BLEND);
+		pipeline->SetBlendMode(Blend::ALPHA_BLEND);
 
 		sPipeline_ = pipeMan->AddPipeline(pipeline, "ModelSilhouette");
 	}

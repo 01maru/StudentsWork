@@ -156,7 +156,7 @@ void GameScene::Finalize()
 	XAudioManager::GetInstance()->StopAllSound();
 	XAudioManager::GetInstance()->DeleteAllSound();
 
-	SceneManager::GetInstance()->ChangeScreenAlpha(0.0f);
+	//SceneManager::GetInstance()->ChangeScreenAlpha(0.0f);
 }
 
 //-----------------------------------------------------------------------------

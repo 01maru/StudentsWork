@@ -45,7 +45,7 @@ void MNE::ShadowPostEffect::Initialize(int32_t width, int32_t height, const std:
 		pipeline->Initialize(shadowShader, inputLayout, 5, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
 			D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL,
 			true, DXGI_FORMAT_R32G32_FLOAT);
-		pipeline->SetBlendMord(Blend::NONE_BLEND);
+		pipeline->SetBlendMode(Blend::NONE_BLEND);
 
 		pipeMan->AddPipeline(pipeline, "Shadow");
 	}
@@ -72,7 +72,7 @@ void MNE::ShadowPostEffect::Initialize(int32_t width, int32_t height, const std:
 		pipeline->Initialize(receiverShader, objInputLayout, 6, D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
 			D3D12_FILL_MODE_SOLID, D3D12_CULL_MODE_BACK, D3D12_DEPTH_WRITE_MASK_ALL,
 			true, DXGI_FORMAT_R11G11B10_FLOAT, 2);
-		pipeline->SetBlendMord(Blend::NONE_BLEND);
+		pipeline->SetBlendMode(Blend::NONE_BLEND);
 
 		pipeMan->AddPipeline(pipeline, "ShadowReceiver");
 	}

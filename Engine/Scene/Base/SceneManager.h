@@ -6,6 +6,11 @@
 #include "SplashScreenScene.h"
 #include "LoadingScene.h"
 
+/**
+* @file SceneManager.h
+* @brief シーンの切り替えなどを管理するファイル
+*/
+
 namespace MNE
 {
 
@@ -20,14 +25,39 @@ namespace MNE
 		SceneManager(const SceneManager& obj) = delete;
 		SceneManager& operator=(const SceneManager& obj) = delete;
 
+		/**
+		* @fn Initialize()
+		* 初期化用関数
+		*/
 		void Initialize();
+		/**
+		* @fn Finalize()
+		* 終了時に呼び出す関数
+		*/
 		void Finalize();
+		/**
+		* @fn Update()
+		* 更新処理関数
+		*/
 		void Update();
+		/**
+		* @fn DrawShadow()
+		* シャドウマップ描画処理関数
+		*/
 		void DrawShadow();
+		/**
+		* @fn DrawScene()
+		* シーンの描画処理関数
+		*/
 		void DrawScene();
+		/**
+		* @fn Draw()
+		* 描画処理関数
+		*/
 		void Draw();
 
 	private:
+		//	デバッグ中か
 		bool debugging_ = FALSE;
 
 		bool drawShadow_ = false;
@@ -36,8 +66,6 @@ namespace MNE
 		std::unique_ptr<IScene> scene_;
 		std::unique_ptr<IScene> nextScene_;
 		std::unique_ptr<AbstractSceneFactory> sceneFactory_;
-
-		Sprite blackScreen_;
 
 #pragma region SplashScreen
 
@@ -49,26 +77,43 @@ namespace MNE
 #pragma region Loading
 
 		std::future<void> sceneInitInfo_;
+		//	非同期ロード中か
 		bool endLoading_ = false;
 		LoadingScene loading_;
 
 #pragma endregion
 
 	private:	//	関数
-		void SplashUpdate();
-		void AllSceneUpdate();
-		void SceneAsyncInitialize();
-		void SceneAsyncUpdate();
-		void SceneUpdate();
-		void ImGuiUpdate();
-
-		void DrawBackBuffer();
-
 		void SceneInitialize();		//	SplashScreen用
 		void FirstScreenInitialize();
-		void SceneChange();
+		void SceneAsyncInitialize();
+		void SplashUpdate();
+		void AllSceneUpdate();
+		void SceneAsyncUpdate();
+		void SceneUpdate();
 
+		/**
+		* @fn DrawBackBuffer()
+		* ポストエフェクトで処理した画像を最終的にバックバッファに描画する処理関数
+		*/
+		void DrawBackBuffer();
+
+		/**
+		* @fn SceneManagerImGuiUpdate()
+		* シーンマネージャーのImGui更新処理関数
+		*/
 		void SceneManagerImGuiUpdate();
+		/**
+		* @fn ImGuiUpdate()
+		* ImGui更新処理関数
+		*/
+		void ImGuiUpdate();
+
+		/**
+		* @fn SceneChange()
+		* シーンの切り替え処理関数
+		*/
+		void SceneChange();
 
 	public:
 #pragma region Getter
@@ -81,7 +126,6 @@ namespace MNE
 #pragma region Setter
 
 		void GameLoopEnd();
-		void ChangeScreenAlpha(float alpha);
 		void SetNextScene(const std::string& sceneName);
 
 #pragma endregion

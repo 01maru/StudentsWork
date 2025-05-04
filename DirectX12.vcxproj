@@ -203,6 +203,7 @@
     <ClCompile Include="Engine\PostEffect\PostEffectManager.cpp" />
     <ClCompile Include="Engine\PostEffect\ShadowPostEffect.cpp" />
     <ClCompile Include="Engine\Game\Boss\Bullet\RockObjBullet.cpp" />
+    <ClCompile Include="Sprite3D.cpp" />
     <ClCompile Include="SuctionEmptyObj.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -410,6 +411,7 @@
     <ClInclude Include="Engine\PostEffect\ShadowPostEffect.h" />
     <ClInclude Include="Engine\Game\Bullet\IBulletManager.h" />
     <ClInclude Include="Engine\Game\Boss\Bullet\RockObjBullet.h" />
+    <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="SuctionEmptyObj.h" />
   </ItemGroup>
   <ItemGroup>
@@ -430,6 +432,7 @@
     <None Include="Resources\Shader\ObjHeader.hlsli" />
     <None Include="Resources\Shader\ScreenHeader.hlsli" />
     <None Include="Resources\Shader\ShadowReceiverHeader.hlsli" />
+    <None Include="Resources\Shader\Sprite3DHeader.hlsli" />
     <None Include="Resources\Shader\SpriteHeader.hlsli" />
   </ItemGroup>
   <ItemGroup>
@@ -496,6 +499,18 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Sprite3DPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Sprite3DVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>

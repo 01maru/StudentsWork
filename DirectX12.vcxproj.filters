@@ -912,6 +912,9 @@
     <ClCompile Include="Engine\2D\PostEffect\PlanePolygon.cpp">
       <Filter>ソース ファイル\Lib\2D\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite3D.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\Input\InputJoypad.h">
@@ -1529,6 +1532,9 @@
     <ClInclude Include="Engine\2D\PostEffect\GaussBlur.h">
       <Filter>ヘッダー ファイル\Lib\PostEffect</Filter>
     </ClInclude>
+    <ClInclude Include="Sprite3D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shader\ObjHeader.hlsli">
@@ -1560,6 +1566,9 @@
     </None>
     <None Include="Resources\Shader\DissolveHeader.hlsli">
       <Filter>リソース ファイル\ObjShader\Dissolve</Filter>
+    </None>
+    <None Include="Resources\Shader\Sprite3DHeader.hlsli">
+      <Filter>リソース ファイル</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1634,6 +1643,12 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\DissolvePS.hlsl">
       <Filter>リソース ファイル\ObjShader\Dissolve</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Sprite3DPS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Sprite3DVS.hlsl">
+      <Filter>リソース ファイル</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
